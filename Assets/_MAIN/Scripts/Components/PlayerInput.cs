@@ -3,7 +3,7 @@
 public class PlayerInput : MonoBehaviour {
 	public float[] idleAnimValue = new float[2]{0f, 1f};
 	public float[] moveAnimValue = new float[3]{-1f, 0f, 1f};
-	// public float[] attackAnimValue;	
+	public float[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 
 	Vector2 currentMove = Vector2.zero;
 	int currentAttack = 0;

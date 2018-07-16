@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum Type {
+public enum AttackType {
     Shot,
     Slash
 }
@@ -12,13 +12,20 @@ public class Attack : MonoBehaviour {
 
     [SerializeField] bool isAttacking = false;
 
-    public void Attacking () {
+    public void Attacking (AttackType attackType) {
         if (isAttacking) return;
 
-        isAttacking = true;
-        GameObject spawnedBullet = Instantiate(bullet, bulletSpawnPos.position, SetFacing());
-        spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
-        spawnedBullet.SetActive(true);
+        switch (attackType) {
+            case AttackType.Shot:
+                isAttacking = true;
+                GameObject spawnedBullet = Instantiate(bullet, bulletSpawnPos.position, SetFacing());
+                spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
+                spawnedBullet.SetActive(true);
+                break;
+            case AttackType.Slash:
+
+                break;
+        }
     }
 
     Quaternion SetFacing () {

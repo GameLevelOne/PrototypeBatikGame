@@ -25,7 +25,8 @@ public class PlayerAttackSystem : ComponentSystem {
 
 			if (input.Attack != 0) {
 				//Attack
-				attack.Attacking();
+				
+				attack.Attacking(AttackType.Shot);
 			}
 		}
 	}

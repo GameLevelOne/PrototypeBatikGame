@@ -34,11 +34,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			Animation2D anim = animationData.Animation[i];
 			PlayerInput input = animationData.PlayerInput[i];
-			
+			int attackMode = input.Attack;
+
 			animator = anim.animator; 
 			allFacings[i] = animationData.Facing[i];
 			
-			if (input.Attack != 0) {
+			if (attackMode != 0) {
+				animator.SetFloat("Move Mode", attackMode);
 				animator.SetBool("IsAttacking", true);
 				
 				return;
