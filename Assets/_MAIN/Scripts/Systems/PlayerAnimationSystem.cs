@@ -40,7 +40,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			allFacings[i] = animationData.Facing[i];
 			
 			if (attackMode != 0) {
-				animator.SetFloat("Move Mode", attackMode);
+				animator.SetFloat("Attack Mode", attackMode);
 				animator.SetBool("IsAttacking", true);
 				
 				return;

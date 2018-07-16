@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
-	public float[] idleAnimValue = new float[2]{0f, 1f};
-	public float[] moveAnimValue = new float[3]{-1f, 0f, 1f};
-	public float[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
+	public int[] idleAnimValue = new int[2]{0, 1};
+	public int[] moveAnimValue = new int[3]{-1, 0, 1};
+	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 
 	Vector2 currentMove = Vector2.zero;
 	int currentAttack = 0;
