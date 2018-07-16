@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 public class PlayerMovementSystem : ComponentSystem {
 	public struct MovementData {
-		public int Length;
+		public readonly int Length;
 		public ComponentArray<Transform> Transform;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Movement> Movement;

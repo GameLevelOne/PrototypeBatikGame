@@ -7,7 +7,7 @@ using Unity.Mathematics;
 
 public class PlayerAnimationSystem : ComponentSystem {
 	public struct AnimationData {
-		public int Length;
+		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;

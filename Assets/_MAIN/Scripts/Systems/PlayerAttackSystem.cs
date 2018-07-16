@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using Unity.Rendering;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 
 public class PlayerAttackSystem : ComponentSystem {
 	public struct AttackData {
-		public int Length;
+		public readonly int Length;
 		public ComponentArray<Transform> Transform;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Attack> Attack;

@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 
-public enum Role {
-	Enemy,
-	Player
-}
-
 public class Health : MonoBehaviour {
 	public bool isDead;
-	public Role role;
+
+	Role role;
 
 	[SerializeField] float currentHP;
 
@@ -19,6 +15,10 @@ public class Health : MonoBehaviour {
 			currentHP = value;
 		}
 	}
+
+	void Awake () {
+		role = GetComponent<Role>();
+	}
 	
 	void OnCollisionEnter2D (Collision2D col) {
 		if (isDead) return;
@@ -26,19 +26,19 @@ public class Health : MonoBehaviour {
 		GameObject other = col.gameObject;
 		float damage = other.GetComponent<Damage>().damage;
 
-		#if Role == Player
-		Debug.Log("player got hit"); 
-		if (other.tag == "Enemy Attack") {
-			HP -= damage;
-			CheckHealth ();
+		if (role.gameRole == GameRole.Player) {
+			Debug.Log("player got hit"); 
+			if (other.tag == "Enemy Attack") {
+				HP -= damage;
+				CheckHealth ();
+			}
+		} else { //ENEMy
+			Debug.Log("enemy got hit");
+			if (other.tag == "Player Attack") {
+				HP -= damage;
+				CheckHealth ();
+			}
 		}
-		#else 
-		Debug.log("enemy got hit");
-		if (other.tag == "Player Attack") {
-			HP -= damage;
-			CheckHealth ();
-		}
-		#endif
 	}
 
 	void CheckHealth () {

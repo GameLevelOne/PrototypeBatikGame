@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using Unity.Rendering;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
-		public int Length;
+		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
 	}
 	[InjectAttribute] InputData inputData;

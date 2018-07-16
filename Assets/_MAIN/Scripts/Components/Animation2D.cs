@@ -1,18 +1,24 @@
 ﻿using UnityEngine;
 
 public class Animation2D : MonoBehaviour {
-	public delegate void AttackDirChange (float animValue, bool isVertical);
-	public event AttackDirChange OnAttackDirChange;
-
-	public PlayerInput playerInput;
 	public AnimationControl animationControl;
 	// public bool isAnimating;
 	public Animator animator;
 
-	bool isCurrentAttacking = false;
+	PlayerInput playerInput;
+	Attack attack;
+	Role role;
 
 	void Awake () {
 		animator.SetFloat("Move Mode", 0f);
+		role = GetComponent<Role>();
+		attack = GetComponent<Attack>();
+
+		if (role.gameRole == GameRole.Player) {
+			playerInput = GetComponent<PlayerInput>();
+		} else { //ENEMy
+			
+		}
 	}
 
 	void OnEnable () {
@@ -35,6 +41,12 @@ public class Animation2D : MonoBehaviour {
 		if (animName == "Attack") {
 			animator.SetBool("IsAttacking", false);
 			//disable attack effect
+			if (role.gameRole == GameRole.Player) {
+				playerInput.Attack = 0;
+				attack.ReadyForAttacking ();
+			} else { //ENEMy
+				
+			}
 		}
 	}
 }
