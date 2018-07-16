@@ -39,6 +39,7 @@ public class Animation2D : MonoBehaviour {
 
 	void ExitAnimation (string animName) {
 		if (animName == "Attack") {
+			animator.SetFloat("Attack Mode", 0f);
 			animator.SetBool("IsAttacking", false);
 			//disable attack effect
 			if (role.gameRole == GameRole.Player) {

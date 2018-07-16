@@ -19,9 +19,9 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		for (int i=0; i<inputData.Length; i++) {
 			PlayerInput input = inputData.PlayerInput[i];
-			float maxValue = input.moveAnimValue[2];
-			float midValue = input.moveAnimValue[1];
-			float minValue = input.moveAnimValue[0];
+			int maxValue = input.moveAnimValue[2];
+			int midValue = input.moveAnimValue[1];
+			int minValue = input.moveAnimValue[0];
 
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
 				ChangeDir(i, currentDir.x, maxValue);
@@ -44,9 +44,9 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetButtonDown("Fire1")) {
-				input.Attack = 1; //SLASH
+				input.Attack = minValue; //SLASH
 			} else if (Input.GetButtonDown("Fire2")) {
-				input.Attack = 2; //SHOT
+				input.Attack = maxValue; //SHOT
 			} 
 		}
 	}

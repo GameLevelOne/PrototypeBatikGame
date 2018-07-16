@@ -16,14 +16,14 @@ public class Attack : MonoBehaviour {
         if (isAttacking) return;
 
         switch (attackType) {
+            case AttackType.Slash:
+                Debug.Log("Slash");
+                break;
             case AttackType.Shot:
                 isAttacking = true;
                 GameObject spawnedBullet = Instantiate(bullet, bulletSpawnPos.position, SetFacing());
                 spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
                 spawnedBullet.SetActive(true);
-                break;
-            case AttackType.Slash:
-
                 break;
         }
     }

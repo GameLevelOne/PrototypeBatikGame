@@ -22,11 +22,18 @@ public class PlayerAttackSystem : ComponentSystem {
 			Transform tr = attackData.Transform[i];
 			PlayerInput input = attackData.PlayerInput[i];
 			Attack attack = attackData.Attack[i];
+			int attackMode = input.Attack;
 
-			if (input.Attack != 0) {
-				//Attack
-				
-				attack.Attacking(AttackType.Shot);
+			if (input.Attack == 0) return;
+
+			//Attack
+			switch(attackMode) {
+				case -1:
+					attack.Attacking(AttackType.Slash);
+					break;
+				case 1:
+					attack.Attacking(AttackType.Shot);
+					break;
 			}
 		}
 	}
