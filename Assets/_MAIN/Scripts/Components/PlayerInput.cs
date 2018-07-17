@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
+	public List<int> slashComboVal;
 
 	Vector2 currentMove = Vector2.zero;
-	int currentAttack = 0;
+	[SerializeField] int currentAttack = 0;
 
 	public Vector2 Move {
 		get {return currentMove;}
@@ -23,6 +26,10 @@ public class PlayerInput : MonoBehaviour {
 			if (currentAttack == value) return;
 			
 			currentAttack = value;
+
+			if (currentAttack >= 1) { //SLASH
+				slashComboVal.Add(currentAttack);
+			}
 		}
 	}
 }

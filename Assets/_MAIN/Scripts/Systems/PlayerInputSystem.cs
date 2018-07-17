@@ -44,7 +44,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetButtonDown("Fire1")) {
-				input.Attack = 1; //SLASH
+				input.Attack += 1; //SLASH
 			} 
 			// else if (Input.GetButtonDown("Fire2")) {
 			// 	input.Attack = maxValue; //SHOT
