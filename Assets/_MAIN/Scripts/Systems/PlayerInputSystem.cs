@@ -47,23 +47,27 @@ public class PlayerInputSystem : ComponentSystem {
 
 			if (Input.GetButton("Fire1")) {
 				chargeAttackTimer += Time.deltaTime;
+				
+				if (chargeAttackTimer >= 0.3f) {
+					Debug.Log("Start charging");
+					input.SteadyMode = 1; //START CHARGE
+					input.MoveMode = 1; //START CHARGE
+				}
 			}
 			
 			if (Input.GetButtonUp("Fire1")) {
-				if (chargeAttackTimer >= chargeAttackThreshold) {
+				if ((chargeAttackTimer >= chargeAttackThreshold) && input.SteadyMode == 1) {
 					Debug.Log("Charge Attack");
 					input.AttackMode = -1; //CHARGE
+					input.SteadyMode = 0;
+					input.MoveMode = 0; 
 				} else {
-					Debug.Log("Normal Attack");
+					Debug.Log("Slash Attack");
 					input.AttackMode += 1; //SLASH
 				}
 
 				chargeAttackTimer = 0f;				
 			}
-
-			// else if (Input.GetButtonDown("Fire2")) {
-			// 	input.Attack = maxValue; //SHOT
-			// } 
 		}
 	}
 
@@ -73,7 +77,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		if (currentDir != newDir) {
 			currentDir = newDir;
-			input.MoveMode = currentDir;
+			input.MoveDir = currentDir;
 		}
 	}
 }

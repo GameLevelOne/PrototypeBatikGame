@@ -9,11 +9,23 @@ public class PlayerInput : MonoBehaviour {
 	public float chargeAttackThreshold = 1f;
 	public List<int> slashComboVal;
 
-	Vector2 currentMove = Vector2.zero;
+	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int currentAttack = 0;
 	[SerializeField] int currentChargeAttack = 0;
+	[SerializeField] int currentSteady = 0;
+	[SerializeField] int currentMove = 0;
 
-	public Vector2 MoveMode {
+	public Vector2 MoveDir {
+		get {return currentDir;}
+		set {
+			if (currentDir == value) return;
+
+			currentDir = value;
+		}
+	}
+
+	//Run 0, CHARGE 1
+	public int MoveMode {
 		get {return currentMove;}
 		set {
 			if (currentMove == value) return;
@@ -22,7 +34,18 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	public int AttackMode { //SLASH 1-3, 
+	//STAND 0, DIE -1, CHARGE 1
+	public int SteadyMode {
+		get {return currentSteady;}
+		set {
+			if (currentSteady == value) return;
+
+			currentSteady = value;
+		}
+	}
+
+	//SLASH 1-3, CHARGE -1, SHOT -2
+	public int AttackMode {  
 		get {return currentAttack;}
 		set {
 			if (currentAttack == value) return;

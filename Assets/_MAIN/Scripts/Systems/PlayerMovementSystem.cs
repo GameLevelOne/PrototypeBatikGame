@@ -16,6 +16,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 	[InjectAttribute] MovementData movementData;
 
+	float moveSpeed;
+
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
 		
@@ -24,15 +26,23 @@ public class PlayerMovementSystem : ComponentSystem {
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
 			Transform tr = movementData.Transform[i];
-			float speed = movementData.Movement[i].value;
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
+			Movement movement = movementData.Movement[i];
 			
+			switch (input.MoveMode) {
+            case 0:
+                moveSpeed = movement.normalValue; //NORMAL
+                break;
+            case 1:
+                moveSpeed = movement.slowValue; //CHARGING
+                break;
+			}
 			
 			if (input.AttackMode == 0) {
-				Vector2 movement = input.MoveMode;
-				movement = movement.normalized * speed * dt;
-				rb.velocity = movement;
+				Vector2 moveDir = input.MoveDir;
+				moveDir = moveDir.normalized * moveSpeed * dt;
+				rb.velocity = moveDir;
 			} else {
 				rb.velocity = Vector2.zero;
 			}

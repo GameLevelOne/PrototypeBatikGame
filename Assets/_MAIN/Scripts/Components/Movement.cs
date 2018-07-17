@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
 public class Movement : MonoBehaviour {
-	public float value;
+	public float normalValue;
+	public float slowValue;
 }

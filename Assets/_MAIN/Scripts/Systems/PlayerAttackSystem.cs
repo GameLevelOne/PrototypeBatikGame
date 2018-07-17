@@ -15,23 +15,23 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 	[InjectAttribute] AttackData attackData;
 	
-	Transform[] objTransform = new Transform[0];
-	Transform[] bulletSpawnPos = new Transform[0];
-	GameObject[] bullet = new GameObject[0];
-	bool[] isAttacking = new bool[0];
+	Transform objTransform;
+	Transform bulletSpawnPos;
+	GameObject bullet;
+	bool isAttacking;
 
-	bool isLocalVarInit = false;
+	// bool isLocalVarInit = false;
 
 	protected override void OnUpdate () {
 		if (attackData.Length == 0) return;
 		
-		if (!isLocalVarInit) {
-			objTransform = new Transform[attackData.Length];
-			bulletSpawnPos = new Transform[attackData.Length];
-			bullet = new GameObject[attackData.Length];
-			isAttacking = new bool[attackData.Length];
-			isLocalVarInit = true;			
-		}
+		// if (!isLocalVarInit) {
+		// 	objTransform = new Transform[attackData.Length];
+		// 	bulletSpawnPos = new Transform[attackData.Length];
+		// 	bullet = new GameObject[attackData.Length];
+		// 	isAttacking = new bool[attackData.Length];
+		// 	isLocalVarInit = true;			
+		// }
 
 		for (int i=0; i<attackData.Length; i++) {
 			if (attackData.Length == 0) return;
@@ -40,17 +40,17 @@ public class PlayerAttackSystem : ComponentSystem {
 			Attack attack = attackData.Attack[i];
 			int attackMode = input.AttackMode;
 			
-			objTransform[i] = attackData.Transform[i];
-			bulletSpawnPos[i] = attack.bulletSpawnPos;
-			bullet[i] = attack.bullet;
-			isAttacking[i] = attack.isAttacking;
+			objTransform = attackData.Transform[i];
+			bulletSpawnPos = attack.bulletSpawnPos;
+			bullet = attack.bullet;
+			isAttacking = attack.isAttacking;
 
 			if (input.AttackMode == 0) return;
 
-			if (isAttacking[i]) return;
+			if (isAttacking) return;
 
 			//Attack
-			isAttacking[i] = true;
+			isAttacking = true;
 
 			Attacking(i, attackMode);
 		}
@@ -78,9 +78,9 @@ public class PlayerAttackSystem : ComponentSystem {
         }
     }
 
-    Quaternion SetFacing (int idx) {
-        Vector2 targetPos = bulletSpawnPos[idx].position;
-        Vector2 initPos = objTransform[idx].position; //TEMPORARY
+    Quaternion SetFacing () {
+        Vector2 targetPos = bulletSpawnPos.position;
+        Vector2 initPos = objTransform.position; //TEMPORARY
 
         targetPos.x -= initPos.x;
         targetPos.y -= initPos.y;
