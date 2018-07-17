@@ -5,5 +5,6 @@ public class LevelData : MonoBehaviour {
 	public GameObject playerObj;
 	public Vector3 playerStartPos;
 	public bool isInitialied = false;
-	
+	[Header("Current")]
+	public GameObject currentPlayer;
 }
