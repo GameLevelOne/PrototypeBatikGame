@@ -34,9 +34,9 @@ public class PlayerMovementSystem : ComponentSystem {
             case 0:
                 moveSpeed = movement.normalValue; //NORMAL
                 break;
-            case 1:
-                moveSpeed = movement.slowValue; //CHARGING
-                break;
+            // case 1:
+            //     moveSpeed = movement.slowValue; //CHARGING
+            //     break;
 			}
 			
 			if (input.AttackMode == 0) {
