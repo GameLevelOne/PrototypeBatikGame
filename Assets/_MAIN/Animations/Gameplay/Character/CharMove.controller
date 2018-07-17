@@ -13,49 +13,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: FaceY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsMoving
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: IsAttacking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Move Mode
+    m_Controller: {fileID: 0}
+  - m_Name: MoveMode
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Attack Mode
+    m_Controller: {fileID: 0}
+  - m_Name: AttackMode
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Idle Mode
+    m_Controller: {fileID: 0}
+  - m_Name: IdleMode
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Slash Combo
+    m_Controller: {fileID: 0}
+  - m_Name: SlashCombo
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -97,6 +97,20 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!206 &206204448752874308
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Charge BlendTree
+  m_Childs: []
+  m_BlendParameter: FaceX
+  m_BlendParameterY: FaceY
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 3
 --- !u!206 &206252804461770308
 BlendTree:
   m_ObjectHideFlags: 3
@@ -198,7 +212,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
-  m_BlendParameter: Attack Mode
+  m_BlendParameter: AttackMode
   m_BlendParameterY: FaceY
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -228,7 +242,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
-  m_BlendParameter: Attack Mode
+  m_BlendParameter: AttackMode
   m_BlendParameterY: FaceY
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -306,6 +320,20 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
+  m_BlendParameter: FaceX
+  m_BlendParameterY: FaceY
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 3
+--- !u!206 &206493856130537126
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Charge BlendTree
+  m_Childs: []
   m_BlendParameter: FaceX
   m_BlendParameterY: FaceY
   m_MinThreshold: 0
@@ -564,13 +592,21 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 206776147583536366}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: FaceX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 206204448752874308}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
-  m_BlendParameter: Attack Mode
+  m_BlendParameter: AttackMode
   m_BlendParameterY: FaceY
   m_MinThreshold: -1
   m_MaxThreshold: 1
@@ -585,6 +621,14 @@ BlendTree:
   m_Name: Idle Blend Tree
   m_Childs:
   - serializedVersion: 2
+    m_Motion: {fileID: 206758423487972678}
+    m_Threshold: -1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: FaceX
+    m_Mirror: 0
+  - serializedVersion: 2
     m_Motion: {fileID: 206556039550069682}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -593,16 +637,16 @@ BlendTree:
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 206758423487972678}
+    m_Motion: {fileID: 206493856130537126}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
-  m_BlendParameter: Move Mode
+  m_BlendParameter: IdleMode
   m_BlendParameterY: FaceY
-  m_MinThreshold: 0
+  m_MinThreshold: -1
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
@@ -956,15 +1000,23 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 206576262707769514}
-    m_Threshold: -1
+    m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: FaceX
     m_Mirror: 0
-  m_BlendParameter: Move Mode
+  - serializedVersion: 2
+    m_Motion: {fileID: 206917019772853554}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: FaceX
+    m_Mirror: 0
+  m_BlendParameter: MoveMode
   m_BlendParameterY: FaceY
-  m_MinThreshold: -1
+  m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
@@ -1203,6 +1255,20 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 3
+--- !u!206 &206917019772853554
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Charge Blend Tree
+  m_Childs: []
+  m_BlendParameter: FaceX
+  m_BlendParameterY: FaceY
+  m_MinThreshold: 0
+  m_MaxThreshold: 1
+  m_UseAutomaticThresholds: 1
+  m_NormalizedBlendValues: 0
+  m_BlendType: 3
 --- !u!206 &206985384544767674
 BlendTree:
   m_ObjectHideFlags: 3
@@ -1319,7 +1385,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsAttacking
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Slash Combo
+    m_ConditionEvent: SlashCombo
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102472047266819706}
@@ -1616,7 +1682,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsAttacking
     m_EventTreshold: 0
   - m_ConditionMode: 3
-    m_ConditionEvent: Slash Combo
+    m_ConditionEvent: SlashCombo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102747070765571122}

@@ -32,9 +32,9 @@ public class Animation2D : MonoBehaviour {
 	}
 
 	void StartAnimation (string animName) {
-		if (animName == "Slash1") {
-			//enable attack effect
-		}
+		// if (animName == "Slash") {
+		// 	//enable attack effect
+		// }
 	}
 
 	void ExitAnimation (string animName) {
@@ -42,7 +42,7 @@ public class Animation2D : MonoBehaviour {
 			//disable attack effect
 
 			if (playerInput.slashComboVal.Count > 0) {
-				animator.SetFloat("Slash Combo", playerInput.slashComboVal[0]);
+				animator.SetFloat("SlashCombo", playerInput.slashComboVal[0]);
 
 				if (playerInput.slashComboVal[0] == 3) {					
 					playerInput.slashComboVal.Clear();
@@ -52,19 +52,22 @@ public class Animation2D : MonoBehaviour {
 
 				if (playerInput.slashComboVal.Count == 0) {
 					//disable attack effect
-					animator.SetFloat("Attack Mode", 0f);
-					animator.SetFloat("Slash Combo", 0f);
+					// animator.SetFloat("AttackMode", 0f);
+					// animator.SetFloat("SlashCombo", 0f);
 					animator.SetBool("IsAttacking", false);
 
-					if (role.gameRole == GameRole.Player) {
-						playerInput.Attack = 0;
-						attack.ReadyForAttacking ();
-					} else { //ENEMy
-						
-					}
+					StopAttackAnimation ();
+					Debug.Log("After normal attack");
 				}
 			}
+		} else if (animName == "Charge") {
+			// animator.SetFloat("AttackMode", 0f);
+			animator.SetBool("IsAttacking", false);
+
+			StopAttackAnimation ();
+			Debug.Log("After charge attack");
 		}
+
 		// if (animName == "Attack") {
 		// 	animator.SetFloat("Attack Mode", 0f);
 		// 	animator.SetBool("IsAttacking", false);
@@ -76,5 +79,14 @@ public class Animation2D : MonoBehaviour {
 				
 		// 	}
 		// }
+	}
+
+	void StopAttackAnimation () {
+		if (role.gameRole == GameRole.Player) {
+			playerInput.AttackMode = 0;
+			attack.ReadyForAttacking ();
+		} else { //ENEMy
+			
+		}
 	}
 }

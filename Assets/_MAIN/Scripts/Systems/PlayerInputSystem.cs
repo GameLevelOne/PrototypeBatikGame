@@ -13,6 +13,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] InputData inputData;
 
 	Vector2 currentDir = Vector2.zero;
+	float chargeAttackTimer = 0f;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -22,6 +23,7 @@ public class PlayerInputSystem : ComponentSystem {
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
+			float chargeAttackThreshold = input.chargeAttackThreshold;
 
 			if (Input.GetKeyDown(KeyCode.UpArrow)) {
 				ChangeDir(i, currentDir.x, maxValue);
@@ -43,9 +45,22 @@ public class PlayerInputSystem : ComponentSystem {
 				ChangeDir(i, currentDir.x, midValue);
 			}
 
-			if (Input.GetButtonDown("Fire1")) {
-				input.Attack += 1; //SLASH
-			} 
+			if (Input.GetButton("Fire1")) {
+				chargeAttackTimer += Time.deltaTime;
+			}
+			
+			if (Input.GetButtonUp("Fire1")) {
+				if (chargeAttackTimer >= chargeAttackThreshold) {
+					Debug.Log("Charge Attack");
+					input.AttackMode = -1; //CHARGE
+				} else {
+					Debug.Log("Normal Attack");
+					input.AttackMode += 1; //SLASH
+				}
+
+				chargeAttackTimer = 0f;				
+			}
+
 			// else if (Input.GetButtonDown("Fire2")) {
 			// 	input.Attack = maxValue; //SHOT
 			// } 
@@ -58,7 +73,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		if (currentDir != newDir) {
 			currentDir = newDir;
-			input.Move = currentDir;
+			input.MoveMode = currentDir;
 		}
 	}
 }

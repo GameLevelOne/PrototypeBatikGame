@@ -34,19 +34,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			Animation2D anim = animationData.Animation[i];
 			PlayerInput input = animationData.PlayerInput[i];
-			int attackMode = input.Attack;
+			int attackMode = input.AttackMode;
 
 			animator = anim.animator; 
 			allFacings[i] = animationData.Facing[i];
 			
 			if (attackMode != 0) {
-				animator.SetFloat("Attack Mode", attackMode);
+				animator.SetFloat("AttackMode", 0f); //SLASH 0, CHARGE 1, SHOT -1
 				animator.SetBool("IsAttacking", true);
 				
 				return;
 			}
 			
-			Vector2 movement = input.Move;
+			Vector2 movement = input.MoveMode;
 			
 			if (currentMoves[i] == movement) return;
 
@@ -63,7 +63,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void SetAnimation (int idx, string animName, float animValue, bool isVertical) {
-		Vector2 movement = animationData.PlayerInput[idx].Move;
+		Vector2 movement = animationData.PlayerInput[idx].MoveMode;
 		animator.SetFloat(animName, animValue);
 		
 		if (isVertical) {

@@ -29,8 +29,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			
 			
-			if (input.Attack == 0) {
-				Vector2 movement = input.Move;
+			if (input.AttackMode == 0) {
+				Vector2 movement = input.MoveMode;
 				movement = movement.normalized * speed * dt;
 				rb.velocity = movement;
 			} else {

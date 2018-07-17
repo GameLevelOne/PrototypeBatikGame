@@ -38,41 +38,43 @@ public class PlayerAttackSystem : ComponentSystem {
 
 			PlayerInput input = attackData.PlayerInput[i];
 			Attack attack = attackData.Attack[i];
-			int attackMode = input.Attack;
+			int attackMode = input.AttackMode;
 			
 			objTransform[i] = attackData.Transform[i];
 			bulletSpawnPos[i] = attack.bulletSpawnPos;
 			bullet[i] = attack.bullet;
 			isAttacking[i] = attack.isAttacking;
 
-			if (input.Attack == 0) return;
+			if (input.AttackMode == 0) return;
 
 			if (isAttacking[i]) return;
 
 			//Attack
 			isAttacking[i] = true;
 
-			switch(attackMode) {
-				case -1:
-					Attacking(i, AttackType.Slash);
-					break;
-				case 1:
-					Attacking(i, AttackType.Shot);
-					break;
-			}
+			Attacking(i, attackMode);
 		}
 	}
 
-	void Attacking (int idx, AttackType attackType) {
-        switch (attackType) {
-            case AttackType.Slash:
-                Debug.Log("Slash");
+	void Attacking (int idx, int attackMode) {
+        switch (attackMode) {
+            case 1:
+                Debug.Log("Slash1");
                 break;
-            case AttackType.Shot:
-                // GameObject spawnedBullet = Instantiate(bullet[idx], bulletSpawnPos[idx].position, SetFacing(idx));
-                // spawnedBullet.transform.SetParent(objTransform[idx]); //TEMPORARY
-                // spawnedBullet.SetActive(true);
+            case 2:
+                Debug.Log("Slash2");
                 break;
+            case 3:
+                Debug.Log("Slash3");
+                break;
+            case -1:
+                Debug.Log("Charge Attack");
+                break;
+			// case -2:
+            //     // GameObject spawnedBullet = Instantiate(bullet[idx], bulletSpawnPos[idx].position, SetFacing(idx));
+            //     // spawnedBullet.transform.SetParent(objTransform[idx]); //TEMPORARY
+            //     // spawnedBullet.SetActive(true);
+			// 	break;
         }
     }
 

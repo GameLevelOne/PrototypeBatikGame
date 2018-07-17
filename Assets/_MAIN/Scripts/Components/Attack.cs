@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public enum AttackType {
-    Shot,
-    Slash
-}
+// public enum AttackType {
+//     Slash,
+//     Charge,
+//     Shot
+// }
 
 public class Attack : MonoBehaviour {
 	public GameObject bullet;
