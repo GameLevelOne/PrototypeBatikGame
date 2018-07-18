@@ -57,8 +57,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(-1f); //SHOT
 			}
 
-			animator.SetFloat("IdleMode", CheckSteadyMode(input.SteadyMode));
-			animator.SetFloat("MoveMode", CheckSteadyMode(input.MoveMode));
+			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
+			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
 
 			Vector2 movement = input.MoveDir;
 			
@@ -100,7 +100,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		currentFacing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
-	float CheckSteadyMode (int mode) {
+	float CheckMode (int mode) {
 		switch (mode) {
 			case 0: 
 				return 0f; //STAND / MOVE

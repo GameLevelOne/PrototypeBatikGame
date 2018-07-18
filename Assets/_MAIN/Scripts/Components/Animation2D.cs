@@ -61,6 +61,9 @@ public class Animation2D : MonoBehaviour {
 			animator.SetBool("IsAttacking", false);
 
 			StopAttackAnimation ();
+		} else if (animName == "Dodge") {
+			animator.SetFloat("MoveMode", 0f);
+			playerInput.MoveMode = 0;
 		}
 
 		// if (animName == "Attack") {

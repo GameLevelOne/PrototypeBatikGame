@@ -7,7 +7,8 @@ public class PlayerInput : MonoBehaviour {
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 	public float chargeAttackThreshold = 1f;
-	public float dodgeDuration = 0.5f;
+	public float dodgeCooldown = 1f;
+
 	public List<int> slashComboVal;
 
 	Vector2 currentDir = Vector2.zero;
@@ -15,6 +16,7 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
+	[SerializeField] bool isDodging = false;
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -31,17 +33,29 @@ public class PlayerInput : MonoBehaviour {
 		set {
 			if (currentMove == value) return;
 
-			currentMove = value;
-
-			if (currentMove == 3) {
-				Debug.Log("Start Dodge");
-				
-				if (!IsInvoking("ResetMoveMode")){
-					CancelInvoke("ResetMoveMode");
-				} 
-
-				Invoke("ResetMoveMode", dodgeDuration);
+			if (value == 3) {
+				if (currentDir == Vector2.zero) {
+					value = 0;
+					return;
+				}
+				if (!isDodging) {
+					isDodging = true;
+					currentMove = value;
+					Invoke("ResetDodge", dodgeCooldown);
+				}
+			} else {
+				currentMove = value;
 			}
+
+			// if (currentMove == 3) {
+			// 	Debug.Log("Start Dodge");
+
+			// 	if (!IsInvoking("ResetMoveMode")){
+			// 		CancelInvoke("ResetMoveMode");
+			// 	} 
+
+			// 	Invoke("ResetMoveMode", dodgeDuration);
+			// }
 		}
 	}
 
@@ -69,8 +83,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	void ResetMoveMode () {
-		Debug.Log("End Dodge");
-		MoveMode = 0;
+	void ResetDodge () {
+		isDodging = false;
 	}
 }
