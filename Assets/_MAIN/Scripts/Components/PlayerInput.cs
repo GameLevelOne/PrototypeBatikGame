@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour {
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 	public float chargeAttackThreshold = 1f;
+	public float dodgeDuration = 0.5f;
 	public List<int> slashComboVal;
 
 	Vector2 currentDir = Vector2.zero;
@@ -24,13 +25,23 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, Dodge 3
 	public int MoveMode {
 		get {return currentMove;}
 		set {
 			if (currentMove == value) return;
 
 			currentMove = value;
+
+			if (currentMove == 3) {
+				Debug.Log("Start Dodge");
+				
+				if (!IsInvoking("ResetMoveMode")){
+					CancelInvoke("ResetMoveMode");
+				} 
+
+				Invoke("ResetMoveMode", dodgeDuration);
+			}
 		}
 	}
 
@@ -56,5 +67,10 @@ public class PlayerInput : MonoBehaviour {
 				slashComboVal.Add(currentAttack);
 			}
 		}
+	}
+
+	void ResetMoveMode () {
+		Debug.Log("End Dodge");
+		MoveMode = 0;
 	}
 }

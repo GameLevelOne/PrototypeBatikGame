@@ -4,6 +4,7 @@ using Unity.Rendering;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
@@ -53,7 +54,7 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				if (chargeAttackTimer >= 0.3f) {
 					Debug.Log("Start charging");
-					SetMovement(i, 1); //START CHARGE
+					SetMovement(i, 1, false); //START CHARGE
 				}
 			}
 			
@@ -66,30 +67,44 @@ public class PlayerInputSystem : ComponentSystem {
 					input.AttackMode += 1; //SLASH
 				}
 				
-				SetMovement(i, 0); 
+				SetMovement(i, 0, false);
 				chargeAttackTimer = 0f;				
 			}
 			#endregion
 
 			#region Button Guard
 			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-				Debug.Log("Guard");
-				SetMovement(i, 2); //START GUARD
+				Debug.Log("Start Guard");
+				SetMovement(i, 2, false); //START GUARD
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				Debug.Log("Guard");
-				SetMovement(i, 0);
+				Debug.Log("End Guard");
+				SetMovement(i, 0, false);
 			}
+			#endregion
+
+			#region Button Dodge
+			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
+				SetMovement(i, 3, true); //START DODGE
+			}
+
+			// if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
+			// 	Debug.Log("End Dodge");
+			// 	SetMovement(i, 0, true);
+			// }
 			#endregion
 		}
 	}
 
-	void SetMovement (int idx, int value) {
+	void SetMovement (int idx, int value, bool isMoveOnly) {
 		PlayerInput input = inputData.PlayerInput[idx];
 
-		input.SteadyMode = value;
 		input.MoveMode = value;
+		
+		if (!isMoveOnly) {
+			input.SteadyMode = value;
+		}
 	}
 
 	void ChangeDir (int idx, float dirX, float dirY) {

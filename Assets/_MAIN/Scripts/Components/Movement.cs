@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class Movement : MonoBehaviour {
-	public float normalValue;
-	public float slowValue;
+	public float normalSpeed;
+	public float slowSpeed;
+	public float dodgeSpeed;
 }

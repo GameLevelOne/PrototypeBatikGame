@@ -17,9 +17,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 	PlayerInput input;
 	Animation2D anim;
 	Animator animator;
-	Vector2 currentMoves;
-	Vector2 currentDirs;
-	Facing2D allFacings;
+	Vector2 currentMove;
+	Vector2 currentDir;
+	Facing2D currentFacing;
 
 	// bool isLocalVarInit = false;
 
@@ -36,7 +36,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			anim = animationData.Animation[i];
 			input = animationData.PlayerInput[i];
-			allFacings = animationData.Facing[i];
+			currentFacing = animationData.Facing[i];
 			animator = anim.animator; 
 
 			int attackMode = input.AttackMode;
@@ -62,17 +62,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			Vector2 movement = input.MoveDir;
 			
-			if (currentMoves == movement) {
+			if (currentMove == movement) {
 				return;
 			} else {
-				currentMoves = movement;
+				currentMove = movement;
 			}
 
-			if (currentMoves == Vector2.zero) {
+			if (currentMove == Vector2.zero) {
 				animator.SetBool("IsMoving", false);
 			} else {
-				SetAnimation ("FaceX", currentMoves.x, false);
-				SetAnimation ("FaceY", currentMoves.y, true);
+				SetAnimation ("FaceX", currentMove.x, false);
+				SetAnimation ("FaceY", currentMove.y, true);
 				
 				animator.SetBool("IsMoving", true);
 			}
@@ -94,10 +94,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			movement.x = Mathf.RoundToInt(animValue);
 		}
 
-		if (currentDirs == movement) return;
+		if (currentDir == movement) return;
 
-		currentDirs = movement;
-		allFacings.DirID = CheckDirID(currentDirs.x, currentDirs.y);
+		currentDir = movement;
+		currentFacing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
 	float CheckSteadyMode (int mode) {
@@ -110,6 +110,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case 2:
 				return 2f; //GUARD
+				break;
+			case 3:
+				return 3f; //DODGE
 				break;
 			case -1: 
 				return -1f; //DIE

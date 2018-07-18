@@ -467,8 +467,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854053058e63149428e82c454d8c442e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalValue: 150
-  slowValue: 50
+  normalSpeed: 150
+  slowSpeed: 50
+  dodgeSpeed: 300
 --- !u!114 &114244005769516886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -507,6 +508,7 @@ MonoBehaviour:
   idleAnimValue: 0000000001000000
   moveAnimValue: ffffffff0000000001000000
   chargeAttackThreshold: 1
+  dodgeDuration: 0.5
   slashComboVal: 
   currentAttack: 0
   currentChargeAttack: 0

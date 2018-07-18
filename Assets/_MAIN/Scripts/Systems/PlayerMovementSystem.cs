@@ -13,10 +13,12 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<Movement> Movement;
 		public ComponentArray<Sprite2D> Sprite;
 		public ComponentArray<Rigidbody2D> Rigidbody;
+		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] MovementData movementData;
 
 	float moveSpeed;
+	bool isDodging = false;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -29,20 +31,32 @@ public class PlayerMovementSystem : ComponentSystem {
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			Movement movement = movementData.Movement[i];
+			Facing2D facing = movementData.Facing[i];
 			
 			switch (input.MoveMode) {
             case 0:
-                moveSpeed = movement.normalValue; //NORMAL
+                moveSpeed = movement.normalSpeed; //NORMAL
                 break;
             // case 1:
-            //     moveSpeed = movement.slowValue; //CHARGING
+            //     moveSpeed = movement.slowSpeed; //CHARGING
             //     break;
 			}
 			
 			if (input.AttackMode == 0) {
 				Vector2 moveDir = input.MoveDir;
-				moveDir = moveDir.normalized * moveSpeed * dt;
-				rb.velocity = moveDir;
+				int moveMode = input.MoveMode;
+
+				if (moveMode == 3) {
+					if (!isDodging) {
+						Transform target = facing.attackArea.transform;
+						isDodging = true;
+						rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
+					}
+				} else {
+					isDodging = false;
+					moveDir = moveDir.normalized * moveSpeed * dt;
+					rb.velocity = moveDir;	
+				}
 			} else {
 				rb.velocity = Vector2.zero;
 			}
