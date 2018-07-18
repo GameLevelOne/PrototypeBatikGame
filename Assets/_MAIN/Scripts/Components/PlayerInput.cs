@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//Run 0, CHARGE 1
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2
 	public int MoveMode {
 		get {return currentMove;}
 		set {
@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//STAND 0, DIE -1, CHARGE 1
+	//STAND 0, DIE -1, CHARGE 1, GUARD 2
 	public int SteadyMode {
 		get {return currentSteady;}
 		set {

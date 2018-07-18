@@ -67,7 +67,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else {
 				currentMoves = movement;
 			}
-			
 
 			if (currentMoves == Vector2.zero) {
 				animator.SetBool("IsMoving", false);
@@ -108,6 +107,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case 1: 
 				return 1f; //CHARGE
+				break;
+			case 2:
+				return 2f; //GUARD
 				break;
 			case -1: 
 				return -1f; //DIE
