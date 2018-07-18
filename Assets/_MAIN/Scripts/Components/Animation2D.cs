@@ -38,10 +38,8 @@ public class Animation2D : MonoBehaviour {
 	}
 
 	void ExitAnimation (string animName) {
+		//disable attack effect
 		if (animName == "Slash") {
-			//disable attack effect
-			Debug.Log("Slash attack");
-
 			if (playerInput.slashComboVal.Count > 0) {
 				animator.SetFloat("SlashCombo", playerInput.slashComboVal[0]);
 
@@ -52,8 +50,6 @@ public class Animation2D : MonoBehaviour {
 				}
 
 				if (playerInput.slashComboVal.Count == 0) {
-					//disable attack effect
-					// animator.SetFloat("AttackMode", 0f);
 					animator.SetFloat("SlashCombo", 0f);
 					animator.SetBool("IsAttacking", false);
 
@@ -61,7 +57,7 @@ public class Animation2D : MonoBehaviour {
 				}
 			}
 		} else if (animName == "Charge") {
-			// animator.SetFloat("AttackMode", 0f);
+			animator.SetFloat("AttackMode", 0f);
 			animator.SetBool("IsAttacking", false);
 
 			StopAttackAnimation ();

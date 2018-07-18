@@ -75,9 +75,10 @@ public class PlayerInputSystem : ComponentSystem {
 		Vector2 newDir = new Vector2(dirX, dirY);
 		PlayerInput input = inputData.PlayerInput[idx];
 		
-		if (currentDir != newDir) {
-			currentDir = newDir;
-			input.MoveDir = currentDir;
-		}
+		input.MoveDir = newDir;
+		// if (currentDir != newDir) {
+		// 	currentDir = newDir;
+		// 	input.MoveDir = currentDir;
+		// }
 	}
 }
