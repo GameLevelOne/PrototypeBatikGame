@@ -86,7 +86,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Dodge
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
-				SetMovement(i, 3, true); //START DODGE
+				input.isDodging = true; //START DODGE
 			}
 
 			// if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {

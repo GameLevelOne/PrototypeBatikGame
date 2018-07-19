@@ -508,12 +508,14 @@ MonoBehaviour:
   idleAnimValue: 0000000001000000
   moveAnimValue: ffffffff0000000001000000
   chargeAttackThreshold: 1
-  dodgeDuration: 0.5
+  dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
   currentChargeAttack: 0
   currentSteady: 0
   currentMove: 0
+  currentIsDodging: 0
+  isReadyForDodging: 1
 --- !u!114 &114619591953681366
 MonoBehaviour:
   m_ObjectHideFlags: 1

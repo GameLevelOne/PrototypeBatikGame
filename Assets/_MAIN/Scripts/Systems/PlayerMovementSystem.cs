@@ -18,7 +18,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] MovementData movementData;
 
 	float moveSpeed;
-	bool isDodging = false;
+	bool isDodgeMove = false;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -46,14 +46,14 @@ public class PlayerMovementSystem : ComponentSystem {
 				Vector2 moveDir = input.MoveDir;
 				int moveMode = input.MoveMode;
 
-				if (moveMode == 3) {
-					if (!isDodging) {
+				if (input.isDodging) {
+					if (!isDodgeMove) {
 						Transform target = facing.attackArea.transform;
-						isDodging = true;
+						isDodgeMove = true;
 						rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
 					}
 				} else {
-					isDodging = false;
+					isDodgeMove = false;
 					moveDir = moveDir.normalized * moveSpeed * dt;
 					rb.velocity = moveDir;	
 				}

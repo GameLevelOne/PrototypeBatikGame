@@ -16,7 +16,8 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
-	[SerializeField] bool isDodging = false;
+	[SerializeField] bool currentIsDodging = false;
+	[SerializeField] bool isReadyForDodging = true;
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -27,35 +28,28 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, Dodge 3
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2
 	public int MoveMode {
 		get {return currentMove;}
 		set {
 			if (currentMove == value) return;
 
-			if (value == 3) {
-				if (currentDir == Vector2.zero) {
-					value = 0;
-					return;
-				}
-				if (!isDodging) {
-					isDodging = true;
-					currentMove = value;
-					Invoke("ResetDodge", dodgeCooldown);
-				}
+			currentMove = value;
+		}
+	}
+
+	public bool isDodging {
+		get {return currentIsDodging;}
+		set {
+			if (currentIsDodging == value) return;
+
+			if (value && isReadyForDodging && MoveDir != Vector2.zero) {
+				currentIsDodging = true;
+				isReadyForDodging = false;
+				Invoke("ResetDodge", dodgeCooldown);
 			} else {
-				currentMove = value;
+				currentIsDodging = false;
 			}
-
-			// if (currentMove == 3) {
-			// 	Debug.Log("Start Dodge");
-
-			// 	if (!IsInvoking("ResetMoveMode")){
-			// 		CancelInvoke("ResetMoveMode");
-			// 	} 
-
-			// 	Invoke("ResetMoveMode", dodgeDuration);
-			// }
 		}
 	}
 
@@ -84,6 +78,6 @@ public class PlayerInput : MonoBehaviour {
 	}
 
 	void ResetDodge () {
-		isDodging = false;
+		isReadyForDodging = true;
 	}
 }

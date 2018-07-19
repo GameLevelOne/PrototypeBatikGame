@@ -41,20 +41,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			int attackMode = input.AttackMode;
 			
-			// if (attackMode != 0) {
-			// 	if (attackMode)
-			// 	animator.SetFloat("AttackMode", 0f); //SLASH 0, CHARGE 1, SHOT -1
-			// 	animator.SetBool("IsAttacking", true);
-				
-			// 	return;
-			// }
-			
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
 				SetAttack(1f); //CHARGE
 			} else if (attackMode == -2) {
 				SetAttack(-1f); //SHOT
+			}
+
+			if (input.isDodging) {
+				animator.SetBool("isDodging", true);
+			} else {
+				animator.SetBool("isDodging", false);
 			}
 
 			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
