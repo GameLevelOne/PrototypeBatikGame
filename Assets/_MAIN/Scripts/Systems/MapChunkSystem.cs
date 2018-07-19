@@ -67,8 +67,8 @@ public class MapChunkSystem : ComponentSystem {
 
 	void LoadChunks(Vector2Chunk currentChunk)
 	{		
-		for(int y = 0;y<chunkWidth;y++){
-			for(int x = 0;x<chunkLength;x++){
+		for(int y = -1;y<chunkWidth;y++){
+			for(int x = -1;x<chunkLength;x++){
 				if( (x >= currentChunk.x-1 && x <= currentChunk.x+1) &&
 				    (y >= currentChunk.y-1 && y <= currentChunk.y+1) ){
 						// Debug.Log(x+","+y);
@@ -89,7 +89,7 @@ public class MapChunkSystem : ComponentSystem {
 
 	string GetSceneName(int x,int y)
 	{
-		return "SceneMapChunk("+x+","+y+")";
+		return "MainWorld("+x+","+y+")";
 	}
 }
 
