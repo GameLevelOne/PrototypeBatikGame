@@ -11,15 +11,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
 	
 	PlayerInput input;
 	Animation2D anim;
+	Facing2D facing;
+	Attack attack;
+	Role role;
 	Animator animator;
 	Vector2 currentMove;
 	Vector2 currentDir;
-	Facing2D currentFacing;
 
 	// bool isLocalVarInit = false;
 
@@ -34,12 +37,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// }
 
 		for (int i=0; i<animationData.Length; i++) {
-			anim = animationData.Animation[i];
 			input = animationData.PlayerInput[i];
-			currentFacing = animationData.Facing[i];
-			animator = anim.animator; 
+			anim = animationData.Animation[i];
+			facing = animationData.Facing[i];
+			attack = animationData.Attack[i];
 
+			animator = anim.animator; 
 			int attackMode = input.AttackMode;
+			role = anim.role;
 			
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
@@ -58,22 +63,31 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
 			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
 
+			#region ATTACK
+			if (!anim.isDoneAnimation) {
+				CheckAfterAnimation (anim.animState);
+				anim.isDoneAnimation = true;
+			}
+			#endregion
+
+			#region MOVEMENT
 			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
-				return;
+				break;
 			} else {
 				currentMove = movement;
-			}
 
-			if (currentMove == Vector2.zero) {
-				animator.SetBool("IsMoving", false);
-			} else {
-				SetAnimation ("FaceX", currentMove.x, false);
-				SetAnimation ("FaceY", currentMove.y, true);
-				
-				animator.SetBool("IsMoving", true);
+				if (currentMove == Vector2.zero) {
+					animator.SetBool("IsMoving", false);
+				} else {
+					SetAnimation ("FaceX", currentMove.x, false);
+					SetAnimation ("FaceY", currentMove.y, true);
+					
+					animator.SetBool("IsMoving", true);
+				}
 			}
+			#endregion
 		}
 	}
 
@@ -95,7 +109,46 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (currentDir == movement) return;
 
 		currentDir = movement;
-		currentFacing.DirID = CheckDirID(currentDir.x, currentDir.y);
+		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+	}
+
+	void StopAttackAnimation () {
+		if (role.gameRole == GameRole.Player) {
+			animator.SetBool("IsAttacking", false);
+			input.AttackMode = 0;
+			attack.ReadyForAttacking ();
+		} else { //ENEMy
+			
+		}
+	}
+
+	void CheckAfterAnimation (AnimationState animState) {
+		switch (animState) {
+			case AnimationState.AFTER_SLASH:
+				if (input.slashComboVal.Count > 0) {
+					animator.SetFloat("SlashCombo", input.slashComboVal[0]);
+
+					if (input.slashComboVal[0] == 3) {					
+						input.slashComboVal.Clear();
+					} else {
+						input.slashComboVal.RemoveAt(0);
+					}
+
+					if (input.slashComboVal.Count == 0) {
+						animator.SetFloat("SlashCombo", 0f);
+						StopAttackAnimation ();
+					}
+				}
+				break;
+			case AnimationState.AFTER_CHARGE:
+				animator.SetFloat("AttackMode", 0f);
+				StopAttackAnimation ();
+				break;
+			case AnimationState.AFTER_DODGE:
+				animator.SetFloat("MoveMode", 0f);
+				input.isDodging = false;
+				break;
+		}
 	}
 
 	float CheckMode (int mode) {

@@ -88,11 +88,6 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
 				input.isDodging = true; //START DODGE
 			}
-
-			// if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
-			// 	Debug.Log("End Dodge");
-			// 	SetMovement(i, 0, true);
-			// }
 			#endregion
 		}
 	}
