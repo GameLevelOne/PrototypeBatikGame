@@ -292,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1502229063280722}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: -0.7, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4095796093128456}
@@ -358,7 +358,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1430987275620378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: -0.7, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4095796093128456}
@@ -371,7 +371,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1557924683073464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0.7, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4095796093128456}
@@ -397,7 +397,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1660644810447678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4095796093128456}
@@ -508,10 +508,11 @@ MonoBehaviour:
   idleAnimValue: 0000000001000000
   moveAnimValue: ffffffff0000000001000000
   chargeAttackThreshold: 1
+  beforeChargeDelay: 0.3
+  attackAwayDelay: 0.7
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
-  currentChargeAttack: 0
   currentSteady: 0
   currentMove: 0
   currentIsDodging: 0
@@ -569,7 +570,8 @@ MonoBehaviour:
   animator: {fileID: 95987120919603828}
   animState: 0
   role: {fileID: 0}
-  isCurrentDoneAnimation: 0
+  isCanAttack: 1
+  isCurrentCheckAfterAnimation: 0
 --- !u!114 &114923698577649514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -598,6 +600,7 @@ MonoBehaviour:
   bullet: {fileID: 1348501556420128, guid: 8114c844909320d4c8de994c4c9e68b9, type: 2}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
+  currentIsAttacking: 0
 --- !u!198 &198419373771927748
 ParticleSystem:
   m_ObjectHideFlags: 1

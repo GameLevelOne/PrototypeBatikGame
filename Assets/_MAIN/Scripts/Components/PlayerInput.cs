@@ -7,6 +7,8 @@ public class PlayerInput : MonoBehaviour {
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 	public float chargeAttackThreshold = 1f;
+	public float beforeChargeDelay = 0.3f;
+	public float attackAwayDelay =  0.5f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;

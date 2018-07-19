@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 95963948793150274}
   - component: {fileID: 60508888140871958}
   - component: {fileID: 114915698604432308}
+  - component: {fileID: 114778332245843616}
   m_Layer: 0
-  m_Name: Slash
-  m_TagString: Untagged
+  m_Name: Player Slash
+  m_TagString: Player Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,13 +37,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1198958859540564}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &60508888140871958
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -68,9 +69,9 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0, y: 0.28}
-      - {x: -0.1, y: 0.19999999}
-      - {x: -0.18, y: 0}
-      - {x: -0.1, y: -0.2}
+      - {x: 0.1, y: 0.19999999}
+      - {x: 0.18, y: 0}
+      - {x: 0.1, y: -0.2}
       - {x: 0, y: -0.28}
 --- !u!95 &95963948793150274
 Animator:
@@ -90,6 +91,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114778332245843616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198958859540564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!114 &114915698604432308
 MonoBehaviour:
   m_ObjectHideFlags: 1

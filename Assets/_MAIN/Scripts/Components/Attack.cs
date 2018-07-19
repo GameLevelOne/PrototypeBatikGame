@@ -1,11 +1,5 @@
 ﻿using UnityEngine;
 
-// public enum AttackType {
-//     Slash,
-//     Charge,
-//     Shot
-// }
-
 public class Attack : MonoBehaviour {
     public GameObject slash;
     public GameObject heavySlash;
@@ -18,19 +12,15 @@ public class Attack : MonoBehaviour {
     public void SpawnSlashEffect (int attackType) {
         switch (attackType) {
             case 1:
-                Debug.Log("Slash1");
                 SpawnObj (slash);
                 break;
             case 2:
-                Debug.Log("Slash2");
                 SpawnObj (slash);
                 break;
             case 3:
-                Debug.Log("Slash3");
                 SpawnObj (slash);
                 break;
             case -1:
-                Debug.Log("Charge Attack");
                 SpawnObj (heavySlash);
                 break;
         }

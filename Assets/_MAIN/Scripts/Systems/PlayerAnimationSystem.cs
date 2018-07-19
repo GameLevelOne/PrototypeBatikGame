@@ -129,6 +129,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 						animator.SetFloat("SlashCombo", 0f);
 						StopAttackAnimation ();
 					}
+				} else {
+					animator.SetFloat("SlashCombo", 0f);
+					StopAttackAnimation ();
 				}
 				break;
 			case AnimationState.AFTER_CHARGE:

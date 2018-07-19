@@ -20,21 +20,22 @@ public class Health : MonoBehaviour {
 		role = GetComponent<Role>();
 	}
 	
-	void OnCollisionEnter2D (Collision2D col) {
+	void OnTriggerEnter2D (Collider2D col) {
 		if (isDead) return;
 
-		GameObject other = col.gameObject;
-		float damage = other.GetComponent<Damage>().damage;
+		if (col.GetComponent<Damage>() == null) return;
+		
+		float damage = col.GetComponent<Damage>().damage;
 
 		if (role.gameRole == GameRole.Player) {
 			Debug.Log("player got hit"); 
-			if (other.tag == "Enemy Attack") {
+			if (col.tag == "Enemy Attack") {
 				HP -= damage;
 				CheckHealth ();
 			}
 		} else { //ENEMy
 			Debug.Log("enemy got hit");
-			if (other.tag == "Player Attack") {
+			if (col.tag == "Player Attack") {
 				HP -= damage;
 				CheckHealth ();
 			}

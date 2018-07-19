@@ -15,6 +15,8 @@ public class PlayerInputSystem : ComponentSystem {
 
 	Vector2 currentDir = Vector2.zero;
 	float chargeAttackTimer = 0f;
+	float attackAwayTimer = 0f;
+	bool isAttackAway = true;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -25,6 +27,8 @@ public class PlayerInputSystem : ComponentSystem {
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
 			float chargeAttackThreshold = input.chargeAttackThreshold;
+			float beforeChargeDelay = input.beforeChargeDelay;
+			float attackAwayDelay = input.attackAwayDelay;
 
 			#region Button Movement
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
@@ -52,9 +56,17 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
 				chargeAttackTimer += Time.deltaTime;
 				
-				if (chargeAttackTimer >= 0.3f) {
+				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
 					SetMovement(i, 1, false); //START CHARGE
+				}
+			} else {
+				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
+					attackAwayTimer += Time.deltaTime;
+				} else {
+					input.slashComboVal.Clear();
+					attackAwayTimer = 0f;
+					isAttackAway = true;
 				}
 			}
 			
@@ -68,7 +80,8 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 				
 				SetMovement(i, 0, false);
-				chargeAttackTimer = 0f;				
+				chargeAttackTimer = 0f;
+				isAttackAway = false;				
 			}
 			#endregion
 
