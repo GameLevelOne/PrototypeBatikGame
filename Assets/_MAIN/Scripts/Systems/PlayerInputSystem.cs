@@ -4,6 +4,7 @@ using Unity.Rendering;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
@@ -13,6 +14,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] InputData inputData;
 
 	Vector2 currentDir = Vector2.zero;
+	float chargeAttackTimer = 0f;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -22,33 +24,81 @@ public class PlayerInputSystem : ComponentSystem {
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
+			float chargeAttackThreshold = input.chargeAttackThreshold;
 
-			if (Input.GetKeyDown(KeyCode.UpArrow)) {
+			#region Button Movement
+			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
 				ChangeDir(i, currentDir.x, maxValue);
-			} else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
 				ChangeDir(i, currentDir.x, minValue);
 			} 
 			
-			if (Input.GetKeyDown(KeyCode.RightArrow)) {
+			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
 				ChangeDir(i, maxValue, currentDir.y);
-			} else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
 				ChangeDir(i, minValue, currentDir.y);
 			} 
 			
-			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow)) {
+			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
 				ChangeDir(i, midValue, currentDir.y);
 			}
 
-			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow)) {
+			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
 				ChangeDir(i, currentDir.x, midValue);
 			}
+			#endregion
 
-			if (Input.GetButtonDown("Fire1")) {
-				input.Attack = 1; //SLASH
-			} 
-			// else if (Input.GetButtonDown("Fire2")) {
-			// 	input.Attack = maxValue; //SHOT
-			// } 
+			#region Button Attack
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
+				chargeAttackTimer += Time.deltaTime;
+				
+				if (chargeAttackTimer >= 0.3f) {
+					Debug.Log("Start charging");
+					SetMovement(i, 1, false); //START CHARGE
+				}
+			}
+			
+			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+				if ((chargeAttackTimer >= chargeAttackThreshold) && input.SteadyMode == 1) {
+					Debug.Log("Charge Attack");
+					input.AttackMode = -1; //CHARGE
+				} else {
+					Debug.Log("Slash Attack");
+					input.AttackMode += 1; //SLASH
+				}
+				
+				SetMovement(i, 0, false);
+				chargeAttackTimer = 0f;				
+			}
+			#endregion
+
+			#region Button Guard
+			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+				Debug.Log("Start Guard");
+				SetMovement(i, 2, false); //START GUARD
+			}
+
+			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
+				Debug.Log("End Guard");
+				SetMovement(i, 0, false);
+			}
+			#endregion
+
+			#region Button Dodge
+			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
+				input.isDodging = true; //START DODGE
+			}
+			#endregion
+		}
+	}
+
+	void SetMovement (int idx, int value, bool isMoveOnly) {
+		PlayerInput input = inputData.PlayerInput[idx];
+
+		input.MoveMode = value;
+		
+		if (!isMoveOnly) {
+			input.SteadyMode = value;
 		}
 	}
 
@@ -58,7 +108,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		if (currentDir != newDir) {
 			currentDir = newDir;
-			input.Move = currentDir;
+			input.MoveDir = currentDir;
 		}
 	}
 }
