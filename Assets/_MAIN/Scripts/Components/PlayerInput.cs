@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour {
 
 	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int currentAttack = 0;
-	[SerializeField] int currentChargeAttack = 0;
+	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
 	[SerializeField] bool currentIsDodging = false;
@@ -69,9 +69,11 @@ public class PlayerInput : MonoBehaviour {
 		set {
 			if (currentAttack == value) return;
 			
-			currentAttack = value;
+			if (value < 3) {
+				currentAttack = value;
+			}
 
-			if (currentAttack >= 1) { //SLASH
+			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
 		}

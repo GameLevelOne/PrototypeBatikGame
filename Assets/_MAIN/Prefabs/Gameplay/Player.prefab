@@ -567,6 +567,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114619591953681366}
   animator: {fileID: 95987120919603828}
+  animState: 0
+  role: {fileID: 0}
+  isCurrentDoneAnimation: 0
 --- !u!114 &114923698577649514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,10 +593,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b24b74f1df584d82804d2188aaf44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slash: {fileID: 1198958859540564, guid: 448349984bddc274e8b9a92e196754c3, type: 2}
+  heavySlash: {fileID: 1526457515686840, guid: 9d03a98212cbde54da75f9cf2ec74ff4, type: 2}
   bullet: {fileID: 1348501556420128, guid: 8114c844909320d4c8de994c4c9e68b9, type: 2}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
-  isAttacking: 0
 --- !u!198 &198419373771927748
 ParticleSystem:
   m_ObjectHideFlags: 1
