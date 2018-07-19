@@ -155,12 +155,12 @@ Prefab:
     - target: {fileID: 114657440536207220, guid: 4915e52cbaf5a4044bd3c45f7c358378,
         type: 2}
       propertyPath: playerStartPos.x
-      value: 30
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114657440536207220, guid: 4915e52cbaf5a4044bd3c45f7c358378,
         type: 2}
       propertyPath: playerStartPos.y
-      value: 20
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4915e52cbaf5a4044bd3c45f7c358378, type: 2}
@@ -255,9 +255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88c970bc8cbc3a428bf3e822df56dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPerChunk: 12
-  chunkLength: 5
-  chunkWidth: 3
+  unitPerChunkX: 10
+  unitPerChunkY: 10
+  chunkLength: 12
+  chunkWidth: 12
 --- !u!4 &1080708124
 Transform:
   m_ObjectHideFlags: 0
@@ -280,11 +281,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4641182938453024, guid: 89ad2ff14a31a1345b9d86375aa40269, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.96
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4641182938453024, guid: 89ad2ff14a31a1345b9d86375aa40269, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5.47
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 4641182938453024, guid: 89ad2ff14a31a1345b9d86375aa40269, type: 2}
       propertyPath: m_LocalPosition.z
