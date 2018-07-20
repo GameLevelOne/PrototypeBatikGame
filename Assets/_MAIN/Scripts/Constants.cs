@@ -22,7 +22,7 @@ public static class Constants {
 
 		public static class Bool
 		{
-
+			
 		}
 
 	}
@@ -39,6 +39,6 @@ public static class Constants {
 
 	public static class PlayerPrefKey
 	{
-
+		
 	}
 }
