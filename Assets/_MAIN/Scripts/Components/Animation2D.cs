@@ -68,14 +68,15 @@ public class Animation2D : MonoBehaviour {
 	}
 
 	void StartAnimation (string animName) {
-		attack.isAttacking  = true;
 		//enable attack effect
 		switch (animName) {
 			case "Slash":
 				animState = AnimationState.START_SLASH;
+				attack.isAttacking  = true;
 				break;
 			case "Charge":
 				animState = AnimationState.START_CHARGE;
+				attack.isAttacking  = true;
 				break;
 			case "Dodge":
 				animState = AnimationState.START_DODGE;
