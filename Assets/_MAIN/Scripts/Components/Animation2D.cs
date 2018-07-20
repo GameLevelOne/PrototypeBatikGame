@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 public enum AnimationState {
+	START_SLASH,
+	START_CHARGE,
+	START_DODGE,
 	AFTER_SLASH,
 	AFTER_CHARGE,
 	AFTER_DODGE
@@ -12,21 +15,27 @@ public class Animation2D : MonoBehaviour {
 	public Animator animator;
 	public AnimationState animState;
 	public Role role;
+	public bool isCanAttack = false;
 
 	PlayerInput playerInput;
 	Attack attack;
 
-	[SerializeField] bool isCurrentDoneAnimation = false;
+	// [SerializeField] bool isCurrentCheckBeforeAnimation = false;
+	[SerializeField] bool isCurrentCheckAfterAnimation = false;
 
 	void Awake () {
-		animator.SetFloat("Move Mode", 0f);
+		animator.SetFloat("MoveMode", 0f);
 		role = GetComponent<Role>();
-		attack = GetComponent<Attack>();
+		// attack = GetComponent<Attack>();
 
 		if (role.gameRole == GameRole.Player) {
 			playerInput = GetComponent<PlayerInput>();
 		} else { //ENEMy
 			
+		}
+
+		if (isCanAttack) {
+			attack = GetComponent<Attack>();
 		}
 	}
 
@@ -39,26 +48,46 @@ public class Animation2D : MonoBehaviour {
 		animationControl.OnStartAnimation -= StartAnimation;
 		animationControl.OnExitAnimation -= ExitAnimation;
 	}
-	
-	public bool isDoneAnimation {
-		get {return isCurrentDoneAnimation;}
-		set {
-			if (isCurrentDoneAnimation == value) return;
 
-			isCurrentDoneAnimation = value;
+	// public bool isCheckBeforeAnimation {
+	// 	get {return isCurrentCheckBeforeAnimation;}
+	// 	set {
+	// 		if (isCurrentCheckBeforeAnimation == value) return;
+
+	// 		isCurrentCheckBeforeAnimation = value;
+	// 	}
+	// }
+	
+	public bool isCheckAfterAnimation {
+		get {return isCurrentCheckAfterAnimation;}
+		set {
+			if (isCurrentCheckAfterAnimation == value) return;
+
+			isCurrentCheckAfterAnimation = value;
 		}
 	}
 
 	void StartAnimation (string animName) {
+		attack.isAttacking  = true;
 		//enable attack effect
-		
-		// if (animName == "Slash") {
-		// 	
-		// }
+		switch (animName) {
+			case "Slash":
+				animState = AnimationState.START_SLASH;
+				break;
+			case "Charge":
+				animState = AnimationState.START_CHARGE;
+				break;
+			case "Dodge":
+				animState = AnimationState.START_DODGE;
+				break;
+			default:
+				Debug.LogWarning ("Unknown Animation played");
+				break;
+		}
 	}
 
 	void ExitAnimation (string animName) {
-		isDoneAnimation = false;
+		isCurrentCheckAfterAnimation = false;
 		//disable attack effect
 		switch (animName) {
 			case "Slash":
@@ -74,38 +103,5 @@ public class Animation2D : MonoBehaviour {
 				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
-
-		// if (animName == "Slash") {
-		// 	if (playerInput.slashComboVal.Count > 0) {
-		// 		animator.SetFloat("SlashCombo", playerInput.slashComboVal[0]);
-
-		// 		if (playerInput.slashComboVal[0] == 3) {					
-		// 			playerInput.slashComboVal.Clear();
-		// 		} else {
-		// 			playerInput.slashComboVal.RemoveAt(0);
-		// 		}
-
-		// 		if (playerInput.slashComboVal.Count == 0) {
-		// 			animator.SetFloat("SlashCombo", 0f);
-		// 			StopAttackAnimation ();
-		// 		}
-		// 	}
-		// } else if (animName == "Charge") {
-		// 	animator.SetFloat("AttackMode", 0f);
-		// 	StopAttackAnimation ();
-		// } else if (animName == "Dodge") {
-		// 	animator.SetFloat("MoveMode", 0f);
-		// 	playerInput.isDodging = false;
-		// }
 	}
-
-	// void StopAttackAnimation () {
-	// 	if (role.gameRole == GameRole.Player) {
-	// 		animator.SetBool("IsAttacking", false);
-	// 		playerInput.AttackMode = 0;
-	// 		attack.ReadyForAttacking ();
-	// 	} else { //ENEMy
-			
-	// 	}
-	// }
 }

@@ -7,13 +7,15 @@ public class PlayerInput : MonoBehaviour {
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
 	public float chargeAttackThreshold = 1f;
+	public float beforeChargeDelay = 0.3f;
+	public float attackAwayDelay =  0.5f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
 
 	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int currentAttack = 0;
-	[SerializeField] int currentChargeAttack = 0;
+	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
 	[SerializeField] bool currentIsDodging = false;
@@ -69,9 +71,11 @@ public class PlayerInput : MonoBehaviour {
 		set {
 			if (currentAttack == value) return;
 			
-			currentAttack = value;
+			if (value < 3) {
+				currentAttack = value;
+			}
 
-			if (currentAttack >= 1) { //SLASH
+			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
 		}

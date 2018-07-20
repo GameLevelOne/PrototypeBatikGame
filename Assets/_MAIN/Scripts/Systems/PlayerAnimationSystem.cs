@@ -64,9 +64,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
 
 			#region ATTACK
-			if (!anim.isDoneAnimation) {
+			if (!anim.isCheckAfterAnimation) {
 				CheckAfterAnimation (anim.animState);
-				anim.isDoneAnimation = true;
+				anim.isCheckAfterAnimation = true;
 			}
 			#endregion
 
@@ -92,6 +92,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
+		// attack.isAttacking = true;
 		animator.SetFloat("AttackMode", mode); 
 		animator.SetBool("IsAttacking", true);
 	}
@@ -112,16 +113,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
-	void StopAttackAnimation () {
-		if (role.gameRole == GameRole.Player) {
-			animator.SetBool("IsAttacking", false);
-			input.AttackMode = 0;
-			attack.ReadyForAttacking ();
-		} else { //ENEMy
-			
-		}
-	}
-
 	void CheckAfterAnimation (AnimationState animState) {
 		switch (animState) {
 			case AnimationState.AFTER_SLASH:
@@ -138,6 +129,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 						animator.SetFloat("SlashCombo", 0f);
 						StopAttackAnimation ();
 					}
+				} else {
+					animator.SetFloat("SlashCombo", 0f);
+					StopAttackAnimation ();
 				}
 				break;
 			case AnimationState.AFTER_CHARGE:
@@ -151,23 +145,33 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void StopAttackAnimation () {
+		if (role.gameRole == GameRole.Player) {
+			animator.SetBool("IsAttacking", false);
+			input.AttackMode = 0;
+			// attack.isAttacking = false;
+		} else { //ENEMy
+			
+		}
+	}
+
 	float CheckMode (int mode) {
 		switch (mode) {
 			case 0: 
 				return 0f; //STAND / MOVE
-				break;
+				// break;
 			case 1: 
 				return 1f; //CHARGE
-				break;
+				// break;
 			case 2:
 				return 2f; //GUARD
-				break;
+				// break;
 			case 3:
 				return 3f; //DODGE
-				break;
+				// break;
 			case -1: 
 				return -1f; //DIE
-				break;
+				// break;
 		}
 
 		return 0f;
