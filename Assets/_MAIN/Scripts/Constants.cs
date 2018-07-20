@@ -12,7 +12,13 @@ public static class Constants {
 
 		public static class Float
 		{
-
+			public const string ATTACK_MODE = "AttackMode";
+			public const string MOVE_MODE = "MoveMode";
+			public const string SLASH_COMBO = "SlashCombo";
+			
+			public const string IDLE_MODE = "IdleMode";
+			public const string FACE_X = "FaceX";
+			public const string FACE_Y = "FaceY";
 		}
 
 		public static class Trigger
@@ -22,7 +28,9 @@ public static class Constants {
 
 		public static class Bool
 		{
-
+			public const string IS_ATTACKING = "IsAttacking";
+			public const string IS_DODGING = "isDodging";
+			public const string IS_MOVING = "IsMoving";
 		}
 
 	}
@@ -34,7 +42,8 @@ public static class Constants {
 
 	public static class Tag
 	{
-
+		public const string PLAYER_ATTACK = "Player Attack"; 
+		public const string ENEMY_ATTACK = "Enemy Attack"; 
 	}
 
 	public static class PlayerPrefKey

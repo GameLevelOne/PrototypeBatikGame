@@ -76,7 +76,9 @@ public class PlayerInputSystem : ComponentSystem {
 					input.AttackMode = -1; //CHARGE
 				} else {
 					Debug.Log("Slash Attack");
-					input.AttackMode += 1; //SLASH
+					if (input.AttackMode <= 2) {
+						input.AttackMode += 1; //SLASH
+					}
 				}
 				
 				SetMovement(i, 0, false);
