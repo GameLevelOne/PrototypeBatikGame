@@ -11,7 +11,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
-		public ComponentArray<Attack> Attack;
+		// public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
 	
@@ -40,7 +40,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			input = animationData.PlayerInput[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
-			attack = animationData.Attack[i];
+			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
@@ -54,23 +54,23 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(-1f); //SHOT
 			}
 
+			#region ACTION
+			if (!anim.isCheckAfterAnimation) {
+				CheckAfterAnimation (anim.animState);
+				anim.isCheckAfterAnimation = true;
+			}
+
 			if (input.isDodging) {
 				animator.SetBool("isDodging", true);
 			} else {
 				animator.SetBool("isDodging", false);
 			}
-
-			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
-			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
-
-			#region ATTACK
-			if (!anim.isCheckAfterAnimation) {
-				CheckAfterAnimation (anim.animState);
-				anim.isCheckAfterAnimation = true;
-			}
 			#endregion
 
 			#region MOVEMENT
+			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
+			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
+
 			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
