@@ -63,7 +63,10 @@ public class ToolSystem : ComponentSystem {
 	void UseBow(){}
 	void UseHook(){}
 	void UseBomb(){}
-	void UseHammer(){}
+	void UseHammer()
+	{
+		
+	}
 	void UseNet(){}
 	void UseFisingRod(){}
 	

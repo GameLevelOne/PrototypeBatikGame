@@ -34,7 +34,7 @@ public static class Constants {
 
 	public static class Tag
 	{
-
+		public const string HAMMER = "Hammer";
 	}
 
 	public static class PlayerPrefKey
