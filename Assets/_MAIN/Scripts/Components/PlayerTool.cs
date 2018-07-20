@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
-public enum ToolList{
+public enum ToolType{
+	None = 0,
 	Bow,
 	Hook,
 	Bomb,
@@ -13,7 +14,7 @@ public enum ToolList{
 	Container4,
 	Shovel,
 	Lantern,
-	InvisbilityCloak,
+	InvisibilityCloak,
 	MagicMedallion,
 	FastTravel,
 	PowerBracelet,
@@ -22,6 +23,6 @@ public enum ToolList{
 }
 
 public class PlayerTool : MonoBehaviour {
-
+	public ToolType currentTool;
 	
 }
