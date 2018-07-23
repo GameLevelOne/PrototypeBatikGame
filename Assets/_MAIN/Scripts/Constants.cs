@@ -42,6 +42,8 @@ public static class Constants {
 
 	public static class Tag
 	{
+		public const string PLAYER = "Player"; 
+		public const string ENEMY = "Enemy"; 
 		public const string PLAYER_ATTACK = "Player Attack"; 
 		public const string PLAYER_COUNTER = "Player Counter"; 
 		public const string ENEMY_ATTACK = "Enemy Attack"; 

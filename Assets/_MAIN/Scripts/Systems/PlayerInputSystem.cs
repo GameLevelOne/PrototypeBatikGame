@@ -10,6 +10,7 @@ public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
+		public ComponentArray<Player> Player;
 		public ComponentArray<Health> Health;
 	}
 	[InjectAttribute] InputData inputData;
@@ -26,6 +27,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		for (int i=0; i<inputData.Length; i++) {
 			PlayerInput input = inputData.PlayerInput[i];
+			Player player = inputData.Player[i];
 			Health health = inputData.Health[i];
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
@@ -86,7 +88,7 @@ public class PlayerInputSystem : ComponentSystem {
 				} else {
 					Debug.Log("Slash Attack");
 					if (input.AttackMode <= 2) {
-						if (!Data.isEnemyHit){
+						if (!player.isHitAnEnemy){
 							input.AttackMode = 1; //SLASH							
 						} else {
 							input.AttackMode += 1; //SLASH
@@ -104,15 +106,15 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 				if (parryTimer < guardParryDelay) {
 					parryTimer += Time.deltaTime;
-					input.isParrying = true;
+					player.isParrying = true;
 					
-					if (Data.isPlayerHit) {
+					if (player.isPlayerHit) {
 						input.AttackMode = -2;
 						Debug.Log("Input Counter");
 					}
 				} else {
-					input.isParrying = false;
-					Data.isPlayerHit = false;
+					player.isParrying = false;
+					player.isPlayerHit = false;
 				}
 			}
 
@@ -120,16 +122,16 @@ public class PlayerInputSystem : ComponentSystem {
 				Debug.Log("Start Guard");
 				SetMovement(i, 2, false); //START GUARD
 
-				input.isGuarding = true;
+				player.isGuarding = true;
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
 				Debug.Log("End Guard");
 				SetMovement(i, 0, false);
 				
-				input.isGuarding = false;
+				player.isGuarding = false;
 				parryTimer = 0f;
-				input.isParrying = false;
+				player.isParrying = false;
 			}
 			#endregion
 

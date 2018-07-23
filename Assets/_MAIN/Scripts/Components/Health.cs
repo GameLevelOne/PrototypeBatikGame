@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
 public class Health : MonoBehaviour {
+	public bool isPlayer;
 	public bool isDead;
 	public float guardReduceDamage;
 
 	Role role;
-	PlayerInput playerInput;
+	Player player;
+	Enemy enemy;
 
 	[SerializeField] float currentHP;
-
-	[SerializeField] bool currentIsEnemyHit = false;
-	[SerializeField] bool currentIsPlayerHit = false;
 
 	public float HP {
 		get {return currentHP;}
@@ -25,7 +24,11 @@ public class Health : MonoBehaviour {
 		role = GetComponent<Role>();
 
 		if (role.gameRole == GameRole.Player) {
-			playerInput = GetComponent<PlayerInput>();
+			player = GetComponent<Player>();
+		} else if (role.gameRole == GameRole.Enemy) {
+			enemy = GetComponent<Enemy>();
+		} else {
+			Debug.Log("Unknown game object");
 		}
 	}
 	
@@ -38,58 +41,33 @@ public class Health : MonoBehaviour {
 
 		if (role.gameRole == GameRole.Player) {
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
-				Data.isPlayerHit = true;
+				player.isPlayerHit = true;
+				// col.GetComponentInParent<Enemy>().isHitAPlayer = true;
 
-				if (playerInput.isGuarding) {
-					HP -= (damage * guardReduceDamage);
+				if (player.isGuarding) {
+					ReduceHealth (damage * guardReduceDamage);
 				} else {
-					HP -= damage;
+					ReduceHealth (damage);
 				}
-
-				CheckHealth ();
 			}
-		} else { //ENEMy
+		} else if (role.gameRole == GameRole.Enemy) {
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
-				Data.isEnemyHit = true;
-				HP -= damage;
-				CheckHealth ();
+				enemy.isEnemyHit = true;
+				col.GetComponentInParent<Player>().isHitAnEnemy = true;
+
+				ReduceHealth (damage);
 			} else if (col.tag == Constants.Tag.PLAYER_COUNTER) {
-				HP -= damage;
+				ReduceHealth (damage);
 				Debug.Log("Enemy is stunned");
-				CheckHealth ();
 			}
 		}
 	}
 
-	void CheckHealth () {
-		// if (role.gameRole == GameRole.Player) {
-		// 	Data.isPlayerHit = false;
-		// } else { //ENEMy
-		// 	Data.isEnemyHit = false;
-		// }
+	void ReduceHealth (float value) {
+		HP -= value;
 
 		if (HP <= 0f) {
 			isDead = true;
 		}
 	}
-
-	// public bool isEnemyHit {
-	// 	get {return currentIsEnemyHit;}
-	// 	set {
-	// 		if (currentIsEnemyHit == value) return;
-
-	// 		currentIsEnemyHit = value;
-	// 		Debug.Log("currentIsEnemyHit " + currentIsEnemyHit);
-	// 	}
-	// }
-
-	// public bool isPlayerHit {
-	// 	get {return currentIsEnemyHit;}
-	// 	set {
-	// 		if (currentIsPlayerHit == value) return;
-
-	// 		currentIsPlayerHit = value;
-	// 		Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
-	// 	}
-	// }
 }

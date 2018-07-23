@@ -22,9 +22,6 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] bool currentIsDodging = false;
 	[SerializeField] bool isReadyForDodging = true;
 
-	[SerializeField] bool currentIsGuarding = false;
-	[SerializeField] bool currentIsParrying = false;
-
 	[SerializeField] bool isUsingTool;
 
 
@@ -83,24 +80,6 @@ public class PlayerInput : MonoBehaviour {
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
-		}
-	}
-
-	public bool isGuarding {
-		get {return currentIsGuarding;}
-		set {
-			if (currentIsGuarding == value) return;
-
-			currentIsGuarding = value;
-		}
-	}
-
-	public bool isParrying {
-		get {return currentIsParrying;}
-		set {
-			if (currentIsParrying == value) return;
-
-			currentIsParrying = value;
 		}
 	}
 

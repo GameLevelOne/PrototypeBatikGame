@@ -9,19 +9,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 	public struct AnimationData {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
+		public ComponentArray<Player> Player;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
-		public ComponentArray<Health> Health;
 		// public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
 	
 	PlayerInput input;
+	Player player;
 	Animation2D anim;
 	Facing2D facing;
-	Health health;
 	// Attack attack;
-	Role role;
+	// Role role;
 	Animator animator;
 	Vector2 currentMove;
 	Vector2 currentDir;
@@ -40,14 +40,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
+			player = animationData.Player[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
-			health = animationData.Health[i];
 			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
-			role = anim.role;
+			// role = anim.role;
 			
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
@@ -148,8 +148,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_COUNTER:
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
-				Data.isPlayerHit = false;
-				// Data.isEnemyHit = false; //Not necessary, cause we'll use another tag, i.e : "Player Counter"
+				player.isPlayerHit = false;
 				StopAttackAnimation ();
 				break;
 		}
@@ -158,19 +157,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAttackList () {		
 		if (input.slashComboVal.Count == 0) {
 			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			Data.isEnemyHit = false;
+			player.isHitAnEnemy = false;
 			StopAttackAnimation ();
 		}
 	}
 
 	void StopAttackAnimation () {
-		if (role.gameRole == GameRole.Player) {
-			animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
-			input.AttackMode = 0;
-			// attack.isAttacking = false;
-		} else { //ENEMy
-			
-		}
+		// if (role.gameRole == GameRole.Player) {
+		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+		input.AttackMode = 0;
+		// attack.isAttacking = false;
+		// }
 	}
 
 	float CheckMode (int mode) {
