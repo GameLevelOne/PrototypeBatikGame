@@ -1,3 +1,3 @@
-﻿public static class Data {
+﻿class Data {
 	// public static bool isEnemyHit = false;
 }

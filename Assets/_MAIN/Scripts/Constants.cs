@@ -50,5 +50,25 @@ public static class Constants {
 	public static class PlayerPrefKey
 	{
 
+		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
+
+		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
+		public const string PLAYER_TOOL_HOOK = "Player/Tool/Bow";
+		public const string PLAYER_TOOL_BOMB = "Player/Tool/Bomb";
+		public const string PLAYER_TOOL_HAMMER = "Player/Tool/Hammer";
+		public const string PLAYER_TOOL_NET = "Player/Tool/Net";
+		public const string PLAYER_TOOL_FISHINGROD = "Player/Tool/Net";
+		public const string PLAYER_TOOL_CONTAINER1 = "Player/Tool/Container1";
+		public const string PLAYER_TOOL_CONTAINER2 = "Player/Tool/Container2";
+		public const string PLAYER_TOOL_CONTAINER3 = "Player/Tool/Container3";
+		public const string PLAYER_TOOL_CONTAINER4 = "Player/Tool/Container4";
+		public const string PLAYER_TOOL_SHOVEL = "Player/Tool/Shovel";
+		public const string PLAYER_TOOL_LANTERN = "Player/Tool/Lantern";
+		public const string PLAYER_TOOL_INVISIBILITYCLOAK = "Player/Tool/InvisibilityCloak";
+		public const string PLAYER_TOOL_MAGICMEDALLION = "Player/Tool/MagicMedallion";
+		public const string PLAYER_TOOL_FASTTRAVEL = "Player/Tool/FastTravel";
+		public const string PLAYER_TOOL_POWERBRACELET = "Player/Tool/PowerBracelet";
+		public const string PLAYER_TOOL_FLIPPERS = "Player/Tool/Flippers";
+		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
 	}
 }

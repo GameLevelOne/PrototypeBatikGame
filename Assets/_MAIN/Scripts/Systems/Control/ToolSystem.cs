@@ -24,7 +24,6 @@ public class ToolSystem : ComponentSystem {
 	{
 		if(toolType == ToolType.None) return;
 		
-
 		if(toolType == ToolType.Bow){
 			UseBow();
 		}else if(toolType == ToolType.Hook){

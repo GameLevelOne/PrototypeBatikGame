@@ -8,5 +8,4 @@ public class Stone : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
-	
 }
