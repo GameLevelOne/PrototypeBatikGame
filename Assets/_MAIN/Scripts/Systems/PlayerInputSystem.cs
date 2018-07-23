@@ -99,7 +99,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 				if (parryTimer < guardParryDelay) {
 					parryTimer += Time.deltaTime;
-					Debug.Log(parryTimer);
+					// Debug.Log(parryTimer);
 					input.isParrying = true;
 
 					if (Data.isPlayerHit) {
