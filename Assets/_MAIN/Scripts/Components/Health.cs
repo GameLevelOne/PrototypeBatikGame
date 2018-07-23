@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class Health : MonoBehaviour {
-	public bool isPlayer;
 	public bool isDead;
 	public float guardReduceDamage;
 
@@ -49,6 +48,8 @@ public class Health : MonoBehaviour {
 				} else {
 					ReduceHealth (damage);
 				}
+
+				// Invoke ("StopResponseHitPlayer", 0.5f);
 			}
 		} else if (role.gameRole == GameRole.Enemy) {
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
@@ -70,4 +71,8 @@ public class Health : MonoBehaviour {
 			isDead = true;
 		}
 	}
+
+	// void StopResponseHitPlayer () {
+	// 	player.isPlayerHit = false;
+	// }
 }

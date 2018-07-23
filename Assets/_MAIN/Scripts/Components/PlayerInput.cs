@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour {
 	public float beforeChargeDelay = 0.3f;
 	public float attackAwayDelay =  0.5f;
 	public float guardParryDelay = 0.5f;
+	public float bulletTimeDelay = 0.3f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
@@ -49,7 +50,7 @@ public class PlayerInput : MonoBehaviour {
 		set {
 			if (currentIsDodging == value) return;
 
-			if (value && isReadyForDodging && MoveDir != Vector2.zero) {
+			if (value && isReadyForDodging && (MoveDir != Vector2.zero)) {
 				currentIsDodging = true;
 				isReadyForDodging = false;
 				Invoke("ResetDodge", dodgeCooldown);

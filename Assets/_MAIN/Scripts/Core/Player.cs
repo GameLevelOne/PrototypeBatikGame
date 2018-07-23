@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
     [SerializeField] bool currentIsHitAnEnemy = false;
 	[SerializeField] bool currentIsGuarding = false;
 	[SerializeField] bool currentIsParrying = false;
+	[SerializeField] bool currentIsBulletTiming = false;
 
 	public bool isPlayerHit {
 		get {return currentIsPlayerHit;}
@@ -42,6 +43,15 @@ public class Player : MonoBehaviour {
 			if (currentIsParrying == value) return;
 
 			currentIsParrying = value;
+		}
+	}
+	
+	public bool isBulletTiming {
+		get {return currentIsBulletTiming;}
+		set {
+			if (currentIsBulletTiming == value) return;
+
+			currentIsBulletTiming = value;
 		}
 	}
 
