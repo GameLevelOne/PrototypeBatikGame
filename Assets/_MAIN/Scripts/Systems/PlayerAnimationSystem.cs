@@ -50,7 +50,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
 				SetAttack(1f); //CHARGE
-			} else if (attackMode == -2) {
+			// } else if (attackMode == -2) {
+			// 	SetAttack(2f); //COUNTER
+			// 	Debug.Log("Counter");
+			} else if (attackMode == -3) {
 				SetAttack(-1f); //SHOT
 			}
 
@@ -140,12 +143,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 				input.isDodging = false;
 				break;
+			case AnimationState.AFTER_COUNTER:
+				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
+				input.isParrying = false;
+				// Data.isEnemyHit = false; //Not necessary, cause we'll use another tag, i.e : "Player Counter"
+				StopAttackAnimation ();
+				break;
 		}
 	}
 
 	void CheckAttackList () {		
 		if (input.slashComboVal.Count == 0) {
 			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
+			Data.isEnemyHit = false;
 			StopAttackAnimation ();
 		}
 	}

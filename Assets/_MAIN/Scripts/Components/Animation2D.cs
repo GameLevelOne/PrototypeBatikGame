@@ -6,7 +6,9 @@ public enum AnimationState {
 	START_DODGE,
 	AFTER_SLASH,
 	AFTER_CHARGE,
-	AFTER_DODGE
+	AFTER_DODGE,
+	START_COUNTER,
+	AFTER_COUNTER
 }
 
 public class Animation2D : MonoBehaviour {
@@ -79,6 +81,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_DODGE:
 				//
 				break;
+			case AnimationState.START_COUNTER:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -98,6 +103,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_DODGE:
+				//
+				break;
+			case AnimationState.AFTER_COUNTER:
 				//
 				break;
 			default:

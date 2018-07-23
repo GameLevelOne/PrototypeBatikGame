@@ -44,6 +44,7 @@ public static class Constants {
 	{
 		public const string PLAYER_ATTACK = "Player Attack"; 
 		public const string ENEMY_ATTACK = "Enemy Attack"; 
+		public const string HAMMER = "Hammer"; 
 	}
 
 	public static class PlayerPrefKey
