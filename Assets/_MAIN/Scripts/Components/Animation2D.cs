@@ -16,7 +16,7 @@ public class Animation2D : MonoBehaviour {
 	// public bool isAnimating;
 	public Animator animator;
 	public AnimationState animState;
-	public Role role; //for Animation system
+	// public Role role; //for Animation system
 	public bool isCanAttack = false;
 
 	// PlayerInput playerInput;
@@ -28,7 +28,7 @@ public class Animation2D : MonoBehaviour {
 
 	void Awake () {
 		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
-		role = GetComponent<Role>();
+		// role = GetComponent<Role>();
 
 		// if (role.gameRole == GameRole.Player) {
 		// 	playerInput = GetComponent<PlayerInput>();

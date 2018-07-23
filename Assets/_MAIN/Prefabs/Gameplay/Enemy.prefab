@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 58218323244216934}
   - component: {fileID: 50224151760628392}
   - component: {fileID: 114659510525594982}
+  - component: {fileID: 114085341754745548}
   - component: {fileID: 114168272210199996}
   - component: {fileID: 114158416098127796}
   - component: {fileID: 114411363420915548}
@@ -456,6 +457,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114085341754745548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272119130043240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613c22d8fc086c74096b8ddf66ba1e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114158416098127796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,7 +482,6 @@ MonoBehaviour:
   animationControl: {fileID: 114873867662290916}
   animator: {fileID: 95823083219801808}
   animState: 0
-  role: {fileID: 0}
   isCanAttack: 1
   isCurrentCheckAfterAnimation: 0
 --- !u!114 &114168272210199996
@@ -500,8 +511,6 @@ MonoBehaviour:
   isDead: 0
   guardReduceDamage: 0
   currentHP: 1000
-  currentIsEnemyHit: 0
-  currentIsPlayerHit: 0
 --- !u!114 &114279522043413302
 MonoBehaviour:
   m_ObjectHideFlags: 1

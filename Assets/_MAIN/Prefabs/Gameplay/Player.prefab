@@ -160,15 +160,16 @@ GameObject:
   m_Component:
   - component: {fileID: 4179517273141854}
   - component: {fileID: 114248431062826418}
-  - component: {fileID: 114555458162412054}
-  - component: {fileID: 114638777135269556}
-  - component: {fileID: 114842938970828302}
-  - component: {fileID: 114132007194160552}
-  - component: {fileID: 114622507134798492}
   - component: {fileID: 58018810419284058}
   - component: {fileID: 50414695913041536}
-  - component: {fileID: 114950218148248466}
   - component: {fileID: 114923698577649514}
+  - component: {fileID: 114174096162710116}
+  - component: {fileID: 114638777135269556}
+  - component: {fileID: 114842938970828302}
+  - component: {fileID: 114622507134798492}
+  - component: {fileID: 114555458162412054}
+  - component: {fileID: 114132007194160552}
+  - component: {fileID: 114950218148248466}
   - component: {fileID: 114244005769516886}
   m_Layer: 0
   m_Name: Player
@@ -469,8 +470,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalSpeed: 150
   slowSpeed: 100
-  dodgeSpeed: 300
+  dodgeSpeed: 750
   attackMoveSpeed: 50
+--- !u!114 &114174096162710116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565756163263292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98c727661d88474e86b089d43a3eaff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentIsPlayerHit: 0
+  currentIsHitAnEnemy: 0
+  currentIsGuarding: 0
+  currentIsParrying: 0
+  currentIsBulletTiming: 0
 --- !u!114 &114244005769516886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -485,8 +502,6 @@ MonoBehaviour:
   isDead: 0
   guardReduceDamage: 0.1
   currentHP: 1000
-  currentIsEnemyHit: 0
-  currentIsPlayerHit: 0
 --- !u!114 &114248431062826418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -515,6 +530,7 @@ MonoBehaviour:
   beforeChargeDelay: 0.3
   attackAwayDelay: 1
   guardParryDelay: 0.5
+  bulletTimeDelay: 0.3
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
@@ -522,8 +538,7 @@ MonoBehaviour:
   currentMove: 0
   currentIsDodging: 0
   isReadyForDodging: 1
-  currentIsGuarding: 0
-  currentIsParrying: 0
+  isUsingTool: 0
 --- !u!114 &114619591953681366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -576,7 +591,6 @@ MonoBehaviour:
   animationControl: {fileID: 114619591953681366}
   animator: {fileID: 95987120919603828}
   animState: 0
-  role: {fileID: 0}
   isCanAttack: 1
   isCurrentCheckAfterAnimation: 0
 --- !u!114 &114923698577649514
