@@ -9,6 +9,9 @@ public class Health : MonoBehaviour {
 
 	[SerializeField] float currentHP;
 
+	[SerializeField] bool currentIsEnemyHit = false;
+	[SerializeField] bool currentIsPlayerHit = false;
+
 	public float HP {
 		get {return currentHP;}
 		set {
@@ -44,21 +47,45 @@ public class Health : MonoBehaviour {
 				}
 
 				CheckHealth ();
-				Debug.Log("player got hit"); 
 			}
 		} else { //ENEMy
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
 				Data.isEnemyHit = true;
 				HP -= damage;
 				CheckHealth ();
-				Debug.Log("enemy got hit");
 			}
 		}
 	}
 
 	void CheckHealth () {
+		// if (role.gameRole == GameRole.Player) {
+		// 	Data.isPlayerHit = false;
+		// } else { //ENEMy
+		// 	Data.isEnemyHit = false;
+		// }
+
 		if (HP <= 0f) {
 			isDead = true;
 		}
 	}
+
+	// public bool isEnemyHit {
+	// 	get {return currentIsEnemyHit;}
+	// 	set {
+	// 		if (currentIsEnemyHit == value) return;
+
+	// 		currentIsEnemyHit = value;
+	// 		Debug.Log("currentIsEnemyHit " + currentIsEnemyHit);
+	// 	}
+	// }
+
+	// public bool isPlayerHit {
+	// 	get {return currentIsEnemyHit;}
+	// 	set {
+	// 		if (currentIsPlayerHit == value) return;
+
+	// 		currentIsPlayerHit = value;
+	// 		Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
+	// 	}
+	// }
 }

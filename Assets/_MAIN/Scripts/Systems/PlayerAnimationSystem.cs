@@ -11,6 +11,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<Health> Health;
 		// public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
@@ -18,7 +19,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 	PlayerInput input;
 	Animation2D anim;
 	Facing2D facing;
-	Attack attack;
+	Health health;
+	// Attack attack;
 	Role role;
 	Animator animator;
 	Vector2 currentMove;
@@ -40,6 +42,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			input = animationData.PlayerInput[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
+			health = animationData.Health[i];
 			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
@@ -50,9 +53,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
 				SetAttack(1f); //CHARGE
-			// } else if (attackMode == -2) {
-			// 	SetAttack(2f); //COUNTER
-			// 	Debug.Log("Counter");
+			} else if (attackMode == -2) {
+				SetAttack(2f); //COUNTER
+				Data.isPlayerHit = false;
+				Debug.Log("Animation Counter");
 			} else if (attackMode == -3) {
 				SetAttack(-1f); //SHOT
 			}

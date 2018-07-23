@@ -11,6 +11,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 		public ComponentArray<EnemyInput> EnemyInput;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<Health> Health;
 		// public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
@@ -18,7 +19,8 @@ public class EnemyAnimationSystem : ComponentSystem {
 	EnemyInput input;
 	Animation2D anim;
 	Facing2D facing;
-	Attack attack;
+	Health health;
+	// Attack attack;
 	Role role;
 	Animator animator;
 	Vector2 currentMove;
@@ -40,6 +42,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 			input = animationData.EnemyInput[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
+			health = animationData.Health[i];
 			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
@@ -155,7 +158,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 	void CheckAttackList () {		
 		if (input.slashComboVal.Count == 0) {
 			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			Data.isPlayerHit = false;
+			// Data.isPlayerHit = false;
 			StopAttackAnimation ();
 		}
 	}

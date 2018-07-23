@@ -10,15 +10,17 @@ public static class Data {
 			if (currentIsEnemyHit == value) return;
 
 			currentIsEnemyHit = value;
+			Debug.Log("currentIsEnemyHit " + currentIsEnemyHit);
 		}
 	}
 
 	public static bool isPlayerHit {
-		get {return currentIsEnemyHit;}
+		get {return currentIsPlayerHit;}
 		set {
 			if (currentIsPlayerHit == value) return;
 
 			currentIsPlayerHit = value;
+			Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
 		}
 	}
 }

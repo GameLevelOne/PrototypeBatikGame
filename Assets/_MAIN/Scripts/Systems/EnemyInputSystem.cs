@@ -10,6 +10,7 @@ public class EnemyInputSystem : ComponentSystem {
 	public struct InputData {
 		public readonly int Length;
 		public ComponentArray<EnemyInput> EnemyInput;
+		public ComponentArray<Health> Health;
 	}
 	[InjectAttribute] InputData inputData;
 
@@ -21,6 +22,7 @@ public class EnemyInputSystem : ComponentSystem {
 
 		for (int i=0; i<inputData.Length; i++) {
 			EnemyInput input = inputData.EnemyInput[i];
+			Health health = inputData.Health[i];
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
