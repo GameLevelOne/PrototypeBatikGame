@@ -24,7 +24,7 @@ public class Animation2D : MonoBehaviour {
 	[SerializeField] bool isCurrentCheckAfterAnimation = false;
 
 	void Awake () {
-		animator.SetFloat("MoveMode", 0f);
+		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		role = GetComponent<Role>();
 		// attack = GetComponent<Attack>();
 
@@ -67,42 +67,44 @@ public class Animation2D : MonoBehaviour {
 		}
 	}
 
-	void StartAnimation (string animName) {
+	void StartAnimation (AnimationState state) {
 		//enable attack effect
-		switch (animName) {
-			case "Slash":
-				animState = AnimationState.START_SLASH;
+		switch (state) {
+			case AnimationState.START_SLASH:
 				attack.isAttacking  = true;
 				break;
-			case "Charge":
-				animState = AnimationState.START_CHARGE;
+			case AnimationState.START_CHARGE:
 				attack.isAttacking  = true;
 				break;
-			case "Dodge":
-				animState = AnimationState.START_DODGE;
+			case AnimationState.START_DODGE:
+				//
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
+		
+		animState = state;
 	}
 
-	void ExitAnimation (string animName) {
+	void ExitAnimation (AnimationState state) {
 		isCurrentCheckAfterAnimation = false;
 		//disable attack effect
-		switch (animName) {
-			case "Slash":
-				animState = AnimationState.AFTER_SLASH;
+		switch (state) {
+			case AnimationState.AFTER_SLASH:
+				//
 				break;
-			case "Charge":
-				animState = AnimationState.AFTER_CHARGE;
+			case AnimationState.AFTER_CHARGE:
+				//
 				break;
-			case "Dodge":
-				animState = AnimationState.AFTER_DODGE;
+			case AnimationState.AFTER_DODGE:
+				//
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
+		
+		animState = state;
 	}
 }

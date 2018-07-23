@@ -3,7 +3,7 @@
 using UnityEngine;
 
 public class AnimationControl : MonoBehaviour {
-	public delegate void ControllingAnimation(string strAnim);
+	public delegate void ControllingAnimation(AnimationState state);
 	public event ControllingAnimation OnStartAnimation;
 	public event ControllingAnimation OnExitAnimation;
 
@@ -14,25 +14,25 @@ public class AnimationControl : MonoBehaviour {
 		anim = GetComponent<Animator>();
 	}
 
-	public void StartAnim (string animName) {
+	public void StartAnim (AnimationState startState) {
 		if (isAnimating) {
 			return;
 		}
 
 		isAnimating = true;
 		if (OnStartAnimation != null) {
-			OnStartAnimation(animName);
+			OnStartAnimation(startState);
 		}
 	}
 
-	public void ExitAnim (string animName) {
+	public void ExitAnim (AnimationState endState) {
 		isAnimating = false;
 		if (OnExitAnimation != null) {
-			OnExitAnimation(animName);
+			OnExitAnimation(endState);
 		}
 	}
 
-	// public void StopAnim () {
-	// 	anim.enabled = false;
-	// }
+	public void StopAnim () {
+		anim.enabled = false;
+	}
 }

@@ -48,7 +48,6 @@ public class PlayerAttackSystem : ComponentSystem {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_DODGE)) {
 					attack.SpawnSlashEffect(attackMode);
 					attack.isAttacking = false;
-					Debug.Log("attackMode " + attackMode);
 				}
 			}
 		}

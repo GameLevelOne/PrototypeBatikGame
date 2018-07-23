@@ -61,15 +61,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 
 			if (input.isDodging) {
-				animator.SetBool("isDodging", true);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
 			} else {
-				animator.SetBool("isDodging", false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 			}
 			#endregion
 
 			#region MOVEMENT
-			animator.SetFloat("IdleMode", CheckMode(input.SteadyMode));
-			animator.SetFloat("MoveMode", CheckMode(input.MoveMode));
+			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
 
 			Vector2 movement = input.MoveDir;
 			
@@ -79,12 +79,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 				currentMove = movement;
 
 				if (currentMove == Vector2.zero) {
-					animator.SetBool("IsMoving", false);
+					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				} else {
-					SetAnimation ("FaceX", currentMove.x, false);
-					SetAnimation ("FaceY", currentMove.y, true);
+					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 					
-					animator.SetBool("IsMoving", true);
+					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
 				}
 			}
 			#endregion
@@ -93,8 +93,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
 		// attack.isAttacking = true;
-		animator.SetFloat("AttackMode", mode); 
-		animator.SetBool("IsAttacking", true);
+		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
+		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
@@ -117,37 +117,42 @@ public class PlayerAnimationSystem : ComponentSystem {
 		switch (animState) {
 			case AnimationState.AFTER_SLASH:
 				if (input.slashComboVal.Count > 0) {
-					animator.SetFloat("SlashCombo", input.slashComboVal[0]);
-
-					if (input.slashComboVal[0] == 3) {					
+					int slashComboVal = input.slashComboVal[0];
+					
+					animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
+					
+					if (slashComboVal == 3) {					
 						input.slashComboVal.Clear();
 					} else {
 						input.slashComboVal.RemoveAt(0);
 					}
 
-					if (input.slashComboVal.Count == 0) {
-						animator.SetFloat("SlashCombo", 0f);
-						StopAttackAnimation ();
-					}
+					CheckAttackList ();
 				} else {
-					animator.SetFloat("SlashCombo", 0f);
-					StopAttackAnimation ();
+					CheckAttackList ();
 				}
 				break;
 			case AnimationState.AFTER_CHARGE:
-				animator.SetFloat("AttackMode", 0f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_DODGE:
-				animator.SetFloat("MoveMode", 0f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 				input.isDodging = false;
 				break;
 		}
 	}
 
+	void CheckAttackList () {		
+		if (input.slashComboVal.Count == 0) {
+			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
+			StopAttackAnimation ();
+		}
+	}
+
 	void StopAttackAnimation () {
 		if (role.gameRole == GameRole.Player) {
-			animator.SetBool("IsAttacking", false);
+			animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 			input.AttackMode = 0;
 			// attack.isAttacking = false;
 		} else { //ENEMy

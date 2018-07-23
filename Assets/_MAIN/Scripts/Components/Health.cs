@@ -28,16 +28,18 @@ public class Health : MonoBehaviour {
 		float damage = col.GetComponent<Damage>().damage;
 
 		if (role.gameRole == GameRole.Player) {
-			Debug.Log("player got hit"); 
-			if (col.tag == "Enemy Attack") {
+			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
+				//
 				HP -= damage;
 				CheckHealth ();
+				Debug.Log("player got hit"); 
 			}
 		} else { //ENEMy
-			Debug.Log("enemy got hit");
-			if (col.tag == "Player Attack") {
+			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
+				// Data.isEnemyHit = true;
 				HP -= damage;
 				CheckHealth ();
+				Debug.Log("enemy got hit");
 			}
 		}
 	}

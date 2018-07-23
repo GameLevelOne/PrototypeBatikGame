@@ -72,10 +72,8 @@ public class PlayerInput : MonoBehaviour {
 		set {
 			if (currentAttack == value) return;
 			
-			if (value < 3) {
-				currentAttack = value;
-			}
-
+			currentAttack = value;
+			
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
