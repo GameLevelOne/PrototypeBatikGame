@@ -45,7 +45,8 @@ public class PlayerAttackSystem : ComponentSystem {
 			if (!isAttacking) {
 				return;
 			} else {
-				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_DODGE)) {
+				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || 
+				(animState == AnimationState.START_DODGE) || (animState == AnimationState.START_COUNTER)) {
 					attack.SpawnSlashEffect(attackMode);
 					attack.isAttacking = false;
 				}

@@ -10,11 +10,13 @@ public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
+		public ComponentArray<Health> Health;
 	}
 	[InjectAttribute] InputData inputData;
 	[Inject] ToolSystem toolSystem;
 
 	Vector2 currentDir = Vector2.zero;
+	float parryTimer = 0f;
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	bool isAttackAway = true;
@@ -24,13 +26,18 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		for (int i=0; i<inputData.Length; i++) {
 			PlayerInput input = inputData.PlayerInput[i];
+			Health health = inputData.Health[i];
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
-			
+
+			float guardParryDelay = input.guardParryDelay;
+			// bool isGuarding = input.isGuarding;
+			// bool isParrying = input.isParrying;
+
 
 			#region Button Movement
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
@@ -79,7 +86,11 @@ public class PlayerInputSystem : ComponentSystem {
 				} else {
 					Debug.Log("Slash Attack");
 					if (input.AttackMode <= 2) {
-						input.AttackMode += 1; //SLASH
+						if (!Data.isEnemyHit){
+							input.AttackMode = 1; //SLASH							
+						} else {
+							input.AttackMode += 1; //SLASH
+						}
 					}
 				}
 				
@@ -90,14 +101,35 @@ public class PlayerInputSystem : ComponentSystem {
 			#endregion
 
 			#region Button Guard
+			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
+				if (parryTimer < guardParryDelay) {
+					parryTimer += Time.deltaTime;
+					input.isParrying = true;
+					
+					if (Data.isPlayerHit) {
+						input.AttackMode = -2;
+						Debug.Log("Input Counter");
+					}
+				} else {
+					input.isParrying = false;
+					Data.isPlayerHit = false;
+				}
+			}
+
 			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
 				Debug.Log("Start Guard");
 				SetMovement(i, 2, false); //START GUARD
+
+				input.isGuarding = true;
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
 				Debug.Log("End Guard");
 				SetMovement(i, 0, false);
+				
+				input.isGuarding = false;
+				parryTimer = 0f;
+				input.isParrying = false;
 			}
 			#endregion
 

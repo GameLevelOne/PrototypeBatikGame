@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour {
 	public float chargeAttackThreshold = 1f;
 	public float beforeChargeDelay = 0.3f;
 	public float attackAwayDelay =  0.5f;
+	public float guardParryDelay = 0.5f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
@@ -20,7 +21,12 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int currentMove = 0;
 	[SerializeField] bool currentIsDodging = false;
 	[SerializeField] bool isReadyForDodging = true;
+
+	[SerializeField] bool currentIsGuarding = false;
+	[SerializeField] bool currentIsParrying = false;
+
 	[SerializeField] bool isUsingTool;
+
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -66,7 +72,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//SLASH 1-3, CHARGE -1, SHOT -2
+	//SLASH 1-3, CHARGE -1, COUNTER -2, SHOT -3
 	public int AttackMode {  
 		get {return currentAttack;}
 		set {
@@ -77,6 +83,24 @@ public class PlayerInput : MonoBehaviour {
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
+		}
+	}
+
+	public bool isGuarding {
+		get {return currentIsGuarding;}
+		set {
+			if (currentIsGuarding == value) return;
+
+			currentIsGuarding = value;
+		}
+	}
+
+	public bool isParrying {
+		get {return currentIsParrying;}
+		set {
+			if (currentIsParrying == value) return;
+
+			currentIsParrying = value;
 		}
 	}
 

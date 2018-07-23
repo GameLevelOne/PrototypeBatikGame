@@ -19,6 +19,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	float moveSpeed;
 	bool isDodgeMove = false;
+	bool isAttackMove = false;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -33,7 +34,10 @@ public class PlayerMovementSystem : ComponentSystem {
 			Movement movement = movementData.Movement[i];
 			Facing2D facing = movementData.Facing[i];
 			
-			switch (input.MoveMode) {
+			int attackMode = input.AttackMode;
+			int moveMode = input.MoveMode;
+			
+			switch (moveMode) {
             case 0:
                 moveSpeed = movement.normalSpeed; //NORMAL
                 break;
@@ -42,9 +46,8 @@ public class PlayerMovementSystem : ComponentSystem {
             //     break;
 			}
 			
-			if (input.AttackMode == 0) {
+			if (attackMode == 0) {
 				Vector2 moveDir = input.MoveDir;
-				int moveMode = input.MoveMode;
 
 				if (input.isDodging) {
 					if (!isDodgeMove) {
@@ -56,6 +59,15 @@ public class PlayerMovementSystem : ComponentSystem {
 					isDodgeMove = false;
 					moveDir = moveDir.normalized * moveSpeed * dt;
 					rb.velocity = moveDir;	
+				}
+			} else if ((attackMode == 2) || (attackMode == 3)) {
+				if (!isAttackMove) {
+					Transform target = facing.attackArea.transform;
+					isAttackMove = true;
+					rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
+				} else {
+					isAttackMove = false;
+					rb.velocity = Vector2.zero;
 				}
 			} else {
 				rb.velocity = Vector2.zero;

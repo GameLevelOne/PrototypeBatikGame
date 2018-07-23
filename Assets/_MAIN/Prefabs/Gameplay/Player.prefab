@@ -117,7 +117,7 @@ GameObject:
   m_Layer: 0
   m_Name: Attack Area
   m_TagString: Player Attack
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -415,7 +415,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -467,9 +467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854053058e63149428e82c454d8c442e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 350
-  slowSpeed: 50
+  normalSpeed: 150
+  slowSpeed: 100
   dodgeSpeed: 300
+  attackMoveSpeed: 50
 --- !u!114 &114244005769516886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,7 +483,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
-  currentHP: 100
+  guardReduceDamage: 0.1
+  currentHP: 1000
+  currentIsEnemyHit: 0
+  currentIsPlayerHit: 0
 --- !u!114 &114248431062826418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,6 +514,7 @@ MonoBehaviour:
   chargeAttackThreshold: 1
   beforeChargeDelay: 0.3
   attackAwayDelay: 1
+  guardParryDelay: 0.5
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
@@ -517,6 +522,8 @@ MonoBehaviour:
   currentMove: 0
   currentIsDodging: 0
   isReadyForDodging: 1
+  currentIsGuarding: 0
+  currentIsParrying: 0
 --- !u!114 &114619591953681366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -597,6 +604,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slash: {fileID: 1198958859540564, guid: 448349984bddc274e8b9a92e196754c3, type: 2}
   heavySlash: {fileID: 1526457515686840, guid: 9d03a98212cbde54da75f9cf2ec74ff4, type: 2}
+  counterSlash: {fileID: 1650780204235450, guid: 014a0987240bb0a40ae8dccc8df412ca,
+    type: 2}
   bullet: {fileID: 1348501556420128, guid: 8114c844909320d4c8de994c4c9e68b9, type: 2}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5

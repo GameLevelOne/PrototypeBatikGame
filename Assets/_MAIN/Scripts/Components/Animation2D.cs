@@ -6,7 +6,9 @@ public enum AnimationState {
 	START_DODGE,
 	AFTER_SLASH,
 	AFTER_CHARGE,
-	AFTER_DODGE
+	AFTER_DODGE,
+	START_COUNTER,
+	AFTER_COUNTER
 }
 
 public class Animation2D : MonoBehaviour {
@@ -14,10 +16,11 @@ public class Animation2D : MonoBehaviour {
 	// public bool isAnimating;
 	public Animator animator;
 	public AnimationState animState;
-	public Role role;
+	public Role role; //for Animation system
 	public bool isCanAttack = false;
 
-	PlayerInput playerInput;
+	// PlayerInput playerInput;
+	// EnemyInput enemyInput;
 	Attack attack;
 
 	// [SerializeField] bool isCurrentCheckBeforeAnimation = false;
@@ -26,13 +29,12 @@ public class Animation2D : MonoBehaviour {
 	void Awake () {
 		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		role = GetComponent<Role>();
-		// attack = GetComponent<Attack>();
 
-		if (role.gameRole == GameRole.Player) {
-			playerInput = GetComponent<PlayerInput>();
-		} else { //ENEMy
-			
-		}
+		// if (role.gameRole == GameRole.Player) {
+		// 	playerInput = GetComponent<PlayerInput>();
+		// } else { //ENEMy
+		// 	enemyInput = GetComponent<EnemyInput>();
+		// }
 
 		if (isCanAttack) {
 			attack = GetComponent<Attack>();
@@ -79,6 +81,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_DODGE:
 				//
 				break;
+			case AnimationState.START_COUNTER:
+				attack.isAttacking  = true;
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -98,6 +103,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_DODGE:
+				//
+				break;
+			case AnimationState.AFTER_COUNTER:
 				//
 				break;
 			default:
