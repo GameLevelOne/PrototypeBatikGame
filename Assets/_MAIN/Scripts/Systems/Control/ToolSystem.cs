@@ -68,8 +68,15 @@ public class ToolSystem : ComponentSystem {
 	void UseHammer()
 	{
 		Debug.Log("Using Hammer");
+		//hammer destroy stones or destroyable solid object
+		//break some enemy armor
+		//small damage to enemy
 	}
-	void UseNet(){}
+	void UseNet()
+	{
+		Debug.Log("Using Net");
+		//catch certain objects (land/air)
+	}
 	void UseFisingRod(){}
 	
 	void UseContainer1(){}
