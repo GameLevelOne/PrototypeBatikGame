@@ -1,9 +1,10 @@
 ﻿using Unity.Entities;
+using Unity.Jobs;
 using UnityEngine;
 
 public class ToolSystem : ComponentSystem {
 
-	public struct ToolSystemComponent
+	public struct ToolComponent
 	{
 		public ToolType currentTool;
 	}
@@ -11,16 +12,14 @@ public class ToolSystem : ComponentSystem {
 	protected override void OnUpdate()
 	{
 		//if player input button action, do use tool.
-
-		// foreach(var e in GetEntities<ToolSystemComponent>())
-		// {
-		// 	UseTool(e.currentTool);
-		// 	this.Enabled = false;
-		// }
-
 	}
 
-	void UseTool(ToolType toolType)
+	public void ChangeTool(ToolComponent e, ToolType toolType)
+	{
+		e.currentTool = toolType;
+	}
+
+	public void UseTool(ToolType toolType)
 	{
 		if(toolType == ToolType.None) return;
 		
@@ -61,34 +60,113 @@ public class ToolSystem : ComponentSystem {
 		}
 	}
 
-	void UseBow(){}
-	void UseHook(){}
-	void UseBomb(){}
+	void UseBow()
+	{
+		Debug.Log("Using Bow");
+
+		//shoots projectile (arrow, limited amount).
+		//shoots immediately on face direction
+		//projectiles flies until hit obstacle
+		//can break certain objects.
+
+		//medium damage to enemies
+	}
+	
+	void UseHook()
+	{
+		Debug.Log("Using Hook");
+		//shoots projectile with rope. shoot in face direction. has range.
+		//if the projectiles reaches something, do thigs:
+		//1. enemy: pull the enemy towards player
+		//2. solid objects: pull player towards the object
+		
+		//small damage to enemies
+	}
+	
+	void UseBomb()
+	{
+		Debug.Log("Using Bomb");
+
+		//plant a bomb that explodes after certain time
+		//can be dropped or thrown
+		//limited amount
+
+		//big damage to enemies
+	}
+	
 	void UseHammer()
 	{
 		Debug.Log("Using Hammer");
 		//hammer destroy stones or destroyable solid object
 		//break some enemy armor
+		
 		//small damage to enemy
 	}
+	
 	void UseNet()
 	{
 		Debug.Log("Using Net");
 		//catch certain objects (land/air)
 	}
-	void UseFisingRod(){}
 	
+	void UseFisingRod()
+	{
+		//catch water object
+		//mini game fishing when triggered
+	}
+	
+
+	//containers can store certain enemies or items. (caught enemies will be stored in containers)
 	void UseContainer1(){}
+	
 	void UseContainer2(){}
+	
 	void UseContainer3(){}
+	
 	void UseContainer4(){}
 
-	void UseShovel(){}
+	void UseShovel()
+	{
+		Debug.Log("Using Shovel");
+		//dig items from ground
+	}
+	
 	void UseLantern(){}
+	
 	void UseInvisibilityCloack(){}
-	void UseMagicMedallion(){}
+	
+	void UseMagicMedallion()
+	{
+		Debug.Log("Using Magic Medallion");
+
+		//big AoE Damage to all enemies on screen (?) 
+		//affect some objects (destroy objects)
+
+		//big damage
+	}
+	
 	void UseFastTravel(){}
-	void UsePowerBracelet(){}
-	void UseFlippers(){}
-	void UseBoots(){}
+	
+	void UsePowerBracelet()
+	{
+		Debug.Log("Using Power Bracelet");
+
+		//allow to lift objects
+	}
+	
+	void UseFlippers()
+	{
+		Debug.Log("Using Flippers");
+
+		//allow to swim on water
+	}
+	
+	void UseBoots()
+	{
+		Debug.Log("Using Boots");
+		
+		//allow dash attack
+		//dash straight until hit an obstacle
+		//bounce back on impact
+	}
 }
