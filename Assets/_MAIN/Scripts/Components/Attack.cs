@@ -3,6 +3,7 @@
 public class Attack : MonoBehaviour {
     public GameObject slash;
     public GameObject heavySlash;
+    public GameObject counterSlash;
 	public GameObject bullet;
     public Transform bulletSpawnPos; 
     public float attackRate = 0.5f;
@@ -22,6 +23,9 @@ public class Attack : MonoBehaviour {
                 break;
             case -1:
                 SpawnObj (heavySlash);
+                break;
+            case -2:
+                SpawnObj (counterSlash);
                 break;
         }
     }

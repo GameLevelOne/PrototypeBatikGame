@@ -82,7 +82,7 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.START_COUNTER:
-				//
+				attack.isAttacking  = true;
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");

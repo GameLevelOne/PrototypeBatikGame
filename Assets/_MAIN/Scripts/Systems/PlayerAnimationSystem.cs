@@ -55,7 +55,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(1f); //CHARGE
 			} else if (attackMode == -2) {
 				SetAttack(2f); //COUNTER
-				Data.isPlayerHit = false;
 				Debug.Log("Animation Counter");
 			} else if (attackMode == -3) {
 				SetAttack(-1f); //SHOT
@@ -149,7 +148,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_COUNTER:
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
-				input.isParrying = false;
+				Data.isPlayerHit = false;
 				// Data.isEnemyHit = false; //Not necessary, cause we'll use another tag, i.e : "Player Counter"
 				StopAttackAnimation ();
 				break;

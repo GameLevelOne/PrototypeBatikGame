@@ -53,6 +53,10 @@ public class Health : MonoBehaviour {
 				Data.isEnemyHit = true;
 				HP -= damage;
 				CheckHealth ();
+			} else if (col.tag == Constants.Tag.PLAYER_COUNTER) {
+				HP -= damage;
+				Debug.Log("Enemy is stunned");
+				CheckHealth ();
 			}
 		}
 	}

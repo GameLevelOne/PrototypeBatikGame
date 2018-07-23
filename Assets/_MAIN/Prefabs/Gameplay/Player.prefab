@@ -485,6 +485,8 @@ MonoBehaviour:
   isDead: 0
   guardReduceDamage: 0.1
   currentHP: 1000
+  currentIsEnemyHit: 0
+  currentIsPlayerHit: 0
 --- !u!114 &114248431062826418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,6 +604,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slash: {fileID: 1198958859540564, guid: 448349984bddc274e8b9a92e196754c3, type: 2}
   heavySlash: {fileID: 1526457515686840, guid: 9d03a98212cbde54da75f9cf2ec74ff4, type: 2}
+  counterSlash: {fileID: 1650780204235450, guid: 014a0987240bb0a40ae8dccc8df412ca,
+    type: 2}
   bullet: {fileID: 1348501556420128, guid: 8114c844909320d4c8de994c4c9e68b9, type: 2}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
