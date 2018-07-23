@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 public class ToolSystem : ComponentSystem {
 
@@ -10,6 +11,7 @@ public class ToolSystem : ComponentSystem {
 	protected override void OnUpdate()
 	{
 		//if player input button action, do use tool.
+
 		// foreach(var e in GetEntities<ToolSystemComponent>())
 		// {
 		// 	UseTool(e.currentTool);
@@ -65,9 +67,16 @@ public class ToolSystem : ComponentSystem {
 	void UseBomb(){}
 	void UseHammer()
 	{
-
+		Debug.Log("Using Hammer");
+		//hammer destroy stones or destroyable solid object
+		//break some enemy armor
+		//small damage to enemy
 	}
-	void UseNet(){}
+	void UseNet()
+	{
+		Debug.Log("Using Net");
+		//catch certain objects (land/air)
+	}
 	void UseFisingRod(){}
 	
 	void UseContainer1(){}

@@ -21,8 +21,12 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int currentMove = 0;
 	[SerializeField] bool currentIsDodging = false;
 	[SerializeField] bool isReadyForDodging = true;
+<<<<<<< HEAD
 	[SerializeField] bool currentIsGuarding = false;
 	[SerializeField] bool currentIsParrying = false;
+=======
+	[SerializeField] bool isUsingTool;
+>>>>>>> f89cd8658d5385c749265332371990ca52e3e552
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -82,6 +86,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
+<<<<<<< HEAD
 	public bool isGuarding {
 		get {return currentIsGuarding;}
 		set {
@@ -98,6 +103,12 @@ public class PlayerInput : MonoBehaviour {
 
 			currentIsParrying = value;
 		}
+=======
+	public bool IsUsingTool
+	{
+		get{return isUsingTool;}
+		set{isUsingTool = value;}
+>>>>>>> f89cd8658d5385c749265332371990ca52e3e552
 	}
 
 	void ResetDodge () {

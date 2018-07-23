@@ -24,5 +24,5 @@ public enum ToolType{
 
 public class PlayerTool : MonoBehaviour {
 	public ToolType currentTool;
-	
+	public GameObject toolEffectAreaObj;
 }
