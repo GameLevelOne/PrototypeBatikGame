@@ -12,6 +12,7 @@ public class PlayerInputSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 	}
 	[InjectAttribute] InputData inputData;
+	[Inject] ToolSystem toolSystem;
 
 	Vector2 currentDir = Vector2.zero;
 	float chargeAttackTimer = 0f;
@@ -29,6 +30,7 @@ public class PlayerInputSystem : ComponentSystem {
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
+			
 
 			#region Button Movement
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
@@ -102,6 +104,15 @@ public class PlayerInputSystem : ComponentSystem {
 				input.isDodging = true; //START DODGE
 			}
 			#endregion
+
+			#region Button Tools
+			if(Input.GetKeyDown(KeyCode.Space)){
+				if(!input.IsUsingTool){
+					input.IsUsingTool = true;
+					UseTool();
+				}
+			}
+			#endregion
 		}
 	}
 
@@ -123,5 +134,10 @@ public class PlayerInputSystem : ComponentSystem {
 			currentDir = newDir;
 			input.MoveDir = currentDir;
 		}
+	}
+
+	void UseTool()
+	{
+		toolSystem.Enabled = true;
 	}
 }

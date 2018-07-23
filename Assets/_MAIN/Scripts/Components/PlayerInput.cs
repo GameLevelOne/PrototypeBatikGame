@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int currentMove = 0;
 	[SerializeField] bool currentIsDodging = false;
 	[SerializeField] bool isReadyForDodging = true;
+	[SerializeField] bool isUsingTool;
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -79,6 +80,12 @@ public class PlayerInput : MonoBehaviour {
 				slashComboVal.Add(currentAttack);
 			}
 		}
+	}
+
+	public bool IsUsingTool
+	{
+		get{return isUsingTool;}
+		set{isUsingTool = value;}
 	}
 
 	void ResetDodge () {
