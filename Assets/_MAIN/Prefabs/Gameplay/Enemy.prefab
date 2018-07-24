@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1272119130043240}
   m_IsPrefabParent: 1
+--- !u!1 &1066008283441426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4873121202357638}
+  m_Layer: 0
+  m_Name: Blind Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1077797456855450
 GameObject:
   m_ObjectHideFlags: 1
@@ -153,7 +168,7 @@ GameObject:
   - component: {fileID: 4494282621783110}
   m_Layer: 0
   m_Name: Attack Area
-  m_TagString: Player Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -375,6 +390,7 @@ Transform:
   - {fileID: 4082646166199120}
   - {fileID: 4494282621783110}
   - {fileID: 4211187872628400}
+  - {fileID: 4873121202357638}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -389,6 +405,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4211187872628400}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4873121202357638
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1066008283441426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4823427854235108}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4985806737280796
@@ -468,6 +497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613c22d8fc086c74096b8ddf66ba1e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerThatHitsEnemy: {fileID: 0}
+  currentIsEnemyHit: 0
 --- !u!114 &114158416098127796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -525,7 +556,7 @@ MonoBehaviour:
   slash: {fileID: 1590809064963718, guid: eb685120eb43fbe4e9e1d05aabdf33c0, type: 2}
   heavySlash: {fileID: 1608658284270458, guid: 68300d85806c94942bc92b28e68c588f, type: 2}
   counterSlash: {fileID: 0}
-  bullet: {fileID: 1427182832000110, guid: 2dd34da71ec934345b3cd16aa6c2f41f, type: 2}
+  minatoKunai: {fileID: 0}
   bulletSpawnPos: {fileID: 4494282621783110}
   attackRate: 0.5
   currentIsAttacking: 0
@@ -552,7 +583,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDirections: []
+  weakDirections: []
   attackArea: {fileID: 1603999756979192}
+  blindArea: {fileID: 1066008283441426}
   attackDirParent: {fileID: 1788572253959116}
 --- !u!114 &114413700207773930
 MonoBehaviour:

@@ -10,10 +10,12 @@ public class PlayerMovementSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<Transform> Transform;
 		public ComponentArray<PlayerInput> PlayerInput;
+		public ComponentArray<Player> Player;
 		public ComponentArray<Movement> Movement;
 		public ComponentArray<Sprite2D> Sprite;
 		public ComponentArray<Rigidbody2D> Rigidbody;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
 	[InjectAttribute] MovementData movementData;
 
@@ -28,11 +30,13 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
+			Player player = movementData.Player[i];
 			Transform tr = movementData.Transform[i];
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			Movement movement = movementData.Movement[i];
 			Facing2D facing = movementData.Facing[i];
+			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
 			
 			int attackMode = input.AttackMode;
 			int moveMode = input.MoveMode;
@@ -46,6 +50,17 @@ public class PlayerMovementSystem : ComponentSystem {
             //     break;
 			}
 			
+			if (player.isSlowMotion || player.isRapidSlashing) {
+				if (attackMode == -3) {
+					teleportBulletTime.Teleport();
+					input.AttackMode = 0;
+					rb.velocity = Vector2.zero;
+					spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+				}
+
+				return;
+			}
+
 			if (attackMode == 0) {
 				Vector2 moveDir = input.MoveDir;
 

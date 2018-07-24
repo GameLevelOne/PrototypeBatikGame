@@ -48,7 +48,30 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 			// role = anim.role;
+
+			#region ACTION
+			if (input.isDodging) {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
+			} else {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+			}
 			
+			if (player.isSlowMotion) {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
+
+				return;
+			} else if (player.isRapidSlashing) {
+				if (attackMode == 1) {
+					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
+				}
+				
+				StartCheckAnimation();
+				return;
+			}
+
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
@@ -57,20 +80,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAttack(2f); //COUNTER
 				Debug.Log("Animation Counter");
 			} else if (attackMode == -3) {
-				SetAttack(-1f); //SHOT
+				Debug.Log("Steady for crazy standing");
 			}
+			// else if (attackMode == ) {
+			// 	SetAttack(-1f); //SHOT
+			// }
 
-			#region ACTION
-			if (!anim.isCheckAfterAnimation) {
-				CheckAfterAnimation (anim.animState);
-				anim.isCheckAfterAnimation = true;
-			}
-
-			if (input.isDodging) {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
-			} else {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
-			}
+			StartCheckAnimation();
 			#endregion
 
 			#region MOVEMENT
@@ -97,10 +113,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void StartCheckAnimation () {
+		if (!anim.isCheckAfterAnimation) {
+			CheckAfterAnimation (anim.animState);
+			anim.isCheckAfterAnimation = true;
+		}
+	}
+
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
 		// attack.isAttacking = true;
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
+	}
+
+	void SetRapidAttack (float mode) { //RAPID SLASH 0
+		// attack.isAttacking = true;
+		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
+		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
+		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
 	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
@@ -150,6 +180,16 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
 				player.isPlayerHit = false;
 				StopAttackAnimation ();
+				break;
+			case AnimationState.AFTER_RAPIDSLASH:
+				Debug.Log("Rapid Slash");
+				input.BulletTimeAttackQty--;
+				if (input.BulletTimeAttackQty == 0) {
+					player.isRapidSlashing = false;
+					player.isHitAnEnemy = false;
+					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
+					StopAttackAnimation();
+				}
 				break;
 		}
 	}

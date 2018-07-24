@@ -11,12 +11,14 @@ public class PlayerInput : MonoBehaviour {
 	public float attackAwayDelay =  0.5f;
 	public float guardParryDelay = 0.5f;
 	public float bulletTimeDelay = 0.3f;
+	public float bulletTimeDuration = 0.3f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
 
 	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int currentAttack = 0;
+	[SerializeField] int currentBulletTimeAttack = 0;
 	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
@@ -60,7 +62,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//STAND 0, DIE -1, CHARGE 1, GUARD 2
+	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BULLET TIME -2
 	public int SteadyMode {
 		get {return currentSteady;}
 		set {
@@ -70,7 +72,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//SLASH 1-3, CHARGE -1, COUNTER -2, SHOT -3
+	//SLASH 1-3, CHARGE -1, COUNTER -2, MINATO -3
 	public int AttackMode {  
 		get {return currentAttack;}
 		set {
@@ -81,6 +83,16 @@ public class PlayerInput : MonoBehaviour {
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
+		}
+	}
+
+	public int BulletTimeAttackQty {
+		get {return currentBulletTimeAttack;}
+		set {
+			if (currentBulletTimeAttack == value) return;
+			
+			currentBulletTimeAttack = value;
+			Debug.Log("Rasengan Power " + currentBulletTimeAttack);
 		}
 	}
 

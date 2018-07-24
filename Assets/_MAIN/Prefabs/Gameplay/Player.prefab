@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 4723722416754214}
   m_Layer: 0
   m_Name: Attack Area
-  m_TagString: Player Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 114132007194160552}
   - component: {fileID: 114950218148248466}
   - component: {fileID: 114244005769516886}
+  - component: {fileID: 114236418279336380}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -223,6 +224,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1900152048898546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4031242324969314}
+  m_Layer: 0
+  m_Name: Blind Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4031242324969314
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900152048898546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4179517273141854}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4095796093128456
 Transform:
   m_ObjectHideFlags: 1
@@ -270,6 +299,7 @@ Transform:
   - {fileID: 4420003281305198}
   - {fileID: 4723722416754214}
   - {fileID: 4095796093128456}
+  - {fileID: 4031242324969314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -483,11 +513,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98c727661d88474e86b089d43a3eaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyThatHitsPlayer: {fileID: 0}
   currentIsPlayerHit: 0
   currentIsHitAnEnemy: 0
   currentIsGuarding: 0
   currentIsParrying: 0
   currentIsBulletTiming: 0
+  currentIsRapidSlashing: 0
+  currentIsSlowMotion: 0
+--- !u!114 &114236418279336380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565756163263292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a910b0d07c0b844a6c89b64ca13898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114244005769516886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -531,9 +575,11 @@ MonoBehaviour:
   attackAwayDelay: 1
   guardParryDelay: 0.5
   bulletTimeDelay: 0.3
+  bulletTimeDuration: 0.3
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
+  currentBulletTimeAttack: 0
   currentSteady: 0
   currentMove: 0
   currentIsDodging: 0
@@ -562,7 +608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDirections: []
+  weakDirections: []
   attackArea: {fileID: 1499518558271156}
+  blindArea: {fileID: 1900152048898546}
   attackDirParent: {fileID: 1674454437098582}
 --- !u!114 &114638777135269556
 MonoBehaviour:
@@ -620,7 +668,7 @@ MonoBehaviour:
   heavySlash: {fileID: 1526457515686840, guid: 9d03a98212cbde54da75f9cf2ec74ff4, type: 2}
   counterSlash: {fileID: 1650780204235450, guid: 014a0987240bb0a40ae8dccc8df412ca,
     type: 2}
-  bullet: {fileID: 1348501556420128, guid: 8114c844909320d4c8de994c4c9e68b9, type: 2}
+  minatoKunai: {fileID: 0}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
   currentIsAttacking: 0

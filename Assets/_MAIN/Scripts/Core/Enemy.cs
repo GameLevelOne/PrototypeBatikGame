@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour {
+	public Player playerThatHitsEnemy;
 
-	bool currentIsEnemyHit = false;
+	[SerializeField] bool currentIsEnemyHit = false;
 
 	public bool isEnemyHit {
 		get {return currentIsEnemyHit;}

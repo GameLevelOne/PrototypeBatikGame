@@ -9,6 +9,7 @@ public class PlayerAttackSystem : ComponentSystem {
 	public struct AttackData {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
+		public ComponentArray<Player> Player;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Attack> Attack;
 	}
@@ -31,6 +32,7 @@ public class PlayerAttackSystem : ComponentSystem {
 			if (attackData.Length == 0) return;
 
 			PlayerInput input = attackData.PlayerInput[i];
+			Player player = attackData.Player[i];
 			Animation2D anim = attackData.Animation[i];
 			Attack attack = attackData.Attack[i];
 			
@@ -45,12 +47,19 @@ public class PlayerAttackSystem : ComponentSystem {
 			if (!isAttacking) {
 				return;
 			} else {
-				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || 
-				(animState == AnimationState.START_DODGE) || (animState == AnimationState.START_COUNTER)) {
-					attack.SpawnSlashEffect(attackMode);
-					attack.isAttacking = false;
+				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
+					ResetSlashEffect(attack, attackMode);
+				} else if (animState == AnimationState.START_RAPIDSLASH) {
+					if (player.isSlowMotion || player.isRapidSlashing) {
+						ResetSlashEffect(attack, attackMode);
+					}
 				}
 			}
 		}
+	}
+
+	void ResetSlashEffect (Attack atk, int mode) {
+		atk.SpawnSlashEffect(mode); //temp
+		atk.isAttacking = false;
 	}
 }

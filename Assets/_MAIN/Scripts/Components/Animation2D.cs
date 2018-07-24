@@ -8,7 +8,9 @@ public enum AnimationState {
 	AFTER_CHARGE,
 	AFTER_DODGE,
 	START_COUNTER,
-	AFTER_COUNTER
+	AFTER_COUNTER,
+	START_RAPIDSLASH,
+	AFTER_RAPIDSLASH
 }
 
 public class Animation2D : MonoBehaviour {
@@ -84,6 +86,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_COUNTER:
 				attack.isAttacking  = true;
 				break;
+			case AnimationState.START_RAPIDSLASH:
+				attack.isAttacking  = true;
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -106,6 +111,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_COUNTER:
+				//
+				break;
+			case AnimationState.AFTER_RAPIDSLASH:
 				//
 				break;
 			default:

@@ -40,10 +40,15 @@ public class Health : MonoBehaviour {
 
 		if (role.gameRole == GameRole.Player) {
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
-				player.isPlayerHit = true;
-				// col.GetComponentInParent<Enemy>().isHitAPlayer = true;
+				Enemy enemy = col.GetComponentInParent<Enemy>();
+				player.enemyThatHitsPlayer = enemy;
+				// enemy.isHitAPlayer = true;
 
-				if (player.isGuarding) {
+				player.isPlayerHit = true;
+
+				if (player.isParrying || player.isBulletTiming || player.isSlowMotion || player.isRapidSlashing) {
+					Debug.Log ("Player ignored damage");
+				} else if (player.isGuarding) {
 					ReduceHealth (damage * guardReduceDamage);
 				} else {
 					ReduceHealth (damage);
@@ -53,8 +58,11 @@ public class Health : MonoBehaviour {
 			}
 		} else if (role.gameRole == GameRole.Enemy) {
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
+				Player player = col.GetComponentInParent<Player>();
+				enemy.playerThatHitsEnemy = player;
+				player.isHitAnEnemy = true;
+
 				enemy.isEnemyHit = true;
-				col.GetComponentInParent<Player>().isHitAnEnemy = true;
 
 				ReduceHealth (damage);
 			} else if (col.tag == Constants.Tag.PLAYER_COUNTER) {

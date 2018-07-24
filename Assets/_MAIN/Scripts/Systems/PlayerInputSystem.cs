@@ -19,6 +19,7 @@ public class PlayerInputSystem : ComponentSystem {
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
+	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	bool isAttackAway = true;
@@ -36,12 +37,31 @@ public class PlayerInputSystem : ComponentSystem {
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
+			float bulletTimeDuration = input.bulletTimeDuration;
 
 			float guardParryDelay = input.guardParryDelay;
 			float bulletTimeDelay = input.bulletTimeDelay;
 			// bool isGuarding = input.isGuarding;
 			// bool isParrying = input.isParrying;
 
+			if (player.isSlowMotion || player.isRapidSlashing) {
+				if (slowDownTimer < bulletTimeDuration) {
+					slowDownTimer += Time.deltaTime;
+
+					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+						input.AttackMode = 1;
+						input.BulletTimeAttackQty++;
+					}
+				} else {
+					player.isSlowMotion = false;
+					slowDownTimer = 0f;
+					Time.timeScale = 1f;
+					player.isRapidSlashing = true;
+					input.SteadyMode = 0;
+				}
+
+				return;
+			}
 
 			#region Button Movement
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
@@ -123,7 +143,6 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				Debug.Log("End Guard");
 				SetMovement(i, 0, false);
 				
 				player.isGuarding = false;
@@ -135,26 +154,38 @@ public class PlayerInputSystem : ComponentSystem {
 			#region Button Dodge			
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
 				input.isDodging = true; //START DODGE
-				player.isBulletTiming = true;
+				// player.isBulletTiming = true;
 			}
 
-			if (Input.GetKey(KeyCode.KeypadPeriod)) {
+			if (input.isDodging) {
 				if (bulletTimeTimer < bulletTimeDelay) {
 					bulletTimeTimer += Time.deltaTime;
+					player.isBulletTiming = true;
 				} else {
 					player.isBulletTiming = false;
 					player.isPlayerHit = false;
+					bulletTimeTimer = 0f;
+				}
+			}	
+
+			if (player.isBulletTiming) {
+				if (player.isPlayerHit) {
+					player.isBulletTiming = false;
+					input.isDodging = false;
+					ChangeDir(i, midValue, midValue);
+					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
+					input.AttackMode = -3;
+					player.isSlowMotion = true;
+					Debug.Log("Start BulletTime");
 				}
 			}
 
-			if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
-				Debug.Log("End Bullet Time");
+			// if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
 				// SetMovement(i, 0, false);
-				
-				input.isDodging = false;
-				bulletTimeTimer = 0f;
-				player.isBulletTiming = false;
-			}
+				// input.isDodging = false;
+				// bulletTimeTimer = 0f;
+				// player.isBulletTiming = false;
+			// }
 			#endregion
 			
 			if (player.isParrying) {
@@ -162,14 +193,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.AttackMode = -2;
 					player.isParrying = false;
 					player.isPlayerHit = false;
-					Debug.Log("Input Counter");
-				}
-			} else if (player.isBulletTiming) {
-				if (player.isPlayerHit) {
-					// input.AttackMode = -2;
-					player.isBulletTiming = false;
-					player.isPlayerHit = false;
-					Debug.Log("Input BulletTime");
+					Debug.Log("Start Counter");
 				}
 			} else {
 				player.isPlayerHit = false;
