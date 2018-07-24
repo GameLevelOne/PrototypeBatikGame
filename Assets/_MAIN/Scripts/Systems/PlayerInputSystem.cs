@@ -19,9 +19,11 @@ public class PlayerInputSystem : ComponentSystem {
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
+	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	bool isAttackAway = true;
+	bool isSlowMotion = false;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -36,6 +38,7 @@ public class PlayerInputSystem : ComponentSystem {
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
+			float bulletTimeDuration = input.bulletTimeDuration;
 
 			float guardParryDelay = input.guardParryDelay;
 			float bulletTimeDelay = input.bulletTimeDelay;
@@ -134,24 +137,46 @@ public class PlayerInputSystem : ComponentSystem {
 			#region Button Dodge			
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
 				input.isDodging = true; //START DODGE
-				player.isBulletTiming = true;
+				// player.isBulletTiming = true;
 			}
 
-			if (Input.GetKey(KeyCode.KeypadPeriod)) {
+			if (input.isDodging) {
 				if (bulletTimeTimer < bulletTimeDelay) {
 					bulletTimeTimer += Time.deltaTime;
+					player.isBulletTiming = true;
 				} else {
 					player.isBulletTiming = false;
 					player.isPlayerHit = false;
+					input.isDodging = false;
+					bulletTimeTimer = 0f;
 				}
+			}	
+
+			if (player.isBulletTiming) {
+				if (player.isPlayerHit) {
+					input.AttackMode = -3;
+					isSlowMotion = true;
+					Debug.Log("Start BulletTime");
+				}
+			}
+
+			if (isSlowMotion) {	
+				Debug.Log("slowDownTimer " + slowDownTimer);
+				if (slowDownTimer < bulletTimeDuration) {
+					slowDownTimer += Time.deltaTime;
+				} else {
+					isSlowMotion = false;
+					slowDownTimer = 0f;
+					Time.timeScale = 1f;
+				}	
 			}
 
 			if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
 				// SetMovement(i, 0, false);
 				
 				// input.isDodging = false;
-				bulletTimeTimer = 0f;
-				player.isBulletTiming = false;
+				// bulletTimeTimer = 0f;
+				// player.isBulletTiming = false;
 			}
 			#endregion
 			
@@ -161,13 +186,6 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isParrying = false;
 					player.isPlayerHit = false;
 					Debug.Log("Start Counter");
-				}
-			} else if (player.isBulletTiming) {
-				if (player.isPlayerHit) {
-					// input.AttackMode = -2;
-					player.isBulletTiming = false;
-					player.isPlayerHit = false;
-					Debug.Log("Start BulletTime");
 				}
 			} else {
 				player.isPlayerHit = false;

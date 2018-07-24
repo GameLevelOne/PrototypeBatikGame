@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 114132007194160552}
   - component: {fileID: 114950218148248466}
   - component: {fileID: 114244005769516886}
+  - component: {fileID: 114236418279336380}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -512,11 +513,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98c727661d88474e86b089d43a3eaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyThatHitsPlayer: {fileID: 0}
   currentIsPlayerHit: 0
   currentIsHitAnEnemy: 0
   currentIsGuarding: 0
   currentIsParrying: 0
   currentIsBulletTiming: 0
+--- !u!114 &114236418279336380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565756163263292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a910b0d07c0b844a6c89b64ca13898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114244005769516886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -560,6 +573,7 @@ MonoBehaviour:
   attackAwayDelay: 1
   guardParryDelay: 0.5
   bulletTimeDelay: 0.3
+  bulletTimeDuration: 0.3
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0

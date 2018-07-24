@@ -14,6 +14,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<Sprite2D> Sprite;
 		public ComponentArray<Rigidbody2D> Rigidbody;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
 	[InjectAttribute] MovementData movementData;
 
@@ -33,6 +34,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			Movement movement = movementData.Movement[i];
 			Facing2D facing = movementData.Facing[i];
+			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
 			
 			int attackMode = input.AttackMode;
 			int moveMode = input.MoveMode;
@@ -69,6 +71,10 @@ public class PlayerMovementSystem : ComponentSystem {
 					isAttackMove = false;
 					rb.velocity = Vector2.zero;
 				}
+			} else if (attackMode == -3) {
+				teleportBulletTime.Teleport();
+				input.AttackMode = 0;
+				rb.velocity = Vector2.zero;
 			} else {
 				rb.velocity = Vector2.zero;
 			}

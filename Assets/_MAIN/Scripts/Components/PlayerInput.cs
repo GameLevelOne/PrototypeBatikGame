@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour {
 	public float attackAwayDelay =  0.5f;
 	public float guardParryDelay = 0.5f;
 	public float bulletTimeDelay = 0.3f;
+	public float bulletTimeDuration = 0.3f;
 	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
@@ -70,7 +71,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//SLASH 1-3, CHARGE -1, COUNTER -2, SHOT -3
+	//SLASH 1-3, CHARGE -1, COUNTER -2, MINATO -3
 	public int AttackMode {  
 		get {return currentAttack;}
 		set {
