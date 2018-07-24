@@ -43,7 +43,9 @@ public class Health : MonoBehaviour {
 				player.isPlayerHit = true;
 				// col.GetComponentInParent<Enemy>().isHitAPlayer = true;
 
-				if (player.isGuarding) {
+				if (player.isParrying || player.isBulletTiming) {
+					Debug.Log ("Player ignored damage");
+				} else if (player.isGuarding) {
 					ReduceHealth (damage * guardReduceDamage);
 				} else {
 					ReduceHealth (damage);

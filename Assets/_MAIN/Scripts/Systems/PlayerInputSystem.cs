@@ -123,7 +123,6 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				Debug.Log("End Guard");
 				SetMovement(i, 0, false);
 				
 				player.isGuarding = false;
@@ -148,10 +147,9 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetKeyUp(KeyCode.KeypadPeriod)) {
-				Debug.Log("End Bullet Time");
 				// SetMovement(i, 0, false);
 				
-				input.isDodging = false;
+				// input.isDodging = false;
 				bulletTimeTimer = 0f;
 				player.isBulletTiming = false;
 			}
@@ -162,14 +160,14 @@ public class PlayerInputSystem : ComponentSystem {
 					input.AttackMode = -2;
 					player.isParrying = false;
 					player.isPlayerHit = false;
-					Debug.Log("Input Counter");
+					Debug.Log("Start Counter");
 				}
 			} else if (player.isBulletTiming) {
 				if (player.isPlayerHit) {
 					// input.AttackMode = -2;
 					player.isBulletTiming = false;
 					player.isPlayerHit = false;
-					Debug.Log("Input BulletTime");
+					Debug.Log("Start BulletTime");
 				}
 			} else {
 				player.isPlayerHit = false;

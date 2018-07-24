@@ -2,7 +2,7 @@
 
 public class Enemy : MonoBehaviour {
 
-	bool currentIsEnemyHit = false;
+	[SerializeField] bool currentIsEnemyHit = false;
 
 	public bool isEnemyHit {
 		get {return currentIsEnemyHit;}

@@ -56,9 +56,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else if (attackMode == -2) {
 				SetAttack(2f); //COUNTER
 				Debug.Log("Animation Counter");
-			} else if (attackMode == -3) {
-				SetAttack(-1f); //SHOT
 			}
+			// else if (attackMode == ) {
+			// 	SetAttack(-1f); //SHOT
+			// }
 
 			#region ACTION
 			if (!anim.isCheckAfterAnimation) {
