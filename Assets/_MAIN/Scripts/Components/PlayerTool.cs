@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum ToolType{
 	None = 0,
@@ -24,7 +25,7 @@ public enum ToolType{
 
 public class PlayerTool : MonoBehaviour {
 	/// <summary>
-    /// Indicates standby tool selected by player
+    /// Indicates current tool
     /// </summary>
 	public ToolType currentTool;
 
@@ -34,7 +35,31 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject magicMedallionAreaEffectObj;
 	public GameObject powerBraceletAreaEffectObj;
 
+	public Text textToolName;
+
 	public int currentActiveContainer;
+	public bool isUsingTool = false;
+
+	void Start()
+	{
+		Bow = 1;
+		Hook = 1;
+		Bomb = 1;
+		Hammer = 1;
+		Net = 1;
+		FishingRod = 1;
+		Container1 = 1;
+		Container2 = 1;
+		Container3 = 1;
+		Container4 = 1;
+		Shovel = 1;
+		Lantern = 1;
+		InvisibilityCloak = 1;
+		MagicMedallion = 1;
+		FastTravel = 1;
+		Flippers = 1;
+		Boots = 1;
+	}
 
 	/// <summary>
     /// <para>Value:<br /></para>

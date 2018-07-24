@@ -6,58 +6,84 @@ public class ToolSystem : ComponentSystem {
 
 	public struct ToolComponent
 	{
-		public ToolType currentTool;
+		public PlayerTool playerTool;
 	}
 
 	protected override void OnUpdate()
 	{
 		//if player input button action, do use tool.
+		if(Input.GetKeyDown(KeyCode.Space)){
+			foreach(var e in GetEntities<ToolComponent>()){
+				if(!e.playerTool.isUsingTool){
+					e.playerTool.isUsingTool = true;
+					UseTool(e);
+				}
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.C)){
+			foreach(var e in GetEntities<ToolComponent>()){
+				if(!e.playerTool.isUsingTool){
+					ChangeTool(e);
+				}
+			}
+		}
 	}
 
-	public void ChangeTool(ToolComponent e, ToolType toolType)
+	public void ChangeTool(ToolComponent e)
 	{
-		e.currentTool = toolType;
-	}
-
-	public void UseTool(ToolType toolType)
-	{
-		if(toolType == ToolType.None) return;
+		int current = (int) e.playerTool.currentTool;
 		
-		if(toolType == ToolType.Bow){
+		if(current >= ((int)ToolType.Boots)){
+			current = 1;
+		}else{
+			current++;
+		}
+
+		e.playerTool.currentTool = (ToolType) current;
+		e.playerTool.textToolName.text = ((ToolType) current).ToString();
+	}
+
+	public void UseTool(ToolComponent e)
+	{
+		if(e.playerTool.currentTool == ToolType.None) return;
+		
+		if(e.playerTool.currentTool == ToolType.Bow){
 			UseBow();
-		}else if(toolType == ToolType.Hook){
+		}else if(e.playerTool.currentTool == ToolType.Hook){
 			UseHook();
-		}else if(toolType == ToolType.Bomb){
+		}else if(e.playerTool.currentTool == ToolType.Bomb){
 			UseBomb();
-		}else if(toolType == ToolType.Hammer){
+		}else if(e.playerTool.currentTool == ToolType.Hammer){
 			UseHammer();
-		}else if(toolType == ToolType.Net){
+		}else if(e.playerTool.currentTool == ToolType.Net){
 			UseNet();
-		}else if(toolType == ToolType.FishingRod){
+		}else if(e.playerTool.currentTool == ToolType.FishingRod){
 			UseFisingRod();
-		}else if(toolType == ToolType.Container1){
+		}else if(e.playerTool.currentTool == ToolType.Container1){
 			UseContainer1();
-		}else if(toolType == ToolType.Container2){
+		}else if(e.playerTool.currentTool == ToolType.Container2){
 			UseContainer2();
-		}else if(toolType == ToolType.Container3){
+		}else if(e.playerTool.currentTool == ToolType.Container3){
 			UseContainer3();
-		}else if(toolType == ToolType.Container4){
+		}else if(e.playerTool.currentTool == ToolType.Container4){
 			UseContainer4();
-		}else if(toolType == ToolType.Shovel){
+		}else if(e.playerTool.currentTool == ToolType.Shovel){
 			UseShovel();
-		}else if(toolType == ToolType.Lantern){
+		}else if(e.playerTool.currentTool == ToolType.Lantern){
 			UseLantern();
-		}else if(toolType == ToolType.InvisibilityCloak){
+		}else if(e.playerTool.currentTool == ToolType.InvisibilityCloak){
 			UseInvisibilityCloack();
-		}else if(toolType == ToolType.MagicMedallion){
+		}else if(e.playerTool.currentTool == ToolType.MagicMedallion){
 			UseMagicMedallion();
-		}else if(toolType == ToolType.FastTravel){
+		}else if(e.playerTool.currentTool == ToolType.FastTravel){
 			UseFastTravel();
-		}else if(toolType == ToolType.Flippers){
+		}else if(e.playerTool.currentTool == ToolType.Flippers){
 			UseFlippers();
-		}else if(toolType == ToolType.Boots){
+		}else if(e.playerTool.currentTool == ToolType.Boots){
 			UseBoots();
 		}
+		e.playerTool.isUsingTool = false;
 	}
 
 	void UseBow()
@@ -111,19 +137,33 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseFisingRod()
 	{
+		Debug.Log("Using Fishing Rod");
 		//catch water object
 		//mini game fishing when triggered
 	}
 	
 
 	//containers can store certain enemies or items. (caught enemies will be stored in containers)
-	void UseContainer1(){}
+	void UseContainer1()
+	{
+		Debug.Log("Using Container1");
+
+	}
 	
-	void UseContainer2(){}
+	void UseContainer2()
+	{
+		Debug.Log("Using Container2");
+	}
 	
-	void UseContainer3(){}
+	void UseContainer3()
+	{
+		Debug.Log("Using Container3");
+	}
 	
-	void UseContainer4(){}
+	void UseContainer4()
+	{
+		Debug.Log("Using Container4");
+	}
 
 	void UseShovel()
 	{
@@ -131,9 +171,15 @@ public class ToolSystem : ComponentSystem {
 		//dig items from ground
 	}
 	
-	void UseLantern(){}
+	void UseLantern()
+	{
+		Debug.Log("Using Lantern");
+	}
 	
-	void UseInvisibilityCloack(){}
+	void UseInvisibilityCloack()
+	{
+		Debug.Log("Using Invisibility Cloak");
+	}
 	
 	void UseMagicMedallion()
 	{
@@ -145,7 +191,10 @@ public class ToolSystem : ComponentSystem {
 		//big damage
 	}
 	
-	void UseFastTravel(){}
+	void UseFastTravel()
+	{
+		Debug.Log("Using Fast Travel");
+	}
 	
 	void UsePowerBracelet()
 	{

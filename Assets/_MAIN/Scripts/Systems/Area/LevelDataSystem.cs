@@ -27,7 +27,7 @@ public class LevelDataSystem : ComponentSystem {
 	void InitializeLevelData(Component e)
 	{
 		e.levelData.isInitialied = true;
-		e.levelData.currentPlayer = GameObject.Instantiate(e.levelData.playerObj,e.levelData.playerStartPos,Quaternion.identity);
+		e.levelData.currentPlayer = (GameObject) GameObject.Instantiate(e.levelData.playerObj,e.levelData.playerStartPos,Quaternion.identity);
 		cameraSystem.Enabled = true;
 		mapChunkSystem.Enabled = true;
 		// this.Enabled = false;

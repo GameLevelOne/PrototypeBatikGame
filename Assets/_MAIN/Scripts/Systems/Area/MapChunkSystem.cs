@@ -12,8 +12,8 @@ public class MapChunkSystem : ComponentSystem {
 		public MapData mapData;
 	}
 
-	MapDataComponent mapDataComponent;
-	
+	// [Inject] MapDataComponent mapDataComponent;
+
 	bool getMapData = false;
 	bool chunkLoaded = false;
 	Vector2Chunk currentChunk = new Vector2Chunk();
@@ -23,10 +23,6 @@ public class MapChunkSystem : ComponentSystem {
 	int unitPerChunkY;
 	int chunkLength;
 	int chunkWidth;
-
-	void Start(){
-		this.Enabled = false;
-	}
 
 	protected override void OnUpdate()
 	{
@@ -39,11 +35,11 @@ public class MapChunkSystem : ComponentSystem {
 			}
 			getMapData = true;
 		}
-	
 
 		foreach(var e in GetEntities<LevelDataComponent>()){
-			CheckPlayerPosition(e);
+			if(e.levelData.currentPlayer != null) CheckPlayerPosition(e);
 		}
+
 	}
 
 	void CheckPlayerPosition(LevelDataComponent e)
