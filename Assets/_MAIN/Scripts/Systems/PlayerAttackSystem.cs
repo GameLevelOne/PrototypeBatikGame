@@ -39,6 +39,15 @@ public class PlayerAttackSystem : ComponentSystem {
 			int attackMode = input.AttackMode;
 			AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
+			
+			if (player.isSlowMotion || player.isRapidSlashing) {
+				if (animState == AnimationState.START_SLASH) {
+					attack.SpawnSlashEffect(1); //temp
+					attack.isAttacking = false;
+				}
+
+				return;
+			}
 
 			if (attackMode == 0) return;
 
@@ -51,7 +60,7 @@ public class PlayerAttackSystem : ComponentSystem {
 					attack.SpawnSlashEffect(attackMode);
 					attack.isAttacking = false;
 				} else if (animState == AnimationState.START_DODGE && player.isBulletTiming) {
-
+					//
 				}
 			}
 		}

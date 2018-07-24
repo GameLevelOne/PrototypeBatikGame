@@ -56,6 +56,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else if (attackMode == -2) {
 				SetAttack(2f); //COUNTER
 				Debug.Log("Animation Counter");
+			} else if (attackMode == -3) {
+				Debug.Log("Steady for crazy standing");
 			}
 			// else if (attackMode == ) {
 			// 	SetAttack(-1f); //SHOT
@@ -77,6 +79,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#region MOVEMENT
 			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
+
+			if (player.isSlowMotion) {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
+
+				return;
+			} else if (player.isRapidSlashing) {
+				// SetAttack(3f); //RAPID SLASH
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
+
+				return;
+			}
 
 			Vector2 movement = input.MoveDir;
 			
@@ -151,6 +167,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
 				player.isPlayerHit = false;
 				StopAttackAnimation ();
+				break;
+			case AnimationState.AFTER_RAPIDSLASH:
+				input.BulletTimeAttackQty--;
+				if (input.BulletTimeAttackQty == 0) {
+					player.isHitAnEnemy = false;
+					animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
+				}
 				break;
 		}
 	}

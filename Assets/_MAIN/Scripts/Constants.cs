@@ -29,8 +29,9 @@ public static class Constants {
 		public static class Bool
 		{
 			public const string IS_ATTACKING = "IsAttacking";
-			public const string IS_DODGING = "isDodging";
+			public const string IS_DODGING = "IsDodging";
 			public const string IS_MOVING = "IsMoving";
+			public const string IS_RAPID_SLASHING = "IsRapidSlashing";
 		}
 
 	}

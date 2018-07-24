@@ -46,7 +46,7 @@ public class Health : MonoBehaviour {
 
 				player.isPlayerHit = true;
 
-				if (player.isParrying || player.isBulletTiming) {
+				if (player.isParrying || player.isBulletTiming || player.isSlowMotion || player.isRapidSlashing) {
 					Debug.Log ("Player ignored damage");
 				} else if (player.isGuarding) {
 					ReduceHealth (damage * guardReduceDamage);

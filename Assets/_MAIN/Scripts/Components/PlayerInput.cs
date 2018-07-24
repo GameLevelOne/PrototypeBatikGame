@@ -18,6 +18,7 @@ public class PlayerInput : MonoBehaviour {
 
 	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int currentAttack = 0;
+	[SerializeField] int currentBulletTimeAttack = 0;
 	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int currentSteady = 0;
 	[SerializeField] int currentMove = 0;
@@ -82,6 +83,16 @@ public class PlayerInput : MonoBehaviour {
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
 				slashComboVal.Add(currentAttack);
 			}
+		}
+	}
+
+	public int BulletTimeAttackQty {
+		get {return currentBulletTimeAttack;}
+		set {
+			if (currentBulletTimeAttack == value) return;
+			
+			currentBulletTimeAttack = value;
+			Debug.Log("Rasengan Power " + currentBulletTimeAttack);
 		}
 	}
 

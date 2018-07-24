@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool currentIsGuarding = false;
 	[SerializeField] bool currentIsParrying = false;
 	[SerializeField] bool currentIsBulletTiming = false;
+	[SerializeField] bool currentIsRapidSlashing = false;
+	[SerializeField] bool currentIsSlowMotion = false;
 
 	public bool isPlayerHit {
 		get {return currentIsPlayerHit;}
@@ -53,6 +55,24 @@ public class Player : MonoBehaviour {
 			if (currentIsBulletTiming == value) return;
 
 			currentIsBulletTiming = value;
+		}
+	}
+
+	public bool isSlowMotion {
+		get {return currentIsSlowMotion;}
+		set {
+			if (currentIsSlowMotion == value) return;
+
+			currentIsSlowMotion = value;
+		}
+	}
+
+	public bool isRapidSlashing {
+		get {return currentIsRapidSlashing;}
+		set {
+			if (currentIsRapidSlashing == value) return;
+
+			currentIsRapidSlashing = value;
 		}
 	}
 
