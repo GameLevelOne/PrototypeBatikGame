@@ -57,6 +57,7 @@ public class PlayerInputSystem : ComponentSystem {
 					slowDownTimer = 0f;
 					Time.timeScale = 1f;
 					player.isRapidSlashing = true;
+					input.SteadyMode = 0;
 				}
 
 				return;
@@ -172,6 +173,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isBulletTiming = false;
 					input.isDodging = false;
 					ChangeDir(i, midValue, midValue);
+					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
 					input.AttackMode = -3;
 					player.isSlowMotion = true;
 					Debug.Log("Start BulletTime");

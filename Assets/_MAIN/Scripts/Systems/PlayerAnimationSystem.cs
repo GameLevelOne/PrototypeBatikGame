@@ -58,6 +58,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			if (player.isSlowMotion) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
@@ -66,7 +67,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				}
-
+				
 				StartCheckAnimation();
 				return;
 			}

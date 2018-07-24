@@ -519,6 +519,8 @@ MonoBehaviour:
   currentIsGuarding: 0
   currentIsParrying: 0
   currentIsBulletTiming: 0
+  currentIsRapidSlashing: 0
+  currentIsSlowMotion: 0
 --- !u!114 &114236418279336380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -577,6 +579,7 @@ MonoBehaviour:
   dodgeCooldown: 1
   slashComboVal: 
   currentAttack: 0
+  currentBulletTimeAttack: 0
   currentSteady: 0
   currentMove: 0
   currentIsDodging: 0

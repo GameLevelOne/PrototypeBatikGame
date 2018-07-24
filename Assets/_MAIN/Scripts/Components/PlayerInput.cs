@@ -62,7 +62,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//STAND 0, DIE -1, CHARGE 1, GUARD 2
+	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BULLET TIME -2
 	public int SteadyMode {
 		get {return currentSteady;}
 		set {
