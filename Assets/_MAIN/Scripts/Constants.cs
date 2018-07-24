@@ -23,7 +23,7 @@ public static class Constants {
 
 		public static class Trigger
 		{
-			
+			public const string EXPLODE = "Explode";
 		}
 
 		public static class Bool
