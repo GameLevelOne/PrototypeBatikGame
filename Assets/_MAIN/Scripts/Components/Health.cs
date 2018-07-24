@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
 
 public class Health : MonoBehaviour {
-	public bool isDead;
 	public float guardReduceDamage;
+	public float damage;
 
 	Role role;
 	Player player;
 	Enemy enemy;
 
-	[SerializeField] float currentHP;
+	[SerializeField] float healthPower;
+	[SerializeField] float initialDamage;
 
-	public float HP {
-		get {return currentHP;}
+	public float HealthPower {
+		get {return healthPower;}
 		set {
-			if (currentHP == value) return;
+			if (healthPower == value) return;
 
-			currentHP = value;
+			healthPower = value;
 		}
 	}
 
@@ -32,55 +33,54 @@ public class Health : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D (Collider2D col) {
-		if (isDead) return;
-
 		if (col.GetComponent<Damage>() == null) return;
 		
-		float damage = col.GetComponent<Damage>().damage;
+		damage = col.GetComponent<Damage>().damage;
+		initialDamage = damage;
 
 		if (role.gameRole == GameRole.Player) {
+			if (player.IsPlayerDie) return;
+
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
 				Enemy enemy = col.GetComponentInParent<Enemy>();
 				player.enemyThatHitsPlayer = enemy;
-				// enemy.isHitAPlayer = true;
+				// enemy.IsHitAPlayer = true;
 
-				player.isPlayerHit = true;
+				player.IsPlayerHit = true;
 
-				if (player.isParrying || player.isBulletTiming || player.isSlowMotion || player.isRapidSlashing) {
+				if (player.IsParrying || player.IsBulletTiming || player.IsSlowMotion || player.IsRapidSlashing) {
 					Debug.Log ("Player ignored damage");
-				} else if (player.isGuarding) {
-					ReduceHealth (damage * guardReduceDamage);
+				} else if (player.IsGuarding) {
+					player.IsPlayerGetHurt = true;
+					damage *= guardReduceDamage;
 				} else {
-					ReduceHealth (damage);
+					player.IsPlayerGetHurt = true;
+					damage = initialDamage;
 				}
 
 				// Invoke ("StopResponseHitPlayer", 0.5f);
 			}
 		} else if (role.gameRole == GameRole.Enemy) {
+			if (enemy.IsEnemyDie) return;
+			
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
 				Player player = col.GetComponentInParent<Player>();
 				enemy.playerThatHitsEnemy = player;
-				player.isHitAnEnemy = true;
+				player.IsHitAnEnemy = true;
 
-				enemy.isEnemyHit = true;
-
-				ReduceHealth (damage);
+				enemy.IsEnemyHit = true;
+				
+				enemy.IsEnemyGetHurt = true;
+				damage = initialDamage;
 			} else if (col.tag == Constants.Tag.PLAYER_COUNTER) {
-				ReduceHealth (damage);
-				Debug.Log("Enemy is stunned");
+				enemy.IsEnemyGetHurt = true;
+				damage = initialDamage;
+				Debug.Log("Enemy Is stunned");
 			}
 		}
 	}
 
-	void ReduceHealth (float value) {
-		HP -= value;
-
-		if (HP <= 0f) {
-			isDead = true;
-		}
-	}
-
 	// void StopResponseHitPlayer () {
-	// 	player.isPlayerHit = false;
+	// 	player.IsPlayerHit = false;
 	// }
 }

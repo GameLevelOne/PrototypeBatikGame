@@ -50,7 +50,7 @@ public class PlayerAttackSystem : ComponentSystem {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
 					ResetSlashEffect(attack, attackMode);
 				} else if (animState == AnimationState.START_RAPIDSLASH) {
-					if (player.isSlowMotion || player.isRapidSlashing) {
+					if (player.IsSlowMotion || player.IsRapidSlashing) {
 						ResetSlashEffect(attack, attackMode);
 					}
 				}

@@ -61,9 +61,9 @@ public class EnemyAnimationSystem : ComponentSystem {
 			}
 
 			#region ACTION
-			if (!anim.isCheckAfterAnimation) {
+			if (!anim.IsCheckAfterAnimation) {
 				CheckAfterAnimation (anim.animState);
-				anim.isCheckAfterAnimation = true;
+				anim.IsCheckAfterAnimation = true;
 			}
 
 			if (input.isDodging) {

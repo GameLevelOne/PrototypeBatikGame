@@ -17,16 +17,15 @@ public class PlayerInput : MonoBehaviour {
 	public List<int> slashComboVal;
 
 	Vector2 currentDir = Vector2.zero;
-	[SerializeField] int currentAttack = 0;
-	[SerializeField] int currentBulletTimeAttack = 0;
+	[SerializeField] int attackMode = 0;
+	[SerializeField] int bulletTimeAttackQty = 0;
 	// [SerializeField] int currentChargeAttack = 0;
-	[SerializeField] int currentSteady = 0;
-	[SerializeField] int currentMove = 0;
-	[SerializeField] bool currentIsDodging = false;
+	[SerializeField] int steadyMode = 0;
+	[SerializeField] int moveMode = 0;
+	[SerializeField] bool isDodging = false;
+	[SerializeField] bool isChangeTool = false;
+	[SerializeField] bool isUsingTool = false;
 	[SerializeField] bool isReadyForDodging = true;
-
-	[SerializeField] bool isUsingTool;
-
 
 	public Vector2 MoveDir {
 		get {return currentDir;}
@@ -39,67 +38,80 @@ public class PlayerInput : MonoBehaviour {
 
 	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2
 	public int MoveMode {
-		get {return currentMove;}
+		get {return moveMode;}
 		set {
-			if (currentMove == value) return;
+			if (moveMode == value) return;
 
-			currentMove = value;
+			moveMode = value;
 		}
 	}
 
-	public bool isDodging {
-		get {return currentIsDodging;}
+	public bool IsDodging {
+		get {return isDodging;}
 		set {
-			if (currentIsDodging == value) return;
+			if (isDodging == value) return;
 
 			if (value && isReadyForDodging && (MoveDir != Vector2.zero)) {
-				currentIsDodging = true;
+				isDodging = true;
 				isReadyForDodging = false;
 				Invoke("ResetDodge", dodgeCooldown);
 			} else {
-				currentIsDodging = false;
+				isDodging = false;
 			}
 		}
 	}
 
 	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BULLET TIME -2
 	public int SteadyMode {
-		get {return currentSteady;}
+		get {return steadyMode;}
 		set {
-			if (currentSteady == value) return;
+			if (steadyMode == value) return;
 
-			currentSteady = value;
+			steadyMode = value;
 		}
 	}
 
 	//SLASH 1-3, CHARGE -1, COUNTER -2, MINATO -3
 	public int AttackMode {  
-		get {return currentAttack;}
+		get {return attackMode;}
 		set {
-			if (currentAttack == value) return;
+			if (attackMode == value) return;
 			
-			currentAttack = value;
+			attackMode = value;
 			
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
-				slashComboVal.Add(currentAttack);
+				slashComboVal.Add(attackMode);
 			}
 		}
 	}
 
 	public int BulletTimeAttackQty {
-		get {return currentBulletTimeAttack;}
+		get {return bulletTimeAttackQty;}
 		set {
-			if (currentBulletTimeAttack == value) return;
+			if (bulletTimeAttackQty == value) return;
 			
-			currentBulletTimeAttack = value;
-			Debug.Log("Rasengan Power " + currentBulletTimeAttack);
+			bulletTimeAttackQty = value;
+		}
+	}
+
+	public bool IsChangeTool
+	{
+		get {return isChangeTool;}
+		set {
+			if (isChangeTool == value) return;
+			
+			isChangeTool = value;
 		}
 	}
 
 	public bool IsUsingTool
 	{
-		get{return isUsingTool;}
-		set{isUsingTool = value;}
+		get {return isUsingTool;}
+		set {
+			if (isUsingTool == value) return;
+			
+			isUsingTool = value;
+		}
 	}
 
 	void ResetDodge () {

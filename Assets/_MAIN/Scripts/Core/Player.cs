@@ -3,76 +3,94 @@
 public class Player : MonoBehaviour {
 	public Enemy enemyThatHitsPlayer;
 	    
-    [SerializeField] bool currentIsPlayerHit = false;
-    [SerializeField] bool currentIsHitAnEnemy = false;
-	[SerializeField] bool currentIsGuarding = false;
-	[SerializeField] bool currentIsParrying = false;
-	[SerializeField] bool currentIsBulletTiming = false;
-	[SerializeField] bool currentIsRapidSlashing = false;
-	[SerializeField] bool currentIsSlowMotion = false;
+    [SerializeField] bool isPlayerHit = false;
+    [SerializeField] bool isPlayerGetHurt = false;
+    [SerializeField] bool isPlayerDie = false;
+    [SerializeField] bool isHitAnEnemy = false;
+	[SerializeField] bool isGuarding = false;
+	[SerializeField] bool isParrying = false;
+	[SerializeField] bool isBulletTiming = false;
+	[SerializeField] bool isRapidSlashing = false;
+	[SerializeField] bool isSlowMotion = false;
 
-	public bool isPlayerHit {
-		get {return currentIsPlayerHit;}
+	public bool IsPlayerHit {
+		get {return isPlayerHit;}
 		set {
-			if (currentIsPlayerHit == value) return;
+			if (isPlayerHit == value) return;
 
-			currentIsPlayerHit = value;
-			Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
+			isPlayerHit = value;
 		}
 	}
 
-	public bool isHitAnEnemy {
-		get {return currentIsHitAnEnemy;}
+	public bool IsPlayerGetHurt {
+		get {return isPlayerGetHurt;}
 		set {
-			if (currentIsHitAnEnemy == value) return;
+			if (isPlayerGetHurt == value) return;
 
-			currentIsHitAnEnemy = value;
-			Debug.Log("currentIsPlayerHit " + currentIsHitAnEnemy);
+			isPlayerGetHurt = value;
+		}
+	}
+
+	public bool IsPlayerDie {
+		get {return isPlayerDie;}
+		set {
+			if (isPlayerDie == value) return;
+
+			isPlayerDie = value;
+		}
+	}
+
+	public bool IsHitAnEnemy {
+		get {return isHitAnEnemy;}
+		set {
+			if (isHitAnEnemy == value) return;
+
+			isHitAnEnemy = value;
 		}
 	}
 	
-	public bool isGuarding {
-		get {return currentIsGuarding;}
+	public bool IsGuarding {
+		get {return isGuarding;}
 		set {
-			if (currentIsGuarding == value) return;
+			if (isGuarding == value) return;
 
-			currentIsGuarding = value;
+			isGuarding = value;
 		}
 	}
 	
-	public bool isParrying {
-		get {return currentIsParrying;}
+	public bool IsParrying {
+		get {return isParrying;}
 		set {
-			if (currentIsParrying == value) return;
+			if (isParrying == value) return;
 
-			currentIsParrying = value;
+			isParrying = value;
 		}
 	}
 	
-	public bool isBulletTiming {
-		get {return currentIsBulletTiming;}
+	public bool IsBulletTiming {
+		get {return isBulletTiming;}
 		set {
-			if (currentIsBulletTiming == value) return;
+			if (isBulletTiming == value) return;
 
-			currentIsBulletTiming = value;
+			isBulletTiming = value;
 		}
 	}
 
-	public bool isSlowMotion {
-		get {return currentIsSlowMotion;}
+	public bool IsSlowMotion {
+		get {return isSlowMotion;}
 		set {
-			if (currentIsSlowMotion == value) return;
+			if (isSlowMotion == value) return;
 
-			currentIsSlowMotion = value;
+			isSlowMotion = value;
 		}
 	}
 
-	public bool isRapidSlashing {
-		get {return currentIsRapidSlashing;}
+	public bool IsRapidSlashing {
+		get {return isRapidSlashing;}
 		set {
-			if (currentIsRapidSlashing == value) return;
+			if (isRapidSlashing == value) return;
 
-			currentIsRapidSlashing = value;
+			isRapidSlashing = value;
 		}
 	}
 
