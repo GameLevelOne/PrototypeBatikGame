@@ -113,6 +113,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.AFTER_COUNTER:
 				//
 				break;
+			case AnimationState.AFTER_RAPIDSLASH:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;

@@ -39,15 +39,6 @@ public class PlayerAttackSystem : ComponentSystem {
 			int attackMode = input.AttackMode;
 			AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
-			
-			if (player.isSlowMotion || player.isRapidSlashing) {
-				if (animState == AnimationState.START_SLASH) {
-					attack.SpawnSlashEffect(1); //temp
-					attack.isAttacking = false;
-				}
-
-				return;
-			}
 
 			if (attackMode == 0) return;
 
@@ -57,12 +48,18 @@ public class PlayerAttackSystem : ComponentSystem {
 				return;
 			} else {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
-					attack.SpawnSlashEffect(attackMode);
-					attack.isAttacking = false;
-				} else if (animState == AnimationState.START_DODGE && player.isBulletTiming) {
-					//
+					ResetSlashEffect(attack, attackMode);
+				} else if (animState == AnimationState.START_RAPIDSLASH) {
+					if (player.isSlowMotion || player.isRapidSlashing) {
+						ResetSlashEffect(attack, attackMode);
+					}
 				}
 			}
 		}
+	}
+
+	void ResetSlashEffect (Attack atk, int mode) {
+		atk.SpawnSlashEffect(mode); //temp
+		atk.isAttacking = false;
 	}
 }

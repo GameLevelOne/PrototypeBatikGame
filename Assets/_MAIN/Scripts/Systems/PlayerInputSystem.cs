@@ -49,6 +49,7 @@ public class PlayerInputSystem : ComponentSystem {
 					slowDownTimer += Time.deltaTime;
 
 					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+						input.AttackMode = 1;
 						input.BulletTimeAttackQty++;
 					}
 				} else {
@@ -162,7 +163,6 @@ public class PlayerInputSystem : ComponentSystem {
 				} else {
 					player.isBulletTiming = false;
 					player.isPlayerHit = false;
-					input.isDodging = false;
 					bulletTimeTimer = 0f;
 				}
 			}	
@@ -170,6 +170,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.isBulletTiming) {
 				if (player.isPlayerHit) {
 					player.isBulletTiming = false;
+					input.isDodging = false;
 					ChangeDir(i, midValue, midValue);
 					input.AttackMode = -3;
 					player.isSlowMotion = true;
