@@ -22,6 +22,8 @@ public class ToolSystem : ComponentSystem {
 
 	public PlayerTool tool;
 
+	int toolType;
+
 	protected override void OnUpdate()
 	{
 		if (toolData.Length == 0) return;
@@ -36,7 +38,7 @@ public class ToolSystem : ComponentSystem {
 			bool isUsingTool = input.IsUsingTool;
 
 			StandAnimationState standAnimState = anim.standAnimState;
-			int toolType = (int)tool.currentTool;
+			toolType = (int)tool.currentTool;
 
 			if (isChangeTool) {
 				ChangeTool();
@@ -45,8 +47,11 @@ public class ToolSystem : ComponentSystem {
 			} 
 			
 			if (isUsingTool) {
-				if (standAnimState == StandAnimationState.START_USING_TOOL) {
-					UseTool ();
+				if (!tool.IsActTool) {
+					if (standAnimState == StandAnimationState.START_USING_TOOL) {
+						UseTool ();
+						tool.IsActTool = true;
+					}
 				}
 			}
 			
@@ -173,7 +178,7 @@ public class ToolSystem : ComponentSystem {
 		//break some enemy armor
 		
 		//small damage to enemy
-		
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseNet()

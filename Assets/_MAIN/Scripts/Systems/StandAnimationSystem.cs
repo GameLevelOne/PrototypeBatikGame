@@ -81,6 +81,7 @@ public class StandAnimationSystem : ComponentSystem {
 			animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
 			input.IsUsingTool = false;
+			stand.IsActTool = false;
 		}
 	}
 

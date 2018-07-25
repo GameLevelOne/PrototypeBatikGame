@@ -435,6 +435,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1286858066 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4723722416754214, guid: ee85469eef14e0b4394d2114562a3d82,
+    type: 2}
+  m_PrefabInternal: {fileID: 1358115072}
 --- !u!1001 &1358115072
 Prefab:
   m_ObjectHideFlags: 0
@@ -479,6 +484,17 @@ Prefab:
       propertyPath: textToolName
       value: 
       objectReference: {fileID: 1942355423}
+    - target: {fileID: 114745025338561846, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: areaSpawnPos
+      value: 
+      objectReference: {fileID: 1286858066}
+    - target: {fileID: 114745025338561846, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: hammerAreaEffectObj
+      value: 
+      objectReference: {fileID: 1329964797512392, guid: 1c0d31ad41e5b8944a030b45fdad7564,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee85469eef14e0b4394d2114562a3d82, type: 2}
   m_IsPrefabParent: 0
