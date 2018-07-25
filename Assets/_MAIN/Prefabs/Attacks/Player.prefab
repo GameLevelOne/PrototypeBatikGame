@@ -793,13 +793,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTool: 0
-  hammerAreaEffectObj: {fileID: 0}
+  areaSpawnPos: {fileID: 4723722416754214}
+  arrowObj: {fileID: 1913286693341378, guid: 46cd7fa7ab0e9b745983ebda3077e3a1, type: 2}
+  hookObj: {fileID: 0}
+  bombObj: {fileID: 0}
+  hammerAreaEffectObj: {fileID: 1329964797512392, guid: 1c0d31ad41e5b8944a030b45fdad7564,
+    type: 2}
+  netObj: {fileID: 0}
   shovelAreaEffectObj: {fileID: 0}
   bootsAreaEffectObj: {fileID: 0}
   magicMedallionAreaEffectObj: {fileID: 0}
   powerBraceletAreaEffectObj: {fileID: 0}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
+  isActTool: 0
 --- !u!114 &114842938970828302
 MonoBehaviour:
   m_ObjectHideFlags: 1

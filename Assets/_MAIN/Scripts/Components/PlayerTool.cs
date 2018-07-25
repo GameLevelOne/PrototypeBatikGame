@@ -31,7 +31,7 @@ public class PlayerTool : MonoBehaviour {
 
 	public Transform areaSpawnPos;
 	
-	public GameObject bowObj;
+	public GameObject arrowObj;
 	public GameObject hookObj;
 	public GameObject bombObj;
 	public GameObject hammerAreaEffectObj;
@@ -76,7 +76,7 @@ public class PlayerTool : MonoBehaviour {
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1:
-                SpawnObj (bowObj);
+                SpawnObj (arrowObj);
                 break;
             case 2:
                 SpawnObj (hookObj);
@@ -95,7 +95,7 @@ public class PlayerTool : MonoBehaviour {
 
     void SpawnObj (GameObject obj) {
         GameObject spawnedBullet = Instantiate(obj, areaSpawnPos.position, SetFacing());
-        spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
+        // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
         spawnedBullet.SetActive(true);
     }
 

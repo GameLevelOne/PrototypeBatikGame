@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 
+
+
 public class Arrow : MonoBehaviour {
 	public float speed;
 	public Rigidbody2D rb;
 
 	bool isShot = false;
+	bool isHit = false;
 	
 	public bool IsShot {
 		get {return isShot;}
@@ -13,6 +16,20 @@ public class Arrow : MonoBehaviour {
 
 			isShot = value;
 		}
+	}
+	
+	public bool IsHit {
+		get {return isHit;}
+		set {
+			if (isHit == isHit) return;
+
+			isHit = value;
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D col) {
+		//Check if hit something (by tag)
+		IsHit = true;
 	}
 
 	// void Awake () {
