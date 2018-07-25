@@ -19,6 +19,7 @@ public static class Constants {
 			public const string IDLE_MODE = "IdleMode";
 			public const string FACE_X = "FaceX";
 			public const string FACE_Y = "FaceY";
+			public const string TOOL_TYPE = "ToolType";
 		}
 
 		public static class Trigger
@@ -32,6 +33,7 @@ public static class Constants {
 			public const string IS_DODGING = "IsDodging";
 			public const string IS_MOVING = "IsMoving";
 			public const string IS_RAPID_SLASHING = "IsRapidSlashing";
+			public const string IS_USING_TOOL = "IsUsingTool";
 		}
 
 	}

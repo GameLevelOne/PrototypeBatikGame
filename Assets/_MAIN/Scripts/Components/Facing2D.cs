@@ -2,7 +2,8 @@
 
 public class Facing2D : MonoBehaviour {
 	public Transform[] attackDirections;
-	public Transform[] weakDirections = new Transform[]{};
+	// public Transform[] weakDirections = new Transform[]{};
+	public bool isNotPlayerNOrEnemy = false;
 	public GameObject attackArea;
 	public GameObject blindArea;
 	public GameObject attackDirParent;
@@ -10,6 +11,8 @@ public class Facing2D : MonoBehaviour {
 	int CurDirID = 0;
 
 	void Awake () {
+		if (isNotPlayerNOrEnemy) return;
+
 		attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
 
 		// weakDirections = attackDirections;
@@ -24,10 +27,13 @@ public class Facing2D : MonoBehaviour {
 			if (value == 0) return;
 			
 			CurDirID = value;
+			
+			if (isNotPlayerNOrEnemy) return;
+			
 			attackArea.transform.position = attackDirections[CurDirID].position;
 
 			int tempDirID = CurDirID;
-			if (tempDirID >= 4 ) {
+			if (tempDirID >= 5 ) {
 				blindArea.transform.position = attackDirections[tempDirID - 4].position;
 			} else {
 				blindArea.transform.position = attackDirections[tempDirID + 4].position;

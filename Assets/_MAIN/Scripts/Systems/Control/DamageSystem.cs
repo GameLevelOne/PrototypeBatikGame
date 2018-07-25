@@ -26,8 +26,6 @@ public class DamageSystem : ComponentSystem {
 			health = damageData.Health[i];
 			role = damageData.Role[i];
 			
-			Debug.Log("Role "+i+ ": GameRole:" +damageData.Role[i].gameRole);
-
 			if (role.gameRole == GameRole.Player) {
 				player = health.GetComponent<Player>();
 

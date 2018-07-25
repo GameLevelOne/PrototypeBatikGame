@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1303155614004148
 GameObject:
   m_ObjectHideFlags: 1
@@ -515,6 +515,7 @@ MonoBehaviour:
   animationControl: {fileID: 114873867662290916}
   animator: {fileID: 95823083219801808}
   animState: 0
+  standAnimState: 0
   isCanAttack: 1
   isCheckAfterAnimation: 0
 --- !u!114 &114168272210199996
@@ -586,7 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDirections: []
-  weakDirections: []
+  isNotPlayerNOrEnemy: 0
   attackArea: {fileID: 1603999756979192}
   blindArea: {fileID: 1066008283441426}
   attackDirParent: {fileID: 1788572253959116}

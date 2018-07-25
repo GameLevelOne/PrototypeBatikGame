@@ -10,10 +10,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Player> Player;
-		public ComponentArray<PlayerTool> PlayerTool;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
-		// public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AnimationData animationData;
 	
@@ -22,8 +20,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	PlayerTool playerTool;
 	Animation2D anim;
 	Facing2D facing;
-	// Attack attack;
-	// Role role;
+	
 	Animator animator;
 	Vector2 currentMove;
 	Vector2 currentDir;
@@ -43,14 +40,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
 			player = animationData.Player[i];
-			playerTool = animationData.PlayerTool[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
-			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
-			// role = anim.role;
 
 			#region ACTION
 			if (input.IsDodging) {
@@ -89,17 +83,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// 	SetAttack(-1f); //SHOT
 			// }
 
-			if (input.IsUsingTool) {
-				SetTool((int)playerTool.currentTool);
-			}
-
 			StartCheckAnimation();
 			#endregion
 
 			#region MOVEMENT
 			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
-
+			
 			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
@@ -140,12 +130,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
 	}
 
-	void SetTool (float mode) { //
-		// animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
-		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
-		Debug.Log("Use tool animation mode : " + mode);
-	}
-
 	void SetAnimation (string animName, float animValue, bool isVertical) {
 		Vector2 movement = input.MoveDir;
 		animator.SetFloat(animName, animValue);
@@ -162,8 +146,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
-	void CheckAfterAnimation (AnimationState animState) {
-		switch (animState) {
+	void CheckAfterAnimation (AnimationState state) {
+		switch (state) {
 			case AnimationState.AFTER_SLASH:
 				if (input.slashComboVal.Count > 0) {
 					int slashComboVal = input.slashComboVal[0];

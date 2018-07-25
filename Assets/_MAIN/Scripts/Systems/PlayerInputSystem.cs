@@ -15,7 +15,9 @@ public class PlayerInputSystem : ComponentSystem {
 		public ComponentArray<Health> Health;
 	}
 	[InjectAttribute] InputData inputData;
-	// [InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] ToolSystem toolSystem;
+
+	public PlayerInput input;
 
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
@@ -27,12 +29,16 @@ public class PlayerInputSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
+
+		float deltaTime = Time.deltaTime;
 		
 		for (int i=0; i<inputData.Length; i++) {
-			PlayerInput input = inputData.PlayerInput[i];
+			input = inputData.PlayerInput[i];
 			Player player = inputData.Player[i];
 			// PlayerTool playerTool = inputData.PlayerTool[i];
 			Health health = inputData.Health[i];
+			PlayerTool tool = toolSystem.tool;
+
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
@@ -48,7 +54,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			if (player.IsSlowMotion || player.IsRapidSlashing) {
 				if (slowDownTimer < bulletTimeDuration) {
-					slowDownTimer += Time.deltaTime;
+					slowDownTimer += deltaTime;
 
 					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 						input.AttackMode = 1;
@@ -89,7 +95,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Attack
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
-				chargeAttackTimer += Time.deltaTime;
+				chargeAttackTimer += deltaTime;
 				
 				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
@@ -97,7 +103,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 			} else {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-					attackAwayTimer += Time.deltaTime;
+					attackAwayTimer += deltaTime;
 				} else {
 					input.slashComboVal.Clear();
 					attackAwayTimer = 0f;
@@ -137,7 +143,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 				if (parryTimer < guardParryDelay) {
-					parryTimer += Time.deltaTime;
+					parryTimer += deltaTime;
 				} else {
 					player.IsParrying = false;
 					player.IsPlayerHit = false;
@@ -161,7 +167,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			if (input.IsDodging) {
 				if (bulletTimeTimer < bulletTimeDelay) {
-					bulletTimeTimer += Time.deltaTime;
+					bulletTimeTimer += deltaTime;
 					player.IsBulletTiming = true;
 				} else {
 					player.IsBulletTiming = false;
@@ -212,7 +218,9 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetKeyDown(KeyCode.Space)){
-				if (!input.IsUsingTool) {
+				int toolType = (int)tool.currentTool;
+
+				if (!input.IsUsingTool && (toolType != 0)) {
 					Debug.Log("Input Use Tool");
 					input.IsUsingTool = true;
 					// toolSystem.UseTool(playerTool);

@@ -6,11 +6,13 @@ public class ToolSystem : ComponentSystem {
 
 	public struct ToolData {
 		public readonly int Length;
-		public ComponentArray<PlayerInput> PlayerInput;
+		// public ComponentArray<PlayerInput> PlayerInput;
 		// public ComponentArray<Player> Player;
 		public ComponentArray<PlayerTool> PlayerTool;
+		public ComponentArray<Animation2D> Animation;
 	}
 	[InjectAttribute] ToolData toolData;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	
 	// public struct ToolComponent
 	// {
@@ -18,20 +20,23 @@ public class ToolSystem : ComponentSystem {
 	// }
 	// PlayerTool playerTool;
 
-	PlayerInput input;
-	PlayerTool playerTool;
+	public PlayerTool tool;
 
 	protected override void OnUpdate()
 	{
 		if (toolData.Length == 0) return;
 		
 		for (int i=0; i<toolData.Length; i++) {
-			input = toolData.PlayerInput[i];
+			PlayerInput input = playerInputSystem.input;
 			// Player player = toolData.Player[i];
-			playerTool = toolData.PlayerTool[i];
+			tool = toolData.PlayerTool[i];
+			Animation2D anim = toolData.Animation[i];
 
 			bool isChangeTool = input.IsChangeTool;
 			bool isUsingTool = input.IsUsingTool;
+
+			StandAnimationState standAnimState = anim.standAnimState;
+			int toolType = (int)tool.currentTool;
 
 			if (isChangeTool) {
 				ChangeTool();
@@ -40,9 +45,17 @@ public class ToolSystem : ComponentSystem {
 			} 
 			
 			if (isUsingTool) {
-				UseTool ();
-				Debug.Log("Use Tool");
+				if (standAnimState == StandAnimationState.START_USING_TOOL) {
+					UseTool ();
+				}
 			}
+			
+			// if (isUsingTool) {
+			// 	UseTool ();
+			// 	Debug.Log("Use Tool");
+			// }
+
+
 		}
 
 		//if player input button action, do use tool.
@@ -66,7 +79,7 @@ public class ToolSystem : ComponentSystem {
 
 	public void ChangeTool ()
 	{
-		int current = (int) playerTool.currentTool;
+		int current = (int) tool.currentTool;
 		
 		if(current >= ((int)ToolType.Boots)){
 			current = 1;
@@ -74,51 +87,49 @@ public class ToolSystem : ComponentSystem {
 			current++;
 		}
 
-		playerTool.currentTool = (ToolType) current;
-		playerTool.textToolName.text = ((ToolType) current).ToString();
+		tool.currentTool = (ToolType) current;
+		tool.textToolName.text = ((ToolType) current).ToString();
 	}
 
 	public void UseTool ()
 	{
-		if(playerTool.currentTool == ToolType.None) return;
-		
-		if(playerTool.currentTool == ToolType.Bow){
+		if (tool.currentTool == ToolType.Bow){
 			UseBow();
-		}else if(playerTool.currentTool == ToolType.Hook){
+		} else if (tool.currentTool == ToolType.Hook){
 			UseHook();
-		}else if(playerTool.currentTool == ToolType.Bomb){
+		} else if (tool.currentTool == ToolType.Bomb){
 			UseBomb();
-		}else if(playerTool.currentTool == ToolType.Hammer){
+		} else if (tool.currentTool == ToolType.Hammer){
 			UseHammer();
-		}else if(playerTool.currentTool == ToolType.Net){
+		} else if (tool.currentTool == ToolType.Net){
 			UseNet();
-		}else if(playerTool.currentTool == ToolType.FishingRod){
+		} else if (tool.currentTool == ToolType.FishingRod){
 			UseFisingRod();
-		}else if(playerTool.currentTool == ToolType.Container1){
+		} else if (tool.currentTool == ToolType.Container1){
 			UseContainer1();
-		}else if(playerTool.currentTool == ToolType.Container2){
+		} else if (tool.currentTool == ToolType.Container2){
 			UseContainer2();
-		}else if(playerTool.currentTool == ToolType.Container3){
+		} else if (tool.currentTool == ToolType.Container3){
 			UseContainer3();
-		}else if(playerTool.currentTool == ToolType.Container4){
+		} else if (tool.currentTool == ToolType.Container4){
 			UseContainer4();
-		}else if(playerTool.currentTool == ToolType.Shovel){
+		} else if (tool.currentTool == ToolType.Shovel){
 			UseShovel();
-		}else if(playerTool.currentTool == ToolType.Lantern){
+		} else if (tool.currentTool == ToolType.Lantern){
 			UseLantern();
-		}else if(playerTool.currentTool == ToolType.InvisibilityCloak){
+		} else if (tool.currentTool == ToolType.InvisibilityCloak){
 			UseInvisibilityCloack();
-		}else if(playerTool.currentTool == ToolType.MagicMedallion){
+		} else if (tool.currentTool == ToolType.MagicMedallion){
 			UseMagicMedallion();
-		}else if(playerTool.currentTool == ToolType.FastTravel){
+		} else if (tool.currentTool == ToolType.FastTravel){
 			UseFastTravel();
-		}else if(playerTool.currentTool == ToolType.Flippers){
+		} else if (tool.currentTool == ToolType.Flippers){
 			UseFlippers();
-		}else if(playerTool.currentTool == ToolType.Boots){
+		} else if (tool.currentTool == ToolType.Boots){
 			UseBoots();
 		}
 		
-		input.IsUsingTool = false;
+		// input.IsUsingTool = false;
 	}
 
 	void UseBow()

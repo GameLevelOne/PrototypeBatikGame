@@ -13,11 +13,17 @@ public enum AnimationState {
 	AFTER_RAPIDSLASH
 }
 
+public enum StandAnimationState {
+	START_USING_TOOL,
+	AFTER_USING_TOOL
+}
+
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	// public bool isAnimating;
 	public Animator animator;
 	public AnimationState animState;
+	public StandAnimationState standAnimState;
 	// public Role role; //for Animation system
 	public bool isCanAttack = false;
 
@@ -46,11 +52,15 @@ public class Animation2D : MonoBehaviour {
 	void OnEnable () {
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
+		animationControl.OnStartStandAnimation += SetStandStateAnimation;
+		animationControl.OnExitStandAnimation += SetStandStateAnimation;
 	}
 
 	void OnDisable () {
 		animationControl.OnStartAnimation -= StartAnimation;
 		animationControl.OnExitAnimation -= ExitAnimation;
+		animationControl.OnStartStandAnimation -= SetStandStateAnimation;
+		animationControl.OnExitStandAnimation -= SetStandStateAnimation;
 	}
 
 	// public bool isCheckBeforeAnimation {
@@ -71,6 +81,7 @@ public class Animation2D : MonoBehaviour {
 		}
 	}
 
+	#region Player and Enemy Animation
 	void StartAnimation (AnimationState state) {
 		//enable attack effect
 		switch (state) {
@@ -123,4 +134,12 @@ public class Animation2D : MonoBehaviour {
 		
 		animState = state;
 	}
+	#endregion
+
+	#region Stand Animation
+	void SetStandStateAnimation (StandAnimationState state) {
+		isCheckAfterAnimation = false;
+		standAnimState = state;
+	}
+	#endregion
 }
