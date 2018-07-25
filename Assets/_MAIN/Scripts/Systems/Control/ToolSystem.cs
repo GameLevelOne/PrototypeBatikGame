@@ -4,35 +4,69 @@ using UnityEngine;
 
 public class ToolSystem : ComponentSystem {
 
-	public struct ToolComponent
-	{
-		public PlayerTool playerTool;
+	public struct ToolData {
+		public readonly int Length;
+		public ComponentArray<PlayerInput> PlayerInput;
+		// public ComponentArray<Player> Player;
+		public ComponentArray<PlayerTool> PlayerTool;
 	}
+	[InjectAttribute] ToolData toolData;
+	
+	// public struct ToolComponent
+	// {
+	// 	public PlayerTool playerTool;
+	// }
+	// PlayerTool playerTool;
+
+	PlayerInput input;
+	PlayerTool playerTool;
 
 	protected override void OnUpdate()
 	{
-		//if player input button action, do use tool.
-		if(Input.GetKeyDown(KeyCode.Space)){
-			foreach(var e in GetEntities<ToolComponent>()){
-				if(!e.playerTool.isUsingTool){
-					e.playerTool.isUsingTool = true;
-					UseTool(e);
-				}
+		if (toolData.Length == 0) return;
+		
+		for (int i=0; i<toolData.Length; i++) {
+			input = toolData.PlayerInput[i];
+			// Player player = toolData.Player[i];
+			playerTool = toolData.PlayerTool[i];
+
+			bool isChangeTool = input.IsChangeTool;
+			bool isUsingTool = input.IsUsingTool;
+
+			if (isChangeTool) {
+				ChangeTool();
+				Debug.Log("Change Tool");
+				input.IsChangeTool = false;
+			} 
+			
+			if (isUsingTool) {
+				UseTool ();
+				Debug.Log("Use Tool");
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.C)){
-			foreach(var e in GetEntities<ToolComponent>()){
-				if(!e.playerTool.isUsingTool){
-					ChangeTool(e);
-				}
-			}
-		}
+		//if player input button action, do use tool.
+		// if(Input.GetKeyDown(KeyCode.Space)){
+		// 	foreach(var e in GetEntities<ToolComponent>()){
+		// 		if(!e.playerTool.isUsingTool){
+		// 			e.playerTool.isUsingTool = true;
+		// 			UseTool(e);
+		// 		}
+		// 	}
+		// }
+
+		// if(Input.GetKeyDown(KeyCode.C)){
+		// 	foreach(var e in GetEntities<ToolComponent>()){
+		// 		if(!e.playerTool.isUsingTool){
+		// 			ChangeTool(e);
+		// 		}
+		// 	}
+		// }
 	}
 
-	public void ChangeTool(ToolComponent e)
+	public void ChangeTool ()
 	{
-		int current = (int) e.playerTool.currentTool;
+		int current = (int) playerTool.currentTool;
 		
 		if(current >= ((int)ToolType.Boots)){
 			current = 1;
@@ -40,50 +74,51 @@ public class ToolSystem : ComponentSystem {
 			current++;
 		}
 
-		e.playerTool.currentTool = (ToolType) current;
-		e.playerTool.textToolName.text = ((ToolType) current).ToString();
+		playerTool.currentTool = (ToolType) current;
+		playerTool.textToolName.text = ((ToolType) current).ToString();
 	}
 
-	public void UseTool(ToolComponent e)
+	public void UseTool ()
 	{
-		if(e.playerTool.currentTool == ToolType.None) return;
+		if(playerTool.currentTool == ToolType.None) return;
 		
-		if(e.playerTool.currentTool == ToolType.Bow){
+		if(playerTool.currentTool == ToolType.Bow){
 			UseBow();
-		}else if(e.playerTool.currentTool == ToolType.Hook){
+		}else if(playerTool.currentTool == ToolType.Hook){
 			UseHook();
-		}else if(e.playerTool.currentTool == ToolType.Bomb){
+		}else if(playerTool.currentTool == ToolType.Bomb){
 			UseBomb();
-		}else if(e.playerTool.currentTool == ToolType.Hammer){
+		}else if(playerTool.currentTool == ToolType.Hammer){
 			UseHammer();
-		}else if(e.playerTool.currentTool == ToolType.Net){
+		}else if(playerTool.currentTool == ToolType.Net){
 			UseNet();
-		}else if(e.playerTool.currentTool == ToolType.FishingRod){
+		}else if(playerTool.currentTool == ToolType.FishingRod){
 			UseFisingRod();
-		}else if(e.playerTool.currentTool == ToolType.Container1){
+		}else if(playerTool.currentTool == ToolType.Container1){
 			UseContainer1();
-		}else if(e.playerTool.currentTool == ToolType.Container2){
+		}else if(playerTool.currentTool == ToolType.Container2){
 			UseContainer2();
-		}else if(e.playerTool.currentTool == ToolType.Container3){
+		}else if(playerTool.currentTool == ToolType.Container3){
 			UseContainer3();
-		}else if(e.playerTool.currentTool == ToolType.Container4){
+		}else if(playerTool.currentTool == ToolType.Container4){
 			UseContainer4();
-		}else if(e.playerTool.currentTool == ToolType.Shovel){
+		}else if(playerTool.currentTool == ToolType.Shovel){
 			UseShovel();
-		}else if(e.playerTool.currentTool == ToolType.Lantern){
+		}else if(playerTool.currentTool == ToolType.Lantern){
 			UseLantern();
-		}else if(e.playerTool.currentTool == ToolType.InvisibilityCloak){
+		}else if(playerTool.currentTool == ToolType.InvisibilityCloak){
 			UseInvisibilityCloack();
-		}else if(e.playerTool.currentTool == ToolType.MagicMedallion){
+		}else if(playerTool.currentTool == ToolType.MagicMedallion){
 			UseMagicMedallion();
-		}else if(e.playerTool.currentTool == ToolType.FastTravel){
+		}else if(playerTool.currentTool == ToolType.FastTravel){
 			UseFastTravel();
-		}else if(e.playerTool.currentTool == ToolType.Flippers){
+		}else if(playerTool.currentTool == ToolType.Flippers){
 			UseFlippers();
-		}else if(e.playerTool.currentTool == ToolType.Boots){
+		}else if(playerTool.currentTool == ToolType.Boots){
 			UseBoots();
 		}
-		e.playerTool.isUsingTool = false;
+		
+		input.IsUsingTool = false;
 	}
 
 	void UseBow()
@@ -127,6 +162,7 @@ public class ToolSystem : ComponentSystem {
 		//break some enemy armor
 		
 		//small damage to enemy
+		
 	}
 	
 	void UseNet()

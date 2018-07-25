@@ -50,7 +50,7 @@ public class PlayerMovementSystem : ComponentSystem {
             //     break;
 			}
 			
-			if (player.isSlowMotion || player.isRapidSlashing) {
+			if (player.IsSlowMotion || player.IsRapidSlashing) {
 				if (attackMode == -3) {
 					teleportBulletTime.Teleport();
 					input.AttackMode = 0;
@@ -64,7 +64,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			if (attackMode == 0) {
 				Vector2 moveDir = input.MoveDir;
 
-				if (input.isDodging) {
+				if (input.IsDodging) {
 					if (!isDodgeMove) {
 						Transform target = facing.attackArea.transform;
 						isDodgeMove = true;

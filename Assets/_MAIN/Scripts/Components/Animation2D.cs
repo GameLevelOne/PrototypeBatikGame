@@ -26,7 +26,7 @@ public class Animation2D : MonoBehaviour {
 	Attack attack;
 
 	// [SerializeField] bool isCurrentCheckBeforeAnimation = false;
-	[SerializeField] bool isCurrentCheckAfterAnimation = false;
+	[SerializeField] bool isCheckAfterAnimation = false;
 
 	void Awake () {
 		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
@@ -62,12 +62,12 @@ public class Animation2D : MonoBehaviour {
 	// 	}
 	// }
 	
-	public bool isCheckAfterAnimation {
-		get {return isCurrentCheckAfterAnimation;}
+	public bool IsCheckAfterAnimation {
+		get {return isCheckAfterAnimation;}
 		set {
-			if (isCurrentCheckAfterAnimation == value) return;
+			if (isCheckAfterAnimation == value) return;
 
-			isCurrentCheckAfterAnimation = value;
+			isCheckAfterAnimation = value;
 		}
 	}
 
@@ -98,7 +98,7 @@ public class Animation2D : MonoBehaviour {
 	}
 
 	void ExitAnimation (AnimationState state) {
-		isCurrentCheckAfterAnimation = false;
+		isCheckAfterAnimation = false;
 		//disable attack effect
 		switch (state) {
 			case AnimationState.AFTER_SLASH:

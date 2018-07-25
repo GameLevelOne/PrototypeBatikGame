@@ -38,7 +38,7 @@ public class PlayerTool : MonoBehaviour {
 	public Text textToolName;
 
 	public int currentActiveContainer;
-	public bool isUsingTool = false;
+	// public bool isUsingTool = false;
 
 	void Start()
 	{
@@ -59,6 +59,10 @@ public class PlayerTool : MonoBehaviour {
 		FastTravel = 1;
 		Flippers = 1;
 		Boots = 1;
+	}
+
+	void Awake () {
+		textToolName.text = currentTool.ToString();
 	}
 
 	/// <summary>

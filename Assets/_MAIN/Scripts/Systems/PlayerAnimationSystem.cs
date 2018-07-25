@@ -10,6 +10,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Player> Player;
+		public ComponentArray<PlayerTool> PlayerTool;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
 		// public ComponentArray<Attack> Attack;
@@ -18,6 +19,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	
 	PlayerInput input;
 	Player player;
+	PlayerTool playerTool;
 	Animation2D anim;
 	Facing2D facing;
 	// Attack attack;
@@ -41,6 +43,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
 			player = animationData.Player[i];
+			playerTool = animationData.PlayerTool[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
 			// attack = animationData.Attack[i];
@@ -50,20 +53,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// role = anim.role;
 
 			#region ACTION
-			if (input.isDodging) {
+			if (input.IsDodging) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 			}
 			
-			if (player.isSlowMotion) {
+			if (player.IsSlowMotion) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
 				return;
-			} else if (player.isRapidSlashing) {
+			} else if (player.IsRapidSlashing) {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				}
@@ -85,6 +88,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// else if (attackMode == ) {
 			// 	SetAttack(-1f); //SHOT
 			// }
+
+			if (input.IsUsingTool) {
+				SetTool((int)playerTool.currentTool);
+			}
 
 			StartCheckAnimation();
 			#endregion
@@ -114,23 +121,29 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StartCheckAnimation () {
-		if (!anim.isCheckAfterAnimation) {
+		if (!anim.IsCheckAfterAnimation) {
 			CheckAfterAnimation (anim.animState);
-			anim.isCheckAfterAnimation = true;
+			anim.IsCheckAfterAnimation = true;
 		}
 	}
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
-		// attack.isAttacking = true;
+		// attack.IsAttacking = true;
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 	}
 
 	void SetRapidAttack (float mode) { //RAPID SLASH 0
-		// attack.isAttacking = true;
+		// attack.IsAttacking = true;
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
+	}
+
+	void SetTool (float mode) { //
+		// animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
+		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
+		Debug.Log("Use tool animation mode : " + mode);
 	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
@@ -174,19 +187,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_DODGE:
 				animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
-				input.isDodging = false;
+				input.IsDodging = false;
 				break;
 			case AnimationState.AFTER_COUNTER:
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
-				player.isPlayerHit = false;
+				player.IsPlayerHit = false;
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_RAPIDSLASH:
 				Debug.Log("Rapid Slash");
 				input.BulletTimeAttackQty--;
 				if (input.BulletTimeAttackQty == 0) {
-					player.isRapidSlashing = false;
-					player.isHitAnEnemy = false;
+					player.IsRapidSlashing = false;
+					player.IsHitAnEnemy = false;
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
 					StopAttackAnimation();
 				}
@@ -197,7 +210,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAttackList () {		
 		if (input.slashComboVal.Count == 0) {
 			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			player.isHitAnEnemy = false;
+			player.IsHitAnEnemy = false;
 			StopAttackAnimation ();
 		}
 	}
@@ -206,7 +219,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// if (role.gameRole == GameRole.Player) {
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 		input.AttackMode = 0;
-		// attack.isAttacking = false;
+		// attack.IsAttacking = false;
 		// }
 	}
 
