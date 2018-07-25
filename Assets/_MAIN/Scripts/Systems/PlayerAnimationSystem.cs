@@ -59,15 +59,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
-				return;
+				continue;
 			} else if (player.IsRapidSlashing) {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				}
 				
 				StartCheckAnimation();
-				return;
+				continue;
 			}
+
+			if (input.IsUsingTool) continue;
 
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
@@ -93,7 +95,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
-				break;
+				continue;
 			} else {
 				currentMove = movement;
 

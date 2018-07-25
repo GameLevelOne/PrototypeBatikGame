@@ -58,7 +58,13 @@ public class PlayerMovementSystem : ComponentSystem {
 					spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 				}
 
-				return;
+				continue;
+			}
+
+			if (input.IsUsingTool) {
+				rb.velocity = Vector2.zero;
+
+				continue;
 			}
 
 			if (attackMode == 0) {

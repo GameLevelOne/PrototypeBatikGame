@@ -46,6 +46,17 @@ public class StandAnimationSystem : ComponentSystem {
 
 			if(input.IsUsingTool) {
 				SetStand(standType);
+			
+				Vector2 movement = input.MoveDir;
+				
+				if (currentMove == movement) {
+					continue;
+				} else {
+					currentMove = movement;
+
+					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+				}
 			}
 		}
 	}
@@ -75,13 +86,11 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void CheckAfterStandAnimation (StandAnimationState state) {
-		Debug.Log("Start Checking : " + state);
 		if (state == StandAnimationState.AFTER_USING_TOOL) {
-			Debug.Log("Checked");
 			animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
-			input.IsUsingTool = false;
 			stand.IsActTool = false;
+			input.IsUsingTool = false;
 		}
 	}
 

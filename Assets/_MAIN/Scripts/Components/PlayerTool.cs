@@ -30,7 +30,12 @@ public class PlayerTool : MonoBehaviour {
 	public ToolType currentTool;
 
 	public Transform areaSpawnPos;
+	
+	public GameObject bowObj;
+	public GameObject hookObj;
+	public GameObject bombObj;
 	public GameObject hammerAreaEffectObj;
+	public GameObject netObj;
 	public GameObject shovelAreaEffectObj;
 	public GameObject bootsAreaEffectObj;
 	public GameObject magicMedallionAreaEffectObj;
@@ -71,19 +76,19 @@ public class PlayerTool : MonoBehaviour {
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1:
-                // SpawnObj (slash);
+                SpawnObj (bowObj);
                 break;
             case 2:
-                // SpawnObj (slash);
+                SpawnObj (hookObj);
                 break;
             case 3:
-                // SpawnObj (slash);
+                SpawnObj (bombObj);
                 break;
             case 4:
                 SpawnObj (hammerAreaEffectObj);
                 break;
             case 5:
-                // SpawnObj (counterSlash);
+                SpawnObj (netObj);
                 break;
         }
     }

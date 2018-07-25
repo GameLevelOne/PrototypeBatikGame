@@ -68,7 +68,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.SteadyMode = 0;
 				}
 
-				return;
+				continue;
 			}
 
 			#region Button Movement
@@ -92,6 +92,18 @@ public class PlayerInputSystem : ComponentSystem {
 				ChangeDir(i, currentDir.x, midValue);
 			}
 			#endregion
+
+			// if (input.IsUsingTool) {
+			// 	SetMovement(i, 0, false);
+			// 	chargeAttackTimer = 0f;
+			// 	isAttackAway = false;
+				
+			// 	player.IsGuarding = false;
+			// 	parryTimer = 0f;
+			// 	player.IsParrying = false;
+
+			// 	continue;
+			// }
 
 			#region Button Attack
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
@@ -232,7 +244,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void SetMovement (int idx, int value, bool isMoveOnly) {
 		PlayerInput input = inputData.PlayerInput[idx];
-
+		
 		input.MoveMode = value;
 		
 		if (!isMoveOnly) {
@@ -243,7 +255,7 @@ public class PlayerInputSystem : ComponentSystem {
 	void ChangeDir (int idx, float dirX, float dirY) {
 		Vector2 newDir = new Vector2(dirX, dirY);
 		PlayerInput input = inputData.PlayerInput[idx];
-		
+
 		if (currentDir != newDir) {
 			currentDir = newDir;
 			input.MoveDir = currentDir;

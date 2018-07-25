@@ -33,7 +33,9 @@ public class ToolSystem : ComponentSystem {
 			// Player player = toolData.Player[i];
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
-
+			
+			if (input == null) continue;
+			
 			bool isChangeTool = input.IsChangeTool;
 			bool isUsingTool = input.IsUsingTool;
 
@@ -42,7 +44,6 @@ public class ToolSystem : ComponentSystem {
 
 			if (isChangeTool) {
 				ChangeTool();
-				Debug.Log("Change Tool");
 				input.IsChangeTool = false;
 			} 
 			
@@ -147,6 +148,7 @@ public class ToolSystem : ComponentSystem {
 		//can break certain objects.
 
 		//medium damage to enemies
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseHook()
@@ -158,6 +160,7 @@ public class ToolSystem : ComponentSystem {
 		//2. solid objects: pull player towards the object
 		
 		//small damage to enemies
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseBomb()
@@ -169,6 +172,7 @@ public class ToolSystem : ComponentSystem {
 		//limited amount
 
 		//big damage to enemies
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseHammer()
@@ -185,6 +189,7 @@ public class ToolSystem : ComponentSystem {
 	{
 		Debug.Log("Using Net");
 		//catch certain objects (land/air)
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseFisingRod()
