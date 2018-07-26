@@ -54,6 +54,8 @@ public class StandAnimationSystem : ComponentSystem {
 			if(input.IsUsingTool) {
 				SetStand(standType);
 				continue;
+			} else {
+				//
 			}
 
 			if (currentMove == movement) {

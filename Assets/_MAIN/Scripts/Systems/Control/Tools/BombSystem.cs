@@ -15,6 +15,7 @@ public class BombSystem : ComponentSystem {
 			
 			if(e.bomb.destroy){
 				GameObject.Destroy(e.bomb.gameObject);
+				return; //TEMP, Error without this
 			}
 		}
 	}

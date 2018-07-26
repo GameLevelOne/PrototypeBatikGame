@@ -28,6 +28,7 @@ public class ArrowSystem : ComponentSystem {
 
 			if (arrow.IsHit) {
 				GameObject.Destroy(e.arrow.gameObject);
+				return; //TEMP, Error without this
 			}
 		}
 	}
