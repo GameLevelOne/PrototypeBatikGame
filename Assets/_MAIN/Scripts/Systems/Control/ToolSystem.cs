@@ -53,10 +53,10 @@ public class ToolSystem : ComponentSystem {
 			} 
 			
 			if (isUsingTool) {
-				if (!tool.IsActTool) {
+				if (tool.IsActToolReady) {
 					if (standAnimState == StandAnimationState.START_USING_TOOL) {
 						UseTool ();
-						tool.IsActTool = true;
+						tool.IsActToolReady = false;
 					}
 				}
 			}

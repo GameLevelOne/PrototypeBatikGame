@@ -46,7 +46,7 @@ public class PlayerTool : MonoBehaviour {
 	public int currentActiveContainer;
 	// public bool isUsingTool = false;
 
-	[SerializeField] bool isActTool = false;
+	[SerializeField] bool isActToolReady = false;
 
 	void Start()
 	{
@@ -111,12 +111,12 @@ public class PlayerTool : MonoBehaviour {
         return targetRot;
     }
 
-	public bool IsActTool {
-        get {return isActTool;}
+	public bool IsActToolReady {
+        get {return isActToolReady;}
 		set {
-			if (isActTool == value) return;
+			if (isActToolReady == value) return;
 
-			isActTool = value;
+			isActToolReady = value;
 		}
     }
 

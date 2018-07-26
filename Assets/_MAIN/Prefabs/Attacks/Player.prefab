@@ -779,7 +779,8 @@ MonoBehaviour:
   animator: {fileID: 95987120919603828}
   animState: 0
   standAnimState: 0
-  isCanAttack: 0
+  attack: {fileID: 0}
+  tool: {fileID: 114745025338561846}
   isCheckAfterAnimation: 0
 --- !u!114 &114745025338561846
 MonoBehaviour:
@@ -806,7 +807,7 @@ MonoBehaviour:
   powerBraceletAreaEffectObj: {fileID: 0}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
-  isActTool: 0
+  isActToolReady: 0
 --- !u!114 &114842938970828302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,7 +823,8 @@ MonoBehaviour:
   animator: {fileID: 95152014746876474}
   animState: 0
   standAnimState: 0
-  isCanAttack: 1
+  attack: {fileID: 114950218148248466}
+  tool: {fileID: 0}
   isCheckAfterAnimation: 0
 --- !u!114 &114923698577649514
 MonoBehaviour:

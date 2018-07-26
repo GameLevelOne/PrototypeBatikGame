@@ -25,11 +25,11 @@ public class Animation2D : MonoBehaviour {
 	public AnimationState animState;
 	public StandAnimationState standAnimState;
 	// public Role role; //for Animation system
-	public bool isCanAttack = false;
 
 	// PlayerInput playerInput;
 	// EnemyInput enemyInput;
-	Attack attack;
+	public Attack attack;
+	public PlayerTool tool;
 
 	// [SerializeField] bool isCurrentCheckBeforeAnimation = false;
 	[SerializeField] bool isCheckAfterAnimation = false;
@@ -43,24 +43,20 @@ public class Animation2D : MonoBehaviour {
 		// } else { //ENEMy
 		// 	enemyInput = GetComponent<EnemyInput>();
 		// }
-
-		if (isCanAttack) {
-			attack = GetComponent<Attack>();
-		}
 	}
 
 	void OnEnable () {
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
-		animationControl.OnStartStandAnimation += SetStandStateAnimation;
-		animationControl.OnExitStandAnimation += SetStandStateAnimation;
+		animationControl.OnStartStandAnimation += StartStandAnimation;
+		animationControl.OnExitStandAnimation += ExitStandAnimation;
 	}
 
 	void OnDisable () {
 		animationControl.OnStartAnimation -= StartAnimation;
 		animationControl.OnExitAnimation -= ExitAnimation;
-		animationControl.OnStartStandAnimation -= SetStandStateAnimation;
-		animationControl.OnExitStandAnimation -= SetStandStateAnimation;
+		animationControl.OnStartStandAnimation -= StartStandAnimation;
+		animationControl.OnExitStandAnimation -= ExitStandAnimation;
 	}
 
 	// public bool isCheckBeforeAnimation {
@@ -83,7 +79,6 @@ public class Animation2D : MonoBehaviour {
 
 	#region Player and Enemy Animation
 	void StartAnimation (AnimationState state) {
-		//enable attack effect
 		switch (state) {
 			case AnimationState.START_SLASH:
 				attack.isAttacking  = true;
@@ -110,7 +105,7 @@ public class Animation2D : MonoBehaviour {
 
 	void ExitAnimation (AnimationState state) {
 		isCheckAfterAnimation = false;
-		//disable attack effect
+		
 		switch (state) {
 			case AnimationState.AFTER_SLASH:
 				//
@@ -137,8 +132,31 @@ public class Animation2D : MonoBehaviour {
 	#endregion
 
 	#region Stand Animation
-	void SetStandStateAnimation (StandAnimationState state) {
+	void StartStandAnimation (StandAnimationState state) {
+		switch (state) {
+			case StandAnimationState.START_USING_TOOL:
+				tool.IsActToolReady = true;
+				break;
+			default:
+				Debug.LogWarning ("Unknown Stand Animation played");
+				break;
+		}
+
+		standAnimState = state;
+	}
+	
+	void ExitStandAnimation (StandAnimationState state) {
 		isCheckAfterAnimation = false;
+
+		switch (state) {
+			case StandAnimationState.AFTER_USING_TOOL:
+				//
+				break;
+			default:
+				Debug.LogWarning ("Unknown Stand Animation played");
+				break;
+		}
+
 		standAnimState = state;
 	}
 	#endregion

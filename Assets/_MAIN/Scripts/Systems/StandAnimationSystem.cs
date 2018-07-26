@@ -94,7 +94,6 @@ public class StandAnimationSystem : ComponentSystem {
 		if (state == StandAnimationState.AFTER_USING_TOOL) {
 			animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
-			stand.IsActTool = false;
 			input.IsUsingTool = false;
 		}
 	}
