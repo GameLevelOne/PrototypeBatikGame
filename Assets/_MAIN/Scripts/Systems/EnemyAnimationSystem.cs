@@ -40,15 +40,17 @@ public class EnemyAnimationSystem : ComponentSystem {
 
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.EnemyInput[i];
+			enemy = animationData.Enemy[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
-			enemy = animationData.Enemy[i];
 			// attack = animationData.Attack[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 			// role = anim.role;
 			
+			Debug.Log("Enemy Animation entity : " + i);
+
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
@@ -80,7 +82,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
-				break;
+				continue;
 			} else {
 				currentMove = movement;
 

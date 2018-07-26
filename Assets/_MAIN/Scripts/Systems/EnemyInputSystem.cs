@@ -26,6 +26,8 @@ public class EnemyInputSystem : ComponentSystem {
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
+			
+			Debug.Log("Enemy Input entity : " + i);
 
 			#region AI Movement
 			//
@@ -38,7 +40,6 @@ public class EnemyInputSystem : ComponentSystem {
 			float randomAttackInterval = Random.Range(attackIntervalMin, attackIntervalMax);
 			
 			if (attackInterval >= randomAttackInterval) {
-				Debug.Log("Enemy Attack");
 				input.AttackMode = 1;
 				attackInterval = 0f;
 			} else {

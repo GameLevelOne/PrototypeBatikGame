@@ -28,8 +28,6 @@ public class EnemyAttackSystem : ComponentSystem {
 		// }
 
 		for (int i=0; i<attackData.Length; i++) {
-			if (attackData.Length == 0) return;
-
 			EnemyInput input = attackData.EnemyInput[i];
 			Animation2D anim = attackData.Animation[i];
 			Attack attack = attackData.Attack[i];
@@ -38,12 +36,14 @@ public class EnemyAttackSystem : ComponentSystem {
 			AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
 
-			if (attackMode == 0) return;
+			Debug.Log("Enemy Attack entity : " + i);
+
+			if (attackMode == 0) continue;
 
 			//Attack
         	// attack.isAttacking = true;
 			if (!isAttacking) {
-				return;
+				continue;
 			} else {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || 
 				(animState == AnimationState.START_DODGE) || (animState == AnimationState.START_COUNTER)) {
