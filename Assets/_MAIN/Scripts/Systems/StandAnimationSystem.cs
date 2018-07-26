@@ -18,7 +18,7 @@ public class StandAnimationSystem : ComponentSystem {
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	PlayerInput input;
-	PlayerTool stand;
+	public PlayerTool stand;
 	Animation2D anim;
 	Facing2D facing;
 
@@ -28,9 +28,14 @@ public class StandAnimationSystem : ComponentSystem {
 	
 	protected override void OnUpdate () {
 		if (standData.Length == 0) return;
+		
+		if (input == null) {
+			input = playerInputSystem.input;
+
+			return;
+		} 
 
 		for (int i=0; i<standData.Length; i++) {
-			input = playerInputSystem.input;
 			stand = standData.PlayerTool[i];
 			// Sprite2D sprite = standData.Sprite[i];
 			anim = standData.Animation[i];
@@ -43,17 +48,20 @@ public class StandAnimationSystem : ComponentSystem {
 				CheckAfterStandAnimation (anim.standAnimState);
 				anim.IsCheckAfterAnimation = true;
 			}
+			
+			Vector2 movement = input.MoveDir;
 
 			if(input.IsUsingTool) {
 				SetStand(standType);
-			
-				Vector2 movement = input.MoveDir;
-				
-				if (currentMove == movement) {
-					continue;
-				} else {
-					currentMove = movement;
+				continue;
+			}
 
+			if (currentMove == movement) {
+				continue;
+			} else {
+				currentMove = movement;
+				
+				if (currentMove != Vector2.zero) {
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 				}
@@ -62,12 +70,9 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void SetStand (float mode) { //
-		SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-		SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
-		
 		animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
-		}
+	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
 		Vector2 movement = input.MoveDir;

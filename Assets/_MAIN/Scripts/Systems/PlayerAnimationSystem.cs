@@ -14,12 +14,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] AnimationData animationData;
+	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 	
 	PlayerInput input;
 	Player player;
-	PlayerTool playerTool;
 	Animation2D anim;
 	Facing2D facing;
+	PlayerTool tool;
 	
 	Animator animator;
 	Vector2 currentMove;
@@ -29,6 +30,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
+		
+		if (tool == null) {
+			tool = standAnimationSystem.stand;
+
+			return;
+		}
 		
 		// if (!isLocalVarInit) {
 		// 	currentMoves = new Vector2[animationData.Length];
@@ -69,8 +76,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 				continue;
 			}
 
-			if (input.IsUsingTool) continue;
-
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
@@ -93,12 +98,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
 			
 			Vector2 movement = input.MoveDir;
+
+			if (input.IsUsingTool) {
+				int toolType = (int)tool.currentTool;
+				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, toolType); 
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
+				continue;
+			} else {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
+			}
 			
 			if (currentMove == movement) {
 				continue;
 			} else {
 				currentMove = movement;
-
+				
 				if (currentMove == Vector2.zero) {
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				} else {

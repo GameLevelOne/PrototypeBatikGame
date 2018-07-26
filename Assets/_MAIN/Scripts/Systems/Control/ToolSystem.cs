@@ -22,19 +22,24 @@ public class ToolSystem : ComponentSystem {
 
 	public PlayerTool tool;
 
+	PlayerInput input;
+
 	int toolType;
 
 	protected override void OnUpdate()
 	{
 		if (toolData.Length == 0) return;
 		
+		if (input == null) {
+			input = playerInputSystem.input;
+
+			return;
+		} 
+		
 		for (int i=0; i<toolData.Length; i++) {
-			PlayerInput input = playerInputSystem.input;
 			// Player player = toolData.Player[i];
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
-			
-			if (input == null) continue;
 			
 			bool isChangeTool = input.IsChangeTool;
 			bool isUsingTool = input.IsUsingTool;

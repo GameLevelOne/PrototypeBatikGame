@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4048464424325140}
   - component: {fileID: 114567851341663138}
-  - component: {fileID: 58172676025445796}
   - component: {fileID: 50196831033041752}
+  - component: {fileID: 58172676025445796}
   - component: {fileID: 212438940760174226}
   - component: {fileID: 114033809226425450}
   - component: {fileID: 114101340933521480}
@@ -74,7 +74,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.1, y: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f04fb20cdf3624ab0250f1765d3c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 20
   rb: {fileID: 50196831033041752}
 --- !u!114 &114567851341663138
 MonoBehaviour:
