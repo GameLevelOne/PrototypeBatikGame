@@ -76,27 +76,34 @@ public class PlayerTool : MonoBehaviour {
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1:
-                SpawnObj (arrowObj, false);
+                SpawnObj (arrowObj, false, false);
                 break;
             case 2:
-                SpawnObj (hookObj, false);
+                SpawnObj (hookObj, false, false);
                 break;
             case 3:
-                SpawnObj (bombObj, true);
+                SpawnObj (bombObj, false, true);
                 break;
             case 4:
-                SpawnObj (hammerAreaEffectObj, false);
+                SpawnObj (hammerAreaEffectObj, false, false);
                 break;
             case 5:
-                SpawnObj (netObj, false);
+                SpawnObj (netObj, false, false);
+                break;
+            case 14:
+                SpawnObj (magicMedallionAreaEffectObj, true, true);
                 break;
         }
     }
 
-    void SpawnObj (GameObject obj, bool isAlwaysUp) {
+    void SpawnObj (GameObject obj, bool isSpawnAtPlayerPos, bool isAlwaysUp) {
         GameObject spawnedBullet = Instantiate(obj, areaSpawnPos.position, SetFacing());
         // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
 		
+		if (isSpawnAtPlayerPos) {
+			spawnedBullet.transform.position = transform.root.position;
+		}
+
 		if (isAlwaysUp) {
 			spawnedBullet.transform.eulerAngles = Vector3.zero;
 		}

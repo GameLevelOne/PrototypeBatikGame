@@ -72,10 +72,10 @@ public class Health : MonoBehaviour {
 				
 				enemy.IsEnemyGetHurt = true;
 				damage = initialDamage;
-			} else if (col.tag == Constants.Tag.PLAYER_COUNTER) {
+			} else if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION) {
 				enemy.IsEnemyGetHurt = true;
 				damage = initialDamage;
-				Debug.Log("Enemy Is stunned");
+				Debug.Log("Enemy get damaged from other source");
 			}
 		}
 	}

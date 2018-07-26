@@ -251,6 +251,7 @@ public class ToolSystem : ComponentSystem {
 		//affect some objects (destroy objects)
 
 		//big damage
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseFastTravel()

@@ -42,8 +42,8 @@ public class DamageSystem : ComponentSystem {
 			} else if (role.gameRole == GameRole.Enemy) {
 				enemy = health.GetComponent<Enemy>();
 
-				if (!enemy.IsEnemyGetHurt) {
-					if (enemy.IsEnemyDie) {
+				if (enemy.IsEnemyGetHurt) {
+					if (!enemy.IsEnemyDie) {
 						health.HealthPower -= health.damage;
 						enemy.IsEnemyGetHurt = false;
 

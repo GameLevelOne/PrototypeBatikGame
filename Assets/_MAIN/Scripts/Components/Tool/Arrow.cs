@@ -7,7 +7,7 @@ public class Arrow : MonoBehaviour {
 	public Rigidbody2D rb;
 
 	bool isShot = false;
-	bool isHit = false;
+	[SerializeField] bool isHit = false;
 	
 	public bool IsShot {
 		get {return isShot;}
@@ -28,8 +28,9 @@ public class Arrow : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
+		Debug.Log("arrow hits something");
 		//Check if hit something (by tag)
-		IsHit = true;
+		isHit = true;
 	}
 
 	// void Awake () {

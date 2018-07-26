@@ -52,6 +52,9 @@ public static class Constants {
 		public const string ENEMY_ATTACK = "Enemy Attack"; 
 
 		public const string HAMMER = "Hammer"; 
+		public const string NET = "Net"; 
+		public const string BOW = "Bow"; 
+		public const string MAGIC_MEDALLION = "Magic Medallion";
 
 	}
 
