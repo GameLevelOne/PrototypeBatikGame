@@ -72,6 +72,10 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void SetStand (float mode) { //
+		if ((mode >= 8) && (mode <=10)) {
+			mode = 7;
+		}
+
 		animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
 	}

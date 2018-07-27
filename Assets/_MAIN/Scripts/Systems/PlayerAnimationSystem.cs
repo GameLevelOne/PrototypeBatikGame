@@ -112,6 +112,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			if (input.IsUsingTool) {
 				int toolType = (int)tool.currentTool;
+				
+				if ((toolType >= 8) && (toolType <=10)) {
+					toolType = 7;
+				}
+				
 				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, toolType); 
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
 				continue;
