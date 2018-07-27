@@ -23,7 +23,7 @@ public class HookSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		if(Input.GetKeyDown(KeyCode.C)){
+		// if(Input.GetKeyDown(KeyCode.C)){
 			if(!hasSetDirection){
 				foreach(var e in GetEntities<Facing2DComponent>()){
 					hasSetDirection = true;
@@ -42,7 +42,7 @@ public class HookSystem : ComponentSystem {
 					}
 				}
 			}
-		}
+		// }
 	}
 
 	void Launch(HookComponent e)

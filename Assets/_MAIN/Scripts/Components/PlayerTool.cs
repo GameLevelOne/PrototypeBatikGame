@@ -78,9 +78,9 @@ public class PlayerTool : MonoBehaviour {
             case 1:
                 SpawnObj (arrowObj, false, false);
                 break;
-            case 2:
-                SpawnObj (hookObj, false, false);
-                break;
+            // case 2:
+            //     SpawnObj (hookObj, false, false);
+            //     break;
             case 3:
                 SpawnObj (bombObj, false, true);
                 break;

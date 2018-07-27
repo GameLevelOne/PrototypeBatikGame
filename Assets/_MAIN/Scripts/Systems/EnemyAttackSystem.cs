@@ -76,7 +76,7 @@ public class EnemyAttackSystem : ComponentSystem {
 
     void SpawnObj (GameObject obj) {
         GameObject spawnedBullet = GameObjectEntity.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
-        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+        spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
         spawnedBullet.SetActive(true);
     }
 
