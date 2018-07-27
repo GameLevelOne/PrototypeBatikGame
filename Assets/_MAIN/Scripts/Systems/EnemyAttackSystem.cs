@@ -13,7 +13,8 @@ public class EnemyAttackSystem : ComponentSystem {
 		public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AttackData attackData;
-
+	
+	Attack attack;
 	// bool isLocalVarInit = false;
 
 	protected override void OnUpdate () {
@@ -30,7 +31,7 @@ public class EnemyAttackSystem : ComponentSystem {
 		for (int i=0; i<attackData.Length; i++) {
 			EnemyInput input = attackData.EnemyInput[i];
 			Animation2D anim = attackData.Animation[i];
-			Attack attack = attackData.Attack[i];
+			attack = attackData.Attack[i];
 			
 			int attackMode = input.AttackMode;
 			AnimationState animState = anim.animState;
@@ -45,10 +46,54 @@ public class EnemyAttackSystem : ComponentSystem {
 			} else {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || 
 				(animState == AnimationState.START_DODGE) || (animState == AnimationState.START_COUNTER)) {
-					attack.SpawnSlashEffect(attackMode);
-					attack.isAttacking = false;
+					SpawnSlashEffect(attackMode);
 				}
 			}
 		}
 	}
+
+	public void SpawnSlashEffect (int mode) {
+		switch (mode) {
+            case 1:
+                SpawnObj (attack.slash);
+                break;
+            case 2:
+                SpawnObj (attack.slash);
+                break;
+            case 3:
+                SpawnObj (attack.slash);
+                break;
+            case -1:
+                SpawnObj (attack.heavySlash);
+                break;
+            case -2:
+                SpawnObj (attack.counterSlash);
+                break;
+        }
+
+		attack.isAttacking = false;
+    }
+
+    void SpawnObj (GameObject obj) {
+        GameObject spawnedBullet = GameObjectEntity.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
+        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+        spawnedBullet.SetActive(true);
+    }
+
+    Quaternion SetFacing () {
+        Vector2 targetPos = attack.bulletSpawnPos.position;
+        Vector2 initPos = attack.transform.position; //TEMPORARY
+
+        targetPos.x -= initPos.x;
+        targetPos.y -= initPos.y;
+        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
+
+        return targetRot;
+    }
+
+	// void ResetSlashEffect (Attack atk, int mode) {
+	// 	atk.SpawnSlashEffect(mode); //temp
+	// 	atk.isAttacking = false;
+	// }
 }

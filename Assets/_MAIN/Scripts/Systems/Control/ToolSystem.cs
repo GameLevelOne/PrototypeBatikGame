@@ -13,6 +13,7 @@ public class ToolSystem : ComponentSystem {
 	}
 	[InjectAttribute] ToolData toolData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] ContainerSystem containerSystem;
 	
 	// public struct ToolComponent
 	// {
@@ -209,22 +210,25 @@ public class ToolSystem : ComponentSystem {
 	void UseContainer1()
 	{
 		Debug.Log("Using Container1");
-
+		containerSystem.UseCollectibleInContainer(0);
 	}
 	
 	void UseContainer2()
 	{
 		Debug.Log("Using Container2");
+		containerSystem.UseCollectibleInContainer(1);
 	}
 	
 	void UseContainer3()
 	{
 		Debug.Log("Using Container3");
+		containerSystem.UseCollectibleInContainer(2);
 	}
 	
 	void UseContainer4()
 	{
 		Debug.Log("Using Container4");
+		containerSystem.UseCollectibleInContainer(3);
 	}
 
 	void UseShovel()

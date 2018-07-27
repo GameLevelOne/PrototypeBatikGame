@@ -15,6 +15,8 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 	[InjectAttribute] AttackData attackData;
 
+	Attack attack;
+
 	// bool isLocalVarInit = false;
 
 	protected override void OnUpdate () {
@@ -34,7 +36,7 @@ public class PlayerAttackSystem : ComponentSystem {
 			PlayerInput input = attackData.PlayerInput[i];
 			Player player = attackData.Player[i];
 			Animation2D anim = attackData.Animation[i];
-			Attack attack = attackData.Attack[i];
+			attack = attackData.Attack[i];
 			
 			int attackMode = input.AttackMode;
 			AnimationState animState = anim.animState;
@@ -46,18 +48,58 @@ public class PlayerAttackSystem : ComponentSystem {
         	// attack.isAttacking = true;
 			if (isAttacking) {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
-					ResetSlashEffect(attack, attackMode);
+					SpawnSlashEffect(attackMode);
 				} else if (animState == AnimationState.START_RAPIDSLASH) {
 					if (player.IsSlowMotion || player.IsRapidSlashing) {
-						ResetSlashEffect(attack, attackMode);
+						SpawnSlashEffect(attackMode);
 					}
 				}
 			}
 		}
 	}
 
-	void ResetSlashEffect (Attack atk, int mode) {
-		atk.SpawnSlashEffect(mode); //temp
-		atk.isAttacking = false;
-	}
+	public void SpawnSlashEffect (int mode) {
+		switch (mode) {
+            case 1:
+                SpawnObj (attack.slash);
+                break;
+            case 2:
+                SpawnObj (attack.slash);
+                break;
+            case 3:
+                SpawnObj (attack.slash);
+                break;
+            case -1:
+                SpawnObj (attack.heavySlash);
+                break;
+            case -2:
+                SpawnObj (attack.counterSlash);
+                break;
+        }
+
+		attack.isAttacking = false;
+    }
+
+    void SpawnObj (GameObject obj) {
+        GameObject spawnedBullet = GameObjectEntity.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
+        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+        spawnedBullet.SetActive(true);
+    }
+
+    Quaternion SetFacing () {
+        Vector2 targetPos = attack.bulletSpawnPos.position;
+        Vector2 initPos = attack.transform.position; //TEMPORARY
+
+        targetPos.x -= initPos.x;
+        targetPos.y -= initPos.y;
+        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
+
+        return targetRot;
+    }
+
+	// void ResetSlashEffect (Attack atk, int mode) {
+	// 	atk.SpawnSlashEffect(mode); //temp
+	// 	atk.isAttacking = false;
+	// }
 }
