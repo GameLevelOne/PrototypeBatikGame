@@ -15,48 +15,91 @@ public class HookSystem : ComponentSystem {
 	
 	bool hasSetDirection = false;
 
+	Vector2 hookStartPos;
+
 	int hookDirection;
-	Vector2 hookDestination;
+	float deltaTime;
+	float t = 0f;
 
 	protected override void OnUpdate()
 	{
-		if(!hasSetDirection){
-			foreach(var e in GetEntities<Facing2DComponent>()){
-				SetHookDirection(e);
-			}
-		}else{
-			foreach(var e in GetEntities<HookComponent>()){
-					if(!e.hook.isLaunching){
+		if(Input.GetKeyDown(KeyCode.C)){
+			if(!hasSetDirection){
+				foreach(var e in GetEntities<Facing2DComponent>()){
+					hasSetDirection = true;
+					hookDirection = e.facing2D.DirID;
+				}
+			}else{
+				foreach( var e in GetEntities<HookComponent>()){
+					if(e.hook.hookState == HookState.Idle && hasSetDirection){
 						Launch(e);
-					}else if(e.hook.isLaunching){
+					}else if(e.hook.hookState == HookState.Launch){
 						Launching(e);
+					}else if(e.hook.hookState == HookState.Catch){
+						Catch(e);
+					}else if(e.hook.hookState == HookState.Return){
+						Return(e);
 					}
 				}
-			
+			}
 		}
-		
-	}
-	
-	void SetHookDirection(Facing2DComponent e)
-	{
-		hasSetDirection = true;
-		hookDirection = e.facing2D.DirID;
 	}
 
 	void Launch(HookComponent e)
 	{
-		e.hook.isLaunching = true;
-		hookDestination = GetDestinationPos(e.hook.transform.position, hookDirection,e.hook.range);
+		e.hook.destination = GetDestinationPos(e.hook.rb.position,hookDirection,e.hook.range);		
+		e.hook.hookState = HookState.Launch;
+		deltaTime = Time.deltaTime;
 	}
 
 	void Launching(HookComponent e)
 	{
-		e.hook.rb.position = Vector2.MoveTowards(e.hook.rb.position,hookDestination,e.hook.speed*Time.deltaTime);
 
+		//if t <= 1 and or hook hit solid object
+		if(e.hook.attachedObject == null && t < 1f){
+			e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
+			t += e.hook.speed * deltaTime;
+		}else{
+			if(t >= 1f){ //return
+				e.hook.hookState = HookState.Return;
+			}else if(e.hook.attachedObject != null){
+				e.hook.hookState = HookState.Catch;
+			}
+		} 
+	}
+
+	void Catch(HookComponent e)
+	{
+		//if solid object, pull player
+		//if enemy, pull enemy
+		if(e.hook.attachedObject.tag == Constants.Tag.ENEMY){
+			//enemy lock to hook
+
+			if(t > 0f){
+				e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
+				t -= e.hook.speed * deltaTime;
+			}
+
+		}else if(e.hook.attachedObject.tag == ""){
+
+		}
 
 	}
 
-	Vector3 GetDestinationPos(Vector3 hookInitPos, int dirID, float range)
+	void Return(HookComponent e)
+	{
+		if(t > 0f){
+			e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
+			t -= e.hook.speed * deltaTime;
+			
+		}else{
+			t = 0;
+			e.hook.hookState = HookState.Idle;
+			hasSetDirection = false;
+		}
+	}
+
+	Vector2 GetDestinationPos(Vector2 hookInitPos, int dirID, float range)
 	{
 		Vector3 destination = hookInitPos;
 		float x = hookInitPos.x;
@@ -87,4 +130,5 @@ public class HookSystem : ComponentSystem {
 		return new Vector2(x,y);
 	}
 	
+
 }
