@@ -26,8 +26,6 @@ public class EnemyInputSystem : ComponentSystem {
 			int maxValue = input.moveAnimValue[2];
 			int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
-			
-			Debug.Log("Enemy Input entity : " + i);
 
 			#region AI Movement
 			//

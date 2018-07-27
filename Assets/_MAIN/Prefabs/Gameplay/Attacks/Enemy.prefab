@@ -138,11 +138,11 @@ GameObject:
   - component: {fileID: 114177362865810262}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1303155614004148
 GameObject:
   m_ObjectHideFlags: 1
@@ -561,7 +561,6 @@ MonoBehaviour:
   slash: {fileID: 1590809064963718, guid: eb685120eb43fbe4e9e1d05aabdf33c0, type: 2}
   heavySlash: {fileID: 1608658284270458, guid: 68300d85806c94942bc92b28e68c588f, type: 2}
   counterSlash: {fileID: 0}
-  minatoKunai: {fileID: 0}
   bulletSpawnPos: {fileID: 4494282621783110}
   attackRate: 0.5
   currentIsAttacking: 0

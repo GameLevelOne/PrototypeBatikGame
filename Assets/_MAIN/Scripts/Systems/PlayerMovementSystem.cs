@@ -52,7 +52,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			
 			if (player.IsSlowMotion || player.IsRapidSlashing) {
 				if (attackMode == -3) {
-					teleportBulletTime.Teleport();
+					tr.position = teleportBulletTime.Teleport();
+					Time.timeScale = 0.1f;
 					input.AttackMode = 0;
 					rb.velocity = Vector2.zero;
 					spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;

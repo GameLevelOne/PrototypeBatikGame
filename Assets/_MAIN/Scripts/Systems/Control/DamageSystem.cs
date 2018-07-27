@@ -11,6 +11,7 @@ public class DamageSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<Health> Health;
 		public ComponentArray<Role> Role;
+		public ComponentArray<CircleCollider2D> Collider;
 	}
 	[InjectAttribute] DamageData damageData;
 
@@ -18,6 +19,7 @@ public class DamageSystem : ComponentSystem {
 	Role role;
 	Player player;
 	Enemy enemy;
+	CircleCollider2D col;
 
 	protected override void OnUpdate () {
 		if (damageData.Length == 0) return;
@@ -25,6 +27,7 @@ public class DamageSystem : ComponentSystem {
 		for (int i=0; i<damageData.Length; i++) {
 			health = damageData.Health[i];
 			role = damageData.Role[i];
+			col = damageData.Collider[i];
 			
 			if (role.gameRole == GameRole.Player) {
 				player = health.GetComponent<Player>();
@@ -36,6 +39,7 @@ public class DamageSystem : ComponentSystem {
 
 						if (health.HealthPower <= 0f) {
 							player.IsPlayerDie = true;
+							col.enabled = false;
 						}
 					}
 				}
@@ -49,6 +53,7 @@ public class DamageSystem : ComponentSystem {
 
 						if (health.HealthPower <= 0f) {
 							enemy.IsEnemyDie = true;
+							col.enabled = false;
 						}
 					}
 				}

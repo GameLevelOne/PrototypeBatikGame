@@ -49,8 +49,16 @@ public class EnemyAnimationSystem : ComponentSystem {
 			int attackMode = input.AttackMode;
 			// role = anim.role;
 			
-			Debug.Log("Enemy Animation entity : " + i);
+			if (enemy.IsEnemyDie) {
+				input.SteadyMode = -1;
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				continue;
+			}
 
+			#region ACTION
 			if (attackMode >= 1) {
 				SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
@@ -62,7 +70,6 @@ public class EnemyAnimationSystem : ComponentSystem {
 				SetAttack(-1f); //SHOT
 			}
 
-			#region ACTION
 			if (!anim.IsCheckAfterAnimation) {
 				CheckAfterAnimation (anim.animState);
 				anim.IsCheckAfterAnimation = true;

@@ -53,6 +53,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 
+			if (player.IsPlayerDie) {
+				input.SteadyMode = -1;
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				continue;
+			}
+
 			#region ACTION
 			if (input.IsDodging) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
@@ -70,6 +79,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else if (player.IsRapidSlashing) {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
+				} else {
+					player.IsRapidSlashing = false;
 				}
 				
 				StartCheckAnimation();

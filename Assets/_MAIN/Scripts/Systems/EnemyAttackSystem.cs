@@ -36,8 +36,6 @@ public class EnemyAttackSystem : ComponentSystem {
 			AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
 
-			Debug.Log("Enemy Attack entity : " + i);
-
 			if (attackMode == 0) continue;
 
 			//Attack
