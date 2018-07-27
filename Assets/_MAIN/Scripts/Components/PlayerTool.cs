@@ -90,6 +90,9 @@ public class PlayerTool : MonoBehaviour {
             case 5:
                 SpawnObj (netObj, false, false);
                 break;
+            case 11:
+                SpawnObj (shovelAreaEffectObj, false, false);
+                break;
             case 14:
                 SpawnObj (magicMedallionAreaEffectObj, true, true);
                 break;

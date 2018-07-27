@@ -235,6 +235,7 @@ public class ToolSystem : ComponentSystem {
 	{
 		Debug.Log("Using Shovel");
 		//dig items from ground
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseLantern()

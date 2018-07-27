@@ -51,6 +51,8 @@ public static class Constants {
 		public const string PLAYER_COUNTER = "Player Counter"; 
 		public const string ENEMY_ATTACK = "Enemy Attack"; 
 		public const string STONE = "Stone"; 
+		public const string DIG_AREA = "Dig Area"; 
+		public const string DIG_RESULT = "Dig Result"; 
 
 		public const string HAMMER = "Hammer"; 
 		public const string NET = "Net"; 
