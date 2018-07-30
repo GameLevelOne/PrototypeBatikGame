@@ -13,8 +13,8 @@ public class DigSystem : ComponentSystem {
 	// [InjectAttribute] ContainerSystem containerSystem;
 	
 	protected override void OnUpdate () {
-		foreach (var e in GetEntities<DigData>()) {
-			DigChecker digChecker = e.digChecker;
+		// foreach (var e in GetEntities<DigData>()) {
+		// 	DigChecker digChecker = e.digChecker;
 
 			// if (digChecker.IsCleanForDigging) {
 			// 	GameObjectEntity.Instantiate(digChecker.diggingResultObj, digChecker.transform.position, Quaternion.identity);
@@ -26,6 +26,6 @@ public class DigSystem : ComponentSystem {
 			// 	// GameObjectEntity.Destroy(digChecker.gameObject);
 			// 	// UpdateInjectedComponentGroups();
 			// }
-		}
+		// }
 	}
 }
