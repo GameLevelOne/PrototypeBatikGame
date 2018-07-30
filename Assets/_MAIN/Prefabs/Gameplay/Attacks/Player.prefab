@@ -652,6 +652,7 @@ MonoBehaviour:
   isSlowMotion: 0
   isHooking: 0
   isCanDigging: 0
+  isDashing: 0
 --- !u!114 &114236418279336380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -849,12 +850,11 @@ MonoBehaviour:
   netObj: {fileID: 1405893428385432, guid: f515b6546eb98d54a86e32f723f987de, type: 2}
   shovelAreaEffectObj: {fileID: 1203940644750638, guid: 8177dafa201b9af4cb7351a1c7852e41,
     type: 2}
-  bootsAreaEffectObj: {fileID: 0}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
-  powerBraceletAreaEffectObj: {fileID: 0}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
+  dashSpeed: 500
   isActToolReady: 0
 --- !u!114 &114842938970828302
 MonoBehaviour:

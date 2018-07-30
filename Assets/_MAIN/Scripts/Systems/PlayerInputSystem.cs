@@ -229,7 +229,7 @@ public class PlayerInputSystem : ComponentSystem {
 					// toolSystem.ChangeTool(playerTool);
 				}
 			}
-
+			
 			if (Input.GetKeyDown(KeyCode.Space)){
 				int toolType = (int)tool.currentTool;
 
@@ -237,10 +237,16 @@ public class PlayerInputSystem : ComponentSystem {
 					Debug.Log("Input Use Tool");
 					input.IsUsingTool = true;
 					// toolSystem.UseTool(playerTool);
-					if (tool.currentTool == ToolType.Boots) {
-						player.IsDashing = true;
-					}
 				}
+			}
+
+			if (Input.GetKey(KeyCode.Space)) {
+				if (input.IsUsingTool && tool.currentTool == ToolType.Boots) {
+					Debug.Log("Input Dash");
+					player.IsDashing = true;
+				}
+			} else {
+				player.IsDashing = false;
 			}
 			#endregion
 		}
