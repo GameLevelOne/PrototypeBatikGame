@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isSlowMotion = false;
 	[SerializeField] bool isHooking = false;
 	[SerializeField] bool isCanDigging = false;
+	[SerializeField] bool isDashing = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -103,6 +104,15 @@ public class Player : MonoBehaviour {
 			if (isHooking == value) return;
 
 			isHooking = value;
+		}
+	}
+
+	public bool IsDashing {
+		get {return isDashing;}
+		set {
+			if (isDashing == value) return;
+
+			isDashing = value;
 		}
 	}
 

@@ -237,6 +237,9 @@ public class PlayerInputSystem : ComponentSystem {
 					Debug.Log("Input Use Tool");
 					input.IsUsingTool = true;
 					// toolSystem.UseTool(playerTool);
+					if (tool.currentTool == ToolType.Boots) {
+						player.IsDashing = true;
+					}
 				}
 			}
 			#endregion

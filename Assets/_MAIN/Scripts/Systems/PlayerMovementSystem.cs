@@ -18,12 +18,14 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
 	[InjectAttribute] MovementData movementData;
+	[InjectAttribute] ToolSystem toolSystem;
 
 	public Facing2D facing;
 
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
+	bool isStartDashing = false;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -39,6 +41,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			Movement movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
 			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
+			PlayerTool tool = toolSystem.tool;
 			
 			int attackMode = input.AttackMode;
 			int moveMode = input.MoveMode;
@@ -64,10 +67,20 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (input.IsUsingTool || player.IsHooking) {
-				rb.velocity = Vector2.zero;
-
+			if (input.IsUsingTool) {
+				if ((player.IsHooking) || ((int) tool.currentTool != 18)) {
+					rb.velocity = Vector2.zero;
+				} else if (player.IsDashing) {
+					Debug.Log("Set dashDir");
+					Transform target = facing.attackArea.transform;
+					// isStartDashing = true;
+					// rb.AddForce((target.position - tr.position) * tool.dashSpeed);
+					rb.velocity = (target.position - tr.position).normalized * tool.dashSpeed * dt;
+				}
+				
 				continue;
+			} else {
+				player.IsDashing = false;
 			}
 
 			if (attackMode == 0) {

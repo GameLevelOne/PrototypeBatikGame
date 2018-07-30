@@ -37,13 +37,15 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject hammerAreaEffectObj;
 	public GameObject netObj;
 	public GameObject shovelAreaEffectObj;
-	public GameObject bootsAreaEffectObj;
 	public GameObject magicMedallionAreaEffectObj;
-	public GameObject powerBraceletAreaEffectObj;
+	// public Boots bootsScriptObj;
+	// public GameObject powerBraceletAreaEffectObj;
+
 
 	public Text textToolName;
 
 	public int currentActiveContainer;
+	public float dashSpeed = 500f;
 	// public bool isUsingTool = false;
 
 	[SerializeField] bool isActToolReady = false;
@@ -96,6 +98,9 @@ public class PlayerTool : MonoBehaviour {
             case 14:
                 SpawnObj (magicMedallionAreaEffectObj, true, true);
                 break;
+            case 18:
+                // SetEquipmentTools (bootsScriptObj);
+                break;
         }
     }
 
@@ -126,7 +131,21 @@ public class PlayerTool : MonoBehaviour {
         return targetRot;
     }
 
+	// void SetEquipmentTools (Boots boots) {
+	// 	dashSpeed = boots.bootsSpeed;
+	// 	Debug.Log("Use Boots with " + dashSpeed + " speed");
+	// }
+
 	public bool IsActToolReady {
+        get {return isActToolReady;}
+		set {
+			if (isActToolReady == value) return;
+
+			isActToolReady = value;
+		}
+    }
+
+	public bool IsDashing {
         get {return isActToolReady;}
 		set {
 			if (isActToolReady == value) return;
