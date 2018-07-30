@@ -109,8 +109,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
 			
 			Vector2 movement = input.MoveDir;
+			
+			// if (player.IsHooking) continue;
 
-			if (input.IsUsingTool) {
+			if (input.IsUsingTool || player.IsHooking) {
+
 				int toolType = (int)tool.currentTool;
 				
 				if ((toolType >= 8) && (toolType <=10)) {

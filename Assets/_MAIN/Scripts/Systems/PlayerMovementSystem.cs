@@ -19,6 +19,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 	[InjectAttribute] MovementData movementData;
 
+	public Facing2D facing;
+
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
@@ -35,7 +37,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			Movement movement = movementData.Movement[i];
-			Facing2D facing = movementData.Facing[i];
+			facing = movementData.Facing[i];
 			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
 			
 			int attackMode = input.AttackMode;
@@ -62,7 +64,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (input.IsUsingTool) {
+			if (input.IsUsingTool || player.IsHooking) {
 				rb.velocity = Vector2.zero;
 
 				continue;

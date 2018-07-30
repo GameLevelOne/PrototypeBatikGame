@@ -640,6 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyThatHitsPlayer: {fileID: 0}
+  playerTool: {fileID: 0}
   isPlayerHit: 0
   isPlayerGetHurt: 0
   isPlayerDie: 0
@@ -649,6 +650,8 @@ MonoBehaviour:
   isBulletTiming: 0
   isRapidSlashing: 0
   isSlowMotion: 0
+  isHooking: 0
+  isCanDigging: 0
 --- !u!114 &114236418279336380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -839,7 +842,7 @@ MonoBehaviour:
   currentTool: 0
   areaSpawnPos: {fileID: 4723722416754214}
   arrowObj: {fileID: 1913286693341378, guid: 46cd7fa7ab0e9b745983ebda3077e3a1, type: 2}
-  hookObj: {fileID: 0}
+  hookObj: {fileID: 1022893050716764, guid: e24f32995bea3e147ab2e3c0ac7af79f, type: 2}
   bombObj: {fileID: 1760986108266002, guid: 353850b5c9c48a342a0f2aa7af97b200, type: 2}
   hammerAreaEffectObj: {fileID: 1329964797512392, guid: 1c0d31ad41e5b8944a030b45fdad7564,
     type: 2}

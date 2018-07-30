@@ -1,26 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Shovel : MonoBehaviour {
 	public GameObject diggingCheckerObj;
 	// public Vector3 diggingCheckPos;
-	
-	[SerializeField] bool isDiggingOnDigArea = false;
+	public List<bool> listDig = new List<bool>();
 
-	public bool IsDiggingOnDigArea {
-		get {return isDiggingOnDigArea;}
+
+	[SerializeField] bool isNotCleanForDigging = false;
+
+	public bool IsNotCleanForDigging {
+		get {return isNotCleanForDigging;}
 		set {
-			if (isDiggingOnDigArea == value) return;
+			if (isNotCleanForDigging == value) return;
 
-			isDiggingOnDigArea = value;
+			isNotCleanForDigging = value;
 		}
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		
-		if (col.tag == Constants.Tag.DIG_AREA) {
-			Debug.Log("Can Digging");
-			
-			IsDiggingOnDigArea = true;
+		if (col.tag == Constants.Tag.DIG_RESULT) {
+			IsNotCleanForDigging = true;
+			listDig.Add(true);
+		} else {
+			listDig.Add(false);
 		}
 	}
 }

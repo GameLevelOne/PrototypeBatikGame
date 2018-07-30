@@ -18,6 +18,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 
 	public PlayerInput input;
+	public Player player;
 
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
@@ -34,7 +35,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
-			Player player = inputData.Player[i];
+			player = inputData.Player[i];
 			// PlayerTool playerTool = inputData.PlayerTool[i];
 			Health health = inputData.Health[i];
 			PlayerTool tool = toolSystem.tool;

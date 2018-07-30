@@ -2,6 +2,7 @@
 
 public class Player : MonoBehaviour {
 	public Enemy enemyThatHitsPlayer;
+	public PlayerTool playerTool;
 	    
     [SerializeField] bool isPlayerHit = false;
     [SerializeField] bool isPlayerGetHurt = false;
@@ -12,6 +13,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isBulletTiming = false;
 	[SerializeField] bool isRapidSlashing = false;
 	[SerializeField] bool isSlowMotion = false;
+	[SerializeField] bool isHooking = false;
+	[SerializeField] bool isCanDigging = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -94,8 +97,44 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public bool IsHooking {
+		get {return isHooking;}
+		set {
+			if (isHooking == value) return;
+
+			isHooking = value;
+		}
+	}
+
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
         set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP,value);}
     }
+
+	public bool IsCanDigging {
+		get {return isCanDigging;}
+		set {
+			if (isCanDigging == value) return;
+
+			isCanDigging = value;
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D col) {
+		
+		if (col.tag == Constants.Tag.DIG_AREA) {
+			Debug.Log("Can Digging");
+			
+			IsCanDigging = true;
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D col) {
+		
+		if (col.tag == Constants.Tag.DIG_AREA) {
+			Debug.Log("Can't Digging");
+			
+			IsCanDigging = false;
+		}
+	}
 }
