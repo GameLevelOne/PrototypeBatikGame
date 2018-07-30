@@ -22,9 +22,9 @@ public class PlayerInput : MonoBehaviour {
 	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
-	[SerializeField] bool isDodging = false;
+	[SerializeField] bool isDodging = false; //
 	[SerializeField] bool isChangeTool = false;
-	[SerializeField] bool isUsingTool = false;
+	[SerializeField] bool isUsingTool = false; //
 	[SerializeField] bool isReadyForDodging = true;
 
 	public Vector2 MoveDir {

@@ -1,21 +1,40 @@
 ﻿using UnityEngine;
 
+public enum PlayerState {
+	IDLE, 
+	MOVE,
+	DODGE,
+	ATTACK,
+	CHARGE,
+	COUNTER,
+	DIE,
+	USING_TOOL,
+	HIT,
+	GET_HURT,
+	GUARD,
+	PARRY,
+	RAPID_SLASH,
+	SLOW_MOTION,
+	DASH
+}
+
 public class Player : MonoBehaviour {
+	public PlayerState playerState;
 	public Enemy enemyThatHitsPlayer;
 	public PlayerTool playerTool;
 	    
-    [SerializeField] bool isPlayerHit = false;
-    [SerializeField] bool isPlayerGetHurt = false;
-    [SerializeField] bool isPlayerDie = false;
+    [SerializeField] bool isPlayerHit = false; //
+    [SerializeField] bool isPlayerGetHurt = false; //
+    [SerializeField] bool isPlayerDie = false; //
     [SerializeField] bool isHitAnEnemy = false;
-	[SerializeField] bool isGuarding = false;
-	[SerializeField] bool isParrying = false;
+	[SerializeField] bool isGuarding = false; //
+	[SerializeField] bool isParrying = false; //
 	[SerializeField] bool isBulletTiming = false;
-	[SerializeField] bool isRapidSlashing = false;
-	[SerializeField] bool isSlowMotion = false;
-	[SerializeField] bool isHooking = false;
+	[SerializeField] bool isRapidSlashing = false; //
+	[SerializeField] bool isSlowMotion = false; //
+	[SerializeField] bool isHooking = false; //
 	[SerializeField] bool isCanDigging = false;
-	[SerializeField] bool isDashing = false;
+	[SerializeField] bool isDashing = false; //
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}

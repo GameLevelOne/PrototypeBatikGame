@@ -22,6 +22,8 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	public Facing2D facing;
 
+	Player player;
+
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
@@ -34,7 +36,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
-			Player player = movementData.Player[i];
+			player = movementData.Player[i];
 			Transform tr = movementData.Transform[i];
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
@@ -96,6 +98,12 @@ public class PlayerMovementSystem : ComponentSystem {
 					isDodgeMove = false;
 					moveDir = moveDir.normalized * moveSpeed * dt;
 					rb.velocity = moveDir;	
+					
+					if (moveDir == Vector2.zero) {
+						SetPlayerState (PlayerState.IDLE);
+					} else {
+						SetPlayerState (PlayerState.MOVE);
+					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {
 				if (!isAttackMove) {
@@ -115,4 +123,10 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		}
 	}
+	
+	#region PLAYER STATE 
+	void SetPlayerState (PlayerState state) {
+		player.playerState = state;
+	}
+	#endregion
 }

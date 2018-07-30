@@ -16,6 +16,7 @@ public class PlayerAttackSystem : ComponentSystem {
 	[InjectAttribute] AttackData attackData;
 
 	Attack attack;
+	Player player;
 
 	// bool isLocalVarInit = false;
 
@@ -34,7 +35,7 @@ public class PlayerAttackSystem : ComponentSystem {
 			if (attackData.Length == 0) return;
 
 			PlayerInput input = attackData.PlayerInput[i];
-			Player player = attackData.Player[i];
+			player = attackData.Player[i];
 			Animation2D anim = attackData.Animation[i];
 			attack = attackData.Attack[i];
 			

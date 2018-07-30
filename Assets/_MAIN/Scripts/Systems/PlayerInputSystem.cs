@@ -67,6 +67,7 @@ public class PlayerInputSystem : ComponentSystem {
 					Time.timeScale = 1f;
 					player.IsRapidSlashing = true;
 					input.SteadyMode = 0;
+					SetPlayerState(PlayerState.RAPID_SLASH);
 				}
 
 				continue;
@@ -113,6 +114,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
 					SetMovement(i, 1, false); //START CHARGE
+					SetPlayerState(PlayerState.CHARGE);
 				}
 			} else {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
@@ -141,7 +143,8 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				SetMovement(i, 0, false);
 				chargeAttackTimer = 0f;
-				isAttackAway = false;				
+				isAttackAway = false;	
+				SetPlayerState(PlayerState.ATTACK);			
 			}
 			#endregion
 
@@ -157,9 +160,11 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 				if (parryTimer < guardParryDelay) {
 					parryTimer += deltaTime;
+					SetPlayerState(PlayerState.PARRY);	
 				} else {
 					player.IsParrying = false;
 					player.IsPlayerHit = false;
+					SetPlayerState(PlayerState.GUARD);	
 				}
 			}
 
@@ -176,6 +181,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
 				input.IsDodging = true; //START DODGE
 				// player.IsBulletTiming = true;
+				SetPlayerState(PlayerState.DODGE);	
 			}
 
 			if (input.IsDodging) {
@@ -190,7 +196,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}	
 
 			if (player.IsBulletTiming) {
-				if (player.IsPlayerHit) {
+				if (player.IsPlayerHit) {	
 					player.IsBulletTiming = false;
 					input.IsDodging = false;
 					ChangeDir(i, midValue, midValue);
@@ -198,6 +204,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.AttackMode = -3;
 					player.IsSlowMotion = true;
 					Debug.Log("Start BulletTime");
+					SetPlayerState(PlayerState.SLOW_MOTION);
 				}
 			}
 
@@ -215,6 +222,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.IsParrying = false;
 					player.IsPlayerHit = false;
 					Debug.Log("Start Counter");
+					SetPlayerState(PlayerState.COUNTER);
 				}
 			} else {
 				player.IsPlayerHit = false;
@@ -236,6 +244,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (!input.IsUsingTool && (toolType != 0)) {
 					Debug.Log("Input Use Tool");
 					input.IsUsingTool = true;
+					SetPlayerState(PlayerState.USING_TOOL);
 					// toolSystem.UseTool(playerTool);
 				}
 			}
@@ -244,6 +253,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (input.IsUsingTool && tool.currentTool == ToolType.Boots) {
 					Debug.Log("Input Dash");
 					player.IsDashing = true;
+					SetPlayerState(PlayerState.DASH);
 				}
 			} else {
 				player.IsDashing = false;
@@ -271,6 +281,12 @@ public class PlayerInputSystem : ComponentSystem {
 			input.MoveDir = currentDir;
 		}
 	}
+	
+	#region PLAYER STATE 
+	void SetPlayerState (PlayerState state) {
+		player.playerState = state;
+	}
+	#endregion
 
 	// void UseTool()
 	// {
