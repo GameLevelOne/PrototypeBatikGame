@@ -40,7 +40,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
 			player = movementData.Player[i];
-			state = player.playerState;
+			state = player.state;
 			Transform tr = movementData.Transform[i];
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];

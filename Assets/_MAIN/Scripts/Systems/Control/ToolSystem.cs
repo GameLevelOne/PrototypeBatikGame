@@ -43,7 +43,7 @@ public class ToolSystem : ComponentSystem {
 		
 		for (int i=0; i<toolData.Length; i++) {
 			// Player player = toolData.Player[i];
-			state = player.playerState;
+			state = player.state;
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			

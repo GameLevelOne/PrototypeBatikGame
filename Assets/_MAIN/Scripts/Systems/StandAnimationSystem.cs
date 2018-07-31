@@ -21,7 +21,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 	PlayerInput input;
 	Player player;
-	PlayerState playerState;
+	PlayerState state;
 	Animation2D anim;
 	Facing2D facing;
 
@@ -40,7 +40,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 		for (int i=0; i<standData.Length; i++) {
 			player = playerInputSystem.player;
-			playerState = player.playerState;
+			state = player.state;
 			stand = standData.PlayerTool[i];
 			// Sprite2D sprite = standData.Sprite[i];
 			anim = standData.Animation[i];
@@ -56,7 +56,7 @@ public class StandAnimationSystem : ComponentSystem {
 			
 			Vector2 movement = input.MoveDir;
 
-			if(playerState == PlayerState.USING_TOOL || playerState == PlayerState.HOOK) {
+			if(state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
 				SetStand(standType);
 				continue;
 			} else {
@@ -101,9 +101,9 @@ public class StandAnimationSystem : ComponentSystem {
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
-	void CheckAfterStandAnimation (StandAnimationState state) {
-		if (state == StandAnimationState.AFTER_USING_TOOL) {
-			if (playerState == PlayerState.HOOK) {
+	void CheckAfterStandAnimation (StandAnimationState animState) {
+		if (animState == StandAnimationState.AFTER_USING_TOOL) {
+			if (state == PlayerState.HOOK) {
 				animator.enabled = false;
 			} else {
 				StopStandAnimation();

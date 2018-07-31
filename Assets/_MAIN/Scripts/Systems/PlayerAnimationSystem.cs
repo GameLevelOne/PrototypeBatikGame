@@ -49,7 +49,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
 			player = animationData.Player[i];
-			state = player.playerState;
+			state = player.state;
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
 
@@ -193,8 +193,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
-	void CheckAfterAnimation (AnimationState state) {
-		switch (state) {
+	void CheckAfterAnimation (AnimationState animState) {
+		switch (animState) {
 			case AnimationState.AFTER_SLASH:
 				if (input.slashComboVal.Count > 0) {
 					int slashComboVal = input.slashComboVal[0];

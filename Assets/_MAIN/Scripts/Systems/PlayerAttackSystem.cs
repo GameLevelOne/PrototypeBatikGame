@@ -38,7 +38,7 @@ public class PlayerAttackSystem : ComponentSystem {
 
 			PlayerInput input = attackData.PlayerInput[i];
 			player = attackData.Player[i];
-			state = player.playerState;
+			state = player.state;
 			Animation2D anim = attackData.Animation[i];
 			attack = attackData.Attack[i];
 			

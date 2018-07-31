@@ -20,7 +20,7 @@ public enum PlayerState {
 }
 
 public class Player : MonoBehaviour {
-	public PlayerState playerState;
+	public PlayerState state;
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
 	    
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col) {
 
-		if (playerState == PlayerState.DASH) {
+		if (state == PlayerState.DASH) {
 			SetPlayerState (PlayerState.BOUNCE);	
 		}
 	}
@@ -116,13 +116,12 @@ public class Player : MonoBehaviour {
 	}
 	
 	#region PLAYER STATE 
-	public void SetPlayerState (PlayerState state) {
-		playerState = state;
+	public void SetPlayerState (PlayerState playerState) {
+		state = playerState;
 	}
 
 	public void SetPlayerIdle () {
-		Debug.Log("Idle");
-		playerState = PlayerState.IDLE;
+		state = PlayerState.IDLE;
 	}
 	#endregion
 }

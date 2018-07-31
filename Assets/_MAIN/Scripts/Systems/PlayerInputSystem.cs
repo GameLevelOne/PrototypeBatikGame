@@ -43,7 +43,7 @@ public class PlayerInputSystem : ComponentSystem {
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
 			player = inputData.Player[i];
-			state = player.playerState;
+			state = player.state;
 			Health health = inputData.Health[i];
 			PlayerTool tool = toolSystem.tool;
 

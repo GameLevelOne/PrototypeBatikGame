@@ -9,6 +9,7 @@ public class Health : MonoBehaviour {
 	public Enemy enemy;
 
 	PlayerState playerState;
+	EnemyState enemyState;
 
 	[SerializeField] float healthPower;
 	[SerializeField] float initialDamage;
@@ -41,7 +42,7 @@ public class Health : MonoBehaviour {
 		initialDamage = damage;
 
 		if (role.gameRole == GameRole.Player) {
-			playerState = player.playerState;
+			playerState = player.state;
 
 			if (playerState == PlayerState.DIE) return;
 
@@ -67,7 +68,9 @@ public class Health : MonoBehaviour {
 				// Invoke ("StopResponseHitPlayer", 0.5f);
 			}
 		} else if (role.gameRole == GameRole.Enemy) {
-			if (enemy.IsEnemyDie) return;
+			enemyState = enemy.state;
+
+			if (enemyState == EnemyState.Die) return;
 			
 			if (col.tag == Constants.Tag.PLAYER_ATTACK) {
 				Player player = col.GetComponentInParent<Player>();
@@ -76,17 +79,32 @@ public class Health : MonoBehaviour {
 
 				enemy.IsEnemyHit = true;
 				
-				enemy.IsEnemyGetHurt = true;
+				// enemy.IsEnemyGetHurt = true;
+				enemy.SetEnemyState(EnemyState.GET_HURT);
 				damage = initialDamage;
 			} else if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION) {
-				enemy.IsEnemyGetHurt = true;
+				// enemy.IsEnemyGetHurt = true;
+				enemy.SetEnemyState(EnemyState.GET_HURT);
 				damage = initialDamage;
 				Debug.Log("Enemy get damaged from other source");
 			}
 		}
 	}
 
-	// void StopResponseHitPlayer () {
-	// 	player.IsPlayerHit = false;
-	// }
+	void OnCollisionEnter2D (Collision2D col) {
+		if (col.gameObject.GetComponent<Damage>() == null) return;
+		
+		damage = col.gameObject.GetComponent<Damage>().damage;
+		initialDamage = damage;
+
+		if (col.gameObject.tag == Constants.Tag.PLAYER) {
+			Player player = col.gameObject.GetComponent<Player>();
+
+			if (player.state == PlayerState.DASH || player.state == PlayerState.BOUNCE) {
+				enemy.SetEnemyState(EnemyState.GET_HURT);
+				damage = initialDamage;
+				Debug.Log("Enemy get damaged from player dash");
+			}
+		}
+	}
 }

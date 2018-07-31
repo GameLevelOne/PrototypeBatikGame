@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 114950218148248466}
   - component: {fileID: 114244005769516886}
   - component: {fileID: 114236418279336380}
+  - component: {fileID: 114592571174930306}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -641,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f98c727661d88474e86b089d43a3eaff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerState: 0
+  state: 0
   enemyThatHitsPlayer: {fileID: 0}
   isPlayerHit: 0
   isHitAnEnemy: 0
@@ -755,6 +756,18 @@ MonoBehaviour:
   attackArea: {fileID: 0}
   blindArea: {fileID: 0}
   attackDirParent: {fileID: 0}
+--- !u!114 &114592571174930306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565756163263292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!114 &114619591953681366
 MonoBehaviour:
   m_ObjectHideFlags: 1

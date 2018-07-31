@@ -21,6 +21,7 @@ public class DamageSystem : ComponentSystem {
 	Enemy enemy;
 
 	PlayerState playerState;
+	EnemyState enemyState;
 
 	CircleCollider2D col;
 
@@ -34,13 +35,15 @@ public class DamageSystem : ComponentSystem {
 			
 			if (role.gameRole == GameRole.Player) {
 				player = health.GetComponent<Player>();
-				playerState = player.playerState;
+				playerState = player.state;
 
 				if (playerState == PlayerState.DIE) continue;
 
 				if (playerState == PlayerState.GET_HURT) {
 					health.HealthPower -= health.damage;
 					// player.IsPlayerGetHurt = false;
+
+					//Set Player Get Hurt Animation
 					player.SetPlayerIdle();
 
 					if (health.HealthPower <= 0f) {
@@ -51,15 +54,20 @@ public class DamageSystem : ComponentSystem {
 				}
 			} else if (role.gameRole == GameRole.Enemy) {
 				enemy = health.GetComponent<Enemy>();
+				enemyState = enemy.state;
 
-				if (enemy.IsEnemyDie) return;
+				if (enemyState == EnemyState.Die) return;
 
-				if (enemy.IsEnemyGetHurt) {
+				if (enemyState == EnemyState.GET_HURT) {
 					health.HealthPower -= health.damage;
-					enemy.IsEnemyGetHurt = false;
+					// enemy.IsEnemyGetHurt = false;
+
+					//Set Enemy Get Hurt Animation;
+					enemy.SetEnemyIdle();
 
 					if (health.HealthPower <= 0f) {
-						enemy.IsEnemyDie = true;
+						// enemy.IsEnemyDie = true;
+						enemy.SetEnemyState(EnemyState.Die);
 						col.enabled = false;
 					}
 				}

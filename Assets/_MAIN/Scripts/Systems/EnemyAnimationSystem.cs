@@ -23,6 +23,8 @@ public class EnemyAnimationSystem : ComponentSystem {
 	// Attack attack;
 	// Role role;
 	Animator animator;
+	
+	EnemyState state;
 	Vector2 currentMove;
 	Vector2 currentDir;
 
@@ -41,6 +43,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.EnemyInput[i];
 			enemy = animationData.Enemy[i];
+			state = enemy.state;
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
 			// attack = animationData.Attack[i];
@@ -49,7 +52,8 @@ public class EnemyAnimationSystem : ComponentSystem {
 			int attackMode = input.AttackMode;
 			// role = anim.role;
 			
-			if (enemy.IsEnemyDie) {
+			// if (enemy.IsEnemyDie) {
+			if (state == EnemyState.Die) {
 				input.SteadyMode = -1;
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);

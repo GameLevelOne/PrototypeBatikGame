@@ -6,7 +6,8 @@ public enum EnemyState{
 	Chase,
 	Attack,
 	Damaged,
-	Die
+	Die,
+	GET_HURT,
 }
 
 public class Enemy : MonoBehaviour {
@@ -21,8 +22,8 @@ public class Enemy : MonoBehaviour {
 	public bool initPatrol = false;
 
 	[SerializeField] bool isEnemyHit = false;
-    [SerializeField] bool isEnemyGetHurt = false;
-	[SerializeField] bool isEnemyDie = false;
+    // [SerializeField] bool isEnemyGetHurt = false;
+	// [SerializeField] bool isEnemyDie = false;
 
 	public bool IsEnemyHit {
 		get {return isEnemyHit;}
@@ -33,20 +34,30 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	public bool IsEnemyGetHurt {
-		get {return isEnemyGetHurt;}
-		set {
-			if (isEnemyGetHurt == value) return;
+	// public bool IsEnemyGetHurt {
+	// 	get {return isEnemyGetHurt;}
+	// 	set {
+	// 		if (isEnemyGetHurt == value) return;
 
-			isEnemyGetHurt = value;
-		}
+	// 		isEnemyGetHurt = value;
+	// 	}
+	// }
+
+	// public bool IsEnemyDie{
+	// 	get{return isEnemyDie;}
+	// 	set{
+	// 		if(isEnemyDie == value) return;
+	// 		isEnemyDie = value;
+	// 	}
+	// }
+	
+	#region ENEMY STATE 
+	public void SetEnemyState (EnemyState enemyState) {
+		state = enemyState;
 	}
 
-	public bool IsEnemyDie{
-		get{return isEnemyDie;}
-		set{
-			if(isEnemyDie == value) return;
-			isEnemyDie = value;
-		}
+	public void SetEnemyIdle () {
+		state = EnemyState.Idle;
 	}
+	#endregion
 }
