@@ -3,30 +3,32 @@ using UnityEngine;
 
 public class LevelDataSystem : ComponentSystem {
 
-	[Inject] public CameraSystem cameraSystem;
-	[Inject] public MapChunkSystem mapChunkSystem;
-	public struct Component{
-		public LevelData levelData;
+	public struct LevelDataComponent{
+		public readonly int Length;
+		public ComponentArray<LevelData> levelData;
 	}
 
-	// void OnLevelWasLoaded(int level)
-	// {
-	// 	this.Enabled = true;
-	// }
+	#region injected component
+	[InjectAttribute] LevelDataComponent levelDataComponent;
+	LevelData currLevelData;
+	#endregion
+
+	#region injected system
+	[Inject] public CameraSystem cameraSystem;
+	[Inject] public MapChunkSystem mapChunkSystem;
+	#endregion
 
 	protected override void OnUpdate()
 	{
-		foreach(var e in GetEntities<Component>()){
-			if(!e.levelData.isInitialied){
-				InitializeLevelData(e);
-			}
-		}
-		
+		// for(int i = 0;i<levelDataComponent.Length;i++){
+		// 	currLevelData = levelDataComponent.levelData[i];
+		// 	InitializeLevelData();
+		// }		
 	}
 
-	void InitializeLevelData(Component e)
+	void InitializeLevelData()
 	{
-		e.levelData.isInitialied = true;
+		currLevelData.isInitialied = true;
 		// e.levelData.currentPlayer = (GameObject) GameObject.Instantiate(e.levelData.playerObj,e.levelData.playerStartPos,Quaternion.identity);
 		cameraSystem.Enabled = true;
 		mapChunkSystem.Enabled = true;
