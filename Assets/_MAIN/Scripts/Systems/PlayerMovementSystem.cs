@@ -29,7 +29,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
-	bool isStartDashing = false;
+	// bool isStartDashing = false;
+	float brakeTime = 0f;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -74,21 +75,32 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE) {
+				Transform target = facing.attackArea.transform;
+				Vector2 dir = target.position - tr.position;
+				
 				if (state == PlayerState.HOOK) {
 					rb.velocity = Vector2.zero;
 				} else if (state == PlayerState.DASH) {
-					Transform target = facing.attackArea.transform;
-					Debug.Log("Dashing");
 					// isStartDashing = true;
-					// rb.AddForce((target.position - tr.position) * tool.dashSpeed);
-					rb.velocity = (target.position - tr.position).normalized * tool.dashSpeed * dt;
+					// rb.AddForce(dir * tool.dashSpeed);
+					rb.velocity = dir.normalized * tool.dashSpeed * dt;
+				} else if (state == PlayerState.BOUNCE) {
+					// rb.AddForce(-dir * movement.bounceSpeed);
+					if (brakeTime > 0f) {
+						brakeTime -= dt;
+						rb.velocity = -dir.normalized * movement.bounceSpeed * dt * brakeTime;
+					} else {
+						input.MoveDir = Vector2.zero;
+						player.SetPlayerIdle();
+					}
 				} else {
 					rb.velocity = Vector2.zero;
 				}
 				
 				continue;
 			} else {
+				brakeTime = movement.brakeTime;
 				// player.IsDashing = false;
 			}
 

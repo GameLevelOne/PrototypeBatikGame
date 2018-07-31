@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int bulletTimeAttackQty = 0;
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
-	[SerializeField] bool isChangeTool = false;
+	// [SerializeField] bool isChangeTool = false;
 	
 	bool isReadyForDodging = true;
 
@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3
 	public int MoveMode {
 		get {return moveMode;}
 		set {
@@ -77,13 +77,13 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	public bool IsChangeTool
-	{
-		get {return isChangeTool;}
-		set {
-			if (isChangeTool == value) return;
+	// public bool IsChangeTool
+	// {
+	// 	get {return isChangeTool;}
+	// 	set {
+	// 		if (isChangeTool == value) return;
 			
-			isChangeTool = value;
-		}
-	}
+	// 		isChangeTool = value;
+	// 	}
+	// }
 }

@@ -15,7 +15,8 @@ public enum PlayerState {
 	RAPID_SLASH,
 	SLOW_MOTION,
 	HOOK,
-	DASH
+	DASH,
+	BOUNCE
 }
 
 public class Player : MonoBehaviour {
@@ -86,6 +87,13 @@ public class Player : MonoBehaviour {
 			if (isCanDigging == value) return;
 
 			isCanDigging = value;
+		}
+	}
+
+	void OnCollisionEnter2D (Collision2D col) {
+
+		if (playerState == PlayerState.DASH) {
+			SetPlayerState (PlayerState.BOUNCE);	
 		}
 	}
 

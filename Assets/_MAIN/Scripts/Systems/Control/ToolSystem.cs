@@ -47,16 +47,16 @@ public class ToolSystem : ComponentSystem {
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			
-			bool isChangeTool = input.IsChangeTool;
+			// bool isChangeTool = input.IsChangeTool;
 			// bool isUsingTool = input.IsUsingTool;
 
 			StandAnimationState standAnimState = anim.standAnimState;
 			toolType = (int)tool.currentTool;
 
-			if (isChangeTool) {
-				ChangeTool();
-				input.IsChangeTool = false;
-			} 
+			// if (isChangeTool) {
+			// 	ChangeTool();
+			// 	input.IsChangeTool = false;
+			// } 
 			
 			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
 				if (tool.IsActToolReady) {
@@ -85,7 +85,7 @@ public class ToolSystem : ComponentSystem {
 		// }
 	}
 
-	public void ChangeTool ()
+	public void NextTool ()
 	{
 		int current = (int) tool.currentTool;
 		
@@ -95,8 +95,25 @@ public class ToolSystem : ComponentSystem {
 			current++;
 		}
 
-		tool.currentTool = (ToolType) current;
-		tool.textToolName.text = ((ToolType) current).ToString();
+		PrintToolName ((ToolType) current);
+	}
+
+	public void PrevTool () 
+	{
+		int current = (int) tool.currentTool;
+		
+		if(current <= ((int)ToolType.None)){
+			current = 18; //Current tool length
+		}else{
+			current--;
+		}
+
+		PrintToolName ((ToolType) current);
+	}
+
+	void PrintToolName (ToolType type) {
+		tool.currentTool = type;
+		tool.textToolName.text = type.ToString();
 	}
 
 	public void UseTool ()

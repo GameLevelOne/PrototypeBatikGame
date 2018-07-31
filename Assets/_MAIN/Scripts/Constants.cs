@@ -34,6 +34,7 @@ public static class Constants {
 			public const string IS_MOVING = "IsMoving";
 			public const string IS_RAPID_SLASHING = "IsRapidSlashing";
 			public const string IS_USING_TOOL = "IsUsingTool";
+			public const string IS_DASHING = "IsDashing";
 		}
 
 	}

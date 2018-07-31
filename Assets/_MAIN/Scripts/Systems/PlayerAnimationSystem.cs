@@ -62,7 +62,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				input.SteadyMode = -1;
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				continue;
 			}
@@ -70,8 +70,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#region ACTION
 			if (state == PlayerState.DODGE) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
+			} else if (state == PlayerState.DASH) {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DASHING, true);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DASHING, false);
 			}
 			
 			if (state == PlayerState.SLOW_MOTION) {
@@ -118,7 +121,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			// if (player.IsHooking) continue;
 
-			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.DASH)) {
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
 
 				int toolType = (int)tool.currentTool;
 				
@@ -128,6 +131,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				
 				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, toolType); 
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
+				continue;
+			} else if (state == PlayerState.DASH) {
+				//
 				continue;
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);

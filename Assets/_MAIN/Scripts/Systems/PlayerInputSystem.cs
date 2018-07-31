@@ -103,6 +103,17 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			#endregion
 
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {	
+
+				if (Input.GetKeyUp(KeyCode.Space)){
+					if (state == PlayerState.DASH) {
+						player.SetPlayerIdle();
+					}
+				}
+
+				continue;
+			}
+
 			#region Button Attack
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
 				chargeAttackTimer += deltaTime;
@@ -223,15 +234,21 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			#region Button Tools
-			if(Input.GetKeyDown(KeyCode.C)){
+			if(Input.GetKeyDown(KeyCode.X)){
 				if (state != PlayerState.USING_TOOL) {
-					Debug.Log("Input Change Tool");
-					input.IsChangeTool = true;
+					Debug.Log("Input Next Tool");
+					toolSystem.NextTool();
+				}
+			}
+			
+			if(Input.GetKeyDown(KeyCode.Z)){
+				if (state != PlayerState.USING_TOOL) {
+					Debug.Log("Input Prev Tool");
+					toolSystem.PrevTool();
 				}
 			}
 			
 			if (Input.GetKeyDown(KeyCode.Space)){
-				// int currentTool = (int)tool.currentTool;
 				toolType = tool.currentTool;
 
 				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH) && (toolType != ToolType.None)) {
@@ -243,12 +260,6 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.Boots) {
 						player.SetPlayerState(PlayerState.DASH);
 					}
-				}
-			}
-
-			if (Input.GetKeyUp(KeyCode.Space)){
-				if (state == PlayerState.DASH) {
-					player.SetPlayerIdle();
 				}
 			}
 			#endregion
