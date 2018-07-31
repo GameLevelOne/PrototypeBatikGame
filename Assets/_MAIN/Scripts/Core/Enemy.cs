@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
 	public float t = 0;
 
 	public bool initIdle = false;
+	public bool initPatrol = false;
 
 	[SerializeField] bool isEnemyHit = false;
     [SerializeField] bool isEnemyGetHurt = false;

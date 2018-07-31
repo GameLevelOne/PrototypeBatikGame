@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyAISystem : ComponentSystem {
 
-	struct EnemyComponent{
+	struct EnemyComponent
+	{
 		public readonly int Length;
 		public ComponentArray<Enemy> enemy;
 		public ComponentArray<Animator> enemyAnimation;
@@ -26,12 +27,12 @@ public class EnemyAISystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{		
-		for(int i = 0;i<enemyComponent.Length;i++){
-			currEnemy = enemyComponent.enemy[i];
-			currEnemyAnimation = enemyComponent.enemyAnimation[i];
-			currRigidbody = enemyComponent.rigidbody[i];
-			CheckState();
-		}
+		// for(int i = 0;i<enemyComponent.Length;i++){
+		// 	currEnemy = enemyComponent.enemy[i];
+		// 	currEnemyAnimation = enemyComponent.enemyAnimation[i];
+		// 	currRigidbody = enemyComponent.rigidbody[i];
+		// 	CheckState();
+		// }
 	}
 	
 	void CheckState()
@@ -67,7 +68,7 @@ public class EnemyAISystem : ComponentSystem {
 	}
 	void Patrol()
 	{
-
+		enemyMovementSystem.InitMove();
 	}
 	
 	void Chase()
@@ -87,7 +88,7 @@ public class EnemyAISystem : ComponentSystem {
 	
 	void Die()
 	{
-		
+
 	}
 
 	void SetEnemyState(EnemyState enemyState)
