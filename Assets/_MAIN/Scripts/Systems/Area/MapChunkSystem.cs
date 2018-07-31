@@ -67,18 +67,18 @@ public class MapChunkSystem : ComponentSystem {
 			for(int x = -1;x<chunkLength;x++){
 				if( (x >= currentChunk.x-1 && x <= currentChunk.x+1) &&
 				    (y >= currentChunk.y-1 && y <= currentChunk.y+1) ){
-						// Debug.Log(x+","+y);
-						string sceneName = GetSceneName(x,y);
-						//Debug.Log(sceneName);
-						if(!SceneManager.GetSceneByName(sceneName).isLoaded){
-							SceneManager.LoadSceneAsync(sceneName,LoadSceneMode.Additive);
-						}
-					}else{
-						string sceneName = GetSceneName(x,y);
-						if(SceneManager.GetSceneByName(sceneName).isLoaded){
-							SceneManager.UnloadSceneAsync(sceneName);
-						}
+					// Debug.Log(x+","+y);
+					string sceneName = GetSceneName(x,y);
+					//Debug.Log(sceneName);
+					if(!SceneManager.GetSceneByName(sceneName).isLoaded){
+						SceneManager.LoadSceneAsync(sceneName,LoadSceneMode.Additive);
 					}
+				}else{
+					string sceneName = GetSceneName(x,y);
+					if(SceneManager.GetSceneByName(sceneName).isLoaded){
+						SceneManager.UnloadSceneAsync(sceneName);
+					}
+				}
 			}
 		}
 	}

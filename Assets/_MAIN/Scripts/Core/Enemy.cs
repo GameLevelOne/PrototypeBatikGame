@@ -1,11 +1,24 @@
 ﻿using UnityEngine;
 
+public enum EnemyState{
+	Idle,
+	Patrol,
+	Chase,
+	Attack,
+	Damaged,
+	Die
+}
+
 public class Enemy : MonoBehaviour {
 	public Player playerThatHitsEnemy;
+	public EnemyState state;
+	public GameObject targetPlayer;
+
+	public float idleDuration = 3f;
 
 	[SerializeField] bool isEnemyHit = false;
     [SerializeField] bool isEnemyGetHurt = false;
-    [SerializeField] bool isEnemyDie = false;
+	[SerializeField] bool isEnemyDie = false;
 
 	public bool IsEnemyHit {
 		get {return isEnemyHit;}
@@ -25,11 +38,10 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
-	public bool IsEnemyDie {
-		get {return isEnemyDie;}
-		set {
-			if (isEnemyDie == value) return;
-
+	public bool IsEnemyDie{
+		get{return isEnemyDie;}
+		set{
+			if(isEnemyDie == value) return;
 			isEnemyDie = value;
 		}
 	}
