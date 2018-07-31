@@ -11,8 +11,7 @@ public enum PlayerState {
 	USING_TOOL,
 	HIT,
 	GET_HURT,
-	GUARD,
-	PARRY,
+	BLOCK_ATTACK,
 	RAPID_SLASH,
 	SLOW_MOTION,
 	DASH
@@ -23,18 +22,18 @@ public class Player : MonoBehaviour {
 	public Enemy enemyThatHitsPlayer;
 	public PlayerTool playerTool;
 	    
-    [SerializeField] bool isPlayerHit = false; //
-    [SerializeField] bool isPlayerGetHurt = false; //
-    [SerializeField] bool isPlayerDie = false; //
+    [SerializeField] bool isPlayerHit = false; 
+    // [SerializeField] bool isPlayerGetHurt = false; //
+    // [SerializeField] bool isPlayerDie = false; //
     [SerializeField] bool isHitAnEnemy = false;
-	[SerializeField] bool isGuarding = false; //
-	[SerializeField] bool isParrying = false; //
+	[SerializeField] bool isGuarding = false; 
+	[SerializeField] bool isParrying = false; 
 	[SerializeField] bool isBulletTiming = false;
-	[SerializeField] bool isRapidSlashing = false; //
-	[SerializeField] bool isSlowMotion = false; //
+	// [SerializeField] bool isRapidSlashing = false; //
+	// [SerializeField] bool isSlowMotion = false; //
 	[SerializeField] bool isHooking = false; //
 	[SerializeField] bool isCanDigging = false;
-	[SerializeField] bool isDashing = false; //
+	// [SerializeField] bool isDashing = false; //
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -45,23 +44,23 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public bool IsPlayerGetHurt {
-		get {return isPlayerGetHurt;}
-		set {
-			if (isPlayerGetHurt == value) return;
+	// public bool IsPlayerGetHurt {
+	// 	get {return isPlayerGetHurt;}
+	// 	set {
+	// 		if (isPlayerGetHurt == value) return;
 
-			isPlayerGetHurt = value;
-		}
-	}
+	// 		isPlayerGetHurt = value;
+	// 	}
+	// }
 
-	public bool IsPlayerDie {
-		get {return isPlayerDie;}
-		set {
-			if (isPlayerDie == value) return;
+	// public bool IsPlayerDie {
+	// 	get {return isPlayerDie;}
+	// 	set {
+	// 		if (isPlayerDie == value) return;
 
-			isPlayerDie = value;
-		}
-	}
+	// 		isPlayerDie = value;
+	// 	}
+	// }
 
 	public bool IsHitAnEnemy {
 		get {return isHitAnEnemy;}
@@ -99,23 +98,23 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public bool IsSlowMotion {
-		get {return isSlowMotion;}
-		set {
-			if (isSlowMotion == value) return;
+	// public bool IsSlowMotion {
+	// 	get {return isSlowMotion;}
+	// 	set {
+	// 		if (isSlowMotion == value) return;
 
-			isSlowMotion = value;
-		}
-	}
+	// 		isSlowMotion = value;
+	// 	}
+	// }
 
-	public bool IsRapidSlashing {
-		get {return isRapidSlashing;}
-		set {
-			if (isRapidSlashing == value) return;
+	// public bool IsRapidSlashing {
+	// 	get {return isRapidSlashing;}
+	// 	set {
+	// 		if (isRapidSlashing == value) return;
 
-			isRapidSlashing = value;
-		}
-	}
+	// 		isRapidSlashing = value;
+	// 	}
+	// }
 
 	public bool IsHooking {
 		get {return isHooking;}
@@ -126,14 +125,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public bool IsDashing {
-		get {return isDashing;}
-		set {
-			if (isDashing == value) return;
+	// public bool IsDashing {
+	// 	get {return isDashing;}
+	// 	set {
+	// 		if (isDashing == value) return;
 
-			isDashing = value;
-		}
-	}
+	// 		isDashing = value;
+	// 	}
+	// }
 
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
@@ -166,4 +165,14 @@ public class Player : MonoBehaviour {
 			IsCanDigging = false;
 		}
 	}
+	
+	#region PLAYER STATE 
+	public void SetPlayerState (PlayerState state) {
+		playerState = state;
+	}
+
+	public void SetPlayerIdle () {
+		playerState = PlayerState.IDLE;
+	}
+	#endregion
 }

@@ -18,6 +18,8 @@ public class PlayerAttackSystem : ComponentSystem {
 	Attack attack;
 	Player player;
 
+	PlayerState state;
+
 	// bool isLocalVarInit = false;
 
 	protected override void OnUpdate () {
@@ -36,6 +38,7 @@ public class PlayerAttackSystem : ComponentSystem {
 
 			PlayerInput input = attackData.PlayerInput[i];
 			player = attackData.Player[i];
+			state = player.playerState;
 			Animation2D anim = attackData.Animation[i];
 			attack = attackData.Attack[i];
 			
@@ -51,7 +54,8 @@ public class PlayerAttackSystem : ComponentSystem {
 				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
 					SpawnSlashEffect(attackMode);
 				} else if (animState == AnimationState.START_RAPIDSLASH) {
-					if (player.IsSlowMotion || player.IsRapidSlashing) {
+					if (state == PlayerState.RAPID_SLASH) {
+						Debug.Log("Splash Attack");
 						SpawnSlashEffect(attackMode);
 					}
 				}

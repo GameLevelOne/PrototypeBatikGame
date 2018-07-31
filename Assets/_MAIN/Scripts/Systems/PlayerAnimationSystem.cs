@@ -21,6 +21,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Animation2D anim;
 	Facing2D facing;
 	PlayerTool tool;
+
+	PlayerState state;
 	
 	Animator animator;
 	Vector2 currentMove;
@@ -47,40 +49,44 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
 			player = animationData.Player[i];
+			state = player.playerState;
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 
-			if (player.IsPlayerDie) {
+			// if (player.IsPlayerDie) {
+			if (state == PlayerState.DIE) {
+				Debug.Log("Player Die Animation");
 				input.SteadyMode = -1;
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				continue;
 			}
 
 			#region ACTION
-			if (input.IsDodging) {
+			if (state == PlayerState.DODGE) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 			}
 			
-			if (player.IsSlowMotion) {
+			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
 				continue;
-			} else if (player.IsRapidSlashing) {
+			} else if (state == PlayerState.RAPID_SLASH) {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				} else {
-					player.IsRapidSlashing = false;
+					// player.IsRapidSlashing = false;
+					player.SetPlayerIdle();
 				}
 				
 				StartCheckAnimation();
@@ -206,7 +212,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_DODGE:
 				animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
-				input.IsDodging = false;
+				// input.IsDodging = false;
+				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_COUNTER:
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
@@ -214,10 +221,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_RAPIDSLASH:
-				Debug.Log("Rapid Slash");
 				input.BulletTimeAttackQty--;
 				if (input.BulletTimeAttackQty == 0) {
-					player.IsRapidSlashing = false;
+					// player.IsRapidSlashing = false;
 					player.IsHitAnEnemy = false;
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
 					StopAttackAnimation();
@@ -240,6 +246,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		input.AttackMode = 0;
 		// attack.IsAttacking = false;
 		// }
+		player.SetPlayerIdle();
 	}
 
 	float CheckMode (int mode) {
