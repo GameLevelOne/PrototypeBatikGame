@@ -30,8 +30,8 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isGuarding = false; //
 	[SerializeField] bool isParrying = false; //
 	[SerializeField] bool isBulletTiming = false;
-	[SerializeField] bool isRapidSlashing = false; //
-	[SerializeField] bool isSlowMotion = false; //
+	// [SerializeField] bool isRapidSlashing = false; //
+	// [SerializeField] bool isSlowMotion = false; //
 	[SerializeField] bool isHooking = false; //
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isDashing = false; //
@@ -99,23 +99,23 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public bool IsSlowMotion {
-		get {return isSlowMotion;}
-		set {
-			if (isSlowMotion == value) return;
+	// public bool IsSlowMotion {
+	// 	get {return isSlowMotion;}
+	// 	set {
+	// 		if (isSlowMotion == value) return;
 
-			isSlowMotion = value;
-		}
-	}
+	// 		isSlowMotion = value;
+	// 	}
+	// }
 
-	public bool IsRapidSlashing {
-		get {return isRapidSlashing;}
-		set {
-			if (isRapidSlashing == value) return;
+	// public bool IsRapidSlashing {
+	// 	get {return isRapidSlashing;}
+	// 	set {
+	// 		if (isRapidSlashing == value) return;
 
-			isRapidSlashing = value;
-		}
-	}
+	// 		isRapidSlashing = value;
+	// 	}
+	// }
 
 	public bool IsHooking {
 		get {return isHooking;}
@@ -166,4 +166,10 @@ public class Player : MonoBehaviour {
 			IsCanDigging = false;
 		}
 	}
+	
+	#region PLAYER STATE 
+	public void SetPlayerState (PlayerState state) {
+		playerState = state;
+	}
+	#endregion
 }

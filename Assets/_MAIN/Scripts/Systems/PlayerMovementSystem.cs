@@ -24,6 +24,8 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	Player player;
 
+	PlayerState state;
+
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
@@ -37,6 +39,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
 			player = movementData.Player[i];
+			state = player.playerState;
 			Transform tr = movementData.Transform[i];
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
@@ -57,7 +60,7 @@ public class PlayerMovementSystem : ComponentSystem {
             //     break;
 			}
 			
-			if (player.IsSlowMotion || player.IsRapidSlashing) {
+			if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
 				if (attackMode == -3) {
 					tr.position = teleportBulletTime.Teleport();
 					Time.timeScale = 0.1f;
@@ -88,7 +91,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			if (attackMode == 0) {
 				Vector2 moveDir = input.MoveDir;
 
-				if (input.IsDodging) {
+				if (state == PlayerState.DODGE) {
 					if (!isDodgeMove) {
 						Transform target = facing.attackArea.transform;
 						isDodgeMove = true;
@@ -100,9 +103,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					rb.velocity = moveDir;	
 					
 					if (moveDir == Vector2.zero) {
-						SetPlayerState (PlayerState.IDLE);
+						player.SetPlayerState(PlayerState.IDLE);
 					} else {
-						SetPlayerState (PlayerState.MOVE);
+						player.SetPlayerState(PlayerState.MOVE);
 					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {
@@ -123,10 +126,4 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		}
 	}
-	
-	#region PLAYER STATE 
-	void SetPlayerState (PlayerState state) {
-		player.playerState = state;
-	}
-	#endregion
 }

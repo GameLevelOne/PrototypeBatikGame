@@ -4,9 +4,11 @@ public class Health : MonoBehaviour {
 	public float guardReduceDamage;
 	public float damage;
 
-	Role role;
-	Player player;
-	Enemy enemy;
+	public Role role;
+	public Player player;
+	public Enemy enemy;
+
+	PlayerState playerState;
 
 	[SerializeField] float healthPower;
 	[SerializeField] float initialDamage;
@@ -20,17 +22,17 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	void Awake () {
-		role = GetComponent<Role>();
+	// void Awake () {
+	// 	role = GetComponent<Role>();
 
-		if (role.gameRole == GameRole.Player) {
-			player = GetComponent<Player>();
-		} else if (role.gameRole == GameRole.Enemy) {
-			enemy = GetComponent<Enemy>();
-		} else {
-			Debug.Log("Unknown game object");
-		}
-	}
+	// 	if (role.gameRole == GameRole.Player) {
+	// 		player = GetComponent<Player>();
+	// 	} else if (role.gameRole == GameRole.Enemy) {
+	// 		enemy = GetComponent<Enemy>();
+	// 	} else {
+	// 		Debug.Log("Unknown game object");
+	// 	}
+	// }
 	
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
@@ -39,6 +41,8 @@ public class Health : MonoBehaviour {
 		initialDamage = damage;
 
 		if (role.gameRole == GameRole.Player) {
+			playerState = player.playerState;
+
 			if (player.IsPlayerDie) return;
 
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
@@ -48,7 +52,7 @@ public class Health : MonoBehaviour {
 
 				player.IsPlayerHit = true;
 
-				if (player.IsParrying || player.IsBulletTiming || player.IsSlowMotion || player.IsRapidSlashing) {
+				if (player.IsParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
 					Debug.Log ("Player ignored damage");
 				} else if (player.IsGuarding) {
 					player.IsPlayerGetHurt = true;
