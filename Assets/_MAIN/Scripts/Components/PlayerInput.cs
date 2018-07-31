@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int moveMode = 0;
 	// [SerializeField] bool isDodging = false;
 	[SerializeField] bool isChangeTool = false;
-	[SerializeField] bool isUsingTool = false; //
+	// [SerializeField] bool isUsingTool = false; //
 	
 	bool isReadyForDodging = true;
 
@@ -105,15 +105,15 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	public bool IsUsingTool
-	{
-		get {return isUsingTool;}
-		set {
-			if (isUsingTool == value) return;
+	// public bool IsUsingTool
+	// {
+	// 	get {return isUsingTool;}
+	// 	set {
+	// 		if (isUsingTool == value) return;
 			
-			isUsingTool = value;
-		}
-	}
+	// 		isUsingTool = value;
+	// 	}
+	// }
 
 	// void ResetDodge () {
 	// 	isReadyForDodging = true;

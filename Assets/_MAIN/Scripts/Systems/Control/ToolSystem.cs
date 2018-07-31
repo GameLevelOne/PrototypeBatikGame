@@ -24,6 +24,9 @@ public class ToolSystem : ComponentSystem {
 	public PlayerTool tool;
 
 	PlayerInput input;
+	Player player;
+
+	PlayerState state;
 
 	int toolType;
 
@@ -31,19 +34,21 @@ public class ToolSystem : ComponentSystem {
 	{
 		if (toolData.Length == 0) return;
 		
-		if (input == null) {
+		if (input == null || player == null) {
 			input = playerInputSystem.input;
+			player = playerInputSystem.player;
 
 			return;
 		} 
 		
 		for (int i=0; i<toolData.Length; i++) {
 			// Player player = toolData.Player[i];
+			state = player.playerState;
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			
 			bool isChangeTool = input.IsChangeTool;
-			bool isUsingTool = input.IsUsingTool;
+			// bool isUsingTool = input.IsUsingTool;
 
 			StandAnimationState standAnimState = anim.standAnimState;
 			toolType = (int)tool.currentTool;
@@ -53,12 +58,10 @@ public class ToolSystem : ComponentSystem {
 				input.IsChangeTool = false;
 			} 
 			
-			if (isUsingTool) {
+			if (state == PlayerState.USING_TOOL) {
 				if (tool.IsActToolReady) {
-					if (standAnimState == StandAnimationState.START_USING_TOOL) {
-						UseTool ();
-						tool.IsActToolReady = false;
-					}
+					UseTool ();
+					tool.IsActToolReady = false;
 				}
 			}
 			
@@ -287,5 +290,6 @@ public class ToolSystem : ComponentSystem {
 		//bounce back on impact
 		
 		// tool.SpawnSlashEffect(toolType);
+		player.SetPlayerState(PlayerState.DASH);
 	}
 }

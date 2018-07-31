@@ -145,15 +145,6 @@ public class PlayerTool : MonoBehaviour {
 		}
     }
 
-	public bool IsDashing {
-        get {return isActToolReady;}
-		set {
-			if (isActToolReady == value) return;
-
-			isActToolReady = value;
-		}
-    }
-
 	/// <summary>
     /// <para>Value:<br /></para>
 	/// <para>0: locked<br /></para>

@@ -118,7 +118,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			// if (player.IsHooking) continue;
 
-			if (input.IsUsingTool || player.IsHooking) {
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
 
 				int toolType = (int)tool.currentTool;
 				

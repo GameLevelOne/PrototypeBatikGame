@@ -20,6 +20,8 @@ public class HookSystem : ComponentSystem {
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
+	Player player;
+	PlayerState state;
 	Facing2D facing;
 	Vector2 hookStartPos;
 	#endregion
@@ -33,6 +35,7 @@ public class HookSystem : ComponentSystem {
 		deltaTime = Time.deltaTime;
 
 		for(int i = 0;i<hookComponent.Length;i++){
+			player = playerInputSystem.player;
 			currHook = hookComponent.hook[i];
 			currRigidbody = hookComponent.rigidbody[i];
 			facing = playerMovementSystem.facing;
@@ -46,7 +49,7 @@ public class HookSystem : ComponentSystem {
 	{
 		if(currHook.hookState == HookState.Idle && !currHook.IsHookLaunched){
 			currHook.IsHookLaunched = true;
-			playerInputSystem.player.IsHooking = true;
+			player.SetPlayerState(PlayerState.HOOK);
 			currHook.startPos = currHook.transform.position;
 			Launch();
 		}else if(currHook.hookState == HookState.Launch){
@@ -104,7 +107,8 @@ public class HookSystem : ComponentSystem {
 			t = 0;
 			currHook.hookState = HookState.Idle;
 			currHook.IsHookLaunched = false;
-			playerInputSystem.player.IsHooking = false;
+			player.SetPlayerIdle();
+			
 			GameObjectEntity.Destroy(currHook.gameObject);
 			UpdateInjectedComponentGroups();
 		}

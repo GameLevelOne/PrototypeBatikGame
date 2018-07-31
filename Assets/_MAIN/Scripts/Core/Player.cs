@@ -14,6 +14,7 @@ public enum PlayerState {
 	BLOCK_ATTACK,
 	RAPID_SLASH,
 	SLOW_MOTION,
+	HOOK,
 	DASH
 }
 
@@ -31,7 +32,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isBulletTiming = false;
 	// [SerializeField] bool isRapidSlashing = false; //
 	// [SerializeField] bool isSlowMotion = false; //
-	[SerializeField] bool isHooking = false; //
+	// [SerializeField] bool isHooking = false; //
 	[SerializeField] bool isCanDigging = false;
 	// [SerializeField] bool isDashing = false; //
 
@@ -116,14 +117,14 @@ public class Player : MonoBehaviour {
 	// 	}
 	// }
 
-	public bool IsHooking {
-		get {return isHooking;}
-		set {
-			if (isHooking == value) return;
+	// public bool IsHooking {
+	// 	get {return isHooking;}
+	// 	set {
+	// 		if (isHooking == value) return;
 
-			isHooking = value;
-		}
-	}
+	// 		isHooking = value;
+	// 	}
+	// }
 
 	// public bool IsDashing {
 	// 	get {return isDashing;}

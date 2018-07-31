@@ -46,7 +46,7 @@ public class PlayerAttackSystem : ComponentSystem {
 			AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
 
-			if (attackMode == 0 || input.IsUsingTool || player.IsHooking) return;
+			if (attackMode == 0 || (state == PlayerState.USING_TOOL) || (state == PlayerState.USING_TOOL)) continue;
 
 			//Attack
         	// attack.isAttacking = true;

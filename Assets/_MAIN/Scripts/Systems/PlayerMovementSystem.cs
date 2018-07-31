@@ -74,8 +74,8 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (input.IsUsingTool) {
-				if ((player.IsHooking) || ((int) tool.currentTool != 18)) {
+			if (state == PlayerState.USING_TOOL) {
+				if (state == PlayerState.USING_TOOL) {
 					rb.velocity = Vector2.zero;
 				} else if (state == PlayerState.DASH) {
 					Transform target = facing.attackArea.transform;

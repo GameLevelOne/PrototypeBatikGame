@@ -255,7 +255,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Tools
 			if(Input.GetKeyDown(KeyCode.C)){
-				if (!input.IsUsingTool) {
+				if (state != PlayerState.USING_TOOL) {
 					Debug.Log("Input Change Tool");
 					input.IsChangeTool = true;
 					// input.ToolType++;
@@ -266,22 +266,12 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetKeyDown(KeyCode.Space)){
 				int toolType = (int)tool.currentTool;
 
-				if (!input.IsUsingTool && (toolType != 0)) {
+				if ((state != PlayerState.USING_TOOL) && (toolType != 0)) {
 					Debug.Log("Input Use Tool");
-					input.IsUsingTool = true;
+					// input.IsUsingTool = true;
 					player.SetPlayerState(PlayerState.USING_TOOL);
 					// toolSystem.UseTool(playerTool);
 				}
-			}
-
-			if (Input.GetKey(KeyCode.Space)) {
-				if (input.IsUsingTool && tool.currentTool == ToolType.Boots) {
-					Debug.Log("Input Dash");
-					// player.IsDashing = true;
-					player.SetPlayerState(PlayerState.DASH);
-				}
-			} else {
-				// player.IsDashing = false;
 			}
 			#endregion
 		}
