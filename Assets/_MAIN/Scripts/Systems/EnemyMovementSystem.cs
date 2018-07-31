@@ -6,7 +6,6 @@ public class EnemyMovementSystem : ComponentSystem {
 	public struct EnemyMovementComponent{
 		public readonly int Length;
 		public ComponentArray<Transform> transform;
-		public ComponentArray<Enemy> enemy;
 		public ComponentArray<EnemyMovement> enemyMovement;
 		
 		public ComponentArray<Rigidbody2D> rigidbody;
@@ -15,7 +14,6 @@ public class EnemyMovementSystem : ComponentSystem {
 	#region injected component
 	[InjectAttribute] EnemyMovementComponent enemyMovementComponent;
 	Transform currTransform;
-	Enemy currEnemy;
 	EnemyMovement currEnemyMovement;
 	#endregion
 	//system
@@ -23,18 +21,22 @@ public class EnemyMovementSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		for(int i = 0;i<enemyMovementComponent.Length;i++){
-			currTransform = enemyMovementComponent.transform[i];
-			currEnemy = enemyMovementComponent.enemy[i];
-			currEnemyMovement = enemyMovementComponent.enemyMovement[i];
-			if(enemyMovementComponent.enemy[i].state == EnemyState.Patrol || enemyMovementComponent.enemy[i].state == EnemyState.Chase){
-				Move();
-			}
-		}
+		// for(int i = 0;i<enemyMovementComponent.Length;i++){
+		// 	currTransform = enemyMovementComponent.transform[i];
+		// 	currEnemyMovement = enemyMovementComponent.enemyMovement[i];
+			
+		// 	Move();
+		// }
 	}
 
-	void Move()
+	public void Move()
 	{
-		
+		if(!currEnemyMovement.isMoving){
+			currEnemyMovement.isMoving = true;
+			//create target
+		}else{
+			//move to target
+			//if arrive, set enemy back to idle
+		}
 	}
 }

@@ -27,12 +27,12 @@ public class EnemyAISystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{		
-		for(int i = 0;i<enemyComponent.Length;i++){
-			currEnemy = enemyComponent.enemy[i];
-			currEnemyAnimation = enemyComponent.enemyAnimation[i];
-			currRigidbody = enemyComponent.rigidbody[i];
-			CheckState();
-		}
+		// for(int i = 0;i<enemyComponent.Length;i++){
+		// 	currEnemy = enemyComponent.enemy[i];
+		// 	currEnemyAnimation = enemyComponent.enemyAnimation[i];
+		// 	currRigidbody = enemyComponent.rigidbody[i];
+		// 	CheckState();
+		// }
 	}
 	
 	void CheckState()
@@ -68,7 +68,7 @@ public class EnemyAISystem : ComponentSystem {
 	}
 	void Patrol()
 	{
-
+		enemyMovementSystem.Move();
 	}
 	
 	void Chase()
