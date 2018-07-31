@@ -4,72 +4,95 @@ using UnityEngine;
 public class EnemyAISystem : ComponentSystem {
 
 	struct EnemyComponent{
-		public Enemy enemy;
-		public Animator enemyAnimation;
+		public readonly int Length;
+		public ComponentArray<Enemy> enemy;
+		public ComponentArray<Animator> enemyAnimation;
+		public ComponentArray<Rigidbody2D> rigidbody;
 	}
 
+	#region injected component
 	[InjectAttribute] EnemyComponent enemyComponent;
 
-	// inject enemy movement
-	// inject enemy animation
-	// inject enemy rigidbody
+	//current
+	Enemy currEnemy;
+	Animator currEnemyAnimation;
+	Rigidbody2D currRigidbody;
+	#endregion
+
+	#region injected system
+	[InjectAttribute] EnemyAnimationSystem enemyAnimationSystem;
+	[InjectAttribute] EnemyMovementSystem enemyMovementSystem;
+	#endregion
 
 	protected override void OnUpdate()
-	{
-		// for(int i = 0;i<enemyComponent.Length;i++){
-		// 	CheckState(enemyComponent.enemy[i]);
-		// }
-
-		foreach( var e in GetEntities<EnemyComponent>())
-		{
-			CheckState(e);
+	{		
+		for(int i = 0;i<enemyComponent.Length;i++){
+			currEnemy = enemyComponent.enemy[i];
+			currEnemyAnimation = enemyComponent.enemyAnimation[i];
+			currRigidbody = enemyComponent.rigidbody[i];
+			CheckState();
 		}
 	}
 	
-	void CheckState(EnemyComponent e)
+	void CheckState()
 	{
-		
-		if(e.enemy.state == EnemyState.Idle){
-			Idle(e);
-		}else if(e.enemy.state == EnemyState.Patrol){
-			Patrol(e);
-		}else if(e.enemy.state == EnemyState.Chase){
-			Chase(e);
-		}else if(e.enemy.state == EnemyState.Attack){
-			Attack(e);
-		}else if(e.enemy.state == EnemyState.Damaged){
-			Damaged(e);
-		}else if(e.enemy.state == EnemyState.Die){
-			Die(e);
+		if(currEnemy.state == EnemyState.Idle){
+			Idle();
+		}else if(currEnemy.state == EnemyState.Patrol){
+			Patrol();
+		}else if(currEnemy.state == EnemyState.Chase){
+			Chase();
+		}else if(currEnemy.state == EnemyState.Attack){
+			Attack();
+		}else if(currEnemy.state == EnemyState.Damaged){
+			Damaged();
+		}else if(currEnemy.state == EnemyState.Die){
+			Die();
 		}
 	}
 
-	float t;
-	bool idleInit = false;
-
-	void Idle(EnemyComponent e)
+	void Idle()
 	{
-		if(!idleInit){
-			t = e.enemy.idleDuration;
-			idleInit = true;
+		if(!currEnemy.initIdle){
+			currEnemy.t = currEnemy.idleDuration;
+			currEnemy.initIdle = true;
 		}else{
-			t -= Time.deltaTime;
-			if(t <= 0){
+			currEnemy.t -= Time.deltaTime;
+			if(currEnemy.t <= 0){
+				currEnemy.initIdle = false;
 				SetEnemyState(EnemyState.Patrol);
-				idleInit = false;
 			}
 		}
 		
 	}
-	void Patrol(EnemyComponent e){}
-	void Chase(EnemyComponent e){}
-	void Attack(EnemyComponent e){}
-	void Damaged(EnemyComponent e){}
-	void Die(EnemyComponent e){}
+	void Patrol()
+	{
+
+	}
+	
+	void Chase()
+	{
+
+	}
+	
+	void Attack()
+	{
+
+	}
+	
+	void Damaged()
+	{
+
+	}
+	
+	void Die()
+	{
+		
+	}
 
 	void SetEnemyState(EnemyState enemyState)
 	{
-		
+		currEnemy.state = enemyState;
 	}
 
 	void SetEnemyAnimation(/* any string or enum needed as parameter */)

@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour {
 	public GameObject targetPlayer;
 
 	public float idleDuration = 3f;
+	public float t = 0;
+
+	public bool initIdle = false;
 
 	[SerializeField] bool isEnemyHit = false;
     [SerializeField] bool isEnemyGetHurt = false;
