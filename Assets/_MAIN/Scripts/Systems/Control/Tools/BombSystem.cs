@@ -14,11 +14,11 @@ public class BombSystem : ComponentSystem {
 			TickBomb(e);
 			
 			if(e.bomb.destroy){
-				// GameObject.Destroy(e.bomb.gameObject);
-				// return; //TEMP, Error without this
+				GameObject.Destroy(e.bomb.gameObject);
+				return; //TEMP, Error without this
 				
-				GameObjectEntity.Destroy(e.bomb.gameObject);
-				UpdateInjectedComponentGroups(); //TEMP, Error without this
+				// GameObjectEntity.Destroy(e.bomb.gameObject);
+				// UpdateInjectedComponentGroups(); //TEMP, Error without this
 			}
 		}
 	}

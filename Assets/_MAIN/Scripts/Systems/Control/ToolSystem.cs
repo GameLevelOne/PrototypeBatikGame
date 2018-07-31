@@ -285,5 +285,7 @@ public class ToolSystem : ComponentSystem {
 		//allow dash attack
 		//dash straight until hit an obstacle
 		//bounce back on impact
+		
+		// tool.SpawnSlashEffect(toolType);
 	}
 }

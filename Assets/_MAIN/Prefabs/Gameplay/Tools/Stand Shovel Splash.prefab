@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4945750888367554}
   - component: {fileID: 114099743558190408}
   - component: {fileID: 50751879189081164}
-  - component: {fileID: 60663116949626940}
+  - component: {fileID: 58012199614176454}
   - component: {fileID: 212008458724577696}
   - component: {fileID: 95735635516279136}
   - component: {fileID: 114988435035581858}
@@ -66,8 +66,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!60 &60663116949626940
-PolygonCollider2D:
+--- !u!58 &58012199614176454
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -79,22 +79,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.66, y: 0.87}
-    newSize: {x: 0.44, y: 0.21}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.2}
-      - {x: 0.18, y: 0.22}
-      - {x: 0.24, y: 0}
-      - {x: 0.18, y: -0.22}
-      - {x: 0, y: -0.2}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!95 &95735635516279136
 Animator:
   serializedVersion: 3
@@ -135,9 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640f65ec0d1dd7a41a6899e82bc4160f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diggingCheckerObj: {fileID: 1305731877793622, guid: d1eca1f63b5c8a142a85d26a771beeb0,
-    type: 2}
-  isDiggingOnDigArea: 0
+  diggingObj: {fileID: 1159029269881054, guid: 26b01c36c92bbe94287c66912346009c, type: 2}
+  listDig: 
 --- !u!114 &114988435035581858
 MonoBehaviour:
   m_ObjectHideFlags: 1

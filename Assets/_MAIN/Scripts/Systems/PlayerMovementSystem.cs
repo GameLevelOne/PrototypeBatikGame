@@ -18,10 +18,16 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
 	[InjectAttribute] MovementData movementData;
+	[InjectAttribute] ToolSystem toolSystem;
+
+	public Facing2D facing;
+
+	Player player;
 
 	float moveSpeed;
 	bool isDodgeMove = false;
 	bool isAttackMove = false;
+	bool isStartDashing = false;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -30,13 +36,14 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		for (int i=0; i<movementData.Length; i++) {
 			PlayerInput input = movementData.PlayerInput[i];
-			Player player = movementData.Player[i];
+			player = movementData.Player[i];
 			Transform tr = movementData.Transform[i];
 			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
 			Rigidbody2D rb = movementData.Rigidbody[i];
 			Movement movement = movementData.Movement[i];
-			Facing2D facing = movementData.Facing[i];
+			facing = movementData.Facing[i];
 			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
+			PlayerTool tool = toolSystem.tool;
 			
 			int attackMode = input.AttackMode;
 			int moveMode = input.MoveMode;
@@ -63,9 +70,19 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 
 			if (input.IsUsingTool) {
-				rb.velocity = Vector2.zero;
-
+				if ((player.IsHooking) || ((int) tool.currentTool != 18)) {
+					rb.velocity = Vector2.zero;
+				} else if (player.IsDashing) {
+					Debug.Log("Set dashDir");
+					Transform target = facing.attackArea.transform;
+					// isStartDashing = true;
+					// rb.AddForce((target.position - tr.position) * tool.dashSpeed);
+					rb.velocity = (target.position - tr.position).normalized * tool.dashSpeed * dt;
+				}
+				
 				continue;
+			} else {
+				player.IsDashing = false;
 			}
 
 			if (attackMode == 0) {
@@ -81,6 +98,12 @@ public class PlayerMovementSystem : ComponentSystem {
 					isDodgeMove = false;
 					moveDir = moveDir.normalized * moveSpeed * dt;
 					rb.velocity = moveDir;	
+					
+					if (moveDir == Vector2.zero) {
+						SetPlayerState (PlayerState.IDLE);
+					} else {
+						SetPlayerState (PlayerState.MOVE);
+					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {
 				if (!isAttackMove) {
@@ -100,4 +123,10 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		}
 	}
+	
+	#region PLAYER STATE 
+	void SetPlayerState (PlayerState state) {
+		player.playerState = state;
+	}
+	#endregion
 }

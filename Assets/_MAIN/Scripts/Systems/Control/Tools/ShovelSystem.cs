@@ -11,15 +11,22 @@ public class ShovelSystem : ComponentSystem {
 	}
 
 	// [InjectAttribute] ContainerSystem containerSystem;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	
+	bool checkList = true;
+
 	protected override void OnUpdate () {
 		foreach (var e in GetEntities<ShovelData>()) {
 			Shovel shovel = e.shovel;
+			
+			if (shovel.listDig.Count >= 1) {
+				checkList = shovel.listDig.Contains(true) ? true : false;
 
-			if (shovel.IsDiggingOnDigArea) {
-				GameObjectEntity.Instantiate(shovel.diggingCheckerObj, shovel.transform.position, Quaternion.identity);
-				shovel.IsDiggingOnDigArea = false;
-			}
+				if (!checkList && playerInputSystem.player.IsCanDigging) {
+					GameObjectEntity.Instantiate(shovel.diggingObj, shovel.transform.position, Quaternion.identity);
+					// shovel.IsNotCleanForDigging = true;
+				}
+			} 
 		}
 	}
 }

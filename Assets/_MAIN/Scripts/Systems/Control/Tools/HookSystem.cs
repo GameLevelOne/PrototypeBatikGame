@@ -8,12 +8,18 @@ public class HookSystem : ComponentSystem {
 		public Hook hook;
 	}
 
-	public struct Facing2DComponent
-	{
-		public Facing2D facing2D;
-	}
+	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
+
+	// public struct Facing2DComponent
+	// {
+	// 	public Facing2D facing2D;
+	// }
 	
-	bool hasSetDirection = false;
+	// bool hasSetDirection = true;
+
+	// Hook hook;
+	Facing2D facing;
 
 	Vector2 hookStartPos;
 
@@ -23,79 +29,102 @@ public class HookSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		// if(Input.GetKeyDown(KeyCode.C)){
-			if(!hasSetDirection){
-				foreach(var e in GetEntities<Facing2DComponent>()){
-					hasSetDirection = true;
-					hookDirection = e.facing2D.DirID;
-				}
-			}else{
-				foreach( var e in GetEntities<HookComponent>()){
-					if(e.hook.hookState == HookState.Idle && hasSetDirection){
-						Launch(e);
-					}else if(e.hook.hookState == HookState.Launch){
-						Launching(e);
-					}else if(e.hook.hookState == HookState.Catch){
-						Catch(e);
-					}else if(e.hook.hookState == HookState.Return){
-						Return(e);
-					}
-				}
+		deltaTime = Time.deltaTime;
+
+		foreach( var e in GetEntities<HookComponent>()){
+			Hook hook = e.hook;
+			facing = playerMovementSystem.facing;
+
+			hookDirection = facing.DirID;
+
+			if(hook.hookState == HookState.Idle && !hook.IsHookLaunched){
+				hook.IsHookLaunched = true;
+				playerInputSystem.player.IsHooking = true;
+				hook.startPos = hook.transform.position;
+				Launch(hook);
+			} else if(hook.hookState == HookState.Launch){
+				Debug.Log("Launching");
+				Launching(hook);
 			}
+			else if(e.hook.hookState == HookState.Catch){
+				Catch(hook);
+			}else if(e.hook.hookState == HookState.Return){
+				Return(hook);
+				// update
+			}
+		}
+
+		// if(Input.GetKeyDown(KeyCode.C)){
+			// if(!hasSetDirection){
+			// 	foreach(var e in GetEntities<Facing2DComponent>()){
+			// 		hasSetDirection = true;
+			// 		hookDirection = e.facing2D.DirID;
+			// 	}
+			// }else{
+			// 	foreach( var e in GetEntities<HookComponent>()){
+			// 		if(e.hook.hookState == HookState.Idle && hasSetDirection){
+			// 			Launch(e);
+			// 		}else if(e.hook.hookState == HookState.Launch){
+			// 			Launching(e);
+			// 		}else if(e.hook.hookState == HookState.Catch){
+			// 			Catch(e);
+			// 		}else if(e.hook.hookState == HookState.Return){
+			// 			Return(e);
+			// 		}
+			// 	}
+			// }
 		// }
 	}
 
-	void Launch(HookComponent e)
+	void Launch(Hook hook)
 	{
-		e.hook.destination = GetDestinationPos(e.hook.rb.position,hookDirection,e.hook.range);		
-		e.hook.hookState = HookState.Launch;
-		deltaTime = Time.deltaTime;
+		hook.destination = GetDestinationPos(hook.rb.position,hookDirection,hook.range);
+		hook.hookState = HookState.Launch;
+		// deltaTime = Time.deltaTime;
 	}
 
-	void Launching(HookComponent e)
+	void Launching(Hook hook)
 	{
-
 		//if t <= 1 and or hook hit solid object
-		if(e.hook.attachedObject == null && t < 1f){
-			e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
-			t += e.hook.speed * deltaTime;
+		if(hook.attachedObject == null && t < 1f){
+			hook.rb.position = Vector2.Lerp(hook.startPos,hook.destination,t);
+			t += hook.speed * deltaTime;
 		}else{
 			if(t >= 1f){ //return
-				e.hook.hookState = HookState.Return;
-			}else if(e.hook.attachedObject != null){
-				e.hook.hookState = HookState.Catch;
+				hook.hookState = HookState.Return;
+			}else if(hook.attachedObject != null){
+				hook.hookState = HookState.Catch;
 			}
 		} 
 	}
 
-	void Catch(HookComponent e)
+	void Catch(Hook hook)
 	{
 		//if solid object, pull player
 		//if enemy, pull enemy
-		if(e.hook.attachedObject.tag == Constants.Tag.ENEMY){
+		if(hook.attachedObject.tag == Constants.Tag.ENEMY){
 			//enemy lock to hook
 
-			if(t > 0f){
-				e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
-				t -= e.hook.speed * deltaTime;
-			}
-
-		}else if(e.hook.attachedObject.tag == ""){
-
+			hook.hookState = HookState.Return;
 		}
+		// else if(hook.attachedObject.tag == ""){
 
+		// }
 	}
 
-	void Return(HookComponent e)
+	void Return(Hook hook)
 	{
 		if(t > 0f){
-			e.hook.rb.position = Vector2.Lerp(e.hook.startPos,e.hook.destination,t);
-			t -= e.hook.speed * deltaTime;
+			hook.rb.position = Vector2.Lerp(hook.startPos,hook.destination,t);
+			t -= hook.speed * deltaTime;
 			
 		}else{
 			t = 0;
-			e.hook.hookState = HookState.Idle;
-			hasSetDirection = false;
+			hook.hookState = HookState.Idle;
+			// hasSetDirection = false;
+			hook.IsHookLaunched = false;
+			playerInputSystem.player.IsHooking = false;
+			GameObjectEntity.Destroy(hook.gameObject);
 		}
 	}
 
