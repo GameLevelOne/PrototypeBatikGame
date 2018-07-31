@@ -58,19 +58,13 @@ public class ToolSystem : ComponentSystem {
 				input.IsChangeTool = false;
 			} 
 			
-			if (state == PlayerState.USING_TOOL) {
+			if (state == PlayerState.USING_TOOL || (state == PlayerState.HOOK)) {
+				Debug.Log("Using Tool");
 				if (tool.IsActToolReady) {
 					UseTool ();
 					tool.IsActToolReady = false;
 				}
 			}
-			
-			// if (isUsingTool) {
-			// 	UseTool ();
-			// 	Debug.Log("Use Tool");
-			// }
-
-
 		}
 
 		//if player input button action, do use tool.

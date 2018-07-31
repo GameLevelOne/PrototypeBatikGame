@@ -21,7 +21,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 	PlayerInput input;
 	Player player;
-	PlayerState state;
+	PlayerState playerState;
 	Animation2D anim;
 	Facing2D facing;
 
@@ -40,7 +40,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 		for (int i=0; i<standData.Length; i++) {
 			player = playerInputSystem.player;
-			state = player.playerState;
+			playerState = player.playerState;
 			stand = standData.PlayerTool[i];
 			// Sprite2D sprite = standData.Sprite[i];
 			anim = standData.Animation[i];
@@ -56,12 +56,11 @@ public class StandAnimationSystem : ComponentSystem {
 			
 			Vector2 movement = input.MoveDir;
 
-			if(state == PlayerState.USING_TOOL) {
+			if(playerState == PlayerState.USING_TOOL || playerState == PlayerState.HOOK) {
 				SetStand(standType);
 				continue;
 			} else {
-				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
+				StopStandAnimation();
 			}
 
 			if (currentMove == movement) {
@@ -104,11 +103,23 @@ public class StandAnimationSystem : ComponentSystem {
 
 	void CheckAfterStandAnimation (StandAnimationState state) {
 		if (state == StandAnimationState.AFTER_USING_TOOL) {
-			animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
-			animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
-			// input.IsUsingTool = false;
-			player.SetPlayerIdle();
+			if (playerState == PlayerState.HOOK) {
+				animator.enabled = false;
+			} else {
+				StopStandAnimation();
+			}
 		}
+	}
+
+	public void StopStandAnimation () {
+		if (!animator.enabled) {
+			animator.enabled = true;
+		}
+		
+		animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
+		animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
+		
+		player.SetPlayerIdle();
 	}
 
 	int CheckDirID (float dirX, float dirY) {

@@ -19,6 +19,7 @@ public class HookSystem : ComponentSystem {
 	#region injected system
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 
 	Player player;
 	PlayerState state;
@@ -32,6 +33,8 @@ public class HookSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
+		if (hookComponent.Length == 0) return;
+
 		deltaTime = Time.deltaTime;
 
 		for(int i = 0;i<hookComponent.Length;i++){
@@ -106,8 +109,9 @@ public class HookSystem : ComponentSystem {
 		}else{
 			t = 0;
 			currHook.hookState = HookState.Idle;
-			currHook.IsHookLaunched = false;
-			player.SetPlayerIdle();
+			// currHook.IsHookLaunched = false;
+			// player.SetPlayerIdle();
+			standAnimationSystem.StopStandAnimation();
 			
 			GameObjectEntity.Destroy(currHook.gameObject);
 			UpdateInjectedComponentGroups();

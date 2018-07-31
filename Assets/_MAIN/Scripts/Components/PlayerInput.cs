@@ -19,12 +19,9 @@ public class PlayerInput : MonoBehaviour {
 	Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
 	[SerializeField] int bulletTimeAttackQty = 0;
-	// [SerializeField] int currentChargeAttack = 0;
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
-	// [SerializeField] bool isDodging = false;
 	[SerializeField] bool isChangeTool = false;
-	// [SerializeField] bool isUsingTool = false; //
 	
 	bool isReadyForDodging = true;
 
@@ -46,21 +43,6 @@ public class PlayerInput : MonoBehaviour {
 			moveMode = value;
 		}
 	}
-
-	// public bool IsDodging {
-	// 	get {return isDodging;}
-	// 	set {
-	// 		if (isDodging == value) return;
-
-	// 		if (value && isReadyForDodging && (MoveDir != Vector2.zero)) {
-	// 			isDodging = true;
-	// 			isReadyForDodging = false;
-	// 			Invoke("ResetDodge", dodgeCooldown);
-	// 		} else {
-	// 			isDodging = false;
-	// 		}
-	// 	}
-	// }
 
 	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BULLET TIME -2
 	public int SteadyMode {
@@ -104,18 +86,4 @@ public class PlayerInput : MonoBehaviour {
 			isChangeTool = value;
 		}
 	}
-
-	// public bool IsUsingTool
-	// {
-	// 	get {return isUsingTool;}
-	// 	set {
-	// 		if (isUsingTool == value) return;
-			
-	// 		isUsingTool = value;
-	// 	}
-	// }
-
-	// void ResetDodge () {
-	// 	isReadyForDodging = true;
-	// }
 }
