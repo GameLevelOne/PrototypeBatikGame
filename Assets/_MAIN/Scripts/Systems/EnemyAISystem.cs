@@ -68,7 +68,7 @@ public class EnemyAISystem : ComponentSystem {
 	}
 	void Patrol()
 	{
-		enemyMovementSystem.Move();
+		enemyMovementSystem.InitMove();
 	}
 	
 	void Chase()
