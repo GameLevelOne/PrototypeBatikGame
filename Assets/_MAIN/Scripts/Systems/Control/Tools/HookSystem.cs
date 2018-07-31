@@ -5,24 +5,25 @@ public class HookSystem : ComponentSystem {
 
 	public struct HookComponent
 	{
-		public Hook hook;
+		public readonly int Length;
+		public ComponentArray<Hook> hook;
+		public ComponentArray<Rigidbody2D> rigidbody;
 	}
 
+	#region injected component
+	[InjectAttribute] HookComponent hookComponent;
+	Hook currHook;
+	Rigidbody2D currRigidbody;
+	#endregion
+
+	#region injected system
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
-	// public struct Facing2DComponent
-	// {
-	// 	public Facing2D facing2D;
-	// }
-	
-	// bool hasSetDirection = true;
-
-	// Hook hook;
 	Facing2D facing;
-
 	Vector2 hookStartPos;
-
+	#endregion
+		
 	int hookDirection;
 	float deltaTime;
 	float t = 0f;
@@ -31,100 +32,81 @@ public class HookSystem : ComponentSystem {
 	{
 		deltaTime = Time.deltaTime;
 
-		foreach( var e in GetEntities<HookComponent>()){
-			Hook hook = e.hook;
+		for(int i = 0;i<hookComponent.Length;i++){
+			currHook = hookComponent.hook[i];
+			currRigidbody = hookComponent.rigidbody[i];
 			facing = playerMovementSystem.facing;
-
 			hookDirection = facing.DirID;
 
-			if(hook.hookState == HookState.Idle && !hook.IsHookLaunched){
-				hook.IsHookLaunched = true;
-				playerInputSystem.player.IsHooking = true;
-				hook.startPos = hook.transform.position;
-				Launch(hook);
-			} else if(hook.hookState == HookState.Launch){
-				Debug.Log("Launching");
-				Launching(hook);
-			}
-			else if(e.hook.hookState == HookState.Catch){
-				Catch(hook);
-			}else if(e.hook.hookState == HookState.Return){
-				Return(hook);
-				// update
-			}
+			CheckHookState();
 		}
-
-		// if(Input.GetKeyDown(KeyCode.C)){
-			// if(!hasSetDirection){
-			// 	foreach(var e in GetEntities<Facing2DComponent>()){
-			// 		hasSetDirection = true;
-			// 		hookDirection = e.facing2D.DirID;
-			// 	}
-			// }else{
-			// 	foreach( var e in GetEntities<HookComponent>()){
-			// 		if(e.hook.hookState == HookState.Idle && hasSetDirection){
-			// 			Launch(e);
-			// 		}else if(e.hook.hookState == HookState.Launch){
-			// 			Launching(e);
-			// 		}else if(e.hook.hookState == HookState.Catch){
-			// 			Catch(e);
-			// 		}else if(e.hook.hookState == HookState.Return){
-			// 			Return(e);
-			// 		}
-			// 	}
-			// }
-		// }
 	}
 
-	void Launch(Hook hook)
+	void CheckHookState()
 	{
-		hook.destination = GetDestinationPos(hook.rb.position,hookDirection,hook.range);
-		hook.hookState = HookState.Launch;
+		if(currHook.hookState == HookState.Idle && !currHook.IsHookLaunched){
+			currHook.IsHookLaunched = true;
+			playerInputSystem.player.IsHooking = true;
+			currHook.startPos = currHook.transform.position;
+			Launch();
+		}else if(currHook.hookState == HookState.Launch){
+			Launching();
+		}else if(currHook.hookState == HookState.Catch){
+			Catch();
+		}else if(currHook.hookState == HookState.Return){
+			Return();
+		}
+	}
+
+	void Launch()
+	{
+		currHook.destination = GetDestinationPos(currRigidbody.position,hookDirection,currHook.range);
+		currHook.hookState = HookState.Launch;
 		// deltaTime = Time.deltaTime;
 	}
 
-	void Launching(Hook hook)
+	void Launching()
 	{
 		//if t <= 1 and or hook hit solid object
-		if(hook.attachedObject == null && t < 1f){
-			hook.rb.position = Vector2.Lerp(hook.startPos,hook.destination,t);
-			t += hook.speed * deltaTime;
+		if(currHook.attachedObject == null && t < 1f){
+			currRigidbody.position = Vector2.Lerp(currHook.startPos,currHook.destination,t);
+			t += currHook.speed * deltaTime;
 		}else{
 			if(t >= 1f){ //return
-				hook.hookState = HookState.Return;
-			}else if(hook.attachedObject != null){
-				hook.hookState = HookState.Catch;
+				currHook.hookState = HookState.Return;
+			}else if(currHook.attachedObject != null){
+				currHook.hookState = HookState.Catch;
 			}
 		} 
 	}
 
-	void Catch(Hook hook)
+	void Catch()
 	{
 		//if solid object, pull player
 		//if enemy, pull enemy
-		if(hook.attachedObject.tag == Constants.Tag.ENEMY){
+		if(currHook.attachedObject.tag == Constants.Tag.ENEMY){
 			//enemy lock to hook
 
-			hook.hookState = HookState.Return;
+			currHook.hookState = HookState.Return;
 		}
 		// else if(hook.attachedObject.tag == ""){
 
 		// }
 	}
 
-	void Return(Hook hook)
+	void Return()
 	{
 		if(t > 0f){
-			hook.rb.position = Vector2.Lerp(hook.startPos,hook.destination,t);
-			t -= hook.speed * deltaTime;
+			currRigidbody.position = Vector2.Lerp(currHook.startPos,currHook.destination,t);
+			t -= currHook.speed * deltaTime;
 			
 		}else{
 			t = 0;
-			hook.hookState = HookState.Idle;
-			// hasSetDirection = false;
-			hook.IsHookLaunched = false;
+			currHook.hookState = HookState.Idle;
+			currHook.IsHookLaunched = false;
 			playerInputSystem.player.IsHooking = false;
-			GameObjectEntity.Destroy(hook.gameObject);
+			GameObjectEntity.Destroy(currHook.gameObject);
+			UpdateInjectedComponentGroups();
 		}
 	}
 
