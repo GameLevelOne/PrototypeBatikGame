@@ -19,6 +19,9 @@ public class DamageSystem : ComponentSystem {
 	Role role;
 	Player player;
 	Enemy enemy;
+
+	PlayerState playerState;
+
 	CircleCollider2D col;
 
 	protected override void OnUpdate () {
@@ -31,30 +34,33 @@ public class DamageSystem : ComponentSystem {
 			
 			if (role.gameRole == GameRole.Player) {
 				player = health.GetComponent<Player>();
+				playerState = player.playerState;
 
-				if (player.IsPlayerGetHurt) {
-					if (!player.IsPlayerDie) {
-						health.HealthPower -= health.damage;
-						player.IsPlayerGetHurt = false;
+				if (playerState == PlayerState.DIE) continue;
 
-						if (health.HealthPower <= 0f) {
-							player.IsPlayerDie = true;
-							col.enabled = false;
-						}
+				if (playerState == PlayerState.GET_HURT) {
+					health.HealthPower -= health.damage;
+					// player.IsPlayerGetHurt = false;
+					player.SetPlayerIdle();
+
+					if (health.HealthPower <= 0f) {
+						// player.IsPlayerDie = true;
+						player.SetPlayerState(PlayerState.DIE);
+						col.enabled = false;
 					}
 				}
 			} else if (role.gameRole == GameRole.Enemy) {
 				enemy = health.GetComponent<Enemy>();
 
-				if (enemy.IsEnemyGetHurt) {
-					if (!enemy.IsEnemyDie) {
-						health.HealthPower -= health.damage;
-						enemy.IsEnemyGetHurt = false;
+				if (enemy.IsEnemyDie) return;
 
-						if (health.HealthPower <= 0f) {
-							enemy.IsEnemyDie = true;
-							col.enabled = false;
-						}
+				if (enemy.IsEnemyGetHurt) {
+					health.HealthPower -= health.damage;
+					enemy.IsEnemyGetHurt = false;
+
+					if (health.HealthPower <= 0f) {
+						enemy.IsEnemyDie = true;
+						col.enabled = false;
 					}
 				}
 			} else {

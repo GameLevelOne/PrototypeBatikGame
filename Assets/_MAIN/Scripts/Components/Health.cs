@@ -43,7 +43,7 @@ public class Health : MonoBehaviour {
 		if (role.gameRole == GameRole.Player) {
 			playerState = player.playerState;
 
-			if (player.IsPlayerDie) return;
+			if (playerState == PlayerState.DIE) return;
 
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
 				Enemy enemy = col.GetComponentInParent<Enemy>();
@@ -55,10 +55,12 @@ public class Health : MonoBehaviour {
 				if (player.IsParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
 					Debug.Log ("Player ignored damage");
 				} else if (player.IsGuarding) {
-					player.IsPlayerGetHurt = true;
+					// player.IsPlayerGetHurt = true;
+					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 					damage *= guardReduceDamage;
 				} else {
-					player.IsPlayerGetHurt = true;
+					// player.IsPlayerGetHurt = true;
+					player.SetPlayerState(PlayerState.GET_HURT);
 					damage = initialDamage;
 				}
 

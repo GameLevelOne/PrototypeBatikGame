@@ -11,8 +11,7 @@ public enum PlayerState {
 	USING_TOOL,
 	HIT,
 	GET_HURT,
-	GUARD,
-	PARRY,
+	BLOCK_ATTACK,
 	RAPID_SLASH,
 	SLOW_MOTION,
 	DASH
@@ -24,8 +23,8 @@ public class Player : MonoBehaviour {
 	public PlayerTool playerTool;
 	    
     [SerializeField] bool isPlayerHit = false; //
-    [SerializeField] bool isPlayerGetHurt = false; //
-    [SerializeField] bool isPlayerDie = false; //
+    // [SerializeField] bool isPlayerGetHurt = false; //
+    // [SerializeField] bool isPlayerDie = false; //
     [SerializeField] bool isHitAnEnemy = false;
 	[SerializeField] bool isGuarding = false; //
 	[SerializeField] bool isParrying = false; //
@@ -45,23 +44,23 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public bool IsPlayerGetHurt {
-		get {return isPlayerGetHurt;}
-		set {
-			if (isPlayerGetHurt == value) return;
+	// public bool IsPlayerGetHurt {
+	// 	get {return isPlayerGetHurt;}
+	// 	set {
+	// 		if (isPlayerGetHurt == value) return;
 
-			isPlayerGetHurt = value;
-		}
-	}
+	// 		isPlayerGetHurt = value;
+	// 	}
+	// }
 
-	public bool IsPlayerDie {
-		get {return isPlayerDie;}
-		set {
-			if (isPlayerDie == value) return;
+	// public bool IsPlayerDie {
+	// 	get {return isPlayerDie;}
+	// 	set {
+	// 		if (isPlayerDie == value) return;
 
-			isPlayerDie = value;
-		}
-	}
+	// 		isPlayerDie = value;
+	// 	}
+	// }
 
 	public bool IsHitAnEnemy {
 		get {return isHitAnEnemy;}
@@ -170,6 +169,10 @@ public class Player : MonoBehaviour {
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState state) {
 		playerState = state;
+	}
+
+	public void SetPlayerIdle () {
+		playerState = PlayerState.IDLE;
 	}
 	#endregion
 }

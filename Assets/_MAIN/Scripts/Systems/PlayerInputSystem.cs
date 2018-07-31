@@ -28,7 +28,11 @@ public class PlayerInputSystem : ComponentSystem {
 	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
+	float dodgeCooldownTimer = 0f;
 	bool isAttackAway = true;
+	bool isReadyForDodging = true;
+
+	bool isDodging = false;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -50,6 +54,7 @@ public class PlayerInputSystem : ComponentSystem {
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
 			float bulletTimeDuration = input.bulletTimeDuration;
+			float dodgeCooldown = input.dodgeCooldown;
 
 			float guardParryDelay = input.guardParryDelay;
 			float bulletTimeDelay = input.bulletTimeDelay;
@@ -94,10 +99,12 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
 				ChangeDir(i, midValue, currentDir.y);
+				SetPlayerIdle();
 			}
 
 			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
 				ChangeDir(i, currentDir.x, midValue);
+				SetPlayerIdle();
 			}
 			#endregion
 
@@ -120,7 +127,6 @@ public class PlayerInputSystem : ComponentSystem {
 				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
 					SetMovement(i, 1, false); //START CHARGE
-					player.SetPlayerState(PlayerState.CHARGE);
 				}
 			} else {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
@@ -134,10 +140,9 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 				if ((chargeAttackTimer >= chargeAttackThreshold) && input.SteadyMode == 1) {
-					Debug.Log("Charge Attack");
 					input.AttackMode = -1; //CHARGE
+					player.SetPlayerState(PlayerState.CHARGE);
 				} else {
-					Debug.Log("Slash Attack");
 					if (input.AttackMode <= 2) {
 						if (!player.IsHitAnEnemy){
 							input.AttackMode = 1; //SLASH							
@@ -145,18 +150,17 @@ public class PlayerInputSystem : ComponentSystem {
 							input.AttackMode += 1; //SLASH
 						}
 					}
+					player.SetPlayerState(PlayerState.ATTACK);	
 				}
 				
 				SetMovement(i, 0, false);
 				chargeAttackTimer = 0f;
-				isAttackAway = false;	
-				player.SetPlayerState(PlayerState.ATTACK);			
+				isAttackAway = false;			
 			}
 			#endregion
 
 			#region Button Guard
 			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-				Debug.Log("Start Guard");
 				SetMovement(i, 2, false); //START GUARD
 				
 				player.IsGuarding = true;
@@ -165,12 +169,10 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 				if (parryTimer < guardParryDelay) {
-					parryTimer += deltaTime;
-					player.SetPlayerState(PlayerState.PARRY);	
+					parryTimer += deltaTime;	
 				} else {
 					player.IsParrying = false;
-					player.IsPlayerHit = false;
-					player.SetPlayerState(PlayerState.GUARD);	
+					player.IsPlayerHit = false;	
 				}
 			}
 
@@ -185,28 +187,43 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Dodge			
 			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
-				input.IsDodging = true; //START DODGE
+				// input.IsDodging = true; //START DODGE
 				// player.IsBulletTiming = true;
-				// player.SetPlayerState(PlayerState.DODGE);	
-			}
-
-			if (input.IsDodging) {
-				player.SetPlayerState(PlayerState.DODGE);	
-				
-				if (bulletTimeTimer < bulletTimeDelay) {
-					bulletTimeTimer += deltaTime;
-					player.IsBulletTiming = true;
+				if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
+					player.SetPlayerState(PlayerState.DODGE);
+					bulletTimeTimer = 0f;	
+					dodgeCooldownTimer = 0f;
+					isDodging = true;
+					isReadyForDodging = false;
+					// Invoke("ResetDodge", dodgeCooldown);
 				} else {
-					player.IsBulletTiming = false;
-					player.IsPlayerHit = false;
-					bulletTimeTimer = 0f;
+					// isDodging = false;
 				}
 			}	
+
+			if (isDodging) {
+				if (dodgeCooldownTimer < dodgeCooldown) {
+					dodgeCooldownTimer += deltaTime;
+				} else {
+					isDodging = false;
+					isReadyForDodging = true;
+				}
+
+				if (state == PlayerState.DODGE) {
+					if (bulletTimeTimer < bulletTimeDelay) {
+						bulletTimeTimer += deltaTime;
+						player.IsBulletTiming = true;
+					} else {
+						player.IsBulletTiming = false;
+						player.IsPlayerHit = false;
+					}
+				}
+			}
 
 			if (player.IsBulletTiming) {
 				if (player.IsPlayerHit) {	
 					player.IsBulletTiming = false;
-					input.IsDodging = false;
+					// input.IsDodging = false;
 					ChangeDir(i, midValue, midValue);
 					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
 					input.AttackMode = -3;
@@ -287,6 +304,12 @@ public class PlayerInputSystem : ComponentSystem {
 		if (currentDir != newDir) {
 			currentDir = newDir;
 			input.MoveDir = currentDir;
+		}
+	}
+
+	void SetPlayerIdle () {
+		if (state == PlayerState.MOVE) {
+			player.SetPlayerIdle();
 		}
 	}
 

@@ -47,6 +47,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			facing = movementData.Facing[i];
 			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
 			PlayerTool tool = toolSystem.tool;
+
+			if (state == PlayerState.DIE) continue;
 			
 			int attackMode = input.AttackMode;
 			int moveMode = input.MoveMode;
@@ -103,7 +105,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					rb.velocity = moveDir;	
 					
 					if (moveDir == Vector2.zero) {
-						player.SetPlayerState(PlayerState.IDLE);
+						// player.SetPlayerIdle();
 					} else {
 						player.SetPlayerState(PlayerState.MOVE);
 					}

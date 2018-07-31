@@ -55,6 +55,7 @@ public class PlayerAttackSystem : ComponentSystem {
 					SpawnSlashEffect(attackMode);
 				} else if (animState == AnimationState.START_RAPIDSLASH) {
 					if (state == PlayerState.RAPID_SLASH) {
+						Debug.Log("Splash Attack");
 						SpawnSlashEffect(attackMode);
 					}
 				}
