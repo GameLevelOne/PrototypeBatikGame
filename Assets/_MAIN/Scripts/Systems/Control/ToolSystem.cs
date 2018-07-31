@@ -58,8 +58,7 @@ public class ToolSystem : ComponentSystem {
 				input.IsChangeTool = false;
 			} 
 			
-			if (state == PlayerState.USING_TOOL || (state == PlayerState.HOOK)) {
-				Debug.Log("Using Tool");
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
 				if (tool.IsActToolReady) {
 					UseTool ();
 					tool.IsActToolReady = false;
@@ -164,6 +163,7 @@ public class ToolSystem : ComponentSystem {
 		
 		//small damage to enemies
 		tool.SpawnSlashEffect(toolType);
+		player.SetPlayerState(PlayerState.HOOK);
 	}
 	
 	void UseBomb()

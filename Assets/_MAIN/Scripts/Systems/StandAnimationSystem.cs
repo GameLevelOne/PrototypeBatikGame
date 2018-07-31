@@ -107,6 +107,7 @@ public class StandAnimationSystem : ComponentSystem {
 				animator.enabled = false;
 			} else {
 				StopStandAnimation();
+				player.SetPlayerIdle();
 			}
 		}
 	}
@@ -118,8 +119,6 @@ public class StandAnimationSystem : ComponentSystem {
 		
 		animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, 0f); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
-		
-		player.SetPlayerIdle();
 	}
 
 	int CheckDirID (float dirX, float dirY) {

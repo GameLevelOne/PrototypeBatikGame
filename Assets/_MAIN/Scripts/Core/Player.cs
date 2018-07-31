@@ -21,7 +21,7 @@ public enum PlayerState {
 public class Player : MonoBehaviour {
 	public PlayerState playerState;
 	public Enemy enemyThatHitsPlayer;
-	public PlayerTool playerTool;
+	// public PlayerTool playerTool;
 	    
     [SerializeField] bool isPlayerHit = false; 
     [SerializeField] bool isHitAnEnemy = false;
@@ -113,6 +113,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetPlayerIdle () {
+		Debug.Log("Idle");
 		playerState = PlayerState.IDLE;
 	}
 	#endregion

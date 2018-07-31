@@ -21,6 +21,7 @@ public class PlayerInputSystem : ComponentSystem {
 	public Player player;
 
 	PlayerState state;
+	ToolType toolType;
 
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
@@ -93,12 +94,12 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
 				ChangeDir(i, midValue, currentDir.y);
-				SetPlayerIdle();
+				player.SetPlayerIdle();
 			}
 
 			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
 				ChangeDir(i, currentDir.x, midValue);
-				SetPlayerIdle();
+				player.SetPlayerIdle();
 			}
 			#endregion
 
@@ -230,15 +231,24 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			
 			if (Input.GetKeyDown(KeyCode.Space)){
-				int toolType = (int)tool.currentTool;
+				// int currentTool = (int)tool.currentTool;
+				toolType = tool.currentTool;
 
-				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (toolType != 0)) {
-					Debug.Log("Input Use Tool");
+				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH) && (toolType != ToolType.None)) {
+					Debug.Log("Input Use Tool : " + toolType);
 					player.SetPlayerState(PlayerState.USING_TOOL);
 
-					if (tool.currentTool == ToolType.Hook) {
+					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
+					} else if (toolType == ToolType.Boots) {
+						player.SetPlayerState(PlayerState.DASH);
 					}
+				}
+			}
+
+			if (Input.GetKeyUp(KeyCode.Space)){
+				if (state == PlayerState.DASH) {
+					player.SetPlayerIdle();
 				}
 			}
 			#endregion
@@ -262,12 +272,6 @@ public class PlayerInputSystem : ComponentSystem {
 		if (currentDir != newDir) {
 			currentDir = newDir;
 			input.MoveDir = currentDir;
-		}
-	}
-
-	void SetPlayerIdle () {
-		if (state == PlayerState.MOVE) {
-			player.SetPlayerIdle();
 		}
 	}
 }

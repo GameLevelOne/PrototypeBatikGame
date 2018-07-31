@@ -74,9 +74,12 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
-				if (state == PlayerState.DASH) {
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+				if (state == PlayerState.HOOK) {
+					rb.velocity = Vector2.zero;
+				} else if (state == PlayerState.DASH) {
 					Transform target = facing.attackArea.transform;
+					Debug.Log("Dashing");
 					// isStartDashing = true;
 					// rb.AddForce((target.position - tr.position) * tool.dashSpeed);
 					rb.velocity = (target.position - tr.position).normalized * tool.dashSpeed * dt;
