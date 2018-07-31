@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class EnemyAISystem : ComponentSystem {
 
-	struct EnemyComponent{
+	struct EnemyComponent
+	{
 		public readonly int Length;
 		public ComponentArray<Enemy> enemy;
 		public ComponentArray<Animator> enemyAnimation;
@@ -87,7 +88,7 @@ public class EnemyAISystem : ComponentSystem {
 	
 	void Die()
 	{
-		
+
 	}
 
 	void SetEnemyState(EnemyState enemyState)
