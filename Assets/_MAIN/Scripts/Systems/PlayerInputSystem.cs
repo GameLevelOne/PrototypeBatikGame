@@ -277,11 +277,11 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetKey(KeyCode.Space)) {
 				if (input.IsUsingTool && tool.currentTool == ToolType.Boots) {
 					Debug.Log("Input Dash");
-					player.IsDashing = true;
+					// player.IsDashing = true;
 					player.SetPlayerState(PlayerState.DASH);
 				}
 			} else {
-				player.IsDashing = false;
+				// player.IsDashing = false;
 			}
 			#endregion
 		}

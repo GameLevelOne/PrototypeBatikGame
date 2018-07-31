@@ -77,8 +77,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			if (input.IsUsingTool) {
 				if ((player.IsHooking) || ((int) tool.currentTool != 18)) {
 					rb.velocity = Vector2.zero;
-				} else if (player.IsDashing) {
-					Debug.Log("Set dashDir");
+				} else if (state == PlayerState.DASH) {
 					Transform target = facing.attackArea.transform;
 					// isStartDashing = true;
 					// rb.AddForce((target.position - tr.position) * tool.dashSpeed);
@@ -87,7 +86,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				
 				continue;
 			} else {
-				player.IsDashing = false;
+				// player.IsDashing = false;
 			}
 
 			if (attackMode == 0) {
