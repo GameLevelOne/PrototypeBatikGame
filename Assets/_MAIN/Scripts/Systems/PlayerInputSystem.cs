@@ -118,7 +118,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 				continue;
 			} else if (state == PlayerState.GET_HURT) {
-				input.InteractMode = 2;
+				input.InteractMode = -2;
 
 				continue;
 			}

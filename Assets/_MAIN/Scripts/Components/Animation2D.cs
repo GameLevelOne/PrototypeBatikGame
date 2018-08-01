@@ -16,7 +16,9 @@ public enum AnimationState {
 	START_DASH,
 	AFTER_DASH,
 	START_BRAKING,
-	AFTER_BRAKING
+	AFTER_BRAKING,
+	START_HURT,
+	AFTER_HURT
 }
 
 public enum StandAnimationState {
@@ -104,6 +106,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_BLOCK:
 				//
 				break;
+			case AnimationState.START_HURT:
+				//
+				break;
 			// case AnimationState.START_DASH:
 			// 	//
 			// 	break;
@@ -138,6 +143,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_BLOCK:
+				//
+				break;
+			case AnimationState.AFTER_HURT:
 				//
 				break;
 			// case AnimationState.AFTER_DASH:

@@ -78,7 +78,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//BLOCK -1, DODGE 0, DASH 1, BRAKING 2
+	//BLOCK -1, DODGE 0, DASH 1, BRAKING 2. GET HURT -2
 	public int InteractMode { 
 		get {return interactMode;}
 		set {

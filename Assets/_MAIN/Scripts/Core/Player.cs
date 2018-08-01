@@ -17,7 +17,8 @@ public enum PlayerState {
 	HOOK,
 	DASH,
 	BOUNCE,
-	BRAKE
+	BRAKE,
+	HURT_MOVE
 }
 
 public class Player : MonoBehaviour {

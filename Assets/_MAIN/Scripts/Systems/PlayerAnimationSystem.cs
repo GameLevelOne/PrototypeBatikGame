@@ -68,7 +68,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 
 			#region ACTION
-			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
@@ -235,6 +235,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.SetPlayerIdle();
 				}
 				break;
+			case AnimationState.AFTER_HURT:
+				player.SetPlayerIdle();
+				break;
 		}
 	}
 
@@ -271,6 +274,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// break;
 			case -1: 
 				return -1f; //DIE / BLOCK
+				// break;
+			case -2: 
+				return -2f; //HURT
 				// break;
 			default:
 				Debug.Log("Unknown Mode in Animation System");

@@ -44,7 +44,7 @@ public class DamageSystem : ComponentSystem {
 					// player.IsPlayerGetHurt = false;
 
 					//Set Player Get Hurt Animation
-					player.SetPlayerIdle();
+					player.SetPlayerState(PlayerState.HURT_MOVE);
 
 					if (health.HealthPower <= 0f) {
 						// player.IsPlayerDie = true;
