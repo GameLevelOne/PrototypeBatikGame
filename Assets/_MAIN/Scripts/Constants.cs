@@ -20,6 +20,7 @@ public static class Constants {
 			public const string FACE_X = "FaceX";
 			public const string FACE_Y = "FaceY";
 			public const string TOOL_TYPE = "ToolType";
+			public const string INTERACT_MODE = "InteractMode";
 		}
 
 		public static class Trigger
@@ -30,11 +31,10 @@ public static class Constants {
 		public static class Bool
 		{
 			public const string IS_ATTACKING = "IsAttacking";
-			public const string IS_DODGING = "IsDodging";
 			public const string IS_MOVING = "IsMoving";
 			public const string IS_RAPID_SLASHING = "IsRapidSlashing";
 			public const string IS_USING_TOOL = "IsUsingTool";
-			public const string IS_DASHING = "IsDashing";
+			public const string IS_INTERACT = "IsInteract";
 		}
 
 	}

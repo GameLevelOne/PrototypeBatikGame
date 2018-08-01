@@ -16,7 +16,8 @@ public enum PlayerState {
 	SLOW_MOTION,
 	HOOK,
 	DASH,
-	BOUNCE
+	BOUNCE,
+	BRAKE
 }
 
 public class Player : MonoBehaviour {
@@ -121,6 +122,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetPlayerIdle () {
+		Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion

@@ -103,13 +103,22 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			#endregion
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {	
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {	
 
+				continue;
+			} else if (state == PlayerState.DASH) {
 				if (Input.GetKeyUp(KeyCode.Space)){
-					if (state == PlayerState.DASH) {
-						player.SetPlayerIdle();
-					}
+					input.InteractMode = 2;
+					player.SetPlayerState (PlayerState.BRAKE);
 				}
+
+				continue;
+			} else if (state == PlayerState.BOUNCE) {
+				input.InteractMode = 2;
+
+				continue;
+			} else if (state == PlayerState.GET_HURT) {
+				input.InteractMode = 2;
 
 				continue;
 			}
@@ -158,12 +167,17 @@ public class PlayerInputSystem : ComponentSystem {
 				SetMovement(i, 2, false); //START GUARD
 				
 				player.IsGuarding = true;
-				player.IsParrying = true;
 			}
 			
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
+
+				if (state == PlayerState.BLOCK_ATTACK) {
+					input.InteractMode = -1;
+				}
+
 				if (parryTimer < guardParryDelay) {
 					parryTimer += deltaTime;	
+					player.IsParrying = true;
 				} else {
 					player.IsParrying = false;
 					player.IsPlayerHit = false;	
@@ -187,6 +201,7 @@ public class PlayerInputSystem : ComponentSystem {
 					dodgeCooldownTimer = 0f;
 					isDodging = true;
 					isReadyForDodging = false;
+					input.InteractMode = 0;
 				}
 			}	
 
@@ -258,6 +273,7 @@ public class PlayerInputSystem : ComponentSystem {
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
 					} else if (toolType == ToolType.Boots) {
+						input.InteractMode = 1;
 						player.SetPlayerState(PlayerState.DASH);
 					}
 				}

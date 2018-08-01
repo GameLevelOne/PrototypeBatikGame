@@ -62,19 +62,16 @@ public class PlayerAnimationSystem : ComponentSystem {
 				input.SteadyMode = -1;
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				continue;
 			}
 
 			#region ACTION
-			if (state == PlayerState.DODGE) {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
-			} else if (state == PlayerState.DASH) {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DASHING, true);
+			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 			} else {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DASHING, false);
+				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
 			}
 			
 			if (state == PlayerState.SLOW_MOTION) {
@@ -106,9 +103,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else if (attackMode == -3) {
 				Debug.Log("Steady for crazy standing");
 			}
-			// else if (attackMode == ) {
-			// 	SetAttack(-1f); //SHOT
-			// }
 
 			StartCheckAnimation();
 			#endregion
@@ -116,6 +110,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#region MOVEMENT
 			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
+			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, CheckMode(input.InteractMode));
 			
 			Vector2 movement = input.MoveDir;
 			
@@ -132,7 +127,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, toolType); 
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
 				continue;
-			} else if (state == PlayerState.DASH) {
+			} else if (state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
 				//
 				continue;
 			} else {
@@ -217,7 +212,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_DODGE:
-				animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
+				// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 				// input.IsDodging = false;
 				player.SetPlayerIdle();
 				break;
@@ -233,6 +228,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.IsHitAnEnemy = false;
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
 					StopAttackAnimation();
+				}
+				break;
+			case AnimationState.AFTER_BLOCK:
+				if (player.IsGuarding) {
+					player.SetPlayerIdle();
 				}
 				break;
 		}
@@ -258,23 +258,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 	float CheckMode (int mode) {
 		switch (mode) {
 			case 0: 
-				return 0f; //STAND / MOVE
+				return 0f; //STAND / MOVE / DODGE
 				// break;
 			case 1: 
-				return 1f; //CHARGE
+				return 1f; //CHARGE / DASH
 				// break;
 			case 2:
 				return 2f; //GUARD
 				// break;
 			case 3:
-				return 3f; //DODGE
+				return 3f; //STEADY FOR RAPID SLASH
 				// break;
 			case -1: 
-				return -1f; //DIE
+				return -1f; //DIE / BLOCK
 				// break;
+			default:
+				Debug.Log("Unknown Mode in Animation System");
+				return 0f;
 		}
-
-		return 0f;
 	}
 
 	int CheckDirID (float dirX, float dirY) {

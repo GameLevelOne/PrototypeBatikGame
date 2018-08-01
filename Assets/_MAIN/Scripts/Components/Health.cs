@@ -58,6 +58,7 @@ public class Health : MonoBehaviour {
 				} else if (player.IsGuarding) {
 					// player.IsPlayerGetHurt = true;
 					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+					Debug.Log("Health block attack");
 					damage *= guardReduceDamage;
 				} else {
 					// player.IsPlayerGetHurt = true;

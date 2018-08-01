@@ -75,7 +75,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE) {
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
 				Transform target = facing.attackArea.transform;
 				Vector2 dir = target.position - tr.position;
 				
@@ -85,6 +85,14 @@ public class PlayerMovementSystem : ComponentSystem {
 					// isStartDashing = true;
 					// rb.AddForce(dir * tool.dashSpeed);
 					rb.velocity = dir.normalized * tool.dashSpeed * dt;
+				} else if (state == PlayerState.BRAKE) {
+					if (brakeTime > 0f) {
+						brakeTime -= dt;
+						rb.velocity = dir.normalized * movement.bounceSpeed * dt * brakeTime;
+					} else {
+						input.MoveDir = Vector2.zero;
+						player.SetPlayerIdle();
+					}
 				} else if (state == PlayerState.BOUNCE) {
 					// rb.AddForce(-dir * movement.bounceSpeed);
 					if (brakeTime > 0f) {

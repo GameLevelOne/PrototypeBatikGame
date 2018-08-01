@@ -58,7 +58,7 @@ public class EnemyAnimationSystem : ComponentSystem {
 				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 				continue;
 			}
 
@@ -77,12 +77,6 @@ public class EnemyAnimationSystem : ComponentSystem {
 			if (!anim.IsCheckAfterAnimation) {
 				CheckAfterAnimation (anim.animState);
 				anim.IsCheckAfterAnimation = true;
-			}
-
-			if (input.isDodging) {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, true);
-			} else {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
 			}
 			#endregion
 

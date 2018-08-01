@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int bulletTimeAttackQty = 0;
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
+	[SerializeField] int interactMode = 0;
 	// [SerializeField] bool isChangeTool = false;
 	
 	bool isReadyForDodging = true;
@@ -34,7 +35,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3, BLOCK -2
 	public int MoveMode {
 		get {return moveMode;}
 		set {
@@ -44,7 +45,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BULLET TIME -2
+	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BLOCK -2
 	public int SteadyMode {
 		get {return steadyMode;}
 		set {
@@ -54,7 +55,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//SLASH 1-3, CHARGE -1, COUNTER -2, MINATO -3
+	//SLASH 1-3, CHARGE -1, COUNTER -2, RAPID SLASH -3
 	public int AttackMode {  
 		get {return attackMode;}
 		set {
@@ -74,6 +75,16 @@ public class PlayerInput : MonoBehaviour {
 			if (bulletTimeAttackQty == value) return;
 			
 			bulletTimeAttackQty = value;
+		}
+	}
+
+	//BLOCK -1, DODGE 0, DASH 1, BRAKING 2
+	public int InteractMode { 
+		get {return interactMode;}
+		set {
+			if (interactMode == value) return;
+			
+			interactMode = value;
 		}
 	}
 

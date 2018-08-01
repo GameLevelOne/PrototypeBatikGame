@@ -10,7 +10,13 @@ public enum AnimationState {
 	START_COUNTER,
 	AFTER_COUNTER,
 	START_RAPIDSLASH,
-	AFTER_RAPIDSLASH
+	AFTER_RAPIDSLASH,
+	START_BLOCK,
+	AFTER_BLOCK,
+	START_DASH,
+	AFTER_DASH,
+	START_BRAKING,
+	AFTER_BRAKING
 }
 
 public enum StandAnimationState {
@@ -95,6 +101,15 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_RAPIDSLASH:
 				attack.isAttacking  = true;
 				break;
+			case AnimationState.START_BLOCK:
+				//
+				break;
+			// case AnimationState.START_DASH:
+			// 	//
+			// 	break;
+			// case AnimationState.START_BRAKING:
+			// 	//
+			// 	break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -122,6 +137,15 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.AFTER_RAPIDSLASH:
 				//
 				break;
+			case AnimationState.AFTER_BLOCK:
+				//
+				break;
+			// case AnimationState.AFTER_DASH:
+			// 	//
+			// 	break;
+			// case AnimationState.AFTER_BRAKING:
+			// 	//
+			// 	break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
