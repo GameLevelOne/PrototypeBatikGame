@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Cloak : MonoBehaviour {
+	public SpriteRenderer spriteRen;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	public float invisibleAlpha = 0f;
+
+	[SerializeField] bool isInvisible = false;
 	
-	// Update is called once per frame
-	void Update () {
-		
+	public bool IsInvisible {
+		get {return isInvisible;}
+		set {
+			if (isInvisible == value) return;
+
+			isInvisible = value;
+		}
 	}
 }

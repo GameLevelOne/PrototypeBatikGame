@@ -271,14 +271,14 @@ public class ToolSystem : ComponentSystem {
 	{
 		Debug.Log("Using Invisibility Cloak");
 
-		// Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
+		Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
 
-		if (player.IsInvisible) {
-			player.IsInvisible = false;
-			//
+		if (!player.IsInvisible) {
+			player.IsInvisible = true;
+			cloak.IsInvisible = true;
 		} else {
-			player.IsInvisible = true;							
-			//
+			player.IsInvisible = false;	
+			cloak.IsInvisible = false;
 		}
 	}
 	
