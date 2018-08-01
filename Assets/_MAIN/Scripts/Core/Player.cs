@@ -18,7 +18,8 @@ public enum PlayerState {
 	DASH,
 	BOUNCE,
 	BRAKE,
-	HURT_MOVE
+	HURT_MOVE,
+	POWER_BRACELET
 }
 
 public class Player : MonoBehaviour {

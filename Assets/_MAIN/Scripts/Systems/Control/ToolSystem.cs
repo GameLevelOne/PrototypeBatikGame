@@ -148,13 +148,16 @@ public class ToolSystem : ComponentSystem {
 			UseMagicMedallion();
 		} else if (tool.currentTool == ToolType.FastTravel){
 			UseFastTravel();
-		} else if (tool.currentTool == ToolType.PowerBracelet){
-			UsePowerBracelet();
-		} else if (tool.currentTool == ToolType.Flippers){
+		} 
+		// else if (tool.currentTool == ToolType.PowerBracelet){
+		// 	UsePowerBracelet();
+		// } 
+		else if (tool.currentTool == ToolType.Flippers){
 			UseFlippers();
-		} else if (tool.currentTool == ToolType.Boots){
-			UseBoots();
-		}
+		} 
+		// else if (tool.currentTool == ToolType.Boots){
+		// 	UseBoots();
+		// }
 		
 		// input.IsUsingTool = false;
 	}

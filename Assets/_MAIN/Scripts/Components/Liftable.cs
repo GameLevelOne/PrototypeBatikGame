@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
 public enum LiftableType {
-	NONE,
-	BLOCKADE,
-	SECRET,
-	OTHER
+	LIFTABLE,
+	UNLIFTABLE,
+	GRABABLE
 }
 
 public class Liftable : MonoBehaviour {
 	public LiftableType liftableType;
 
-	public float weight;
+	// public float weight;
 }

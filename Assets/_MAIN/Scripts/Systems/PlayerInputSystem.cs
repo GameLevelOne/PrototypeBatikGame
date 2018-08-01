@@ -272,13 +272,17 @@ public class PlayerInputSystem : ComponentSystem {
 
 				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH) && (toolType != ToolType.None)) {
 					Debug.Log("Input Use Tool : " + toolType);
-					player.SetPlayerState(PlayerState.USING_TOOL);
 
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
 					} else if (toolType == ToolType.Boots) {
 						input.InteractMode = 1;
 						player.SetPlayerState(PlayerState.DASH);
+					} else if (toolType == ToolType.PowerBracelet) {
+						input.InteractMode = 3;
+						player.SetPlayerState(PlayerState.POWER_BRACELET);
+					} else {
+						player.SetPlayerState(PlayerState.USING_TOOL);
 					}
 				}
 			}
