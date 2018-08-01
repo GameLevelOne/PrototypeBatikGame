@@ -94,12 +94,16 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
 				ChangeDir(i, midValue, currentDir.y);
-				player.SetPlayerIdle();
+				if (state == PlayerState.MOVE) {
+					player.SetPlayerIdle();
+				}
 			}
 
 			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
 				ChangeDir(i, currentDir.x, midValue);
-				player.SetPlayerIdle();
+				if (state == PlayerState.MOVE) {
+					player.SetPlayerIdle();
+				}
 			}
 			#endregion
 

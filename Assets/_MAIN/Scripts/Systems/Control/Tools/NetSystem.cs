@@ -7,14 +7,20 @@ using Unity.Mathematics;
 
 public class NetSystem : ComponentSystem {
 	public struct NetData {
-		public Net net;
+		public readonly int Length;
+		public ComponentArray<Net> net;
 	}
+	[InjectAttribute] NetData netData;
 
 	[InjectAttribute] ContainerSystem containerSystem;
+
+	Net net;
 	
 	protected override void OnUpdate () {
-		foreach (var e in GetEntities<NetData>()) {
-			Net net = e.net;
+		if (netData.Length == 0) return;
+
+		for (int i=0; i<netData.Length; i++) { 
+			net = netData.net[i];
 
 			if (net.IsGotSomething) {
 				containerSystem.SaveToContainer(net.collectibleObject);
@@ -23,5 +29,16 @@ public class NetSystem : ComponentSystem {
 				net.IsGotSomething = false;
 			}
 		}
+
+		// foreach (var e in GetEntities<NetData>()) {
+		// 	Net net = e.net;
+
+		// 	if (net.IsGotSomething) {
+		// 		containerSystem.SaveToContainer(net.collectibleObject);
+
+		// 		GameObjectEntity.Destroy(net.collectibleObject.gameObject);
+		// 		net.IsGotSomething = false;
+		// 	}
+		// }
 	}
 }

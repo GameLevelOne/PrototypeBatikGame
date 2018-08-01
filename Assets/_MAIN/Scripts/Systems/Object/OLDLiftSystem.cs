@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LiftSystem : MonoBehaviour {
+public class OLDLiftSystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

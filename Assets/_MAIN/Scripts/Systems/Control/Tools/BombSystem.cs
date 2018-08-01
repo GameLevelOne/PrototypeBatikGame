@@ -1,45 +1,63 @@
-﻿using Unity.Entities;
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
+using Unity.Entities;
+using Unity.Rendering;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Mathematics;
 
 public class BombSystem : ComponentSystem {
-
-	public struct BombComponent{
-		public Bomb bomb;
+	public struct BombData{
+		public readonly int Length;
+		public ComponentArray<Bomb> bomb;
 	}
+	[InjectAttribute] BombData bombData;
+
+	Bomb bomb;
 
 	protected override void OnUpdate()
 	{
-		foreach(var e in GetEntities<BombComponent>()){
-			TickBomb(e);
+		if (bombData.Length == 0) return;
+
+		for (int i=0; i<bombData.Length; i++) { 
+			bomb = bombData.bomb[i];
+
+			TickBomb();
 			
-			if(e.bomb.destroy){
-				GameObject.Destroy(e.bomb.gameObject);
-				return; //TEMP, Error without this
+			if (bomb.destroy){				
+				GameObjectEntity.Destroy(bomb.gameObject);
+				UpdateInjectedComponentGroups(); //TEMP, Error without this
+			}
+		}
+
+		// foreach(var e in GetEntities<BombComponent>()){
+		// 	TickBomb(e);
+			
+		// 	if(e.bomb.destroy){
+		// 		GameObject.Destroy(e.bomb.gameObject);
+		// 		return; //TEMP, Error without this
 				
-				// GameObjectEntity.Destroy(e.bomb.gameObject);
-				// UpdateInjectedComponentGroups(); //TEMP, Error without this
-			}
-		}
+		// 		// GameObjectEntity.Destroy(e.bomb.gameObject);
+		// 		// UpdateInjectedComponentGroups(); //TEMP, Error without this
+		// 	}
+		// }
 	}
 
-	void TickBomb(BombComponent e)
+	void TickBomb()
 	{
-		if(e.bomb.timer <= 0){
-			if(!e.bomb.explode){
-				e.bomb.explode = true;
-				Explode(e);
+		if (bomb.timer <= 0){
+			if(!bomb.explode){
+				bomb.explode = true;
+				Explode();
 			}
-		}else{
+		} else {
 			float deltaTime = Time.fixedDeltaTime;
-			e.bomb.timer -= deltaTime;
+			bomb.timer -= deltaTime;
 		}
 	}
 
 
-	void Explode(BombComponent e)
+	void Explode()
 	{
-		e.bomb.bombAnimator.SetTrigger(Constants.AnimatorParameter.Trigger.EXPLODE);
-		
+		bomb.bombAnimator.SetTrigger(Constants.AnimatorParameter.Trigger.EXPLODE);
 	}
 }

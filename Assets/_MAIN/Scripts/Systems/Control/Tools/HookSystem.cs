@@ -110,7 +110,7 @@ public class HookSystem : ComponentSystem {
 			t = 0;
 			currHook.hookState = HookState.Idle;
 			// currHook.IsHookLaunched = false;
-			// player.SetPlayerIdle();
+			player.SetPlayerIdle();
 			standAnimationSystem.StopStandAnimation();
 			
 			GameObjectEntity.Destroy(currHook.gameObject);

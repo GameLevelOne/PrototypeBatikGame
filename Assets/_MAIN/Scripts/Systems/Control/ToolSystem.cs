@@ -143,11 +143,13 @@ public class ToolSystem : ComponentSystem {
 		} else if (tool.currentTool == ToolType.Lantern){
 			UseLantern();
 		} else if (tool.currentTool == ToolType.InvisibilityCloak){
-			UseInvisibilityCloack();
+			UseInvisibilityCloak();
 		} else if (tool.currentTool == ToolType.MagicMedallion){
 			UseMagicMedallion();
 		} else if (tool.currentTool == ToolType.FastTravel){
 			UseFastTravel();
+		} else if (tool.currentTool == ToolType.PowerBracelet){
+			UsePowerBracelet();
 		} else if (tool.currentTool == ToolType.Flippers){
 			UseFlippers();
 		} else if (tool.currentTool == ToolType.Boots){
@@ -255,11 +257,29 @@ public class ToolSystem : ComponentSystem {
 	void UseLantern()
 	{
 		Debug.Log("Using Lantern");
+
+		Lantern lantern = tool.GetObj(toolType).GetComponent<Lantern>();
+			
+		if (!lantern.IsLightOn) {
+			lantern.IsLightOn = true;
+		} else {
+			lantern.IsLightOn = false;
+		}
 	}
 	
-	void UseInvisibilityCloack()
+	void UseInvisibilityCloak()
 	{
 		Debug.Log("Using Invisibility Cloak");
+
+		// Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
+
+		if (player.IsInvisible) {
+			player.IsInvisible = false;
+			//
+		} else {
+			player.IsInvisible = true;							
+			//
+		}
 	}
 	
 	void UseMagicMedallion()
@@ -283,6 +303,7 @@ public class ToolSystem : ComponentSystem {
 		Debug.Log("Using Power Bracelet");
 
 		//allow to lift objects
+		tool.SpawnSlashEffect(toolType);
 	}
 	
 	void UseFlippers()

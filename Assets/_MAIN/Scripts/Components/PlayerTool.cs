@@ -37,9 +37,12 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject hammerAreaEffectObj;
 	public GameObject netObj;
 	public GameObject shovelAreaEffectObj;
+	public GameObject lanternObj;
+	public GameObject invisibleCloak;
+	public GameObject powerBraceletAreaEffectObj;
 	public GameObject magicMedallionAreaEffectObj;
+	public GameObject bootsObj;
 	// public Boots bootsScriptObj;
-	// public GameObject powerBraceletAreaEffectObj;
 
 
 	public Text textToolName;
@@ -95,8 +98,14 @@ public class PlayerTool : MonoBehaviour {
             case 11:
                 SpawnObj (shovelAreaEffectObj, false, false);
                 break;
+            case 12:
+                SpawnObj (lanternObj, false, false);
+                break;
             case 14:
                 SpawnObj (magicMedallionAreaEffectObj, true, true);
+                break;
+            case 16:
+                SpawnObj (powerBraceletAreaEffectObj, false, false);
                 break;
             case 18:
                 // SetEquipmentTools (bootsScriptObj);
@@ -117,6 +126,36 @@ public class PlayerTool : MonoBehaviour {
 		}
 
         spawnedBullet.SetActive(true);
+    }
+
+	public GameObject GetObj (int toolType) {
+        switch (toolType) {
+            case 1:
+                return arrowObj;
+            case 2:
+                return hookObj;
+            case 3:
+                return bombObj;
+            case 4:
+                return hammerAreaEffectObj;
+            case 5:
+                return netObj;
+            case 11:
+                return shovelAreaEffectObj;
+            case 12:
+                return lanternObj;
+            case 13:
+                return invisibleCloak;
+            case 14:
+                return magicMedallionAreaEffectObj;
+            case 16:
+                return powerBraceletAreaEffectObj;
+            case 18:
+                return bootsObj;
+			default:
+				Debug.Log("Unknown Tool Object");
+				return null;
+        }
     }
 
     Quaternion SetFacing () {

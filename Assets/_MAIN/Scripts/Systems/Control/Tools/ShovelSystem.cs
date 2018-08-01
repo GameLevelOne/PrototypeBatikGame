@@ -7,18 +7,23 @@ using Unity.Mathematics;
 
 public class ShovelSystem : ComponentSystem {
 	public struct ShovelData {
-		public Shovel shovel;
+		public readonly int Length;
+		public ComponentArray<Shovel> shovel;
 	}
+	[InjectAttribute] ShovelData shovelData;
 
-	// [InjectAttribute] ContainerSystem containerSystem;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+
+	Shovel shovel;
 	
 	bool checkList = true;
 
 	protected override void OnUpdate () {
-		foreach (var e in GetEntities<ShovelData>()) {
-			Shovel shovel = e.shovel;
-			
+		if (shovelData.Length == 0) return;
+
+		for (int i=0; i<shovelData.Length; i++) { 
+			shovel = shovelData.shovel[i];
+
 			if (shovel.listDig.Count >= 1) {
 				checkList = shovel.listDig.Contains(true) ? true : false;
 
@@ -28,5 +33,18 @@ public class ShovelSystem : ComponentSystem {
 				}
 			} 
 		}
+		
+		// foreach (var e in GetEntities<ShovelData>()) {
+		// 	Shovel shovel = e.shovel;
+			
+		// 	if (shovel.listDig.Count >= 1) {
+		// 		checkList = shovel.listDig.Contains(true) ? true : false;
+
+		// 		if (!checkList && playerInputSystem.player.IsCanDigging) {
+		// 			GameObjectEntity.Instantiate(shovel.diggingObj, shovel.transform.position, Quaternion.identity);
+		// 			// shovel.IsNotCleanForDigging = true;
+		// 		}
+		// 	} 
+		// }
 	}
 }

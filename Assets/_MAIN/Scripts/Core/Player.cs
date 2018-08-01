@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isParrying = false; 
 	[SerializeField] bool isBulletTiming = false;
 	[SerializeField] bool isCanDigging = false;
+	[SerializeField] bool isInvisible = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -78,11 +79,6 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-    public int MaxHP{
-        get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
-        set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP,value);}
-    }
-
 	public bool IsCanDigging {
 		get {return isCanDigging;}
 		set {
@@ -91,6 +87,20 @@ public class Player : MonoBehaviour {
 			isCanDigging = value;
 		}
 	}
+
+	public bool IsInvisible {
+		get {return isInvisible;}
+		set {
+			if (isInvisible == value) return;
+
+			isInvisible = value;
+		}
+	}
+
+    public int MaxHP{
+        get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
+        set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP,value);}
+    }
 
 	void OnCollisionEnter2D (Collision2D col) {
 
@@ -123,7 +133,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetPlayerIdle () {
-		Debug.Log("Idle");
+		// Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion
