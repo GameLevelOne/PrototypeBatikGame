@@ -21,8 +21,9 @@ public class EnemyAISystem : ComponentSystem {
 	#endregion
 
 	#region injected system
-	[InjectAttribute] EnemyAnimationSystem enemyAnimationSystem;
 	[InjectAttribute] EnemyMovementSystem enemyMovementSystem;
+	[InjectAttribute] EnemyAttackSystem enemyAttackSystem;
+
 	#endregion
 
 	protected override void OnUpdate()
@@ -73,12 +74,12 @@ public class EnemyAISystem : ComponentSystem {
 	
 	void Chase()
 	{
-
+		enemyMovementSystem.InitChase();
 	}
 	
 	void Attack()
 	{
-
+		
 	}
 	
 	void Damaged()
@@ -91,7 +92,7 @@ public class EnemyAISystem : ComponentSystem {
 
 	}
 
-	void SetEnemyState(EnemyState enemyState)
+	public void SetEnemyState(EnemyState enemyState)
 	{
 		currEnemy.state = enemyState;
 	}
