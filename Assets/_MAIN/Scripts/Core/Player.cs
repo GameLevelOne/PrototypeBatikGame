@@ -134,7 +134,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetPlayerIdle () {
-		// Debug.Log("Idle");
+		Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion

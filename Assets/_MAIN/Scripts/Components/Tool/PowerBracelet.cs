@@ -10,23 +10,39 @@ public enum LiftState {
 public class PowerBracelet : MonoBehaviour {
 	public LiftState state;
 	public Liftable liftableObject;
-	public float liftPower;
+	public LiftableType type;
+
+	public Collider2D col;
+	// public float liftPower;
+
+	[SerializeField] bool isInteracting = false;
+	[SerializeField] bool isColliderOn = false;
+	
+	public bool IsColliderOn {
+		get {return isColliderOn;}
+		set {
+			if (isColliderOn == value) return;
+
+			isColliderOn = value;
+			col.enabled = value;
+			Debug.Log("isColliderOn " + isColliderOn);
+		}
+	}
+	
+	public bool IsInteracting {
+		get {return isInteracting;}
+		set {
+			if (isInteracting == value) return;
+
+			isInteracting = value;
+		}
+	}
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null) {
-			Liftable liftable = col.GetComponent<Liftable>();
-			LiftableType type = liftable.liftableType;
-
-			if (type == LiftableType.LIFTABLE) {
-				liftableObject = liftable;
-				state = LiftState.CAN_LIFT;
-			} else if (type == LiftableType.UNLIFTABLE) {
-				state = LiftState.CANNOT_LIFT;
-			} else if (type == LiftableType.GRABABLE) {
-				state = LiftState.GRAB;
-			}
-		} else {
-			state = LiftState.NONE;
+			liftableObject = col.GetComponent<Liftable>();
+			type = liftableObject.liftableType;
+			IsInteracting = true;
 		}
 	}
 }

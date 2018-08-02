@@ -69,6 +69,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			#region ACTION
 			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET) {
+				Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
 			} else {
@@ -239,8 +240,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.AFTER_HURT:
 				player.SetPlayerIdle();
 				break;
-			//case after steady power bracelet, input.interactvalue = 1
-			//case after using power bracelet, bool interact = false
+			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
+				input.InteractValue = 1;
+				break;
+			case AnimationState.AFTER_UNGRAB://case after using power bracelet, bool interact = false (optional)
+				input.InteractValue = 0;
+				player.SetPlayerIdle();
+				break;
+			case AnimationState.AFTER_THROW:
+				input.InteractValue = 0;
+				player.SetPlayerIdle();
+				break;
 		}
 	}
 

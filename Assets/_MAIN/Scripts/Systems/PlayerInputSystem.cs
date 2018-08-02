@@ -16,12 +16,14 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 	[InjectAttribute] InputData inputData;
 	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 
 	public PlayerInput input;
 	public Player player;
 
 	PlayerState state;
 	ToolType toolType;
+	LiftState liftState;
 
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
@@ -37,6 +39,12 @@ public class PlayerInputSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
+		
+		if (liftState == null) {
+			liftState = powerBraceletSystem.powerBracelet.state;
+
+			return;
+		} 
 
 		float deltaTime = Time.deltaTime;
 		
@@ -81,29 +89,25 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Movement
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-				ChangeDir(i, currentDir.x, maxValue);
+				ChangeDir(currentDir.x, maxValue);
 			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-				ChangeDir(i, currentDir.x, minValue);
+				ChangeDir(currentDir.x, minValue);
 			} 
 			
 			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				ChangeDir(i, maxValue, currentDir.y);
+				ChangeDir(maxValue, currentDir.y);
 			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				ChangeDir(i, minValue, currentDir.y);
+				ChangeDir(minValue, currentDir.y);
 			} 
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-				ChangeDir(i, midValue, currentDir.y);
-				if (state == PlayerState.MOVE) {
-					player.SetPlayerIdle();
-				}
+				ChangeDir(midValue, currentDir.y);
+				CheckEndMove();
 			}
 
 			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
-				ChangeDir(i, currentDir.x, midValue);
-				if (state == PlayerState.MOVE) {
-					player.SetPlayerIdle();
-				}
+				ChangeDir(currentDir.x, midValue);
+				CheckEndMove();
 			}
 			#endregion
 
@@ -133,7 +137,7 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
-					SetMovement(i, 1, false); //START CHARGE
+					SetMovement(1, false); //START CHARGE
 				}
 			} else {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
@@ -160,7 +164,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.SetPlayerState(PlayerState.ATTACK);	
 				}
 				
-				SetMovement(i, 0, false);
+				SetMovement(0, false);
 				chargeAttackTimer = 0f;
 				isAttackAway = false;			
 			}
@@ -168,7 +172,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Guard
 			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-				SetMovement(i, 2, false); //START GUARD
+				SetMovement(2, false); //START GUARD
 				
 				player.IsGuarding = true;
 			}
@@ -189,7 +193,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				SetMovement(i, 0, false);
+				SetMovement(0, false);
 				
 				player.IsGuarding = false;
 				parryTimer = 0f;
@@ -231,7 +235,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.IsBulletTiming) {
 				if (player.IsPlayerHit) {	
 					player.IsBulletTiming = false;
-					ChangeDir(i, midValue, midValue);
+					ChangeDir(midValue, midValue);
 					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
 					input.AttackMode = -3;
 					Debug.Log("Start BulletTime");
@@ -270,7 +274,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetKeyDown(KeyCode.Space)){
 				toolType = tool.currentTool;
 
-				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH) && (toolType != ToolType.None)) {
+				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (toolType != ToolType.None)) {
 					Debug.Log("Input Use Tool : " + toolType);
 
 					if (toolType == ToolType.Hook) {
@@ -279,27 +283,32 @@ public class PlayerInputSystem : ComponentSystem {
 						input.InteractMode = 1;
 						player.SetPlayerState(PlayerState.DASH);
 					} else if (toolType == ToolType.PowerBracelet) {
-						input.InteractMode = 3;
-						player.SetPlayerState(PlayerState.POWER_BRACELET);
+						if (liftState != LiftState.NONE) {
+							input.InteractMode = 3;
+							player.SetPlayerState(PlayerState.POWER_BRACELET);
+						} else {
+							continue;
+						}
 					} else {
 						player.SetPlayerState(PlayerState.USING_TOOL);
 					}
-
-					
-					//if state == power bracelet, input,interactvalue = 2
+				} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode < 0) { 
+					input.InteractValue = 2;
+					input.LiftingMode = -1;
 				}
 			}
 
 			if (Input.GetKeyUp(KeyCode.Space)){
-				if (state == PlayerState.POWER_BRACELET) {}
+				if (state == PlayerState.POWER_BRACELET && input.LiftingMode >= 0) {
+					input.InteractValue = 2;
+					input.LiftingMode = 0;
+				}
 			}
 			#endregion
 		}
 	}
 
-	void SetMovement (int idx, int value, bool isMoveOnly) {
-		PlayerInput input = inputData.PlayerInput[idx];
-		
+	void SetMovement (int value, bool isMoveOnly) {
 		input.MoveMode = value;
 		
 		if (!isMoveOnly) {
@@ -307,13 +316,28 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	void ChangeDir (int idx, float dirX, float dirY) {
+	void ChangeDir (float dirX, float dirY) {
 		Vector2 newDir = new Vector2(dirX, dirY);
-		PlayerInput input = inputData.PlayerInput[idx];
 
 		if (currentDir != newDir) {
 			currentDir = newDir;
 			input.MoveDir = currentDir;
+
+			if (state == PlayerState.POWER_BRACELET && input.LiftingMode == -1) {
+				input.LiftingMode = -2;
+			} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == 1) {
+				input.LiftingMode = 2;
+			}
+		}
+	}
+
+	void CheckEndMove () {
+		if (state == PlayerState.MOVE) {
+			player.SetPlayerIdle();
+		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == -2) {
+			input.LiftingMode = -1;
+		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == 2) {
+			input.LiftingMode = 1;
 		}
 	}
 }

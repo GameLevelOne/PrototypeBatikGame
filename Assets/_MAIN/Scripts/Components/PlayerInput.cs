@@ -99,7 +99,7 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	//LIFTING -1, SWEATING 0, GRABBING 1
+	//LIFTING -1, SWEATING 0, IDLEPUSH 1, MOVELIFT -2, MOVEPUSH 2
 	public float LiftingMode { 
 		get {return liftingMode;}
 		set {

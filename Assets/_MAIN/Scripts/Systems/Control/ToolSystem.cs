@@ -12,6 +12,7 @@ public class ToolSystem : ComponentSystem {
 		public ComponentArray<Animation2D> Animation;
 	}
 	[InjectAttribute] ToolData toolData;
+
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] ContainerSystem containerSystem;
 	
@@ -50,8 +51,7 @@ public class ToolSystem : ComponentSystem {
 			// bool isChangeTool = input.IsChangeTool;
 			// bool isUsingTool = input.IsUsingTool;
 
-			StandAnimationState standAnimState = anim.standAnimState;
-			toolType = (int)tool.currentTool;
+			// StandAnimationState standAnimState = anim.standAnimState;
 
 			// if (isChangeTool) {
 			// 	ChangeTool();
@@ -63,6 +63,9 @@ public class ToolSystem : ComponentSystem {
 					UseTool ();
 					tool.IsActToolReady = false;
 				}
+			} else if (tool.IsPowerBraceletSelected) {
+				UsePowerBracelet ();
+				tool.IsPowerBraceletSelected = false;
 			}
 		}
 
@@ -95,6 +98,7 @@ public class ToolSystem : ComponentSystem {
 			current++;
 		}
 
+		CheckPowerBracelet();
 		PrintToolName ((ToolType) current);
 	}
 
@@ -108,7 +112,18 @@ public class ToolSystem : ComponentSystem {
 			current--;
 		}
 
+		CheckPowerBracelet();
 		PrintToolName ((ToolType) current);
+	}
+
+	void CheckPowerBracelet () {
+		toolType = (int)tool.currentTool;
+		
+		if (tool.currentTool == ToolType.PowerBracelet) {
+			tool.IsPowerBraceletSelected = true;
+		} else {
+			tool.IsPowerBraceletSelected = false;
+		}
 	}
 
 	void PrintToolName (ToolType type) {
@@ -306,7 +321,11 @@ public class ToolSystem : ComponentSystem {
 		Debug.Log("Using Power Bracelet");
 
 		//allow to lift objects
-		tool.SpawnSlashEffect(toolType);
+		// tool.SpawnSlashEffect(toolType);
+
+		PowerBracelet powerBracelet = tool.GetObj(toolType).GetComponent<PowerBracelet>();
+
+		powerBracelet.IsColliderOn = true;
 	}
 	
 	void UseFlippers()
