@@ -25,7 +25,6 @@ public class PowerBracelet : MonoBehaviour {
 
 			isColliderOn = value;
 			col.enabled = value;
-			Debug.Log("isColliderOn " + isColliderOn);
 		}
 	}
 	
@@ -39,10 +38,20 @@ public class PowerBracelet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() != null) {
+		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
 			liftableObject = col.GetComponent<Liftable>();
 			type = liftableObject.liftableType;
 			IsInteracting = true;
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D col) {
+		if (col.GetComponent<Liftable>() == null) return;
+
+		if (col.GetComponent<Liftable>() == liftableObject && IsInteracting) {
+			liftableObject = null;
+			IsInteracting = false;
+			state = LiftState.NONE;
 		}
 	}
 }

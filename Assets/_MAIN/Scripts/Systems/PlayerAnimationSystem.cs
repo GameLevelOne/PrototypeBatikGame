@@ -69,7 +69,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			#region ACTION
 			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET) {
-				Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
+				// Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
 			} else {
@@ -113,6 +113,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
 			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
 			
 			Vector2 movement = input.MoveDir;
 			
@@ -143,11 +144,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 				
 				if (currentMove == Vector2.zero) {
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+					if (input.LiftingMode == -2) {
+						input.LiftingMode = -1;
+					} else if (input.LiftingMode == 2) {
+						input.LiftingMode = 1;
+					}
+
 				} else {
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 					
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
+					if (input.LiftingMode == -1) {
+						input.LiftingMode = -2;
+					} else if (input.LiftingMode == 1) {
+						input.LiftingMode = 2;
+					}
 				}
 			}
 			#endregion

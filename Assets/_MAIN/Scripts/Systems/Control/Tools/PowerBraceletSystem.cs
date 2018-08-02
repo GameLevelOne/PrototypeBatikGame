@@ -33,22 +33,23 @@ public class PowerBraceletSystem : ComponentSystem {
 
 		for (int i=0; i<liftData.Length; i++) {
 			powerBracelet = liftData.powerBracelet[i];
-			state = powerBracelet.state;
 			type = powerBracelet.type;
 
 			if (powerBracelet.IsInteracting && !isLiftResponse) {
 				if (type == LiftableType.LIFTABLE) {
-					state = LiftState.CAN_LIFT;
+					SetPowerBraceletState(LiftState.CAN_LIFT);
 				} else if (type == LiftableType.UNLIFTABLE) {
-					state = LiftState.CANNOT_LIFT;
+					SetPowerBraceletState(LiftState.CANNOT_LIFT);
 				} else if (type == LiftableType.GRABABLE) {
-					state = LiftState.GRAB;
+					SetPowerBraceletState(LiftState.GRAB);
 				} else {
-					state = LiftState.NONE;
+					SetPowerBraceletState(LiftState.NONE);
 				}
 
 				isLiftResponse = true;
 			}
+			
+			state = powerBracelet.state;
 
 			if (isLiftResponse) {
 				if (state == LiftState.NONE) {
@@ -61,10 +62,14 @@ public class PowerBraceletSystem : ComponentSystem {
 					input.LiftingMode = 1;
 				}
 
-				powerBracelet.IsInteracting = false;
+				// powerBracelet.IsInteracting = false;
 				isLiftResponse = false;
-				powerBracelet.IsColliderOn = false;
+				// powerBracelet.IsColliderOn = false;
 			}
 		}
+	}
+
+	void SetPowerBraceletState (LiftState state) {
+		powerBracelet.state = state;
 	}
 }

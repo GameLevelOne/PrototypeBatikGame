@@ -23,7 +23,6 @@ public class PlayerInputSystem : ComponentSystem {
 
 	PlayerState state;
 	ToolType toolType;
-	LiftState liftState;
 
 	Vector2 currentDir = Vector2.zero;
 	float parryTimer = 0f;
@@ -39,12 +38,6 @@ public class PlayerInputSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
-		
-		if (liftState == null) {
-			liftState = powerBraceletSystem.powerBracelet.state;
-
-			return;
-		} 
 
 		float deltaTime = Time.deltaTime;
 		
@@ -111,7 +104,56 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			#endregion
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {	
+			#region Button Tools
+			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET)) {
+				if(Input.GetKeyDown(KeyCode.X)){
+					toolSystem.NextTool();
+				}
+				
+				if(Input.GetKeyDown(KeyCode.Z)){
+						toolSystem.PrevTool();
+				}
+
+				if (Input.GetKeyDown(KeyCode.Space)){
+					toolType = tool.currentTool;
+
+					if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (toolType != ToolType.None)) {
+						Debug.Log("Input Use Tool : " + toolType);
+
+						if (toolType == ToolType.Hook) {
+							player.SetPlayerState(PlayerState.HOOK);
+						} else if (toolType == ToolType.Boots) {
+							input.InteractMode = 1;
+							player.SetPlayerState(PlayerState.DASH);
+						} else if (toolType == ToolType.PowerBracelet) {
+							LiftState liftState = powerBraceletSystem.powerBracelet.state;
+							
+							if (liftState != LiftState.NONE) {
+								input.InteractMode = 3;
+								player.SetPlayerState(PlayerState.POWER_BRACELET);
+							} else {
+								continue;
+							}
+						} else {
+							player.SetPlayerState(PlayerState.USING_TOOL);
+						}
+					}
+				}
+			} else if (state == PlayerState.POWER_BRACELET) { 
+				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){
+					input.InteractValue = 2;
+					input.LiftingMode = -1;
+				}
+
+				if (Input.GetKeyUp(KeyCode.Space) && input.LiftingMode >= 0){
+					Debug.Log("ok");
+					input.InteractValue = 2;
+					input.LiftingMode = 0;
+				}
+			} 			
+			#endregion
+
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET) {	
 
 				continue;
 			} else if (state == PlayerState.DASH) {
@@ -255,56 +297,6 @@ public class PlayerInputSystem : ComponentSystem {
 			} else {
 				player.IsPlayerHit = false;
 			}
-
-			#region Button Tools
-			if(Input.GetKeyDown(KeyCode.X)){
-				if (state != PlayerState.USING_TOOL) {
-					Debug.Log("Input Next Tool");
-					toolSystem.NextTool();
-				}
-			}
-			
-			if(Input.GetKeyDown(KeyCode.Z)){
-				if (state != PlayerState.USING_TOOL) {
-					Debug.Log("Input Prev Tool");
-					toolSystem.PrevTool();
-				}
-			}
-			
-			if (Input.GetKeyDown(KeyCode.Space)){
-				toolType = tool.currentTool;
-
-				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (toolType != ToolType.None)) {
-					Debug.Log("Input Use Tool : " + toolType);
-
-					if (toolType == ToolType.Hook) {
-						player.SetPlayerState(PlayerState.HOOK);
-					} else if (toolType == ToolType.Boots) {
-						input.InteractMode = 1;
-						player.SetPlayerState(PlayerState.DASH);
-					} else if (toolType == ToolType.PowerBracelet) {
-						if (liftState != LiftState.NONE) {
-							input.InteractMode = 3;
-							player.SetPlayerState(PlayerState.POWER_BRACELET);
-						} else {
-							continue;
-						}
-					} else {
-						player.SetPlayerState(PlayerState.USING_TOOL);
-					}
-				} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode < 0) { 
-					input.InteractValue = 2;
-					input.LiftingMode = -1;
-				}
-			}
-
-			if (Input.GetKeyUp(KeyCode.Space)){
-				if (state == PlayerState.POWER_BRACELET && input.LiftingMode >= 0) {
-					input.InteractValue = 2;
-					input.LiftingMode = 0;
-				}
-			}
-			#endregion
 		}
 	}
 
@@ -319,14 +311,19 @@ public class PlayerInputSystem : ComponentSystem {
 	void ChangeDir (float dirX, float dirY) {
 		Vector2 newDir = new Vector2(dirX, dirY);
 
-		if (currentDir != newDir) {
-			currentDir = newDir;
-			input.MoveDir = currentDir;
-
-			if (state == PlayerState.POWER_BRACELET && input.LiftingMode == -1) {
-				input.LiftingMode = -2;
-			} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == 1) {
-				input.LiftingMode = 2;
+		if (state == PlayerState.POWER_BRACELET) {
+			if (input.LiftingMode == -1 || input.LiftingMode == -2) {
+				if (currentDir != newDir) {
+					currentDir = newDir;
+					input.MoveDir = currentDir;
+				}
+			} else {
+				return;
+			}
+		} else {
+			if (currentDir != newDir) {
+				currentDir = newDir;
+				input.MoveDir = currentDir;
 			}
 		}
 	}

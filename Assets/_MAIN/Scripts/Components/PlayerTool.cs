@@ -106,7 +106,7 @@ public class PlayerTool : MonoBehaviour {
                 SpawnObj (magicMedallionAreaEffectObj, true, true);
                 break;
             case 16:
-                SpawnObj (powerBraceletAreaEffectObj, false, false);
+                // SpawnObj (powerBraceletAreaEffectObj, false, false);
                 break;
             case 18:
                 // SetEquipmentTools (bootsScriptObj);

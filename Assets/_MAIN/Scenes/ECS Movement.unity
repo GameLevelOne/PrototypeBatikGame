@@ -777,7 +777,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &1070544744
@@ -1041,6 +1041,63 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 12}
   m_EdgeRadius: 0
+--- !u!1001 &1561223727
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617638664541290, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 50462446837850810, guid: aaaf7bd0a185e6d44a80eed1c4d6775c,
+        type: 2}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50462446837850810, guid: aaaf7bd0a185e6d44a80eed1c4d6775c,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114127827676733240, guid: aaaf7bd0a185e6d44a80eed1c4d6775c,
+        type: 2}
+      propertyPath: liftableType
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: aaaf7bd0a185e6d44a80eed1c4d6775c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1723110067
 Prefab:
   m_ObjectHideFlags: 0
