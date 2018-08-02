@@ -1,6 +1,13 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
+public enum Direction{
+	Up,
+	Down,
+	Left,
+	Right
+}
+
 public class EnemyMovementSystem : ComponentSystem {
 	
 	public struct EnemyMovementComponent{
@@ -9,6 +16,7 @@ public class EnemyMovementSystem : ComponentSystem {
 		public ComponentArray<Transform> transform;
 		public ComponentArray<EnemyMovement> enemyMovement;
 		public ComponentArray<Rigidbody2D> rigidbody;
+		public ComponentArray<Facing2D> facing2D;
 	}
 
 	#region injected component
@@ -17,9 +25,16 @@ public class EnemyMovementSystem : ComponentSystem {
 	Transform currTransform;
 	EnemyMovement currEnemyMovement;
 	Rigidbody2D currRigidbody;
+	Facing2D currFacing2D;
 	#endregion
+	
 	//system
-	[InjectAttribute] EnemyAnimationSystem EnemyAnimationSystem;
+	[InjectAttribute] EnemyAISystem enemyAISystem;
+	[InjectAttribute] EnemyAnimationSystem enemyAnimationSystem;
+	[InjectAttribute] EnemyAttackSystem enemyAttackSystem;
+	[InjectAttribute] EnemyInputSystem enemyInputSystem;
+
+	float deltaTime;
 
 	protected override void OnUpdate()
 	{
@@ -28,26 +43,56 @@ public class EnemyMovementSystem : ComponentSystem {
 		// 	currEnemyMovement = enemyMovementComponent.enemyMovement[i];
 		// 	currTransform = enemyMovementComponent.transform[i];
 		// 	currRigidbody = enemyMovementComponent.rigidbody[i];
+		//	currFacing2D = enemyMovementComponent.facing2D[i];
 		// 	Move();
 		// }
+		
 	}
 
 	public void InitMove()
 	{
-		if(!currEnemyMovement.isMoving){
+		if(!currEnemyMovement.isChasing == !currEnemyMovement.isMoving){
 			currEnemyMovement.isMoving = true;
 			currEnemyMovement.targetPos = GetRantomPatrolTarget(currTransform);
+			deltaTime = Time.deltaTime;
 		}
 	}
 
 	void Move()
 	{
-		if(currEnemyMovement.isMoving){
-			float deltaTime = Time.deltaTime;
-
+		if(!currEnemyMovement.isChasing && currEnemyMovement.isMoving){
 			currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.targetPos, currEnemyMovement.speed * deltaTime);
+			currEnemyMovement.faceDirection = GetDirection(currRigidbody.position,currEnemyMovement.targetPos);
+			if(Vector2.Distance(currRigidbody.position,currEnemyMovement.targetPos) <= 0.1f){
+				currEnemyMovement.isMoving = false;
+				enemyAISystem.SetEnemyState(EnemyState.Idle);
+			}
+		}
+	}
 
-			//if arrived, set back to idle
+	public void InitChase()
+	{
+		if(!currEnemyMovement.isChasing){
+			currEnemyMovement.isMoving = false;
+			currEnemyMovement.isChasing = true;
+			currEnemyMovement.TChase = currEnemyMovement.chaseDuration;
+			deltaTime = Time.deltaTime;
+		}
+	}
+
+	void Chase()
+	{
+		if(currEnemyMovement.isChasing){
+			currEnemyMovement.TChase -= deltaTime;
+			currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.chaseTransform.position, currEnemyMovement.speed * deltaTime);
+
+			if(currEnemyMovement.TChase <= 0f){
+				//chase end
+
+				currEnemyMovement.isChasing = false;
+				currEnemyMovement.chaseTransform = null;
+				enemyAISystem.SetEnemyState(EnemyState.Idle);
+			}
 		}
 	}
 
@@ -57,6 +102,24 @@ public class EnemyMovementSystem : ComponentSystem {
 		float xRnd = currPos.x += Random.Range(-3f,3f);
 		float yRnd = currPos.y += Random.Range(-3f,3f);
 
-		return new Vector3(xRnd,yRnd);
+		return new Vector2(xRnd,yRnd);
+	}
+
+	Direction GetDirection(Vector3 self, Vector3 target)
+	{
+		Vector3 distance = target - self;
+		float magnitude = distance.magnitude;
+		Vector3 direction = distance / magnitude;
+
+		float x = direction.x;
+		float y = direction.y;
+
+		if(Mathf.Abs (x) >= Mathf.Abs (y)){
+			if(x >= 0) return Direction.Right;
+			else return Direction.Left;
+		}else{
+			if(y >= 0) return Direction.Up;
+			else return Direction.Down;
+		}
 	}
 }
