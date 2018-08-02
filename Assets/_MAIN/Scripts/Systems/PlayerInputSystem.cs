@@ -284,7 +284,14 @@ public class PlayerInputSystem : ComponentSystem {
 					} else {
 						player.SetPlayerState(PlayerState.USING_TOOL);
 					}
+
+					
+					//if state == power bracelet, input,interactvalue = 2
 				}
+			}
+
+			if (Input.GetKeyUp(KeyCode.Space)){
+				if (state == PlayerState.POWER_BRACELET) {}
 			}
 			#endregion
 		}

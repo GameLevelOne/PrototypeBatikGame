@@ -7,7 +7,7 @@ public static class Constants {
 	{
 		public static class Int
 		{
-			
+			public const string INTERACT_VALUE = "InteractValue";
 		}
 
 		public static class Float
@@ -21,6 +21,7 @@ public static class Constants {
 			public const string FACE_Y = "FaceY";
 			public const string TOOL_TYPE = "ToolType";
 			public const string INTERACT_MODE = "InteractMode";
+			public const string LIFTING_MODE = "LiftingMode";
 		}
 
 		public static class Trigger

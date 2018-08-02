@@ -12,24 +12,30 @@ public class LiftSystem : ComponentSystem {
 	}
 	[InjectAttribute] LiftData liftData;
 
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
+
 	PowerBracelet powerBracelet;
+	PlayerInput input;
 	LiftState state;
 
 	protected override void OnUpdate () {
 		if (liftData.Length == 0) return;
 
+		if (playerInputSystem == null) return;
+
 		for (int i=0; i<liftData.Length; i++) {
+			input = playerInputSystem.input;
 			powerBracelet = liftData.powerBracelet[i];
 			state = powerBracelet.state;
 			
 			if (state == LiftState.NONE) {
 				//
 			} else if (state == LiftState.CAN_LIFT) {
-				powerBracelet.LiftingMode = -1;
+				input.LiftingMode = -1;
 			} else if (state == LiftState.CANNOT_LIFT) {
-				powerBracelet.LiftingMode = 0;
+				input.LiftingMode = 0;
 			} else if (state == LiftState.GRAB) {
-				powerBracelet.LiftingMode = 1;
+				input.LiftingMode = 1;
 			}
 		}
 	}

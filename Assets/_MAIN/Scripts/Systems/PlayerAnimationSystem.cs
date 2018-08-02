@@ -63,20 +63,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
 				continue;
 			}
 
 			#region ACTION
-			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE) {
+			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
+				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
 			}
 			
 			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
@@ -108,9 +109,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#endregion
 
 			#region MOVEMENT
-			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
-			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
-			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, CheckMode(input.InteractMode));
+			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
 			
 			Vector2 movement = input.MoveDir;
 			
@@ -238,6 +239,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.AFTER_HURT:
 				player.SetPlayerIdle();
 				break;
+			//case after steady power bracelet, input.interactvalue = 1
+			//case after using power bracelet, bool interact = false
 		}
 	}
 
@@ -258,31 +261,31 @@ public class PlayerAnimationSystem : ComponentSystem {
 		player.SetPlayerIdle();
 	}
 
-	float CheckMode (int mode) {
-		switch (mode) {
-			case 0: 
-				return 0f; //STAND / MOVE / DODGE
-				// break;
-			case 1: 
-				return 1f; //CHARGE / DASH
-				// break;
-			case 2:
-				return 2f; //GUARD
-				// break;
-			case 3:
-				return 3f; //STEADY FOR RAPID SLASH
-				// break;
-			case -1: 
-				return -1f; //DIE / BLOCK
-				// break;
-			case -2: 
-				return -2f; //HURT
-				// break;
-			default:
-				Debug.Log("Unknown Mode in Animation System");
-				return 0f;
-		}
-	}
+	// float CheckMode (int mode) {
+	// 	switch (mode) {
+	// 		case 0: 
+	// 			return 0f; //STAND / MOVE / DODGE
+	// 			// break;
+	// 		case 1: 
+	// 			return 1f; //CHARGE / DASH
+	// 			// break;
+	// 		case 2:
+	// 			return 2f; //GUARD
+	// 			// break;
+	// 		case 3:
+	// 			return 3f; //STEADY FOR RAPID SLASH
+	// 			// break;
+	// 		case -1: 
+	// 			return -1f; //DIE / BLOCK
+	// 			// break;
+	// 		case -2: 
+	// 			return -2f; //HURT
+	// 			// break;
+	// 		default:
+	// 			Debug.Log("Unknown Mode in Animation System");
+	// 			return 0f;
+	// 	}
+	// }
 
 	int CheckDirID (float dirX, float dirY) {
 		int dirIdx = 0;

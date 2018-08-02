@@ -22,7 +22,8 @@ public class PlayerInput : MonoBehaviour {
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
 	[SerializeField] int interactMode = 0;
-	// [SerializeField] bool isChangeTool = false;
+	[SerializeField] int interactValue = 0;
+	[SerializeField] float liftingMode = 0f;
 	
 	bool isReadyForDodging = true;
 
@@ -88,13 +89,23 @@ public class PlayerInput : MonoBehaviour {
 		}
 	}
 
-	// public bool IsChangeTool
-	// {
-	// 	get {return isChangeTool;}
-	// 	set {
-	// 		if (isChangeTool == value) return;
+	//INIT 0, LIFT / SWEATING / GRAB 1, THROW / RELEASE 2
+	public int InteractValue { 
+		get {return interactValue;}
+		set {
+			if (interactValue == value) return;
 			
-	// 		isChangeTool = value;
-	// 	}
-	// }
+			interactValue = value;
+		}
+	}
+
+	//LIFTING -1, SWEATING 0, GRABBING 1
+	public float LiftingMode { 
+		get {return liftingMode;}
+		set {
+			if (liftingMode == value) return;
+			
+			liftingMode = value;
+		}
+	}
 }

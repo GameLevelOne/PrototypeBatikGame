@@ -12,39 +12,6 @@ public class PowerBracelet : MonoBehaviour {
 	public Liftable liftableObject;
 	public float liftPower;
 
-	// [SerializeField] bool isInteracting = false;
-	[SerializeField] float liftingMode = 0f;
-	[SerializeField] int interactValue = 0;
-	
-	// public bool IsInteracting {
-	// 	get {return isInteracting;}
-	// 	set {
-	// 		if (isInteracting == value) return;
-
-	// 		isInteracting = value;
-	// 	}
-	// }
-
-	//LIFTING -1, SWEATING 0, GRABBING 1
-	public float LiftingMode {
-		get {return liftingMode;}
-		set {
-			if (liftingMode == value) return;
-
-			liftingMode = value;
-		}
-	}
-
-	// READY 0, HOLD 1, ACT 2
-	public int InteractValue {
-		get {return interactValue;}
-		set {
-			if (interactValue == value) return;
-
-			interactValue = value;
-		}
-	}
-
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null) {
 			Liftable liftable = col.GetComponent<Liftable>();
