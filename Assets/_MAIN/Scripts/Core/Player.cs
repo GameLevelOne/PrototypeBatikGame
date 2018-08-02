@@ -130,6 +130,7 @@ public class Player : MonoBehaviour {
 	
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState playerState) {
+		// if (playerState == PlayerState.MOVE) Debug.Log("Move");
 		state = playerState;
 	}
 

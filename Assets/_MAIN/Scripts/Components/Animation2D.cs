@@ -167,11 +167,9 @@ public class Animation2D : MonoBehaviour {
 			// 	//
 			// 	break;
 			case AnimationState.AFTER_GRAB:
-				Debug.Log("After Grab");
 				//
 				break;
 			case AnimationState.AFTER_UNGRAB:
-				Debug.Log("After Ungrab");
 				//
 				break;
 			default:

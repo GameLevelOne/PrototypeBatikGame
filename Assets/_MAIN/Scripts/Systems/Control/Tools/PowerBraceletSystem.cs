@@ -48,7 +48,7 @@ public class PowerBraceletSystem : ComponentSystem {
 
 				isLiftResponse = true;
 			}
-			
+
 			state = powerBracelet.state;
 
 			if (isLiftResponse) {
@@ -56,6 +56,7 @@ public class PowerBraceletSystem : ComponentSystem {
 					//
 				} else if (state == LiftState.CAN_LIFT) {
 					input.LiftingMode = -1;
+					//
 				} else if (state == LiftState.CANNOT_LIFT) {
 					input.LiftingMode = 0;
 				} else if (state == LiftState.GRAB) {
@@ -71,5 +72,9 @@ public class PowerBraceletSystem : ComponentSystem {
 
 	void SetPowerBraceletState (LiftState state) {
 		powerBracelet.state = state;
+	}
+
+	public void SetTargetRigidbody (RigidbodyType2D type) {
+		powerBracelet.rigidbody.bodyType = type;
 	}
 }

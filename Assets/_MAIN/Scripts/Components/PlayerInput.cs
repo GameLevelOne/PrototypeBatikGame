@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour {
 
 	public List<int> slashComboVal;
 
-	Vector2 currentDir = Vector2.zero;
+	[SerializeField] Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
 	[SerializeField] int bulletTimeAttackQty = 0;
 	[SerializeField] int steadyMode = 0;
@@ -33,6 +33,7 @@ public class PlayerInput : MonoBehaviour {
 			if (currentDir == value) return;
 
 			currentDir = value;
+			Debug.Log("Move Change");
 		}
 	}
 

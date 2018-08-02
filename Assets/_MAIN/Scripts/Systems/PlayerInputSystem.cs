@@ -17,6 +17,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] InputData inputData;
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
+	[InjectAttribute] PlayerAnimationSystem playerAnimationSystem;
 
 	public PlayerInput input;
 	public Player player;
@@ -47,10 +48,7 @@ public class PlayerInputSystem : ComponentSystem {
 			state = player.state;
 			Health health = inputData.Health[i];
 			PlayerTool tool = toolSystem.tool;
-
-			int maxValue = input.moveAnimValue[2];
-			int midValue = input.moveAnimValue[1];
-			int minValue = input.moveAnimValue[0];
+			
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
 			float attackAwayDelay = input.attackAwayDelay;
@@ -81,27 +79,15 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			#region Button Movement
-			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-				ChangeDir(currentDir.x, maxValue);
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-				ChangeDir(currentDir.x, minValue);
-			} 
-			
-			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				ChangeDir(maxValue, currentDir.y);
-			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				ChangeDir(minValue, currentDir.y);
-			} 
-			
-			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-				ChangeDir(midValue, currentDir.y);
-				CheckEndMove();
-			}
-
-			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
-				ChangeDir(currentDir.x, midValue);
-				CheckEndMove();
-			}
+			// if (state == PlayerState.POWER_BRACELET) {
+			// 	if (input.LiftingMode == -1 || input.LiftingMode == -2) {
+			// 		CheckMovementInput ();
+			// 	} else if (input.LiftingMode == 1 || input.LiftingMode == 2) {
+			// 		CheckPushMovementInput ();
+			// 	}
+			// } else {
+				CheckMovementInput ();
+			// }
 			#endregion
 
 			#region Button Tools
@@ -111,7 +97,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 				
 				if(Input.GetKeyDown(KeyCode.Z)){
-						toolSystem.PrevTool();
+					toolSystem.PrevTool();
 				}
 
 				if (Input.GetKeyDown(KeyCode.Space)){
@@ -127,10 +113,14 @@ public class PlayerInputSystem : ComponentSystem {
 							player.SetPlayerState(PlayerState.DASH);
 						} else if (toolType == ToolType.PowerBracelet) {
 							LiftState liftState = powerBraceletSystem.powerBracelet.state;
-							
+
 							if (liftState != LiftState.NONE) {
 								input.InteractMode = 3;
 								player.SetPlayerState(PlayerState.POWER_BRACELET);
+
+								if (liftState == LiftState.GRAB) {
+									powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+								}
 							} else {
 								continue;
 							}
@@ -141,12 +131,13 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 
 				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){
+					Debug.Log("ok");
 					input.InteractValue = 2;
 					input.LiftingMode = -1;
 				}
 
 				if (Input.GetKeyUp(KeyCode.Space) && input.LiftingMode >= 0){
-					Debug.Log("ok");
+					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 					input.InteractValue = 2;
 					input.LiftingMode = 0;
 				}
@@ -277,7 +268,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.IsBulletTiming) {
 				if (player.IsPlayerHit) {	
 					player.IsBulletTiming = false;
-					ChangeDir(midValue, midValue);
+					ChangeDir(0f, 0f);
 					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
 					input.AttackMode = -3;
 					Debug.Log("Start BulletTime");
@@ -300,6 +291,38 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
+	void CheckMovementInput () {
+		int maxValue = input.moveAnimValue[2];
+		// int midValue = input.moveAnimValue[1];
+		int minValue = input.moveAnimValue[0];
+
+		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+			ChangeDir(currentDir.x, maxValue);
+		} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+			ChangeDir(currentDir.x, minValue);
+		} 
+		
+		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
+			ChangeDir(maxValue, currentDir.y);
+		} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+			ChangeDir(minValue, currentDir.y);
+		} 
+		
+		if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
+			ChangeDir(0f, currentDir.y);
+			CheckEndMove();
+		}
+
+		if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
+			ChangeDir(currentDir.x, 0f);
+			CheckEndMove();
+		}
+	}
+
+	void CheckPushMovementInput () {
+
+	}
+
 	void SetMovement (int value, bool isMoveOnly) {
 		input.MoveMode = value;
 		
@@ -312,19 +335,60 @@ public class PlayerInputSystem : ComponentSystem {
 		Vector2 newDir = new Vector2(dirX, dirY);
 
 		if (state == PlayerState.POWER_BRACELET) {
-			if (input.LiftingMode == -1 || input.LiftingMode == -2) {
-				if (currentDir != newDir) {
-					currentDir = newDir;
-					input.MoveDir = currentDir;
+			if (input.LiftingMode == 1 || input.LiftingMode == 2) {
+				Facing2D facing = playerAnimationSystem.facing;
+				// Debug.Log("==========Grabbing==========");
+				// Debug.Log("Before " + facing.DirID);
+				switch (facing.DirID) {
+					case 1: 
+						if (newDir.x == 0 && newDir.y <= 0) SetDir (0f, newDir.y);
+						// Debug.Log("Bottom");
+						break;
+					case 2: 
+						if (newDir.x <= 0 && newDir.y <= 0) SetDir (newDir.x, newDir.y);
+						// Debug.Log("Bottom left");
+						break;
+					case 3: 
+						if (newDir.x <= 0 && newDir.y <= 0) SetDir (newDir.x, 0f);
+						// Debug.Log("Left");
+						break;
+					case 4: 
+						if (newDir.x <= 0 && newDir.y >= 0) SetDir (newDir.x, newDir.y);
+						// Debug.Log("Top left");
+						break;
+					case 5: 
+						if (newDir.x == 0 && newDir.y >= 0) SetDir (0f, newDir.y);
+						// Debug.Log("Top");
+						break;
+					case 6: 
+						if (newDir.x >= 0 && newDir.y >= 0) SetDir (newDir.x, newDir.y);
+						// Debug.Log("Top right");
+						break;
+					case 7: 
+						if (newDir.x >= 0 && newDir.y == 0) SetDir (newDir.x, 0f);
+						// Debug.Log("right");
+						break;
+					case 8: 
+						if (newDir.x >= 0 && newDir.y <= 0) SetDir (newDir.x, newDir.y);
+						// Debug.Log("Bottom right");
+						break;
 				}
-			} else {
-				return;
+				// Debug.Log("After " + facing.DirID);
+				// Debug.Log("==========End Grabbing==========");
+			} else if (input.LiftingMode == -1 || input.LiftingMode == -2){
+			SetDir (newDir.x, newDir.y);
 			}
 		} else {
-			if (currentDir != newDir) {
-				currentDir = newDir;
-				input.MoveDir = currentDir;
-			}
+			SetDir (newDir.x, newDir.y);
+		}
+	}
+
+	void SetDir (float dirX, float dirY) {
+		Vector2 fixDir = new Vector2(dirX, dirY);
+
+		if (currentDir != fixDir) {
+			currentDir = fixDir;
+			input.MoveDir = currentDir;
 		}
 	}
 
@@ -332,9 +396,11 @@ public class PlayerInputSystem : ComponentSystem {
 		if (state == PlayerState.MOVE) {
 			player.SetPlayerIdle();
 		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == -2) {
+			Debug.Log("Lifting Move");
 			input.LiftingMode = -1;
 		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == 2) {
 			input.LiftingMode = 1;
+			Debug.Log("Push Move");
 		}
 	}
 }

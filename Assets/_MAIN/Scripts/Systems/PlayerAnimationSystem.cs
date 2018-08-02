@@ -14,12 +14,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] AnimationData animationData;
+	
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
+	
+	public Facing2D facing;
 	
 	PlayerInput input;
 	Player player;
 	Animation2D anim;
-	Facing2D facing;
 	PlayerTool tool;
 
 	PlayerState state;
@@ -199,6 +201,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (currentDir == movement) return;
 
 		currentDir = movement;
+		
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 

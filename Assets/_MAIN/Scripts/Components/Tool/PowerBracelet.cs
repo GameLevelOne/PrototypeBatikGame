@@ -12,7 +12,8 @@ public class PowerBracelet : MonoBehaviour {
 	public Liftable liftableObject;
 	public LiftableType type;
 
-	public Collider2D col;
+	public Rigidbody2D rigidbody;
+	public Collider2D collider;
 	// public float liftPower;
 
 	[SerializeField] bool isInteracting = false;
@@ -24,7 +25,7 @@ public class PowerBracelet : MonoBehaviour {
 			if (isColliderOn == value) return;
 
 			isColliderOn = value;
-			col.enabled = value;
+			collider.enabled = value;
 		}
 	}
 	
@@ -40,6 +41,7 @@ public class PowerBracelet : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
 			liftableObject = col.GetComponent<Liftable>();
+			rigidbody = col.GetComponent<Rigidbody2D>();
 			type = liftableObject.liftableType;
 			IsInteracting = true;
 		}
@@ -50,6 +52,7 @@ public class PowerBracelet : MonoBehaviour {
 
 		if (col.GetComponent<Liftable>() == liftableObject && IsInteracting) {
 			liftableObject = null;
+			rigidbody = null;
 			IsInteracting = false;
 			state = LiftState.NONE;
 		}
