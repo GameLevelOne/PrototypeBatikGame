@@ -20,12 +20,12 @@ public class NormalizedVector : MonoBehaviour {
 		// Debug.Log(x);
 		// Debug.Log(y);
 
-		if(Mathf.Abs (x) >= Mathf.Abs (y)){
-			if(x >= 0) Debug.Log(Direction.Right);
-			else Debug.Log (Direction.Left);
-		}else{
-			if(y >= 0) Debug.Log(Direction.Up);
-			else Debug.Log(Direction.Down);
-		}
+		// if(Mathf.Abs (x) >= Mathf.Abs (y)){
+		// 	if(x >= 0) Debug.Log(Direction.Right);
+		// 	else Debug.Log (Direction.Left);
+		// }else{
+		// 	if(y >= 0) Debug.Log(Direction.Up);
+		// 	else Debug.Log(Direction.Down);
+		// }
 	}
 }

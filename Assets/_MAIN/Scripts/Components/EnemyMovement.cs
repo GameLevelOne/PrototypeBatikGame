@@ -11,8 +11,6 @@ public class EnemyMovement : MonoBehaviour {
 	public bool isMoving = false;
 	public bool isChasing = false;
 
-	public Direction faceDirection;
-
 	#region setter getter
 	float tChase;
 

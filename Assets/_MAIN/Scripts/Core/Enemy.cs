@@ -6,19 +6,12 @@ public enum EnemyState{
 	Chase,
 	Attack,
 	Damaged,
-	Die,
-	GET_HURT,
+	Die
 }
 
 public class Enemy : MonoBehaviour {
 	public Player playerThatHitsEnemy;
 	public EnemyState state;
-
-	public float idleDuration = 3f;
-	public float t = 0;
-
-	public bool initIdle = false;
-	public bool initPatrol = false;
 
 	[SerializeField] bool isEnemyHit = false;
 

@@ -81,11 +81,11 @@ public class Health : MonoBehaviour {
 				enemy.IsEnemyHit = true;
 				
 				// enemy.IsEnemyGetHurt = true;
-				enemy.SetEnemyState(EnemyState.GET_HURT);
+				enemy.SetEnemyState(EnemyState.Damaged);
 				damage = initialDamage;
 			} else if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION) {
 				// enemy.IsEnemyGetHurt = true;
-				enemy.SetEnemyState(EnemyState.GET_HURT);
+				enemy.SetEnemyState(EnemyState.Damaged);
 				damage = initialDamage;
 				Debug.Log("Enemy get damaged from other source");
 			}
@@ -102,7 +102,7 @@ public class Health : MonoBehaviour {
 			Player player = col.gameObject.GetComponent<Player>();
 
 			if (player.state == PlayerState.DASH || player.state == PlayerState.BOUNCE) {
-				enemy.SetEnemyState(EnemyState.GET_HURT);
+				enemy.SetEnemyState(EnemyState.Damaged);
 				damage = initialDamage;
 				Debug.Log("Enemy get damaged from player dash");
 			}
