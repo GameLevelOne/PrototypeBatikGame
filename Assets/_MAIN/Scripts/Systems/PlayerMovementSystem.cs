@@ -129,7 +129,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					if (moveDir == Vector2.zero) {
 						// player.SetPlayerIdle();
 					} else {
-						player.SetPlayerState(PlayerState.MOVE);
+						if (state != PlayerState.POWER_BRACELET) {
+							player.SetPlayerState(PlayerState.MOVE);
+						}
 					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {

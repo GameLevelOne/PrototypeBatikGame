@@ -140,6 +140,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1443524941269246
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4705957946542318}
+  - component: {fileID: 114205723661383908}
+  - component: {fileID: 50753955892241544}
+  - component: {fileID: 58735119695201938}
+  - component: {fileID: 114101906285634680}
+  m_Layer: 0
+  m_Name: Power Bracelet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1499518558271156
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +340,21 @@ GameObject:
   m_Name: Blind Area
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1942449573903178
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4532544263056470}
+  m_Layer: 0
+  m_Name: Lifting Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -510,6 +544,19 @@ Transform:
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4532544263056470
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1942449573903178}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4790928859334420}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4595740873623596
 Transform:
   m_ObjectHideFlags: 1
@@ -550,6 +597,19 @@ Transform:
   m_Father: {fileID: 4095796093128456}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4705957946542318
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4723722416754214}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4707353658108040
 Transform:
   m_ObjectHideFlags: 1
@@ -587,6 +647,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4595740873623596}
+  - {fileID: 4705957946542318}
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -599,7 +660,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4532544263056470}
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -672,7 +734,27 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!50 &50753955892241544
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!58 &58018810419284058
@@ -690,6 +772,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!58 &58735119695201938
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!95 &95152014746876474
 Animator:
   serializedVersion: 3
@@ -726,6 +823,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114101906285634680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  liftableObject: {fileID: 0}
+  type: 0
+  rigidbody: {fileID: 0}
+  collider: {fileID: 58735119695201938}
+  isInteracting: 0
+  isColliderOn: 0
 --- !u!114 &114132007194160552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -785,12 +900,24 @@ MonoBehaviour:
   isBulletTiming: 0
   isCanDigging: 0
   isInvisible: 0
+  isHitLiftableObject: 0
 --- !u!114 &114195519658314114
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1136594445782774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114205723661383908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
@@ -881,11 +1008,14 @@ MonoBehaviour:
   bulletTimeDuration: 0.3
   dodgeCooldown: 1
   slashComboVal: 
+  currentDir: {x: 0, y: 0}
   attackMode: 0
   bulletTimeAttackQty: 0
   steadyMode: 0
   moveMode: 0
   interactMode: 0
+  interactValue: 0
+  liftingMode: 0
 --- !u!114 &114560122087618552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1043,8 +1173,7 @@ MonoBehaviour:
     type: 2}
   lanternObj: {fileID: 1511757565402642}
   invisibleCloak: {fileID: 1136594445782774}
-  powerBraceletAreaEffectObj: {fileID: 1978738166329904, guid: 7df5b84a2aaed8743b50cc57472768e7,
-    type: 2}
+  powerBraceletAreaEffectObj: {fileID: 1443524941269246}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
   bootsObj: {fileID: 1305521436026474}
@@ -1052,6 +1181,7 @@ MonoBehaviour:
   currentActiveContainer: 0
   dashSpeed: 500
   isActToolReady: 0
+  isPowerBraceletSelected: 0
 --- !u!114 &114750834157724972
 MonoBehaviour:
   m_ObjectHideFlags: 1

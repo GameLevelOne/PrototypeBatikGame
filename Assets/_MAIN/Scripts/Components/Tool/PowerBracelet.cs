@@ -10,55 +10,50 @@ public enum LiftState {
 public class PowerBracelet : MonoBehaviour {
 	public LiftState state;
 	public Liftable liftableObject;
-	public float liftPower;
+	public LiftableType type;
 
-	// [SerializeField] bool isInteracting = false;
-	[SerializeField] float liftingMode = 0f;
-	[SerializeField] int interactValue = 0;
+	public Rigidbody2D rigidbody;
+	public Collider2D collider;
+	// public float liftPower;
+
+	[SerializeField] bool isInteracting = false;
+	[SerializeField] bool isColliderOn = false;
 	
-	// public bool IsInteracting {
-	// 	get {return isInteracting;}
-	// 	set {
-	// 		if (isInteracting == value) return;
-
-	// 		isInteracting = value;
-	// 	}
-	// }
-
-	//LIFTING -1, SWEATING 0, GRABBING 1
-	public float LiftingMode {
-		get {return liftingMode;}
+	public bool IsColliderOn {
+		get {return isColliderOn;}
 		set {
-			if (liftingMode == value) return;
+			if (isColliderOn == value) return;
 
-			liftingMode = value;
+			isColliderOn = value;
+			collider.enabled = value;
 		}
 	}
-
-	// READY 0, HOLD 1, ACT 2
-	public int InteractValue {
-		get {return interactValue;}
+	
+	public bool IsInteracting {
+		get {return isInteracting;}
 		set {
-			if (interactValue == value) return;
+			if (isInteracting == value) return;
 
-			interactValue = value;
+			isInteracting = value;
 		}
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() != null) {
-			Liftable liftable = col.GetComponent<Liftable>();
-			LiftableType type = liftable.liftableType;
+		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
+			liftableObject = col.GetComponent<Liftable>();
+			rigidbody = col.GetComponent<Rigidbody2D>();
+			type = liftableObject.liftableType;
+			IsInteracting = true;
+		}
+	}
 
-			if (type == LiftableType.LIFTABLE) {
-				liftableObject = liftable;
-				state = LiftState.CAN_LIFT;
-			} else if (type == LiftableType.UNLIFTABLE) {
-				state = LiftState.CANNOT_LIFT;
-			} else if (type == LiftableType.GRABABLE) {
-				state = LiftState.GRAB;
-			}
-		} else {
+	void OnTriggerExit2D (Collider2D col) {
+		if (col.GetComponent<Liftable>() == null) return;
+
+		if (col.GetComponent<Liftable>() == liftableObject && IsInteracting) {
+			liftableObject = null;
+			rigidbody = null;
+			IsInteracting = false;
 			state = LiftState.NONE;
 		}
 	}

@@ -14,12 +14,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] AnimationData animationData;
+	
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
+	
+	public Facing2D facing;
 	
 	PlayerInput input;
 	Player player;
 	Animation2D anim;
-	Facing2D facing;
 	PlayerTool tool;
 
 	PlayerState state;
@@ -63,20 +65,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
 				continue;
 			}
 
 			#region ACTION
-			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE) {
+			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET) {
+				// Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
+				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
 			}
 			
 			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
@@ -108,9 +112,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#endregion
 
 			#region MOVEMENT
-			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
-			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
-			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, CheckMode(input.InteractMode));
+			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
+			animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
 			
 			Vector2 movement = input.MoveDir;
 			
@@ -141,11 +146,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 				
 				if (currentMove == Vector2.zero) {
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+					if (input.LiftingMode == -2) {
+						input.LiftingMode = -1;
+					} else if (input.LiftingMode == 2) {
+						input.LiftingMode = 1;
+					}
+
 				} else {
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 					
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
+					if (input.LiftingMode == -1) {
+						input.LiftingMode = -2;
+					} else if (input.LiftingMode == 1) {
+						input.LiftingMode = 2;
+					}
 				}
 			}
 			#endregion
@@ -185,6 +201,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (currentDir == movement) return;
 
 		currentDir = movement;
+		
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
@@ -238,6 +255,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.AFTER_HURT:
 				player.SetPlayerIdle();
 				break;
+			case AnimationState.AFTER_LIFT:
+				input.LiftingMode = -1;
+				Debug.Log("OK " + input.LiftingMode);
+				break;
+			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
+				input.InteractValue = 1;
+				break;
+			case AnimationState.AFTER_UNGRAB://case after using power bracelet, bool interact = false (optional)
+				input.InteractValue = 0;
+				player.SetPlayerIdle();
+				break;
+			case AnimationState.AFTER_THROW:
+				input.InteractValue = 0;
+				player.SetPlayerIdle();
+				break;
 		}
 	}
 
@@ -258,31 +290,31 @@ public class PlayerAnimationSystem : ComponentSystem {
 		player.SetPlayerIdle();
 	}
 
-	float CheckMode (int mode) {
-		switch (mode) {
-			case 0: 
-				return 0f; //STAND / MOVE / DODGE
-				// break;
-			case 1: 
-				return 1f; //CHARGE / DASH
-				// break;
-			case 2:
-				return 2f; //GUARD
-				// break;
-			case 3:
-				return 3f; //STEADY FOR RAPID SLASH
-				// break;
-			case -1: 
-				return -1f; //DIE / BLOCK
-				// break;
-			case -2: 
-				return -2f; //HURT
-				// break;
-			default:
-				Debug.Log("Unknown Mode in Animation System");
-				return 0f;
-		}
-	}
+	// float CheckMode (int mode) {
+	// 	switch (mode) {
+	// 		case 0: 
+	// 			return 0f; //STAND / MOVE / DODGE
+	// 			// break;
+	// 		case 1: 
+	// 			return 1f; //CHARGE / DASH
+	// 			// break;
+	// 		case 2:
+	// 			return 2f; //GUARD
+	// 			// break;
+	// 		case 3:
+	// 			return 3f; //STEADY FOR RAPID SLASH
+	// 			// break;
+	// 		case -1: 
+	// 			return -1f; //DIE / BLOCK
+	// 			// break;
+	// 		case -2: 
+	// 			return -2f; //HURT
+	// 			// break;
+	// 		default:
+	// 			Debug.Log("Unknown Mode in Animation System");
+	// 			return 0f;
+	// 	}
+	// }
 
 	int CheckDirID (float dirX, float dirY) {
 		int dirIdx = 0;

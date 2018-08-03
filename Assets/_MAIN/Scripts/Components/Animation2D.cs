@@ -18,7 +18,15 @@ public enum AnimationState {
 	START_BRAKING,
 	AFTER_BRAKING,
 	START_HURT,
-	AFTER_HURT
+	AFTER_HURT,
+	START_GRAB,
+	AFTER_GRAB,
+	START_UNGRAB,
+	AFTER_UNGRAB,
+	START_THROW,
+	AFTER_THROW,
+	START_LIFT,
+	AFTER_LIFT
 }
 
 public enum StandAnimationState {
@@ -115,6 +123,15 @@ public class Animation2D : MonoBehaviour {
 			// case AnimationState.START_BRAKING:
 			// 	//
 			// 	break;
+			case AnimationState.START_GRAB:
+				//
+				break;
+			case AnimationState.START_UNGRAB:
+				//
+				break;
+			case AnimationState.START_LIFT:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -154,6 +171,15 @@ public class Animation2D : MonoBehaviour {
 			// case AnimationState.AFTER_BRAKING:
 			// 	//
 			// 	break;
+			case AnimationState.AFTER_GRAB:
+				//
+				break;
+			case AnimationState.AFTER_UNGRAB:
+				//
+				break;
+			case AnimationState.AFTER_LIFT:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;

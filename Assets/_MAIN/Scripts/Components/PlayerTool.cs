@@ -52,6 +52,7 @@ public class PlayerTool : MonoBehaviour {
 	// public bool isUsingTool = false;
 
 	[SerializeField] bool isActToolReady = false;
+	[SerializeField] bool isPowerBraceletSelected = false;
 
 	void Start()
 	{
@@ -105,7 +106,7 @@ public class PlayerTool : MonoBehaviour {
                 SpawnObj (magicMedallionAreaEffectObj, true, true);
                 break;
             case 16:
-                SpawnObj (powerBraceletAreaEffectObj, false, false);
+                // SpawnObj (powerBraceletAreaEffectObj, false, false);
                 break;
             case 18:
                 // SetEquipmentTools (bootsScriptObj);
@@ -181,6 +182,15 @@ public class PlayerTool : MonoBehaviour {
 			if (isActToolReady == value) return;
 
 			isActToolReady = value;
+		}
+    }
+
+	public bool IsPowerBraceletSelected {
+        get {return isPowerBraceletSelected;}
+		set {
+			if (isPowerBraceletSelected == value) return;
+
+			isPowerBraceletSelected = value;
 		}
     }
 

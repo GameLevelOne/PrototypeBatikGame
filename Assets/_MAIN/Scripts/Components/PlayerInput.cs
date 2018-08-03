@@ -16,13 +16,14 @@ public class PlayerInput : MonoBehaviour {
 
 	public List<int> slashComboVal;
 
-	Vector2 currentDir = Vector2.zero;
+	[SerializeField] Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
 	[SerializeField] int bulletTimeAttackQty = 0;
 	[SerializeField] int steadyMode = 0;
 	[SerializeField] int moveMode = 0;
 	[SerializeField] int interactMode = 0;
-	// [SerializeField] bool isChangeTool = false;
+	[SerializeField] int interactValue = 0;
+	[SerializeField] float liftingMode = 0f;
 	
 	bool isReadyForDodging = true;
 
@@ -34,7 +35,15 @@ public class PlayerInput : MonoBehaviour {
 			currentDir = value;
 		}
 	}
-
+	
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>-2. BLOCK<br /></para>
+	/// <para>-1. -<br /></para>
+	/// <para>0. Run<br /></para>
+	/// <para>1. CHARGE<br /></para>
+	/// <para>2. GUARD<br /></para>
+	/// <para>3. DASH<br /></para>
 	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3, BLOCK -2
 	public int MoveMode {
 		get {return moveMode;}
@@ -44,7 +53,14 @@ public class PlayerInput : MonoBehaviour {
 			moveMode = value;
 		}
 	}
-
+	
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>-2. BLOCK<br /></para>
+	/// <para>-1. DIE<br /></para>
+	/// <para>0. STAND<br /></para>
+	/// <para>1. CHARGE<br /></para>
+	/// <para>2. GUARD<br /></para>
 	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BLOCK -2
 	public int SteadyMode {
 		get {return steadyMode;}
@@ -54,7 +70,15 @@ public class PlayerInput : MonoBehaviour {
 			steadyMode = value;
 		}
 	}
-
+	
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>-3. RAPID SLASH<br /></para>
+	/// <para>-2. COUNTER<br /></para>
+	/// <para>-1. CHARGE<br /></para>
+	/// <para>1. SLASH1<br /></para>
+	/// <para>2. SLASH2<br /></para>
+	/// <para>3. SLASH3<br /></para>
 	//SLASH 1-3, CHARGE -1, COUNTER -2, RAPID SLASH -3
 	public int AttackMode {  
 		get {return attackMode;}
@@ -68,7 +92,7 @@ public class PlayerInput : MonoBehaviour {
 			}
 		}
 	}
-
+	
 	public int BulletTimeAttackQty {
 		get {return bulletTimeAttackQty;}
 		set {
@@ -77,7 +101,16 @@ public class PlayerInput : MonoBehaviour {
 			bulletTimeAttackQty = value;
 		}
 	}
-
+		
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>-2. GET HURT<br /></para>
+	/// <para>-1. BLOCK<br /></para>
+	/// <para>0. DODGE<br /></para>
+	/// <para>1. DASH<br /></para>
+	/// <para>2. BRAKING<br /></para>
+	/// <para>3. POWERBRACELET<br /></para>
+    /// </summary>
 	//BLOCK -1, DODGE 0, DASH 1, BRAKING 2. GET HURT -2, POWERBRACELET 3
 	public int InteractMode { 
 		get {return interactMode;}
@@ -87,14 +120,41 @@ public class PlayerInput : MonoBehaviour {
 			interactMode = value;
 		}
 	}
-
-	// public bool IsChangeTool
-	// {
-	// 	get {return isChangeTool;}
-	// 	set {
-	// 		if (isChangeTool == value) return;
+	
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>0. SWEATING<br /></para>
+	/// <para>1. LIFT / SWEATING / GRAB<br /></para>
+	/// <para>2. THROW / RELEASE<br /></para>
+    /// </summary>
+	//INIT 0, LIFT / SWEATING / GRAB 1, THROW / RELEASE 2
+	public int InteractValue { 
+		get {return interactValue;}
+		set {
+			if (interactValue == value) return;
 			
-	// 		isChangeTool = value;
-	// 	}
-	// }
+			interactValue = value;
+		}
+	}
+	
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>-3. STARTLIFT<br /></para>
+	/// <para>-2. MOVELIFT<br /></para>
+	/// <para>-1. LIFTING<br /></para>
+	/// <para>0. SWEATING<br /></para>
+	/// <para>1. IDLEPUSH<br /></para>
+	/// <para>2. MOVEPUSH<br /></para>
+    /// </summary>
+	//LIFTING -1, SWEATING 0, IDLEPUSH 1, MOVELIFT -2, MOVEPUSH 2, STARTLIFT -3
+	public float LiftingMode { 
+		get {return liftingMode;}
+		set {
+			if (liftingMode == value) return;
+			
+			liftingMode = value;
+
+			if (liftingMode == -3) Debug.Log("THIS -3");
+		}
+	}
 }
