@@ -1,13 +1,6 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-public enum Direction{
-	Up,
-	Down,
-	Left,
-	Right
-}
-
 public class EnemyMovementSystem : ComponentSystem {
 	
 	public struct EnemyMovementComponent{
@@ -49,52 +42,52 @@ public class EnemyMovementSystem : ComponentSystem {
 		
 	}
 
-	public void InitMove()
-	{
-		if(!currEnemyMovement.isChasing == !currEnemyMovement.isMoving){
-			currEnemyMovement.isMoving = true;
-			currEnemyMovement.targetPos = GetRantomPatrolTarget(currTransform);
-			deltaTime = Time.deltaTime;
-		}
-	}
+	// public void InitMove()
+	// {
+	// 	if(!currEnemyMovement.isChasing == !currEnemyMovement.isMoving){
+	// 		currEnemyMovement.isMoving = true;
+	// 		currEnemyMovement.targetPos = GetRantomPatrolTarget(currTransform);
+	// 		deltaTime = Time.deltaTime;
+	// 	}
+	// }
 
-	void Move()
-	{
-		if(!currEnemyMovement.isChasing && currEnemyMovement.isMoving){
-			currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.targetPos, currEnemyMovement.speed * deltaTime);
-			currEnemyMovement.faceDirection = GetDirection(currRigidbody.position,currEnemyMovement.targetPos);
-			if(Vector2.Distance(currRigidbody.position,currEnemyMovement.targetPos) <= 0.1f){
-				currEnemyMovement.isMoving = false;
-				enemyAISystem.SetEnemyState(EnemyState.Idle);
-			}
-		}
-	}
+	// void Move()
+	// {
+	// 	if(!currEnemyMovement.isChasing && currEnemyMovement.isMoving){
+	// 		currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.targetPos, currEnemyMovement.speed * deltaTime);
+	// 		currEnemyMovement.faceDirection = GetDirection(currRigidbody.position,currEnemyMovement.targetPos);
+	// 		if(Vector2.Distance(currRigidbody.position,currEnemyMovement.targetPos) <= 0.1f){
+	// 			currEnemyMovement.isMoving = false;
+	// 			// enemyAISystem.SetEnemyState(EnemyState.Idle);
+	// 		}
+	// 	}
+	// }
 
-	public void InitChase()
-	{
-		if(!currEnemyMovement.isChasing){
-			currEnemyMovement.isMoving = false;
-			currEnemyMovement.isChasing = true;
-			currEnemyMovement.TChase = currEnemyMovement.chaseDuration;
-			deltaTime = Time.deltaTime;
-		}
-	}
+	// public void InitChase()
+	// {
+	// 	if(!currEnemyMovement.isChasing){
+	// 		currEnemyMovement.isMoving = false;
+	// 		currEnemyMovement.isChasing = true;
+	// 		currEnemyMovement.TChase = currEnemyMovement.chaseDuration;
+	// 		deltaTime = Time.deltaTime;
+	// 	}
+	// }
 
-	void Chase()
-	{
-		if(currEnemyMovement.isChasing){
-			currEnemyMovement.TChase -= deltaTime;
-			currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.chaseTransform.position, currEnemyMovement.speed * deltaTime);
+	// void Chase()
+	// {
+	// 	if(currEnemyMovement.isChasing){
+	// 		currEnemyMovement.TChase -= deltaTime;
+	// 		currRigidbody.position = Vector2.MoveTowards(currRigidbody.position, currEnemyMovement.chaseTransform.position, currEnemyMovement.speed * deltaTime);
 
-			if(currEnemyMovement.TChase <= 0f){
-				//chase end
+	// 		if(currEnemyMovement.TChase <= 0f){
+	// 			//chase end
 
-				currEnemyMovement.isChasing = false;
-				currEnemyMovement.chaseTransform = null;
-				enemyAISystem.SetEnemyState(EnemyState.Idle);
-			}
-		}
-	}
+	// 			currEnemyMovement.isChasing = false;
+	// 			currEnemyMovement.chaseTransform = null;
+	// 			// enemyAISystem.SetEnemyState(EnemyState.Idle);
+	// 		}
+	// 	}
+	// }
 
 	Vector2 GetRantomPatrolTarget(Transform current)
 	{
@@ -105,21 +98,21 @@ public class EnemyMovementSystem : ComponentSystem {
 		return new Vector2(xRnd,yRnd);
 	}
 
-	Direction GetDirection(Vector3 self, Vector3 target)
-	{
-		Vector3 distance = target - self;
-		float magnitude = distance.magnitude;
-		Vector3 direction = distance / magnitude;
+	// Direction GetDirection(Vector3 self, Vector3 target)
+	// {
+	// 	Vector3 distance = target - self;
+	// 	float magnitude = distance.magnitude;
+	// 	Vector3 direction = distance / magnitude;
 
-		float x = direction.x;
-		float y = direction.y;
-
-		if(Mathf.Abs (x) >= Mathf.Abs (y)){
-			if(x >= 0) return Direction.Right;
-			else return Direction.Left;
-		}else{
-			if(y >= 0) return Direction.Up;
-			else return Direction.Down;
-		}
-	}
+	// 	float x = direction.x;
+	// 	float y = direction.y;
+		
+	// 	if(x < 0f){
+	// 		if(y < 0f) return Direction.DL;
+	// 		else return Direction.UL;
+	// 	}else{
+	// 		if(y < 0f) return Direction.DR;
+	// 		else return Direction.UR;
+	// 	}
+	// }
 }

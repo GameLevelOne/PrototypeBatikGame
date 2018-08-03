@@ -58,7 +58,7 @@ public class DamageSystem : ComponentSystem {
 
 				if (enemyState == EnemyState.Die) return;
 
-				if (enemyState == EnemyState.GET_HURT) {
+				if (enemyState == EnemyState.Damaged) {
 					health.HealthPower -= health.damage;
 					// enemy.IsEnemyGetHurt = false;
 

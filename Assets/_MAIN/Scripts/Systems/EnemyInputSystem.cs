@@ -18,33 +18,33 @@ public class EnemyInputSystem : ComponentSystem {
 	float attackInterval = 0;
 
 	protected override void OnUpdate () {
-		if (inputData.Length == 0) return;
+		// if (inputData.Length == 0) return;
 
-		for (int i=0; i<inputData.Length; i++) {
-			EnemyInput input = inputData.EnemyInput[i];
-			Health health = inputData.Health[i];
-			int maxValue = input.moveAnimValue[2];
-			int midValue = input.moveAnimValue[1];
-			int minValue = input.moveAnimValue[0];
+		// for (int i=0; i<inputData.Length; i++) {
+		// 	EnemyInput input = inputData.EnemyInput[i];
+		// 	Health health = inputData.Health[i];
+		// 	int maxValue = input.moveAnimValue[2];
+		// 	int midValue = input.moveAnimValue[1];
+		// 	int minValue = input.moveAnimValue[0];
 
-			#region AI Movement
-			//
-			#endregion
+		// 	#region AI Movement
+		// 	//
+		// 	#endregion
 
-			#region AI Attack
-			float attackIntervalMin = input.attackInterval[0];
-			float attackIntervalMax = input.attackInterval[1];
+		// 	#region AI Attack
+		// 	float attackIntervalMin = input.attackInterval[0];
+		// 	float attackIntervalMax = input.attackInterval[1];
 
-			float randomAttackInterval = Random.Range(attackIntervalMin, attackIntervalMax);
+		// 	float randomAttackInterval = Random.Range(attackIntervalMin, attackIntervalMax);
 			
-			if (attackInterval >= randomAttackInterval) {
-				input.AttackMode = 1;
-				attackInterval = 0f;
-			} else {
-				attackInterval += Time.deltaTime;				
-			}
-			#endregion
-		}
+		// 	if (attackInterval >= randomAttackInterval) {
+		// 		input.AttackMode = 1;
+		// 		attackInterval = 0f;
+		// 	} else {
+		// 		attackInterval += Time.deltaTime;				
+		// 	}
+		// 	#endregion
+		// }
 	}
 
 	void SetMovement (int idx, int value, bool isMoveOnly) {

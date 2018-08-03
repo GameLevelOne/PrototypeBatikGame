@@ -5,16 +5,16 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Enemy
+  m_Name: Bee
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: X
+  - m_Name: FaceX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Y
+  - m_Name: FaceY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -23,7 +23,7 @@ AnimatorController:
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: 1107678457847530572}
+    m_StateMachine: {fileID: 1107073768192127708}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -33,21 +33,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!206 &206039039155838318
-BlendTree:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: BlendTree
-  m_Childs: []
-  m_BlendParameter: X
-  m_BlendParameterY: X
-  m_MinThreshold: 0
-  m_MaxThreshold: 1
-  m_UseAutomaticThresholds: 1
-  m_NormalizedBlendValues: 0
-  m_BlendType: 0
---- !u!206 &206985111549817572
+--- !u!206 &206323579562550378
 BlendTree:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -55,45 +41,45 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 26b873dbbe9229249add1d66dd3415bb, type: 2}
+    m_Motion: {fileID: 7400000, guid: 47d00174e54402d47b0bdd053cfd24c4, type: 2}
     m_Threshold: 0
-    m_Position: {x: 0, y: 1}
+    m_Position: {x: -1, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: d907b1651224aa14b84c8467411a86b4, type: 2}
+    m_Motion: {fileID: 7400000, guid: 84677d84146f750479aa20e966ed2bfd, type: 2}
     m_Threshold: 0.33333334
-    m_Position: {x: 1, y: 0}
+    m_Position: {x: 1, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: c9297323a54bdf142a0dc49b77e80feb, type: 2}
+    m_Motion: {fileID: 7400000, guid: dd75aead5604bbd4ca35342c4b95733a, type: 2}
     m_Threshold: 0.6666667
-    m_Position: {x: 0, y: -1}
+    m_Position: {x: -1, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ffd39e49e397cea409e96f5a72018663, type: 2}
+    m_Motion: {fileID: 7400000, guid: 6d3f7a96c78347240a351ed8393f4870, type: 2}
     m_Threshold: 1
-    m_Position: {x: -1, y: 0}
+    m_Position: {x: 1, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: X
-  m_BlendParameterY: Y
+  m_BlendParameter: FaceX
+  m_BlendParameterY: FaceY
   m_MinThreshold: 0
   m_MaxThreshold: 1
-  m_UseAutomaticThresholds: 0
+  m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 3
---- !u!1102 &1102007146131563518
+--- !u!1102 &1102025964267298998
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -112,13 +98,13 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 206985111549817572}
+  m_Motion: {fileID: 206323579562550378}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1107 &1107678457847530572
+--- !u!1107 &1107073768192127708
 AnimatorStateMachine:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -127,8 +113,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 1102007146131563518}
-    m_Position: {x: 372, y: 120, z: 0}
+    m_State: {fileID: 1102025964267298998}
+    m_Position: {x: 240, y: 204, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -138,4 +124,4 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102007146131563518}
+  m_DefaultState: {fileID: 1102025964267298998}

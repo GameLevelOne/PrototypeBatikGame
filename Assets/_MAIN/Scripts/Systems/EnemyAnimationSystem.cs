@@ -31,77 +31,77 @@ public class EnemyAnimationSystem : ComponentSystem {
 	// bool isLocalVarInit = false;
 
 	protected override void OnUpdate () {
-		if (animationData.Length == 0) return;
+		// if (animationData.Length == 0) return;
 		
-		// if (!isLocalVarInit) {
-		// 	currentMoves = new Vector2[animationData.Length];
-		// 	currentDirs = new Vector2[animationData.Length];
-		// 	allFacings = new Facing2D[animationData.Length];
-		// 	isLocalVarInit = true;			
-		// }
+		// // if (!isLocalVarInit) {
+		// // 	currentMoves = new Vector2[animationData.Length];
+		// // 	currentDirs = new Vector2[animationData.Length];
+		// // 	allFacings = new Facing2D[animationData.Length];
+		// // 	isLocalVarInit = true;			
+		// // }
 
-		for (int i=0; i<animationData.Length; i++) {
-			input = animationData.EnemyInput[i];
-			enemy = animationData.Enemy[i];
-			state = enemy.state;
-			anim = animationData.Animation[i];
-			facing = animationData.Facing[i];
-			// attack = animationData.Attack[i];
+		// for (int i=0; i<animationData.Length; i++) {
+		// 	input = animationData.EnemyInput[i];
+		// 	enemy = animationData.Enemy[i];
+		// 	state = enemy.state;
+		// 	anim = animationData.Animation[i];
+		// 	facing = animationData.Facing[i];
+		// 	// attack = animationData.Attack[i];
 
-			animator = anim.animator; 
-			int attackMode = input.AttackMode;
-			// role = anim.role;
+		// 	animator = anim.animator; 
+		// 	int attackMode = input.AttackMode;
+		// 	// role = anim.role;
 			
-			// if (enemy.IsEnemyDie) {
-			if (state == EnemyState.Die) {
-				input.SteadyMode = -1;
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
-				continue;
-			}
+		// 	// if (enemy.IsEnemyDie) {
+		// 	if (state == EnemyState.Die) {
+		// 		input.SteadyMode = -1;
+		// 		animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+		// 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+		// 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+		// 		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_DODGING, false);
+		// 		continue;
+		// 	}
 
-			#region ACTION
-			if (attackMode >= 1) {
-				SetAttack(0f); //SLASH
-			} else if (attackMode == -1) {
-				SetAttack(1f); //CHARGE
-			// } else if (attackMode == -2) {
-			// 	SetAttack(2f); //COUNTER
-			// 	Debug.Log("Counter");
-			} else if (attackMode == -3) {
-				SetAttack(-1f); //SHOT
-			}
+		// 	#region ACTION
+		// 	if (attackMode >= 1) {
+		// 		SetAttack(0f); //SLASH
+		// 	} else if (attackMode == -1) {
+		// 		SetAttack(1f); //CHARGE
+		// 	// } else if (attackMode == -2) {
+		// 	// 	SetAttack(2f); //COUNTER
+		// 	// 	Debug.Log("Counter");
+		// 	} else if (attackMode == -3) {
+		// 		SetAttack(-1f); //SHOT
+		// 	}
 
-			if (!anim.IsCheckAfterAnimation) {
-				CheckAfterAnimation (anim.animState);
-				anim.IsCheckAfterAnimation = true;
-			}
-			#endregion
+		// 	if (!anim.IsCheckAfterAnimation) {
+		// 		CheckAfterAnimation (anim.animState);
+		// 		anim.IsCheckAfterAnimation = true;
+		// 	}
+		// 	#endregion
 
-			#region MOVEMENT
-			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
-			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
+		// 	#region MOVEMENT
+		// 	animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, CheckMode(input.SteadyMode));
+		// 	animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, CheckMode(input.MoveMode));
 
-			Vector2 movement = input.MoveDir;
+		// 	Vector2 movement = input.MoveDir;
 			
-			if (currentMove == movement) {
-				continue;
-			} else {
-				currentMove = movement;
+		// 	if (currentMove == movement) {
+		// 		continue;
+		// 	} else {
+		// 		currentMove = movement;
 
-				if (currentMove == Vector2.zero) {
-					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				} else {
-					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+		// 		if (currentMove == Vector2.zero) {
+		// 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+		// 		} else {
+		// 			SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+		// 			SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 					
-					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
-				}
-			}
-			#endregion
-		}
+		// 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
+		// 		}
+		// 	}
+		// 	#endregion
+		// }
 	}
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
