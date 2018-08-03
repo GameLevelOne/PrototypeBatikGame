@@ -24,7 +24,9 @@ public enum AnimationState {
 	START_UNGRAB,
 	AFTER_UNGRAB,
 	START_THROW,
-	AFTER_THROW
+	AFTER_THROW,
+	START_LIFT,
+	AFTER_LIFT
 }
 
 public enum StandAnimationState {
@@ -127,6 +129,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_UNGRAB:
 				//
 				break;
+			case AnimationState.START_LIFT:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -170,6 +175,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_UNGRAB:
+				//
+				break;
+			case AnimationState.AFTER_LIFT:
 				//
 				break;
 			default:

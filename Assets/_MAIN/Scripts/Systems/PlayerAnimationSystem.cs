@@ -255,6 +255,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.AFTER_HURT:
 				player.SetPlayerIdle();
 				break;
+			case AnimationState.AFTER_LIFT:
+				input.LiftingMode = -1;
+				Debug.Log("OK " + input.LiftingMode);
+				break;
 			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
 				input.InteractValue = 1;
 				break;

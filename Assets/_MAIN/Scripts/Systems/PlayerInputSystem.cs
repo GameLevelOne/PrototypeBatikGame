@@ -131,7 +131,6 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 
 				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){
-					Debug.Log("ok");
 					input.InteractValue = 2;
 					input.LiftingMode = -1;
 				}

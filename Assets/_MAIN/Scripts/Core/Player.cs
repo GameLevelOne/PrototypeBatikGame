@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isBulletTiming = false;
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
+	[SerializeField] bool isHitLiftableObject = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -97,6 +98,15 @@ public class Player : MonoBehaviour {
 			isInvisible = value;
 		}
 	}
+	
+	public bool IsHitLiftableObject {
+		get {return isHitLiftableObject;}
+		set {
+			if (isHitLiftableObject == value) return;
+
+			isHitLiftableObject = value;
+		}
+	}
 
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
@@ -107,6 +117,18 @@ public class Player : MonoBehaviour {
 
 		if (state == PlayerState.DASH) {
 			SetPlayerState (PlayerState.BOUNCE);	
+		}
+		
+		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
+			Debug.Log("Hit LiftableObject");
+			IsHitLiftableObject = true;
+		}
+	}
+
+	void OnCollisionExit2D (Collision2D col) {
+
+		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
+			IsHitLiftableObject = false;
 		}
 	}
 
@@ -126,6 +148,10 @@ public class Player : MonoBehaviour {
 			
 			IsCanDigging = false;
 		}
+
+		// if (col.GetComponent<Liftable>() != null && IsHitLiftableObject) {
+		// 	IsHitLiftableObject = false;
+		// }
 	}
 	
 	#region PLAYER STATE 
@@ -135,7 +161,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public void SetPlayerIdle () {
-		Debug.Log("Idle");
+		// Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion
