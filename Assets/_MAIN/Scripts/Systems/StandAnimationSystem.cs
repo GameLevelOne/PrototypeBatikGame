@@ -75,7 +75,6 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void StartCheckStandAnimation () {
-	Debug.Log("Check");
 		if (!anim.IsCheckBeforeStandAnimation) {
 			CheckBeforeStandAnimation (anim.standAnimState);
 			anim.IsCheckBeforeStandAnimation = true;

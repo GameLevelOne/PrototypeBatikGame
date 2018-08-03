@@ -312,12 +312,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// 	//
 			// 	break;
 			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
-				LiftState liftState = powerBraceletSystem.powerBracelet.state;
+				PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 				input.InteractValue = 1;
 
-				if (liftState == LiftState.GRAB) {
+				if (powerBraceletState == PowerBraceletState.GRAB) {
 					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
-				} else if (liftState == LiftState.CAN_LIFT) {
+				} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
 					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
 					powerBraceletSystem.SetLiftObjectParent();
 				}
@@ -329,7 +329,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_THROW:
 				powerBraceletSystem.UnSetLiftObjectParent();
-				powerBraceletSystem.AddForceRigidbody(facing.DirID, 50f);
+				powerBraceletSystem.AddForceRigidbody(facing.DirID);
 				input.InteractValue = 0;
 				player.SetPlayerIdle();
 				break;
