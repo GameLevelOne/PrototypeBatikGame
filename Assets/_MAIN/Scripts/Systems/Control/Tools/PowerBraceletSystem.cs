@@ -81,8 +81,13 @@ public class PowerBraceletSystem : ComponentSystem {
 		powerBracelet.liftableRigidbody.bodyType = type;
 	}
 
-	public void AddForceRigidbody (Vector2 dir, float force) {
-		powerBracelet.liftableRigidbody.AddForce (dir * force);
+	public void AddForceRigidbody (int dirID, float force) {
+		// powerBracelet.liftableRigidbody.AddForce (startPos * force);
+		Vector2 initPos = powerBracelet.transform.position;
+		Vector2 targetDirPos = GetDestinationPos(initPos, dirID, powerBracelet.throwRange);
+		Debug.Log("targetDirPos : " + targetDirPos);
+
+		// rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
 	}
 
 	public void SetLiftObjectParent () {
@@ -94,5 +99,36 @@ public class PowerBraceletSystem : ComponentSystem {
 	public void UnSetLiftObjectParent () {
 		powerBracelet.liftableCollider.isTrigger = false;
 		powerBracelet.liftableTransform.parent = null;
+	}
+
+	Vector2 GetDestinationPos(Vector2 throwObjInitPos, int dirID, float range)
+	{
+		Vector3 destination = throwObjInitPos;
+		float x = throwObjInitPos.x;
+		float y = throwObjInitPos.y;
+
+		if(dirID == 1){ //bottom
+			y-=range;
+		}else if(dirID == 2){ //bottom left
+			x-=range;
+			y-=range;
+		}else if(dirID == 3){ //left
+			x-=range;
+		}else if(dirID == 4){ //top left
+			x-=range;
+			y+=range;
+		}else if(dirID == 5){ //top
+			y+=range;
+		}else if(dirID == 6){ //top right
+			x+=range;
+			y+=range;
+		}else if(dirID == 7){ //right
+			x+=range;
+		}else if(dirID == 8){ //bottom right
+			x+=range;
+			y-=range;
+		}
+
+		return new Vector2(x,y);
 	}
 }

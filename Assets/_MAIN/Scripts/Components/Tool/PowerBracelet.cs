@@ -17,6 +17,7 @@ public class PowerBracelet : MonoBehaviour {
 	public Collider2D liftableCollider;
 	
 	// public float liftPower;
+	public float throwRange;
 
 	[SerializeField] bool isInteracting = false;
 	[SerializeField] bool isColliderOn = false;

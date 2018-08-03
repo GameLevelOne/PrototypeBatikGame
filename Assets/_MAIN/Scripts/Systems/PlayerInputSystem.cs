@@ -22,6 +22,8 @@ public class PlayerInputSystem : ComponentSystem {
 	public PlayerInput input;
 	public Player player;
 
+	Facing2D facing;
+
 	PlayerState state;
 	ToolType toolType;
 
@@ -110,9 +112,9 @@ public class PlayerInputSystem : ComponentSystem {
 								input.InteractMode = 3;
 								player.SetPlayerState(PlayerState.POWER_BRACELET);
 
-								if (liftState == LiftState.GRAB) {
-									powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
-								}
+								// if (liftState == LiftState.GRAB) {
+								// 	powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+								// }
 							} else {
 								continue;
 							}
@@ -122,21 +124,13 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 
-				if (input.InteractValue == 1 && input.LiftingMode == -3) {
-					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
-					powerBraceletSystem.SetLiftObjectParent();
-				}
 
-				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){
-					powerBraceletSystem.UnSetLiftObjectParent();
+				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){ //THROW
 					input.InteractValue = 2;
-					input.LiftingMode = -1;
 				}
 
 				if (Input.GetKeyUp(KeyCode.Space) && input.LiftingMode >= 0){
-					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 					input.InteractValue = 2;
-					input.LiftingMode = 0;
 				}
 			} 			
 			#endregion
@@ -329,7 +323,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.LiftingMode == 1 || input.LiftingMode == 2) {
-				Facing2D facing = playerAnimationSystem.facing;
+				facing = playerAnimationSystem.facing;
 				// Debug.Log("==========Grabbing==========");
 				// Debug.Log("Before " + facing.DirID);
 				switch (facing.DirID) {

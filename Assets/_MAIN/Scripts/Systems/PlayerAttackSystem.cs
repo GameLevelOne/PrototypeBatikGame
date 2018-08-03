@@ -15,7 +15,7 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 	[InjectAttribute] AttackData attackData;
 
-	Attack attack;
+	public Attack attack;
 	Player player;
 
 	PlayerState state;
@@ -34,13 +34,11 @@ public class PlayerAttackSystem : ComponentSystem {
 		// }
 
 		for (int i=0; i<attackData.Length; i++) {
-			if (attackData.Length == 0) return;
-
+			attack = attackData.Attack[i];
 			PlayerInput input = attackData.PlayerInput[i];
 			player = attackData.Player[i];
 			state = player.state;
 			Animation2D anim = attackData.Animation[i];
-			attack = attackData.Attack[i];
 			
 			int attackMode = input.AttackMode;
 			AnimationState animState = anim.animState;

@@ -835,10 +835,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  liftableObject: {fileID: 0}
   type: 0
-  rigidbody: {fileID: 0}
+  liftParent: {fileID: 4532544263056470}
   collider: {fileID: 58735119695201938}
+  liftableTransform: {fileID: 0}
+  liftableRigidbody: {fileID: 0}
+  liftableCollider: {fileID: 0}
   isInteracting: 0
   isColliderOn: 0
 --- !u!114 &114132007194160552
@@ -1124,10 +1126,11 @@ MonoBehaviour:
   animationControl: {fileID: 114619591953681366}
   animator: {fileID: 95987120919603828}
   animState: 0
-  standAnimState: 0
-  attack: {fileID: 0}
-  tool: {fileID: 114745025338561846}
+  standAnimState: 1
   isCheckAfterAnimation: 0
+  isCheckBeforeAnimation: 0
+  isCheckAfterStandAnimation: 0
+  isCheckBeforeStandAnimation: 0
 --- !u!114 &114646064306593824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1211,9 +1214,10 @@ MonoBehaviour:
   animator: {fileID: 95152014746876474}
   animState: 0
   standAnimState: 0
-  attack: {fileID: 114950218148248466}
-  tool: {fileID: 114745025338561846}
   isCheckAfterAnimation: 0
+  isCheckBeforeAnimation: 0
+  isCheckAfterStandAnimation: 0
+  isCheckBeforeStandAnimation: 0
 --- !u!114 &114923698577649514
 MonoBehaviour:
   m_ObjectHideFlags: 1

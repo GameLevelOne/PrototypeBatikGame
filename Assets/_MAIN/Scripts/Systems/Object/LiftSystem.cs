@@ -5,15 +5,13 @@ using Unity.Collections;
 using Unity.Jobs;
 using Unity.Mathematics;
 
-public class LiftSystem : Component {
+public class LiftSystem : ComponentSystem {
+	// public struct LiftData {
+	// 	public readonly int Length;
+	// 	public PowerBracelet powerBracelet;
+	// }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+	protected override void OnUpdate () {
 		
 	}
 }

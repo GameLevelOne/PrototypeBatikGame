@@ -15,14 +15,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 	[InjectAttribute] AnimationData animationData;
 	
+	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
+	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	
 	public Facing2D facing;
 	
 	PlayerInput input;
 	Player player;
-	Animation2D anim;
+	Attack attack;
 	PlayerTool tool;
+	Animation2D anim;
 
 	PlayerState state;
 	
@@ -35,8 +38,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
 		
-		if (tool == null) {
+		if (tool == null || attack == null) {
 			tool = standAnimationSystem.stand;
+			attack = playerAttackSystem.attack;
 
 			return;
 		}
@@ -58,7 +62,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 
-			// if (player.IsPlayerDie) {
 			if (state == PlayerState.DIE) {
 				Debug.Log("Player Die Animation");
 				input.SteadyMode = -1;
@@ -89,7 +92,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (attackMode == 1) {
 					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				} else {
-					// player.IsRapidSlashing = false;
 					player.SetPlayerIdle();
 				}
 				
@@ -116,13 +118,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
 			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
 			animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
-			
-			Vector2 movement = input.MoveDir;
-			
-			// if (player.IsHooking) continue;
 
-			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
-
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {	
 				int toolType = (int)tool.currentTool;
 				
 				if ((toolType >= 8) && (toolType <=10)) {
@@ -138,6 +135,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
 			}
+			
+			Vector2 movement = input.MoveDir;
 			
 			if (currentMove == movement) {
 				continue;
@@ -169,20 +168,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StartCheckAnimation () {
-		if (!anim.IsCheckAfterAnimation) {
+		if (!anim.IsCheckBeforeAnimation) {
+			CheckBeforeAnimation (anim.animState);
+			anim.IsCheckBeforeAnimation = true;
+		} else if (!anim.IsCheckAfterAnimation) {
 			CheckAfterAnimation (anim.animState);
 			anim.IsCheckAfterAnimation = true;
 		}
 	}
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
-		// attack.IsAttacking = true;
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 	}
 
 	void SetRapidAttack (float mode) { //RAPID SLASH 0
-		// attack.IsAttacking = true;
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
@@ -203,6 +203,53 @@ public class PlayerAnimationSystem : ComponentSystem {
 		currentDir = movement;
 		
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+	}
+
+	void CheckBeforeAnimation (AnimationState animState) {
+		switch (animState) {
+			case AnimationState.START_SLASH:
+				attack.isAttacking  = true;
+				break;
+			case AnimationState.START_CHARGE:
+				attack.isAttacking  = true;
+				break;
+			case AnimationState.START_DODGE:
+				//
+				break;
+			case AnimationState.START_COUNTER:
+				attack.isAttacking  = true;
+				break;
+			case AnimationState.START_RAPIDSLASH:
+				attack.isAttacking  = true;
+				break;
+			case AnimationState.START_BLOCK:
+				//
+				break;
+			case AnimationState.START_HURT:
+				//
+				break;
+			// case AnimationState.START_DASH:
+			// 	//
+			// 	break;
+			// case AnimationState.START_BRAKING:
+			// 	//
+			// 	break;
+			case AnimationState.START_GRAB:
+				//
+				break;
+			case AnimationState.START_UNGRAB:
+				//
+				break;
+			case AnimationState.START_LIFT:
+				//
+				break;
+			case AnimationState.START_THROW:
+				//
+				break;
+			default:
+				Debug.LogWarning ("Unknown Animation played");
+				break;
+		}
 	}
 
 	void CheckAfterAnimation (AnimationState animState) {
@@ -257,18 +304,37 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case AnimationState.AFTER_LIFT:
 				input.LiftingMode = -1;
-				Debug.Log("OK " + input.LiftingMode);
 				break;
+			// case AnimationState.AFTER_DASH:
+			// 	//
+			// 	break;
+			// case AnimationState.AFTER_BRAKING:
+			// 	//
+			// 	break;
 			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
+				LiftState liftState = powerBraceletSystem.powerBracelet.state;
 				input.InteractValue = 1;
+
+				if (liftState == LiftState.GRAB) {
+					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+				} else if (liftState == LiftState.CAN_LIFT) {
+					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+					powerBraceletSystem.SetLiftObjectParent();
+				}
 				break;
 			case AnimationState.AFTER_UNGRAB://case after using power bracelet, bool interact = false (optional)
 				input.InteractValue = 0;
+				powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_THROW:
+				powerBraceletSystem.UnSetLiftObjectParent();
+				powerBraceletSystem.AddForceRigidbody(facing.DirID, 50f);
 				input.InteractValue = 0;
 				player.SetPlayerIdle();
+				break;
+			default:
+				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
 	}

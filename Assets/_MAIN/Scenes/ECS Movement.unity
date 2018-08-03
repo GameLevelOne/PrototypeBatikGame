@@ -386,6 +386,10 @@ Prefab:
       propertyPath: role
       value: 
       objectReference: {fileID: 1119771537}
+    - target: {fileID: 1272119130043240, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
   m_IsPrefabParent: 0
@@ -737,19 +741,9 @@ Prefab:
       objectReference: {fileID: 1942355423}
     - target: {fileID: 114101906285634680, guid: ee85469eef14e0b4394d2114562a3d82,
         type: 2}
-      propertyPath: liftableTransform
-      value: 
+      propertyPath: throwRange
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114101906285634680, guid: ee85469eef14e0b4394d2114562a3d82,
-        type: 2}
-      propertyPath: liftParent
-      value: 
-      objectReference: {fileID: 1307242677}
-    - target: {fileID: 114101906285634680, guid: ee85469eef14e0b4394d2114562a3d82,
-        type: 2}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 1362554326}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee85469eef14e0b4394d2114562a3d82, type: 2}
   m_IsPrefabParent: 0
@@ -951,16 +945,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 12}
   m_EdgeRadius: 0
---- !u!4 &1307242677 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4532544263056470, guid: ee85469eef14e0b4394d2114562a3d82,
-    type: 2}
-  m_PrefabInternal: {fileID: 1076544320}
---- !u!58 &1362554326 stripped
-CircleCollider2D:
-  m_PrefabParentObject: {fileID: 58735119695201938, guid: ee85469eef14e0b4394d2114562a3d82,
-    type: 2}
-  m_PrefabInternal: {fileID: 1076544320}
 --- !u!1001 &1561223727
 Prefab:
   m_ObjectHideFlags: 0
