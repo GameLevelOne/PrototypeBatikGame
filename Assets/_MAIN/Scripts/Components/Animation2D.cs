@@ -132,6 +132,9 @@ public class Animation2D : MonoBehaviour {
 			case AnimationState.START_LIFT:
 				//
 				break;
+			case AnimationState.START_THROW:
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -178,6 +181,9 @@ public class Animation2D : MonoBehaviour {
 				//
 				break;
 			case AnimationState.AFTER_LIFT:
+				//
+				break;
+			case AnimationState.AFTER_THROW:
 				//
 				break;
 			default:

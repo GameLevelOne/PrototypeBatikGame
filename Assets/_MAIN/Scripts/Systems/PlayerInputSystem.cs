@@ -79,15 +79,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			#region Button Movement
-			// if (state == PlayerState.POWER_BRACELET) {
-			// 	if (input.LiftingMode == -1 || input.LiftingMode == -2) {
-			// 		CheckMovementInput ();
-			// 	} else if (input.LiftingMode == 1 || input.LiftingMode == 2) {
-			// 		CheckPushMovementInput ();
-			// 	}
-			// } else {
-				CheckMovementInput ();
-			// }
+			CheckMovementInput ();
 			#endregion
 
 			#region Button Tools
@@ -130,7 +122,13 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 
+				if (input.InteractValue == 1 && input.LiftingMode == -3) {
+					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+					powerBraceletSystem.SetLiftObjectParent();
+				}
+
 				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){
+					powerBraceletSystem.UnSetLiftObjectParent();
 					input.InteractValue = 2;
 					input.LiftingMode = -1;
 				}
@@ -316,10 +314,6 @@ public class PlayerInputSystem : ComponentSystem {
 			ChangeDir(currentDir.x, 0f);
 			CheckEndMove();
 		}
-	}
-
-	void CheckPushMovementInput () {
-
 	}
 
 	void SetMovement (int value, bool isMoveOnly) {

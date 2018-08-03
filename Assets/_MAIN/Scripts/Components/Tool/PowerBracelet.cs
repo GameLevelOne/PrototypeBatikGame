@@ -9,11 +9,13 @@ public enum LiftState {
 
 public class PowerBracelet : MonoBehaviour {
 	public LiftState state;
-	public Liftable liftableObject;
 	public LiftableType type;
-
-	public Rigidbody2D rigidbody;
+	public Transform liftParent;
 	public Collider2D collider;
+	public Transform liftableTransform;
+	public Rigidbody2D liftableRigidbody;
+	public Collider2D liftableCollider;
+	
 	// public float liftPower;
 
 	[SerializeField] bool isInteracting = false;
@@ -40,21 +42,27 @@ public class PowerBracelet : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
-			liftableObject = col.GetComponent<Liftable>();
-			rigidbody = col.GetComponent<Rigidbody2D>();
-			type = liftableObject.liftableType;
+			Liftable liftable = col.GetComponent<Liftable>();
+
+			liftableTransform = liftable.transform;
+			type = liftable.liftableType;
+			liftableRigidbody = col.GetComponent<Rigidbody2D>();
+			liftableCollider = col;
 			IsInteracting = true;
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() == null) return;
+		if (col.GetComponent<Liftable>() != null && IsInteracting) {
+			Liftable liftable = col.GetComponent<Liftable>();
 
-		if (col.GetComponent<Liftable>() == liftableObject && IsInteracting) {
-			liftableObject = null;
-			rigidbody = null;
-			IsInteracting = false;
-			state = LiftState.NONE;
+			if (liftable.transform == liftableTransform) {
+				liftableTransform = null;
+				liftableRigidbody = null;
+				liftableCollider = null;
+				IsInteracting = false;
+				state = LiftState.NONE;
+			}
 		}
 	}
 }

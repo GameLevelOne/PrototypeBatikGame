@@ -78,6 +78,21 @@ public class PowerBraceletSystem : ComponentSystem {
 	}
 
 	public void SetTargetRigidbody (RigidbodyType2D type) {
-		powerBracelet.rigidbody.bodyType = type;
+		powerBracelet.liftableRigidbody.bodyType = type;
+	}
+
+	public void AddForceRigidbody (Vector2 dir, float force) {
+		powerBracelet.liftableRigidbody.AddForce (dir * force);
+	}
+
+	public void SetLiftObjectParent () {
+		powerBracelet.liftableCollider.isTrigger = true;
+		powerBracelet.liftableTransform.parent = powerBracelet.liftParent;
+		powerBracelet.liftableTransform.localPosition = Vector2.zero;
+	}
+
+	public void UnSetLiftObjectParent () {
+		powerBracelet.liftableCollider.isTrigger = false;
+		powerBracelet.liftableTransform.parent = null;
 	}
 }
