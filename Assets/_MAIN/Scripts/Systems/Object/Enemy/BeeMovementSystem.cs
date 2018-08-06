@@ -4,9 +4,11 @@ using UnityEngine;
 public class BeeMovementSystem : ComponentSystem {
 	public struct BeeMovementComponent{
 		public readonly int Length;
+		public ComponentArray<Transform> beeTransform;
 		public ComponentArray<Bee> bee;
 		public ComponentArray<BeeMovement> beeMovement;
 		public ComponentArray<Rigidbody2D> beeRigidbody;
+		public ComponentArray<Animator> beeAnim;
 	}
 
 	#region injected component
@@ -14,6 +16,7 @@ public class BeeMovementSystem : ComponentSystem {
 	Bee currBee;
 	BeeMovement currBeeMovement;
 	Rigidbody2D currBeeRigidbody;
+	Animator currBeeAnim;
 	#endregion
 
 	#region injected system
@@ -29,7 +32,15 @@ public class BeeMovementSystem : ComponentSystem {
 			currBee = beeMovementComponent.bee[i];
 			currBeeMovement = beeMovementComponent.beeMovement[i];
 			currBeeRigidbody = beeMovementComponent.beeRigidbody[i];
+			CheckPlayer();
 			CheckBeeMovement();
+		}
+	}
+
+	void CheckPlayer()
+	{
+		if(currBee.beeState == BeeState.Idle || currBee.beeState == BeeState.Patrol){
+			if(currBee.playerTransform != null) currBee.beeState = BeeState.Chase;
 		}
 	}
 
@@ -40,7 +51,9 @@ public class BeeMovementSystem : ComponentSystem {
 		}else if(currBee.beeState == BeeState.Patrol){
 			Patrol();
 		}else if(currBee.beeState == BeeState.Chase){
-
+			Chase();
+		}else if(currBee.beeState == BeeState.Startled){
+			Startled();
 		}
 	}
 
@@ -53,6 +66,7 @@ public class BeeMovementSystem : ComponentSystem {
 
 		}else{
 			currBeeMovement.TIdle -= deltaTime;
+
 			if(currBeeMovement.TIdle <= 0f){
 				currBee.beeState = BeeState.Patrol;
 				currBeeMovement.initIdle = false;
@@ -64,11 +78,24 @@ public class BeeMovementSystem : ComponentSystem {
 	{
 		if(!currBeeMovement.initPatrol){
 			currBeeMovement.initPatrol = true;
-			currBeeMovement.patrolDestination = GetRandomPatrolPos(currBeeMovement.beeHiveTransform.position);
+			
+			Vector3 origin = 
+				currBee.isStartled ? 
+				new Vector3(currBeeRigidbody.position.x,currBeeRigidbody.position.y,0f) : 
+				currBeeMovement.beeHiveTransform.position;
+
+			currBeeMovement.patrolDestination = GetRandomPatrolPos(origin,currBeeMovement.patrolRange);
 			deltaTime = Time.deltaTime;
 		}else{
-			currBeeRigidbody.position = Vector2.MoveTowards(currBeeRigidbody.position,currBeeMovement.patrolDestination,currBeeMovement.patrolSpeed * deltaTime);
 
+			currBeeRigidbody.position = 
+				Vector2.MoveTowards(
+					currBeeRigidbody.position,
+					currBeeMovement.patrolDestination,
+					currBeeMovement.patrolSpeed * deltaTime
+				);
+
+			//Debug.Log("Running");
 			if(Vector2.Distance(currBeeMovement.patrolDestination,currBeeRigidbody.position) < 0.1f){
 				currBee.beeState = BeeState.Idle;
 				currBeeMovement.initPatrol = false;
@@ -78,14 +105,54 @@ public class BeeMovementSystem : ComponentSystem {
 
 	void Chase()
 	{
+		currBeeRigidbody.position = 
+			Vector2.MoveTowards(
+				currBeeRigidbody.position,
+				currBee.playerTransform.position,
+				currBeeMovement.chaseSpeed * deltaTime
+			);
 
+		if(Vector2.Distance(currBeeRigidbody.position,currBee.playerTransform.position) >= 8f){
+			currBee.beeState = BeeState.Idle;
+			currBee.playerTransform = null;
+			if(currBeeMovement.beeHiveTransform == null) currBee.isStartled = true;
+		}
 	}
 
-	Vector2 GetRandomPatrolPos(Vector3 origin)
+	void Startled()
 	{
-		float x = Random.Range(-2f,2f) + origin.x;
-		float y = Random.Range(-2f,2f) + origin.y;
+		if(!currBeeMovement.initStartled){
+			currBeeMovement.beeHiveTransform = null;
+			currBeeMovement.initIdle = false;
+			currBeeMovement.initPatrol = false;
 
+			deltaTime = Time.deltaTime;
+			currBeeMovement.initStartled = true;
+
+			
+
+			currBeeMovement.patrolDestination = GetRandomPatrolPos(currBeeRigidbody.position,currBeeMovement.startledRange);
+		}else{
+			//Debug.Log("STARTLING");
+			currBeeRigidbody.position = 
+				Vector2.MoveTowards(
+					currBeeRigidbody.position,
+					currBeeMovement.patrolDestination,
+					currBeeMovement.chaseSpeed * deltaTime
+				);
+
+			if(Vector2.Distance(currBeeRigidbody.position,currBeeMovement.patrolDestination) < 0.1f){
+				currBeeMovement.initStartled = false;
+				currBee.beeState = BeeState.Idle;
+			}
+		}
+	}
+
+	Vector2 GetRandomPatrolPos(Vector3 origin, float range)
+	{
+		float x = currBeeMovement.initStartled ? range : Random.Range(-1 * range, range) + origin.x;
+		float y = currBeeMovement.initStartled ? range : Random.Range(-1 * range, range) + origin.y;
+		
 		return new Vector2(x,y);
 	}
 }
