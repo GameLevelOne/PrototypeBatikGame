@@ -9,7 +9,6 @@ public enum PowerBraceletState {
 
 public class PowerBracelet : MonoBehaviour {
 	public PowerBraceletState state;
-	public LiftableType type;
 	public Liftable liftable;
 	public Transform liftShadowParent;
 	public Transform liftMainObjParent;
@@ -44,6 +43,21 @@ public class PowerBracelet : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
 			liftable = col.GetComponent<Liftable>();
+			LiftableType type = liftable.liftableType;
+
+			if (type == LiftableType.LIFTABLE) {
+				Debug.Log("CAN_LIFT");
+				state = PowerBraceletState.CAN_LIFT;
+			} else if (type == LiftableType.UNLIFTABLE) {
+				state = PowerBraceletState.CANNOT_LIFT;
+				Debug.Log("CANNOT_LIFT");
+			} else if (type == LiftableType.GRABABLE) {
+				Debug.Log("GRABABLE");
+				state = PowerBraceletState.GRAB;
+			} else {
+				state = PowerBraceletState.NONE;
+			}
+			
 			IsInteracting = true;
 		}
 	}

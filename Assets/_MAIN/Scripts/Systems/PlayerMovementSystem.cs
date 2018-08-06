@@ -110,7 +110,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else if (state == PlayerState.POWER_BRACELET) {
 				// rb.AddForce(-dir * movement.bounceSpeed);
 				if (input.InteractValue == 2 || input.InteractValue == 0) {
-					Debug.Log("input.InteractValue : "+input.InteractValue);
+					// Debug.Log("input.InteractValue : "+input.InteractValue);
 					input.MoveDir = Vector2.zero;
 				}
 			} else {

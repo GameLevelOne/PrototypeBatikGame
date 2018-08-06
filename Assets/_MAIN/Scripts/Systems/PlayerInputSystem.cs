@@ -78,6 +78,9 @@ public class PlayerInputSystem : ComponentSystem {
 				continue;
 			} else if (state == PlayerState.RAPID_SLASH) {
 				continue;
+			} else if (state == PlayerState.POWER_BRACELET && input.InteractValue == 0) {
+				currentDir = Vector2.zero;
+				continue;
 			}
 
 			#region Button Movement

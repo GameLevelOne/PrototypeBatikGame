@@ -123,7 +123,7 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>0. SWEATING<br /></para>
+	/// <para>0. INIT<br /></para>
 	/// <para>1. LIFT / SWEATING / GRAB<br /></para>
 	/// <para>2. THROW / RELEASE<br /></para>
     /// </summary>

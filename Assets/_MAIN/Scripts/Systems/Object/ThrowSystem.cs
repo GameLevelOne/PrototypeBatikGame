@@ -16,13 +16,19 @@ public class ThrowSystem : ComponentSystem {
 	LiftableState state;
 
 	Rigidbody2D shadowRb;
+	// Rigidbody2D mainObjRb;
+	Transform mainObjTransform;
 	
-	Vector2 objPos;
+	Vector2 shadowPos;
+	// Vector2 mainObjPos;
 	Vector2 targetPos;
+	// Vector3 downCurve;
 
 	float deltaTime;
 	float speed;
 	float dist;
+	float throwRange;
+	float moveTime;
 
 	protected override void OnUpdate () {
 		if (liftData.Length == 0) return;
@@ -47,33 +53,51 @@ public class ThrowSystem : ComponentSystem {
 		liftable.mainObjTransform.parent = liftable.shadowTransform;
 		liftable.initPos = liftable.transform.position;
 		liftable.targetDirPos = GetDestinationPos(liftable.initPos, liftable.dirID, liftable.throwRange);
-		liftable.state = LiftableState.FLY;
 
 		shadowRb = liftable.shadowRigidbody;
+		mainObjTransform = liftable.mainObjTransform;
 		speed = liftable.speed;
-		objPos = liftable.transform.position;
+		shadowPos = liftable.shadowTransform.position;
+		// mainObjPos = liftable.mainObjTransform.localPosition;
 		targetPos = liftable.targetDirPos;
+		throwRange = liftable.throwRange;
 		
-		dist = Vector2.Distance(objPos, targetPos) + 1;
+		dist = Vector2.Distance(shadowPos, targetPos) + 0.1f;
+		moveTime = 0.0f;
+		liftable.state = LiftableState.FLY;
 	}
 
 	void Fly () {
-		// IsFinish(objPos, targetPos);
-
 		if (liftable.attachedObject == null && IsNotFinish(liftable.transform.position, targetPos)) {
-			Vector2 dir = liftable.targetDirPos - objPos;
+			Vector2 dir = liftable.targetDirPos - shadowPos;
 			shadowRb.velocity = dir * speed * deltaTime;
 		} else {
 			shadowRb.velocity = Vector2.zero;
+			mainObjTransform.localPosition = Vector2.zero;
 			liftable.state = LiftableState.LAND;
 		}
 	}
 
 	bool IsNotFinish (Vector2 a, Vector2 b) {
 		float temp = Vector2.Distance(a,b);
+		moveTime += deltaTime;
 
 		if (dist > temp) {
 			dist = temp;
+
+			if (dist > throwRange / 1.5f) { // >2
+				// Debug.Log("Up");
+				// downCurve = new Vector3(0f,mainObjPos.y + 1f,-1f);
+			} else if (dist > throwRange / 3) { // <1
+				// Debug.Log("Steady");
+				// downCurve = new Vector3(0f,mainObjPos.y,-1f);
+			} else {
+				// downCurve = new Vector3(0f,0f,-1f);
+				// Debug.Log("Down");
+			}
+			Debug.Log(dist);
+
+			// mainObjTransform.localPosition = Vector3.Lerp(mainObjPos, downCurve, dist * moveTime); Curve Move			
 			return true;
 		} else {
 			return false;
@@ -84,6 +108,7 @@ public class ThrowSystem : ComponentSystem {
 		Vector3 newObjPos = new Vector3 (0f, 0f, -1f);
 		liftable.mainObjTransform.localPosition = newObjPos;
 		liftable.shadowRigidbody.bodyType = RigidbodyType2D.Static;
+		liftable.mainObjRigidbody.bodyType = RigidbodyType2D.Kinematic;
 		liftable.state = LiftableState.IDLE;
 	}
 

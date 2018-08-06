@@ -120,7 +120,7 @@ public class Player : MonoBehaviour {
 		}
 		
 		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
-			Debug.Log("Hit LiftableObject");
+			// Debug.Log("Hit LiftableObject");
 			IsHitLiftableObject = true;
 		}
 	}
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			Debug.Log("Can Digging");
+			// Debug.Log("Can Digging");
 			
 			IsCanDigging = true;
 		}
@@ -144,7 +144,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D col) {
 		
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			Debug.Log("Can't Digging");
+			// Debug.Log("Can't Digging");
 			
 			IsCanDigging = false;
 		}

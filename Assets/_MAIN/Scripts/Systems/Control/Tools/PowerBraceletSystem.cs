@@ -20,7 +20,6 @@ public class PowerBraceletSystem : ComponentSystem {
 	Player player;
 
 	PowerBraceletState state;
-	LiftableType type;
 
 	bool isLiftResponse = false;
 
@@ -36,20 +35,10 @@ public class PowerBraceletSystem : ComponentSystem {
 
 		for (int i=0; i<powerBraceletData.Length; i++) {
 			powerBracelet = powerBraceletData.powerBracelet[i];
-			type = powerBracelet.type;
 
-			if (powerBracelet.IsInteracting && !isLiftResponse && player.IsHitLiftableObject) {
-				if (type == LiftableType.LIFTABLE) {
-					SetPowerBraceletState(PowerBraceletState.CAN_LIFT);
-				} else if (type == LiftableType.UNLIFTABLE) {
-					SetPowerBraceletState(PowerBraceletState.CANNOT_LIFT);
-				} else if (type == LiftableType.GRABABLE) {
-					SetPowerBraceletState(PowerBraceletState.GRAB);
-				} else {
-					SetPowerBraceletState(PowerBraceletState.NONE);
-				}
-
+			if (powerBracelet.IsInteracting && !isLiftResponse && player.IsHitLiftableObject && state != PowerBraceletState.NONE) {
 				isLiftResponse = true;
+				Debug.Log("test");
 			}
 
 			state = powerBracelet.state;
@@ -73,13 +62,9 @@ public class PowerBraceletSystem : ComponentSystem {
 		}
 	}
 
-	void SetPowerBraceletState (PowerBraceletState state) {
-		powerBracelet.state = state;
-	}
-
 	public void SetTargetRigidbody (RigidbodyType2D type) {
 		powerBracelet.liftable.shadowRigidbody.bodyType = type;
-		// powerBracelet.liftable.mainObjRigidbody.bodyType = type; //STILL KINEMATIC
+		// powerBracelet.liftable.mainObjRigidbody.bodyType = type; //SET TO DYNAMIC FOR CURVE MOVE
 	}
 
 	public void AddForceRigidbody (int dirID) {
