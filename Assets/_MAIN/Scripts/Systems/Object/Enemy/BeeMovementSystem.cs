@@ -53,6 +53,11 @@ public class BeeMovementSystem : ComponentSystem {
 
 		}else{
 			currBeeMovement.TIdle -= deltaTime;
+
+			// currBeeRigidbody.position = 
+			// 	new Vector2(Random.Range(currBeeRigidbody.position.x-0.01f,currBeeRigidbody.position.x+0.01f),
+			// 				Random.Range(currBeeRigidbody.position.y-0.01f,currBeeRigidbody.position.y+0.01f));
+
 			if(currBeeMovement.TIdle <= 0f){
 				currBee.beeState = BeeState.Patrol;
 				currBeeMovement.initIdle = false;
@@ -68,6 +73,10 @@ public class BeeMovementSystem : ComponentSystem {
 			deltaTime = Time.deltaTime;
 		}else{
 			currBeeRigidbody.position = Vector2.MoveTowards(currBeeRigidbody.position,currBeeMovement.patrolDestination,currBeeMovement.patrolSpeed * deltaTime);
+			
+			// currBeeRigidbody.position = 
+			// 	new Vector2(Random.Range(currBeeRigidbody.position.x-0.1f,currBeeRigidbody.position.x+0.1f),
+			// 				Random.Range(currBeeRigidbody.position.y-0.1f,currBeeRigidbody.position.y+0.1f));
 
 			if(Vector2.Distance(currBeeMovement.patrolDestination,currBeeRigidbody.position) < 0.1f){
 				currBee.beeState = BeeState.Idle;
