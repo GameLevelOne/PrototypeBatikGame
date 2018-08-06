@@ -41,7 +41,7 @@ public class PowerBracelet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
+		if (col.GetComponent<Liftable>() != null && !IsInteracting && liftable == null) {
 			liftable = col.GetComponent<Liftable>();
 			LiftableType type = liftable.liftableType;
 
@@ -57,7 +57,7 @@ public class PowerBracelet : MonoBehaviour {
 			} else {
 				state = PowerBraceletState.NONE;
 			}
-			
+
 			IsInteracting = true;
 		}
 	}
@@ -66,6 +66,7 @@ public class PowerBracelet : MonoBehaviour {
 		if (col.GetComponent<Liftable>() != null && IsInteracting) {
 
 			if (liftable.gameObject == col.GetComponent<Liftable>().gameObject) {
+				liftable = null;
 				IsInteracting = false;
 				state = PowerBraceletState.NONE;
 			}

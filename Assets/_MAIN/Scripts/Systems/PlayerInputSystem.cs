@@ -38,6 +38,7 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isReadyForDodging = true;
 
 	bool isDodging = false;
+	bool isPowerBraceletHold = false;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -80,6 +81,11 @@ public class PlayerInputSystem : ComponentSystem {
 				continue;
 			} else if (state == PlayerState.POWER_BRACELET && input.InteractValue == 0) {
 				currentDir = Vector2.zero;
+
+				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
+					isPowerBraceletHold = false;
+				}
+
 				continue;
 			}
 
@@ -89,15 +95,15 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Tools
 			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET)) {
-				if(Input.GetKeyDown(KeyCode.X)){
+				if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
 					toolSystem.NextTool();
 				}
 				
-				if(Input.GetKeyDown(KeyCode.Z)){
+				if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyUp(KeyCode.Joystick1Button6)){
 					toolSystem.PrevTool();
 				}
 
-				if (Input.GetKeyDown(KeyCode.Space)){
+				if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 					toolType = tool.currentTool;
 
 					if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (toolType != ToolType.None)) {
@@ -114,6 +120,7 @@ public class PlayerInputSystem : ComponentSystem {
 							if (powerBraceletState != PowerBraceletState.NONE) {
 								input.InteractMode = 3;
 								player.SetPlayerState(PlayerState.POWER_BRACELET);
+								isPowerBraceletHold = true;
 
 								// if (liftState == LiftState.GRAB) {
 								// 	powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
@@ -127,14 +134,19 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 
-
-				if (Input.GetKeyDown(KeyCode.Space) && input.LiftingMode < 0){ //THROW
+				Debug.Log(isPowerBraceletHold);
+				
+				if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.LiftingMode < 0){ //THROW
 					input.InteractValue = 2;
 				}
 
-				if (Input.GetKeyUp(KeyCode.Space) && input.LiftingMode >= 0){
-					input.InteractValue = 2;
+				if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)) && input.LiftingMode >= 0){
+					isPowerBraceletHold = false;
 				}
+				
+				if (!isPowerBraceletHold) {
+					input.InteractValue = 2;
+				} 
 			} 			
 			#endregion
 
@@ -142,7 +154,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 				continue;
 			} else if (state == PlayerState.DASH) {
-				if (Input.GetKeyUp(KeyCode.Space)){
+				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)){
 					input.InteractMode = 2;
 					player.SetPlayerState (PlayerState.BRAKE);
 				}
@@ -159,7 +171,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			#region Button Attack
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) {
+			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 				chargeAttackTimer += deltaTime;
 				
 				if (chargeAttackTimer >= beforeChargeDelay) {
@@ -198,7 +210,7 @@ public class PlayerInputSystem : ComponentSystem {
 			#endregion
 
 			#region Button Guard
-			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 				SetMovement(2, false); //START GUARD
 				
 				player.IsGuarding = true;
@@ -229,7 +241,7 @@ public class PlayerInputSystem : ComponentSystem {
 			#endregion
 
 			#region Button Dodge			
-			if (Input.GetKeyDown(KeyCode.KeypadPeriod)) {
+			if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
 				if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
 					player.SetPlayerState(PlayerState.DODGE);
 					bulletTimeTimer = 0f;	
@@ -286,30 +298,43 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckMovementInput () {
-		int maxValue = input.moveAnimValue[2];
-		// int midValue = input.moveAnimValue[1];
-		int minValue = input.moveAnimValue[0];
+		#region JOYSTICK
+		if (Input.GetJoystickNames()[0] != "") {
+			float inputX = Input.GetAxis("Horizontal Javatale");
+			float inputY = Input.GetAxis("Vertical Javatale");
+			ChangeDir (inputX, inputY);
 
-		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-			ChangeDir(currentDir.x, maxValue);
-		} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-			ChangeDir(currentDir.x, minValue);
+			if (inputX == 0 || inputY == 0) {
+				CheckEndMove();
+			}
 		} 
-		
-		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-			ChangeDir(maxValue, currentDir.y);
-		} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-			ChangeDir(minValue, currentDir.y);
-		} 
-		
-		if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-			ChangeDir(0f, currentDir.y);
-			CheckEndMove();
-		}
+		#endregion
+		else {
+			int maxValue = input.moveAnimValue[2];
+			// int midValue = input.moveAnimValue[1];
+			int minValue = input.moveAnimValue[0];
 
-		if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
-			ChangeDir(currentDir.x, 0f);
-			CheckEndMove();
+			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+				ChangeDir(currentDir.x, maxValue);
+			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+				ChangeDir(currentDir.x, minValue);
+			} 
+			
+			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
+				ChangeDir(maxValue, currentDir.y);
+			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+				ChangeDir(minValue, currentDir.y);
+			} 
+			
+			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
+				ChangeDir(0f, currentDir.y);
+				CheckEndMove();
+			}
+
+			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
+				ChangeDir(currentDir.x, 0f);
+				CheckEndMove();
+			}
 		}
 	}
 

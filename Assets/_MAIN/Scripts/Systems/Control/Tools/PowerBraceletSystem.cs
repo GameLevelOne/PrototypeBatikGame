@@ -38,7 +38,6 @@ public class PowerBraceletSystem : ComponentSystem {
 
 			if (powerBracelet.IsInteracting && !isLiftResponse && player.IsHitLiftableObject && state != PowerBraceletState.NONE) {
 				isLiftResponse = true;
-				Debug.Log("test");
 			}
 
 			state = powerBracelet.state;
