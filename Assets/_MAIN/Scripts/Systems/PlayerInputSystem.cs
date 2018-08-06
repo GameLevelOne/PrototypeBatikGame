@@ -309,6 +309,8 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		} 
 		#endregion
+		
+		#region MOUSE & KEYBOARD
 		else {
 			int maxValue = input.moveAnimValue[2];
 			// int midValue = input.moveAnimValue[1];
@@ -336,6 +338,7 @@ public class PlayerInputSystem : ComponentSystem {
 				CheckEndMove();
 			}
 		}
+		#endregion
 	}
 
 	void SetMovement (int value, bool isMoveOnly) {

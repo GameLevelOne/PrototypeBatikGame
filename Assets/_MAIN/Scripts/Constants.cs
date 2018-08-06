@@ -55,6 +55,7 @@ public static class Constants {
 		public const string STONE = "Stone"; 
 		public const string DIG_AREA = "Dig Area"; 
 		public const string DIG_RESULT = "Dig Result"; 
+		public const string SWIM_AREA = "Swim Area"; 
 
 		public const string HAMMER = "Hammer"; 
 		public const string NET = "Net"; 

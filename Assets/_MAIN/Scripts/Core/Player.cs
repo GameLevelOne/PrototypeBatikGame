@@ -19,13 +19,15 @@ public enum PlayerState {
 	BOUNCE,
 	BRAKE,
 	HURT_MOVE,
-	POWER_BRACELET
+	POWER_BRACELET,
+	SWIM
 }
 
 public class Player : MonoBehaviour {
 	public PlayerState state;
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
+	public Collider2D playerCol;
 	    
     [SerializeField] bool isPlayerHit = false; 
     [SerializeField] bool isHitAnEnemy = false;
@@ -35,6 +37,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
 	[SerializeField] bool isHitLiftableObject = false;
+	[SerializeField] bool isCanSwim = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -107,6 +110,15 @@ public class Player : MonoBehaviour {
 			isHitLiftableObject = value;
 		}
 	}
+	
+	public bool IsCanSwim {
+		get {return isCanSwim;}
+		set {
+			if (isCanSwim == value) return;
+
+			isCanSwim = value;
+		}
+	}
 
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
@@ -138,6 +150,8 @@ public class Player : MonoBehaviour {
 			// Debug.Log("Can Digging");
 			
 			IsCanDigging = true;
+		} else if (col.tag == Constants.Tag.SWIM_AREA) {
+			IsCanSwim = true;
 		}
 	}
 
@@ -147,6 +161,8 @@ public class Player : MonoBehaviour {
 			// Debug.Log("Can't Digging");
 			
 			IsCanDigging = false;
+		} else if (col.tag == Constants.Tag.SWIM_AREA) {
+			IsCanSwim = false;
 		}
 
 		// if (col.GetComponent<Liftable>() != null && IsHitLiftableObject) {

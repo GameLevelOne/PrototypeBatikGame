@@ -39,8 +39,9 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject shovelAreaEffectObj;
 	public GameObject lanternObj;
 	public GameObject invisibleCloak;
-	public GameObject powerBraceletAreaEffectObj;
 	public GameObject magicMedallionAreaEffectObj;
+	public GameObject powerBraceletAreaEffectObj;
+	public GameObject flippersObj;
 	public GameObject bootsObj;
 	// public Boots bootsScriptObj;
 
@@ -53,6 +54,7 @@ public class PlayerTool : MonoBehaviour {
 
 	[SerializeField] bool isActToolReady = false;
 	[SerializeField] bool isPowerBraceletSelected = false;
+	[SerializeField] bool isFlipperSelected = false;
 
 	void Start()
 	{
@@ -108,8 +110,11 @@ public class PlayerTool : MonoBehaviour {
             case 16:
                 // SpawnObj (powerBraceletAreaEffectObj, false, false);
                 break;
+            case 17:
+                // Flippers
+                break;
             case 18:
-                // SetEquipmentTools (bootsScriptObj);
+                // Boots
                 break;
         }
     }
@@ -151,6 +156,8 @@ public class PlayerTool : MonoBehaviour {
                 return magicMedallionAreaEffectObj;
             case 16:
                 return powerBraceletAreaEffectObj;
+            case 17:
+                return flippersObj;
             case 18:
                 return bootsObj;
 			default:
@@ -171,11 +178,6 @@ public class PlayerTool : MonoBehaviour {
         return targetRot;
     }
 
-	// void SetEquipmentTools (Boots boots) {
-	// 	dashSpeed = boots.bootsSpeed;
-	// 	Debug.Log("Use Boots with " + dashSpeed + " speed");
-	// }
-
 	public bool IsActToolReady {
         get {return isActToolReady;}
 		set {
@@ -186,6 +188,15 @@ public class PlayerTool : MonoBehaviour {
     }
 
 	public bool IsPowerBraceletSelected {
+        get {return isPowerBraceletSelected;}
+		set {
+			if (isPowerBraceletSelected == value) return;
+
+			isPowerBraceletSelected = value;
+		}
+    }
+
+	public bool IsFlipperSelected {
         get {return isPowerBraceletSelected;}
 		set {
 			if (isPowerBraceletSelected == value) return;

@@ -66,6 +66,8 @@ public class ToolSystem : ComponentSystem {
 				}
 			} else if (tool.IsPowerBraceletSelected) {
 				tool.IsPowerBraceletSelected = false;
+			} else if (tool.IsFlipperSelected) {
+				tool.IsFlipperSelected = false;
 			}
 		}
 
@@ -99,7 +101,7 @@ public class ToolSystem : ComponentSystem {
 		}
 
 		toolType = current;
-		CheckPowerBracelet();
+		CheckSelectedTools();
 		PrintToolName ((ToolType) current);
 	}
 
@@ -114,8 +116,13 @@ public class ToolSystem : ComponentSystem {
 		}
 
 		toolType = current;
-		CheckPowerBracelet();
+		CheckSelectedTools();
 		PrintToolName ((ToolType) current);
+	}
+
+	void CheckSelectedTools () {
+		CheckPowerBracelet();
+		CheckFlipper();
 	}
 
 	void CheckPowerBracelet () {
@@ -125,6 +132,16 @@ public class ToolSystem : ComponentSystem {
 		} else {
 			tool.IsPowerBraceletSelected = false;
 			UsePowerBracelet (false);
+		}
+	}
+
+	void CheckFlipper () {
+		if ((ToolType) toolType == ToolType.Flippers) {
+			tool.IsFlipperSelected = true;
+			UseFlippers (true);
+		} else {
+			tool.IsFlipperSelected = false;
+			UseFlippers (false);
 		}
 	}
 
@@ -169,9 +186,9 @@ public class ToolSystem : ComponentSystem {
 		// else if (tool.currentTool == ToolType.PowerBracelet){
 		// 	UsePowerBracelet();
 		// } 
-		else if (tool.currentTool == ToolType.Flippers){
-			UseFlippers();
-		} 
+		// else if (tool.currentTool == ToolType.Flippers){
+		// 	UseFlippers();
+		// } 
 		// else if (tool.currentTool == ToolType.Boots){
 		// 	UseBoots();
 		// }
@@ -329,11 +346,16 @@ public class ToolSystem : ComponentSystem {
 		powerBracelet.IsColliderOn = value;
 	}
 	
-	void UseFlippers()
+	void UseFlippers(bool value)
 	{
 		Debug.Log("Using Flippers");
 
 		//allow to swim on water
+		int type = (int) ToolType.Flippers;
+
+		Flipper flipper = tool.GetObj(type).GetComponent<Flipper>();
+		// Debug.Log(value);
+		flipper.IsEquipped = value;
 	}
 	
 	void UseBoots()
