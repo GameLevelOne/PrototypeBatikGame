@@ -320,8 +320,6 @@ public class ToolSystem : ComponentSystem {
 	
 	void UsePowerBracelet(bool value)
 	{
-		Debug.Log("Using Power Bracelet");
-
 		//allow to lift objects
 		// tool.SpawnSlashEffect(toolType);
 		int type = (int) ToolType.PowerBracelet;

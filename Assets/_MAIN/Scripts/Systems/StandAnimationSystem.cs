@@ -16,6 +16,7 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 	[InjectAttribute] StandData standData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] ToolSystem toolSystem;
 
 	public PlayerTool stand;
 
@@ -47,16 +48,13 @@ public class StandAnimationSystem : ComponentSystem {
 			facing = standData.Facing[i];
 		
 			animator = anim.animator;
-			int standType = (int)stand.currentTool;
-			
-			if (!anim.IsCheckAfterAnimation) {
-				CheckAfterStandAnimation (anim.standAnimState);
-				anim.IsCheckAfterAnimation = true;
-			}
+
+			StartCheckStandAnimation();
 			
 			Vector2 movement = input.MoveDir;
 
 			if(state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
+				int standType = (int)stand.currentTool;
 				SetStand(standType);
 				continue;
 			} else {
@@ -73,6 +71,16 @@ public class StandAnimationSystem : ComponentSystem {
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 				}
 			}
+		}
+	}
+
+	void StartCheckStandAnimation () {
+		if (!anim.IsCheckBeforeStandAnimation) {
+			CheckBeforeStandAnimation (anim.standAnimState);
+			anim.IsCheckBeforeStandAnimation = true;
+		} else if (!anim.IsCheckAfterStandAnimation) {
+			CheckAfterStandAnimation (anim.standAnimState);
+			anim.IsCheckAfterStandAnimation = true;
 		}
 	}
 
@@ -101,14 +109,31 @@ public class StandAnimationSystem : ComponentSystem {
 		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
+	void CheckBeforeStandAnimation (StandAnimationState animState) {
+		switch (animState) {
+			case StandAnimationState.START_USING_TOOL:
+				stand.IsActToolReady = true;
+				break;
+			default:
+				Debug.LogWarning ("Unknown Stand Animation played");
+				break;
+		}
+	}
+
 	void CheckAfterStandAnimation (StandAnimationState animState) {
-		if (animState == StandAnimationState.AFTER_USING_TOOL) {
-			if (state == PlayerState.HOOK) {
-				animator.enabled = false;
-			} else {
-				StopStandAnimation();
-				player.SetPlayerIdle();
-			}
+		switch (animState) {
+			case StandAnimationState.AFTER_USING_TOOL:
+
+				if (state == PlayerState.HOOK) {
+					animator.enabled = false;
+				} else {
+					StopStandAnimation();
+					player.SetPlayerIdle();
+				}
+				break;
+			default:
+				Debug.LogWarning ("Unknown Stand Animation played");
+				break;
 		}
 	}
 

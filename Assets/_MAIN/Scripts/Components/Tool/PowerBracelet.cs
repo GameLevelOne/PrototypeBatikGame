@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum LiftState {
+public enum PowerBraceletState {
 	NONE,
 	CAN_LIFT,
 	CANNOT_LIFT,
@@ -8,13 +8,16 @@ public enum LiftState {
 }
 
 public class PowerBracelet : MonoBehaviour {
-	public LiftState state;
-	public Liftable liftableObject;
+	public PowerBraceletState state;
 	public LiftableType type;
-
-	public Rigidbody2D rigidbody;
+	public Liftable liftable;
+	public Transform liftShadowParent;
+	public Transform liftMainObjParent;
 	public Collider2D collider;
+	
 	// public float liftPower;
+	public float throwRange;
+	public float speed;
 
 	[SerializeField] bool isInteracting = false;
 	[SerializeField] bool isColliderOn = false;
@@ -40,21 +43,18 @@ public class PowerBracelet : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null && !IsInteracting) {
-			liftableObject = col.GetComponent<Liftable>();
-			rigidbody = col.GetComponent<Rigidbody2D>();
-			type = liftableObject.liftableType;
+			liftable = col.GetComponent<Liftable>();
 			IsInteracting = true;
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() == null) return;
+		if (col.GetComponent<Liftable>() != null && IsInteracting) {
 
-		if (col.GetComponent<Liftable>() == liftableObject && IsInteracting) {
-			liftableObject = null;
-			rigidbody = null;
-			IsInteracting = false;
-			state = LiftState.NONE;
+			if (liftable.gameObject == col.GetComponent<Liftable>().gameObject) {
+				IsInteracting = false;
+				state = PowerBraceletState.NONE;
+			}
 		}
 	}
 }

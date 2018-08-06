@@ -153,8 +153,6 @@ public class PlayerInput : MonoBehaviour {
 			if (liftingMode == value) return;
 			
 			liftingMode = value;
-
-			if (liftingMode == -3) Debug.Log("THIS -3");
 		}
 	}
 }

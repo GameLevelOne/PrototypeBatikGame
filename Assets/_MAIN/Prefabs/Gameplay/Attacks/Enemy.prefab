@@ -498,9 +498,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerThatHitsEnemy: {fileID: 0}
+  state: 0
+  idleDuration: 3
+  t: 0
+  initIdle: 0
+  initPatrol: 0
   isEnemyHit: 0
-  isEnemyGetHurt: 0
-  isEnemyDie: 0
 --- !u!114 &114158416098127796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,9 +519,10 @@ MonoBehaviour:
   animator: {fileID: 95823083219801808}
   animState: 0
   standAnimState: 0
-  attack: {fileID: 114279522043413302}
-  tool: {fileID: 0}
   isCheckAfterAnimation: 0
+  isCheckBeforeAnimation: 0
+  isCheckAfterStandAnimation: 0
+  isCheckBeforeStandAnimation: 0
 --- !u!114 &114168272210199996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -545,6 +549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guardReduceDamage: 0
   damage: 0
+  role: {fileID: 114659510525594982}
+  player: {fileID: 0}
+  enemy: {fileID: 114085341754745548}
   healthPower: 100
   initialDamage: 0
 --- !u!114 &114279522043413302
@@ -606,6 +613,8 @@ MonoBehaviour:
   slowSpeed: 100
   dodgeSpeed: 300
   attackMoveSpeed: 50
+  bounceSpeed: 0
+  brakeTime: 0
 --- !u!114 &114659510525594982
 MonoBehaviour:
   m_ObjectHideFlags: 1

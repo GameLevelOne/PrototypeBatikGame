@@ -36,32 +36,17 @@ public enum StandAnimationState {
 
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
-	// public bool isAnimating;
 	public Animator animator;
 	public AnimationState animState;
 	public StandAnimationState standAnimState;
-	// public Role role; //for Animation system
 
-	// PlayerInput playerInput;
-	// EnemyInput enemyInput;
-	public Attack attack;
-	public PlayerTool tool;
-
-	// [SerializeField] bool isCurrentCheckBeforeAnimation = false;
 	[SerializeField] bool isCheckAfterAnimation = false;
-
-	void Awake () {
-		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
-		// role = GetComponent<Role>();
-
-		// if (role.gameRole == GameRole.Player) {
-		// 	playerInput = GetComponent<PlayerInput>();
-		// } else { //ENEMy
-		// 	enemyInput = GetComponent<EnemyInput>();
-		// }
-	}
+	[SerializeField] bool isCheckBeforeAnimation = false;
+	[SerializeField] bool isCheckAfterStandAnimation = false;
+	[SerializeField] bool isCheckBeforeStandAnimation = false;
 
 	void OnEnable () {
+		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
 		animationControl.OnStartStandAnimation += StartStandAnimation;
@@ -74,15 +59,15 @@ public class Animation2D : MonoBehaviour {
 		animationControl.OnStartStandAnimation -= StartStandAnimation;
 		animationControl.OnExitStandAnimation -= ExitStandAnimation;
 	}
+	
+	public bool IsCheckBeforeAnimation {
+		get {return isCheckBeforeAnimation;}
+		set {
+			if (isCheckBeforeAnimation == value) return;
 
-	// public bool isCheckBeforeAnimation {
-	// 	get {return isCurrentCheckBeforeAnimation;}
-	// 	set {
-	// 		if (isCurrentCheckBeforeAnimation == value) return;
-
-	// 		isCurrentCheckBeforeAnimation = value;
-	// 	}
-	// }
+			isCheckBeforeAnimation = value;
+		}
+	}
 	
 	public bool IsCheckAfterAnimation {
 		get {return isCheckAfterAnimation;}
@@ -92,129 +77,45 @@ public class Animation2D : MonoBehaviour {
 			isCheckAfterAnimation = value;
 		}
 	}
+	
+	public bool IsCheckBeforeStandAnimation {
+		get {return isCheckBeforeStandAnimation;}
+		set {
+			if (isCheckBeforeStandAnimation == value) return;
+
+			isCheckBeforeStandAnimation = value;
+		}
+	}
+	
+	public bool IsCheckAfterStandAnimation {
+		get {return isCheckAfterStandAnimation;}
+		set {
+			if (isCheckAfterStandAnimation == value) return;
+
+			isCheckAfterStandAnimation = value;
+		}
+	}
 
 	#region Player and Enemy Animation
 	void StartAnimation (AnimationState state) {
-		switch (state) {
-			case AnimationState.START_SLASH:
-				attack.isAttacking  = true;
-				break;
-			case AnimationState.START_CHARGE:
-				attack.isAttacking  = true;
-				break;
-			case AnimationState.START_DODGE:
-				//
-				break;
-			case AnimationState.START_COUNTER:
-				attack.isAttacking  = true;
-				break;
-			case AnimationState.START_RAPIDSLASH:
-				attack.isAttacking  = true;
-				break;
-			case AnimationState.START_BLOCK:
-				//
-				break;
-			case AnimationState.START_HURT:
-				//
-				break;
-			// case AnimationState.START_DASH:
-			// 	//
-			// 	break;
-			// case AnimationState.START_BRAKING:
-			// 	//
-			// 	break;
-			case AnimationState.START_GRAB:
-				//
-				break;
-			case AnimationState.START_UNGRAB:
-				//
-				break;
-			case AnimationState.START_LIFT:
-				//
-				break;
-			default:
-				Debug.LogWarning ("Unknown Animation played");
-				break;
-		}
-		
+		isCheckBeforeAnimation = false;
 		animState = state;
 	}
 
 	void ExitAnimation (AnimationState state) {
 		isCheckAfterAnimation = false;
-		
-		switch (state) {
-			case AnimationState.AFTER_SLASH:
-				//
-				break;
-			case AnimationState.AFTER_CHARGE:
-				//
-				break;
-			case AnimationState.AFTER_DODGE:
-				//
-				break;
-			case AnimationState.AFTER_COUNTER:
-				//
-				break;
-			case AnimationState.AFTER_RAPIDSLASH:
-				//
-				break;
-			case AnimationState.AFTER_BLOCK:
-				//
-				break;
-			case AnimationState.AFTER_HURT:
-				//
-				break;
-			// case AnimationState.AFTER_DASH:
-			// 	//
-			// 	break;
-			// case AnimationState.AFTER_BRAKING:
-			// 	//
-			// 	break;
-			case AnimationState.AFTER_GRAB:
-				//
-				break;
-			case AnimationState.AFTER_UNGRAB:
-				//
-				break;
-			case AnimationState.AFTER_LIFT:
-				//
-				break;
-			default:
-				Debug.LogWarning ("Unknown Animation played");
-				break;
-		}
-		
 		animState = state;
 	}
 	#endregion
 
 	#region Stand Animation
 	void StartStandAnimation (StandAnimationState state) {
-		switch (state) {
-			case StandAnimationState.START_USING_TOOL:
-				tool.IsActToolReady = true;
-				break;
-			default:
-				Debug.LogWarning ("Unknown Stand Animation played");
-				break;
-		}
-
+		isCheckBeforeStandAnimation = false;
 		standAnimState = state;
 	}
 	
 	void ExitStandAnimation (StandAnimationState state) {
-		isCheckAfterAnimation = false;
-
-		switch (state) {
-			case StandAnimationState.AFTER_USING_TOOL:
-				//
-				break;
-			default:
-				Debug.LogWarning ("Unknown Stand Animation played");
-				break;
-		}
-
+		isCheckAfterStandAnimation = false;
 		standAnimState = state;
 	}
 	#endregion
