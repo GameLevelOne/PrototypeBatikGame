@@ -12,4 +12,11 @@ public class TriggerDetection : MonoBehaviour {
 			if(OnTriggerEnter != null) OnTriggerEnter(other.gameObject);
 		}
 	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if(other.tag == tagName){
+			if(OnTriggerEnter != null) OnTriggerEnter(null);
+		}
+	}
 }

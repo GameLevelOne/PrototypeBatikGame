@@ -1,6 +1,9 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
+/// <summary>
+/// for bee only. (sementara)
+/// </summary>
 public class EnemyFaceDirectionSystem : ComponentSystem {
 	public struct FaceDirectionComponent
 	{
@@ -36,11 +39,11 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	{
 		if(currBee.beeState == BeeState.Patrol){
 			Vector2 dir = GetDirection(currBeeRigidbody.position,currBeeMovement.patrolDestination);
-			Debug.Log("Direction = "+dir);
+			//Debug.Log("Direction = "+dir);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,dir.x);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.y);
 		}else if(currBee.beeState == BeeState.Chase){
-			Vector2 dir = GetDirection(currBeeRigidbody.position,currBeeMovement.playerTransform.position);
+			Vector2 dir = GetDirection(currBeeRigidbody.position,currBee.playerTransform.position);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,dir.x);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.y);
 		}
