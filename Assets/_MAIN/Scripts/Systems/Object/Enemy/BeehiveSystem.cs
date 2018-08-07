@@ -34,21 +34,21 @@ public class BeehiveSystem : ComponentSystem{
 
 	void Spawnbee()
 	{
-		deltaTime = Time.deltaTime;
-		if(!currBeehive.flagSpawn){
-			currBeehive.TSpawn -= deltaTime;
-
-			if(currBeehive.TSpawn <= 0f){
-				currBeehive.flagSpawn = true;
-			}
-		}else{
-			GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
-			currentBee.GetComponent<BeeMovement>().beeHiveTransform = currBeehiveTransform;
-			currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
-			
-			currBeehive.flagSpawn = false;
-			currBeehive.TSpawn = currBeehive.spawnInterval;
-		}		
+		if(currBeehive.currentBees.Count < currBeehive.spawnAmount){
+			deltaTime = Time.deltaTime;
+			if(!currBeehive.flagSpawn){
+				currBeehive.TSpawn -= deltaTime;
+				if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
+			}else{
+				GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
+				currentBee.GetComponent<BeeMovement>().beeHiveTransform = currBeehiveTransform;
+				currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
+				
+				currBeehive.flagSpawn = false;
+				currBeehive.TSpawn = currBeehive.spawnInterval;
+			}		
+		}
+		
 	}
 
 	void CheckHealth()
