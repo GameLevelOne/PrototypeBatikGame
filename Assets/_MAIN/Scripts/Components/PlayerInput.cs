@@ -38,13 +38,14 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-2. BLOCK<br /></para>
-	/// <para>-1. -<br /></para>
+	/// <para>-1. <br /></para>
 	/// <para>0. Run<br /></para>
 	/// <para>1. CHARGE<br /></para>
 	/// <para>2. GUARD<br /></para>
 	/// <para>3. DASH<br /></para>
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3, BLOCK -2
+	/// <para>4. SWIM<br /></para>
+	/// </summary>
+	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3, SWIM 4
 	public int MoveMode {
 		get {return moveMode;}
 		set {
@@ -56,12 +57,13 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-2. BLOCK<br /></para>
 	/// <para>-1. DIE<br /></para>
 	/// <para>0. STAND<br /></para>
 	/// <para>1. CHARGE<br /></para>
 	/// <para>2. GUARD<br /></para>
-	//STAND 0, DIE -1, CHARGE 1, GUARD 2, BLOCK -2
+	/// <para>4. SWIM<br /></para>
+	/// </summary>
+	//STAND 0, DIE -1, CHARGE 1, GUARD 2, SWIM 4
 	public int SteadyMode {
 		get {return steadyMode;}
 		set {
@@ -79,6 +81,7 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>1. SLASH1<br /></para>
 	/// <para>2. SLASH2<br /></para>
 	/// <para>3. SLASH3<br /></para>
+	/// </summary>
 	//SLASH 1-3, CHARGE -1, COUNTER -2, RAPID SLASH -3
 	public int AttackMode {  
 		get {return attackMode;}

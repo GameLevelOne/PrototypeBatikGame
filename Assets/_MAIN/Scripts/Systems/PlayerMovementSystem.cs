@@ -19,6 +19,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 	[InjectAttribute] MovementData movementData;
 	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] SwimSystem SwimSystem;
 
 	public Facing2D facing;
 
@@ -135,7 +136,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					if (moveDir == Vector2.zero) {
 						// player.SetPlayerIdle();
 					} else {
-						if (state != PlayerState.POWER_BRACELET) {
+						if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.IsPlayerSwimming) {
 							player.SetPlayerState(PlayerState.MOVE);
 						}
 					}

@@ -8,33 +8,42 @@ using Unity.Mathematics;
 public class SwimSystem : ComponentSystem {
 	public struct SwimData {
 		public readonly int Length;
-		public ComponentArray<Water> Water;
+		public ComponentArray<Flippers> Flippers;
 	}
 	[InjectAttribute] SwimData swimData; 
-	[InjectAttribute] ToolSystem toolSystem; 
 
-	Water water;
+	public Flippers flippers;
+
 	Player player;
 
-	ToolType type;
 
 	protected override void OnUpdate () {
 		if (swimData.Length == 0) return;
 
-		if (type == null) return;
-
 		for (int i=0; i<swimData.Length; i++) {
-			water = swimData.Water[i];
-			type = toolSystem.tool.currentTool;
+			flippers = swimData.Flippers[i];
 			
-			if (water.player != null && type == ToolType.Flippers) {
-				player = water.player;
+            if (flippers.IsPlayerOnWater) {
+                Collider2D waterBoundariesCol = flippers.waterBoundariesCol;
+                player = flippers.player;
 
-				if (player.IsCanSwim) {
-					// Debug.Log("Player Can Swim : " + player.playerCol.name + " & " + water.waterBoundariesCol.name);
-					Physics2D.IgnoreCollision(player.playerCol, water.waterBoundariesCol);
-				}
-			}
+                if (flippers.IsEquipped) {
+					Physics2D.IgnoreCollision(player.playerCol, waterBoundariesCol, true);
+
+                    if (flippers.IsPlayerSwimming) {
+                        flippers.input.MoveMode = 4;
+                        flippers.input.SteadyMode = 4;
+				        player.SetPlayerState(PlayerState.SWIM);
+                    } else {
+                        flippers.input.MoveMode = 0;
+                        flippers.input.SteadyMode = 0;
+                    }
+				} else {
+                    if (waterBoundariesCol != null) {
+					    Physics2D.IgnoreCollision(player.playerCol, waterBoundariesCol, false);
+                    }
+                }
+            }
 		}
 	}
 }
