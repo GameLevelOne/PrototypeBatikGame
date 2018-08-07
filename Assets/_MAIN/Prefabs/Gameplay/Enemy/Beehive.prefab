@@ -58,6 +58,8 @@ GameObject:
   - component: {fileID: 61413679016261826}
   - component: {fileID: 50562361270104964}
   - component: {fileID: 114851473860786154}
+  - component: {fileID: 114323596317167974}
+  - component: {fileID: 114881014342070488}
   m_Layer: 0
   m_Name: Beehive
   m_TagString: Enemy
@@ -113,7 +115,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1321533048725514}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -199,11 +201,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guardReduceDamage: 0
   damage: 0
-  role: {fileID: 0}
+  role: {fileID: 114881014342070488}
   player: {fileID: 0}
-  enemy: {fileID: 0}
+  enemy: {fileID: 114323596317167974}
   healthPower: 1
   initialDamage: 0
+--- !u!114 &114323596317167974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321533048725514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613c22d8fc086c74096b8ddf66ba1e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerThatHitsEnemy: {fileID: 0}
+  state: 0
+  isEnemyHit: 0
 --- !u!114 &114794452425987762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,6 +243,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114881014342070488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321533048725514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9840a8e15cf9b2348ae846ef92ff236b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameRole: 0
 --- !u!114 &114972326693485902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -243,6 +271,7 @@ MonoBehaviour:
   spawnAmount: 5
   spawnInterval: 3
   flagSpawn: 0
+  flagFinishSpawn: 0
   destroyed: 0
   playerObject: {fileID: 0}
   currentBees: []

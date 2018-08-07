@@ -3,6 +3,7 @@
 public class BeeMovement : MonoBehaviour {
 	[HeaderAttribute("BeeMovement Attributes")]
 	public float patrolRange;
+	public float chaseRange;
 	public float startledRange;
 	public float patrolSpeed;
 	public float chaseSpeed;

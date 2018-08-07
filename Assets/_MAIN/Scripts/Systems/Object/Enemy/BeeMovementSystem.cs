@@ -105,6 +105,9 @@ public class BeeMovementSystem : ComponentSystem {
 
 	void Chase()
 	{
+		currBeeMovement.initIdle = false;
+		currBeeMovement.initPatrol = false;
+
 		currBeeRigidbody.position = 
 			Vector2.MoveTowards(
 				currBeeRigidbody.position,
@@ -112,7 +115,7 @@ public class BeeMovementSystem : ComponentSystem {
 				currBeeMovement.chaseSpeed * deltaTime
 			);
 
-		if(Vector2.Distance(currBeeRigidbody.position,currBee.playerTransform.position) >= 8f){
+		if(Vector2.Distance(currBeeRigidbody.position,currBee.playerTransform.position) >= currBeeMovement.chaseRange){
 			currBee.beeState = BeeState.Idle;
 			currBee.playerTransform = null;
 			if(currBeeMovement.beeHiveTransform == null) currBee.isStartled = true;
@@ -150,8 +153,14 @@ public class BeeMovementSystem : ComponentSystem {
 
 	Vector2 GetRandomPatrolPos(Vector3 origin, float range)
 	{
-		float x = currBeeMovement.initStartled ? range : Random.Range(-1 * range, range) + origin.x;
-		float y = currBeeMovement.initStartled ? range : Random.Range(-1 * range, range) + origin.y;
+		float x,y;
+		if(currBeeMovement.initStartled){
+			x = Random.value < 0.5f ? range + origin.x : (-1*range) + origin.x;
+			y = Random.value < 0.5f ? range + origin.y : (-1*range) + origin.y;
+		}else{
+			x = Random.Range(-1 * range, range) + origin.x;
+			y = Random.Range(-1 * range, range) + origin.y;
+		}
 		
 		return new Vector2(x,y);
 	}

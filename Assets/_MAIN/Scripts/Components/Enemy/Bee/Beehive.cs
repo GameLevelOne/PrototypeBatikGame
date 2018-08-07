@@ -8,6 +8,7 @@ public class Beehive : MonoBehaviour {
 	public int spawnAmount;
 	public float spawnInterval;
 	public bool flagSpawn = false;
+	public bool flagFinishSpawn = false;
 	public bool destroyed = false;
 	float tSpawn;
 
