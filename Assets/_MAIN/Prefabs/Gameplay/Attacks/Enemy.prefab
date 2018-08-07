@@ -462,7 +462,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -499,10 +499,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerThatHitsEnemy: {fileID: 0}
   state: 0
-  idleDuration: 3
-  t: 0
-  initIdle: 0
-  initPatrol: 0
   isEnemyHit: 0
 --- !u!114 &114158416098127796
 MonoBehaviour:

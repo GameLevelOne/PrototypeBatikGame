@@ -27,28 +27,28 @@ public class BeehiveSystem : ComponentSystem{
 			currBeehive = beehiveComponent.beehive[i];
 			currHealth = beehiveComponent.health[i];
 
-			Spawnbee();
+			if(!currBeehive.flagFinishSpawn) Spawnbee();
+			
 			CheckHealth();
 		}
 	}
 
 	void Spawnbee()
 	{
-		if(currBeehive.currentBees.Count < currBeehive.spawnAmount){
-			deltaTime = Time.deltaTime;
-			if(!currBeehive.flagSpawn){
-				currBeehive.TSpawn -= deltaTime;
-				if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
-			}else{
-				GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
-				currentBee.GetComponent<BeeMovement>().beeHiveTransform = currBeehiveTransform;
-				currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
-				
-				currBeehive.flagSpawn = false;
-				currBeehive.TSpawn = currBeehive.spawnInterval;
-			}		
+		deltaTime = Time.deltaTime;
+		if(!currBeehive.flagSpawn){
+			currBeehive.TSpawn -= deltaTime;
+			if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
+		}else{
+			GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
+			currentBee.GetComponent<BeeMovement>().beeHiveTransform = currBeehiveTransform;
+			currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
+			
+			currBeehive.flagSpawn = false;
+			currBeehive.TSpawn = currBeehive.spawnInterval;
+			
+			if(currBeehive.currentBees.Count >= currBeehive.spawnAmount) currBeehive.flagFinishSpawn = true;
 		}
-		
 	}
 
 	void CheckHealth()
@@ -61,8 +61,10 @@ public class BeehiveSystem : ComponentSystem{
 	void DestroyBeehive()
 	{
 		//destroy the hive, then send startle bees
+
 		foreach(Bee bee in currBeehive.currentBees){
 			if(currBeehive.playerObject != null){
+				Debug.Log("SET BEE TO CHASE");
 				bee.playerTransform = currBeehive.playerObject.transform;
 				bee.beeState = BeeState.Chase;
 			}else{

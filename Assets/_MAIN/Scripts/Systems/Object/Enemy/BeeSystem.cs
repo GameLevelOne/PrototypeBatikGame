@@ -31,7 +31,17 @@ public class BeeSystem : ComponentSystem {
 			currBeeMovement = beeComponent.beeMovement[i];
 			currBeeAnim = beeComponent.beeAnim[i];
 			currBeeHealth = beeComponent.beeHealth[i];
+			
+			CheckHealth();
 			CheckState();
+		}
+	}
+
+	void CheckHealth()
+	{
+		if(currBeeHealth.HealthPower <= 0f){
+			GameObject.Destroy(currBee.gameObject);
+			UpdateInjectedComponentGroups();
 		}
 	}
 
