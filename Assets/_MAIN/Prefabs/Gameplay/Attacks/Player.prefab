@@ -168,11 +168,11 @@ GameObject:
   - component: {fileID: 114205723661383908}
   - component: {fileID: 50753955892241544}
   - component: {fileID: 58735119695201938}
-  - component: {fileID: 114101906285634680}
+  - component: {fileID: 114719855024865674}
   m_Layer: 0
-  m_Name: Power Bracelet
+  m_Name: Fishing Rod
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -378,6 +378,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1895482503823610
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4834055521619652}
+  - component: {fileID: 114708914232833928}
+  - component: {fileID: 50509175932109876}
+  - component: {fileID: 58644922168059778}
+  - component: {fileID: 114101906285634680}
+  m_Layer: 0
+  m_Name: Power Bracelet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1900152048898546
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +499,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1527652185796016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4790928859334420}
@@ -681,12 +700,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1443524941269246}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4723722416754214}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4707353658108040
 Transform:
@@ -734,10 +753,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1499518558271156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4595740873623596}
+  - {fileID: 4834055521619652}
   - {fileID: 4705957946542318}
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 2
@@ -768,6 +788,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4095796093128456}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4834055521619652
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895482503823610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4723722416754214}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4837548402107056
@@ -865,6 +898,26 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!50 &50509175932109876
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895482503823610}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!50 &50753955892241544
 Rigidbody2D:
   serializedVersion: 4
@@ -915,13 +968,13 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!58 &58735119695201938
+--- !u!58 &58644922168059778
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443524941269246}
-  m_Enabled: 0
+  m_GameObject: {fileID: 1895482503823610}
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -929,7 +982,22 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.2
+--- !u!58 &58735119695201938
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!81 &81501764329813930
 AudioListener:
   m_ObjectHideFlags: 1
@@ -978,7 +1046,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443524941269246}
+  m_GameObject: {fileID: 1895482503823610}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
@@ -988,7 +1056,7 @@ MonoBehaviour:
   liftable: {fileID: 0}
   liftShadowParent: {fileID: 4083766296258914}
   liftMainObjParent: {fileID: 4532544263056470}
-  collider: {fileID: 58735119695201938}
+  collider: {fileID: 58644922168059778}
   throwRange: 5
   speed: 300
   isInteracting: 0
@@ -1054,6 +1122,7 @@ MonoBehaviour:
   isCanDigging: 0
   isInvisible: 0
   isHitLiftableObject: 0
+  isCanFishing: 0
 --- !u!114 &114195519658314114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1315,6 +1384,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114708914232833928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895482503823610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114719855024865674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443524941269246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef921dbc5c3f02449b33b320adb4e10b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  player: {fileID: 114174096162710116}
+  fishCollectible: {fileID: 0}
+  fishType: 0
+  fishObj: {fileID: 0}
+  baitCol: {fileID: 58735119695201938}
+  fishingRange: 1
+  isBaitLaunched: 0
+  isCatchSomething: 0
 --- !u!114 &114745025338561846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1334,13 +1434,14 @@ MonoBehaviour:
   hammerAreaEffectObj: {fileID: 1329964797512392, guid: 1c0d31ad41e5b8944a030b45fdad7564,
     type: 2}
   netObj: {fileID: 1405893428385432, guid: f515b6546eb98d54a86e32f723f987de, type: 2}
+  fishingBaitObj: {fileID: 1443524941269246}
   shovelAreaEffectObj: {fileID: 1203940644750638, guid: 8177dafa201b9af4cb7351a1c7852e41,
     type: 2}
   lanternObj: {fileID: 1511757565402642}
   invisibleCloak: {fileID: 1136594445782774}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
-  powerBraceletAreaEffectObj: {fileID: 1443524941269246}
+  powerBraceletAreaEffectObj: {fileID: 1895482503823610}
   flippersObj: {fileID: 1492941681265070}
   bootsObj: {fileID: 1305521436026474}
   textToolName: {fileID: 0}

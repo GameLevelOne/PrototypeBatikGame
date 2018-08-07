@@ -10,25 +10,38 @@ public enum FishingRodState {
 public class FishingRod : MonoBehaviour {
 	public FishingRodState state;
 	public Player player;
-	
+	public FishCollectible fishCollectible;
+	public FishCollectibleType fishType;
+
+	public GameObject fishObj;
 	public Collider2D baitCol;
-
-	// public Rigidbody2D fishBait;
-
-	// public Vector2 baitInitPos;
-	// public Vector2 targetBaitPos;
-	// public int dirID;
-	// public float speed;
 	public float fishingRange;
 
-	[SerializeField] bool isBaitLaunched = false;
+	public bool isBaitLaunched = false;
+	public bool isCatchSomething = false;
 
-	public bool IsBaitLaunched {
-		get {return isBaitLaunched;}
-		set { 
-			if (isBaitLaunched == value) return;
+	void OnTriggerEnter2D (Collider2D col) {
+		
+		if (col.tag == Constants.Tag.FISHING_AREA) {
+			player.IsCanFishing = true;
+		}
+		
+		if (col.tag == Constants.Tag.FISH) {
+			if (player.state == PlayerState.FISHING && fishObj == null && fishCollectible == null) {
+				fishCollectible = col.GetComponent<FishCollectible>();
+				fishObj = fishCollectible.gameObject;
+				fishType = fishCollectible.type;
 
-			isBaitLaunched = value;
+				fishCollectible.targetBait = this.gameObject;
+				fishCollectible.fishingRod = this;
+				fishCollectible.state = FishState.CATCH; //TEMP => CHASE first before CATCH
+			}
+		}
+	}
+
+	void OnTriggerExit2D (Collider2D col) {
+		if (col.tag == Constants.Tag.FISHING_AREA) {
+			player.IsCanFishing = false;
 		}
 	}
 }

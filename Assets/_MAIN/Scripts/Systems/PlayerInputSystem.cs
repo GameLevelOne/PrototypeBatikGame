@@ -138,8 +138,10 @@ public class PlayerInputSystem : ComponentSystem {
 						} else if (toolType == ToolType.Flippers) {
 							//
 						} else if (toolType == ToolType.FishingRod) {
-							input.InteractMode = 4;
-							player.SetPlayerState(PlayerState.FISHING);
+							if (player.IsCanFishing) {
+								input.InteractMode = 4;
+								player.SetPlayerState(PlayerState.FISHING);
+							}
 						} else {
 							player.SetPlayerState(PlayerState.USING_TOOL);
 						}

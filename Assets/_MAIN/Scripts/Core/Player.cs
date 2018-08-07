@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
 	[SerializeField] bool isHitLiftableObject = false;
-	// [SerializeField] bool isCanSwim = false;
+	[SerializeField] bool isCanFishing = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -112,14 +112,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 	
-	// public bool IsCanSwim {
-	// 	get {return isCanSwim;}
-	// 	set {
-	// 		if (isCanSwim == value) return;
+	public bool IsCanFishing {
+		get {return isCanFishing;}
+		set {
+			if (isCanFishing == value) return;
 
-	// 		isCanSwim = value;
-	// 	}
-	// }
+			isCanFishing = value;
+		}
+	}
 
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}

@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class FishingRodSystem : ComponentSystem {
 	public struct FishingData {
@@ -12,11 +8,13 @@ public class FishingRodSystem : ComponentSystem {
 	}
 	[InjectAttribute] FishingData fishingData;
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
+	[InjectAttribute] FishCollectibleSystem fishCollectibleSystem;
 
 	FishingRod fishingRod;
 	Facing2D facing;
 
 	FishingRodState state;
+	FishCollectibleType type;
 
 	float deltaTime;
 
@@ -29,8 +27,8 @@ public class FishingRodSystem : ComponentSystem {
 			fishingRod = fishingData.FishingRod[i];
 			state = fishingRod.state;
 
-			if (fishingRod.state == FishingRodState.THROW && !fishingRod.IsBaitLaunched) {
-				fishingRod.IsBaitLaunched = true;
+			if (fishingRod.state == FishingRodState.THROW && !fishingRod.isBaitLaunched) {
+				fishingRod.isBaitLaunched = true;
 				Throw ();
 			} else if (state == FishingRodState.STAY) {
 				Stay ();
@@ -43,20 +41,37 @@ public class FishingRodSystem : ComponentSystem {
 	void Throw () {
 		Debug.Log("Fishing Rod Throw");
 		fishingRod.transform.localPosition = GetDestinationPos(Vector2.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
-		fishingRod.baitCol.enabled = true;
+		// fishingRod.baitCol.enabled = true;
 		fishingRod.state = FishingRodState.STAY;
 	}
 
 	void Stay () {
 		Debug.Log("Fishing Rod Stay");
 		// fishingRod.state = FishingRodState.RETURN;
+		if (fishingRod.fishCollectible != null) {
+			if (fishingRod.fishCollectible.state == FishState.CATCH) {
+				fishingRod.isCatchSomething = true;
+				type = fishingRod.fishType;
+			} else {
+				fishingRod.isCatchSomething = false;
+			}
+		}
 	}
 
 	void Return () {
 		Debug.Log("Fishing Rod Return");
+		//CHECK ITEM
+		if (fishingRod.isCatchSomething) {
+			Debug.Log("You Got Fish with type "+type);
+			fishCollectibleSystem.CatchFish(fishingRod.fishCollectible);
+		}
+
+		fishingRod.isCatchSomething = false;
+		fishingRod.fishObj = null;
+		fishingRod.fishCollectible = null;
 		fishingRod.state = FishingRodState.IDLE;
-		fishingRod.baitCol.enabled = false;
-		fishingRod.IsBaitLaunched = false;
+		// fishingRod.baitCol.enabled = false;
+		fishingRod.isBaitLaunched = false;
 		fishingRod.transform.localPosition = Vector2.zero;
 	}
 
