@@ -110,6 +110,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1314201656184944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4710411887756488}
+  - component: {fileID: 20191881376763082}
+  - component: {fileID: 81501764329813930}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1407469684422150
 GameObject:
   m_ObjectHideFlags: 1
@@ -154,6 +171,24 @@ GameObject:
   - component: {fileID: 114101906285634680}
   m_Layer: 0
   m_Name: Power Bracelet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1492941681265070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4538866306776876}
+  - component: {fileID: 114355886764063642}
+  - component: {fileID: 114867989227784564}
+  - component: {fileID: 58479306435622210}
+  m_Layer: 0
+  m_Name: Flippers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,6 +552,8 @@ Transform:
   - {fileID: 4171260336082764}
   - {fileID: 4608186123185254}
   - {fileID: 4427104305938676}
+  - {fileID: 4538866306776876}
+  - {fileID: 4710411887756488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -585,6 +622,19 @@ Transform:
   m_Father: {fileID: 4790928859334420}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4538866306776876
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492941681265070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4179517273141854}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4595740873623596
 Transform:
   m_ObjectHideFlags: 1
@@ -650,6 +700,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4710411887756488
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1314201656184944}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4179517273141854}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4715934568399310
 Transform:
@@ -746,6 +809,42 @@ Transform:
   m_Father: {fileID: 4095796093128456}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &20191881376763082
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1314201656184944}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 0
+  m_HDR: 1
+  m_AllowMSAA: 0
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 0
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!50 &50414695913041536
 Rigidbody2D:
   serializedVersion: 4
@@ -801,6 +900,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!58 &58479306435622210
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492941681265070}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!58 &58735119695201938
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -816,6 +930,13 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!81 &81501764329813930
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1314201656184944}
+  m_Enabled: 1
 --- !u!95 &95152014746876474
 Animator:
   serializedVersion: 3
@@ -924,6 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   enemyThatHitsPlayer: {fileID: 0}
+  playerCol: {fileID: 58018810419284058}
   isPlayerHit: 0
   isHitAnEnemy: 0
   isGuarding: 0
@@ -1007,6 +1129,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bootsSpeed: 0
+--- !u!114 &114355886764063642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492941681265070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114505679433991240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1205,15 +1338,17 @@ MonoBehaviour:
     type: 2}
   lanternObj: {fileID: 1511757565402642}
   invisibleCloak: {fileID: 1136594445782774}
-  powerBraceletAreaEffectObj: {fileID: 1443524941269246}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
+  powerBraceletAreaEffectObj: {fileID: 1443524941269246}
+  flippersObj: {fileID: 1492941681265070}
   bootsObj: {fileID: 1305521436026474}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
   dashSpeed: 500
   isActToolReady: 0
   isPowerBraceletSelected: 0
+  isFlipperSelected: 0
 --- !u!114 &114750834157724972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1247,6 +1382,24 @@ MonoBehaviour:
   isCheckBeforeAnimation: 0
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
+--- !u!114 &114867989227784564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492941681265070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84224cc0b8826e44fb3a9ccd9a779ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114174096162710116}
+  input: {fileID: 114555458162412054}
+  water: {fileID: 0}
+  waterBoundariesCol: {fileID: 0}
+  isPlayerOnWater: 0
+  isEquipped: 0
+  isPlayerSwimming: 0
 --- !u!114 &114923698577649514
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -94,7 +94,7 @@ public class PlayerInputSystem : ComponentSystem {
 			#endregion
 
 			#region Button Tools
-			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET)) {
+			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM)) {
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
 					toolSystem.NextTool();
 				}
@@ -128,6 +128,8 @@ public class PlayerInputSystem : ComponentSystem {
 							} else {
 								continue;
 							}
+						} else if (toolType == ToolType.Flippers) {
+							//
 						} else {
 							player.SetPlayerState(PlayerState.USING_TOOL);
 						}
@@ -150,7 +152,7 @@ public class PlayerInputSystem : ComponentSystem {
 			} 			
 			#endregion
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET) {	
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET || state == PlayerState.SWIM) {	
 
 				continue;
 			} else if (state == PlayerState.DASH) {
@@ -299,13 +301,15 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckMovementInput () {
 		#region JOYSTICK
-		if (Input.GetJoystickNames()[0] != "") {
-			float inputX = Input.GetAxis("Horizontal Javatale");
-			float inputY = Input.GetAxis("Vertical Javatale");
-			ChangeDir (inputX, inputY);
+		if (Input.GetJoystickNames().Length >= 1) {
+			if (Input.GetJoystickNames()[0] != "") {
+				float inputX = Input.GetAxis("Horizontal Javatale");
+				float inputY = Input.GetAxis("Vertical Javatale");
+				ChangeDir (inputX, inputY);
 
-			if (inputX == 0 || inputY == 0) {
-				CheckEndMove();
+				if (inputX == 0 || inputY == 0) {
+					CheckEndMove();
+				}
 			}
 		} 
 		#endregion

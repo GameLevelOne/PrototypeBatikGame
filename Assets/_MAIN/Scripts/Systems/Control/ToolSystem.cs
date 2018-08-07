@@ -353,9 +353,9 @@ public class ToolSystem : ComponentSystem {
 		//allow to swim on water
 		int type = (int) ToolType.Flippers;
 
-		Flipper flipper = tool.GetObj(type).GetComponent<Flipper>();
+		Flippers flippers = tool.GetObj(type).GetComponent<Flippers>();
 		// Debug.Log(value);
-		flipper.IsEquipped = value;
+		flippers.IsEquipped = value;
 	}
 	
 	void UseBoots()

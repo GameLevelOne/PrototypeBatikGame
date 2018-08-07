@@ -37,7 +37,7 @@ public class Player : MonoBehaviour {
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
 	[SerializeField] bool isHitLiftableObject = false;
-	[SerializeField] bool isCanSwim = false;
+	// [SerializeField] bool isCanSwim = false;
 
 	public bool IsPlayerHit {
 		get {return isPlayerHit;}
@@ -111,14 +111,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 	
-	public bool IsCanSwim {
-		get {return isCanSwim;}
-		set {
-			if (isCanSwim == value) return;
+	// public bool IsCanSwim {
+	// 	get {return isCanSwim;}
+	// 	set {
+	// 		if (isCanSwim == value) return;
 
-			isCanSwim = value;
-		}
-	}
+	// 		isCanSwim = value;
+	// 	}
+	// }
 
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP);}
@@ -147,23 +147,21 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			// Debug.Log("Can Digging");
-			
 			IsCanDigging = true;
-		} else if (col.tag == Constants.Tag.SWIM_AREA) {
-			IsCanSwim = true;
-		}
+		} 
+		// else if (col.tag == Constants.Tag.SWIM_AREA) {
+		// 	IsCanSwim = true;
+		// }
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
 		
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			// Debug.Log("Can't Digging");
-			
 			IsCanDigging = false;
-		} else if (col.tag == Constants.Tag.SWIM_AREA) {
-			IsCanSwim = false;
-		}
+		} 
+		// else if (col.tag == Constants.Tag.SWIM_AREA) {
+		// 	IsCanSwim = false;
+		// }
 
 		// if (col.GetComponent<Liftable>() != null && IsHitLiftableObject) {
 		// 	IsHitLiftableObject = false;
