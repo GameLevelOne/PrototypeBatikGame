@@ -87,14 +87,21 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 
 				continue;
-			}
+			} else if (state == PlayerState.FISHING) { 				
+				if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
+					input.InteractValue = 2;
+					toolSystem.UseTool();
+				}
+				
+				continue;
+			} 
 
 			#region Button Movement
 			CheckMovementInput ();
 			#endregion
 
 			#region Button Tools
-			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM)) {
+			if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING)) {
 				if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
 					toolSystem.NextTool();
 				}
@@ -106,7 +113,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 					toolType = tool.currentTool;
 
-					if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (toolType != ToolType.None)) {
+					if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.FISHING) && (toolType != ToolType.None)) {
 						Debug.Log("Input Use Tool : " + toolType);
 
 						if (toolType == ToolType.Hook) {
@@ -130,14 +137,15 @@ public class PlayerInputSystem : ComponentSystem {
 							}
 						} else if (toolType == ToolType.Flippers) {
 							//
+						} else if (toolType == ToolType.FishingRod) {
+							input.InteractMode = 4;
+							player.SetPlayerState(PlayerState.FISHING);
 						} else {
 							player.SetPlayerState(PlayerState.USING_TOOL);
 						}
 					}
 				}
-			} else if (state == PlayerState.POWER_BRACELET) { 
-				Debug.Log(isPowerBraceletHold);
-				
+			} else if (state == PlayerState.POWER_BRACELET) { 				
 				if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.LiftingMode < 0){ //THROW
 					input.InteractValue = 2;
 				}
@@ -149,7 +157,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (!isPowerBraceletHold) {
 					input.InteractValue = 2;
 				} 
-			} 			
+			}			
 			#endregion
 
 			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET || state == PlayerState.SWIM) {	

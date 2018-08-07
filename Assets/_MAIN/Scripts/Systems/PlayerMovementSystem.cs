@@ -114,6 +114,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					// Debug.Log("input.InteractValue : "+input.InteractValue);
 					input.MoveDir = Vector2.zero;
 				}
+			} else if (state == PlayerState.FISHING) {
+				input.MoveDir = Vector2.zero;
+				rb.velocity = Vector2.zero;
 			} else {
 				brakeTime = movement.brakeTime;
 				// player.IsDashing = false;

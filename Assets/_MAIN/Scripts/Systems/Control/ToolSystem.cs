@@ -59,7 +59,7 @@ public class ToolSystem : ComponentSystem {
 			// 	input.IsChangeTool = false;
 			// } 
 			
-			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.FISHING)) {
 				if (tool.IsActToolReady) {
 					UseTool ();
 					tool.IsActToolReady = false;
@@ -256,6 +256,15 @@ public class ToolSystem : ComponentSystem {
 		Debug.Log("Using Fishing Rod");
 		//catch water object
 		//mini game fishing when triggered
+		FishingRod fishingRod = tool.GetObj(toolType).GetComponent<FishingRod>();
+		FishingRodState fishingState = fishingRod.state;
+
+		if (!fishingRod.IsBaitLaunched && fishingState == FishingRodState.IDLE) {
+			player.SetPlayerState(PlayerState.FISHING);
+			fishingRod.state = FishingRodState.THROW;
+		} else if (fishingState == FishingRodState.STAY) {
+			fishingRod.state = FishingRodState.RETURN;
+		}
 	}
 	
 
