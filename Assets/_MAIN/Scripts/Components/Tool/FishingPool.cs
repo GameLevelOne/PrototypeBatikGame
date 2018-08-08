@@ -7,7 +7,14 @@ public class FishingPool : MonoBehaviour {
 	public GameObject fishCollectibleObj;
 	public int maxSpawn;
 	public int spawnInterval;
+	public bool isSpawning;
+	public bool isFinishSpawning;
 	public List<FishCollectible> fishCollectibleList;
 
-	float tSpawn;
+	[SerializeField] float timeSpawn;
+
+	public float TimeSpawn {
+		get {return timeSpawn;}
+		set {timeSpawn = value;}
+	}
 }

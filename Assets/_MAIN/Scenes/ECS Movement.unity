@@ -334,6 +334,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1272119130043240, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
   m_IsPrefabParent: 0
@@ -896,7 +900,10 @@ MonoBehaviour:
     type: 2}
   maxSpawn: 5
   spawnInterval: 1
+  isSpawning: 0
+  isFinishSpawning: 0
   fishCollectibleList: []
+  timeSpawn: 0
 --- !u!1 &900255168 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1642775856404020, guid: 59fb80791436a3040ad216e1d42ed7a0,

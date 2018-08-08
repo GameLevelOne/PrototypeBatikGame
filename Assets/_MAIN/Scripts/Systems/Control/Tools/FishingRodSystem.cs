@@ -39,14 +39,13 @@ public class FishingRodSystem : ComponentSystem {
 	}
 
 	void Throw () {
-		Debug.Log("Fishing Rod Throw");
 		fishingRod.transform.localPosition = GetDestinationPos(Vector2.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
 		// fishingRod.baitCol.enabled = true;
+		fishingRod.isBaitFish = false;
 		fishingRod.state = FishingRodState.STAY;
 	}
 
 	void Stay () {
-		Debug.Log("Fishing Rod Stay");
 		// fishingRod.state = FishingRodState.RETURN;
 		if (fishingRod.fishCollectible != null) {
 			if (fishingRod.fishCollectible.state == FishState.CATCH) {
@@ -59,7 +58,6 @@ public class FishingRodSystem : ComponentSystem {
 	}
 
 	void Return () {
-		Debug.Log("Fishing Rod Return");
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
 			Debug.Log("You Got Fish with type "+type);
