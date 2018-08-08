@@ -32,8 +32,8 @@ public class MonkeySystem : ComponentSystem {
 			currMonkeyAnim = monkeyComponent.monkeyAnim[i];
 			currMonkeyHealth = monkeyComponent.monkeyHealth[i];
 
-			CheckHit();
 			CheckState();
+			CheckHit();
 		}
 	}
 
@@ -53,24 +53,26 @@ public class MonkeySystem : ComponentSystem {
 
 	void CheckHit()
 	{
-		if(currMonkey.enemy.IsEnemyHit){
-			currMonkey.enemy.playerTransform = currMonkey.enemy.playerThatHitsEnemy.transform;
-			foreach(Monkey m in currMonkey.nearbyMonkeys){
-				m.enemy.playerTransform = currMonkey.enemy.playerTransform;
-				m.enemy.state = EnemyState.Chase;
-				m.enemy.initIdle = false;
-				m.enemy.initPatrol = false;
+		if(!currMonkey.isHitByPlayer){
+			if(currMonkey.enemy.IsEnemyHit){
+				currMonkey.enemy.playerTransform = currMonkey.enemy.playerThatHitsEnemy.transform;
+				foreach(Monkey m in currMonkey.nearbyMonkeys){
+					m.enemy.playerTransform = currMonkey.enemy.playerTransform;
+					m.enemy.state = EnemyState.Chase;
+					m.enemy.initIdle = false;
+					m.enemy.initPatrol = false;
+				}
+				currMonkey.enemy.initIdle = false;
+				currMonkey.enemy.initPatrol = false;
+				currMonkey.enemy.state = EnemyState.Chase;
+				currMonkey.isHitByPlayer = true;
 			}
-			currMonkey.enemy.initIdle = false;
-			currMonkey.enemy.initPatrol = false;
-			currMonkey.enemy.state = EnemyState.Chase;
-		}
+		}		
 	}
 
 	void Idle()
 	{
 		if(!currMonkey.enemy.initIdle){
-			
 			currMonkey.enemy.initIdle = true;
 			currMonkey.enemy.TIdle = currMonkey.enemy.idleDuration;
 			deltaTime = Time.deltaTime;
@@ -122,6 +124,7 @@ public class MonkeySystem : ComponentSystem {
 				);
 			
 			if(Vector2.Distance(currMonkeyRigidbody.position,currMonkey.enemy.playerTransform.position) >= currMonkey.enemy.chaseRange){
+				currMonkey.isHitByPlayer = false;
 				currMonkey.enemy.state = EnemyState.Idle;
 				currMonkey.enemy.playerTransform = null;
 			}
@@ -130,9 +133,9 @@ public class MonkeySystem : ComponentSystem {
 	
 	void Attack()
 	{
-		Debug.Log("monkey attack");
 		if(!currMonkey.enemy.initAttack){
 			if(!currMonkey.enemy.isAttack){
+				currMonkey.enemy.initAttack = false;
 				currMonkey.enemy.state = EnemyState.Chase;
 			}else{
 				currMonkey.enemy.initAttack = true;
