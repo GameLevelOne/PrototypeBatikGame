@@ -73,7 +73,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 
 			#region ACTION
-			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET) {
+			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET || state == PlayerState.FISHING) {
 				// Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
@@ -246,6 +246,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.START_THROW:
 				//
 				break;
+			case AnimationState.START_FISHING:
+				input.InteractValue = 1;
+				tool.IsActToolReady = true;
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -330,6 +334,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case AnimationState.AFTER_THROW:
 				powerBraceletSystem.UnSetLiftObjectParent();
 				powerBraceletSystem.AddForceRigidbody(facing.DirID);
+				input.InteractValue = 0;
+				player.SetPlayerIdle();
+				break;
+			case AnimationState.AFTER_FISHING:
 				input.InteractValue = 0;
 				player.SetPlayerIdle();
 				break;

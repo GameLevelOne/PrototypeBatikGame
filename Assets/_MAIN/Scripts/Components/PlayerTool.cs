@@ -36,6 +36,7 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject bombObj;
 	public GameObject hammerAreaEffectObj;
 	public GameObject netObj;
+	public GameObject fishingBaitObj;
 	public GameObject shovelAreaEffectObj;
 	public GameObject lanternObj;
 	public GameObject invisibleCloak;
@@ -146,6 +147,8 @@ public class PlayerTool : MonoBehaviour {
                 return hammerAreaEffectObj;
             case 5:
                 return netObj;
+            case 6:
+                return fishingBaitObj;
             case 11:
                 return shovelAreaEffectObj;
             case 12:

@@ -56,11 +56,13 @@ public static class Constants {
 		public const string DIG_AREA = "Dig Area"; 
 		public const string DIG_RESULT = "Dig Result"; 
 		public const string SWIM_AREA = "Swim Area"; 
+		public const string FISHING_AREA = "Fishing Area"; 
 
 		public const string HAMMER = "Hammer"; 
 		public const string NET = "Net"; 
 		public const string BOW = "Bow"; 
 		public const string MAGIC_MEDALLION = "Magic Medallion";
+		public const string FISH = "Fish"; 
 
 	}
 

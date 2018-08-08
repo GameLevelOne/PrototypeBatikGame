@@ -26,7 +26,9 @@ public enum AnimationState {
 	START_THROW,
 	AFTER_THROW,
 	START_LIFT,
-	AFTER_LIFT
+	AFTER_LIFT,
+	START_FISHING,
+	AFTER_FISHING
 }
 
 public enum StandAnimationState {

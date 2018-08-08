@@ -8,7 +8,7 @@ public class Facing2D : MonoBehaviour {
 	public GameObject blindArea;
 	public GameObject attackDirParent;
 
-	int CurDirID = 0;
+	int CurDirID = 1;
 
 	void Awake () {
 		if (isNotPlayerNOrEnemy) return;

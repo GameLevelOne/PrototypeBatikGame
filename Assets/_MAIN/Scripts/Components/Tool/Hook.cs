@@ -26,7 +26,7 @@ public class Hook : MonoBehaviour {
 	[Header("Current")]
 	public GameObject attachedObject;
 
-	bool isHookLaunched = false;
+	[SerializeField] bool isHookLaunched = false;
 
 	void OnTriggerEnter2D(Collider2D other)
 	{

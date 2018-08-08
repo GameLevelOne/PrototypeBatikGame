@@ -113,8 +113,9 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>1. DASH<br /></para>
 	/// <para>2. BRAKING<br /></para>
 	/// <para>3. POWERBRACELET<br /></para>
+	/// <para>4. FISHINGROD<br /></para>
     /// </summary>
-	//BLOCK -1, DODGE 0, DASH 1, BRAKING 2. GET HURT -2, POWERBRACELET 3
+	//GET HURT -2, BLOCK -1, DODGE 0, DASH 1, BRAKING 2, POWERBRACELET 3, FISHINGROD 4
 	public int InteractMode { 
 		get {return interactMode;}
 		set {
@@ -130,7 +131,7 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>1. LIFT / SWEATING / GRAB<br /></para>
 	/// <para>2. THROW / RELEASE<br /></para>
     /// </summary>
-	//INIT 0, LIFT / SWEATING / GRAB 1, THROW / RELEASE 2
+	//INIT 0, LIFT / SWEATING / GRAB / IDLE 1, THROW / RELEASE / RETURN 2
 	public int InteractValue { 
 		get {return interactValue;}
 		set {
