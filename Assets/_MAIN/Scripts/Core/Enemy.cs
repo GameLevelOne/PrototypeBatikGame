@@ -4,16 +4,44 @@ public enum EnemyState{
 	Idle,
 	Patrol,
 	Chase,
+	Startled,
 	Attack,
 	Damaged,
 	Die
 }
 
 public class Enemy : MonoBehaviour {
-	public Player playerThatHitsEnemy;
+	[HeaderAttribute("Enemy Attributes")]
 	public EnemyState state;
+	public GameObject attackObject;
+	[SerializeField] protected bool isEnemyHit = false;
 
-	[SerializeField] bool isEnemyHit = false;
+	[SpaceAttribute(10f)]
+	public float patrolRange;
+	public float chaseRange;
+
+	public float patrolSpeed;
+	public float chaseSpeed;
+
+	public float idleDuration;
+	
+	[HeaderAttribute("Current")]
+	public Player playerThatHitsEnemy;
+	public Transform playerTransform;
+	public Vector2 patrolDestination;
+
+	[SpaceAttribute(10f)]
+	public bool initIdle = false;
+	public bool initPatrol = false;
+	public bool initAttack = false;
+	public bool isAttack = false;
+	public bool attackHit = false;
+
+	protected float tIdle;
+	public float TIdle{
+		get{return tIdle;}
+		set{tIdle = value;}
+	}
 
 	public bool IsEnemyHit {
 		get {return isEnemyHit;}
@@ -23,7 +51,7 @@ public class Enemy : MonoBehaviour {
 			isEnemyHit = value;
 		}
 	}
-	
+
 	#region ENEMY STATE 
 	public void SetEnemyState (EnemyState enemyState) {
 		state = enemyState;

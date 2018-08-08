@@ -1,31 +1,19 @@
 ﻿using UnityEngine;
 
-public enum BeeState
-{
-	Idle,
-	Patrol,
-	Chase,
-	Startled,
-	Attack,
-	Damaged,
-	Die
-}
-
 public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
+	public Enemy enemy;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
-	public GameObject beeAttackObject;
+	
+	[SpaceAttribute(10f)]
+	public float startledRange;
 
 	[HeaderAttribute("Current")]
-	public Transform playerTransform;
-	public BeeState beeState;
-	public bool isChase = false;
-	public bool isAttack = false;
-	public bool attackHit = false;
+	public Transform beeHiveTransform;
 
-	public bool initAttack = false;
-
+	[SpaceAttribute(10f)]
+	public bool initStartled = false;
 	public bool isStartled = false;
 
 	#region event delegate
@@ -43,29 +31,29 @@ public class Bee : MonoBehaviour {
 
 	void SetAttack(bool attack)
 	{
-		isAttack = attack;
+		enemy.isAttack = attack;
 	}
 
 	void SetPlayerTransform(GameObject player)
 	{
-		playerTransform = player.transform;
+		enemy.playerTransform = player.transform;
 	}
 	#endregion
 
 	#region animation event
 	void EnableAttackHit()
 	{
-		attackHit = true;
+		enemy.attackHit = true;
 	}
 
 	void DisableAttackHit()
 	{
-		attackHit = false;
+		enemy.attackHit = false;
 	}
 
 	void OnEndAttack()
 	{
-		initAttack = false;
+		enemy.initAttack = false;
 	}
 	#endregion
 }
