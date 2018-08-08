@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 61379479925383506}
   m_Layer: 0
   m_Name: AttackArea
-  m_TagString: Untagged
+  m_TagString: Enemy Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -342,7 +342,7 @@ MonoBehaviour:
   role: {fileID: 114793461666681586}
   player: {fileID: 0}
   enemy: {fileID: 114134985016821300}
-  healthPower: 15
+  healthPower: 800
   initialDamage: 0
 --- !u!114 &114280355567613682
 MonoBehaviour:
@@ -417,6 +417,7 @@ MonoBehaviour:
   attackRangeTrigger: {fileID: 114900510518298574}
   nearbyMonkeys: []
   patrolArea: {x: 0, y: 0}
+  isHitByPlayer: 0
 --- !u!212 &212885012285924116
 SpriteRenderer:
   m_ObjectHideFlags: 1

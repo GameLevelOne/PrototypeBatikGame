@@ -10,7 +10,7 @@ public class Monkey : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;
 	public Vector2 patrolArea;
-
+	public bool isHitByPlayer = false;
 	#region delegate event
 
 	void Start()
