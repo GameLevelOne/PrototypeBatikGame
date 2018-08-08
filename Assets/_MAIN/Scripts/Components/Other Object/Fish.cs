@@ -1,11 +1,5 @@
 ﻿using UnityEngine;
 
-public enum FishCollectibleType {
-	NONE,
-	HP_POTION,
-	MANA_POTION
-}
-
 public enum FishState {
 	IDLE,
 	PATROL,
@@ -14,11 +8,11 @@ public enum FishState {
 	FLEE
 }
 
-public class FishCollectible : MonoBehaviour {
-	public FishCollectibleType type;
+public class Fish : MonoBehaviour {
 	public FishState state;
 
 	public Animator anim;
+	public Collider2D selfCol;
 	public Collider2D parentPoolCol;
 	public FishingRod fishingRod;
 

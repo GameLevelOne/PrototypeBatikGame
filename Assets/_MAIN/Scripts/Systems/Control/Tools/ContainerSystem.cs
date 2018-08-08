@@ -16,7 +16,7 @@ public class ContainerSystem : ComponentSystem {
 
 	Container container;
 
-	CollectibleType[] collectibleTypes;
+	LootableType[] lootableTypes;
 
 	protected override void OnUpdate () {
 		if (containerData.Length == 0) return;
@@ -24,55 +24,50 @@ public class ContainerSystem : ComponentSystem {
 		for (int i=0; i<containerData.Length; i++) {
 			container = containerData.Container[i];
 
-			collectibleTypes = container.collectibleTypes;
+			lootableTypes = container.lootableTypes;
 		}
 	}
 
-	public void SaveToContainer (Collectible collectible) {
-		for (int i=0; i<collectibleTypes.Length; i++) {
+	public void SaveToContainer (Lootable lootable) {
+		for (int i=0; i<lootableTypes.Length; i++) {
 			if (container.CheckIfContainerIsEmpty(i)) {
-				collectibleTypes[i] = collectible.collectibleType;
+				lootableTypes[i] = lootable.lootableType;
 
 				break;
 			} else {
-				Debug.Log(collectibleTypes[i] + " is failed to contain, there is no empty container");
+				Debug.Log(lootableTypes[i] + " is failed to contain, there is no empty container");
 			}
 		}
 	}
 
-	public void UseCollectibleInContainer (int collectibleTypeIdx) {
-		if (container.CheckIfContainerIsEmpty(collectibleTypeIdx)) {
-			int idx = collectibleTypeIdx + 1;
+	public void UseCollectibleInContainer (int lootableTypeIdx) {
+		if (container.CheckIfContainerIsEmpty(lootableTypeIdx)) {
+			int idx = lootableTypeIdx + 1;
 			Debug.Log("Container " + idx + " is empty");
 		} else {
-			switch(collectibleTypes[collectibleTypeIdx]) {
-				case CollectibleType.NONE: 
+			switch(lootableTypes[lootableTypeIdx]) {
+				case LootableType.NONE: 
 					//
 					ReportContainerIsEmpty();
 					break;
-				case CollectibleType.GEM_STONE: 
+				case LootableType.GOLD: 
 					//
-					UseGemStone();
+					UseGold();
 					break;
-				case CollectibleType.SACRED_STONE: 
-					//
-					UseSacredStone();
-					break;
-				case CollectibleType.MYSTICAL_STONE: 
-					//
-					UseMysticalStone();
-					break;
-				case CollectibleType.HP_POTION: 
+				case LootableType.HP_POTION: 
 					//
 					UseHPPotion();
 					break;
-				case CollectibleType.MANA_POTION: 
+				case LootableType.MANA_POTION: 
 					//
 					UseManaPotion();
 					break;
+				default: 
+					Debug.Log("Unknown item in container");
+					break;
 			}
 
-			collectibleTypes[collectibleTypeIdx] = CollectibleType.NONE;
+			lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		}
 	}
 
@@ -80,16 +75,8 @@ public class ContainerSystem : ComponentSystem {
 		Debug.Log("This container is empty");
 	}
 
-	void UseGemStone () {
-		Debug.Log("Use Gem Stone");
-	}
-
-	void UseSacredStone () {
-		Debug.Log("Use Sacred Stone");
-	}
-
-	void UseMysticalStone () {
-		Debug.Log("Use Mystical Stone");
+	void UseGold () {
+		Debug.Log("Use Gold");
 	}
 
 	void UseHPPotion () {

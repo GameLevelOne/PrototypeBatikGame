@@ -1,23 +1,14 @@
 ﻿using UnityEngine;
 
 public class Container : MonoBehaviour {
-	// public int containerType = 0;
-	public CollectibleType[] collectibleTypes = new CollectibleType[4]; //4 Container
-	public GameObject[] collectibleObj = new GameObject[6]; //6 CollectibleType length
-
-	// bool isContainingObject = false;
-
-	// public bool IsContainingObject {
-	// 	get {return isContainingObject;}
-	// 	set {
-	// 		if (isContainingObject == value) return;
-
-	// 		isContainingObject = value;
-	// 	}
-	// }
+	[HeaderAttribute("4 Container types")]
+	public LootableType[] lootableTypes = new LootableType[4];
+	
+	[HeaderAttribute("Quantity of Collectible types")]
+	public GameObject[] collectibleObj;
 
 	public bool CheckIfContainerIsEmpty (int collectibleTypeIdx) {
-		if (collectibleTypes[collectibleTypeIdx] == CollectibleType.NONE) {
+		if (lootableTypes[collectibleTypeIdx] == LootableType.NONE) {
 			return true;
 		} else {
 			return false;

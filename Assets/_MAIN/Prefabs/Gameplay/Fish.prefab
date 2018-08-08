@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 114450034635128996}
   - component: {fileID: 50360432154830240}
   - component: {fileID: 58392863097527958}
-  - component: {fileID: 114795745583312810}
+  - component: {fileID: 114264815525472330}
   m_Layer: 0
   m_Name: Fish
   m_TagString: Fish
@@ -127,6 +127,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114264815525472330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976148901192360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf63b81d08f694c4a96e085525f324b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  anim: {fileID: 95277626780729396}
+  selfCol: {fileID: 58392863097527958}
+  parentPoolCol: {fileID: 0}
+  fishingRod: {fileID: 0}
+  targetPos: {x: 0, y: 0}
+  moveSpeed: 0.1
+  chaseSpeed: 0.4
+  fleeSpeed: 2
+  timeToCatch: 5
+  idleDuration: 3
+  timeIdle: 0
 --- !u!114 &114450034635128996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,29 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114795745583312810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1976148901192360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43546beaa21c56f429c7f997699366f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  state: 0
-  anim: {fileID: 95277626780729396}
-  parentPoolCol: {fileID: 0}
-  fishingRod: {fileID: 0}
-  targetPos: {x: 0, y: 0}
-  moveSpeed: 0.2
-  chaseSpeed: 0.6
-  fleeSpeed: 2
-  timeToCatch: 5
-  idleDuration: 3
-  timeIdle: 0
 --- !u!212 &212281887114216474
 SpriteRenderer:
   m_ObjectHideFlags: 1

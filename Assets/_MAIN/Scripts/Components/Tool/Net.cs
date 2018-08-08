@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class Net : MonoBehaviour {
-	public Collectible collectibleObject;
+	public Lootable lootableObj;
 
 	[SerializeField] bool isGotSomething = false;
 	
@@ -15,9 +15,9 @@ public class Net : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		if (col.GetComponent<Collectible>() != null) {
-			Collectible collectible = col.GetComponent<Collectible>();
-			collectibleObject = collectible;
+		if (col.GetComponent<Lootable>() != null) {
+			Lootable lootable = col.GetComponent<Lootable>();
+			lootableObj = lootable;
 			isGotSomething = true;
 		}
 	}

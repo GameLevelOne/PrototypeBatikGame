@@ -42,16 +42,16 @@ public class FishingPoolSystem : ComponentSystem {
 			GameObject newFish = GameObject.Instantiate(fishingPool.fishCollectibleObj, RandomPosition(), Quaternion.identity);
 			newFish.transform.parent = fishingPool.transform;
 
-			FishCollectible fishCollectible = newFish.GetComponent<FishCollectible>();
-			fishingPool.fishCollectibleList.Add(fishCollectible);
-			fishCollectible.parentPoolCol = fishingPool.fishingPoolCol;
+			Fish fish = newFish.GetComponent<Fish>();
+			fishingPool.fishList.Add(fish);
+			fish.parentPoolCol = fishingPool.fishingPoolCol;
 
 			newFish.SetActive(true);
 
 			fishingPool.isSpawning = false;
 			fishingPool.TimeSpawn = fishingPool.spawnInterval;
 
-			if (fishingPool.fishCollectibleList.Count >= fishingPool.maxSpawn) {
+			if (fishingPool.fishList.Count >= fishingPool.maxSpawn) {
 				fishingPool.isFinishSpawning = true;
 			}
 		}

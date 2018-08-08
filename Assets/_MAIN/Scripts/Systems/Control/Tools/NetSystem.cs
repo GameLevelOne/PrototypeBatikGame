@@ -23,22 +23,11 @@ public class NetSystem : ComponentSystem {
 			net = netData.net[i];
 
 			if (net.IsGotSomething) {
-				containerSystem.SaveToContainer(net.collectibleObject);
+				containerSystem.SaveToContainer(net.lootableObj);
 
-				GameObjectEntity.Destroy(net.collectibleObject.gameObject);
+				GameObjectEntity.Destroy(net.lootableObj.gameObject);
 				net.IsGotSomething = false;
 			}
 		}
-
-		// foreach (var e in GetEntities<NetData>()) {
-		// 	Net net = e.net;
-
-		// 	if (net.IsGotSomething) {
-		// 		containerSystem.SaveToContainer(net.collectibleObject);
-
-		// 		GameObjectEntity.Destroy(net.collectibleObject.gameObject);
-		// 		net.IsGotSomething = false;
-		// 	}
-		// }
 	}
 }

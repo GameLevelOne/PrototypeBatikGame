@@ -8,13 +8,12 @@ public class FishingRodSystem : ComponentSystem {
 	}
 	[InjectAttribute] FishingData fishingData;
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
-	[InjectAttribute] FishCollectibleSystem fishCollectibleSystem;
+	[InjectAttribute] FishSystem fishSystem;
 
 	FishingRod fishingRod;
 	Facing2D facing;
 
 	FishingRodState state;
-	FishCollectibleType type;
 
 	float deltaTime;
 
@@ -47,10 +46,9 @@ public class FishingRodSystem : ComponentSystem {
 
 	void Stay () {
 		// fishingRod.state = FishingRodState.RETURN;
-		if (fishingRod.fishCollectible != null) {
-			if (fishingRod.fishCollectible.state == FishState.CATCH) {
+		if (fishingRod.fish != null) {
+			if (fishingRod.fish.state == FishState.CATCH) {
 				fishingRod.isCatchSomething = true;
-				type = fishingRod.fishType;
 			} else {
 				fishingRod.isCatchSomething = false;
 			}
@@ -60,13 +58,12 @@ public class FishingRodSystem : ComponentSystem {
 	void Return () {
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
-			Debug.Log("You Got Fish with type "+type);
-			fishCollectibleSystem.CatchFish(fishingRod.fishCollectible);
+			fishSystem.CatchFish(fishingRod.fish);
 		}
 
 		fishingRod.isCatchSomething = false;
 		fishingRod.fishObj = null;
-		fishingRod.fishCollectible = null;
+		fishingRod.fish = null;
 		fishingRod.state = FishingRodState.IDLE;
 		// fishingRod.baitCol.enabled = false;
 		fishingRod.isBaitLaunched = false;

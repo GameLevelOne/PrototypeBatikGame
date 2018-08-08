@@ -9,7 +9,7 @@ public class FishingPool : MonoBehaviour {
 	public int spawnInterval;
 	public bool isSpawning;
 	public bool isFinishSpawning;
-	public List<FishCollectible> fishCollectibleList;
+	public List<Fish> fishList;
 
 	[SerializeField] float timeSpawn;
 

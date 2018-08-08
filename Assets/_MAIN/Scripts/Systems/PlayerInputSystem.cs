@@ -411,6 +411,7 @@ public class PlayerInputSystem : ComponentSystem {
 				SetDir (newDir.x, newDir.y);
 			} 
 		} else {
+			player.SetPlayerState(PlayerState.MOVE);
 			SetDir (newDir.x, newDir.y);
 		}
 	}

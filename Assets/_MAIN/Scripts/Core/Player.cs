@@ -133,7 +133,6 @@ public class Player : MonoBehaviour {
 		}
 		
 		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
-			// Debug.Log("Hit LiftableObject");
 			IsHitLiftableObject = true;
 		}
 	}
@@ -150,23 +149,13 @@ public class Player : MonoBehaviour {
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = true;
 		} 
-		// else if (col.tag == Constants.Tag.SWIM_AREA) {
-		// 	IsCanSwim = true;
-		// }
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
 		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = false;
-		} 
-		// else if (col.tag == Constants.Tag.SWIM_AREA) {
-		// 	IsCanSwim = false;
-		// }
-
-		// if (col.GetComponent<Liftable>() != null && IsHitLiftableObject) {
-		// 	IsHitLiftableObject = false;
-		// }
+		}
 	}
 	
 	#region PLAYER STATE 

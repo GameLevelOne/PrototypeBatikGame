@@ -33,8 +33,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector2 currentMove;
 	Vector2 currentDir;
 
-	// bool isLocalVarInit = false;
-
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
 		
@@ -44,13 +42,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			return;
 		}
-		
-		// if (!isLocalVarInit) {
-		// 	currentMoves = new Vector2[animationData.Length];
-		// 	currentDirs = new Vector2[animationData.Length];
-		// 	allFacings = new Facing2D[animationData.Length];
-		// 	isLocalVarInit = true;			
-		// }
 
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
@@ -61,6 +52,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
+
+			switch (state) {
+				case PlayerState.IDLE:
+					animator.Play(state.ToString());
+					break;
+				case PlayerState.MOVE:
+					animator.Play(state.ToString());
+					break;
+				case PlayerState.ATTACK:
+					animator.Play(state.ToString());
+					break;
+			} 
+
+			//==========
 
 			if (state == PlayerState.DIE) {
 				Debug.Log("Player Die Animation");
@@ -179,7 +184,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
-		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
+		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 	}
 
 	void SetRapidAttack (float mode) { //RAPID SLASH 0

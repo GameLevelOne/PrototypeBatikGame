@@ -24,10 +24,10 @@ GameObject:
   - component: {fileID: 58883712687644366}
   - component: {fileID: 212474178093972740}
   - component: {fileID: 114299997856589772}
-  - component: {fileID: 114623337031440384}
+  - component: {fileID: 114350629933089148}
   m_Layer: 0
-  m_Name: Sample Collectible 1
-  m_TagString: Netable
+  m_Name: Sample Lootable 1
+  m_TagString: Lootable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRen: {fileID: 212474178093972740}
   isStaticObject: 1
---- !u!114 &114623337031440384
+--- !u!114 &114350629933089148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -101,10 +101,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1844725775654284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f500a899c20e5b41862cfc35e8e3095, type: 3}
+  m_Script: {fileID: 11500000, guid: a4c177a3145293643bcbc3aefb3c8897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibleType: 0
+  lootableType: 2
 --- !u!114 &114806099893336642
 MonoBehaviour:
   m_ObjectHideFlags: 1

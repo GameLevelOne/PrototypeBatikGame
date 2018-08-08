@@ -10,8 +10,7 @@ public enum FishingRodState {
 public class FishingRod : MonoBehaviour {
 	public FishingRodState state;
 	public Player player;
-	public FishCollectible fishCollectible;
-	public FishCollectibleType fishType;
+	public Fish fish;
 
 	public GameObject fishObj;
 	public Collider2D baitCol;
@@ -33,28 +32,27 @@ public class FishingRod : MonoBehaviour {
 		if (col.tag == Constants.Tag.FISH) {
 			if (!isBaitLaunched || player.state != PlayerState.FISHING) return;
 
-			if (fishCollectible == null) {
-				fishCollectible = col.GetComponent<FishCollectible>();
+			if (fish == null) {
+				fish = col.GetComponent<Fish>();
 			} else {
-				fishState = fishCollectible.state;
+				fishState = fish.state;
 				Debug.Log("Fish state : "+fishState+" , isBaitFish : "+isBaitFish);
 				if ((fishState == FishState.IDLE || fishState == FishState.PATROL) && !isBaitFish) {
 					Debug.Log("Get Fish");
 					
-					fishObj = fishCollectible.gameObject;
-					fishType = fishCollectible.type;
+					fishObj = fish.gameObject;
 
-					fishCollectible.fishingRod = this;
-					fishCollectible.targetPos = this.transform.position;
-					fishCollectible.state = FishState.CHASE;
+					fish.fishingRod = this;
+					fish.targetPos = this.transform.position;
+					fish.state = FishState.CHASE;
 					Debug.Log("Set Chase"); 
 
 					isBaitFish = true;
 				} else if (fishState == FishState.FLEE && isBaitFish) {
 					Debug.Log("Flee");
 					fishObj = null;
-					fishCollectible.fishingRod = null;
-					fishCollectible = null;
+					fish.fishingRod = null;
+					fish = null;
 					isBaitFish = false;
 				}
 			}
@@ -65,16 +63,5 @@ public class FishingRod : MonoBehaviour {
 		if (col.tag == Constants.Tag.FISHING_AREA) {
 			player.IsCanFishing = false;
 		}
-
-		// if (col.tag == Constants.Tag.FISH) {
-		// 	if (player.state == PlayerState.FISHING && fishCollectible == col.GetComponent<FishCollectible>()) {
-		// 		fishObj = null;
-
-		// 		fishCollectible.fishingRod = null;
-		// 		fishCollectible = null;
-
-		// 		isBaitFish = false;
-		// 	}
-		// }
 	}
 }
