@@ -64,12 +64,12 @@ public class BeehiveSystem : ComponentSystem{
 
 		foreach(Bee bee in currBeehive.currentBees){
 			if(currBeehive.playerObject != null){
-				Debug.Log("SET BEE TO CHASE");
-				bee.playerTransform = currBeehive.playerObject.transform;
-				bee.beeState = BeeState.Chase;
+				//Debug.Log("SET BEE TO CHASE");
+				bee.enemy.playerTransform = currBeehive.playerObject.transform;
+				bee.enemy.state = EnemyState.Chase;
 			}else{
 				bee.isStartled = true;
-				bee.beeState = BeeState.Startled;
+				bee.enemy.state = EnemyState.Startled;
 			}
 		}
 		GameObject.Destroy(currBeehive.gameObject);
