@@ -35,7 +35,7 @@ public class Monkey : MonoBehaviour {
 	
 	void AddMonkey(Monkey monkey)
 	{
-		nearbyMonkeys.Add(monkey);
+		if(monkey != GetComponent<Monkey>()) nearbyMonkeys.Add(monkey);
 	}
 
 	void RemoveMonkey(Monkey monkey)

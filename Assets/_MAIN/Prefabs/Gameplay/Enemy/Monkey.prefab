@@ -313,6 +313,7 @@ MonoBehaviour:
   state: 0
   attackObject: {fileID: 1017072127329316}
   isEnemyHit: 0
+  isEnemyGetHurt: 0
   patrolRange: 4
   chaseRange: 10
   patrolSpeed: 2
@@ -342,7 +343,7 @@ MonoBehaviour:
   role: {fileID: 114793461666681586}
   player: {fileID: 0}
   enemy: {fileID: 114134985016821300}
-  healthPower: 800
+  healthPower: 60
   initialDamage: 0
 --- !u!114 &114280355567613682
 MonoBehaviour:

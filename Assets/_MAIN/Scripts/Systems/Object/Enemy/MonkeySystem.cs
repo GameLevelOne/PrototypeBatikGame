@@ -34,6 +34,7 @@ public class MonkeySystem : ComponentSystem {
 
 			CheckState();
 			CheckHit();
+			CheckHealth();
 		}
 	}
 
@@ -68,6 +69,14 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.isHitByPlayer = true;
 			}
 		}		
+	}
+
+	void CheckHealth()
+	{
+		if(currMonkeyHealth.HealthPower <= 0f){
+			GameObject.Destroy(currMonkey.gameObject);
+			UpdateInjectedComponentGroups();
+		}
 	}
 
 	void Idle()
