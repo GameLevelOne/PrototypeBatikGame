@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4110321959022632}
   - component: {fileID: 114450034635128996}
+  - component: {fileID: 50360432154830240}
   - component: {fileID: 58392863097527958}
   - component: {fileID: 212364800549365402}
   - component: {fileID: 114795745583312810}
@@ -43,6 +44,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50360432154830240
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1976148901192360}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!58 &58392863097527958
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -57,7 +78,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!114 &114450034635128996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,9 +103,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   state: 0
-  targetBait: {fileID: 0}
-  moveSpeed: 10
+  parentPoolCol: {fileID: 0}
+  fishingRod: {fileID: 0}
+  targetPos: {x: 0, y: 0}
+  moveSpeed: 0.2
+  chaseSpeed: 0.6
+  fleeSpeed: 2
   timeToCatch: 5
+  idleDuration: 3
+  timeIdle: 0
 --- !u!212 &212364800549365402
 SpriteRenderer:
   m_ObjectHideFlags: 1
