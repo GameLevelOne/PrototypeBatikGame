@@ -18,6 +18,7 @@ public class FishCollectible : MonoBehaviour {
 	public FishCollectibleType type;
 	public FishState state;
 
+	public Animator anim;
 	public Collider2D parentPoolCol;
 	public FishingRod fishingRod;
 

@@ -58,18 +58,11 @@ public class DamageSystem : ComponentSystem {
 
 				if (enemyState == EnemyState.Die) return;
 
-				if (enemyState == EnemyState.Damaged) {
+				if (enemy.IsEnemyGetHurt) {
 					health.HealthPower -= health.damage;
-					// enemy.IsEnemyGetHurt = false;
+					enemy.IsEnemyGetHurt = false;
 
 					//Set Enemy Get Hurt Animation;
-					enemy.SetEnemyIdle();
-
-					if (health.HealthPower <= 0f) {
-						// enemy.IsEnemyDie = true;
-						enemy.SetEnemyState(EnemyState.Die);
-						col.enabled = false;
-					}
 				}
 			} else {
 				Debug.Log("Unknown");

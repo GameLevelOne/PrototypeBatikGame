@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
 	public EnemyState state;
 	public GameObject attackObject;
 	[SerializeField] protected bool isEnemyHit = false;
+	[SerializeField] protected bool isEnemyGetHurt = false;
 
 	[SpaceAttribute(10f)]
 	public float patrolRange;
@@ -49,6 +50,15 @@ public class Enemy : MonoBehaviour {
 			if (isEnemyHit == value) return;
 
 			isEnemyHit = value;
+		}
+	}
+
+	public bool IsEnemyGetHurt {
+		get {return isEnemyGetHurt;}
+		set {
+			if (isEnemyGetHurt == value) return;
+
+			isEnemyGetHurt = value;
 		}
 	}
 
