@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour {
 	public float bulletTimeDuration = 0.3f;
 	public float dodgeCooldown = 1f;
 
-	public List<int> slashComboVal;
+	// public List<int> slashComboVal;
 
 	[SerializeField] Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
@@ -90,9 +90,11 @@ public class PlayerInput : MonoBehaviour {
 			
 			attackMode = value;
 			
-			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
-				slashComboVal.Add(attackMode);
-			}
+			// if (value >= 1 && slashComboVal.Count < 3) { //SLASH
+			// 	slashComboVal.Add(attackMode);
+			// }
+
+			// Debug.Log("attackMode "+attackMode);
 		}
 	}
 	

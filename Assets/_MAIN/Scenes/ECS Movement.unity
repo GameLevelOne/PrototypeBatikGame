@@ -336,7 +336,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1272119130043240, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58218323244216934, guid: 309aee940d2ad274fa6bc38537c0621c,
+        type: 2}
+      propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50224151760628392, guid: 309aee940d2ad274fa6bc38537c0621c,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50224151760628392, guid: 309aee940d2ad274fa6bc38537c0621c,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 309aee940d2ad274fa6bc38537c0621c, type: 2}
@@ -977,6 +992,16 @@ Prefab:
       propertyPath: textToolName
       value: 
       objectReference: {fileID: 1942355423}
+    - target: {fileID: 50414695913041536, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50414695913041536, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ee85469eef14e0b4394d2114562a3d82, type: 2}
   m_IsPrefabParent: 0

@@ -56,14 +56,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 			switch (state) {
 				case PlayerState.IDLE:
 					animator.Play(state.ToString());
+					// Debug.Log("IDLE");
 					break;
 				case PlayerState.MOVE:
 					animator.Play(state.ToString());
+					// Debug.Log("MOVE");
 					break;
 				case PlayerState.ATTACK:
-					animator.Play(state.ToString());
+					animator.Play(state.ToString() + input.AttackMode.ToString());
+					// Debug.Log("ATTACK");
 					break;
-			} 
+			}
+
 
 			//==========
 
@@ -80,7 +84,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#region ACTION
 			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET || state == PlayerState.FISHING) {
 				// Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
+
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
+				animator.Play("INTERACT");
+
 				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
@@ -149,18 +156,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 				currentMove = movement;
 				
 				if (currentMove == Vector2.zero) {
-					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+					// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+					player.SetPlayerIdle();
+
 					if (input.LiftingMode == -2) {
 						input.LiftingMode = -1;
 					} else if (input.LiftingMode == 2) {
 						input.LiftingMode = 1;
 					}
-
 				} else {
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
 					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 					
-					animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
+					// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
 					if (input.LiftingMode == -1) {
 						input.LiftingMode = -2;
 					} else if (input.LiftingMode == 1) {
@@ -264,21 +272,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAfterAnimation (AnimationState animState) {
 		switch (animState) {
 			case AnimationState.AFTER_SLASH:
-				if (input.slashComboVal.Count > 0) {
-					int slashComboVal = input.slashComboVal[0];
+				// if (input.slashComboVal.Count > 0) {
+				// 	int slashComboVal = input.slashComboVal[0];
 					
-					animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
+				// 	animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
 					
-					if (slashComboVal == 3) {					
-						input.slashComboVal.Clear();
-					} else {
-						input.slashComboVal.RemoveAt(0);
-					}
+				// 	if (slashComboVal == 3) {					
+				// 		input.slashComboVal.Clear();
+				// 	} else {
+				// 		input.slashComboVal.RemoveAt(0);
+				// 	}
 
-					CheckAttackList ();
-				} else {
-					CheckAttackList ();
-				}
+				// 	CheckAttackList ();
+				// } else {
+				// 	CheckAttackList ();
+				// }
+				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_CHARGE:
 				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
@@ -352,17 +361,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void CheckAttackList () {		
-		if (input.slashComboVal.Count == 0) {
-			animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			player.IsHitAnEnemy = false;
-			StopAttackAnimation ();
-		}
-	}
+	// void CheckAttackList () {		
+	// 	if (input.slashComboVal.Count == 0) {
+	// 		animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
+	// 		player.IsHitAnEnemy = false;
+	// 		Debug.Log("Stop Attack Animation");
+	// 		StopAttackAnimation ();
+	// 	} else {
+			
+	// 		Debug.Log("Must Stop Attack Animation");
+	// 	}
+	// }
 
 	void StopAttackAnimation () {
 		// if (role.gameRole == GameRole.Player) {
-		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
+		player.IsHitAnEnemy = false;
 		input.AttackMode = 0;
 		// attack.IsAttacking = false;
 		// }

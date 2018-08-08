@@ -160,12 +160,12 @@ public class Player : MonoBehaviour {
 	
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState playerState) {
-		// if (playerState == PlayerState.MOVE) Debug.Log("Move");
+		if (playerState == PlayerState.MOVE) Debug.Log("Move");
 		state = playerState;
 	}
 
 	public void SetPlayerIdle () {
-		// Debug.Log("Idle");
+		Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion

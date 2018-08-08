@@ -194,7 +194,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
 					attackAwayTimer += deltaTime;
 				} else {
-					input.slashComboVal.Clear();
+					// input.slashComboVal.Clear();
 					attackAwayTimer = 0f;
 					isAttackAway = true;
 				}
@@ -411,7 +411,7 @@ public class PlayerInputSystem : ComponentSystem {
 				SetDir (newDir.x, newDir.y);
 			} 
 		} else {
-			player.SetPlayerState(PlayerState.MOVE);
+			// player.SetPlayerState(PlayerState.MOVE);
 			SetDir (newDir.x, newDir.y);
 		}
 	}
