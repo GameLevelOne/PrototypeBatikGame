@@ -218,6 +218,25 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.BRAKE: 
 				animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
 				break;
+			case PlayerState.USING_TOOL: 
+				if (tool.currentTool == ToolType.Bow) {
+					animator.Play(Constants.BlendTreeName.USE_BOW);
+				} else if (tool.currentTool == ToolType.Bomb) {
+					animator.Play(Constants.BlendTreeName.USE_BOMB);
+				} else if (tool.currentTool == ToolType.Hammer) {
+					animator.Play(Constants.BlendTreeName.USE_HAMMER);
+				} else if (tool.currentTool == ToolType.PowerBracelet) {
+					//
+				} else if (tool.currentTool == ToolType.FishingRod) {
+					//
+				} else if (tool.currentTool == ToolType.Shovel) {
+					animator.Play(Constants.BlendTreeName.USE_SHOVEL);
+				} else if (tool.currentTool == ToolType.MagicMedallion) {
+					animator.Play(Constants.BlendTreeName.USE_MAGIC_MEDALLION);
+				} else if (tool.currentTool == ToolType.Container1 || tool.currentTool == ToolType.Container2 || tool.currentTool == ToolType.Container3 || tool.currentTool == ToolType.Container4) {
+					animator.Play(Constants.BlendTreeName.USE_CONTAINER);
+				}
+				break;
 		}
 	}
 
@@ -346,9 +365,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAnyAnimation();
 				break;
 			case PlayerState.USING_TOOL:
-				tool.IsActToolReady = true;
+				StopAnyAnimation();
 				break;
 			case PlayerState.FISHING:
+				//
 				input.interactValue = 0;
 				StopAnyAnimation();
 				break;
@@ -358,6 +378,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.POWER_BRACELET:
 				//
+				input.interactValue = 0;
 				StopAnyAnimation();
 				break;
 			default:

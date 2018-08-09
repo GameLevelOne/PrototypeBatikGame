@@ -60,20 +60,20 @@ public class PlayerTool : MonoBehaviour {
 	void Start()
 	{
 		Bow = 1;
-		Hook = 1;
+		Hook = 0; //
 		Bomb = 1;
 		Hammer = 1;
-		Net = 1;
+		Net = 0; //
 		FishingRod = 1;
 		Container1 = 1;
 		Container2 = 1;
 		Container3 = 1;
 		Container4 = 1;
 		Shovel = 1;
-		Lantern = 1;
-		InvisibilityCloak = 1;
+		Lantern = 0; //
+		InvisibilityCloak = 0; //
 		MagicMedallion = 1;
-		FastTravel = 1;
+		FastTravel = 0; //
 		Flippers = 1;
 		Boots = 1;
 	}
