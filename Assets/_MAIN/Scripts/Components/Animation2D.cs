@@ -1,35 +1,35 @@
 ﻿using UnityEngine;
 
-public enum AnimationState {
-	START_SLASH,
-	START_CHARGE,
-	START_DODGE,
-	AFTER_SLASH,
-	AFTER_CHARGE,
-	AFTER_DODGE,
-	START_COUNTER,
-	AFTER_COUNTER,
-	START_RAPIDSLASH,
-	AFTER_RAPIDSLASH,
-	START_BLOCK,
-	AFTER_BLOCK,
-	START_DASH,
-	AFTER_DASH,
-	START_BRAKING,
-	AFTER_BRAKING,
-	START_HURT,
-	AFTER_HURT,
-	START_GRAB,
-	AFTER_GRAB,
-	START_UNGRAB,
-	AFTER_UNGRAB,
-	START_THROW,
-	AFTER_THROW,
-	START_LIFT,
-	AFTER_LIFT,
-	START_FISHING,
-	AFTER_FISHING
-}
+// public enum AnimationState {
+// 	START_SLASH,
+// 	START_CHARGE,
+// 	START_DODGE,
+// 	AFTER_SLASH,
+// 	AFTER_CHARGE,
+// 	AFTER_DODGE,
+// 	START_COUNTER,
+// 	AFTER_COUNTER,
+// 	START_RAPIDSLASH,
+// 	AFTER_RAPIDSLASH,
+// 	START_BLOCK,
+// 	AFTER_BLOCK,
+// 	START_DASH,
+// 	AFTER_DASH,
+// 	START_BRAKING,
+// 	AFTER_BRAKING,
+// 	START_HURT,
+// 	AFTER_HURT,
+// 	START_GRAB,
+// 	AFTER_GRAB,
+// 	START_UNGRAB,
+// 	AFTER_UNGRAB,
+// 	START_THROW,
+// 	AFTER_THROW,
+// 	START_LIFT,
+// 	AFTER_LIFT,
+// 	START_FISHING,
+// 	AFTER_FISHING
+// }
 
 public enum StandAnimationState {
 	START_USING_TOOL,
@@ -39,7 +39,7 @@ public enum StandAnimationState {
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
-	public AnimationState animState;
+	// public AnimationState animState;
 	public StandAnimationState standAnimState;
 
 	[SerializeField] bool isCheckAfterAnimation = false;
@@ -99,15 +99,12 @@ public class Animation2D : MonoBehaviour {
 	}
 
 	#region Player and Enemy Animation
-	void StartAnimation (AnimationState state) {
-		Debug.Log(state);
+	void StartAnimation () {
 		isCheckBeforeAnimation = false;
-		animState = state;
 	}
 
-	void ExitAnimation (AnimationState state) {
+	void ExitAnimation () {
 		isCheckAfterAnimation = false;
-		animState = state;
 	}
 	#endregion
 

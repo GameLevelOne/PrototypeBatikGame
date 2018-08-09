@@ -41,7 +41,7 @@ public class PlayerAttackSystem : ComponentSystem {
 			Animation2D anim = attackData.Animation[i];
 			
 			int attackMode = input.AttackMode;
-			AnimationState animState = anim.animState;
+			// AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
 
 			if (attackMode == 0 || (state == PlayerState.USING_TOOL) || (state == PlayerState.USING_TOOL)) continue;
@@ -49,13 +49,12 @@ public class PlayerAttackSystem : ComponentSystem {
 			//Attack
         	// attack.isAttacking = true;
 			if (isAttacking) {
-				if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
+				// if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
+				if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE) {
 					SpawnSlashEffect(attackMode);
-				} else if (animState == AnimationState.START_RAPIDSLASH) {
-					if (state == PlayerState.RAPID_SLASH) {
-						Debug.Log("Splash Attack");
-						SpawnSlashEffect(attackMode);
-					}
+				} else if (state == PlayerState.RAPID_SLASH) {
+					Debug.Log("Splash Attack");
+					SpawnSlashEffect(attackMode);
 				}
 			}
 		}
