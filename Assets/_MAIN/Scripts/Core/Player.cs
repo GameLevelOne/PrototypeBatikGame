@@ -29,11 +29,15 @@ public class Player : MonoBehaviour {
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
 	public Collider2D playerCol;
+
+	
+	public bool isGuarding = false; 
+	public bool isParrying = false; 
 	    
     [SerializeField] bool isPlayerHit = false; 
     [SerializeField] bool isHitAnEnemy = false;
-	[SerializeField] bool isGuarding = false; 
-	[SerializeField] bool isParrying = false; 
+	// [SerializeField] bool isGuarding = false; 
+	// [SerializeField] bool isParrying = false; 
 	[SerializeField] bool isBulletTiming = false;
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
@@ -58,23 +62,23 @@ public class Player : MonoBehaviour {
 		}
 	}
 	
-	public bool IsGuarding {
-		get {return isGuarding;}
-		set {
-			if (isGuarding == value) return;
+	// public bool IsGuarding {
+	// 	get {return isGuarding;}
+	// 	set {
+	// 		if (isGuarding == value) return;
 
-			isGuarding = value;
-		}
-	}
+	// 		isGuarding = value;
+	// 	}
+	// }
 	
-	public bool IsParrying {
-		get {return isParrying;}
-		set {
-			if (isParrying == value) return;
+	// public bool IsParrying {
+	// 	get {return isParrying;}
+	// 	set {
+	// 		if (isParrying == value) return;
 
-			isParrying = value;
-		}
-	}
+	// 		isParrying = value;
+	// 	}
+	// }
 	
 	public bool IsBulletTiming {
 		get {return isBulletTiming;}

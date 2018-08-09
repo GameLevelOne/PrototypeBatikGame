@@ -14,75 +14,47 @@ public class PlayerInput : MonoBehaviour {
 	public float bulletTimeDuration = 0.3f;
 	public float dodgeCooldown = 1f;
 
-	// public List<int> slashComboVal;
+	public List<int> slashComboVal;
 
-	[SerializeField] Vector2 currentDir = Vector2.zero;
+	// [SerializeField] Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
-	[SerializeField] int bulletTimeAttackQty = 0;
-	[SerializeField] int steadyMode = 0;
-	[SerializeField] int moveMode = 0;
-	[SerializeField] int interactMode = 0;
-	[SerializeField] int interactValue = 0;
-	[SerializeField] float liftingMode = 0f;
-	
-	bool isReadyForDodging = true;
+	// [SerializeField] int bulletTimeAttackQty = 0;
+	// [SerializeField] int steadyMode = 0;
+	// [SerializeField] int moveMode = 0;
+	// [SerializeField] int interactMode = 0;
+	// [SerializeField] int interactValue = 0;
+	// [SerializeField] float liftingMode = 0f;
 
-	public Vector2 MoveDir {
-		get {return currentDir;}
-		set {
-			if (currentDir == value) return;
-
-			currentDir = value;
-		}
-	}
+	public Vector2 moveDir = Vector2.zero;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-1. <br /></para>
-	/// <para>0. Run<br /></para>
-	/// <para>1. CHARGE<br /></para>
-	/// <para>2. GUARD<br /></para>
-	/// <para>3. DASH<br /></para>
-	/// <para>4. SWIM<br /></para>
+	/// <para>-1 DIE<br /></para>
+	/// <para>0 Run<br /></para>
+	/// <para>1 CHARGE<br /></para>
+	/// <para>2 GUARD<br /></para>
+	/// <para>3 STEADY FOR BULLET TIME<br /></para>
 	/// </summary>
-	//Run 0, WALK -1 (Not Yet), CHARGE 1, GUARD 2, DASH 3, SWIM 4
-	public int MoveMode {
-		get {return moveMode;}
-		set {
-			if (moveMode == value) return;
-
-			moveMode = value;
-		}
-	}
+	public int moveMode = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-1. DIE<br /></para>
-	/// <para>0. STAND<br /></para>
-	/// <para>1. CHARGE<br /></para>
-	/// <para>2. GUARD<br /></para>
-	/// <para>4. SWIM<br /></para>
+	/// <para>0 STAND<br /></para>
+	/// <para>1 CHARGE<br /></para>
+	/// <para>2 GUARD<br /></para>
+	/// <para>3 STEADY FOR BULLET TIME<br /></para>
 	/// </summary>
-	//STAND 0, DIE -1, CHARGE 1, GUARD 2, SWIM 4
-	public int SteadyMode {
-		get {return steadyMode;}
-		set {
-			if (steadyMode == value) return;
-
-			steadyMode = value;
-		}
-	}
+	// public int steadyMode = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-3. RAPID SLASH<br /></para>
-	/// <para>-2. COUNTER<br /></para>
-	/// <para>-1. CHARGE<br /></para>
-	/// <para>1. SLASH1<br /></para>
-	/// <para>2. SLASH2<br /></para>
-	/// <para>3. SLASH3<br /></para>
+	/// <para>-3 RAPID SLASH<br /></para>
+	/// <para>-2 COUNTER<br /></para>
+	/// <para>-1 CHARGE<br /></para>
+	/// <para>1 SLASH1<br /></para>
+	/// <para>2 SLASH2<br /></para>
+	/// <para>3 SLASH3<br /></para>
 	/// </summary>
-	//SLASH 1-3, CHARGE -1, COUNTER -2, RAPID SLASH -3
 	public int AttackMode {  
 		get {return attackMode;}
 		set {
@@ -90,75 +62,44 @@ public class PlayerInput : MonoBehaviour {
 			
 			attackMode = value;
 			
-			// if (value >= 1 && slashComboVal.Count < 3) { //SLASH
-			// 	slashComboVal.Add(attackMode);
-			// }
+			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
+				slashComboVal.Add(attackMode);
+			}
 
-			// Debug.Log("attackMode "+attackMode);
+			Debug.Log("attackMode "+attackMode);
 		}
 	}
 	
-	public int BulletTimeAttackQty {
-		get {return bulletTimeAttackQty;}
-		set {
-			if (bulletTimeAttackQty == value) return;
-			
-			bulletTimeAttackQty = value;
-		}
-	}
+	public int bulletTimeAttackQty = 0;
 		
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-2. GET HURT<br /></para>
-	/// <para>-1. BLOCK<br /></para>
-	/// <para>0. DODGE<br /></para>
-	/// <para>1. DASH<br /></para>
-	/// <para>2. BRAKING<br /></para>
-	/// <para>3. POWERBRACELET<br /></para>
-	/// <para>4. FISHINGROD<br /></para>
+	/// <para>-2 GET HURT<br /></para>
+	/// <para>-1 BLOCK<br /></para>
+	/// <para>0 DODGE<br /></para>
+	/// <para>1 DASH<br /></para>
+	/// <para>2 BRAKING<br /></para>
+	/// <para>3 POWERBRACELET<br /></para>
+	/// <para>4 FISHINGROD<br /></para>
     /// </summary>
-	//GET HURT -2, BLOCK -1, DODGE 0, DASH 1, BRAKING 2, POWERBRACELET 3, FISHINGROD 4
-	public int InteractMode { 
-		get {return interactMode;}
-		set {
-			if (interactMode == value) return;
-			
-			interactMode = value;
-		}
-	}
+	public int interactMode = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>0. INIT<br /></para>
-	/// <para>1. LIFT / SWEATING / GRAB<br /></para>
-	/// <para>2. THROW / RELEASE<br /></para>
+	/// <para>0 INIT<br /></para>
+	/// <para>1 LIFT / SWEATING / GRAB<br /></para>
+	/// <para>2 THROW / RELEASE / RETURN<br /></para>
     /// </summary>
-	//INIT 0, LIFT / SWEATING / GRAB / IDLE 1, THROW / RELEASE / RETURN 2
-	public int InteractValue { 
-		get {return interactValue;}
-		set {
-			if (interactValue == value) return;
-			
-			interactValue = value;
-		}
-	}
+	public int interactValue = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-3. STARTLIFT<br /></para>
-	/// <para>-2. MOVELIFT<br /></para>
-	/// <para>-1. LIFTING<br /></para>
-	/// <para>0. SWEATING<br /></para>
-	/// <para>1. IDLEPUSH<br /></para>
-	/// <para>2. MOVEPUSH<br /></para>
+	/// <para>-3 STARTLIFT<br /></para>
+	/// <para>-2 MOVELIFT<br /></para>
+	/// <para>-1 LIFTING<br /></para>
+	/// <para>0 SWEATING<br /></para>
+	/// <para>1 IDLEPUSH<br /></para>
+	/// <para>2 MOVEPUSH<br /></para>
     /// </summary>
-	//LIFTING -1, SWEATING 0, IDLEPUSH 1, MOVELIFT -2, MOVEPUSH 2, STARTLIFT -3
-	public float LiftingMode { 
-		get {return liftingMode;}
-		set {
-			if (liftingMode == value) return;
-			
-			liftingMode = value;
-		}
-	}
+	public float liftingMode = 0;
 }

@@ -11,6 +11,7 @@ public class SwimSystem : ComponentSystem {
 		public ComponentArray<Flippers> Flippers;
 	}
 	[InjectAttribute] SwimData swimData; 
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	public Flippers flippers;
 
@@ -31,12 +32,9 @@ public class SwimSystem : ComponentSystem {
 					Physics2D.IgnoreCollision(player.playerCol, waterBoundariesCol, true);
 
                     if (flippers.IsPlayerSwimming) {
-                        flippers.input.MoveMode = 4;
-                        flippers.input.SteadyMode = 4;
 				        player.SetPlayerState(PlayerState.SWIM);
                     } else {
-                        flippers.input.MoveMode = 0;
-                        flippers.input.SteadyMode = 0;
+                        // 
                     }
 				} else {
                     if (waterBoundariesCol != null) {

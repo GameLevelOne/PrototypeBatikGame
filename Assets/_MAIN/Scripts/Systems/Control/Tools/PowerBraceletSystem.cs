@@ -46,12 +46,12 @@ public class PowerBraceletSystem : ComponentSystem {
 				if (state == PowerBraceletState.NONE) {
 					//
 				} else if (state == PowerBraceletState.CAN_LIFT) {
-					input.LiftingMode = -3;
+					input.liftingMode = -3;
 					//
 				} else if (state == PowerBraceletState.CANNOT_LIFT) {
-					input.LiftingMode = 0;
+					input.liftingMode = 0;
 				} else if (state == PowerBraceletState.GRAB) {
-					input.LiftingMode = 1;
+					input.liftingMode = 1;
 				}
 
 				powerBracelet.IsInteracting = false;

@@ -90,4 +90,59 @@ public static class Constants {
 		public const string PLAYER_TOOL_FLIPPERS = "Player/Tool/Flippers";
 		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
 	}
+
+	public static class BlendTreeName
+	{
+		#region Player
+		public const string IDLE_STAND = "IdleStand";
+		public const string MOVE_RUN = "MoveRun";
+		public const string MOVE_DODGE = "MoveDodge";
+		public const string IDLE_DIE = "IdleDie";
+		public const string IDLE_CHARGE = "IdleCharge";
+		public const string MOVE_CHARGE = "MoveCharge";
+		public const string IDLE_GUARD = "IdleGuard";
+		public const string MOVE_GUARD = "MoveGuard";
+		public const string IDLE_BULLET_TIME = "IdleBulletTime";
+		public const string RAPID_SLASH_BULLET_TIME = "RapidSlashBulletTime";
+		public const string IDLE_SWIM = "IdleSwim";
+		public const string MOVE_SWIM = "MoveSwim";
+		public const string GET_HURT = "GetHurt";
+		public const string BLOCK_ATTACK = "BlockAttack";
+		public const string COUNTER_ATTACK = "CounterAttack";
+		public const string CHARGE_ATTACK = "ChargeAttack";
+		public const string NORMAL_ATTACK_1 = "NormalAttack1";
+		public const string NORMAL_ATTACK_2 = "NormalAttack2";
+		public const string NORMAL_ATTACK_3 = "NormalAttack3";
+		public const string GRABBING = "Grabbing";
+		public const string SWEATING_GRAB = "SweatingGrab";
+		public const string UNGRABBING = "UnGrabbing";
+		public const string IDLE_PUSH = "IdlePush";
+		public const string MOVE_PUSH = "MovePush";
+		public const string IDLE_LIFT = "IdleLift";
+		public const string MOVE_LIFT = "MoveLift";
+		public const string THROWING_LIFT = "ThrowingLift";
+		public const string THROW_FISH_BAIT = "ThrowFishBait";
+		public const string IDLE_FISHING = "IdleFishing";
+		public const string RETURN_FISH_BAIT = "ReturnFishBait";
+		public const string USE_BOW = "UseBow";
+		public const string USE_BOMB = "UseBomb";
+		public const string USE_HAMMER = "UseHammer";
+		public const string USE_SHOVEL = "UseShovel";
+		public const string USE_MAGIC_MEDALLION = "UseMagicMedallion";
+		public const string USE_CONTAINER = "UseContainer";
+		#endregion
+
+		#region Stand
+		public const string STAND_BOW = "StandBow";
+		public const string STAND_GRABBING = "StandGrabbing";
+		public const string STAND_UNGRABBING = "StandUnGrabbing";
+		public const string STAND_IDLE_PUSH = "StandIdlePush";
+		public const string STAND_MOVE_PUSH = "StandMovePush";
+		public const string STAND_IDLE_LIFT = "StandIdleLift";
+		public const string STAND_MOVE_LIFT = "StandMoveLift";
+		public const string STAND_THROWING_LIFT = "StandThrowingLift";
+		public const string STAND_DASH = "StandDash";
+		public const string STAND_MAGIC_MEDALLION = "StandMagicMedallion";
+		#endregion
+	}
 }

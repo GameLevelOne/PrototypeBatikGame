@@ -53,9 +53,9 @@ public class Health : MonoBehaviour {
 
 				player.IsPlayerHit = true;
 
-				if (player.IsParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
+				if (player.isParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
 					Debug.Log ("Player ignored damage");
-				} else if (player.IsGuarding) {
+				} else if (player.isGuarding) {
 					// player.IsPlayerGetHurt = true;
 					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 					Debug.Log("Health block attack");

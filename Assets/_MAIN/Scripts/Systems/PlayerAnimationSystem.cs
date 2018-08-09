@@ -30,6 +30,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	PlayerState state;
 	
 	Animator animator;
+	Vector2 moveDir;
 	Vector2 currentMove;
 	Vector2 currentDir;
 
@@ -46,38 +47,31 @@ public class PlayerAnimationSystem : ComponentSystem {
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
 			player = animationData.Player[i];
-			state = player.state;
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
 
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
+			moveDir = input.moveDir;
+			
 
-			switch (state) {
-				case PlayerState.IDLE:
-					animator.Play(state.ToString());
-					// Debug.Log("IDLE");
-					break;
-				case PlayerState.MOVE:
-					animator.Play(state.ToString());
-					// Debug.Log("MOVE");
-					break;
-				case PlayerState.ATTACK:
-					animator.Play(state.ToString() + input.AttackMode.ToString());
-					// Debug.Log("ATTACK");
-					break;
-			}
+			CheckPlayerState ();
+			StartCheckAnimation();
+			
+			// StartCheckAnimation();
 
+			SetAnimationFaceDirection ();
+			continue; //TEMP
 
-			//==========
+			#region OLD
 
 			if (state == PlayerState.DIE) {
 				Debug.Log("Player Die Animation");
-				input.SteadyMode = -1;
+				// input.steadyMode = -1;
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
+				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
 				continue;
 			}
 
@@ -88,14 +82,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
 				animator.Play("INTERACT");
 
-				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.InteractValue);
+				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.interactValue);
 			} else {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
 			}
 			
 			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.SteadyMode);
+				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
@@ -126,10 +120,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			#endregion
 
 			#region MOVEMENT
-			animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
-			animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
-			animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
-			animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
+			// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
+			// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
+			// animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
+			// animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
 
 			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {	
 				int toolType = (int)tool.currentTool;
@@ -148,35 +142,94 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
 			}
 			
-			Vector2 movement = input.MoveDir;
-			
-			if (currentMove == movement) {
-				continue;
-			} else {
-				currentMove = movement;
-				
-				if (currentMove == Vector2.zero) {
-					// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-					player.SetPlayerIdle();
-
-					if (input.LiftingMode == -2) {
-						input.LiftingMode = -1;
-					} else if (input.LiftingMode == 2) {
-						input.LiftingMode = 1;
-					}
-				} else {
-					SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-					SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
-					
-					// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
-					if (input.LiftingMode == -1) {
-						input.LiftingMode = -2;
-					} else if (input.LiftingMode == 1) {
-						input.LiftingMode = 2;
-					}
-				}
-			}
+			// SetAnimationFaceDirection ();
 			#endregion
+			#endregion OLD
+		}
+	}
+
+	void CheckPlayerState () {
+		switch (player.state) {
+			case PlayerState.IDLE:
+				switch (input.moveMode) {
+					case 0: 
+						animator.Play(Constants.BlendTreeName.IDLE_STAND);
+						break;
+					case 1: 
+						animator.Play(Constants.BlendTreeName.IDLE_CHARGE);
+						break;
+					case 2: 
+						animator.Play(Constants.BlendTreeName.IDLE_GUARD);
+						break;
+					case 3: 
+						animator.Play(Constants.BlendTreeName.IDLE_SWIM);
+						break;
+				}
+				// Debug.Log("IDLE");
+				break;
+			case PlayerState.MOVE:
+				switch (input.moveMode) {
+					case 0: 
+						animator.Play(Constants.BlendTreeName.MOVE_RUN);
+						break;
+					case 1: 
+						animator.Play(Constants.BlendTreeName.MOVE_CHARGE);
+						break;
+					case 2: 
+						animator.Play(Constants.BlendTreeName.MOVE_GUARD);
+						break;
+				}
+				// Debug.Log("MOVE");
+				break;
+			case PlayerState.SWIM: 
+				if (moveDir != Vector2.zero) {
+					animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
+				} else {
+					animator.Play(Constants.BlendTreeName.IDLE_SWIM);						
+				}
+				break;
+			case PlayerState.DODGE: 
+				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
+				break;
+			case PlayerState.ATTACK:
+				if (input.AttackMode == 1) {
+					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);						
+				} else if (input.AttackMode == 2) {
+					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);						
+				} else if (input.AttackMode == 3) {
+					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);						
+				}
+				// Debug.Log("ATTACK");
+				break;
+		}
+	}
+
+	void SetAnimationFaceDirection () {			
+		if (currentMove == moveDir) {
+			return;
+		} else {
+			currentMove = moveDir;
+			
+			if (currentMove == Vector2.zero) {
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				// player.SetPlayerIdle();
+
+				// if (input.LiftingMode == -2) {
+				// 	input.LiftingMode = -1;
+				// } else if (input.LiftingMode == 2) {
+				// 	input.LiftingMode = 1;
+				// }
+			} else {
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+				
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
+				// if (input.LiftingMode == -1) {
+				// 	input.LiftingMode = -2;
+				// } else if (input.LiftingMode == 1) {
+				// 	input.LiftingMode = 2;
+				// }
+			}
 		}
 	}
 
@@ -202,7 +255,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
-		Vector2 movement = input.MoveDir;
+		Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
 		
 		if (isVertical) {
@@ -260,7 +313,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				//
 				break;
 			case AnimationState.START_FISHING:
-				input.InteractValue = 1;
+				input.interactValue = 1;
 				tool.IsActToolReady = true;
 				break;
 			default:
@@ -304,8 +357,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_RAPIDSLASH:
-				input.BulletTimeAttackQty--;
-				if (input.BulletTimeAttackQty == 0) {
+				input.bulletTimeAttackQty--;
+				if (input.bulletTimeAttackQty == 0) {
 					// player.IsRapidSlashing = false;
 					player.IsHitAnEnemy = false;
 					animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
@@ -313,7 +366,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 			case AnimationState.AFTER_BLOCK:
-				if (player.IsGuarding) {
+				if (player.isGuarding) {
 					player.SetPlayerIdle();
 				}
 				break;
@@ -321,7 +374,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_LIFT:
-				input.LiftingMode = -1;
+				input.liftingMode = -1;
 				break;
 			// case AnimationState.AFTER_DASH:
 			// 	//
@@ -331,7 +384,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// 	break;
 			case AnimationState.AFTER_GRAB://case after steady power bracelet, input.interactvalue = 1
 				PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
-				input.InteractValue = 1;
+				input.interactValue = 1;
 
 				if (powerBraceletState == PowerBraceletState.GRAB) {
 					powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
@@ -341,18 +394,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 			case AnimationState.AFTER_UNGRAB://case after using power bracelet, bool interact = false (optional)
-				input.InteractValue = 0;
+				input.interactValue = 0;
 				powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_THROW:
 				powerBraceletSystem.UnSetLiftObjectParent();
 				powerBraceletSystem.AddForceRigidbody(facing.DirID);
-				input.InteractValue = 0;
+				input.interactValue = 0;
 				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_FISHING:
-				input.InteractValue = 0;
+				input.interactValue = 0;
 				player.SetPlayerIdle();
 				break;
 			default:

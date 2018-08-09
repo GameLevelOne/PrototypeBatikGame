@@ -22,12 +22,14 @@ public class PlayerInputSystem : ComponentSystem {
 	public PlayerInput input;
 	public Player player;
 
+	PlayerTool tool;
 	Facing2D facing;
 
 	PlayerState state;
 	ToolType toolType;
 
 	Vector2 currentDir = Vector2.zero;
+	float deltaTime;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
 	float slowDownTimer = 0f;
@@ -43,14 +45,14 @@ public class PlayerInputSystem : ComponentSystem {
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
 
-		float deltaTime = Time.deltaTime;
+		deltaTime = Time.deltaTime;
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
 			player = inputData.Player[i];
 			state = player.state;
 			Health health = inputData.Health[i];
-			PlayerTool tool = toolSystem.tool;
+			tool = toolSystem.tool;
 			
 			float chargeAttackThreshold = input.chargeAttackThreshold;
 			float beforeChargeDelay = input.beforeChargeDelay;
@@ -61,25 +63,45 @@ public class PlayerInputSystem : ComponentSystem {
 			float guardParryDelay = input.guardParryDelay;
 			float bulletTimeDelay = input.bulletTimeDelay;
 
+			SetButtonUp ();
+
+			if (CheckIfUsingAnyTool ()) {
+				continue;
+			}
+			
+			CheckMovementInput ();
+			CheckToolInput ();
+
+			if (CheckIfInSpecificState ()) {
+				continue;
+			}
+
+			CheckAttackInput ();
+			CheckGuardInput ();
+			CheckDodgeInput ();
+			continue; //TEMP
+
+			#region OLD
+
 			if (state == PlayerState.SLOW_MOTION) {
 				if (slowDownTimer < bulletTimeDuration) {
 					slowDownTimer += deltaTime;
 
 					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 						input.AttackMode = 1;
-						input.BulletTimeAttackQty++;
+						input.bulletTimeAttackQty++;
 					}
 				} else {
 					slowDownTimer = 0f;
 					Time.timeScale = 1f;
-					input.SteadyMode = 0;
+					input.moveMode = 0;
 					player.SetPlayerState(PlayerState.RAPID_SLASH);
 				}
 
 				continue;
 			} else if (state == PlayerState.RAPID_SLASH) {
 				continue;
-			} else if (state == PlayerState.POWER_BRACELET && input.InteractValue == 0) {
+			} else if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
 				currentDir = Vector2.zero;
 
 				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
@@ -89,7 +111,7 @@ public class PlayerInputSystem : ComponentSystem {
 				continue;
 			} else if (state == PlayerState.FISHING) { 				
 				if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
-					input.InteractValue = 2;
+					input.interactValue = 2;
 					toolSystem.UseTool();
 				}
 				
@@ -119,13 +141,13 @@ public class PlayerInputSystem : ComponentSystem {
 						if (toolType == ToolType.Hook) {
 							player.SetPlayerState(PlayerState.HOOK);
 						} else if (toolType == ToolType.Boots) {
-							input.InteractMode = 1;
+							input.interactMode = 1;
 							player.SetPlayerState(PlayerState.DASH);
 						} else if (toolType == ToolType.PowerBracelet) {
 							PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 
 							if (powerBraceletState != PowerBraceletState.NONE) {
-								input.InteractMode = 3;
+								input.interactMode = 3;
 								player.SetPlayerState(PlayerState.POWER_BRACELET);
 								isPowerBraceletHold = true;
 
@@ -139,7 +161,7 @@ public class PlayerInputSystem : ComponentSystem {
 							//
 						} else if (toolType == ToolType.FishingRod) {
 							if (player.IsCanFishing) {
-								input.InteractMode = 4;
+								input.interactMode = 4;
 								player.SetPlayerState(PlayerState.FISHING);
 							}
 						} else {
@@ -148,39 +170,39 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} else if (state == PlayerState.POWER_BRACELET) { 				
-				if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.LiftingMode < 0){ //THROW
-					input.InteractValue = 2;
+				if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.liftingMode < 0){ //THROW
+					input.interactValue = 2;
 				}
 
-				if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)) && input.LiftingMode >= 0){
+				if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)) && input.liftingMode >= 0){
 					isPowerBraceletHold = false;
 				}
 				
 				if (!isPowerBraceletHold) {
-					input.InteractValue = 2;
+					input.interactValue = 2;
 				} 
 			}			
-			#endregion
 
 			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET || state == PlayerState.SWIM) {	
 
 				continue;
 			} else if (state == PlayerState.DASH) {
 				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)){
-					input.InteractMode = 2;
+					input.interactMode = 2;
 					player.SetPlayerState (PlayerState.BRAKE);
 				}
 
 				continue;
 			} else if (state == PlayerState.BOUNCE) {
-				input.InteractMode = 2;
+				input.interactMode = 2;
 
 				continue;
 			} else if (state == PlayerState.GET_HURT) {
-				input.InteractMode = -2;
+				input.interactMode = -2;
 
 				continue;
 			}
+			#endregion
 
 			#region Button Attack
 			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
@@ -188,7 +210,7 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				if (chargeAttackTimer >= beforeChargeDelay) {
 					Debug.Log("Start charging");
-					SetMovement(1, false); //START CHARGE
+					// SetMovement(1, false); //START CHARGE
 				}
 			} else {
 				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
@@ -201,7 +223,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			
 			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-				if ((chargeAttackTimer >= chargeAttackThreshold) && input.SteadyMode == 1) {
+				if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
 					input.AttackMode = -1; //CHARGE
 					player.SetPlayerState(PlayerState.CHARGE);
 				} else {
@@ -212,10 +234,12 @@ public class PlayerInputSystem : ComponentSystem {
 							input.AttackMode += 1; //SLASH
 						}
 					}
-					player.SetPlayerState(PlayerState.ATTACK);	
+					if (state != PlayerState.ATTACK) {
+						player.SetPlayerState(PlayerState.ATTACK);
+					}	
 				}
 				
-				SetMovement(0, false);
+				// SetMovement(0, false);
 				chargeAttackTimer = 0f;
 				isAttackAway = false;			
 			}
@@ -223,32 +247,32 @@ public class PlayerInputSystem : ComponentSystem {
 
 			#region Button Guard
 			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
-				SetMovement(2, false); //START GUARD
+				// SetMovement(2, false); //START GUARD
 				
-				player.IsGuarding = true;
+				// player.IsGuarding = true;
 			}
 			
 			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 
 				if (state == PlayerState.BLOCK_ATTACK) {
-					input.InteractMode = -1;
+					input.interactMode = -1;
 				}
 
 				if (parryTimer < guardParryDelay) {
 					parryTimer += deltaTime;	
-					player.IsParrying = true;
+					player.isParrying = true;
 				} else {
-					player.IsParrying = false;
+					player.isParrying = false;
 					player.IsPlayerHit = false;	
 				}
 			}
 
 			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				SetMovement(0, false);
+				// SetMovement(0, false);
 				
-				player.IsGuarding = false;
+				// player.IsGuarding = false;
 				parryTimer = 0f;
-				player.IsParrying = false;
+				player.isParrying = false;
 			}
 			#endregion
 
@@ -260,7 +284,7 @@ public class PlayerInputSystem : ComponentSystem {
 					dodgeCooldownTimer = 0f;
 					isDodging = true;
 					isReadyForDodging = false;
-					input.InteractMode = 0;
+					input.interactMode = 0;
 				}
 			}	
 
@@ -287,7 +311,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (player.IsPlayerHit) {	
 					player.IsBulletTiming = false;
 					ChangeDir(0f, 0f);
-					input.SteadyMode = 3; //STEADY FOR RAPID SLASH
+					input.moveMode = 3; //STEADY FOR RAPID SLASH
 					input.AttackMode = -3;
 					Debug.Log("Start BulletTime");
 					player.SetPlayerState(PlayerState.SLOW_MOTION);
@@ -295,10 +319,10 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 			#endregion
 			
-			if (player.IsParrying) {
+			if (player.isParrying) {
 				if (player.IsPlayerHit) {
 					input.AttackMode = -2;
-					player.IsParrying = false;
+					player.isParrying = false;
 					player.IsPlayerHit = false;
 					Debug.Log("Start Counter");
 					player.SetPlayerState(PlayerState.COUNTER);
@@ -306,6 +330,7 @@ public class PlayerInputSystem : ComponentSystem {
 			} else {
 				player.IsPlayerHit = false;
 			}
+			#endregion OLD
 		}
 	}
 
@@ -355,19 +380,281 @@ public class PlayerInputSystem : ComponentSystem {
 		#endregion
 	}
 
-	void SetMovement (int value, bool isMoveOnly) {
-		input.MoveMode = value;
-		
-		if (!isMoveOnly) {
-			input.SteadyMode = value;
+	void CheckAttackInput () {
+		float chargeAttackThreshold = input.chargeAttackThreshold;
+		float beforeChargeDelay = input.beforeChargeDelay;
+		float attackAwayDelay = input.attackAwayDelay;
+
+		#region Button Attack
+		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+			chargeAttackTimer += deltaTime;
+			
+			if (chargeAttackTimer >= beforeChargeDelay) {
+				Debug.Log("Start charging");
+				SetMovement(1); //START CHARGE
+			}
+		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+			if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
+				input.AttackMode = -1; //CHARGE
+				player.SetPlayerState(PlayerState.CHARGE);
+			} else {
+				if (input.AttackMode <= 2) {
+					if (!player.IsHitAnEnemy){
+						input.AttackMode = 1; //SLASH							
+					} else {
+						input.AttackMode += 1; //SLASH
+					}
+				}
+				if (state != PlayerState.ATTACK) {
+					player.SetPlayerState(PlayerState.ATTACK);
+				}	
+			}
+			
+			SetMovement(0); //RUN / STAND
+			chargeAttackTimer = 0f;
+			isAttackAway = false;			
+		} else {
+			if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
+				attackAwayTimer += deltaTime;
+			} else {
+				input.slashComboVal.Clear();
+				attackAwayTimer = 0f;
+				isAttackAway = true;
+			}
 		}
+		#endregion
+	}
+
+	void CheckGuardInput () {
+		float guardParryDelay = input.guardParryDelay;
+
+		#region Button Guard
+		if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+			SetMovement(2); //START GUARD
+			
+			player.isGuarding = true;
+		} else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
+			
+			if (state == PlayerState.BLOCK_ATTACK) {
+				input.interactMode = -1;
+			}
+
+			if (parryTimer < guardParryDelay) {
+				parryTimer += deltaTime;	
+				player.isParrying = true;
+			} else {
+				player.isParrying = false;
+				player.IsPlayerHit = false;	
+			}
+		} else if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
+			SetMovement(0);
+			
+			player.isGuarding = false;
+			parryTimer = 0f;
+			player.isParrying = false;
+		}
+
+		if (player.isParrying) {
+			if (player.IsPlayerHit) {
+				input.AttackMode = -2;
+				player.isParrying = false;
+				player.IsPlayerHit = false;
+				Debug.Log("Start Counter");
+				player.SetPlayerState(PlayerState.COUNTER);
+			}
+		} else {
+			player.IsPlayerHit = false;
+		}
+		#endregion
+	}
+
+	void CheckDodgeInput () {
+		float dodgeCooldown = input.dodgeCooldown;
+		float bulletTimeDelay = input.bulletTimeDelay;
+
+		#region Button Dodge
+		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
+			if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
+				player.SetPlayerState(PlayerState.DODGE);
+				bulletTimeTimer = 0f;	
+				dodgeCooldownTimer = 0f;
+				isDodging = true;
+				isReadyForDodging = false;
+				input.interactMode = 0;
+			}
+		}	
+
+		if (isDodging) {
+			if (dodgeCooldownTimer < dodgeCooldown) {
+				dodgeCooldownTimer += deltaTime;
+			} else {
+				isDodging = false;
+				isReadyForDodging = true;
+			}
+
+			if (state == PlayerState.DODGE) {
+				if (bulletTimeTimer < bulletTimeDelay) {
+					bulletTimeTimer += deltaTime;
+					player.IsBulletTiming = true;
+				} else {
+					player.IsBulletTiming = false;
+					player.IsPlayerHit = false;
+				}
+			}
+		}
+
+		if (player.IsBulletTiming) {
+			if (player.IsPlayerHit) {	
+				player.IsBulletTiming = false;
+				ChangeDir(0f, 0f);
+				input.moveMode = 3; //STEADY FOR RAPID SLASH
+				input.AttackMode = -3;
+				Debug.Log("Start BulletTime");
+				player.SetPlayerState(PlayerState.SLOW_MOTION);
+			}
+		}
+		#endregion
+	}
+
+	void CheckToolInput () {
+		#region Button Tools
+		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING)) {
+			if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
+				toolSystem.NextTool();
+			}
+			
+			if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyUp(KeyCode.Joystick1Button6)){
+				toolSystem.PrevTool();
+			}
+
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
+				toolType = tool.currentTool;
+
+				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.FISHING) && (toolType != ToolType.None)) {
+					Debug.Log("Input Use Tool : " + toolType);
+
+					if (toolType == ToolType.Hook) {
+						player.SetPlayerState(PlayerState.HOOK);
+					} else if (toolType == ToolType.Boots) {
+						input.interactMode = 1;
+						player.SetPlayerState(PlayerState.DASH);
+					} else if (toolType == ToolType.PowerBracelet) {
+						PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+
+						if (powerBraceletState != PowerBraceletState.NONE) {
+							input.interactMode = 3;
+							player.SetPlayerState(PlayerState.POWER_BRACELET);
+							isPowerBraceletHold = true;
+
+							// if (liftState == LiftState.GRAB) {
+							// 	powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+							// }
+						} else {
+							// continue;
+						}
+					} else if (toolType == ToolType.Flippers) {
+						//
+					} else if (toolType == ToolType.FishingRod) {
+						if (player.IsCanFishing) {
+							input.interactMode = 4;
+							player.SetPlayerState(PlayerState.FISHING);
+						}
+					} else {
+						player.SetPlayerState(PlayerState.USING_TOOL);
+					}
+				}
+			}
+		} else if (state == PlayerState.POWER_BRACELET) { 				
+			if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.liftingMode < 0){ //THROW
+				input.interactValue = 2;
+			}
+
+			if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)) && input.liftingMode >= 0){
+				isPowerBraceletHold = false;
+			}
+			
+			if (!isPowerBraceletHold) {
+				input.interactValue = 2;
+			} 
+		}			
+		#endregion
+	}
+
+	void SetButtonUp () {
+		SetMovement(0); //RUN / STAND
+		chargeAttackTimer = 0f;
+		isAttackAway = false;
+		
+		input.slashComboVal.Clear();
+		attackAwayTimer = 0f;
+		isAttackAway = true;
+
+		player.isGuarding = false;
+		parryTimer = 0f;
+		player.isParrying = false;
+	}
+
+	bool CheckIfUsingAnyTool () {
+		if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
+			currentDir = Vector2.zero;
+
+			if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
+				isPowerBraceletHold = false;
+			}
+
+			return true;
+		} else if (state == PlayerState.FISHING) { 				
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
+				input.interactValue = 2;
+				toolSystem.UseTool();
+			}
+			
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	bool CheckIfInSpecificState () {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET) {	
+
+			return true;
+		} else if (state == PlayerState.DASH) {
+			if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)){
+				input.interactMode = 2;
+				player.SetPlayerState (PlayerState.BRAKE);
+			}
+
+			return true;
+		} else if (state == PlayerState.BOUNCE) {
+			input.interactMode = 2;
+
+			return true;
+		} else if (state == PlayerState.GET_HURT) {
+			input.interactMode = -2;
+
+			return true;
+		} else if (state == PlayerState.SWIM) {
+			SetButtonUp ();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void SetMovement (int value) {
+		input.moveMode = value;
+		
+		// if (!isMoveOnly) {
+		// 	input.steadyMode = value;
+		// }
 	}
 
 	void ChangeDir (float dirX, float dirY) {
 		Vector2 newDir = new Vector2(dirX, dirY);
 
 		if (state == PlayerState.POWER_BRACELET) {
-			if (input.LiftingMode == 1 || input.LiftingMode == 2) {
+			if (input.liftingMode == 1 || input.liftingMode == 2) {
 				facing = playerAnimationSystem.facing;
 				// Debug.Log("==========Grabbing==========");
 				// Debug.Log("Before " + facing.DirID);
@@ -407,7 +694,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 				// Debug.Log("After " + facing.DirID);
 				// Debug.Log("==========End Grabbing==========");
-			} else if (input.LiftingMode == -1 || input.LiftingMode == -2){
+			} else if (input.liftingMode == -1 || input.liftingMode == -2){
 				SetDir (newDir.x, newDir.y);
 			} 
 		} else {
@@ -421,17 +708,17 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (currentDir != fixDir) {
 			currentDir = fixDir;
-			input.MoveDir = currentDir;
+			input.moveDir = currentDir;
 		}
 	}
 
 	void CheckEndMove () {
 		if (state == PlayerState.MOVE) {
 			player.SetPlayerIdle();
-		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == -2) {
-			input.LiftingMode = -1;
-		} else if (state == PlayerState.POWER_BRACELET && input.LiftingMode == 2) {
-			input.LiftingMode = 1;
+		} else if (state == PlayerState.POWER_BRACELET && input.liftingMode == -2) {
+			input.liftingMode = -1;
+		} else if (state == PlayerState.POWER_BRACELET && input.liftingMode == 2) {
+			input.liftingMode = 1;
 		}
 	}
 }

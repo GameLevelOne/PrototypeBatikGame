@@ -51,7 +51,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 			StartCheckStandAnimation();
 			
-			Vector2 movement = input.MoveDir;
+			Vector2 movement = input.moveDir;
 
 			if(state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
 				int standType = (int)stand.currentTool;
@@ -94,7 +94,7 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void SetAnimation (string animName, float animValue, bool isVertical) {
-		Vector2 movement = input.MoveDir;
+		Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
 		
 		if (isVertical) {
