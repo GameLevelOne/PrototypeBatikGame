@@ -63,8 +63,6 @@ public class PlayerInputSystem : ComponentSystem {
 			float guardParryDelay = input.guardParryDelay;
 			float bulletTimeDelay = input.bulletTimeDelay;
 
-			SetButtonUp ();
-
 			if (CheckIfUsingAnyTool ()) {
 				continue;
 			}
@@ -390,7 +388,6 @@ public class PlayerInputSystem : ComponentSystem {
 			chargeAttackTimer += deltaTime;
 			
 			if (chargeAttackTimer >= beforeChargeDelay) {
-				Debug.Log("Start charging");
 				SetMovement(1); //START CHARGE
 			}
 		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {

@@ -38,6 +38,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	bool isAttackMove = false;
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
+	int attackMode;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -58,7 +59,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 			if (state == PlayerState.DIE) continue;
 			
-			int attackMode = input.AttackMode;
+			attackMode = input.AttackMode;
 			// int moveMode = input.MoveMode;
 			
 			// switch (moveMode) {
@@ -175,24 +176,32 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	void SetPlayerMove () {
-		Vector2 moveDir = input.moveDir;
+		if (attackMode == 0) {
+			Vector2 moveDir = input.moveDir;
 
-		if (state == PlayerState.DODGE) {
-			if (!isDodgeMove) {
-				Transform target = facing.attackArea.transform;
-				isDodgeMove = true;
-				rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
-			} 
-		} else {
-			isDodgeMove = false;
-			moveDir = moveDir.normalized * moveSpeed * deltaTime;
-			rb.velocity = moveDir;	
-			
-			if (moveDir == Vector2.zero) {
-				// player.SetPlayerIdle();
+			if (state == PlayerState.DODGE) {
+				if (!isDodgeMove) {
+					Transform target = facing.attackArea.transform;
+					isDodgeMove = true;
+					rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
+				} 
 			} else {
-				player.SetPlayerState(PlayerState.MOVE);
+				isDodgeMove = false;
+				moveDir = moveDir.normalized * moveSpeed * deltaTime;
+				rb.velocity = moveDir;	
+				
+				if (moveDir == Vector2.zero) {
+					// player.SetPlayerIdle();
+				} else {
+					if (state != PlayerState.ATTACK) {
+						player.SetPlayerState(PlayerState.MOVE);
+					} else {
+						rb.velocity = Vector2.zero;
+					}
+				}
 			}
+		} else {
+			
 		}
 	}
 }

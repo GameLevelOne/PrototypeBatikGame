@@ -49,7 +49,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			player = animationData.Player[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
-
+			
+			state = player.state;
 			animator = anim.animator; 
 			int attackMode = input.AttackMode;
 			moveDir = input.moveDir;
@@ -57,8 +58,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			CheckPlayerState ();
 			StartCheckAnimation();
-			
-			// StartCheckAnimation();
 
 			SetAnimationFaceDirection ();
 			continue; //TEMP
@@ -90,8 +89,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
-				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
-				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
+				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
+				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
 				continue;
 			} else if (state == PlayerState.RAPID_SLASH) {
@@ -149,7 +148,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void CheckPlayerState () {
-		switch (player.state) {
+		switch (state) {
 			case PlayerState.IDLE:
 				switch (input.moveMode) {
 					case 0: 
@@ -192,7 +191,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
 				break;
 			case PlayerState.ATTACK:
-				if (input.AttackMode == 1) {
+				// if (input.slashComboVal.Count == 0) break;
+				if (attack.isAttacking) {
+					animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
+				} else if (input.AttackMode == 1) {
 					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);						
 				} else if (input.AttackMode == 2) {
 					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);						
@@ -200,6 +202,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);						
 				}
 				// Debug.Log("ATTACK");
+				break;
+			case PlayerState.CHARGE: 
+				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
 				break;
 		}
 	}
@@ -220,8 +225,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// 	input.LiftingMode = 1;
 				// }
 			} else {
-				SetAnimation (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetAnimation (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 				
 				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
 				// if (input.LiftingMode == -1) {
@@ -236,6 +241,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void StartCheckAnimation () {
 		if (!anim.IsCheckBeforeAnimation) {
 			CheckBeforeAnimation (anim.animState);
+			Debug.Log(state);
 			anim.IsCheckBeforeAnimation = true;
 		} else if (!anim.IsCheckAfterAnimation) {
 			CheckAfterAnimation (anim.animState);
@@ -252,23 +258,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
 		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
-	}
-
-	void SetAnimation (string animName, float animValue, bool isVertical) {
-		Vector2 movement = input.moveDir;
-		animator.SetFloat(animName, animValue);
-		
-		if (isVertical) {
-			movement.y = Mathf.RoundToInt(animValue);
-		} else {
-			movement.x = Mathf.RoundToInt(animValue);
-		}
-
-		if (currentDir == movement) return;
-
-		currentDir = movement;
-		
-		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 	}
 
 	void CheckBeforeAnimation (AnimationState animState) {
@@ -328,27 +317,28 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// if (input.slashComboVal.Count > 0) {
 				// 	int slashComboVal = input.slashComboVal[0];
 					
-				// 	animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
+				// 	// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
 					
+				// 	Debug.Log("slashComboVal = " + slashComboVal);
 				// 	if (slashComboVal == 3) {					
 				// 		input.slashComboVal.Clear();
+				// 		Debug.Log("slashComboVal Clear");
 				// 	} else {
 				// 		input.slashComboVal.RemoveAt(0);
+				// 		Debug.Log("slashComboVal RemoveAt(0)");
 				// 	}
 
 				// 	CheckAttackList ();
 				// } else {
-				// 	CheckAttackList ();
+					// CheckAttackList ();
 				// }
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_CHARGE:
-				animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
+				// animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
 				StopAttackAnimation ();
 				break;
 			case AnimationState.AFTER_DODGE:
-				// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
-				// input.IsDodging = false;
 				player.SetPlayerIdle();
 				break;
 			case AnimationState.AFTER_COUNTER:
@@ -414,53 +404,41 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	// void CheckAttackList () {		
-	// 	if (input.slashComboVal.Count == 0) {
-	// 		animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-	// 		player.IsHitAnEnemy = false;
-	// 		Debug.Log("Stop Attack Animation");
-	// 		StopAttackAnimation ();
-	// 	} else {
-			
-	// 		Debug.Log("Must Stop Attack Animation");
-	// 	}
-	// }
+	void CheckAttackList () {		
+		if (input.slashComboVal.Count == 0) {
+			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
+			player.IsHitAnEnemy = false;
+			Debug.Log("Stop Attack Animation");
+			StopAttackAnimation ();
+		} else {
+			Debug.Log("Must Stop Attack Animation");
+		}
+	}
 
 	void StopAttackAnimation () {
-		// if (role.gameRole == GameRole.Player) {
 		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
 		player.IsHitAnEnemy = false;
 		input.AttackMode = 0;
-		// attack.IsAttacking = false;
-		// }
+		// attack.isAttacking = false;
 		player.SetPlayerIdle();
 	}
 
-	// float CheckMode (int mode) {
-	// 	switch (mode) {
-	// 		case 0: 
-	// 			return 0f; //STAND / MOVE / DODGE
-	// 			// break;
-	// 		case 1: 
-	// 			return 1f; //CHARGE / DASH
-	// 			// break;
-	// 		case 2:
-	// 			return 2f; //GUARD
-	// 			// break;
-	// 		case 3:
-	// 			return 3f; //STEADY FOR RAPID SLASH
-	// 			// break;
-	// 		case -1: 
-	// 			return -1f; //DIE / BLOCK
-	// 			// break;
-	// 		case -2: 
-	// 			return -2f; //HURT
-	// 			// break;
-	// 		default:
-	// 			Debug.Log("Unknown Mode in Animation System");
-	// 			return 0f;
-	// 	}
-	// }
+	void SetAnimationFaceDir (string animName, float animValue, bool isVertical) {
+		Vector2 movement = input.moveDir;
+		animator.SetFloat(animName, animValue);
+		
+		if (isVertical) {
+			movement.y = Mathf.RoundToInt(animValue);
+		} else {
+			movement.x = Mathf.RoundToInt(animValue);
+		}
+
+		if (currentDir == movement) return;
+
+		currentDir = movement;
+		
+		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+	}
 
 	int CheckDirID (float dirX, float dirY) {
 		int dirIdx = 0;
@@ -491,4 +469,30 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 		return dirIdx;
 	}
+
+	// float CheckMode (int mode) {
+	// 	switch (mode) {
+	// 		case 0: 
+	// 			return 0f; //STAND / MOVE / DODGE
+	// 			// break;
+	// 		case 1: 
+	// 			return 1f; //CHARGE / DASH
+	// 			// break;
+	// 		case 2:
+	// 			return 2f; //GUARD
+	// 			// break;
+	// 		case 3:
+	// 			return 3f; //STEADY FOR RAPID SLASH
+	// 			// break;
+	// 		case -1: 
+	// 			return -1f; //DIE / BLOCK
+	// 			// break;
+	// 		case -2: 
+	// 			return -2f; //HURT
+	// 			// break;
+	// 		default:
+	// 			Debug.Log("Unknown Mode in Animation System");
+	// 			return 0f;
+	// 	}
+	// }
 }

@@ -100,6 +100,7 @@ public class Animation2D : MonoBehaviour {
 
 	#region Player and Enemy Animation
 	void StartAnimation (AnimationState state) {
+		Debug.Log(state);
 		isCheckBeforeAnimation = false;
 		animState = state;
 	}

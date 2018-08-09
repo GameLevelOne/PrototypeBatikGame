@@ -8,15 +8,5 @@ public class Attack : MonoBehaviour {
 	// public GameObject bullet;
     public Transform bulletSpawnPos; 
     public float attackRate = 0.5f;
-
-    [SerializeField] bool currentIsAttacking = false;
-
-    public bool isAttacking {
-        get {return currentIsAttacking;}
-		set {
-			if (currentIsAttacking == value) return;
-
-			currentIsAttacking = value;
-		}
-    }
+    public bool isAttacking = false;
 }

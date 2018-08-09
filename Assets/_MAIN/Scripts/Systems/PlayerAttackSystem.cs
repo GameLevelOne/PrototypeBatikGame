@@ -62,6 +62,7 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
 	public void SpawnSlashEffect (int mode) {
+		Debug.Log("Normal Attack = "+mode);
 		switch (mode) {
             case 1:
                 SpawnObj (attack.slash);
