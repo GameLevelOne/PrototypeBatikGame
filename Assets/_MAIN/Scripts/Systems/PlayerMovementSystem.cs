@@ -26,6 +26,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	Player player;
 	PlayerInput input;
 	Movement movement;
+	PlayerTool tool;
 
 	PlayerState state;
 
@@ -55,7 +56,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
 			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
-			PlayerTool tool = toolSystem.tool;
+			tool = toolSystem.tool;
 
 			if (state == PlayerState.DIE) continue;
 			
@@ -71,7 +72,22 @@ public class PlayerMovementSystem : ComponentSystem {
             // //     break;
 			// }
 			
-			SetPlayerMove ();
+			if (!CheckIfAllowedToMove()) {
+				SetPlayerSpecificMove ();
+				continue;
+			} else if (state == PlayerState.POWER_BRACELET) {
+				if (input.interactValue == 2 || input.interactValue == 0) {
+					input.moveDir = Vector2.zero;
+				}
+			} else if (state == PlayerState.FISHING) {
+				input.moveDir = Vector2.zero;
+				rb.velocity = Vector2.zero;
+			} else {
+				brakeTime = movement.brakeTime;
+			}
+
+			SetPlayerStandardMove();
+
 			continue; //TEMP
 			
 			#region OLD
@@ -175,7 +191,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		}
 	}
 
-	void SetPlayerMove () {
+	void SetPlayerStandardMove () {
 		if (attackMode == 0) {
 			Vector2 moveDir = input.moveDir;
 
@@ -201,7 +217,47 @@ public class PlayerMovementSystem : ComponentSystem {
 				}
 			}
 		} else {
-			
+
+		}
+	}
+
+	void SetPlayerSpecificMove () {
+		Transform target = facing.attackArea.transform;
+		Vector2 dir = target.position - tr.position;
+
+		if (state == PlayerState.HOOK) {
+			rb.velocity = Vector2.zero;
+		} else if (state == PlayerState.DASH) {
+			// isStartDashing = true;
+			// rb.AddForce(dir * tool.dashSpeed);
+			rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
+		} else if (state == PlayerState.BRAKE) {
+			if (brakeTime > 0f) {
+				brakeTime -= deltaTime;
+				rb.velocity = dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+			} else {
+				input.moveDir = Vector2.zero;
+				player.SetPlayerIdle();
+			}
+		} else if (state == PlayerState.BOUNCE) {
+			// rb.AddForce(-dir * movement.bounceSpeed);
+			if (brakeTime > 0f) {
+				brakeTime -= deltaTime;
+				rb.velocity = -dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+			} else {
+				input.moveDir = Vector2.zero;
+				player.SetPlayerIdle();
+			}
+		} else {
+			rb.velocity = Vector2.zero;
+		}
+	}
+
+	bool CheckIfAllowedToMove () {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }

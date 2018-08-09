@@ -209,6 +209,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.CHARGE: 
 				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
 				break;
+			case PlayerState.DASH: 
+				animator.Play(Constants.BlendTreeName.MOVE_DASH);
+				break;
+			case PlayerState.BOUNCE: 
+				animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
+				break;
+			case PlayerState.BRAKE: 
+				animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
+				break;
 		}
 	}
 

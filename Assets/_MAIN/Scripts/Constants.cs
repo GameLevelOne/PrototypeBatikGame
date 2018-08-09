@@ -97,7 +97,9 @@ public static class Constants {
 		public const string IDLE_STAND = "IdleStand";
 		public const string MOVE_RUN = "MoveRun";
 		public const string MOVE_DODGE = "MoveDodge";
+		public const string MOVE_DASH = "MoveDash";
 		public const string IDLE_DIE = "IdleDie";
+		public const string IDLE_BRAKE = "IdleBrake";
 		public const string IDLE_CHARGE = "IdleCharge";
 		public const string MOVE_CHARGE = "MoveCharge";
 		public const string IDLE_GUARD = "IdleGuard";
