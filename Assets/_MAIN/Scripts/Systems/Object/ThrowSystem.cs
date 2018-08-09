@@ -95,7 +95,7 @@ public class ThrowSystem : ComponentSystem {
 				// downCurve = new Vector3(0f,0f,-1f);
 				// Debug.Log("Down");
 			}
-			Debug.Log(dist);
+			// Debug.Log(dist);
 
 			// mainObjTransform.localPosition = Vector3.Lerp(mainObjPos, downCurve, dist * moveTime); Curve Move			
 			return true;

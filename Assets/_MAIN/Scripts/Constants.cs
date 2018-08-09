@@ -120,6 +120,7 @@ public static class Constants {
 		public const string UNGRABBING = "UnGrabbing";
 		public const string IDLE_PUSH = "IdlePush";
 		public const string MOVE_PUSH = "MovePush";
+		public const string LIFTING = "Lifting";
 		public const string IDLE_LIFT = "IdleLift";
 		public const string MOVE_LIFT = "MoveLift";
 		public const string THROWING_LIFT = "ThrowingLift";

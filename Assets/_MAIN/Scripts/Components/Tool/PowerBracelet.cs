@@ -63,7 +63,7 @@ public class PowerBracelet : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() != null && IsInteracting) {
+		if (col.GetComponent<Liftable>() != null) {
 
 			if (liftable.gameObject == col.GetComponent<Liftable>().gameObject) {
 				liftable = null;

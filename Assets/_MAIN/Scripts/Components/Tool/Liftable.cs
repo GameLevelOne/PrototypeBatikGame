@@ -34,7 +34,6 @@ public class Liftable : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log(col.gameObject.name);
 		if(col.gameObject.tag != Constants.Tag.PLAYER){
 			attachedObject = col.gameObject;
 		}

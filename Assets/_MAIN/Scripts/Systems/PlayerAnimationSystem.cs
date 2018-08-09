@@ -33,7 +33,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector2 moveDir;
 	Vector2 currentMove;
 	Vector2 currentDir;
-	bool isFinishAnyAnimation = true;
+	bool isFinishAnyAnim = true;
+
+	public bool isFinishAnyAnimation {
+		get {return isFinishAnyAnim;}
+		set {
+			isFinishAnyAnim = value;
+			// Debug.Log(isFinishAnyAnim + " on state " + state);
+		}
+	}
 
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
@@ -237,6 +245,40 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.USE_CONTAINER);
 				}
 				break;
+			case PlayerState.POWER_BRACELET:
+				if (input.interactValue == 0) {
+						Debug.Log("GRABBING");
+					animator.Play(Constants.BlendTreeName.GRABBING);
+				} else if (input.interactValue == 1) {
+					if (input.liftingMode == 0) {
+						Debug.Log("SWEATING_GRAB");
+						animator.Play(Constants.BlendTreeName.SWEATING_GRAB);
+					} else if (input.liftingMode == -1) {
+						Debug.Log("IDLE_LIFT");
+						animator.Play(Constants.BlendTreeName.IDLE_LIFT);
+					} else if (input.liftingMode == 1) {
+						Debug.Log("IDLE_PUSH");
+						animator.Play(Constants.BlendTreeName.IDLE_PUSH);
+					} else if (input.liftingMode == -2) {
+						Debug.Log("MOVE_LIFT");
+						animator.Play(Constants.BlendTreeName.MOVE_LIFT);
+					} else if (input.liftingMode == 2) {
+						Debug.Log("MOVE_PUSH");
+						animator.Play(Constants.BlendTreeName.MOVE_PUSH);
+					} else if (input.liftingMode == -3) {
+						Debug.Log("LIFTING");
+						animator.Play(Constants.BlendTreeName.LIFTING);
+					}
+				} else if (input.interactValue == 2) {
+					if (input.liftingMode == 0) {
+						animator.Play(Constants.BlendTreeName.UNGRABBING);
+					} else if (input.liftingMode == -1) {
+						animator.Play(Constants.BlendTreeName.THROWING_LIFT);
+					} else if (input.liftingMode == 1) {
+						animator.Play(Constants.BlendTreeName.UNGRABBING);
+					}
+				}
+				break;
 		}
 	}
 
@@ -250,21 +292,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				// player.SetPlayerIdle();
 
-				// if (input.LiftingMode == -2) {
-				// 	input.LiftingMode = -1;
-				// } else if (input.LiftingMode == 2) {
-				// 	input.LiftingMode = 1;
-				// }
+				if (input.liftingMode == -2) {
+					input.liftingMode = -1;
+				} else if (input.liftingMode == 2) {
+					input.liftingMode = 1;
+				}
 			} else {
 				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
 				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 				
 				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
-				// if (input.LiftingMode == -1) {
-				// 	input.LiftingMode = -2;
-				// } else if (input.LiftingMode == 1) {
-				// 	input.LiftingMode = 2;
-				// }
+				if (input.liftingMode == -1) {
+					input.liftingMode = -2;
+				} else if (input.liftingMode == 1) {
+					input.liftingMode = 2;
+				}
 			}
 		}
 	}
@@ -281,7 +323,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckStartAnimation () {
 		isFinishAnyAnimation = false;
-
+		
 		switch(state) {
 			case PlayerState.ATTACK: 
 				attack.isAttacking = true;
@@ -377,9 +419,37 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:
-				//
-				input.interactValue = 0;
-				StopAnyAnimation();
+				if (input.interactValue == 0) {
+					input.interactValue = 1;
+
+					PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+
+					if (powerBraceletState == PowerBraceletState.GRAB) {
+						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+					} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
+						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+						powerBraceletSystem.SetLiftObjectParent();
+					}
+
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) {
+					if (input.liftingMode == -3) {
+						input.liftingMode = -1;
+					}
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 2) {
+					input.interactValue = 0;
+
+					if (input.liftingMode == -1) {
+						powerBraceletSystem.UnSetLiftObjectParent();
+						powerBraceletSystem.AddForceRigidbody(facing.DirID);
+					} else if (input.liftingMode == 1) {
+						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
+					}
+					
+					StopAnyAnimation();
+				}
+
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");

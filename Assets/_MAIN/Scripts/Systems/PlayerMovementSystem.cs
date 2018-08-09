@@ -209,15 +209,13 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.ATTACK) {
+					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.IsPlayerSwimming) {
 						player.SetPlayerState(PlayerState.MOVE);
-					} else {
-						rb.velocity = Vector2.zero;
-					}
+					} 
 				}
 			}
 		} else {
-
+			rb.velocity = Vector2.zero;
 		}
 	}
 
