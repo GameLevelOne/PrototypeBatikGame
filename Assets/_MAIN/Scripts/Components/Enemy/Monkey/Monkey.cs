@@ -10,15 +10,24 @@ public class Monkey : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;
 	public Vector2 patrolArea;
+	public bool isCollidingWithPlayer = false;
 	public bool isHitByPlayer = false;
-	#region delegate event
-
+	
 	void Start()
 	{
 		patrolArea = transform.position;
 	}
 
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == Constants.Tag.PLAYER)
+		{
+			enemy.playerTransform = other.transform;
+			isCollidingWithPlayer = true;
+		}
+	}
 
+	#region delegate event
 	void OnEnable()
 	{
 		monkeyTriggerDetection.OnAddMonkey += AddMonkey;

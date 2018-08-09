@@ -4,7 +4,7 @@ public class WaterShooterEnemy : MonoBehaviour {
 	[HeaderAttribute("WaterShooterEnemy Attributes")]
 	public Enemy enemy;
 	public TriggerDetection playerTriggerDetection;
-	public GameObject projectile;
+	public GameObject bullet;
 
 	[SpaceAttribute(10f)]
 	public float shootInterval;

@@ -6,14 +6,14 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	{
 		public readonly int Length;
 		public ComponentArray<Enemy> enemy;
-		public ComponentArray<Rigidbody2D> beeRigidbody;
+		public ComponentArray<Rigidbody2D> enemyRigidbody;
 		public ComponentArray<Animator> enemyAnim;
 	}
 
 	#region injected component
 	[InjectAttribute] FaceDirectionComponent faceDirectionComponent;
 	Enemy currEnemy;
-	Rigidbody2D currBeeRigidbody;
+	Rigidbody2D currEnemyRigidbody;
 	Animator currEnemyAnim;
 	#endregion
 
@@ -22,7 +22,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		for(int i = 0;i<faceDirectionComponent.Length;i++){
 			currEnemy = faceDirectionComponent.enemy[i];
 			currEnemyAnim = faceDirectionComponent.enemyAnim[i];
-			currBeeRigidbody = faceDirectionComponent.beeRigidbody[i];
+			currEnemyRigidbody = faceDirectionComponent.enemyRigidbody[i];
 
 			SetFaceDirection();
 		}
@@ -31,12 +31,11 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	void SetFaceDirection()
 	{
 		if(currEnemy.state == EnemyState.Patrol){
-			Vector2 dir = GetDirection(currBeeRigidbody.position,currEnemy.patrolDestination);
-			//Debug.Log("Direction = "+dir);
+			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,dir.x);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.y);
-		}else if(currEnemy.state == EnemyState.Chase){
-			Vector2 dir = GetDirection(currBeeRigidbody.position,currEnemy.playerTransform.position);
+		}else if(currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack){
+			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,dir.x);
 			currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.y);
 		}

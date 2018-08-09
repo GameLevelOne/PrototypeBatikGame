@@ -180,7 +180,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951058270258266}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -365,6 +365,7 @@ MonoBehaviour:
   state: 0
   attackObject: {fileID: 1788490913232720}
   isEnemyHit: 0
+  isEnemyGetHurt: 0
   patrolRange: 2
   chaseRange: 10
   patrolSpeed: 1.5

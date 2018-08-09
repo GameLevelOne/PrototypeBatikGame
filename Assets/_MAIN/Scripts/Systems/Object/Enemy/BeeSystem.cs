@@ -27,6 +27,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		for(int i = 0;i<beeComponent.Length;i++){
 			currBee = beeComponent.bee[i];
+			currBeeRigidbody = beeComponent.beeRigidbody[i];
 			currBeeAnim = beeComponent.beeAnim[i];
 			currBeeHealth = beeComponent.beeHealth[i];
 			
@@ -94,9 +95,9 @@ public class BeeSystem : ComponentSystem {
 			currBee.enemy.initPatrol = true;
 			
 			Vector3 origin = 
-				currBee.isStartled ? 
-				new Vector3(currBeeRigidbody.position.x,currBeeRigidbody.position.y,0f) : 
-				currBee.beeHiveTransform.position;
+				currBee.isStartled ?  currBee.transform.position : 
+					currBee.beeHiveTransform != null ? currBee.beeHiveTransform.position : currBee.transform.position;
+
 
 			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBee.enemy.patrolRange);
 			deltaTime = Time.deltaTime;
@@ -108,7 +109,6 @@ public class BeeSystem : ComponentSystem {
 					currBee.enemy.patrolSpeed * deltaTime
 				);
 
-			//Debug.Log("Running");
 			if(Vector2.Distance(currBee.enemy.patrolDestination,currBeeRigidbody.position) < 0.1f){
 				currBee.enemy.state = EnemyState.Idle;
 				currBee.enemy.initPatrol = false;

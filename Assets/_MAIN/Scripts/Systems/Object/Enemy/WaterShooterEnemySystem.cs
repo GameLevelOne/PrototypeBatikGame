@@ -31,9 +31,9 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void CheckState()
 	{
 		if(currWaterShooterEnemy.enemy.state == EnemyState.Idle){
-
+			Idle();
 		}else if(currWaterShooterEnemy.enemy.state == EnemyState.Attack){
-
+			Attack();
 		}
 	}
 
@@ -41,6 +41,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	{
 		if(currWaterShooterEnemy.enemy.playerTransform != null){
 			currWaterShooterEnemy.enemy.state = EnemyState.Attack;
+			currWaterShooterEnemy.enemy.initIdle = false;
 		}else{
 			if(!currWaterShooterEnemy.enemy.initIdle){
 				currWaterShooterEnemy.enemy.initIdle = true;
@@ -53,6 +54,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	{
 		if(currWaterShooterEnemy.enemy.playerTransform == null){
 			currWaterShooterEnemy.enemy.state = EnemyState.Idle;
+			currWaterShooterEnemy.enemy.initAttack = false;
 		}else{
 			if(!currWaterShooterEnemy.enemy.initAttack){
 				currWaterShooterEnemy.enemy.initAttack = true;
@@ -61,6 +63,10 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				currWaterShooterEnemy.TShootInterval -= Time.deltaTime;
 				if(currWaterShooterEnemy.TShootInterval <= 0f){
 					//shoot
+					GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet,currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
+					bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
+					bullet.GetComponent<WaterShooterBullet>().init = true;
+					
 					currWaterShooterEnemy.enemy.initAttack = false;
 				}
 			}

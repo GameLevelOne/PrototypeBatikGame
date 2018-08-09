@@ -29,12 +29,14 @@ public class WaterShooterBulletSystem : ComponentSystem {
 
 	void Fly()
 	{
-		deltaTime = Time.deltaTime;
-		currWaterShooterBulletTransform.Translate(currWaterShooterBullet.direction * currWaterShooterBullet.speed * deltaTime);
+		if(currWaterShooterBullet.init){
+			deltaTime = Time.deltaTime;
+			currWaterShooterBulletTransform.Translate(currWaterShooterBullet.direction * currWaterShooterBullet.speed * deltaTime);
 
-		if(currWaterShooterBullet.destroyed){
-			GameObject.Destroy(currWaterShooterBullet.gameObject);
-			UpdateInjectedComponentGroups();
+			if(currWaterShooterBullet.destroyed){
+				GameObject.Destroy(currWaterShooterBullet.gameObject);
+				UpdateInjectedComponentGroups();
+			}
 		}
 	}
 }
