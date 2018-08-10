@@ -217,9 +217,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613c22d8fc086c74096b8ddf66ba1e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerThatHitsEnemy: {fileID: 0}
   state: 0
+  attackObject: {fileID: 0}
   isEnemyHit: 0
+  isEnemyGetHurt: 0
+  patrolRange: 0
+  chaseRange: 0
+  patrolSpeed: 0
+  chaseSpeed: 0
+  idleDuration: 0
+  playerThatHitsEnemy: {fileID: 0}
+  playerTransform: {fileID: 0}
+  patrolDestination: {x: 0, y: 0}
+  initIdle: 0
+  initPatrol: 0
+  initAttack: 0
+  isAttack: 0
+  attackHit: 0
 --- !u!114 &114794452425987762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,8 +321,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1829551841
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d1caae882d578c041990ea70b9c368ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -29,6 +29,7 @@ public class WaterShooterEnemy : MonoBehaviour {
 
 	void SetPlayerTransform(GameObject player)
 	{
-		enemy.playerTransform = player.transform;
+		if(player == null) enemy.playerTransform = null;
+		else enemy.playerTransform = player.transform;
 	}
 }
