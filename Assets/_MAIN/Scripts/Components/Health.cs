@@ -22,18 +22,6 @@ public class Health : MonoBehaviour {
 			healthPower = value;
 		}
 	}
-
-	// void Awake () {
-	// 	role = GetComponent<Role>();
-
-	// 	if (role.gameRole == GameRole.Player) {
-	// 		player = GetComponent<Player>();
-	// 	} else if (role.gameRole == GameRole.Enemy) {
-	// 		enemy = GetComponent<Enemy>();
-	// 	} else {
-	// 		Debug.Log("Unknown game object");
-	// 	}
-	// }
 	
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
@@ -56,13 +44,10 @@ public class Health : MonoBehaviour {
 				if (player.isParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
 					Debug.Log ("Player ignored damage");
 				} else if (player.isGuarding) {
-					// player.IsPlayerGetHurt = true;
-					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-					Debug.Log("Health block attack");
+					player.IsPlayerGetHurt = true;
 					damage *= guardReduceDamage;
 				} else {
-					// player.IsPlayerGetHurt = true;
-					player.SetPlayerState(PlayerState.GET_HURT);
+					player.IsPlayerGetHurt = true;
 					damage = initialDamage;
 				}
 

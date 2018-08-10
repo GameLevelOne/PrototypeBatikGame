@@ -97,7 +97,7 @@ public class ToolSystem : ComponentSystem {
 	bool CheckIfToolHasBeenUnlocked (int type) {
 		if (tool.CheckIfToolHasBeenUnlocked(type) > 0) {
 			toolType = type;
-			tool.textToolName.text = type.ToString();
+			tool.textToolName.text = ((ToolType) toolType).ToString();
 			CheckPowerBracelet();
 			CheckFlipper();
 			return true;

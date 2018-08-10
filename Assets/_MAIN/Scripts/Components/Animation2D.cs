@@ -109,14 +109,12 @@ public class Animation2D : MonoBehaviour {
 	#endregion
 
 	#region Stand Animation
-	void StartStandAnimation (StandAnimationState state) {
+	void StartStandAnimation () {
 		isCheckBeforeStandAnimation = false;
-		standAnimState = state;
 	}
 	
-	void ExitStandAnimation (StandAnimationState state) {
+	void ExitStandAnimation () {
 		isCheckAfterStandAnimation = false;
-		standAnimState = state;
 	}
 	#endregion
 }

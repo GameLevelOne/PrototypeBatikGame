@@ -18,7 +18,6 @@ public enum PlayerState {
 	DASH,
 	BOUNCE,
 	BRAKE,
-	HURT_MOVE,
 	POWER_BRACELET,
 	SWIM,
 	FISHING,
@@ -33,9 +32,11 @@ public class Player : MonoBehaviour {
 
 	
 	public bool isGuarding = false; 
-	public bool isParrying = false; 
+	public bool isParrying = false;
+	public bool isUsingStand = false; //By Mana  
 	    
     [SerializeField] bool isPlayerHit = false; 
+	[SerializeField] bool isPlayerGetHurt = false;
     [SerializeField] bool isHitAnEnemy = false;
 	// [SerializeField] bool isGuarding = false; 
 	// [SerializeField] bool isParrying = false; 
@@ -51,6 +52,15 @@ public class Player : MonoBehaviour {
 			if (isPlayerHit == value) return;
 
 			isPlayerHit = value;
+		}
+	}
+
+	public bool IsPlayerGetHurt {
+		get {return isPlayerGetHurt;}
+		set {
+			if (isPlayerGetHurt == value) return;
+
+			isPlayerGetHurt = value;
 		}
 	}
 

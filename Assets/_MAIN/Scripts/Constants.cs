@@ -138,16 +138,21 @@ public static class Constants {
 		#endregion
 
 		#region Stand
-		public const string STAND_BOW = "StandBow";
+		public const string STAND_TAKE_AIM_BOW = "StandTakeAimBow";
+		public const string STAND_AIMING_BOW = "StandAimingBow";
+		public const string STAND_SHOT_BOW = "StandShotBow";
 		public const string STAND_GRABBING = "StandGrabbing";
 		public const string STAND_UNGRABBING = "StandUnGrabbing";
 		public const string STAND_IDLE_PUSH = "StandIdlePush";
 		public const string STAND_MOVE_PUSH = "StandMovePush";
 		public const string STAND_IDLE_LIFT = "StandIdleLift";
+		public const string STAND_LIFTING = "StandLifting";
 		public const string STAND_MOVE_LIFT = "StandMoveLift";
 		public const string STAND_THROWING_LIFT = "StandThrowingLift";
 		public const string STAND_DASH = "StandDash";
+		public const string STAND_BOMB = "StandBomb";
 		public const string STAND_MAGIC_MEDALLION = "StandMagicMedallion";
+		public const string STAND_INACTIVE = "StandInactive";
 		#endregion
 	}
 }

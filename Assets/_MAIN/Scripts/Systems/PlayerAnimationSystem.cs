@@ -47,7 +47,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (animationData.Length == 0) return;
 		
 		if (tool == null || attack == null) {
-			tool = standAnimationSystem.stand;
+			tool = standAnimationSystem.tool;
 			attack = playerAttackSystem.attack;
 
 			return;
@@ -74,41 +74,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			continue; //TEMP
 
-			#region OLD
-			// StartCheckAnimation();
-
-			if (state == PlayerState.DIE) {
-				Debug.Log("Player Die Animation");
-				// input.steadyMode = -1;
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
-				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
-				continue;
-			}
-
-			#region ACTION
-			if (state == PlayerState.BLOCK_ATTACK || state == PlayerState.DODGE || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE || state == PlayerState.HURT_MOVE || state == PlayerState.POWER_BRACELET || state == PlayerState.FISHING) {
-				// Debug.Log("Check IS_INTERACT " + Constants.AnimatorParameter.Bool.IS_INTERACT + ", INTERACT_VALUE " + Constants.AnimatorParameter.Int.INTERACT_VALUE);
-
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, true);
-				animator.Play("INTERACT");
-
-				animator.SetInteger(Constants.AnimatorParameter.Int.INTERACT_VALUE, input.interactValue);
-			} else {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_INTERACT, false);
-			}
-			
+			#region OLD		
 			if (state == PlayerState.SLOW_MOTION) {
 				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
-				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
-				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
 
 				continue;
 			} else if (state == PlayerState.RAPID_SLASH) {
 				if (attackMode == 1) {
-					SetRapidAttack(0f); //BULLET TIME RAPID SLASH
+					// SetRapidAttack(0f); //BULLET TIME RAPID SLASH
 				} else {
 					player.SetPlayerIdle();
 				}
@@ -118,44 +94,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 
 			if (attackMode >= 1) {
-				SetAttack(0f); //SLASH
+				// SetAttack(0f); //SLASH
 			} else if (attackMode == -1) {
-				SetAttack(1f); //CHARGE
+				// SetAttack(1f); //CHARGE
 			} else if (attackMode == -2) {
-				SetAttack(2f); //COUNTER
+				// SetAttack(2f); //COUNTER
 				Debug.Log("Animation Counter");
 			} else if (attackMode == -3) {
 				Debug.Log("Steady for crazy standing");
 			}
 
 			StartCheckAnimation();
-			#endregion
-
-			#region MOVEMENT
-			// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE,input.SteadyMode);
-			// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, input.MoveMode);
-			// animator.SetFloat(Constants.AnimatorParameter.Float.INTERACT_MODE, input.InteractMode);
-			// animator.SetFloat(Constants.AnimatorParameter.Float.LIFTING_MODE, input.LiftingMode);
-
-			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK)) {	
-				int toolType = (int)tool.currentTool;
-				
-				if ((toolType >= 8) && (toolType <=10)) {
-					toolType = 7;
-				}
-				
-				animator.SetFloat(Constants.AnimatorParameter.Float.TOOL_TYPE, toolType); 
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, true);
-				continue;
-			} else if (state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
-				//
-				continue;
-			} else {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_USING_TOOL, false);
-			}
-			
-			// SetAnimationFaceDirection ();
-			#endregion
 			#endregion OLD
 		}
 	}
@@ -179,7 +128,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 						animator.Play(Constants.BlendTreeName.IDLE_SWIM);
 						break;
 				}
-				// Debug.Log("IDLE");
 				break;
 			case PlayerState.MOVE:
 				switch (input.moveMode) {
@@ -235,10 +183,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.USE_BOMB);
 				} else if (tool.currentTool == ToolType.Hammer) {
 					animator.Play(Constants.BlendTreeName.USE_HAMMER);
-				} else if (tool.currentTool == ToolType.PowerBracelet) {
-					//
-				} else if (tool.currentTool == ToolType.FishingRod) {
-					//
 				} else if (tool.currentTool == ToolType.Shovel) {
 					animator.Play(Constants.BlendTreeName.USE_SHOVEL);
 				} else if (tool.currentTool == ToolType.MagicMedallion) {
@@ -273,6 +217,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						animator.Play(Constants.BlendTreeName.UNGRABBING);
 					}
 				}
+
 				break;
 			case PlayerState.FISHING:
 				if (input.interactValue == 0) {
@@ -295,18 +240,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.DIE: 
 				animator.Play(Constants.BlendTreeName.IDLE_DIE);
 				break;
+			case PlayerState.GET_HURT: 
+				animator.Play(Constants.BlendTreeName.GET_HURT);
+				break;
+			case PlayerState.BLOCK_ATTACK: 
+				animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
+				break;
 		}
 	}
 
 	void SetAnimationFaceDirection () {			
-		if (currentMove == moveDir) {
-			return;
-		} else {
+		if (currentMove != moveDir) {
 			currentMove = moveDir;
 			
 			if (currentMove == Vector2.zero) {
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				// player.SetPlayerIdle();
 
 				if (input.liftingMode == -2) {
 					input.liftingMode = -1;
@@ -314,10 +261,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.liftingMode = 1;
 				}
 			} else {
-				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetAnimationFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
 				
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, true);
 				if (input.liftingMode == -1) {
 					input.liftingMode = -2;
 				} else if (input.liftingMode == 1) {
@@ -380,6 +326,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				break;
+			case PlayerState.DIE: 
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -387,12 +336,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StopAttackAnimation () {
-		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, false);
-		isFinishAnyAnimation = true;
 		player.IsHitAnEnemy = false;
 		input.AttackMode = 0;
-		// attack.isAttacking = false;
-		player.SetPlayerIdle();
+		StopAnyAnimation();
 	}
 
 	void StopAnyAnimation () {
@@ -497,6 +443,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				break;
+			case PlayerState.DIE: 
+					//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -511,17 +460,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetAttack (float mode) { //SLASH 0, CHARGE 1, SHOT -1
-		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
-		// animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
-	}
-
-	void SetRapidAttack (float mode) { //RAPID SLASH 0
-		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, mode); 
-		animator.SetBool(Constants.AnimatorParameter.Bool.IS_ATTACKING, true);
-		animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, true);
-	}
-
 	void StartCheckAnimation () {
 	// 	if (!anim.IsCheckBeforeAnimation) {
 	// 		CheckBeforeAnimation ();
@@ -530,6 +468,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 		CheckAfterAnimation ();
 	// 		anim.IsCheckAfterAnimation = true;
 	// 	}
+	}
+
+	void CheckAttackList () {		
+		if (input.slashComboVal.Count == 0) {
+			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
+			player.IsHitAnEnemy = false;
+			Debug.Log("Stop Attack Animation");
+			StopAttackAnimation ();
+		} else {
+			Debug.Log("Must Stop Attack Animation");
+		}
 	}
 
 	void CheckBeforeAnimation () {
@@ -590,7 +539,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 			// 	int slashComboVal = input.slashComboVal[0];
 					
 	// 			// 	// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
-					
+		
 	// 			// 	Debug.Log("slashComboVal = " + slashComboVal);
 	// 			// 	if (slashComboVal == 3) {					
 	// 			// 		input.slashComboVal.Clear();
@@ -676,18 +625,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 	}
 	}
 
-	void CheckAttackList () {		
-		if (input.slashComboVal.Count == 0) {
-			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			player.IsHitAnEnemy = false;
-			Debug.Log("Stop Attack Animation");
-			StopAttackAnimation ();
-		} else {
-			Debug.Log("Must Stop Attack Animation");
-		}
-	}
-
-	void SetAnimationFaceDir (string animName, float animValue, bool isVertical) {
+	void SetFaceDir (string animName, float animValue, bool isVertical) {
 		Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
 		
@@ -697,11 +635,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			movement.x = Mathf.RoundToInt(animValue);
 		}
 
-		if (currentDir == movement) return;
-
-		currentDir = movement;
-		
-		facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+		if (currentDir != movement) {
+			currentDir = movement;
+			facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+		}
 	}
 
 	int CheckDirID (float dirX, float dirY) {
@@ -733,30 +670,4 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 		return dirIdx;
 	}
-
-	// float CheckMode (int mode) {
-	// 	switch (mode) {
-	// 		case 0: 
-	// 			return 0f; //STAND / MOVE / DODGE
-	// 			// break;
-	// 		case 1: 
-	// 			return 1f; //CHARGE / DASH
-	// 			// break;
-	// 		case 2:
-	// 			return 2f; //GUARD
-	// 			// break;
-	// 		case 3:
-	// 			return 3f; //STEADY FOR RAPID SLASH
-	// 			// break;
-	// 		case -1: 
-	// 			return -1f; //DIE / BLOCK
-	// 			// break;
-	// 		case -2: 
-	// 			return -2f; //HURT
-	// 			// break;
-	// 		default:
-	// 			Debug.Log("Unknown Mode in Animation System");
-	// 			return 0f;
-	// 	}
-	// }
 }

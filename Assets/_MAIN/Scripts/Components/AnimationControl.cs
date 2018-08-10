@@ -7,7 +7,7 @@ public class AnimationControl : MonoBehaviour {
 	public event ControllingAnimation OnStartAnimation;
 	public event ControllingAnimation OnExitAnimation;
 	
-	public delegate void ControllingStandAnimation(StandAnimationState state);
+	public delegate void ControllingStandAnimation();
 	public event ControllingStandAnimation OnStartStandAnimation;
 	public event ControllingStandAnimation OnExitStandAnimation;
 
@@ -36,19 +36,19 @@ public class AnimationControl : MonoBehaviour {
 		}
 	}
 
-	public void StartStandAnim (StandAnimationState startState) {
+	public void StartStandAnim () {
 		if (isAnimating) return;
 
 		isAnimating = true;
 		if (OnStartStandAnimation != null) {
-			OnStartStandAnimation(startState);
+			OnStartStandAnimation();
 		}
 	}
 
-	public void ExitStandAnim (StandAnimationState endState) {
+	public void ExitStandAnim () {
 		isAnimating = false;
 		if (OnExitStandAnimation != null) {
-			OnExitStandAnimation(endState);
+			OnExitStandAnimation();
 		}
 	}
 

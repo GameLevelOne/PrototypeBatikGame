@@ -29,7 +29,6 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-1 DIE<br /></para>
 	/// <para>0 Run<br /></para>
 	/// <para>1 CHARGE<br /></para>
 	/// <para>2 GUARD<br /></para>

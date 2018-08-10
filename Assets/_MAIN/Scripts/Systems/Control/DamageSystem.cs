@@ -39,15 +39,18 @@ public class DamageSystem : ComponentSystem {
 
 				if (playerState == PlayerState.DIE) continue;
 
-				if (playerState == PlayerState.GET_HURT) {
+				if (player.IsPlayerGetHurt) {
 					health.HealthPower -= health.damage;
-					// player.IsPlayerGetHurt = false;
+					player.IsPlayerGetHurt = false;
 
 					//Set Player Get Hurt Animation
-					player.SetPlayerState(PlayerState.HURT_MOVE);
+					if (player.isGuarding) {
+						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+					} else {
+						player.SetPlayerState(PlayerState.GET_HURT);
+					}
 
 					if (health.HealthPower <= 0f) {
-						// player.IsPlayerDie = true;
 						player.SetPlayerState(PlayerState.DIE);
 						col.enabled = false;
 					}
