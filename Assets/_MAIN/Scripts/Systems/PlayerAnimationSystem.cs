@@ -247,26 +247,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.POWER_BRACELET:
 				if (input.interactValue == 0) {
-						Debug.Log("GRABBING");
 					animator.Play(Constants.BlendTreeName.GRABBING);
 				} else if (input.interactValue == 1) {
 					if (input.liftingMode == 0) {
-						Debug.Log("SWEATING_GRAB");
 						animator.Play(Constants.BlendTreeName.SWEATING_GRAB);
 					} else if (input.liftingMode == -1) {
-						Debug.Log("IDLE_LIFT");
 						animator.Play(Constants.BlendTreeName.IDLE_LIFT);
 					} else if (input.liftingMode == 1) {
-						Debug.Log("IDLE_PUSH");
 						animator.Play(Constants.BlendTreeName.IDLE_PUSH);
 					} else if (input.liftingMode == -2) {
-						Debug.Log("MOVE_LIFT");
 						animator.Play(Constants.BlendTreeName.MOVE_LIFT);
 					} else if (input.liftingMode == 2) {
-						Debug.Log("MOVE_PUSH");
 						animator.Play(Constants.BlendTreeName.MOVE_PUSH);
 					} else if (input.liftingMode == -3) {
-						Debug.Log("LIFTING");
 						animator.Play(Constants.BlendTreeName.LIFTING);
 					}
 				} else if (input.interactValue == 2) {
@@ -277,6 +270,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (input.liftingMode == 1) {
 						animator.Play(Constants.BlendTreeName.UNGRABBING);
 					}
+				}
+				break;
+			case PlayerState.FISHING:
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
+					Debug.Log("THROW_FISH_BAIT");
+				} else if (input.interactValue == 1) {
+					Debug.Log("IDLE_FISHING");
+					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
+				} else if (input.interactValue == 2) {
+					Debug.Log("RETURN_FISH_BAIT");
+					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
 				}
 				break;
 		}
@@ -356,7 +361,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				tool.IsActToolReady = true;
 				break;
 			case PlayerState.FISHING:
-				tool.IsActToolReady = true;
+				//
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
@@ -410,9 +415,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAnyAnimation();
 				break;
 			case PlayerState.FISHING:
-				//
-				input.interactValue = 0;
-				StopAnyAnimation();
+				if (input.interactValue == 0) { 
+					input.interactValue = 1;
+					tool.IsActToolReady = true;
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					Debug.Log("interactValue 2");
+					input.interactValue = 0;
+					
+					StopAnyAnimation();
+				}
+				Debug.Log("STOP FISHING");
 				break;
 			case PlayerState.BLOCK_ATTACK:
 				player.IsPlayerHit = false;

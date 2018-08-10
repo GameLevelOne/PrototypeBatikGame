@@ -603,6 +603,7 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.FISHING) { 				
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 				input.interactValue = 2;
+				Debug.Log("input.interactValue = 2");
 				toolSystem.UseTool();
 			}
 			

@@ -59,6 +59,10 @@ public class FishingRodSystem : ComponentSystem {
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
 			fishSystem.CatchFish(fishingRod.fish);
+		} else {
+			if (fishingRod.fish.state == FishState.CHASE) {
+				fishingRod.fish.state = FishState.IDLE;
+			}
 		}
 
 		fishingRod.isCatchSomething = false;
