@@ -79,14 +79,15 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 BRAKING<br /></para>
 	/// <para>3 POWERBRACELET<br /></para>
 	/// <para>4 FISHINGROD<br /></para>
+	/// <para>5 BOW<br /></para>
     /// </summary>
 	public int interactMode = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>0 INIT<br /></para>
-	/// <para>1 LIFT / SWEATING / GRAB<br /></para>
-	/// <para>2 THROW / RELEASE / RETURN<br /></para>
+	/// <para>0 GRABBING / TAKEAIM<br /></para>
+	/// <para>1 LIFT / SWEATING / GRAB / AIMING<br /></para>
+	/// <para>2 THROW / RELEASE / RETURN / SHOTBOW<br /></para>
     /// </summary>
 	public int interactValue = 0;
 	

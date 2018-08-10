@@ -58,8 +58,9 @@ public class PlayerTool : MonoBehaviour {
 	[SerializeField] bool isFlipperSelected = false;
 
 	void Start()
-	{
+	{	
 		Bow = 1;
+		Debug.Log(Bow);
 		Hook = 0; //
 		Bomb = 1;
 		Hammer = 1;
@@ -168,6 +169,50 @@ public class PlayerTool : MonoBehaviour {
 				return null;
         }
     }
+
+	public int CheckIfToolHasBeenUnlocked (int toolType) {
+		switch (toolType) {
+            case 1:
+                return Bow;
+            case 2:
+                return Hook;
+            case 3:
+                return Bomb;
+            case 4:
+                return Hammer;
+            case 5:
+                return Net;
+            case 6:
+                return FishingRod;
+            case 7:
+                return Container1;
+            case 8:
+                return Container2;
+            case 9:
+                return Container3;
+            case 10:
+                return Container4;
+            case 11:
+                return Shovel;
+            case 12:
+                return Lantern;
+            case 13:
+                return InvisibilityCloak;
+            case 14:
+                return MagicMedallion;
+            case 15:
+                return FastTravel;
+            case 16:
+                return PowerBracelet;
+            case 17:
+                return Flippers;
+            case 18:
+                return Boots;
+			default:
+				Debug.Log("You have no tools");
+				return 0;
+        }
+	}
 
     Quaternion SetFacing () {
         Vector2 targetPos = areaSpawnPos.position;

@@ -40,6 +40,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
 	int attackMode;
+	Vector2 moveDir;
 
 	protected override void OnUpdate () {
 		if (movementData.Length == 0) return;
@@ -71,19 +72,22 @@ public class PlayerMovementSystem : ComponentSystem {
             // //     moveSpeed = movement.slowSpeed; //CHARGING
             // //     break;
 			// }
-			
+
 			if (!CheckIfAllowedToMove()) {
 				SetPlayerSpecificMove ();
 				continue;
 			} else if (state == PlayerState.POWER_BRACELET) {
 				if (input.interactValue == 2 || input.interactValue == 0) {
-					input.moveDir = Vector2.zero;
+					moveDir = Vector2.zero;
 				}
 			} else if (state == PlayerState.FISHING) {
-				input.moveDir = Vector2.zero;
-				rb.velocity = Vector2.zero;
+				moveDir = Vector2.zero;
+				rb.velocity = moveDir;
+			} else if (state == PlayerState.BOW) {
+				moveDir = Vector2.zero;
 			} else {
 				brakeTime = movement.brakeTime;
+				moveDir = input.moveDir;
 			}
 
 			SetPlayerStandardMove();
@@ -150,7 +154,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 
 			if (attackMode == 0) {
-				Vector2 moveDir = input.moveDir;
+				moveDir = input.moveDir;
 
 				if (state == PlayerState.DODGE) {
 					if (!isDodgeMove) {
@@ -193,7 +197,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	void SetPlayerStandardMove () {
 		if (attackMode == 0) {
-			Vector2 moveDir = input.moveDir;
+			// moveDir = input.moveDir;
 
 			if (state == PlayerState.DODGE) {
 				if (!isDodgeMove) {

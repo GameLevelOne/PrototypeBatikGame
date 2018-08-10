@@ -43,23 +43,11 @@ public class ToolSystem : ComponentSystem {
 		} 
 		
 		for (int i=0; i<toolData.Length; i++) {
-			// Player player = toolData.Player[i];
 			state = player.state;
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			
-			// bool isChangeTool = input.IsChangeTool;
-			// bool isUsingTool = input.IsUsingTool;
-
-			// StandAnimationState standAnimState = anim.standAnimState;
-			// toolType = (int) tool.currentTool;
-
-			// if (isChangeTool) {
-			// 	ChangeTool();
-			// 	input.IsChangeTool = false;
-			// } 
-			
-			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.FISHING)) {
+			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.FISHING) || (state == PlayerState.BOW)) {
 				if (tool.IsActToolReady) {
 					UseTool ();
 					tool.IsActToolReady = false;
@@ -70,24 +58,6 @@ public class ToolSystem : ComponentSystem {
 				tool.IsFlipperSelected = false;
 			}
 		}
-
-		//if player input button action, do use tool.
-		// if(Input.GetKeyDown(KeyCode.Space)){
-		// 	foreach(var e in GetEntities<ToolComponent>()){
-		// 		if(!e.playerTool.isUsingTool){
-		// 			e.playerTool.isUsingTool = true;
-		// 			UseTool(e);
-		// 		}
-		// 	}
-		// }
-
-		// if(Input.GetKeyDown(KeyCode.C)){
-		// 	foreach(var e in GetEntities<ToolComponent>()){
-		// 		if(!e.playerTool.isUsingTool){
-		// 			ChangeTool(e);
-		// 		}
-		// 	}
-		// }
 	}
 
 	public void NextTool ()
@@ -99,10 +69,12 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current++;
 		}
+		
+		tool.currentTool = (ToolType) current;
 
-		toolType = current;
-		CheckSelectedTools();
-		PrintToolName ((ToolType) current);
+		if (!CheckIfToolHasBeenUnlocked(current)) {
+			NextTool ();
+		}
 	}
 
 	public void PrevTool () 
@@ -110,19 +82,28 @@ public class ToolSystem : ComponentSystem {
 		int current = (int) tool.currentTool;
 		
 		if(current <= ((int)ToolType.None)){
-			current = 18; //Current tool length
+			current = (int)ToolType.Boots; //Current tool length
 		}else{
 			current--;
 		}
-
-		toolType = current;
-		CheckSelectedTools();
-		PrintToolName ((ToolType) current);
+		
+		tool.currentTool = (ToolType) current;
+		
+		if (!CheckIfToolHasBeenUnlocked(current)) {
+			PrevTool ();
+		}
 	}
 
-	void CheckSelectedTools () {
-		CheckPowerBracelet();
-		CheckFlipper();
+	bool CheckIfToolHasBeenUnlocked (int type) {
+		if (tool.CheckIfToolHasBeenUnlocked(type) > 0) {
+			toolType = type;
+			tool.textToolName.text = type.ToString();
+			CheckPowerBracelet();
+			CheckFlipper();
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	void CheckPowerBracelet () {
@@ -143,11 +124,6 @@ public class ToolSystem : ComponentSystem {
 			tool.IsFlipperSelected = false;
 			UseFlippers (false);
 		}
-	}
-
-	void PrintToolName (ToolType type) {
-		tool.currentTool = type;
-		tool.textToolName.text = type.ToString();
 	}
 
 	public void UseTool ()
@@ -357,8 +333,6 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseFlippers(bool value)
 	{
-		Debug.Log("Using Flippers");
-
 		//allow to swim on water
 		int type = (int) ToolType.Flippers;
 

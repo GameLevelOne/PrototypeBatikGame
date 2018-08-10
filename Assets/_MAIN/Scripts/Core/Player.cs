@@ -21,7 +21,8 @@ public enum PlayerState {
 	HURT_MOVE,
 	POWER_BRACELET,
 	SWIM,
-	FISHING
+	FISHING,
+	BOW
 }
 
 public class Player : MonoBehaviour {

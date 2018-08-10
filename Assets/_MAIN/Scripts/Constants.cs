@@ -72,11 +72,11 @@ public static class Constants {
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
 
 		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
-		public const string PLAYER_TOOL_HOOK = "Player/Tool/Bow";
+		public const string PLAYER_TOOL_HOOK = "Player/Tool/Hook";
 		public const string PLAYER_TOOL_BOMB = "Player/Tool/Bomb";
 		public const string PLAYER_TOOL_HAMMER = "Player/Tool/Hammer";
 		public const string PLAYER_TOOL_NET = "Player/Tool/Net";
-		public const string PLAYER_TOOL_FISHINGROD = "Player/Tool/Net";
+		public const string PLAYER_TOOL_FISHINGROD = "Player/Tool/FishingRod";
 		public const string PLAYER_TOOL_CONTAINER1 = "Player/Tool/Container1";
 		public const string PLAYER_TOOL_CONTAINER2 = "Player/Tool/Container2";
 		public const string PLAYER_TOOL_CONTAINER3 = "Player/Tool/Container3";
@@ -127,7 +127,9 @@ public static class Constants {
 		public const string THROW_FISH_BAIT = "ThrowFishBait";
 		public const string IDLE_FISHING = "IdleFishing";
 		public const string RETURN_FISH_BAIT = "ReturnFishBait";
-		public const string USE_BOW = "UseBow";
+		public const string TAKE_AIM_BOW = "TakeAimBow";
+		public const string AIMING_BOW = "AimingBow";
+		public const string SHOT_BOW = "ShotBow";
 		public const string USE_BOMB = "UseBomb";
 		public const string USE_HAMMER = "UseHammer";
 		public const string USE_SHOVEL = "UseShovel";

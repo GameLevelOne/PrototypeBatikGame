@@ -67,7 +67,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			CheckPlayerState ();
 			CheckAnimation ();
-			SetAnimationFaceDirection ();
+
+			if (CheckIfAllowedToChangeDir()) {
+				SetAnimationFaceDirection ();
+			} 
+
 			continue; //TEMP
 
 			#region OLD
@@ -227,9 +231,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
 				break;
 			case PlayerState.USING_TOOL: 
-				if (tool.currentTool == ToolType.Bow) {
-					animator.Play(Constants.BlendTreeName.USE_BOW);
-				} else if (tool.currentTool == ToolType.Bomb) {
+				if (tool.currentTool == ToolType.Bomb) {
 					animator.Play(Constants.BlendTreeName.USE_BOMB);
 				} else if (tool.currentTool == ToolType.Hammer) {
 					animator.Play(Constants.BlendTreeName.USE_HAMMER);
@@ -275,14 +277,23 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.FISHING:
 				if (input.interactValue == 0) {
 					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
-					Debug.Log("THROW_FISH_BAIT");
 				} else if (input.interactValue == 1) {
-					Debug.Log("IDLE_FISHING");
 					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
 				} else if (input.interactValue == 2) {
-					Debug.Log("RETURN_FISH_BAIT");
 					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
 				}
+				break;
+			case PlayerState.BOW:
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.TAKE_AIM_BOW);
+				} else if (input.interactValue == 1) {
+					animator.Play(Constants.BlendTreeName.AIMING_BOW);
+				} else if (input.interactValue == 2) {
+					animator.Play(Constants.BlendTreeName.SHOT_BOW);
+				}
+				break;
+			case PlayerState.DIE: 
+				animator.Play(Constants.BlendTreeName.IDLE_DIE);
 				break;
 		}
 	}
@@ -363,6 +374,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.FISHING:
 				//
 				break;
+			case PlayerState.BOW:
+				if (input.interactValue == 2) { 
+					tool.IsActToolReady = true;
+				}
+
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -423,12 +440,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				} else if (input.interactValue == 1) { 
 					//
 				} else if (input.interactValue == 2) { 
-					Debug.Log("interactValue 2");
 					input.interactValue = 0;
 					
 					StopAnyAnimation();
 				}
-				Debug.Log("STOP FISHING");
+
 				break;
 			case PlayerState.BLOCK_ATTACK:
 				player.IsPlayerHit = false;
@@ -467,9 +483,31 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				break;
+			case PlayerState.BOW:
+				if (input.interactValue == 0) { 
+					input.interactValue = 1;
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					input.interactValue = 0;
+					
+					StopAnyAnimation();
+				}
+
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
+		}
+	}
+
+	bool CheckIfAllowedToChangeDir () {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
