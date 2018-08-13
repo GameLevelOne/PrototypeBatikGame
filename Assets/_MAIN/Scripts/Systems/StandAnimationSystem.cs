@@ -123,11 +123,14 @@ public class StandAnimationSystem : ComponentSystem {
 				
 				break;
 			case PlayerState.USING_TOOL:
-				if (tool.currentTool == ToolType.Bomb) {
-					animator.Play(Constants.BlendTreeName.STAND_BOMB);
-				} else if (tool.currentTool == ToolType.MagicMedallion) {
+				// if (tool.currentTool == ToolType.Bomb) {
+				// 	animator.Play(Constants.BlendTreeName.STAND_BOMB);
+				// } 
+
+				if (tool.currentTool == ToolType.MagicMedallion) {
 					animator.Play(Constants.BlendTreeName.STAND_MAGIC_MEDALLION);
-				} 
+				}
+
 				break;
 		}
 	}
@@ -226,9 +229,11 @@ public class StandAnimationSystem : ComponentSystem {
 				return false;
 			}
 		} else if (state == PlayerState.USING_TOOL) {
-			if (standType == ToolType.Bomb) {
-				return true;
-			} else if (standType == ToolType.MagicMedallion) {
+			// if (standType == ToolType.Bomb) {
+			// 	return true;
+			// } 
+			
+			if (standType == ToolType.MagicMedallion) {
 				if (player.isUsingStand) {
 					return true;
 				} else {

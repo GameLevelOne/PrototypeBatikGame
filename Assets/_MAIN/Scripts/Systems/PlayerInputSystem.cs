@@ -485,6 +485,10 @@ public class PlayerInputSystem : ComponentSystem {
 						}
 					} else {
 						player.SetPlayerState(PlayerState.USING_TOOL);
+
+						if (toolType == ToolType.Bomb) {
+							tool.IsActToolReady = true;
+						}
 					}
 				}
 			} 

@@ -172,9 +172,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 			case PlayerState.USING_TOOL: 
-				if (tool.currentTool == ToolType.Bomb) {
-					animator.Play(Constants.BlendTreeName.USE_BOMB);
-				} else if (tool.currentTool == ToolType.Hammer) {
+				// if (tool.currentTool == ToolType.Bomb) {
+				// 	animator.Play(Constants.BlendTreeName.USE_BOMB);
+				// }
+				 
+				if (tool.currentTool == ToolType.Hammer) {
 					animator.Play(Constants.BlendTreeName.USE_HAMMER);
 				} else if (tool.currentTool == ToolType.Shovel) {
 					animator.Play(Constants.BlendTreeName.USE_SHOVEL);

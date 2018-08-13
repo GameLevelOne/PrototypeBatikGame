@@ -208,6 +208,7 @@ public class ToolSystem : ComponentSystem {
 
 		//big damage to enemies
 		SpawnSlashEffect(toolType);
+		player.SetPlayerIdle();
 	}
 	
 	void UseHammer()
