@@ -16,14 +16,7 @@ public class PlayerInput : MonoBehaviour {
 
 	public List<int> slashComboVal;
 
-	// [SerializeField] Vector2 currentDir = Vector2.zero;
 	[SerializeField] int attackMode = 0;
-	// [SerializeField] int bulletTimeAttackQty = 0;
-	// [SerializeField] int steadyMode = 0;
-	// [SerializeField] int moveMode = 0;
-	// [SerializeField] int interactMode = 0;
-	// [SerializeField] int interactValue = 0;
-	// [SerializeField] float liftingMode = 0f;
 
 	public Vector2 moveDir = Vector2.zero;
 	
@@ -36,13 +29,13 @@ public class PlayerInput : MonoBehaviour {
 	/// </summary>
 	public int moveMode = 0;
 	
-	/// <summary>
-    /// <para>Values: <br /></para>
-	/// <para>0 STAND<br /></para>
-	/// <para>1 CHARGE<br /></para>
-	/// <para>2 GUARD<br /></para>
-	/// <para>3 STEADY FOR BULLET TIME<br /></para>
-	/// </summary>
+	// / <summary>
+    // / <para>Values: <br /></para>
+	// / <para>0 STAND<br /></para>
+	// / <para>1 CHARGE<br /></para>
+	// / <para>2 GUARD<br /></para>
+	// / <para>3 STEADY FOR BULLET TIME<br /></para>
+	// / </summary>
 	// public int steadyMode = 0;
 	
 	/// <summary>
@@ -84,9 +77,9 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>0 GRABBING / TAKEAIM<br /></para>
-	/// <para>1 LIFT / SWEATING / GRAB / AIMING<br /></para>
-	/// <para>2 THROW / RELEASE / RETURN / SHOTBOW<br /></para>
+	/// <para>0 GRABBING / TAKEAIM / DASHCHARGE<br /></para>
+	/// <para>1 LIFT / SWEATING / GRAB / AIMING / DASH<br /></para>
+	/// <para>2 THROW / RELEASE / RETURN / SHOTBOW / BRAKE<br /></para>
     /// </summary>
 	public int interactValue = 0;
 	

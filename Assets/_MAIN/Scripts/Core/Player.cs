@@ -16,8 +16,6 @@ public enum PlayerState {
 	BLOCK_ATTACK,
 	DODGE,
 	DASH,
-	BOUNCE,
-	BRAKE,
 	POWER_BRACELET,
 	SWIM,
 	FISHING,
@@ -34,12 +32,11 @@ public class Player : MonoBehaviour {
 	public bool isGuarding = false; 
 	public bool isParrying = false;
 	public bool isUsingStand = false; //By Mana  
+	public bool isBouncing = false;
 	    
     [SerializeField] bool isPlayerHit = false; 
 	[SerializeField] bool isPlayerGetHurt = false;
     [SerializeField] bool isHitAnEnemy = false;
-	// [SerializeField] bool isGuarding = false; 
-	// [SerializeField] bool isParrying = false; 
 	[SerializeField] bool isBulletTiming = false;
 	[SerializeField] bool isCanDigging = false;
 	[SerializeField] bool isInvisible = false;
@@ -143,8 +140,8 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D col) {
 
-		if (state == PlayerState.DASH) {
-			SetPlayerState (PlayerState.BOUNCE);	
+		if (state == PlayerState.DASH && !isBouncing) {
+			isBouncing = true;	
 		}
 		
 		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {

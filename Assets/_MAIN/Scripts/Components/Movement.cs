@@ -6,5 +6,6 @@ public class Movement : MonoBehaviour {
 	public float dodgeSpeed;
 	public float attackMoveSpeed;
 	public float bounceSpeed;
+	public float dashDelay;
 	public float brakeTime;
 }

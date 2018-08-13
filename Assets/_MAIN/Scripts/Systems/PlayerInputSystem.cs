@@ -1,10 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
-using System.Collections.Generic;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
@@ -80,7 +75,6 @@ public class PlayerInputSystem : ComponentSystem {
 			continue; //TEMP
 
 			#region OLD
-
 			if (state == PlayerState.SLOW_MOTION) {
 				if (slowDownTimer < bulletTimeDuration) {
 					slowDownTimer += deltaTime;
@@ -187,12 +181,8 @@ public class PlayerInputSystem : ComponentSystem {
 			} else if (state == PlayerState.DASH) {
 				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)){
 					input.interactMode = 2;
-					player.SetPlayerState (PlayerState.BRAKE);
+					// player.SetPlayerState (PlayerState.BRAKE);
 				}
-
-				continue;
-			} else if (state == PlayerState.BOUNCE) {
-				input.interactMode = 2;
 
 				continue;
 			} else if (state == PlayerState.GET_HURT) {
@@ -529,6 +519,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 				if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.FISHING) && (toolType != ToolType.None)) {
 					Debug.Log("Input Use Tool : " + toolType);
+					input.interactValue = 0;
 
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
@@ -622,14 +613,13 @@ public class PlayerInputSystem : ComponentSystem {
 
 			return true;
 		} else if (state == PlayerState.DASH) {
-			if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)){
-				input.interactMode = 2;
-				player.SetPlayerState (PlayerState.BRAKE);
+			if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3))){
+				if (input.interactValue == 1) {
+					input.interactValue = 2;				
+				} else {
+					player.SetPlayerIdle();
+				}
 			}
-
-			return true;
-		} else if (state == PlayerState.BOUNCE) {
-			input.interactMode = 2;
 
 			return true;
 		} else if (state == PlayerState.GET_HURT) {

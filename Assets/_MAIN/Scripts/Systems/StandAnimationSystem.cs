@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class StandAnimationSystem : ComponentSystem {
 	public struct StandData {

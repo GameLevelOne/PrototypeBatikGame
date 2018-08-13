@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class PlayerMovementSystem : ComponentSystem {
 	public struct MovementData {
@@ -39,6 +35,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	bool isAttackMove = false;
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
+	float dashDelay = 0f;
 	int attackMode;
 	Vector2 moveDir;
 
@@ -86,7 +83,9 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else if (state == PlayerState.BOW) {
 				moveDir = Vector2.zero;
 			} else {
+				dashDelay = movement.dashDelay;
 				brakeTime = movement.brakeTime;
+				player.isBouncing = false;
 				moveDir = input.moveDir;
 			}
 
@@ -107,7 +106,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
 				Transform target = facing.attackArea.transform;
 				Vector2 dir = target.position - tr.position;
 				
@@ -117,23 +116,6 @@ public class PlayerMovementSystem : ComponentSystem {
 					// isStartDashing = true;
 					// rb.AddForce(dir * tool.dashSpeed);
 					rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
-				} else if (state == PlayerState.BRAKE) {
-					if (brakeTime > 0f) {
-						brakeTime -= deltaTime;
-						rb.velocity = dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
-					} else {
-						input.moveDir = Vector2.zero;
-						player.SetPlayerIdle();
-					}
-				} else if (state == PlayerState.BOUNCE) {
-					// rb.AddForce(-dir * movement.bounceSpeed);
-					if (brakeTime > 0f) {
-						brakeTime -= deltaTime;
-						rb.velocity = -dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
-					} else {
-						input.moveDir = Vector2.zero;
-						player.SetPlayerIdle();
-					}
 				} else {
 					rb.velocity = Vector2.zero;
 				}
@@ -227,36 +209,46 @@ public class PlayerMovementSystem : ComponentSystem {
 		Transform target = facing.attackArea.transform;
 		Vector2 dir = target.position - tr.position;
 
-		if (state == PlayerState.HOOK) {
-			rb.velocity = Vector2.zero;
-		} else if (state == PlayerState.DASH) {
-			// isStartDashing = true;
-			// rb.AddForce(dir * tool.dashSpeed);
-			rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
-		} else if (state == PlayerState.BRAKE) {
-			if (brakeTime > 0f) {
-				brakeTime -= deltaTime;
-				rb.velocity = dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+		// if (state == PlayerState.HOOK) {
+		// 	rb.velocity = Vector2.zero;
+		// }
+
+		if (state == PlayerState.DASH) {
+			if (input.interactValue == 0) {
+				if (dashDelay > 0f) {
+				dashDelay -= deltaTime;
+				rb.velocity = Vector2.zero;
+				} else {
+					input.interactValue = 1;
+				}
+			} else if (input.interactValue == 1) {
+				if (player.isBouncing) {
+					input.interactValue = 2;
+				} else {
+					rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
+				}
+			} else if (input.interactValue == 2) {
+				if (brakeTime > 0f) {
+					brakeTime -= deltaTime;
+					
+					if (player.isBouncing) {
+						rb.velocity = -dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+					} else {
+						rb.velocity = dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+					}
+				} else {
+					input.moveDir = Vector2.zero;
+					player.isBouncing = false;
+					player.SetPlayerIdle();
+				}
 			} else {
-				input.moveDir = Vector2.zero;
-				player.SetPlayerIdle();
+				rb.velocity = Vector2.zero;
 			}
-		} else if (state == PlayerState.BOUNCE) {
-			// rb.AddForce(-dir * movement.bounceSpeed);
-			if (brakeTime > 0f) {
-				brakeTime -= deltaTime;
-				rb.velocity = -dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
-			} else {
-				input.moveDir = Vector2.zero;
-				player.SetPlayerIdle();
-			}
-		} else {
-			rb.velocity = Vector2.zero;
 		}
 	}
 
 	bool CheckIfAllowedToMove () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOUNCE || state == PlayerState.BRAKE) {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
 			return false;
 		} else {
 			return true;
