@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour {
 	public bool initAttack = false;
 	public bool isAttack = false;
 	public bool attackHit = false;
+	public bool hasArmor = false;
 
 	protected float tIdle;
 	public float TIdle{
@@ -54,10 +55,14 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public bool IsEnemyGetHurt {
-		get {return isEnemyGetHurt;}
-		set {
+		get 
+		{
+			if(hasArmor) return false;
+			else return isEnemyGetHurt;
+		}
+		set 
+		{
 			if (isEnemyGetHurt == value) return;
-
 			isEnemyGetHurt = value;
 		}
 	}

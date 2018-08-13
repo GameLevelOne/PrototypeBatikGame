@@ -34,12 +34,13 @@ public class MonkeySystem : ComponentSystem {
 
 			CheckState();
 			CheckHit();
+			CheckCollisionWithPlayer();
+			CheckHealth();
 		}
 	}
 
 	void CheckState()
 	{
-		currMonkeyRigidbody.velocity = Vector2.zero;
 		if(currMonkey.enemy.state == EnemyState.Idle){
 			Idle();
 		}else if(currMonkey.enemy.state == EnemyState.Patrol){
@@ -68,6 +69,25 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.isHitByPlayer = true;
 			}
 		}		
+	}
+
+	void CheckCollisionWithPlayer()
+	{
+		if(currMonkey.enemy.state != EnemyState.Attack){
+			if(currMonkey.isCollidingWithPlayer){
+				currMonkey.enemy.state = EnemyState.Attack;
+				currMonkey.isCollidingWithPlayer = false;
+			}
+		}
+		
+	}
+
+	void CheckHealth()
+	{
+		if(currMonkeyHealth.HealthPower <= 0f){
+			GameObject.Destroy(currMonkey.gameObject);
+			UpdateInjectedComponentGroups();
+		}
 	}
 
 	void Idle()
