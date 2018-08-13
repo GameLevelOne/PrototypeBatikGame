@@ -32,7 +32,6 @@ public class ArmorEnemySystem : ComponentSystem {
 
 		CheckPlayer();
 		CheckState();
-		// CheckArmor();
 		}
 	}
 
@@ -63,24 +62,14 @@ public class ArmorEnemySystem : ComponentSystem {
 					currArmorEnemy.startRoll = false;
 				}
 			}
+		}else{
+			if(currArmorEnemy.enemy.state != EnemyState.Idle){
+				currArmorEnemy.enemy.state = EnemyState.Idle;
+				currArmorEnemy.initRoll = false;
+				currArmorEnemy.enemy.initPatrol = false;
+			}
 		}
 	}
-
-	// void CheckArmor()
-	// {
-	// 	if(currArmorEnemy.startRoll){
-	// 		currArmorEnemy.selfCollider.enabled = false;
-	// 		currArmorEnemy.enemy.attackObject.SetActive(true);
-	// 	}else{
-	// 		currArmorEnemy.enemy.attackObject.SetActive(false);
-	// 		if(!currArmorEnemy.enemy.hasArmor){
-	// 			if(!currArmorEnemy.armorDestroyInit){
-	// 				currArmorEnemy.armorDestroyInit = true;
-	// 				currArmorEnemy.selfCollider.enabled = true; 
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 	void Idle()
 	{

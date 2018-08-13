@@ -19,7 +19,7 @@ public class DamageSystem : ComponentSystem {
 	Role role;
 	Player player;
 	Enemy enemy;
-
+	
 	PlayerState playerState;
 	EnemyState enemyState;
 
@@ -56,20 +56,47 @@ public class DamageSystem : ComponentSystem {
 					}
 				}
 			} else if (role.gameRole == GameRole.Enemy) {
-				enemy = health.GetComponent<Enemy>();
-				enemyState = enemy.state;
+				// enemy = health.GetComponent<Enemy>();
+				// enemyState = enemy.state;
 
-				if (enemyState == EnemyState.Die) return;
+				// if (enemyState == EnemyState.Die) return;
 
-				if (enemy.IsEnemyGetHurt) {
-					health.HealthPower -= health.damage;
-					enemy.IsEnemyGetHurt = false;
-
-					//Set Enemy Get Hurt Animation;
-				}
+				// if (enemy.isHit) {
+				// 	if(!enemy.hasArmor){
+				// 		health.HealthPower -= health.damage;
+					
+				// 		//Set Enemy Get Hurt Animation;
+				// 	}
+				// 	enemy.IsEnemyGetHurt = false;
+				// }
+				CalculateDamageToEnemy();
 			} else {
 				Debug.Log("Unknown");
 			}
+		}
+	}
+
+	void CalculateDamaageToPlayer()
+	{	
+
+	}
+
+	void CalculateDamageToEnemy()
+	{
+		Enemy currEnemy = health.enemy;
+
+		if(!currEnemy.isHit) return;
+		else{
+			if(currEnemy.damageReceive.tag == Constants.Tag.HAMMER){
+				if(currEnemy.hasArmor){
+					currEnemy.hasArmor = false;
+				}
+			}else{
+				health.HealthPower -= currEnemy.damageReceive.damage;
+			}
+			currEnemy.IsEnemyGetHurt = false;
+			currEnemy.damageReceive = null;
+			currEnemy.isHit = false;
 		}
 	}
 }
