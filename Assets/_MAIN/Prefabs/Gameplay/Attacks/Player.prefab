@@ -457,7 +457,6 @@ GameObject:
   - component: {fileID: 114745025338561846}
   - component: {fileID: 114560122087618552}
   - component: {fileID: 114642615357431368}
-  - component: {fileID: 114560711474919762}
   m_Layer: 0
   m_Name: Stand Tool
   m_TagString: Untagged
@@ -890,8 +889,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 5
-  m_AngularDrag: 0.05
+  m_LinearDrag: 10
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -1114,10 +1113,12 @@ MonoBehaviour:
   state: 0
   enemyThatHitsPlayer: {fileID: 0}
   playerCol: {fileID: 58018810419284058}
-  isPlayerHit: 0
-  isHitAnEnemy: 0
   isGuarding: 0
   isParrying: 0
+  isUsingStand: 1
+  isPlayerHit: 0
+  isPlayerGetHurt: 0
+  isHitAnEnemy: 0
   isBulletTiming: 0
   isCanDigging: 0
   isInvisible: 0
@@ -1241,11 +1242,10 @@ MonoBehaviour:
   bulletTimeDuration: 0.3
   dodgeCooldown: 1
   slashComboVal: 
-  currentDir: {x: 0, y: 0}
   attackMode: 0
-  bulletTimeAttackQty: 0
-  steadyMode: 0
+  moveDir: {x: 0, y: 0}
   moveMode: 0
+  bulletTimeAttackQty: 0
   interactMode: 0
   interactValue: 0
   liftingMode: 0
@@ -1262,22 +1262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRen: {fileID: 212697090223062848}
   isStaticObject: 0
---- !u!114 &114560711474919762
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1957689861505748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f71b6f3f06a7b6447a761eecddc26c87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDirections: []
-  isNotPlayerNOrEnemy: 1
-  attackArea: {fileID: 0}
-  blindArea: {fileID: 0}
-  attackDirParent: {fileID: 0}
 --- !u!114 &114592571174930306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1356,12 +1340,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114619591953681366}
   animator: {fileID: 95987120919603828}
-  animState: 0
-  standAnimState: 1
   isCheckAfterAnimation: 0
   isCheckBeforeAnimation: 0
-  isCheckAfterStandAnimation: 0
-  isCheckBeforeStandAnimation: 0
+  isCheckAfterStandAnimation: 1
+  isCheckBeforeStandAnimation: 1
 --- !u!114 &114646064306593824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1408,13 +1390,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 114174096162710116}
-  fishCollectible: {fileID: 0}
-  fishType: 0
+  fish: {fileID: 0}
   fishObj: {fileID: 0}
   baitCol: {fileID: 58735119695201938}
   fishingRange: 1
   isBaitLaunched: 0
   isCatchSomething: 0
+  isBaitFish: 0
 --- !u!114 &114745025338561846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1477,10 +1459,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114505679433991240}
   animator: {fileID: 95152014746876474}
-  animState: 0
-  standAnimState: 0
-  isCheckAfterAnimation: 0
-  isCheckBeforeAnimation: 0
+  isCheckAfterAnimation: 1
+  isCheckBeforeAnimation: 1
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
 --- !u!114 &114867989227784564
@@ -1530,7 +1510,7 @@ MonoBehaviour:
     type: 2}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
-  currentIsAttacking: 0
+  isAttacking: 0
 --- !u!114 &114965734544605188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1542,7 +1522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d847400cd8229a04a82ac80fc8669da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibleTypes: 00000000000000000000000000000000
+  lootableTypes: 00000000000000000000000000000000
   collectibleObj: []
 --- !u!198 &198419373771927748
 ParticleSystem:

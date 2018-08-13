@@ -20,6 +20,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	
 	public Facing2D facing;
+	public Animator animator;
 	
 	PlayerInput input;
 	Player player;
@@ -29,7 +30,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	PlayerState state;
 	
-	Animator animator;
 	Vector2 moveDir;
 	Vector2 currentMove;
 	Vector2 currentDir;

@@ -1059,7 +1059,18 @@ Prefab:
       propertyPath: isUsingStand
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114642615357431368, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: isCheckAfterStandAnimation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114642615357431368, guid: ee85469eef14e0b4394d2114562a3d82,
+        type: 2}
+      propertyPath: isCheckBeforeStandAnimation
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114560711474919762, guid: ee85469eef14e0b4394d2114562a3d82, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ee85469eef14e0b4394d2114562a3d82, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1091420407

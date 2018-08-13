@@ -28,7 +28,7 @@ public class Arrow : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {
-		Debug.Log("arrow hits something");
+		// Debug.Log("arrow hits something");
 		//Check if hit something (by tag)
 		isHit = true;
 	}

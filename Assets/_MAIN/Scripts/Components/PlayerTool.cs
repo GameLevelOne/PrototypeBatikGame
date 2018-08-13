@@ -60,7 +60,6 @@ public class PlayerTool : MonoBehaviour {
 	void Start()
 	{	
 		Bow = 1;
-		Debug.Log(Bow);
 		Hook = 0; //
 		Bomb = 1;
 		Hammer = 1;

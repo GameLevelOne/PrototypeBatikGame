@@ -31,16 +31,16 @@
 // 	AFTER_FISHING
 // }
 
-public enum StandAnimationState {
-	START_USING_TOOL,
-	AFTER_USING_TOOL
-}
+// public enum StandAnimationState {
+// 	START_USING_TOOL,
+// 	AFTER_USING_TOOL
+// }
 
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
 	// public AnimationState animState;
-	public StandAnimationState standAnimState;
+	// public StandAnimationState standAnimState;
 
 	[SerializeField] bool isCheckAfterAnimation = false;
 	[SerializeField] bool isCheckBeforeAnimation = false;
@@ -100,21 +100,23 @@ public class Animation2D : MonoBehaviour {
 
 	#region Player and Enemy Animation
 	void StartAnimation () {
-		isCheckBeforeAnimation = false;
+		IsCheckBeforeAnimation = false;
 	}
 
 	void ExitAnimation () {
-		isCheckAfterAnimation = false;
+		IsCheckAfterAnimation = false;
 	}
 	#endregion
 
 	#region Stand Animation
 	void StartStandAnimation () {
-		isCheckBeforeStandAnimation = false;
+		IsCheckBeforeStandAnimation = false;
+		// Debug.Log("Set IsCheckBeforeStandAnimation FALSE StartStan");
 	}
 	
 	void ExitStandAnimation () {
-		isCheckAfterStandAnimation = false;
+		IsCheckAfterStandAnimation = false;
+		// Debug.Log("Set IsCheckAfterStandAnimation FALSE ExitStand");
 	}
 	#endregion
 }

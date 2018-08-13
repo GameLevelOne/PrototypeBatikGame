@@ -8,14 +8,12 @@ using Unity.Mathematics;
 public class StandAnimationSystem : ComponentSystem {
 	public struct StandData {
 		public readonly int Length;
-		// public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<PlayerTool> PlayerTool; // STAND / SUMMON / TOOL
 		public ComponentArray<Animation2D> Animation;
-		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] StandData standData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
-	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] PlayerAnimationSystem playerAnimationSystem;
 
 	public PlayerTool tool;
 
@@ -27,16 +25,14 @@ public class StandAnimationSystem : ComponentSystem {
 
 	ToolType standType;
 	Animator animator;
-	Vector2 currentMove;
-	Vector2 currentDir;
-	Vector2 movement;
+	Animator playerAnimator;
 	bool isFinishAnyStandAnim = true;
 
 	public bool isFinishAnyStandAnimation {
 		get {return isFinishAnyStandAnim;}
 		set {
 			isFinishAnyStandAnim = value;
-			// Debug.Log(isFinishAnyAnim + " on state " + state);
+			// Debug.Log(isFinishAnyStandAnim + " on state " + state);
 		}
 	}
 	
@@ -54,19 +50,20 @@ public class StandAnimationSystem : ComponentSystem {
 			state = player.state;
 			tool = standData.PlayerTool[i];
 			anim = standData.Animation[i];
-			facing = standData.Facing[i];
+			facing = playerAnimationSystem.facing;
 		
 			animator = anim.animator;
+			playerAnimator = playerAnimationSystem.animator;
 			standType = tool.currentTool;
-			movement = input.moveDir;
 
 			if (CheckIfPlayerUseStand()) {
 				SetAnimationFaceDirection();
 				CheckPlayerState ();
-				CheckStandAnimation ();
 			} else {
-				animator.Play(Constants.BlendTreeName.STAND_INACTIVE);
+				SetStandIdle ();
 			}
+			
+			CheckStandAnimation ();
 
 			continue; //TEMP
 
@@ -137,14 +134,11 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void SetAnimationFaceDirection () {
-		if (currentMove != movement) {
-			currentMove = movement;
-			
-			if (currentMove != Vector2.zero) {
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
-			}
-		}
+		float playerDirX = playerAnimator.GetFloat (Constants.AnimatorParameter.Float.FACE_X);
+		float playerDirY = playerAnimator.GetFloat (Constants.AnimatorParameter.Float.FACE_Y);
+
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, playerDirX);
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, playerDirY);
 	}
 
 	void CheckStandAnimation () {
@@ -191,6 +185,7 @@ public class StandAnimationSystem : ComponentSystem {
 
 	void SetStandIdle () {
 		isFinishAnyStandAnimation = true;
+		Debug.Log(isFinishAnyStandAnimation);
 		animator.Play(Constants.BlendTreeName.STAND_INACTIVE);
 	}
 
@@ -200,7 +195,6 @@ public class StandAnimationSystem : ComponentSystem {
 				SetStandIdle();
 				break;
 			case PlayerState.BOW:
-				Debug.Log("interactVal : "+input.interactValue);
 				if (input.interactValue == 0) {
 					isFinishAnyStandAnimation = true;
 				} else if (input.interactValue == 1) {
@@ -222,21 +216,6 @@ public class StandAnimationSystem : ComponentSystem {
 			case PlayerState.USING_TOOL:
 				SetStandIdle();
 				break;
-		}
-	}
-
-	void SetFaceDir (string animName, float animValue, bool isVertical) {
-		animator.SetFloat(animName, animValue);
-		
-		if (isVertical) {
-			movement.y = Mathf.RoundToInt(animValue);
-		} else {
-			movement.x = Mathf.RoundToInt(animValue);
-		}
-
-		if (currentDir != movement) {
-			currentDir = movement;
-			facing.DirID = CheckDirID(currentDir.x, currentDir.y);
 		}
 	}
 
@@ -263,46 +242,6 @@ public class StandAnimationSystem : ComponentSystem {
 			return false;
 		}
 	}
-
-	int CheckDirID (float dirX, float dirY) {
-		int dirIdx = 0;
-
-		if (dirX == 0) {
-			if (dirY > 0) {
-				dirIdx = 5;
-			} else {
-				dirIdx = 1;
-			}
-		} else if (dirX < 0) {
-			if (dirY < 0) {
-				dirIdx = 2;
-			} else if (dirY > 0) {
-				dirIdx = 4;
-			} else {
-				dirIdx = 3;
-			}
-		} else if (dirX > 0) {
-			if (dirY < 0) {
-				dirIdx = 8;
-			} else if (dirY > 0) {
-				dirIdx = 6;
-			} else {
-				dirIdx = 7;
-			}
-		}
-
-		return dirIdx;
-	}
-
-	// void StartCheckStandAnimation () {
-	// 	// if (!anim.IsCheckBeforeStandAnimation) {
-	// 	// 	CheckBeforeStandAnimation (anim.standAnimState);
-	// 	// 	anim.IsCheckBeforeStandAnimation = true;
-	// 	// } else if (!anim.IsCheckAfterStandAnimation) {
-	// 	// 	CheckAfterStandAnimation (anim.standAnimState);
-	// 	// 	anim.IsCheckAfterStandAnimation = true;
-	// 	// }
-	// }
 
 	// void SetStand (float mode) { //
 	// 	if ((mode >= 8) && (mode <=10)) {
