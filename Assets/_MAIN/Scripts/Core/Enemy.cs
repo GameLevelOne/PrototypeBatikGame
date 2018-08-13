@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
 	[HeaderAttribute("Enemy Attributes")]
 	public EnemyState state;
 	public GameObject attackObject;
+	public Health health;
 	[SerializeField] protected bool isEnemyHit = false;
 	[SerializeField] protected bool isEnemyGetHurt = false;
 
@@ -38,6 +39,9 @@ public class Enemy : MonoBehaviour {
 	public bool isAttack = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
+	
+	public bool isHit = false;
+	public Damage damageReceive;
 
 	protected float tIdle;
 	public float TIdle{
@@ -66,6 +70,24 @@ public class Enemy : MonoBehaviour {
 			isEnemyGetHurt = value;
 		}
 	}
+
+	#region delegate event
+	void OnEnable()
+	{
+		health.OnDamageCheck += DamageCheck;
+	}
+
+	void OnDisable()
+	{
+		health.OnDamageCheck -= DamageCheck;
+	}
+
+	void DamageCheck(Damage damage)
+	{
+		damageReceive = damage;
+		isHit = true;
+	}
+	#endregion
 
 	#region ENEMY STATE 
 	public void SetEnemyState (EnemyState enemyState) {

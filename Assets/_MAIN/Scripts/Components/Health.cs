@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 public class Health : MonoBehaviour {
+	public delegate void DamageCheck(Damage damage);
+	public event DamageCheck OnDamageCheck;
+
 	public float guardReduceDamage;
 	public float damage;
 
@@ -22,7 +25,13 @@ public class Health : MonoBehaviour {
 			healthPower = value;
 		}
 	}
-	
+
+	void onTriggerEnter2D(Collider2D other)
+	{
+		if(other.GetComponent<Damage>() == null) return;
+		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
+	}
+
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
 		
