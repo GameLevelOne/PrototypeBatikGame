@@ -152,7 +152,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					if (moveDir == Vector2.zero) {
 						// player.SetPlayerIdle();
 					} else {
-						if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.IsPlayerSwimming) {
+						if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
 							player.SetPlayerState(PlayerState.MOVE);
 						}
 					}
@@ -195,7 +195,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.IsPlayerSwimming) {
+					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}

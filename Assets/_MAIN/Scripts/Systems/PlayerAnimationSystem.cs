@@ -139,11 +139,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 			case PlayerState.SWIM: 
-				if (moveDir != Vector2.zero) {
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.GRABBING);
+				} else if (input.interactValue == 1) {
+					if (moveDir != Vector2.zero) {
 					animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
 				} else {
 					animator.Play(Constants.BlendTreeName.IDLE_SWIM);						
+				}	
+				} else if (input.interactValue == 2) {
+					animator.Play(Constants.BlendTreeName.UNGRABBING);
 				}
+				
 				break;
 			case PlayerState.DODGE: 
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
@@ -431,6 +438,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else {
 						StopAnyAnimation();
 					}
+				}
+
+				break;
+			case PlayerState.SWIM:
+				if (input.interactValue == 0) { 
+					input.interactValue = 1;
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					StopAnyAnimation();
 				}
 
 				break;
