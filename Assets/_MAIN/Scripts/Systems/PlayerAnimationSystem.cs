@@ -312,7 +312,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.BOW:
 				if (input.interactValue == 2) { 
-					tool.IsActToolReady = true;
+					if (!player.isUsingStand) {
+						attack.isAttacking = true;
+					} else {
+						tool.IsActToolReady = true;
+					}
 				}
 
 				break;
@@ -420,7 +424,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				} else if (input.interactValue == 1) { 
 					//
 				} else if (input.interactValue == 2) { 
-					StopAnyAnimation();
+					if (!player.isUsingStand) {
+						StopAttackAnimation();
+					} else {
+						StopAnyAnimation();
+					}
 				}
 
 				break;

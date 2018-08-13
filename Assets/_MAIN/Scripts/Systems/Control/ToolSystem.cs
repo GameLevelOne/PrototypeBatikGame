@@ -182,7 +182,7 @@ public class ToolSystem : ComponentSystem {
 		//can break certain objects.
 
 		//medium damage to enemies
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseHook()
@@ -194,7 +194,7 @@ public class ToolSystem : ComponentSystem {
 		//2. solid objects: pull player towards the object
 		
 		//small damage to enemies
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 		player.SetPlayerState(PlayerState.HOOK);
 	}
 	
@@ -207,7 +207,7 @@ public class ToolSystem : ComponentSystem {
 		//limited amount
 
 		//big damage to enemies
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseHammer()
@@ -217,14 +217,14 @@ public class ToolSystem : ComponentSystem {
 		//break some enemy armor
 		
 		//small damage to enemy
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseNet()
 	{
 		Debug.Log("Using Net");
 		//catch certain objects (land/air)
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseFisingRod()
@@ -273,7 +273,7 @@ public class ToolSystem : ComponentSystem {
 	{
 		Debug.Log("Using Shovel");
 		//dig items from ground
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseLantern()
@@ -312,7 +312,7 @@ public class ToolSystem : ComponentSystem {
 		//affect some objects (destroy objects)
 
 		//big damage
-		tool.SpawnSlashEffect(toolType);
+		SpawnSlashEffect(toolType);
 	}
 	
 	void UseFastTravel()
@@ -352,4 +352,69 @@ public class ToolSystem : ComponentSystem {
 		// tool.SpawnSlashEffect(toolType);
 		player.SetPlayerState(PlayerState.DASH);
 	}
+
+	public void SpawnSlashEffect (int toolType) {
+        switch (toolType) {
+            case 1:
+				SpawnObj (toolType, false, false);
+                break;
+            case 2:
+                SpawnObj (toolType, false, false);
+                break;
+            case 3:
+                SpawnObj (toolType, false, true);
+                break;
+            case 4:
+                SpawnObj (toolType, false, false);
+                break;
+            case 5:
+                SpawnObj (toolType, false, false);
+                break;
+            case 11:
+                SpawnObj (toolType, false, false);
+                break;
+            case 12:
+                SpawnObj (toolType, false, false);
+                break;
+            case 14:
+                SpawnObj (toolType, true, true);
+                break;
+            case 16:
+                // SpawnObj (powerBraceletAreaEffectObj, false, false);
+                break;
+            case 17:
+                // Flippers
+                break;
+            case 18:
+                // Boots
+                break;
+        }
+    }
+
+    void SpawnObj (int toolType, bool isSpawnAtPlayerPos, bool isAlwaysUp) {
+        GameObject spawnedBullet = GameObjectEntity.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacing());
+        // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
+		
+		if (isSpawnAtPlayerPos) {
+			spawnedBullet.transform.position = tool.transform.root.position;
+		}
+
+		if (isAlwaysUp) {
+			spawnedBullet.transform.eulerAngles = Vector3.zero;
+		}
+
+        spawnedBullet.SetActive(true);
+    }
+
+    Quaternion SetFacing () {
+        Vector2 targetPos = tool.areaSpawnPos.position;
+        Vector2 initPos = tool.transform.position; //TEMPORARY
+
+        targetPos.x -= initPos.x;
+        targetPos.y -= initPos.y;
+        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
+
+        return targetRot;
+    }
 }

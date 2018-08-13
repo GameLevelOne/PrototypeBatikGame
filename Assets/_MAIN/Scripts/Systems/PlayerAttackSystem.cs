@@ -10,7 +10,6 @@ public class PlayerAttackSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Player> Player;
-		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Attack> Attack;
 	}
 	[InjectAttribute] AttackData attackData;
@@ -24,24 +23,14 @@ public class PlayerAttackSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		if (attackData.Length == 0) return;
-		
-		// if (!isLocalVarInit) {
-		// 	objTransform = new Transform[attackData.Length];
-		// 	bulletSpawnPos = new Transform[attackData.Length];
-		// 	bullet = new GameObject[attackData.Length];
-		// 	isAttacking = new bool[attackData.Length];
-		// 	isLocalVarInit = true;			
-		// }
 
 		for (int i=0; i<attackData.Length; i++) {
 			attack = attackData.Attack[i];
 			PlayerInput input = attackData.PlayerInput[i];
 			player = attackData.Player[i];
 			state = player.state;
-			Animation2D anim = attackData.Animation[i];
 			
 			int attackMode = input.AttackMode;
-			// AnimationState animState = anim.animState;
 			bool isAttacking = attack.isAttacking;
 
 			if (attackMode == 0 || (state == PlayerState.USING_TOOL) || (state == PlayerState.USING_TOOL)) continue;
@@ -49,11 +38,8 @@ public class PlayerAttackSystem : ComponentSystem {
 			//Attack
         	// attack.isAttacking = true;
 			if (isAttacking) {
-				// if ((animState == AnimationState.START_SLASH) || (animState == AnimationState.START_CHARGE) || (animState == AnimationState.START_COUNTER)) {
-				if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE) {
-					SpawnSlashEffect(attackMode);
-				} else if (state == PlayerState.RAPID_SLASH) {
-					Debug.Log("Splash Attack");
+				if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
+					Debug.Log("Slash Attack : "+attackMode);
 					SpawnSlashEffect(attackMode);
 				}
 			}
@@ -61,7 +47,6 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
 	public void SpawnSlashEffect (int mode) {
-		Debug.Log("Normal Attack = "+mode);
 		switch (mode) {
             case 1:
                 SpawnObj (attack.slash);
@@ -77,6 +62,12 @@ public class PlayerAttackSystem : ComponentSystem {
                 break;
             case -2:
                 SpawnObj (attack.counterSlash);
+                break;
+            // case -3:
+            //     SpawnObj (attack.counterSlash); //RAPIDSLASH
+            //     break;
+            case -4:
+                SpawnObj (attack.regularArrow);
                 break;
         }
 

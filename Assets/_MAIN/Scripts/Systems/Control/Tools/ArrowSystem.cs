@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class ArrowSystem : ComponentSystem {
 
@@ -25,15 +21,12 @@ public class ArrowSystem : ComponentSystem {
 
 			float speed = arrow.speed;
 
-			if (!arrow.IsShot) {
+			if (!arrow.isShot) {
 				rb.AddForce (tr.right * speed * 50f);
-				arrow.IsShot = true;
+				arrow.isShot = true;
 			}
 
-			if (arrow.IsHit) {
-				// GameObject.Destroy(arrow.gameObject);
-				// return; //TEMP, Error without this
-				
+			if (arrow.isHit) {				
 				GameObjectEntity.Destroy(arrow.gameObject);
 				UpdateInjectedComponentGroups(); //TEMP, Error without this
 			}

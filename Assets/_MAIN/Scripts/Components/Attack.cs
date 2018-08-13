@@ -4,6 +4,7 @@ public class Attack : MonoBehaviour {
     public GameObject slash;
     public GameObject heavySlash;
     public GameObject counterSlash;
+    public GameObject regularArrow;
     // public GameObject minatoKunai;
 	// public GameObject bullet;
     public Transform bulletSpawnPos; 

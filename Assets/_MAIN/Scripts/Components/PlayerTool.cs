@@ -44,14 +44,13 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject powerBraceletAreaEffectObj;
 	public GameObject flippersObj;
 	public GameObject bootsObj;
-	// public Boots bootsScriptObj;
 
+	// public GameObject regularArrow;
 
 	public Text textToolName;
 
 	public int currentActiveContainer;
 	public float dashSpeed = 500f;
-	// public bool isUsingTool = false;
 
 	[SerializeField] bool isActToolReady = false;
 	[SerializeField] bool isPowerBraceletSelected = false;
@@ -81,59 +80,6 @@ public class PlayerTool : MonoBehaviour {
 	void Awake () {
 		textToolName.text = currentTool.ToString();
 	}
-
-	public void SpawnSlashEffect (int toolType) {
-        switch (toolType) {
-            case 1:
-                SpawnObj (arrowObj, false, false);
-                break;
-            case 2:
-                SpawnObj (hookObj, false, false);
-                break;
-            case 3:
-                SpawnObj (bombObj, false, true);
-                break;
-            case 4:
-                SpawnObj (hammerAreaEffectObj, false, false);
-                break;
-            case 5:
-                SpawnObj (netObj, false, false);
-                break;
-            case 11:
-                SpawnObj (shovelAreaEffectObj, false, false);
-                break;
-            case 12:
-                SpawnObj (lanternObj, false, false);
-                break;
-            case 14:
-                SpawnObj (magicMedallionAreaEffectObj, true, true);
-                break;
-            case 16:
-                // SpawnObj (powerBraceletAreaEffectObj, false, false);
-                break;
-            case 17:
-                // Flippers
-                break;
-            case 18:
-                // Boots
-                break;
-        }
-    }
-
-    void SpawnObj (GameObject obj, bool isSpawnAtPlayerPos, bool isAlwaysUp) {
-        GameObject spawnedBullet = Instantiate(obj, areaSpawnPos.position, SetFacing());
-        // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
-		
-		if (isSpawnAtPlayerPos) {
-			spawnedBullet.transform.position = transform.root.position;
-		}
-
-		if (isAlwaysUp) {
-			spawnedBullet.transform.eulerAngles = Vector3.zero;
-		}
-
-        spawnedBullet.SetActive(true);
-    }
 
 	public GameObject GetObj (int toolType) {
         switch (toolType) {
@@ -212,18 +158,6 @@ public class PlayerTool : MonoBehaviour {
 				return 0;
         }
 	}
-
-    Quaternion SetFacing () {
-        Vector2 targetPos = areaSpawnPos.position;
-        Vector2 initPos = transform.position; //TEMPORARY
-
-        targetPos.x -= initPos.x;
-        targetPos.y -= initPos.y;
-        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
-
-        return targetRot;
-    }
 
 	public bool IsActToolReady {
         get {return isActToolReady;}

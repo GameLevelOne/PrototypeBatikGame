@@ -63,6 +63,8 @@ public static class Constants {
 		public const string BOW = "Bow"; 
 		public const string MAGIC_MEDALLION = "Magic Medallion";
 		public const string FISH = "Fish"; 
+		public const string LOOTABLE = "Lootable"; 
+		public const string BOUNDARIES = "Boundaries";
 
 	}
 

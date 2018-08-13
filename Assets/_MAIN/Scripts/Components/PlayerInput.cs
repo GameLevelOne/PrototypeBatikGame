@@ -40,6 +40,7 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
+	/// <para>-4 BOW<br /></para>
 	/// <para>-3 RAPID SLASH<br /></para>
 	/// <para>-2 COUNTER<br /></para>
 	/// <para>-1 CHARGE<br /></para>
