@@ -47,7 +47,6 @@ public class PowerBraceletSystem : ComponentSystem {
 					//
 				} else if (state == PowerBraceletState.CAN_LIFT) {
 					input.liftingMode = -3;
-					//
 				} else if (state == PowerBraceletState.CANNOT_LIFT) {
 					input.liftingMode = 0;
 				} else if (state == PowerBraceletState.GRAB) {

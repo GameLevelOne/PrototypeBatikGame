@@ -19,7 +19,8 @@ public enum PlayerState {
 	POWER_BRACELET,
 	SWIM,
 	FISHING,
-	BOW
+	BOW,
+	GET_TREASURE
 }
 
 public class Player : MonoBehaviour {

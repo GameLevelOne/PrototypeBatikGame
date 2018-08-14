@@ -17,10 +17,10 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
 
+	public PlayerInput input;
 	public Facing2D facing;
+	public Player player;
 
-	Player player;
-	PlayerInput input;
 	Movement movement;
 	PlayerTool tool;
 

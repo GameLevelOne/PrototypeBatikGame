@@ -129,6 +129,7 @@ public static class Constants {
 		public const string THROW_FISH_BAIT = "ThrowFishBait";
 		public const string IDLE_FISHING = "IdleFishing";
 		public const string RETURN_FISH_BAIT = "ReturnFishBait";
+		public const string FISHING_FAIL = "FishingFail";
 		public const string TAKE_AIM_BOW = "TakeAimBow";
 		public const string AIMING_BOW = "AimingBow";
 		public const string SHOT_BOW = "ShotBow";

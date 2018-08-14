@@ -309,7 +309,6 @@ public class PlayerInputSystem : ComponentSystem {
 				input.interactMode = 3;
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
 				isButtonToolHold = true;
-				Debug.Log("Using PB");
 			}
 			return;
 		}
@@ -355,16 +354,13 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
 			toolType = tool.currentTool;
+			input.interactValue = 0;
 
 			if (toolType == ToolType.Bow && player.isUsingStand) {
-				Debug.Log("Input Use Bow");
 				input.interactMode = 5;
 			} else {
-				Debug.Log("Input Not Bow");
 				input.AttackMode = -4;
 			}
-			
-			input.interactValue = 0;
 
 			player.SetPlayerState(PlayerState.BOW);
 			isButtonToolHold = true;
@@ -486,20 +482,7 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.Boots) {
 						input.interactMode = 1;
 						player.SetPlayerState(PlayerState.DASH);
-					} 
-					// else if (toolType == ToolType.PowerBracelet) {
-					// 	PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
-
-					// 	if (powerBraceletState != PowerBraceletState.NONE) {
-					// 		input.interactMode = 3;
-					// 		player.SetPlayerState(PlayerState.POWER_BRACELET);
-					// 		isButtonToolHold = true;
-					// 	}
-					// } 
-					// else if (toolType == ToolType.Flippers) {
-					// 	//
-					// } 
-					else if (toolType == ToolType.FishingRod) {
+					} else if (toolType == ToolType.FishingRod) {
 						if (player.IsCanFishing) {
 							input.interactMode = 4;
 							player.SetPlayerState(PlayerState.FISHING);
@@ -513,19 +496,6 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} 
-			// else if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
-			// 	toolType = tool.currentTool;
-
-			// 	if (toolType == ToolType.Bow) {
-			// 		toolType = tool.currentTool;
-			// 		Debug.Log("Input Use Bow");
-			// 		input.interactValue = 0;
-
-			// 		input.interactMode = 5;
-			// 		player.SetPlayerState(PlayerState.BOW);
-			// 		isButtonToolHold = true;
-			// 	}
-			// }
 		} else if (state == PlayerState.POWER_BRACELET) { 				
 			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && input.liftingMode < 0){ //THROW
 				input.interactValue = 2;
@@ -588,7 +558,6 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.FISHING) { 				
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 				input.interactValue = 2;
-				Debug.Log("input.interactValue = 2");
 				toolSystem.UseTool();
 			}
 			
