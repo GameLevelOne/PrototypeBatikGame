@@ -8,7 +8,7 @@ public enum PlayerState {
 	COUNTER,
 	DIE,
 	USING_TOOL,
-	HIT,
+	// HIT,
 	GET_HURT,
 	RAPID_SLASH,
 	SLOW_MOTION,

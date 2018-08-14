@@ -76,6 +76,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else if (state == PlayerState.POWER_BRACELET) {
 				if (input.interactValue == 2 || input.interactValue == 0) {
 					moveDir = Vector2.zero;
+				} else {
+					moveDir = input.moveDir;
 				}
 			} else if (state == PlayerState.FISHING) {
 				moveDir = Vector2.zero;

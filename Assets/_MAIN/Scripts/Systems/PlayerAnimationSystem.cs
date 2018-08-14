@@ -414,7 +414,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					}
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 2) {
-					if (input.liftingMode == -1) {
+					if (input.liftingMode == -1 || input.liftingMode == -2) {
 						powerBraceletSystem.UnSetLiftObjectParent();
 						powerBraceletSystem.AddForceRigidbody(facing.DirID);
 					} else if (input.liftingMode == 1) {

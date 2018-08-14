@@ -52,9 +52,10 @@ public class ToolSystem : ComponentSystem {
 					UseTool ();
 					tool.IsActToolReady = false;
 				}
-			} else if (tool.IsPowerBraceletSelected) {
-				tool.IsPowerBraceletSelected = false;
 			} 
+			// else if (tool.IsPowerBraceletSelected) {
+			// 	tool.IsPowerBraceletSelected = false;
+			// } 
 			// else if (tool.IsFlipperSelected) {
 			// 	tool.IsFlipperSelected = false;
 			// }
@@ -99,7 +100,7 @@ public class ToolSystem : ComponentSystem {
 		if (tool.CheckIfToolHasBeenUnlocked(type) > 0) {
 			toolType = type;
 			tool.textToolName.text = ((ToolType) toolType).ToString();
-			CheckPowerBracelet();
+			// CheckPowerBracelet();
 			// CheckFlipper();
 			return true;
 		} else {
@@ -107,15 +108,15 @@ public class ToolSystem : ComponentSystem {
 		}
 	}
 
-	void CheckPowerBracelet () {
-		if ((ToolType) toolType == ToolType.PowerBracelet) {
-			tool.IsPowerBraceletSelected = true;
-			UsePowerBracelet (true);
-		} else {
-			tool.IsPowerBraceletSelected = false;
-			UsePowerBracelet (false);
-		}
-	}
+	// void CheckPowerBracelet () {
+	// 	if ((ToolType) toolType == ToolType.PowerBracelet) {
+	// 		tool.IsPowerBraceletSelected = true;
+	// 		UsePowerBracelet (true);
+	// 	} else {
+	// 		tool.IsPowerBraceletSelected = false;
+	// 		UsePowerBracelet (false);
+	// 	}
+	// }
 
 	// void CheckFlipper () {
 	// 	if ((ToolType) toolType == ToolType.Flippers) {
@@ -322,16 +323,16 @@ public class ToolSystem : ComponentSystem {
 		Debug.Log("Using Fast Travel");
 	}
 	
-	void UsePowerBracelet(bool value)
-	{
-		//allow to lift objects
-		// tool.SpawnSlashEffect(toolType);
-		int type = (int) ToolType.PowerBracelet;
+	// void UsePowerBracelet(bool value)
+	// {
+	// 	//allow to lift objects
+	// 	// tool.SpawnSlashEffect(toolType);
+	// 	int type = (int) ToolType.PowerBracelet;
 
-		PowerBracelet powerBracelet = tool.GetObj(type).GetComponent<PowerBracelet>();
-		// Debug.Log(value);
-		powerBracelet.IsColliderOn = value;
-	}
+	// 	PowerBracelet powerBracelet = tool.GetObj(type).GetComponent<PowerBracelet>();
+	// 	// Debug.Log(value);
+	// 	powerBracelet.IsColliderOn = value;
+	// }
 	
 	// void UseFlippers(bool value)
 	// {

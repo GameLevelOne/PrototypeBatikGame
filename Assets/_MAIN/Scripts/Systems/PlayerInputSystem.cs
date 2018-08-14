@@ -19,6 +19,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	PlayerTool tool;
 	Facing2D facing;
+	PowerBracelet powerBracelet;
 
 	PlayerState state;
 	ToolType toolType;
@@ -295,11 +296,28 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckAttackInput () {
+		if (powerBracelet == null) {
+			powerBracelet = powerBraceletSystem.powerBracelet;
+			
+			return;
+		}
+		
+		#region Button Attack
+		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				input.interactValue = 0;
+				input.interactMode = 3;
+				player.SetPlayerState(PlayerState.POWER_BRACELET);
+				isButtonToolHold = true;
+				Debug.Log("Using PB");
+			}
+			return;
+		}
+
 		float chargeAttackThreshold = input.chargeAttackThreshold;
 		float beforeChargeDelay = input.beforeChargeDelay;
 		float attackAwayDelay = input.attackAwayDelay;
 
-		#region Button Attack
 		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			chargeAttackTimer += deltaTime;
 			
@@ -468,17 +486,20 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.Boots) {
 						input.interactMode = 1;
 						player.SetPlayerState(PlayerState.DASH);
-					} else if (toolType == ToolType.PowerBracelet) {
-						PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+					} 
+					// else if (toolType == ToolType.PowerBracelet) {
+					// 	PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 
-						if (powerBraceletState != PowerBraceletState.NONE) {
-							input.interactMode = 3;
-							player.SetPlayerState(PlayerState.POWER_BRACELET);
-							isButtonToolHold = true;
-						}
-					} else if (toolType == ToolType.Flippers) {
-						//
-					} else if (toolType == ToolType.FishingRod) {
+					// 	if (powerBraceletState != PowerBraceletState.NONE) {
+					// 		input.interactMode = 3;
+					// 		player.SetPlayerState(PlayerState.POWER_BRACELET);
+					// 		isButtonToolHold = true;
+					// 	}
+					// } 
+					// else if (toolType == ToolType.Flippers) {
+					// 	//
+					// } 
+					else if (toolType == ToolType.FishingRod) {
 						if (player.IsCanFishing) {
 							input.interactMode = 4;
 							player.SetPlayerState(PlayerState.FISHING);
@@ -506,11 +527,11 @@ public class PlayerInputSystem : ComponentSystem {
 			// 	}
 			// }
 		} else if (state == PlayerState.POWER_BRACELET) { 				
-			if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) && input.liftingMode < 0){ //THROW
+			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && input.liftingMode < 0){ //THROW
 				input.interactValue = 2;
 			}
 
-			if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3)) && input.liftingMode >= 0){
+			if ((Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) && input.liftingMode >= 0){
 				isButtonToolHold = false;
 			}
 			
@@ -597,6 +618,14 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else if (state == PlayerState.SWIM) {
 			SetButtonUp ();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	bool CheckIfPlayerIsAttacking () {
+		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.COUNTER || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH) {
 			return true;
 		} else {
 			return false;

@@ -36,7 +36,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		for (int i=0; i<powerBraceletData.Length; i++) {
 			powerBracelet = powerBraceletData.powerBracelet[i];
 
-			if (powerBracelet.IsInteracting && !isLiftResponse && player.IsHitLiftableObject && state != PowerBraceletState.NONE) {
+			if (powerBracelet.isInteracting && !isLiftResponse && player.IsHitLiftableObject && state != PowerBraceletState.NONE) {
 				isLiftResponse = true;
 			}
 
@@ -54,7 +54,7 @@ public class PowerBraceletSystem : ComponentSystem {
 					input.liftingMode = 1;
 				}
 
-				powerBracelet.IsInteracting = false;
+				powerBracelet.isInteracting = false;
 				isLiftResponse = false;
 				// powerBracelet.IsColliderOn = false;
 			}
