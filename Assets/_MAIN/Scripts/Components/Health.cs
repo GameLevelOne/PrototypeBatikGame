@@ -26,13 +26,13 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	void onTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter2D(Collider2D other)
 	{
 		if(other.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
+	void onTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
 		
 		damage = col.GetComponent<Damage>().damage;

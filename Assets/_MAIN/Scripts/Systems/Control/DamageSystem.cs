@@ -33,28 +33,14 @@ public class DamageSystem : ComponentSystem {
 			role = damageData.Role[i];
 			col = damageData.Collider[i];
 			
-			if (role.gameRole == GameRole.Player) {
-				player = health.GetComponent<Player>();
-				playerState = player.state;
+			CheckRole();
+		}
+	}
 
-				if (playerState == PlayerState.DIE) continue;
-
-				if (player.IsPlayerGetHurt) {
-					health.HealthPower -= health.damage;
-					player.IsPlayerGetHurt = false;
-
-					//Set Player Get Hurt Animation
-					if (player.isGuarding) {
-						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-					} else {
-						player.SetPlayerState(PlayerState.GET_HURT);
-					}
-
-					if (health.HealthPower <= 0f) {
-						player.SetPlayerState(PlayerState.DIE);
-						col.enabled = false;
-					}
-				}
+	void CheckRole()
+	{
+		if (role.gameRole == GameRole.Player) {
+				CalculateDamaageToPlayer();
 			} else if (role.gameRole == GameRole.Enemy) {
 				// enemy = health.GetComponent<Enemy>();
 				// enemyState = enemy.state;
@@ -73,12 +59,31 @@ public class DamageSystem : ComponentSystem {
 			} else {
 				Debug.Log("Unknown");
 			}
-		}
 	}
 
 	void CalculateDamaageToPlayer()
 	{	
+		player = health.GetComponent<Player>();
+		playerState = player.state;
 
+		if (playerState == PlayerState.DIE) return;
+
+		if (player.IsPlayerGetHurt) {
+			health.HealthPower -= health.damage;
+			player.IsPlayerGetHurt = false;
+
+			//Set Player Get Hurt Animation
+			if (player.isGuarding) {
+				player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+			} else {
+				player.SetPlayerState(PlayerState.GET_HURT);
+			}
+
+			if (health.HealthPower <= 0f) {
+				player.SetPlayerState(PlayerState.DIE);
+				col.enabled = false;
+			}
+		}
 	}
 
 	void CalculateDamageToEnemy()
@@ -90,6 +95,8 @@ public class DamageSystem : ComponentSystem {
 			if(currEnemy.damageReceive.tag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
+				}else{
+					health.HealthPower -= currEnemy.damageReceive.damage;
 				}
 			}else{
 				health.HealthPower -= currEnemy.damageReceive.damage;

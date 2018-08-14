@@ -364,6 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   attackObject: {fileID: 1788490913232720}
+  health: {fileID: 114568380459309790}
   isEnemyHit: 0
   isEnemyGetHurt: 0
   patrolRange: 2
@@ -379,6 +380,9 @@ MonoBehaviour:
   initAttack: 0
   isAttack: 0
   attackHit: 0
+  hasArmor: 0
+  isHit: 0
+  damageReceive: {fileID: 0}
 --- !u!114 &114272828399055306
 MonoBehaviour:
   m_ObjectHideFlags: 1

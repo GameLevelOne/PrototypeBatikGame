@@ -41,7 +41,8 @@ public class ArmorEnemy : MonoBehaviour {
 
 	void SetPlayer(GameObject player)
 	{
-		enemy.playerTransform = player.transform;
+		if(player == null) enemy.playerTransform = null;
+		else enemy.playerTransform = player.transform;
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
