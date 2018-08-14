@@ -60,10 +60,7 @@ public class FishingRodSystem : ComponentSystem {
 	void Return () {
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
-			//CHECK IF THERE IS ANY TREASURE FROM FISH
-			//
-			//IF THERE IS
-			playerMovementSystem.input.interactMode = -4;
+			// playerMovementSystem.input.interactMode = -4;
 			
 			fishSystem.CatchFish(fishingRod.fish);
 		} else {

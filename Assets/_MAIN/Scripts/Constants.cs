@@ -63,6 +63,7 @@ public static class Constants {
 		public const string BOW = "Bow"; 
 		public const string MAGIC_MEDALLION = "Magic Medallion";
 		public const string FISH = "Fish"; 
+		// public const string LIFTABLE = "Liftable"; 
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 
@@ -130,6 +131,9 @@ public static class Constants {
 		public const string IDLE_FISHING = "IdleFishing";
 		public const string RETURN_FISH_BAIT = "ReturnFishBait";
 		public const string FISHING_FAIL = "FishingFail";
+		public const string LIFTING_TREASURE = "LiftingTreasure";
+		public const string IDLE_LIFT_TREASURE = "IdleLiftTreasure";
+		public const string END_LIFT_TREASURE = "EndLiftTreasure";
 		public const string TAKE_AIM_BOW = "TakeAimBow";
 		public const string AIMING_BOW = "AimingBow";
 		public const string SHOT_BOW = "ShotBow";

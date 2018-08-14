@@ -140,7 +140,6 @@ public class Player : MonoBehaviour {
     }
 
 	void OnCollisionEnter2D (Collision2D col) {
-
 		if (state == PlayerState.DASH && !isBouncing) {
 			isBouncing = true;	
 		}
@@ -151,21 +150,18 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionExit2D (Collision2D col) {
-
 		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
 			IsHitLiftableObject = false;
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
-		
+	void OnTriggerEnter2D (Collider2D col) {		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = true;
 		} 
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = false;
 		}

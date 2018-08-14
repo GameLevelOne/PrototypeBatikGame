@@ -13,6 +13,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	[InjectAttribute] PlayerAnimationSystem playerAnimationSystem;
+	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 
 	public PlayerInput input;
 	public Player player;
@@ -542,7 +543,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
 			currentDir = Vector2.zero;
 
-			if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
+			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 				isButtonToolHold = false;
 			}
 
@@ -555,10 +556,21 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			return true;
-		} else if (state == PlayerState.FISHING) { 				
+		} else if (state == PlayerState.FISHING) { 	
+			currentDir = Vector2.zero;
+						
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 				input.interactValue = 2;
 				toolSystem.UseTool();
+			}
+			
+			return true;
+		} else if (state == PlayerState.GET_TREASURE) { 
+			currentDir = Vector2.zero;
+
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){ //ANY BUTTON
+				gainTreasureSystem.UseAndDestroyTreasure();
+				input.interactValue = 2;
 			}
 			
 			return true;

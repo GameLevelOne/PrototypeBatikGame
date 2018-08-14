@@ -9,4 +9,6 @@ public enum LootableType {
 
 public class Lootable : MonoBehaviour {
 	public LootableType lootableType;
+
+	public bool isLooted = false;
 }

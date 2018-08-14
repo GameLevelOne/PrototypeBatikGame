@@ -260,11 +260,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.GET_TREASURE:
 				if (input.interactMode == 6) { //GET SMALL TREASURE
 					if (input.interactValue == 0) { 
-						Debug.Log("LIFT UP TREASURE ANIMATION");
+						animator.Play(Constants.BlendTreeName.LIFTING_TREASURE);
 					} else if (input.interactValue == 1) {
-						Debug.Log("LIFTING TREASURE ANIMATION");
+						animator.Play(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
 					} else if (input.interactValue == 2) {
-						Debug.Log("LIFT DOWN TREASURE ANIMATION");
+						animator.Play(Constants.BlendTreeName.END_LIFT_TREASURE);
 					}
 				} else if (input.interactMode == 7) { //GET BIG TREASURE
 					if (input.interactValue == 0) {
@@ -487,14 +487,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactMode == -3) { //AFTER FISHING FAIL
 						animator.Play(Constants.BlendTreeName.FISHING_FAIL);
 						input.interactMode = 4;
-					} else if (input.interactMode == -4) { //AFTER FISHING SUCCESS
-						isFinishAnyAnimation = true;
+					} 
+					// else if (input.interactMode == -4) { //AFTER FISHING SUCCESS
+					// 	isFinishAnyAnimation = true;
 						
-						// input.interactValue = 0;
-						// input.interactMode = 6;
-						// player.SetPlayerState(PlayerState.GET_TREASURE);
-						Debug.Log("FISHING SUCCESS ANIMATION");
-					} else {
+					// 	input.interactValue = 0;
+					// 	input.interactMode = 6;
+					// 	player.SetPlayerState(PlayerState.GET_TREASURE);
+					// } 
+					else {
 						StopAnyAnimation ();
 					}
 				}

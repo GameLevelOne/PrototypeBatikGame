@@ -79,12 +79,15 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					moveDir = input.moveDir;
 				}
-			} else if (state == PlayerState.FISHING) {
-				moveDir = Vector2.zero;
-				rb.velocity = moveDir;
-			} else if (state == PlayerState.BOW) {
-				moveDir = Vector2.zero;
-			} else {
+			} 
+			// else if (state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
+			// 	moveDir = Vector2.zero;
+			// 	rb.velocity = moveDir;
+			// } 
+			// else if (state == PlayerState.BOW) {
+			// 	moveDir = Vector2.zero;
+			// } 
+			else {
 				dashDelay = movement.dashDelay;
 				brakeTime = movement.brakeTime;
 				player.isBouncing = false;
@@ -246,11 +249,15 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else {
 				rb.velocity = Vector2.zero;
 			}
+		} else {
+			input.moveDir = Vector2.zero;
+			moveDir = Vector2.zero;
+			rb.velocity = moveDir;
 		}
 	}
 
 	bool CheckIfAllowedToMove () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			return false;
 		} else {
 			return true;
