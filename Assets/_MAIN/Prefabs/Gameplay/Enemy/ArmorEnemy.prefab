@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037752809750406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.538778, y: 13.866531, z: 0}
+  m_LocalPosition: {x: 23.250011, y: 34.053642, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4091636648061158}
@@ -186,7 +186,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037752809750406}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -209,7 +209,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 5
 --- !u!58 &58877322855208346
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -257,7 +257,6 @@ MonoBehaviour:
   enemy: {fileID: 114764813126826140}
   playerTriggerDetection: {fileID: 114971454214979700}
   selfCollider: {fileID: 58272581694456016}
-  armorCollider: {fileID: 0}
   patrolArea: {x: 0, y: 0}
   rollTargetPos: {x: 0, y: 0}
   rollSpeed: 5
@@ -303,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   attackObject: {fileID: 1443054118293194}
+  health: {fileID: 114999054751294984}
   isEnemyHit: 0
   isEnemyGetHurt: 0
   patrolRange: 3
@@ -319,6 +319,8 @@ MonoBehaviour:
   isAttack: 0
   attackHit: 0
   hasArmor: 1
+  isHit: 0
+  damageReceive: {fileID: 0}
 --- !u!114 &114807181740448946
 MonoBehaviour:
   m_ObjectHideFlags: 1

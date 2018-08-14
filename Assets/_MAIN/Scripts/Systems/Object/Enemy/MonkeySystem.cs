@@ -79,7 +79,6 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.isCollidingWithPlayer = false;
 			}
 		}
-		
 	}
 
 	void CheckHealth()

@@ -32,6 +32,7 @@ public class ArmorEnemySystem : ComponentSystem {
 
 		CheckPlayer();
 		CheckState();
+		CheckHealth();
 		}
 	}
 
@@ -68,6 +69,14 @@ public class ArmorEnemySystem : ComponentSystem {
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.enemy.initPatrol = false;
 			}
+		}
+	}
+
+	void CheckHealth()
+	{
+		if(currArmorEnemyHealth.HealthPower <= 0f){
+			GameObject.Destroy(currArmorEnemyHealth.gameObject);
+			UpdateInjectedComponentGroups();
 		}
 	}
 
@@ -113,17 +122,18 @@ public class ArmorEnemySystem : ComponentSystem {
 
 	void Roll()
 	{
-		if(!currArmorEnemy.initRoll){
+		if(!currArmorEnemy.initRoll && !currArmorEnemy.startRoll){
 			currArmorEnemy.initRoll = true;
 			currArmorEnemy.TRollInit = currArmorEnemy.rollInitDuration;
 			currArmorEnemyAnim.Play(EnemyState.Idle.ToString());
 			deltaTime = Time.deltaTime;
-		}else{
+		}else if(currArmorEnemy.initRoll && !currArmorEnemy.startRoll){
 			currArmorEnemy.TRollInit -= deltaTime;
 			if(currArmorEnemy.TRollInit <= 0f){
+				currArmorEnemy.initRoll = false;
 				currArmorEnemy.startRoll = true;
 				currArmorEnemyAnim.Play("Roll");
-				currArmorEnemy.rollTargetPos = currArmorEnemy.enemy.playerTransform.position;
+				currArmorEnemy.rollTargetPos = currArmorEnemy.enemy.playerTransform.position;				
 			}
 		}
 
