@@ -10,6 +10,7 @@ public enum FishState {
 
 public class Fish : MonoBehaviour {
 	public FishState state;
+	public GameObject[] lootableObjs;
 
 	public Animator anim;
 	public Collider2D selfCol;

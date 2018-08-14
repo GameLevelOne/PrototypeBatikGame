@@ -10,7 +10,7 @@ public class FishingRodSystem : ComponentSystem {
 	[InjectAttribute] PlayerMovementSystem playerMovementSystem;
 	[InjectAttribute] FishSystem fishSystem;
 
-	FishingRod fishingRod;
+	public FishingRod fishingRod;
 	Facing2D facing;
 
 	FishingRodState state;
@@ -60,9 +60,8 @@ public class FishingRodSystem : ComponentSystem {
 	void Return () {
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
+			fishingRod.fish.transform.parent = fishingRod.transform;
 			// playerMovementSystem.input.interactMode = -4;
-			
-			fishSystem.CatchFish(fishingRod.fish);
 		} else {
 			if (fishingRod.fish != null) {
 				if (fishingRod.fish.state == FishState.CHASE) {
@@ -70,21 +69,23 @@ public class FishingRodSystem : ComponentSystem {
 
 					fishingRod.fish.state = FishState.IDLE;
 				}
-				
-				ResetFishingRod(); //TEMP
 			}
 		}
 		
 		// fishingRod.baitCol.enabled = false;
-		fishingRod.isBaitLaunched = false;
-		fishingRod.transform.localPosition = Vector2.zero;
-		fishingRod.state = FishingRodState.IDLE;
 	}
 
 	public void ResetFishingRod () {
 		fishingRod.isCatchSomething = false;
 		fishingRod.fishObj = null;
 		fishingRod.fish = null;
+		fishingRod.isBaitLaunched = false;
+		fishingRod.transform.localPosition = Vector2.zero;
+		fishingRod.state = FishingRodState.IDLE;
+	}
+
+	public void ProcessFish () {
+		fishSystem.CatchFish(fishingRod.fish, playerMovementSystem.player.transform);
 	}
 
 	Vector2 GetDestinationPos(Vector2 throwObjInitPos, int dirID, float range)

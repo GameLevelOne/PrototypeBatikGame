@@ -14,6 +14,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
+	[InjectAttribute] FishingRodSystem fishingRodSystem;
+	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -487,16 +489,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactMode == -3) { //AFTER FISHING FAIL
 						animator.Play(Constants.BlendTreeName.FISHING_FAIL);
 						input.interactMode = 4;
-					} 
-					// else if (input.interactMode == -4) { //AFTER FISHING SUCCESS
-					// 	isFinishAnyAnimation = true;
-						
-					// 	input.interactValue = 0;
-					// 	input.interactMode = 6;
-					// 	player.SetPlayerState(PlayerState.GET_TREASURE);
-					// } 
-					else {
+					} else {
 						StopAnyAnimation ();
+						
+						if (fishingRodSystem.fishingRod.isCatchSomething) {
+							fishingRodSystem.ProcessFish();
+						}
+						
+						fishingRodSystem.ResetFishingRod();
 					}
 				}
 
@@ -510,6 +510,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 				} else if (input.interactValue == 2) { 
 					StopAnyAnimation();
+
+					gainTreasureSystem.UseAndDestroyTreasure();
 				}
 
 				break;

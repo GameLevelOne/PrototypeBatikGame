@@ -569,7 +569,7 @@ public class PlayerInputSystem : ComponentSystem {
 			currentDir = Vector2.zero;
 
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){ //ANY BUTTON
-				gainTreasureSystem.UseAndDestroyTreasure();
+				gainTreasureSystem.UseTreasure();
 				input.interactValue = 2;
 			}
 			

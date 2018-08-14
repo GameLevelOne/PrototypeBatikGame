@@ -13,7 +13,7 @@ public class GainTreasure : MonoBehaviour {
 		PlayerState state = player.state;
 
 		if (col.tag == Constants.Tag.LOOTABLE && !isLooting && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-			Lootable lootable = col.GetComponent<Lootable>();
+			lootable = col.GetComponent<Lootable>();
 
 			if (!lootable.isLooted) {
 				lootable.isLooted = true;

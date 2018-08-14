@@ -13,6 +13,7 @@ public class GainTreasureSystem : ComponentSystem {
 	PlayerInput input;
 	PlayerState state;
 	Player player;
+	Lootable lootable;
 
 	protected override void OnUpdate () {
 		if (gainTreasureData.Length == 0) return;
@@ -29,10 +30,19 @@ public class GainTreasureSystem : ComponentSystem {
 			state = player.state;
 
 			if (gainTreasure.isLooting && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-				SetLiftObjectParent (gainTreasure.lootableTransform);
-				input.interactValue = 0;
-				input.interactMode = 6;
-				player.SetPlayerState(PlayerState.GET_TREASURE);
+				lootable = gainTreasure.lootable;
+
+				switch (lootable.treasureType) {
+					case TreasureType.NONE: 
+						UseAndDestroyTreasure();
+						break;
+					default: //TEMP
+						SetLiftObjectParent (gainTreasure.lootableTransform);
+						input.interactValue = 0;
+						input.interactMode = 6;
+						player.SetPlayerState(PlayerState.GET_TREASURE);
+						break;
+				}
 
 				gainTreasure.isLooting = false;
 			}
@@ -44,7 +54,21 @@ public class GainTreasureSystem : ComponentSystem {
 		treasureTransform.localPosition = Vector2.zero;
 	}
 
+	public void UseTreasure () {
+		switch (lootable.treasureType) { //TEMP
+			case TreasureType.FISH: 
+				lootable.initSprite.SetActive(false);
+				lootable.mainSprite.SetActive(true);
+				break;
+			default:
+				//
+				break;
+		}
+	}
+
 	public void UseAndDestroyTreasure () {
+		//PROCESS LOOTABLE ITEM
+
 		GameObject.Destroy(gainTreasure.lootableTransform.gameObject);
 	}
 }
