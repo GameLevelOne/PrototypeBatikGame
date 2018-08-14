@@ -20,7 +20,8 @@ public enum PlayerState {
 	SWIM,
 	FISHING,
 	BOW,
-	GET_TREASURE
+	GET_TREASURE,
+	OPEN_CHEST
 }
 
 public class Player : MonoBehaviour {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour {
 	public bool isParrying = false;
 	public bool isUsingStand = false; //By Mana  
 	public bool isBouncing = false;
+	public bool isHitChestObject = false;
 	    
     [SerializeField] bool isPlayerHit = false; 
 	[SerializeField] bool isPlayerGetHurt = false;
@@ -147,11 +149,19 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
 			IsHitLiftableObject = true;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.CHEST) {
+			isHitChestObject = true;
+		}
 	}
 
 	void OnCollisionExit2D (Collision2D col) {
 		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
 			IsHitLiftableObject = false;
+		}
+
+		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
+			isHitChestObject = true;
 		}
 	}
 

@@ -63,6 +63,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1218381095245030
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4152565989933534}
+  - component: {fileID: 114858647597742916}
+  - component: {fileID: 50509175932109876}
+  - component: {fileID: 58172422623113266}
+  - component: {fileID: 114101906285634680}
+  m_Layer: 0
+  m_Name: Power Bracelet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1222705680548664
 GameObject:
   m_ObjectHideFlags: 1
@@ -420,11 +439,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4834055521619652}
   - component: {fileID: 114708914232833928}
-  - component: {fileID: 50509175932109876}
   - component: {fileID: 58644922168059778}
-  - component: {fileID: 114101906285634680}
+  - component: {fileID: 114403882440353514}
   m_Layer: 0
-  m_Name: Power Bracelet
+  m_Name: Chest Opener
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,6 +614,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4095796093128456}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4152565989933534
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218381095245030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4723722416754214}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4171260336082764
 Transform:
@@ -816,8 +847,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4595740873623596}
-  - {fileID: 4834055521619652}
+  - {fileID: 4152565989933534}
   - {fileID: 4705957946542318}
+  - {fileID: 4834055521619652}
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -856,12 +888,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895482503823610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4723722416754214}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4837548402107056
 Transform:
@@ -964,7 +996,7 @@ Rigidbody2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1895482503823610}
+  m_GameObject: {fileID: 1218381095245030}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -1013,6 +1045,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
+--- !u!58 &58172422623113266
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218381095245030}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2
 --- !u!58 &58479306435622210
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -1121,7 +1168,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1895482503823610}
+  m_GameObject: {fileID: 1218381095245030}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
@@ -1131,7 +1178,7 @@ MonoBehaviour:
   liftable: {fileID: 0}
   liftShadowParent: {fileID: 4083766296258914}
   liftMainObjParent: {fileID: 4532544263056470}
-  collider: {fileID: 58644922168059778}
+  collider: {fileID: 58172422623113266}
   throwRange: 5
   speed: 300
   isInteracting: 0
@@ -1210,6 +1257,7 @@ MonoBehaviour:
   isParrying: 0
   isUsingStand: 0
   isBouncing: 0
+  isHitChestObject: 0
   isPlayerHit: 0
   isPlayerGetHurt: 0
   isHitAnEnemy: 0
@@ -1315,6 +1363,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114403882440353514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895482503823610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6995567da50b20341beb221f924aba88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114174096162710116}
+  chest: {fileID: 0}
+  isInteracting: 0
 --- !u!114 &114505679433991240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1528,7 +1590,7 @@ MonoBehaviour:
   invisibleCloak: {fileID: 1136594445782774}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
-  powerBraceletAreaEffectObj: {fileID: 1895482503823610}
+  powerBraceletAreaEffectObj: {fileID: 1218381095245030}
   flippersObj: {fileID: 1492941681265070}
   bootsObj: {fileID: 1305521436026474}
   textToolName: {fileID: 0}
@@ -1567,6 +1629,17 @@ MonoBehaviour:
   isCheckBeforeAnimation: 1
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
+--- !u!114 &114858647597742916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218381095245030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114867989227784564
 MonoBehaviour:
   m_ObjectHideFlags: 1

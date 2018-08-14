@@ -249,6 +249,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else {
 				rb.velocity = Vector2.zero;
 			}
+		} else if (state == PlayerState.OPEN_CHEST) {
+			rb.velocity = Vector2.zero;
 		} else {
 			input.moveDir = Vector2.zero;
 			moveDir = Vector2.zero;

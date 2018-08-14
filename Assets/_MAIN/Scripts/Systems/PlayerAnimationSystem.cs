@@ -16,6 +16,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
+	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -279,6 +280,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				break;
+			case PlayerState.OPEN_CHEST:
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.OPENING_CHEST);
+				} else if (input.interactValue == 1) {
+					//
+				} else if (input.interactValue == 2) {
+					animator.Play(Constants.BlendTreeName.AFTER_OPEN_CHEST);
+				}
+				break;
 		}
 	}
 
@@ -512,6 +522,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 					StopAnyAnimation();
 
 					gainTreasureSystem.UseAndDestroyTreasure();
+				}
+
+				break;
+			case PlayerState.OPEN_CHEST: 
+				if (input.interactValue == 0) { 
+					input.interactValue = 2;
+					chestOpenerSystem.OpenChest();
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					StopAnyAnimation();
 				}
 
 				break;

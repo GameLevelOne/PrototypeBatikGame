@@ -66,7 +66,7 @@ public static class Constants {
 		// public const string LIFTABLE = "Liftable"; 
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
-
+		public const string CHEST = "Chest";
 	}
 
 	public static class PlayerPrefKey
@@ -136,6 +136,8 @@ public static class Constants {
 		public const string END_LIFT_TREASURE = "EndLiftTreasure";
 		public const string TAKE_AIM_BOW = "TakeAimBow";
 		public const string AIMING_BOW = "AimingBow";
+		public const string OPENING_CHEST = "OpeningChest";
+		public const string AFTER_OPEN_CHEST = "AfterOpenChest";
 		public const string SHOT_BOW = "ShotBow";
 		public const string USE_BOMB = "UseBomb";
 		public const string USE_HAMMER = "UseHammer";

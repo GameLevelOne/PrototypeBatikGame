@@ -17,7 +17,6 @@ public class PowerBraceletSystem : ComponentSystem {
 	public PowerBracelet powerBracelet;
 
 	PlayerInput input;
-	Player player;
 
 	PowerBraceletState state;
 
@@ -26,9 +25,8 @@ public class PowerBraceletSystem : ComponentSystem {
 	protected override void OnUpdate () {
 		if (powerBraceletData.Length == 0) return;
 
-		if (input == null || player == null) {
+		if (input == null) {
 			input = playerInputSystem.input;
-			player = playerInputSystem.player;
 
 			return;
 		}
@@ -36,7 +34,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		for (int i=0; i<powerBraceletData.Length; i++) {
 			powerBracelet = powerBraceletData.powerBracelet[i];
 
-			if (powerBracelet.isInteracting && !isLiftResponse && player.IsHitLiftableObject && state != PowerBraceletState.NONE) {
+			if (powerBracelet.isInteracting && !isLiftResponse && state != PowerBraceletState.NONE) {
 				isLiftResponse = true;
 			}
 
