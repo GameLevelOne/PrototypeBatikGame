@@ -64,6 +64,7 @@ public class Player : MonoBehaviour {
 	void DamageCheck (Damage damage) {
 		damageReceive = damage;
 		isPlayerHit = true;
+		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
     public int MaxHP{
@@ -99,6 +100,11 @@ public class Player : MonoBehaviour {
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = true;
 		} 
+
+		if (col.tag == Constants.Tag.ENEMY_ATTACK) {
+			Enemy enemy = col.GetComponentInParent<Enemy>();
+			enemyThatHitsPlayer = enemy;
+		}
 	}
 
 	void OnTriggerExit2D (Collider2D col) {

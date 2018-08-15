@@ -4,8 +4,8 @@ public class Health : MonoBehaviour {
 	public delegate void DamageCheck(Damage damage);
 	public event DamageCheck OnDamageCheck;
 
-	public float guardReduceDamage;
-	public float damage;
+	// public float guardReduceDamage;
+	// public float damage;
 
 	public Role role;
 	public Player player;
@@ -43,7 +43,7 @@ public class Health : MonoBehaviour {
 	void onTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
 		
-		damage = col.GetComponent<Damage>().damage;
+		// damage = col.GetComponent<Damage>().damage;
 		// initialDamage = damage;
 
 		if (role.gameRole == GameRole.Player) {
@@ -62,7 +62,7 @@ public class Health : MonoBehaviour {
 					Debug.Log ("Player ignored damage");
 				} else if (player.isGuarding) {
 					player.isPlayerGetHurt = true;
-					damage *= guardReduceDamage;
+					// damage *= guardReduceDamage;
 				} else {
 					player.isPlayerGetHurt = true;
 					// damage = initialDamage;
@@ -95,7 +95,7 @@ public class Health : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D col) {
 		if (col.gameObject.GetComponent<Damage>() == null) return;
 		
-		damage = col.gameObject.GetComponent<Damage>().damage;
+		// damage = col.gameObject.GetComponent<Damage>().damage;
 		// initialDamage = damage;
 
 		if (col.gameObject.tag == Constants.Tag.PLAYER) {

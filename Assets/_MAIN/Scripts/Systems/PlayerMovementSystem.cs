@@ -23,8 +23,8 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	Movement movement;
 	PlayerTool tool;
-
 	PlayerState state;
+	TeleportBulletTime teleportBulletTime;
 
 	Transform tr;
 	Rigidbody2D rb;
@@ -54,7 +54,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
-			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
+			teleportBulletTime = movementData.TeleportBulletTime[i];
 			tool = toolSystem.tool;
 
 			if (state == PlayerState.DIE) continue;
@@ -277,7 +277,17 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	bool CheckIfAllowedToMove () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
+		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
+			if (attackMode == -3) {
+				tr.position = teleportBulletTime.Teleport();
+				Time.timeScale = 0.1f;
+				input.AttackMode = 0;
+				rb.velocity = Vector2.zero;
+				spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+			}
+
+			return false;
+		} else if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			return false;
 		} else {
 			return true;

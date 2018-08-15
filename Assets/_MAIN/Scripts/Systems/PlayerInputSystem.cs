@@ -51,15 +51,6 @@ public class PlayerInputSystem : ComponentSystem {
 			state = player.state;
 			Health health = inputData.Health[i];
 			tool = toolSystem.tool;
-			
-			float chargeAttackThreshold = input.chargeAttackThreshold;
-			// float beforeChargeDelay = input.beforeChargeDelay;
-			float attackAwayDelay = input.attackAwayDelay;
-			float bulletTimeDuration = input.bulletTimeDuration;
-			float dodgeCooldown = input.dodgeCooldown;
-
-			float guardParryDelay = input.guardParryDelay;
-			float bulletTimeDelay = input.bulletTimeDelay;
 
 			if (CheckIfUsingAnyTool ()) {
 				continue;
@@ -78,40 +69,40 @@ public class PlayerInputSystem : ComponentSystem {
 			continue; //TEMP
 
 			#region OLD
-			if (state == PlayerState.SLOW_MOTION) {
-				if (slowDownTimer < bulletTimeDuration) {
-					slowDownTimer += deltaTime;
+			// if (state == PlayerState.SLOW_MOTION) {
+			// 	if (slowDownTimer < bulletTimeDuration) {
+			// 		slowDownTimer += deltaTime;
 
-					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-						input.AttackMode = 1;
-						input.bulletTimeAttackQty++;
-					}
-				} else {
-					slowDownTimer = 0f;
-					Time.timeScale = 1f;
-					input.moveMode = 0;
-					player.SetPlayerState(PlayerState.RAPID_SLASH);
-				}
+			// 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+			// 			input.AttackMode = 1;
+			// 			input.bulletTimeAttackQty++;
+			// 		}
+			// 	} else {
+			// 		slowDownTimer = 0f;
+			// 		Time.timeScale = 1f;
+			// 		input.moveMode = 0;
+			// 		player.SetPlayerState(PlayerState.RAPID_SLASH);
+			// 	}
 
-				continue;
-			} else if (state == PlayerState.RAPID_SLASH) {
-				continue;
-			} else if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
-				currentDir = Vector2.zero;
+			// 	continue;
+			// } else if (state == PlayerState.RAPID_SLASH) {
+			// 	continue;
+			// } else if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
+			// 	currentDir = Vector2.zero;
 
-				if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
-					isButtonToolHold = false;
-				}
+			// 	if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
+			// 		isButtonToolHold = false;
+			// 	}
 
-				continue;
-			} else if (state == PlayerState.FISHING) { 				
-				if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
-					input.interactValue = 2;
-					toolSystem.UseTool();
-				}
+			// 	continue;
+			// } else if (state == PlayerState.FISHING) { 				
+			// 	if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
+			// 		input.interactValue = 2;
+			// 		toolSystem.UseTool();
+			// 	}
 				
-				continue;
-			} 
+			// 	continue;
+			// } 
 
 			#region Button Movement
 			CheckMovementInput ();
@@ -122,131 +113,131 @@ public class PlayerInputSystem : ComponentSystem {
 			#endregion
 
 			#region Button Attack
-			if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-				chargeAttackTimer += deltaTime;
+			// if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+			// 	chargeAttackTimer += deltaTime;
 				
-				// if (chargeAttackTimer >= beforeChargeDelay) {
-					// Debug.Log("Start charging");
-					// SetMovement(1, false); //START CHARGE
-				// }
-			} else {
-				if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-					attackAwayTimer += deltaTime;
-				} else {
-					// input.slashComboVal.Clear();
-					attackAwayTimer = 0f;
-					isAttackAway = true;
-				}
-			}
+			// 	if (chargeAttackTimer >= beforeChargeDelay) {
+			// 		Debug.Log("Start charging");
+			// 		SetMovement(1, false); //START CHARGE
+			// 	}
+			// } else {
+			// 	if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
+			// 		attackAwayTimer += deltaTime;
+			// 	} else {
+			// 		// input.slashComboVal.Clear();
+			// 		attackAwayTimer = 0f;
+			// 		isAttackAway = true;
+			// 	}
+			// }
 			
-			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-				if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-					input.AttackMode = -1; //CHARGE
-					player.SetPlayerState(PlayerState.CHARGE);
-				} else {
-					if (input.AttackMode <= 2) {
-						if (!player.isHitAnEnemy){
-							input.AttackMode = 1; //SLASH							
-						} else {
-							input.AttackMode += 1; //SLASH
-						}
-					}
-					if (state != PlayerState.ATTACK) {
-						player.SetPlayerState(PlayerState.ATTACK);
-					}	
-				}
+			// if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+			// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
+			// 		input.AttackMode = -1; //CHARGE
+			// 		player.SetPlayerState(PlayerState.CHARGE);
+			// 	} else {
+			// 		if (input.AttackMode <= 2) {
+			// 			if (!player.isHitAnEnemy){
+			// 				input.AttackMode = 1; //SLASH							
+			// 			} else {
+			// 				input.AttackMode += 1; //SLASH
+			// 			}
+			// 		}
+			// 		if (state != PlayerState.ATTACK) {
+			// 			player.SetPlayerState(PlayerState.ATTACK);
+			// 		}	
+			// 	}
 				
-				// SetMovement(0, false);
-				chargeAttackTimer = 0f;
-				isAttackAway = false;			
-			}
+			//	SetMovement(0, false);
+			// 	chargeAttackTimer = 0f;
+			// 	isAttackAway = false;			
+			// }
 			#endregion
 
 			#region Button Guard
-			if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
-				// SetMovement(2, false); //START GUARD
+			// if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+			// 	// SetMovement(2, false); //START GUARD
 				
-				// player.isGuarding = true;
-			}
+			// 	// player.isGuarding = true;
+			// }
 			
-			if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
+			// if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 
-				if (state == PlayerState.BLOCK_ATTACK) {
-					input.interactMode = -1;
-				}
+			// 	if (state == PlayerState.BLOCK_ATTACK) {
+			// 		input.interactMode = -1;
+			// 	}
 
-				if (parryTimer < guardParryDelay) {
-					parryTimer += deltaTime;	
-					player.isParrying = true;
-				} else {
-					player.isParrying = false;
-					player.isPlayerHit = false;	
-				}
-			}
+			// 	if (parryTimer < guardParryDelay) {
+			// 		parryTimer += deltaTime;	
+			// 		player.isParrying = true;
+			// 	} else {
+			// 		player.isParrying = false;
+			// 		player.isPlayerHit = false;	
+			// 	}
+			// }
 
-			if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-				// SetMovement(0, false);
+			// if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
+			// 	// SetMovement(0, false);
 				
-				// player.isGuarding = false;
-				parryTimer = 0f;
-				player.isParrying = false;
-			}
+			// 	// player.isGuarding = false;
+			// 	parryTimer = 0f;
+			// 	player.isParrying = false;
+			// }
 			#endregion
 
 			#region Button Dodge			
-			if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-				if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
-					player.SetPlayerState(PlayerState.DODGE);
-					bulletTimeTimer = 0f;	
-					dodgeCooldownTimer = 0f;
-					isDodging = true;
-					isReadyForDodging = false;
-					input.interactMode = 0;
-				}
-			}	
+			// if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
+			// 	if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
+			// 		player.SetPlayerState(PlayerState.DODGE);
+			// 		bulletTimeTimer = 0f;	
+			// 		dodgeCooldownTimer = 0f;
+			// 		isDodging = true;
+			// 		isReadyForDodging = false;
+			// 		input.interactMode = 0;
+			// 	}
+			// }	
 
-			if (isDodging) {
-				if (dodgeCooldownTimer < dodgeCooldown) {
-					dodgeCooldownTimer += deltaTime;
-				} else {
-					isDodging = false;
-					isReadyForDodging = true;
-				}
+			// if (isDodging) {
+			// 	if (dodgeCooldownTimer < dodgeCooldown) {
+			// 		dodgeCooldownTimer += deltaTime;
+			// 	} else {
+			// 		isDodging = false;
+			// 		isReadyForDodging = true;
+			// 	}
 
-				if (state == PlayerState.DODGE) {
-					if (bulletTimeTimer < bulletTimeDelay) {
-						bulletTimeTimer += deltaTime;
-						player.isBulletTiming = true;
-					} else {
-						player.isBulletTiming = false;
-						player.isPlayerHit = false;
-					}
-				}
-			}
+			// 	if (state == PlayerState.DODGE) {
+			// 		if (bulletTimeTimer < bulletTimeDelay) {
+			// 			bulletTimeTimer += deltaTime;
+			// 			player.isBulletTiming = true;
+			// 		} else {
+			// 			player.isBulletTiming = false;
+			// 			player.isPlayerHit = false;
+			// 		}
+			// 	}
+			// }
 
-			if (player.isBulletTiming) {
-				if (player.isPlayerHit) {	
-					player.isBulletTiming = false;
-					ChangeDir(0f, 0f);
-					input.moveMode = 3; //STEADY FOR RAPID SLASH
-					input.AttackMode = -3;
-					Debug.Log("Start BulletTime");
-					player.SetPlayerState(PlayerState.SLOW_MOTION);
-				}
-			}
+			// if (player.isBulletTiming) {
+			// 	if (player.isPlayerHit) {	
+			// 		player.isBulletTiming = false;
+			// 		ChangeDir(0f, 0f);
+			// 		input.moveMode = 3; //STEADY FOR RAPID SLASH
+			// 		input.AttackMode = -3;
+			// 		Debug.Log("Start BulletTime");
+			// 		player.SetPlayerState(PlayerState.SLOW_MOTION);
+			// 	}
+			// }
 			#endregion
 			
-			if (player.isParrying) {
-				if (player.isPlayerHit) {
-					input.AttackMode = -2;
-					player.isParrying = false;
-					player.isPlayerHit = false;
-					Debug.Log("Start Counter");
-					player.SetPlayerState(PlayerState.COUNTER);
-				}
-			} else {
-				player.isPlayerHit = false;
-			}
+			// if (player.isParrying) {
+			// 	if (player.isPlayerHit) {
+			// 		input.AttackMode = -2;
+			// 		player.isParrying = false;
+			// 		player.isPlayerHit = false;
+			// 		Debug.Log("Start Counter");
+			// 		player.SetPlayerState(PlayerState.COUNTER);
+			// 	}
+			// } else {
+			// 	player.isPlayerHit = false;
+			// }
 			#endregion OLD
 		}
 	}
@@ -446,7 +437,7 @@ public class PlayerInputSystem : ComponentSystem {
 				player.isParrying = true;
 			} else {
 				player.isParrying = false;
-				player.isPlayerHit = false;	
+				// player.isPlayerHit = false;	
 			}
 		} else if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
 			SetMovement(0);
@@ -460,12 +451,12 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.isPlayerHit) {
 				input.AttackMode = -2;
 				player.isParrying = false;
-				player.isPlayerHit = false;
+				// player.isPlayerHit = false;
 				Debug.Log("Start Counter");
 				player.SetPlayerState(PlayerState.COUNTER);
 			}
 		} else {
-			player.isPlayerHit = false;
+			// player.isPlayerHit = false;
 		}
 		#endregion
 	}
@@ -500,7 +491,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isBulletTiming = true;
 				} else {
 					player.isBulletTiming = false;
-					player.isPlayerHit = false;
+					// player.isPlayerHit = false;
 				}
 			}
 		}
@@ -511,7 +502,7 @@ public class PlayerInputSystem : ComponentSystem {
 				ChangeDir(0f, 0f);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.AttackMode = -3;
-				Debug.Log("Start BulletTime");
+				// Debug.Log("Start BulletTime");
 				player.SetPlayerState(PlayerState.SLOW_MOTION);
 			}
 		}
@@ -598,7 +589,27 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfUsingAnyTool () {
-		if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
+		if (state == PlayerState.SLOW_MOTION) {
+			float bulletTimeDuration = input.bulletTimeDuration;
+
+			if (slowDownTimer < bulletTimeDuration) {
+				slowDownTimer += deltaTime;
+
+				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+					input.bulletTimeAttackQty++;
+				}
+			} else {
+				slowDownTimer = 0f;
+				Time.timeScale = 1f;
+				input.moveMode = 0;
+				input.AttackMode = 1;
+				player.SetPlayerState(PlayerState.RAPID_SLASH);
+			}
+
+			return true;
+		} else if (state == PlayerState.RAPID_SLASH) {
+			return true;
+		} else  if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
 			currentDir = Vector2.zero;
 
 			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {

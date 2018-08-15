@@ -110,7 +110,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckPlayerState () {
 		if (!isFinishAnyAnimation) return;
-
+		Debug.Log(state);
+		
 		switch (state) {
 			case PlayerState.IDLE:
 				switch (input.moveMode) {
@@ -157,6 +158,26 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.DODGE: 
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
+				break;
+			case PlayerState.COUNTER: 
+				if (input.AttackMode == -2) {
+					animator.Play(Constants.BlendTreeName.COUNTER_ATTACK);
+				}
+				break;
+			case PlayerState.SLOW_MOTION: 
+				if (input.AttackMode == -3) {
+					animator.Play(Constants.BlendTreeName.IDLE_BULLET_TIME);
+				}
+
+				break;
+			case PlayerState.RAPID_SLASH: 
+				Debug.Log("RAPID_SLASH "+input.AttackMode);
+
+				if (input.AttackMode == 1) {
+					animator.Play(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
+					Debug.Log("Rapid Slash");
+				}
+
 				break;
 			case PlayerState.ATTACK:
 				player.isMoveAttack = true;
@@ -344,12 +365,18 @@ public class PlayerAnimationSystem : ComponentSystem {
 				attack.isAttacking = true;
 				break;
 			case PlayerState.DODGE:
+				isFinishAnyAnimation = true;
+				break;
+			case PlayerState.SLOW_MOTION:
 				//
 				break;
 			case PlayerState.RAPID_SLASH:
 				attack.isAttacking  = true;
 				break;
 			case PlayerState.BLOCK_ATTACK:
+				attack.isAttacking  = true;
+				break;
+			case PlayerState.COUNTER:
 				attack.isAttacking  = true;
 				break;
 			case PlayerState.GET_HURT:
@@ -433,12 +460,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.DODGE:
 				StopAnyAnimation();
 				break;
+			case PlayerState.SLOW_MOTION:
+				isFinishAnyAnimation = true;
+				break;
 			case PlayerState.RAPID_SLASH:
 				input.bulletTimeAttackQty--;
+
 				if (input.bulletTimeAttackQty == 0) {
 					player.isHitAnEnemy = false;
+					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
+					Debug.Log("Idle");
 				}
+
+				isFinishAnyAnimation = true;
+
 				break;
 			case PlayerState.GET_HURT:
 				StopAnyAnimation();
@@ -451,7 +487,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAnyAnimation();
 				break;
 			case PlayerState.BLOCK_ATTACK:
-				player.isPlayerHit = false;
+				// player.isPlayerHit = false;
+				StopAnyAnimation();
+				break;
+			case PlayerState.COUNTER:
+				// player.isPlayerHit = false;
 				StopAttackAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:

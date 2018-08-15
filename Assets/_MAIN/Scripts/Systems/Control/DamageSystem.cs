@@ -80,13 +80,11 @@ public class DamageSystem : ComponentSystem {
 	{	
 		Player player = health.player;
 		PlayerState playerState = player.state;
-		Debug.Log("CalculateDamaageToPlayer");
 
 		if (playerState == PlayerState.DIE) return;
 
 		if (!player.isPlayerHit) return;
 		else {
-			Debug.Log("Check player status");
 			if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE
 				Debug.Log("Player is invulnerable");
 			} else if (player.isGuarding) {
