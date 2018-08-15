@@ -8,7 +8,7 @@ public enum PlayerState {
 	COUNTER,
 	DIE,
 	USING_TOOL,
-	HIT,
+	// HIT,
 	GET_HURT,
 	RAPID_SLASH,
 	SLOW_MOTION,
@@ -19,7 +19,9 @@ public enum PlayerState {
 	POWER_BRACELET,
 	SWIM,
 	FISHING,
-	BOW
+	BOW,
+	GET_TREASURE,
+	OPEN_CHEST
 }
 
 public class Player : MonoBehaviour {
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour {
 	public bool isParrying = false;
 	public bool isUsingStand = false; //By Mana  
 	public bool isBouncing = false;
+	public bool isHitChestObject = false;
 	    
     [SerializeField] bool isPlayerHit = false; 
 	[SerializeField] bool isPlayerGetHurt = false;
@@ -139,7 +142,6 @@ public class Player : MonoBehaviour {
     }
 
 	void OnCollisionEnter2D (Collision2D col) {
-
 		if (state == PlayerState.DASH && !isBouncing) {
 			isBouncing = true;	
 		}
@@ -147,24 +149,29 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
 			IsHitLiftableObject = true;
 		}
-	}
 
-	void OnCollisionExit2D (Collision2D col) {
-
-		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
-			IsHitLiftableObject = false;
+		if (col.gameObject.tag == Constants.Tag.CHEST) {
+			isHitChestObject = true;
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {
-		
+	void OnCollisionExit2D (Collision2D col) {
+		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
+			IsHitLiftableObject = false;
+		}
+
+		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
+			isHitChestObject = true;
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D col) {		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = true;
 		} 
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			IsCanDigging = false;
 		}

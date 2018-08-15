@@ -17,10 +17,10 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
 
+	public PlayerInput input;
 	public Facing2D facing;
+	public Player player;
 
-	Player player;
-	PlayerInput input;
 	Movement movement;
 	PlayerTool tool;
 
@@ -76,13 +76,18 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else if (state == PlayerState.POWER_BRACELET) {
 				if (input.interactValue == 2 || input.interactValue == 0) {
 					moveDir = Vector2.zero;
+				} else {
+					moveDir = input.moveDir;
 				}
-			} else if (state == PlayerState.FISHING) {
-				moveDir = Vector2.zero;
-				rb.velocity = moveDir;
-			} else if (state == PlayerState.BOW) {
-				moveDir = Vector2.zero;
-			} else {
+			} 
+			// else if (state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
+			// 	moveDir = Vector2.zero;
+			// 	rb.velocity = moveDir;
+			// } 
+			// else if (state == PlayerState.BOW) {
+			// 	moveDir = Vector2.zero;
+			// } 
+			else {
 				dashDelay = movement.dashDelay;
 				brakeTime = movement.brakeTime;
 				player.isBouncing = false;
@@ -244,11 +249,17 @@ public class PlayerMovementSystem : ComponentSystem {
 			} else {
 				rb.velocity = Vector2.zero;
 			}
+		} else if (state == PlayerState.OPEN_CHEST) {
+			rb.velocity = Vector2.zero;
+		} else {
+			input.moveDir = Vector2.zero;
+			moveDir = Vector2.zero;
+			rb.velocity = moveDir;
 		}
 	}
 
 	bool CheckIfAllowedToMove () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			return false;
 		} else {
 			return true;

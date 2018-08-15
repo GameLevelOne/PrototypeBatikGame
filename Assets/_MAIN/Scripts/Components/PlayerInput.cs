@@ -6,13 +6,6 @@ public class PlayerInput : MonoBehaviour {
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
-	public float chargeAttackThreshold = 1f;
-	public float beforeChargeDelay = 0.3f;
-	public float attackAwayDelay =  0.5f;
-	public float guardParryDelay = 0.5f;
-	public float bulletTimeDelay = 0.3f;
-	public float bulletTimeDuration = 0.3f;
-	public float dodgeCooldown = 1f;
 
 	public List<int> slashComboVal;
 
@@ -65,6 +58,8 @@ public class PlayerInput : MonoBehaviour {
 		
 	/// <summary>
     /// <para>Values: <br /></para>
+	/// <para>-4 FISHINGSUCCESS<br /></para>
+	/// <para>-3 FISHINGFAIL<br /></para>
 	/// <para>-2 GET HURT<br /></para>
 	/// <para>-1 BLOCK<br /></para>
 	/// <para>0 DODGE<br /></para>
@@ -73,6 +68,8 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>3 POWERBRACELET<br /></para>
 	/// <para>4 FISHINGROD<br /></para>
 	/// <para>5 BOW<br /></para>
+	/// <para>6 GETSMALLTREASURE<br /></para>
+	/// <para>7 GETBIGTREASURE<br /></para>
     /// </summary>
 	public int interactMode = 0;
 	
@@ -94,4 +91,12 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 MOVEPUSH<br /></para>
     /// </summary>
 	public float liftingMode = 0;
+	
+	public float chargeAttackThreshold = 1f;
+	public float beforeChargeDelay = 0.3f;
+	public float attackAwayDelay =  0.5f;
+	public float guardParryDelay = 0.5f;
+	public float bulletTimeDelay = 0.3f;
+	public float bulletTimeDuration = 0.3f;
+	public float dodgeCooldown = 1f;
 }

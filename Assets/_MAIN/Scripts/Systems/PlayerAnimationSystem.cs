@@ -14,6 +14,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
+	[InjectAttribute] FishingRodSystem fishingRodSystem;
+	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
+	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -221,15 +224,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				break;
-			case PlayerState.FISHING:
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
-				} else if (input.interactValue == 1) {
-					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
-				}
-				break;
 			case PlayerState.BOW:
 				if (input.interactValue == 0) {
 					animator.Play(Constants.BlendTreeName.TAKE_AIM_BOW);
@@ -247,6 +241,53 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.BLOCK_ATTACK: 
 				animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
+				break;
+			case PlayerState.FISHING:
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
+				} else if (input.interactValue == 1) {
+					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
+				} else if (input.interactValue == 2) {
+					// if (input.interactMode == -3) {
+					// 	Debug.Log("FISHING FAIL ANIMATION");
+					// } 
+					// else if (input.interactMode == -4) {
+					// 	Debug.Log("FISHING SUCCESS ANIMATION");
+					// } 
+					// else {
+					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
+					// }
+				}
+				
+				break;
+			case PlayerState.GET_TREASURE:
+				if (input.interactMode == 6) { //GET SMALL TREASURE
+					if (input.interactValue == 0) { 
+						animator.Play(Constants.BlendTreeName.LIFTING_TREASURE);
+					} else if (input.interactValue == 1) {
+						animator.Play(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
+					} else if (input.interactValue == 2) {
+						animator.Play(Constants.BlendTreeName.END_LIFT_TREASURE);
+					}
+				} else if (input.interactMode == 7) { //GET BIG TREASURE
+					if (input.interactValue == 0) {
+						Debug.Log("LIFT UP TREASURE ANIMATION");
+					} else if (input.interactValue == 1) {
+						Debug.Log("LIFTING TREASURE ANIMATION");
+					} else if (input.interactValue == 2) {
+						Debug.Log("LIFT DOWN TREASURE ANIMATION");
+					}
+				}
+
+				break;
+			case PlayerState.OPEN_CHEST:
+				if (input.interactValue == 0) {
+					animator.Play(Constants.BlendTreeName.OPENING_CHEST);
+				} else if (input.interactValue == 1) {
+					//
+				} else if (input.interactValue == 2) {
+					animator.Play(Constants.BlendTreeName.AFTER_OPEN_CHEST);
+				}
 				break;
 		}
 	}
@@ -332,6 +373,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.DIE: 
 				//
 				break;
+			case PlayerState.GET_TREASURE: 
+				//
+				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
@@ -377,19 +421,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.USING_TOOL:
 				StopAnyAnimation();
 				break;
-			case PlayerState.FISHING:
-				if (input.interactValue == 0) { 
-					input.interactValue = 1;
-					tool.IsActToolReady = true;
-					
-					isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
-					StopAnyAnimation();
-				}
-
-				break;
 			case PlayerState.BLOCK_ATTACK:
 				player.IsPlayerHit = false;
 				StopAttackAnimation();
@@ -414,7 +445,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					}
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 2) {
-					if (input.liftingMode == -1) {
+					if (input.liftingMode == -1 || input.liftingMode == -2) {
 						powerBraceletSystem.UnSetLiftObjectParent();
 						powerBraceletSystem.AddForceRigidbody(facing.DirID);
 					} else if (input.liftingMode == 1) {
@@ -455,6 +486,57 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.DIE: 
 					//
+				break;
+			case PlayerState.FISHING:
+				if (input.interactValue == 0) { 
+					input.interactValue = 1;
+					tool.IsActToolReady = true;
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					if (input.interactMode == -3) { //AFTER FISHING FAIL
+						animator.Play(Constants.BlendTreeName.FISHING_FAIL);
+						input.interactMode = 4;
+					} else {
+						StopAnyAnimation ();
+						
+						if (fishingRodSystem.fishingRod.isCatchSomething) {
+							fishingRodSystem.ProcessFish();
+						}
+						
+						fishingRodSystem.ResetFishingRod();
+					}
+				}
+
+				break;
+			case PlayerState.GET_TREASURE: 
+				if (input.interactValue == 0) { 
+					input.interactValue = 1;
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					StopAnyAnimation();
+
+					gainTreasureSystem.UseAndDestroyTreasure();
+				}
+
+				break;
+			case PlayerState.OPEN_CHEST: 
+				if (input.interactValue == 0) { 
+					input.interactValue = 2;
+					chestOpenerSystem.OpenChest();
+					
+					isFinishAnyAnimation = true;
+				} else if (input.interactValue == 1) { 
+					//
+				} else if (input.interactValue == 2) { 
+					StopAnyAnimation();
+				}
+
 				break;
 			default:
 				Debug.LogWarning ("Unknown Animation played");

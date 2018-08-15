@@ -51,9 +51,9 @@ public class PlayerTool : MonoBehaviour {
 
 	public int currentActiveContainer;
 	public float dashSpeed = 500f;
+	public bool isPowerBraceletSelected = false;
 
 	[SerializeField] bool isActToolReady = false;
-	[SerializeField] bool isPowerBraceletSelected = false;
 	// [SerializeField] bool isFlipperSelected = false;
 
 	void Start()
@@ -73,6 +73,7 @@ public class PlayerTool : MonoBehaviour {
 		InvisibilityCloak = 0; //
 		MagicMedallion = 1;
 		FastTravel = 0; //
+		PowerBracelet = 0; //
 		Flippers = 0; //
 		Boots = 1;
 	}
@@ -168,14 +169,14 @@ public class PlayerTool : MonoBehaviour {
 		}
     }
 
-	public bool IsPowerBraceletSelected {
-        get {return isPowerBraceletSelected;}
-		set {
-			if (isPowerBraceletSelected == value) return;
+	// public bool IsPowerBraceletSelected {
+    //     get {return isPowerBraceletSelected;}
+	// 	set {
+	// 		if (isPowerBraceletSelected == value) return;
 
-			isPowerBraceletSelected = value;
-		}
-    }
+	// 		isPowerBraceletSelected = value;
+	// 	}
+    // }
 
 	// public bool IsFlipperSelected {
     //     get {return isPowerBraceletSelected;}
