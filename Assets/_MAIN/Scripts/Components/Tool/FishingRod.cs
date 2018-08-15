@@ -24,7 +24,7 @@ public class FishingRod : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.tag == Constants.Tag.FISHING_AREA) {
-			player.IsCanFishing = true;
+			player.isCanFishing = true;
 		}
 	}
 
@@ -61,7 +61,7 @@ public class FishingRod : MonoBehaviour {
 
 	void OnTriggerExit2D (Collider2D col) {
 		if (col.tag == Constants.Tag.FISHING_AREA) {
-			player.IsCanFishing = false;
+			player.isCanFishing = false;
 		}
 	}
 }

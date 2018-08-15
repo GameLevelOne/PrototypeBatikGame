@@ -25,12 +25,17 @@ public enum PlayerState {
 }
 
 public class Player : MonoBehaviour {
+	[HeaderAttribute("Player Attributes")]
+	public Health health;
 	public PlayerState state;
+	public Collider2D playerCol;
+	
+	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
-	public Collider2D playerCol;
 
-	
+	[SpaceAttribute(10f)]
+	public Damage damageReceive;
 	public bool isGuarding = false; 
 	public bool isParrying = false;
 	public bool isUsingStand = false; //By Mana  
@@ -39,103 +44,26 @@ public class Player : MonoBehaviour {
 	public bool isCanOpenChest = false;
 	public bool isMoveAttack = false;
 	    
-    [SerializeField] bool isPlayerHit = false; 
-	[SerializeField] bool isPlayerGetHurt = false;
-    [SerializeField] bool isHitAnEnemy = false;
-	[SerializeField] bool isBulletTiming = false;
-	[SerializeField] bool isCanDigging = false;
-	[SerializeField] bool isInvisible = false;
-	[SerializeField] bool isHitLiftableObject = false;
-	[SerializeField] bool isCanFishing = false;
+    public bool isPlayerHit = false; 
+	public bool isPlayerGetHurt = false;
+    public bool isHitAnEnemy = false;
+	public bool isBulletTiming = false;
+	public bool isCanDigging = false;
+	public bool isInvisible = false;
+	public bool isHitLiftableObject = false;
+	public bool isCanFishing = false;
 
-	public bool IsPlayerHit {
-		get {return isPlayerHit;}
-		set {
-			if (isPlayerHit == value) return;
-
-			isPlayerHit = value;
-		}
+	void OnEnable () {
+		health.OnDamageCheck += DamageCheck;
 	}
 
-	public bool IsPlayerGetHurt {
-		get {return isPlayerGetHurt;}
-		set {
-			if (isPlayerGetHurt == value) return;
-
-			isPlayerGetHurt = value;
-		}
+	void OnDisable () {
+		health.OnDamageCheck -= DamageCheck;
 	}
 
-	public bool IsHitAnEnemy {
-		get {return isHitAnEnemy;}
-		set {
-			if (isHitAnEnemy == value) return;
-
-			isHitAnEnemy = value;
-		}
-	}
-	
-	// public bool IsGuarding {
-	// 	get {return isGuarding;}
-	// 	set {
-	// 		if (isGuarding == value) return;
-
-	// 		isGuarding = value;
-	// 	}
-	// }
-	
-	// public bool IsParrying {
-	// 	get {return isParrying;}
-	// 	set {
-	// 		if (isParrying == value) return;
-
-	// 		isParrying = value;
-	// 	}
-	// }
-	
-	public bool IsBulletTiming {
-		get {return isBulletTiming;}
-		set {
-			if (isBulletTiming == value) return;
-
-			isBulletTiming = value;
-		}
-	}
-
-	public bool IsCanDigging {
-		get {return isCanDigging;}
-		set {
-			if (isCanDigging == value) return;
-
-			isCanDigging = value;
-		}
-	}
-
-	public bool IsInvisible {
-		get {return isInvisible;}
-		set {
-			if (isInvisible == value) return;
-
-			isInvisible = value;
-		}
-	}
-	
-	public bool IsHitLiftableObject {
-		get {return isHitLiftableObject;}
-		set {
-			if (isHitLiftableObject == value) return;
-
-			isHitLiftableObject = value;
-		}
-	}
-	
-	public bool IsCanFishing {
-		get {return isCanFishing;}
-		set {
-			if (isCanFishing == value) return;
-
-			isCanFishing = value;
-		}
+	void DamageCheck (Damage damage) {
+		damageReceive = damage;
+		isPlayerHit = true;
 	}
 
     public int MaxHP{
@@ -148,8 +76,8 @@ public class Player : MonoBehaviour {
 			isBouncing = true;	
 		}
 		
-		if (col.gameObject.GetComponent<Liftable>() != null && !IsHitLiftableObject) {
-			IsHitLiftableObject = true;
+		if (col.gameObject.GetComponent<Liftable>() != null && !isHitLiftableObject) {
+			isHitLiftableObject = true;
 		}
 
 		if (col.gameObject.tag == Constants.Tag.CHEST) {
@@ -158,24 +86,24 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionExit2D (Collision2D col) {
-		if (col.gameObject.GetComponent<Liftable>() != null && IsHitLiftableObject) {
-			IsHitLiftableObject = false;
+		if (col.gameObject.GetComponent<Liftable>() != null && isHitLiftableObject) {
+			isHitLiftableObject = false;
 		}
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
-			isHitChestObject = true;
+			isHitChestObject = false;
 		}
 	}
 
 	void OnTriggerEnter2D (Collider2D col) {		
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			IsCanDigging = true;
+			isCanDigging = true;
 		} 
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
 		if (col.tag == Constants.Tag.DIG_AREA) {
-			IsCanDigging = false;
+			isCanDigging = false;
 		}
 	}
 	

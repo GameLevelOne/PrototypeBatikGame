@@ -144,12 +144,12 @@ public class StandAnimationSystem : ComponentSystem {
 	}
 
 	void CheckStandAnimation () {
-		if (!anim.IsCheckBeforeStandAnimation) {
+		if (!anim.isCheckBeforeStandAnimation) {
 			CheckStartStandAnimation ();
-			anim.IsCheckBeforeStandAnimation = true;
-		} else if (!anim.IsCheckAfterStandAnimation) {
+			anim.isCheckBeforeStandAnimation = true;
+		} else if (!anim.isCheckAfterStandAnimation) {
 			CheckEndStandAnimation ();
-			anim.IsCheckAfterStandAnimation = true;
+			anim.isCheckAfterStandAnimation = true;
 		}
 	}
 
@@ -259,7 +259,7 @@ public class StandAnimationSystem : ComponentSystem {
 	// void CheckBeforeStandAnimation (StandAnimationState animState) {
 	// 	switch (animState) {
 	// 		case StandAnimationState.START_USING_TOOL:
-	// 			tool.IsActToolReady = true;
+	// 			tool.isActToolReady = true;
 	// 			break;
 	// 		default:
 	// 			Debug.LogWarning ("Unknown Stand Animation played");

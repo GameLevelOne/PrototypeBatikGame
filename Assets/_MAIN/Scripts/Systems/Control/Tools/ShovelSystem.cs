@@ -27,7 +27,7 @@ public class ShovelSystem : ComponentSystem {
 			if (shovel.listDig.Count >= 1) {
 				checkList = shovel.listDig.Contains(true) ? true : false;
 
-				if (!checkList && playerInputSystem.player.IsCanDigging) {
+				if (!checkList && playerInputSystem.player.isCanDigging) {
 					GameObjectEntity.Instantiate(shovel.diggingObj, shovel.transform.position, Quaternion.identity);
 					// shovel.IsNotCleanForDigging = true;
 				}

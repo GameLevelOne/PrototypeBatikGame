@@ -188,13 +188,18 @@ public class PlayerMovementSystem : ComponentSystem {
 			// moveDir = input.moveDir;
 
 			if (state == PlayerState.DODGE) {
-				if (!isDodgeMove) {
-					Transform target = facing.attackArea.transform;
-					isDodgeMove = true;
-					rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
-				} 
+				Transform target = facing.attackArea.transform;
+				
+				//=====SPEED GOING SLOWER=====//
+				// if (!isDodgeMove) { 
+				// 	isDodgeMove = true;
+				// 	rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
+				// } 
+				
+				//=====SPEED CONSTANT=====//
+				rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
 			} else {
-				isDodgeMove = false;
+				// isDodgeMove = false;
 				moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir;	
 				

@@ -324,12 +324,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void CheckAnimation () {
-		if (!anim.IsCheckBeforeAnimation) {
+		if (!anim.isCheckBeforeAnimation) {
 			CheckStartAnimation ();
-			anim.IsCheckBeforeAnimation = true;
-		} else if (!anim.IsCheckAfterAnimation) {
+			anim.isCheckBeforeAnimation = true;
+		} else if (!anim.isCheckAfterAnimation) {
 			CheckEndAnimation ();
-			anim.IsCheckAfterAnimation = true;
+			anim.isCheckAfterAnimation = true;
 		}
 	}
 
@@ -362,7 +362,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				//
 				break;
 			case PlayerState.USING_TOOL:
-				tool.IsActToolReady = true;
+				tool.isActToolReady = true;
 				break;
 			case PlayerState.FISHING:
 				//
@@ -372,7 +372,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (!player.isUsingStand) {
 						attack.isAttacking = true;
 					} else {
-						tool.IsActToolReady = true;
+						tool.isActToolReady = true;
 					}
 				}
 
@@ -392,7 +392,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void StopAttackAnimation () {
 		StopAnyAnimation();
 		input.AttackMode = 0;
-		// player.IsHitAnEnemy = false;
+		// player.isHitAnEnemy = false;
 	}
 
 	void StopAnyAnimation () {
@@ -402,7 +402,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckAttackCombo () {
 		if (input.slashComboVal.Count == 0) {
-			player.IsHitAnEnemy = false;
+			player.isHitAnEnemy = false;
 			StopAttackAnimation ();
 		} else {
 			isFinishAnyAnimation = true;
@@ -436,7 +436,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.RAPID_SLASH:
 				input.bulletTimeAttackQty--;
 				if (input.bulletTimeAttackQty == 0) {
-					player.IsHitAnEnemy = false;
+					player.isHitAnEnemy = false;
 					StopAttackAnimation();
 				}
 				break;
@@ -451,7 +451,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAnyAnimation();
 				break;
 			case PlayerState.BLOCK_ATTACK:
-				player.IsPlayerHit = false;
+				player.isPlayerHit = false;
 				StopAttackAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:
@@ -519,7 +519,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.FISHING:
 				if (input.interactValue == 0) { 
 					input.interactValue = 1;
-					tool.IsActToolReady = true;
+					tool.isActToolReady = true;
 					
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 1) { 
@@ -632,19 +632,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	#region OLD	
 	void StartCheckAnimation () {
-		// if (!anim.IsCheckBeforeAnimation) {
+		// if (!anim.isCheckBeforeAnimation) {
 		// 	CheckBeforeAnimation ();
-		// 	anim.IsCheckBeforeAnimation = true;
-		// } else if (!anim.IsCheckAfterAnimation) {
+		// 	anim.isCheckBeforeAnimation = true;
+		// } else if (!anim.isCheckAfterAnimation) {
 		// 	CheckAfterAnimation ();
-		// 	anim.IsCheckAfterAnimation = true;
+		// 	anim.isCheckAfterAnimation = true;
 		// }
 	}
 
 	void CheckAttackList () {		
 		// if (input.slashComboVal.Count == 0) {
 			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			// player.IsHitAnEnemy = false;
+			// player.isHitAnEnemy = false;
 			// StopAttackAnimation ();
 		// } else {
 			// Debug.Log("Must Stop Attack Animation");
@@ -680,14 +680,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 		break;
 		// 	case AnimationState.AFTER_COUNTER:
 		// 		animator.SetFloat(Constants.AnimatorParameter.Float.ATTACK_MODE, 0f);
-		// 		player.IsPlayerHit = false;
+		// 		player.isPlayerHit = false;
 		// 		StopAttackAnimation ();
 		// 		break;
 		// 	case AnimationState.AFTER_RAPIDSLASH:
 		// 		input.bulletTimeAttackQty--;
 		// 		if (input.bulletTimeAttackQty == 0) {
-		// 			// player.IsRapidSlashing = false;
-		// 			player.IsHitAnEnemy = false;
+		// 			// player.isRapidSlashing = false;
+		// 			player.isHitAnEnemy = false;
 		// 			animator.SetBool(Constants.AnimatorParameter.Bool.IS_RAPID_SLASHING, false);
 		// 			StopAttackAnimation();
 		// 		}

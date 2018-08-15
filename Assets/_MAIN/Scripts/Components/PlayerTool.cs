@@ -53,7 +53,7 @@ public class PlayerTool : MonoBehaviour {
 	public float dashSpeed = 500f;
 	public bool isPowerBraceletSelected = false;
 
-	[SerializeField] bool isActToolReady = false;
+	public bool isActToolReady = false;
 	// [SerializeField] bool isFlipperSelected = false;
 
 	void Start()
@@ -159,15 +159,6 @@ public class PlayerTool : MonoBehaviour {
 				return 0;
         }
 	}
-
-	public bool IsActToolReady {
-        get {return isActToolReady;}
-		set {
-			if (isActToolReady == value) return;
-
-			isActToolReady = value;
-		}
-    }
 
 	// public bool IsPowerBraceletSelected {
     //     get {return isPowerBraceletSelected;}

@@ -48,16 +48,16 @@ public class ToolSystem : ComponentSystem {
 			Animation2D anim = toolData.Animation[i];
 			
 			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.FISHING) || (state == PlayerState.BOW)) {
-				if (tool.IsActToolReady) {
+				if (tool.isActToolReady) {
 					UseTool ();
-					tool.IsActToolReady = false;
+					tool.isActToolReady = false;
 				}
 			} 
-			// else if (tool.IsPowerBraceletSelected) {
-			// 	tool.IsPowerBraceletSelected = false;
+			// else if (tool.isPowerBraceletSelected) {
+			// 	tool.isPowerBraceletSelected = false;
 			// } 
-			// else if (tool.IsFlipperSelected) {
-			// 	tool.IsFlipperSelected = false;
+			// else if (tool.isFlipperSelected) {
+			// 	tool.isFlipperSelected = false;
 			// }
 		}
 	}
@@ -110,20 +110,20 @@ public class ToolSystem : ComponentSystem {
 
 	// void CheckPowerBracelet () {
 	// 	if ((ToolType) toolType == ToolType.PowerBracelet) {
-	// 		tool.IsPowerBraceletSelected = true;
+	// 		tool.isPowerBraceletSelected = true;
 	// 		UsePowerBracelet (true);
 	// 	} else {
-	// 		tool.IsPowerBraceletSelected = false;
+	// 		tool.isPowerBraceletSelected = false;
 	// 		UsePowerBracelet (false);
 	// 	}
 	// }
 
 	// void CheckFlipper () {
 	// 	if ((ToolType) toolType == ToolType.Flippers) {
-	// 		tool.IsFlipperSelected = true;
+	// 		tool.isFlipperSelected = true;
 	// 		UseFlippers (true);
 	// 	} else {
-	// 		tool.IsFlipperSelected = false;
+	// 		tool.isFlipperSelected = false;
 	// 		UseFlippers (false);
 	// 	}
 	// }
@@ -171,7 +171,7 @@ public class ToolSystem : ComponentSystem {
 		// 	UseBoots();
 		// }
 		
-		// input.IsUsingTool = false;
+		// input.isUsingTool = false;
 	}
 
 	void UseBow()
@@ -285,10 +285,10 @@ public class ToolSystem : ComponentSystem {
 
 		Lantern lantern = tool.GetObj(toolType).GetComponent<Lantern>();
 			
-		if (!lantern.IsLightOn) {
-			lantern.IsLightOn = true;
+		if (!lantern.isLightOn) {
+			lantern.isLightOn = true;
 		} else {
-			lantern.IsLightOn = false;
+			lantern.isLightOn = false;
 		}
 	}
 	
@@ -298,12 +298,12 @@ public class ToolSystem : ComponentSystem {
 
 		Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
 
-		if (!player.IsInvisible) {
-			player.IsInvisible = true;
-			cloak.IsInvisible = true;
+		if (!player.isInvisible) {
+			player.isInvisible = true;
+			cloak.isInvisible = true;
 		} else {
-			player.IsInvisible = false;	
-			cloak.IsInvisible = false;
+			player.isInvisible = false;	
+			cloak.isInvisible = false;
 		}
 	}
 	
@@ -331,7 +331,7 @@ public class ToolSystem : ComponentSystem {
 
 	// 	PowerBracelet powerBracelet = tool.GetObj(type).GetComponent<PowerBracelet>();
 	// 	// Debug.Log(value);
-	// 	powerBracelet.IsColliderOn = value;
+	// 	powerBracelet.isColliderOn = value;
 	// }
 	
 	// void UseFlippers(bool value)
