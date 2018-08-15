@@ -58,7 +58,7 @@ public class PlayerInput : MonoBehaviour {
 		
 	/// <summary>
     /// <para>Values: <br /></para>
-	/// <para>-4 FISHINGSUCCESS<br /></para>
+	/// <para>-4 OPENCHEST<br /></para>
 	/// <para>-3 FISHINGFAIL<br /></para>
 	/// <para>-2 GET HURT<br /></para>
 	/// <para>-1 BLOCK<br /></para>

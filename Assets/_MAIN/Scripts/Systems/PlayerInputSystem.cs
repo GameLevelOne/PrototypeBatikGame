@@ -26,6 +26,7 @@ public class PlayerInputSystem : ComponentSystem {
 	ToolType toolType;
 
 	Vector2 currentDir = Vector2.zero;
+	Vector2 playerDir = Vector2.zero;
 	float deltaTime;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
@@ -297,13 +298,25 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckAttackInput () {
+		#region Button Attack
+		if (player.isCanOpenChest) {
+			playerDir = input.moveDir == Vector2.zero ? playerDir : input.moveDir;
+
+			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector2.up) {
+				input.interactValue = 0;
+				input.interactMode = -4;
+				player.SetPlayerState(PlayerState.OPEN_CHEST);
+				isButtonToolHold = true;
+			}
+
+			return;
+		}
+
 		if (powerBracelet == null) {
 			powerBracelet = powerBraceletSystem.powerBracelet;
 			
 			return;
 		}
-		
-		#region Button Attack
 		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 				input.interactValue = 0;
@@ -311,6 +324,7 @@ public class PlayerInputSystem : ComponentSystem {
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
 				isButtonToolHold = true;
 			}
+
 			return;
 		}
 
@@ -568,7 +582,7 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.GET_TREASURE) { 
 			currentDir = Vector2.zero;
 
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){ //ANY BUTTON
+			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)){ //ANY BUTTON
 				gainTreasureSystem.UseTreasure();
 				input.interactValue = 2;
 			}

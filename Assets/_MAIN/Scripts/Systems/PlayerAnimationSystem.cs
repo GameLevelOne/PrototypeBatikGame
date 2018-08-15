@@ -531,9 +531,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 					chestOpenerSystem.OpenChest();
 					
 					isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
+				} 
+				// else if (input.interactValue == 1) { 
+				// 	//
+				// } 
+				else if (input.interactValue == 2) { 
+					chestOpenerSystem.SpawnTreasure(player.transform.position);
 					StopAnyAnimation();
 				}
 

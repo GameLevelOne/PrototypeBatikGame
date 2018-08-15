@@ -8,8 +8,9 @@ public enum ChestType {
 public class Chest : MonoBehaviour {
 	public ChestType chestType;
 	
-	public GameObject[] normalPrizes;
+	public Animator chestAnimator;
 	public GameObject treasurePrize;
+	public GameObject[] normalPrizes;
 
 	public bool isOpened;
 	public bool isSelected;
