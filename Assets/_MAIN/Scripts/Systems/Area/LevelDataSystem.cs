@@ -14,7 +14,6 @@ public class LevelDataSystem : ComponentSystem {
 	#endregion
 
 	#region injected system
-	[Inject] public CameraSystem cameraSystem;
 	[Inject] public MapChunkSystem mapChunkSystem;
 	#endregion
 
@@ -30,7 +29,6 @@ public class LevelDataSystem : ComponentSystem {
 	{
 		currLevelData.isInitialied = true;
 		// e.levelData.currentPlayer = (GameObject) GameObject.Instantiate(e.levelData.playerObj,e.levelData.playerStartPos,Quaternion.identity);
-		cameraSystem.Enabled = true;
 		mapChunkSystem.Enabled = true;
 		// this.Enabled = false;
 	}
