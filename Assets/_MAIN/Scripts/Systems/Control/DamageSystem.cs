@@ -14,6 +14,7 @@ public class DamageSystem : ComponentSystem {
 		public ComponentArray<CircleCollider2D> Collider;
 	}
 	[InjectAttribute] DamageData damageData;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	Health health;
 	Role role;
@@ -92,6 +93,10 @@ public class DamageSystem : ComponentSystem {
 
 		if(!currEnemy.isHit) return;
 		else{
+			if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
+				playerInputSystem.player.IsHitAnEnemy = true;
+			}
+
 			if(currEnemy.damageReceive.tag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
@@ -101,7 +106,7 @@ public class DamageSystem : ComponentSystem {
 			}else{
 				health.HealthPower -= currEnemy.damageReceive.damage;
 			}
-			currEnemy.IsEnemyGetHurt = false;
+			// currEnemy.IsEnemyGetHurt = false;
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}

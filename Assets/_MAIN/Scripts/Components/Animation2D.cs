@@ -48,7 +48,7 @@ public class Animation2D : MonoBehaviour {
 	[SerializeField] bool isCheckBeforeStandAnimation = false;
 
 	void OnEnable () {
-		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
 		animationControl.OnStartStandAnimation += StartStandAnimation;

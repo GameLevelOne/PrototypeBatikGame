@@ -298,75 +298,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckAttackInput () {
-		#region Button Attack
-		if (player.isCanOpenChest) {
-			playerDir = input.moveDir == Vector2.zero ? playerDir : input.moveDir;
-
-			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector2.up) {
-				input.interactValue = 0;
-				input.interactMode = -4;
-				player.SetPlayerState(PlayerState.OPEN_CHEST);
-				isButtonToolHold = true;
-			}
-
-			return;
-		}
-
-		if (powerBracelet == null) {
-			powerBracelet = powerBraceletSystem.powerBracelet;
-			
-			return;
-		}
-		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				input.interactValue = 0;
-				input.interactMode = 3;
-				player.SetPlayerState(PlayerState.POWER_BRACELET);
-				isButtonToolHold = true;
-			}
-
-			return;
-		}
-
-		float chargeAttackThreshold = input.chargeAttackThreshold;
-		float beforeChargeDelay = input.beforeChargeDelay;
-		float attackAwayDelay = input.attackAwayDelay;
-
-		if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			chargeAttackTimer += deltaTime;
-			
-			if (chargeAttackTimer >= beforeChargeDelay) {
-				SetMovement(1); //START CHARGE
-			}
-		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-			if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-				input.AttackMode = -1; //CHARGE
-				player.SetPlayerState(PlayerState.CHARGE);
-			} else {
-				if (input.AttackMode <= 2) {
-					if (!player.IsHitAnEnemy){
-						input.AttackMode = 1; //SLASH							
-					} else {
-						input.AttackMode += 1; //SLASH
-					}
-				}
-
-				player.SetPlayerState(PlayerState.ATTACK);	
-			}
-			
-			SetMovement(0); //RUN / STAND
-			chargeAttackTimer = 0f;
-			isAttackAway = false;			
-		} else {
-			if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-				attackAwayTimer += deltaTime;
-			} else {
-				input.slashComboVal.Clear();
-				attackAwayTimer = 0f;
-				isAttackAway = true;
-			}
-		}
-
+		#region Arrow
 		if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
 			toolType = tool.currentTool;
 			input.interactValue = 0;
@@ -380,6 +312,105 @@ public class PlayerInputSystem : ComponentSystem {
 			player.SetPlayerState(PlayerState.BOW);
 			isButtonToolHold = true;
 		}
+		#endregion
+
+		#region Open Chest
+		if (player.isCanOpenChest) {
+			playerDir = input.moveDir == Vector2.zero ? playerDir : input.moveDir;
+
+			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector2.up) {
+				input.interactValue = 0;
+				input.interactMode = -4;
+				player.SetPlayerState(PlayerState.OPEN_CHEST);
+				isButtonToolHold = true;
+			}
+
+			return;
+		}
+		#endregion
+
+		#region Power Bracelet
+		if (powerBracelet == null) {
+			powerBracelet = powerBraceletSystem.powerBracelet;
+			
+			return;
+		}
+
+		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				input.interactValue = 0;
+				input.interactMode = 3;
+				player.SetPlayerState(PlayerState.POWER_BRACELET);
+				isButtonToolHold = true;
+			}
+
+			return;
+		}
+		#endregion
+
+		#region Attack
+		float chargeAttackThreshold = input.chargeAttackThreshold;
+		float beforeChargeDelay = input.beforeChargeDelay;
+		float attackAwayDelay = input.attackAwayDelay;
+
+		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+			if (input.AttackMode <= 2) {
+				if (!player.IsHitAnEnemy){
+					input.AttackMode = 1; //SLASH	
+
+					player.SetPlayerState(PlayerState.ATTACK);
+				} else {
+					input.AttackMode += 1; //SLASH COMBO
+				}
+			}
+			
+			attackAwayTimer = 0f;
+			isAttackAway = false;
+			Debug.Log("isAttackAway = false");	
+		} else {
+			if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
+				attackAwayTimer += deltaTime;
+			} else {
+				input.slashComboVal.Clear();
+				// attackAwayTimer = 0f;
+				isAttackAway = true;
+			}
+		}
+
+		// if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+		// 	chargeAttackTimer += deltaTime;
+			
+		// 	if (chargeAttackTimer >= beforeChargeDelay) {
+		// 		SetMovement(1); //START CHARGE
+		// 	}
+		// } else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+		// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
+		// 		input.AttackMode = -1; //CHARGE
+		// 		player.SetPlayerState(PlayerState.CHARGE);
+		// 	} else {
+		// 		if (input.AttackMode <= 2) {
+		// 			if (!player.IsHitAnEnemy){
+		// 				input.AttackMode = 1; //SLASH							
+		// 			} else {
+		// 				input.AttackMode += 1; //SLASH
+		// 			}
+		// 		}
+
+		// 		player.SetPlayerState(PlayerState.ATTACK);	
+		// 	}
+			
+		// 	SetMovement(0); //RUN / STAND
+		// 	chargeAttackTimer = 0f;
+		// 	isAttackAway = false;			
+		// } else {
+		// 	if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
+		// 		attackAwayTimer += deltaTime;
+		// 	} else {
+		// 		input.slashComboVal.Clear();
+		// 		attackAwayTimer = 0f;
+		// 		isAttackAway = true;
+		// 	}
+		// }
 		#endregion
 	}
 

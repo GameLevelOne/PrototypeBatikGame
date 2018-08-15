@@ -55,7 +55,7 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHit()
 	{
 		if(!currMonkey.isHitByPlayer){
-			if(currMonkey.enemy.IsEnemyHit){
+			if(currMonkey.enemy.isHit){ //IsEnemyHit
 				currMonkey.enemy.playerTransform = currMonkey.enemy.playerThatHitsEnemy.transform;
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
 					m.enemy.playerTransform = currMonkey.enemy.playerTransform;

@@ -30,6 +30,14 @@ public class Health : MonoBehaviour {
 	{
 		if(other.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
+
+		if (role.gameRole == GameRole.Player) {
+
+		} else if (role.gameRole == GameRole.Enemy) {
+			// if (other.tag == Constants.Tag.PLAYER_SLASH) {
+			// 	player.IsHitAnEnemy = true;
+			// }
+		}
 	}
 
 	void onTriggerEnter2D (Collider2D col) {
@@ -67,13 +75,16 @@ public class Health : MonoBehaviour {
 
 			if (enemyState == EnemyState.Die) return;
 			
-			if (col.tag == Constants.Tag.PLAYER_ATTACK || col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION) {
+			if (col.tag == Constants.Tag.PLAYER_ATTACK || col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
 				Player player = col.GetComponentInParent<Player>();
 				enemy.playerThatHitsEnemy = player;
-				player.IsHitAnEnemy = true;
 
-				enemy.IsEnemyHit = true;
-				enemy.IsEnemyGetHurt = true;
+				if (col.tag == Constants.Tag.PLAYER_SLASH) {
+					player.IsHitAnEnemy = true;
+				}
+				
+				// enemy.IsEnemyHit = true;
+				// enemy.IsEnemyGetHurt = true;
 				damage = initialDamage;
 			} else {
 				Debug.Log("Enemy get damaged from other source");
@@ -94,8 +105,8 @@ public class Health : MonoBehaviour {
 				enemy.playerThatHitsEnemy = player;
 				player.IsHitAnEnemy = true;
 
-				enemy.IsEnemyHit = true;
-				enemy.IsEnemyGetHurt = true;
+				// enemy.IsEnemyHit = true;
+				// enemy.IsEnemyGetHurt = true;
 				damage = initialDamage;
 				Debug.Log("Enemy get damaged from player dash");
 			}

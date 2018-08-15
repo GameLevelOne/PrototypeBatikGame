@@ -15,8 +15,8 @@ public class Enemy : MonoBehaviour {
 	public EnemyState state;
 	public GameObject attackObject;
 	public Health health;
-	[SerializeField] protected bool isEnemyHit = false;
-	[SerializeField] protected bool isEnemyGetHurt = false;
+	// [SerializeField] protected bool isEnemyHit = false;
+	// [SerializeField] protected bool isEnemyGetHurt = false;
 
 	[SpaceAttribute(10f)]
 	public float patrolRange;
@@ -49,27 +49,27 @@ public class Enemy : MonoBehaviour {
 		set{tIdle = value;}
 	}
 
-	public bool IsEnemyHit {
-		get {return isEnemyHit;}
-		set {
-			if (isEnemyHit == value) return;
+	// public bool IsEnemyHit {
+	// 	get {return isEnemyHit;}
+	// 	set {
+	// 		if (isEnemyHit == value) return;
 
-			isEnemyHit = value;
-		}
-	}
+	// 		isEnemyHit = value;
+	// 	}
+	// }
 
-	public bool IsEnemyGetHurt {
-		get 
-		{
-			if(hasArmor) return false;
-			else return isEnemyGetHurt;
-		}
-		set 
-		{
-			if (isEnemyGetHurt == value) return;
-			isEnemyGetHurt = value;
-		}
-	}
+	// public bool IsEnemyGetHurt {
+	// 	get 
+	// 	{
+	// 		if(hasArmor) return false;
+	// 		else return isEnemyGetHurt;
+	// 	}
+	// 	set 
+	// 	{
+	// 		if (isEnemyGetHurt == value) return;
+	// 		isEnemyGetHurt = value;
+	// 	}
+	// }
 
 	#region delegate event
 	void OnEnable()

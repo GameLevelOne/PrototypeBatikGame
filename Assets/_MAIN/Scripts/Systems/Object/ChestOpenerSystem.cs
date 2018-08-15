@@ -31,7 +31,7 @@ public class ChestOpenerSystem : ComponentSystem {
 		//PLAY CHEST OPEN ANIMATION
 		chestOpener.chest.isOpened = true;
 		chestOpener.player.isCanOpenChest = false;
-		chestOpener.chest.chestAnimator.Play("ChestOpen");
+		chestOpener.chest.chestAnimator.Play(Constants.AnimationName.CHEST_OPEN);
 	}
 
 	public void SpawnTreasure (Vector2 playerPos) {

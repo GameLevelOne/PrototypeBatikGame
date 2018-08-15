@@ -33,6 +33,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector2 currentMove;
 	Vector2 currentDir;
 	bool isFinishAnyAnim = true;
+	int attackMode = 0;
 
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
@@ -60,7 +61,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			state = player.state;
 			animator = anim.animator; 
-			int attackMode = input.AttackMode;
 			moveDir = input.moveDir;
 			
 
@@ -75,7 +75,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			#region OLD		
 			if (state == PlayerState.SLOW_MOTION) {
-				animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
 				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
 				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
@@ -159,15 +159,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
 				break;
 			case PlayerState.ATTACK:
-				if (attack.isAttacking) {
-					animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
-				} else if (input.AttackMode == 1) {
-					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);						
-				} else if (input.AttackMode == 2) {
-					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);						
-				} else if (input.AttackMode == 3) {
-					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);						
-				}
+				// if (attack.isAttacking) {
+				// 	animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
+				// } else 
+				if (input.slashComboVal.Count > 0) {
+					attackMode = input.slashComboVal[0];
+
+					if (attackMode == 1) {
+						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
+					} else if (attackMode == 2) {
+						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);
+					} else if (attackMode == 3) {
+						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+					}
+				} 
+				// else {
+				// 	animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
+				// }
+
 				break;
 			case PlayerState.CHARGE:
 				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
@@ -248,15 +257,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				} else if (input.interactValue == 1) {
 					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
 				} else if (input.interactValue == 2) {
-					// if (input.interactMode == -3) {
-					// 	Debug.Log("FISHING FAIL ANIMATION");
-					// } 
-					// else if (input.interactMode == -4) {
-					// 	Debug.Log("FISHING SUCCESS ANIMATION");
-					// } 
-					// else {
 					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
-					// }
 				}
 				
 				break;
@@ -383,20 +384,33 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StopAttackAnimation () {
-		player.IsHitAnEnemy = false;
-		input.AttackMode = 0;
 		StopAnyAnimation();
+		input.AttackMode = 0;
+		// player.IsHitAnEnemy = false;
 	}
 
 	void StopAnyAnimation () {
-		isFinishAnyAnimation = true;
 		player.SetPlayerIdle();
+		isFinishAnyAnimation = true;
 	}
 
 	void CheckEndAnimation () {
 		switch(state) {
 			case PlayerState.ATTACK: 
-				StopAttackAnimation();
+				if (input.AttackMode > 0 && input.AttackMode <= 3) {
+					if (input.slashComboVal.Count > 0) {			
+						if (attackMode == 3) {					
+							input.slashComboVal.Clear();
+						} else {
+							input.slashComboVal.RemoveAt(0);
+						}
+
+						CheckAttackCombo ();
+					} else {
+						CheckAttackCombo ();
+					}
+				}
+				
 				break;
 			case PlayerState.CHARGE: 
 				StopAttackAnimation();
@@ -547,6 +561,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void CheckAttackCombo () {
+		if (input.slashComboVal.Count == 0) {
+			player.IsHitAnEnemy = false;
+			StopAttackAnimation ();
+		} else {
+			isFinishAnyAnimation = true;
+		}
+	}
+
 	bool CheckIfAllowedToChangeDir () {
 		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
 			return false;
@@ -613,14 +636,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void CheckAttackList () {		
-		if (input.slashComboVal.Count == 0) {
+		// if (input.slashComboVal.Count == 0) {
 			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
-			player.IsHitAnEnemy = false;
-			Debug.Log("Stop Attack Animation");
-			StopAttackAnimation ();
-		} else {
-			Debug.Log("Must Stop Attack Animation");
-		}
+			// player.IsHitAnEnemy = false;
+			// StopAttackAnimation ();
+		// } else {
+			// Debug.Log("Must Stop Attack Animation");
+		// }
 	}
 
 	void CheckAfterAnimation (AnimationState animState) {
