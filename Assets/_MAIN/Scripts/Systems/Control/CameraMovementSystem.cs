@@ -5,54 +5,131 @@ public class CameraMovementSystem : ComponentSystem {
 
 	public struct CameraMovementComponent{
 		public readonly int Length;
+		public ComponentArray<Camera> camera;
 		public ComponentArray<Transform> cameraTransform;
 		public ComponentArray<CameraMovement> cameraMovement;
 	}
 
+	public struct LevelDataComponent{
+		public readonly int Length;
+		public ComponentArray<LevelData> levelData;
+	}
+
 	[InjectAttribute] CameraMovementComponent cameraMovementComponent;
-	public Transform currCameraTransform;
-	public CameraMovement currCameraMovement;
+	Camera currCamera;
+	Transform currCameraTransform;
+	CameraMovement currCameraMovement;
+
+	[InjectAttribute] LevelDataComponent levelDataComponent;
+	LevelData currLevelData;
 
 	float deltaTime;
 
+	int mapWidth;
+	int mapHeight;
+	bool initLevelData = false;
+
+	float cameraSize;
+	float cameraWidth;
+	float cameraHeight;
+
+	float tZoom = 0f;
+
 	protected override void OnUpdate()
 	{
-		for(int i = 0;i<cameraMovementComponent.Length;i++){
-			currCameraTransform = cameraMovementComponent.cameraTransform[i];
-			currCameraMovement = cameraMovementComponent.cameraMovement[i];
-			CheckBoundaries();
-			MoveCamera();
+		if(!initLevelData){
+			for(int i = 0;i<levelDataComponent.Length;i++){
+				currLevelData = levelDataComponent.levelData[i];
+				GetMapSize();
+			}
+		}else{
+			for(int i = 0;i<cameraMovementComponent.Length;i++){
+				currCamera = cameraMovementComponent.camera[i];
+				currCameraTransform = cameraMovementComponent.cameraTransform[i];
+				currCameraMovement = cameraMovementComponent.cameraMovement[i];
+				GetCameraData();
+				MoveCamera();
+			}
+
+			if(currCameraMovement.isZooming){
+				Zoom();
+			}
 		}
 	}
 
-	void CheckBoundaries()
+	void GetMapSize()
 	{
-		if( currCameraMovement.playerTransform.position.x <= currCameraMovement.minBound.x || 
-			currCameraMovement.playerTransform.position.x >= currCameraMovement.maxBound.x ){
-			currCameraMovement.isMovingX = false;
-		}else{
-			currCameraMovement.isMovingX = true;
-		}	
+		if(!initLevelData){
+			initLevelData = true;
 
-		if( currCameraMovement.playerTransform.position.y <= currCameraMovement.minBound.y || 
-			currCameraMovement.playerTransform.position.y >= currCameraMovement.maxBound.y ){
-			currCameraMovement.isMovingY = false;
-		}else{
-			currCameraMovement.isMovingY = true;
+			mapWidth = currLevelData.mapWidth;
+			mapHeight = currLevelData.mapHeight;
+
+			deltaTime = Time.fixedDeltaTime;
+		}
+	}
+
+	void GetCameraData()
+	{
+		cameraSize = currCamera.orthographicSize;
+		cameraHeight = cameraSize * 2;
+		cameraWidth = cameraHeight * Screen.width / Screen.height;
+		Debug.Log(cameraWidth);
+
+
+	}
+
+	void Zoom()
+	{
+		float startSize = currCamera.orthographicSize;
+		float zoomValue = currCameraMovement.zoomValue;
+
+		currCamera.orthographicSize = Mathf.Lerp(startSize,zoomValue,Mathf.SmoothStep(0,1,tZoom * currCameraMovement.zoomSpeed));
+		tZoom += deltaTime * currCameraMovement.zoomSpeed;
+		if(tZoom >= 1f){
+			currCamera.orthographicSize = zoomValue;
+
+			currCameraMovement.isZooming = false;
+			tZoom = 0f;
 		}
 	}
 
 	void MoveCamera()
 	{
-		deltaTime = Time.fixedDeltaTime;
-		Vector3 playerPos = currCameraMovement.playerTransform.position;
-
-		Vector3 camPos = 
-			new Vector3(
-				currCameraMovement.isMovingX ? playerPos.x : currCameraTransform.position.x, 
-				currCameraMovement.isMovingY ? playerPos.y : currCameraTransform.position.y, 
-				-10f);
-		
-		currCameraTransform.position = Vector3.Lerp(currCameraTransform.position,camPos,currCameraMovement.smoothSpeed*deltaTime);
+		Vector3 destPos = currCameraMovement.playerTransform.position + currCameraMovement.offset;
+		Vector3 smoothedPos = Vector3.Lerp(currCameraTransform.position,destPos,currCameraMovement.smoothSpeed * deltaTime);
+		currCameraTransform.position = smoothedPos;
+		currCameraTransform.position = ValidateCamBoundraries();
 	}	
+
+	Vector3 ValidateCamBoundraries()
+	{
+		float x = GetX();
+		float y = GetY();
+		float z = currCameraMovement.offset.z;
+
+		return new Vector3(x,y,z);
+	}
+
+	float GetX()
+	{
+		if(currCameraTransform.position.x <= cameraWidth/2f){
+			return cameraWidth/2f;
+		}else if(currCameraTransform.position.x >= mapWidth-(cameraWidth/2f)){
+			return mapWidth-(cameraWidth/2f);
+		}else{
+			return currCameraTransform.position.x;
+		}
+	}
+
+	float GetY()
+	{
+		if(currCameraTransform.position.y <= cameraHeight/2f){
+			return cameraHeight/2f;
+		}else if(currCameraTransform.position.y >= mapHeight-(cameraHeight/2f)){
+			return mapHeight-(cameraHeight/2f);
+		}else{
+			return currCameraTransform.position.y;
+		}
+	}
 }
