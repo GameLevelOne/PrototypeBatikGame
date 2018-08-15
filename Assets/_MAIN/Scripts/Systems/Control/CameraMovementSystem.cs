@@ -33,6 +33,8 @@ public class CameraMovementSystem : ComponentSystem {
 	float cameraWidth;
 	float cameraHeight;
 
+	float tZoom = 0f;
+
 	protected override void OnUpdate()
 	{
 		if(!initLevelData){
@@ -48,6 +50,10 @@ public class CameraMovementSystem : ComponentSystem {
 				GetCameraData();
 				MoveCamera();
 			}
+
+			if(currCameraMovement.isZooming){
+				Zoom();
+			}
 		}
 	}
 
@@ -58,6 +64,8 @@ public class CameraMovementSystem : ComponentSystem {
 
 			mapWidth = currLevelData.mapWidth;
 			mapHeight = currLevelData.mapHeight;
+
+			deltaTime = Time.fixedDeltaTime;
 		}
 	}
 
@@ -67,11 +75,27 @@ public class CameraMovementSystem : ComponentSystem {
 		cameraHeight = cameraSize * 2;
 		cameraWidth = cameraHeight * Screen.width / Screen.height;
 		Debug.Log(cameraWidth);
+
+
+	}
+
+	void Zoom()
+	{
+		float startSize = currCamera.orthographicSize;
+		float zoomValue = currCameraMovement.zoomValue;
+
+		currCamera.orthographicSize = Mathf.Lerp(startSize,zoomValue,Mathf.SmoothStep(0,1,tZoom * currCameraMovement.zoomSpeed));
+		tZoom += deltaTime * currCameraMovement.zoomSpeed;
+		if(tZoom >= 1f){
+			currCamera.orthographicSize = zoomValue;
+
+			currCameraMovement.isZooming = false;
+			tZoom = 0f;
+		}
 	}
 
 	void MoveCamera()
 	{
-		deltaTime = Time.fixedDeltaTime;
 		Vector3 destPos = currCameraMovement.playerTransform.position + currCameraMovement.offset;
 		Vector3 smoothedPos = Vector3.Lerp(currCameraTransform.position,destPos,currCameraMovement.smoothSpeed * deltaTime);
 		currCameraTransform.position = smoothedPos;
