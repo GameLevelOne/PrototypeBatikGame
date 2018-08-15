@@ -110,7 +110,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckPlayerState () {
 		if (!isFinishAnyAnimation) return;
-		Debug.Log(state);
 		
 		switch (state) {
 			case PlayerState.IDLE:

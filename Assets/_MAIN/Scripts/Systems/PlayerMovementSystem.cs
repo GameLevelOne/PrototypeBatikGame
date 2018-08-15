@@ -206,7 +206,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
+					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming && state != PlayerState.OPEN_CHEST) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}

@@ -1,16 +1,63 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Unity.Entities;
 
-public class ManaSystem : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
+public class ManaSystem : ComponentSystem {
+	public struct ManaData {
+		public readonly int Length;
+		public ComponentArray<Player> Player;
+		public ComponentArray<Mana> Mana;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	[InjectAttribute] ManaData manaData;
+
+	Mana mana;
+	Player player;
+
+	float deltaTime;
+	float regenTime;
+	int currMana;
+	int maxMana;
+
+	bool isManaFull = false;
+
+	protected override void OnUpdate () {
+		if (manaData.Length == 0) return;
+
+		deltaTime = Time.deltaTime;
+
+		for (int i=0; i<manaData.Length; i++) {
+			mana = manaData.Mana[i];
+			player = manaData.Player[i];
+
+			currMana = mana.PlayerMana;
+			maxMana = player.MaxMana;
+
+			if (!isManaFull) {
+				RegenMana();
+			}
+		}
+	}
+
+	public void CheckMana (int manaCost) { //WHEN USING STAND
+		if (currMana >= manaCost) {
+			mana.PlayerMana -= manaCost;
+			player.isUsingStand = true;
+			isManaFull = false;
+		} else {
+			player.isUsingStand = false;
+		}
+	}
+
+	void RegenMana () {
+		if (currMana < maxMana) {
+			if (regenTime <= 1f) {
+				regenTime += deltaTime;
+			} else {
+				mana.PlayerMana += mana.manaRegenPerSecond;
+				regenTime = 0f;
+			}
+		} else if (currMana > maxMana) {
+			mana.PlayerMana = maxMana;
+			isManaFull = true;
+		}
 	}
 }
