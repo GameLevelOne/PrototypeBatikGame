@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	public bool isBouncing = false;
 	public bool isHitChestObject = false;
 	public bool isCanOpenChest = false;
+	public bool isMoveAttack = false;
 	    
     [SerializeField] bool isPlayerHit = false; 
 	[SerializeField] bool isPlayerGetHurt = false;

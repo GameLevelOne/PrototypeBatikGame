@@ -159,6 +159,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
 				break;
 			case PlayerState.ATTACK:
+				player.isMoveAttack = true;
 				// if (attack.isAttacking) {
 				// 	animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
 				// } else 
@@ -172,6 +173,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (attackMode == 3) {
 						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
 					}
+				} else { //TEMP SOLUTION FOR STUCK
+					if (!attack.isAttacking) {
+						StopAttackAnimation();
+					}
 				} 
 				// else {
 				// 	animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
@@ -179,6 +184,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 				break;
 			case PlayerState.CHARGE:
+				player.isMoveAttack = true;
 				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
 				break;
 			case PlayerState.DASH: 
@@ -332,7 +338,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		
 		switch(state) {
 			case PlayerState.ATTACK: 
-				attack.isAttacking = true;
+				attack.isAttacking = true;				
 				break;
 			case PlayerState.CHARGE: 
 				attack.isAttacking = true;
@@ -394,6 +400,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 		isFinishAnyAnimation = true;
 	}
 
+	void CheckAttackCombo () {
+		if (input.slashComboVal.Count == 0) {
+			player.IsHitAnEnemy = false;
+			StopAttackAnimation ();
+		} else {
+			isFinishAnyAnimation = true;
+		}
+	}
+
 	void CheckEndAnimation () {
 		switch(state) {
 			case PlayerState.ATTACK: 
@@ -407,7 +422,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 						CheckAttackCombo ();
 					} else {
-						CheckAttackCombo ();
+						StopAttackAnimation ();
 					}
 				}
 				
@@ -558,15 +573,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 			default:
 				Debug.LogWarning ("Unknown Animation played");
 				break;
-		}
-	}
-
-	void CheckAttackCombo () {
-		if (input.slashComboVal.Count == 0) {
-			player.IsHitAnEnemy = false;
-			StopAttackAnimation ();
-		} else {
-			isFinishAnyAnimation = true;
 		}
 	}
 

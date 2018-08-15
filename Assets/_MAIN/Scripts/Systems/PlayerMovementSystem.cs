@@ -28,11 +28,12 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	Transform tr;
 	Rigidbody2D rb;
+	SpriteRenderer spriteRen;
 
 	float deltaTime;
 	float moveSpeed;
 	bool isDodgeMove = false;
-	bool isAttackMove = false;
+	// bool isAttackMove = false;
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
 	float dashDelay = 0f;
@@ -49,7 +50,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			player = movementData.Player[i];
 			state = player.state;
 			tr = movementData.Transform[i];
-			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
+			spriteRen = movementData.Sprite[i].spriteRen;
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
@@ -163,14 +164,14 @@ public class PlayerMovementSystem : ComponentSystem {
 					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {
-				if (!isAttackMove) {
+				// if (!isAttackMove) {
 					Transform target = facing.attackArea.transform;
-					isAttackMove = true;
+					// isAttackMove = true;
 					rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
-				} else {
-					isAttackMove = false;
+				// } else {
+				// 	isAttackMove = false;
 					rb.velocity = Vector2.zero;
-				}
+				// }
 			} else {
 				rb.velocity = Vector2.zero;
 			}
@@ -205,8 +206,20 @@ public class PlayerMovementSystem : ComponentSystem {
 					} 
 				}
 			}
+		} else if (input.AttackMode >= -1 && input.AttackMode <= 3 && input.AttackMode != 0 && input.moveDir != Vector2.zero) {
+			if (player.isMoveAttack) {
+				Transform target = facing.attackArea.transform;
+				player.isMoveAttack = false;
+				rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
+			} else {
+				rb.velocity = Vector2.zero;
+			}
 		} else {
 			rb.velocity = Vector2.zero;
+		}
+
+		if (rb.velocity.y != 0f) {
+			spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 		}
 	}
 
