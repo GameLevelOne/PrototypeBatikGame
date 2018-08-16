@@ -74,9 +74,6 @@ public class CameraMovementSystem : ComponentSystem {
 		cameraSize = currCamera.orthographicSize;
 		cameraHeight = cameraSize * 2;
 		cameraWidth = cameraHeight * Screen.width / Screen.height;
-		Debug.Log(cameraWidth);
-
-
 	}
 
 	void Zoom()
@@ -84,11 +81,10 @@ public class CameraMovementSystem : ComponentSystem {
 		float startSize = currCamera.orthographicSize;
 		float zoomValue = currCameraMovement.zoomValue;
 
-		currCamera.orthographicSize = Mathf.Lerp(startSize,zoomValue,Mathf.SmoothStep(0,1,tZoom * currCameraMovement.zoomSpeed));
+		currCamera.orthographicSize = Mathf.Lerp(startSize,zoomValue,Mathf.SmoothStep(0,1,tZoom));
 		tZoom += deltaTime * currCameraMovement.zoomSpeed;
-		if(tZoom >= 1f){
+		if(tZoom >= 0.8f || Mathf.Abs(currCamera.orthographicSize-zoomValue) <= 0.01f){
 			currCamera.orthographicSize = zoomValue;
-
 			currCameraMovement.isZooming = false;
 			tZoom = 0f;
 		}
