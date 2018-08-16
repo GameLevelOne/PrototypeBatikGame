@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class Arrow : MonoBehaviour {
+	public int manaCost = 0;
 	public float speed;
 	public Rigidbody2D rb;
 

@@ -39,7 +39,7 @@ public class PlayerAttackSystem : ComponentSystem {
         	// attack.isAttacking = true;
 			if (isAttacking) {
 				if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
-					Debug.Log("Slash Attack : "+attackMode);
+					// Debug.Log("Slash Attack : "+attackMode);
 					SpawnSlashEffect(attackMode);
 				}
 			}

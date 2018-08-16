@@ -211,7 +211,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					} 
 				}
 			}
-		} else if (input.AttackMode >= -1 && input.AttackMode <= 3 && input.AttackMode != 0 && input.moveDir != Vector2.zero) {
+		} else if (attackMode >= -1 && attackMode <= 3 && attackMode != 0 && input.moveDir != Vector2.zero) {
 			if (player.isMoveAttack) {
 				Transform target = facing.attackArea.transform;
 				player.isMoveAttack = false;

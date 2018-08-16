@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 95772939022158678}
   - component: {fileID: 114527311672351130}
   - component: {fileID: 114828749871346054}
+  - component: {fileID: 114082712183648076}
   m_Layer: 0
   m_Name: Stand Magic Medallion Splash
   m_TagString: Magic Medallion
@@ -129,6 +130,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114082712183648076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1371063909327316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5247b778770524697d893213a36c64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 50
 --- !u!114 &114105984622845752
 MonoBehaviour:
   m_ObjectHideFlags: 1

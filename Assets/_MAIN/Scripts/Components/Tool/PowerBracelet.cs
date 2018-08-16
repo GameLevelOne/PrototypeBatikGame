@@ -8,6 +8,7 @@ public enum PowerBraceletState {
 }
 
 public class PowerBracelet : MonoBehaviour {
+	public int manaCost = 0;
 	public PowerBraceletState state;
 	public Liftable liftable;
 	public Transform liftShadowParent;
