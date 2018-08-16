@@ -4,8 +4,8 @@ public class Health : MonoBehaviour {
 	public delegate void DamageCheck(Damage damage);
 	public event DamageCheck OnDamageCheck;
 
-	public float guardReduceDamage;
-	public float damage;
+	// public float guardReduceDamage;
+	// public float damage;
 
 	public Role role;
 	public Player player;
@@ -15,7 +15,6 @@ public class Health : MonoBehaviour {
 	EnemyState enemyState;
 
 	[SerializeField] float healthPower;
-	[SerializeField] float initialDamage;
 
 	public float HealthPower {
 		get {return healthPower;}
@@ -30,13 +29,22 @@ public class Health : MonoBehaviour {
 	{
 		if(other.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
+
+		if (role.gameRole == GameRole.Player) {
+
+		} else if (role.gameRole == GameRole.Enemy) {
+			// if (other.tag == Constants.Tag.PLAYER_SLASH) {
+			// 	player.isHitAnEnemy = true;
+			// }
+		}
 	}
 
+	#region OLD
 	void onTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Damage>() == null) return;
 		
-		damage = col.GetComponent<Damage>().damage;
-		initialDamage = damage;
+		// damage = col.GetComponent<Damage>().damage;
+		// initialDamage = damage;
 
 		if (role.gameRole == GameRole.Player) {
 			playerState = player.state;
@@ -46,18 +54,18 @@ public class Health : MonoBehaviour {
 			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
 				Enemy enemy = col.GetComponentInParent<Enemy>();
 				player.enemyThatHitsPlayer = enemy;
-				// enemy.IsHitAPlayer = true;
+				// enemy.isHitAPlayer = true;
 
-				player.IsPlayerHit = true;
+				player.isPlayerHit = true;
 
-				if (player.isParrying || player.IsBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
+				if (player.isParrying || player.isBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
 					Debug.Log ("Player ignored damage");
 				} else if (player.isGuarding) {
-					player.IsPlayerGetHurt = true;
-					damage *= guardReduceDamage;
+					player.isPlayerGetHurt = true;
+					// damage *= guardReduceDamage;
 				} else {
-					player.IsPlayerGetHurt = true;
-					damage = initialDamage;
+					player.isPlayerGetHurt = true;
+					// damage = initialDamage;
 				}
 
 				// Invoke ("StopResponseHitPlayer", 0.5f);
@@ -67,14 +75,17 @@ public class Health : MonoBehaviour {
 
 			if (enemyState == EnemyState.Die) return;
 			
-			if (col.tag == Constants.Tag.PLAYER_ATTACK || col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION) {
+			if (col.tag == Constants.Tag.PLAYER_ATTACK || col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
 				Player player = col.GetComponentInParent<Player>();
 				enemy.playerThatHitsEnemy = player;
-				player.IsHitAnEnemy = true;
 
-				enemy.IsEnemyHit = true;
-				enemy.IsEnemyGetHurt = true;
-				damage = initialDamage;
+				if (col.tag == Constants.Tag.PLAYER_SLASH) {
+					player.isHitAnEnemy = true;
+				}
+				
+				// enemy.isEnemyHit = true;
+				// enemy.isEnemyGetHurt = true;
+				// damage = initialDamage;
 			} else {
 				Debug.Log("Enemy get damaged from other source");
 			}
@@ -84,21 +95,22 @@ public class Health : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D col) {
 		if (col.gameObject.GetComponent<Damage>() == null) return;
 		
-		damage = col.gameObject.GetComponent<Damage>().damage;
-		initialDamage = damage;
+		// damage = col.gameObject.GetComponent<Damage>().damage;
+		// initialDamage = damage;
 
 		if (col.gameObject.tag == Constants.Tag.PLAYER) {
 			Player player = col.gameObject.GetComponent<Player>();
 
 			if (player.state == PlayerState.DASH) {
 				enemy.playerThatHitsEnemy = player;
-				player.IsHitAnEnemy = true;
+				player.isHitAnEnemy = true;
 
-				enemy.IsEnemyHit = true;
-				enemy.IsEnemyGetHurt = true;
-				damage = initialDamage;
+				// enemy.isEnemyHit = true;
+				// enemy.isEnemyGetHurt = true;
+				// damage = initialDamage;
 				Debug.Log("Enemy get damaged from player dash");
 			}
 		}
 	}
+	#endregion
 }

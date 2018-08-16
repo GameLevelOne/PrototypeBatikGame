@@ -23,16 +23,17 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	Movement movement;
 	PlayerTool tool;
-
 	PlayerState state;
+	TeleportBulletTime teleportBulletTime;
 
 	Transform tr;
 	Rigidbody2D rb;
+	SpriteRenderer spriteRen;
 
 	float deltaTime;
 	float moveSpeed;
 	bool isDodgeMove = false;
-	bool isAttackMove = false;
+	// bool isAttackMove = false;
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
 	float dashDelay = 0f;
@@ -49,11 +50,11 @@ public class PlayerMovementSystem : ComponentSystem {
 			player = movementData.Player[i];
 			state = player.state;
 			tr = movementData.Transform[i];
-			SpriteRenderer spriteRen = movementData.Sprite[i].spriteRen;
+			spriteRen = movementData.Sprite[i].spriteRen;
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
-			TeleportBulletTime teleportBulletTime = movementData.TeleportBulletTime[i];
+			teleportBulletTime = movementData.TeleportBulletTime[i];
 			tool = toolSystem.tool;
 
 			if (state == PlayerState.DIE) continue;
@@ -163,14 +164,14 @@ public class PlayerMovementSystem : ComponentSystem {
 					}
 				}
 			} else if ((attackMode == 2) || (attackMode == 3)) {
-				if (!isAttackMove) {
+				// if (!isAttackMove) {
 					Transform target = facing.attackArea.transform;
-					isAttackMove = true;
+					// isAttackMove = true;
 					rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
-				} else {
-					isAttackMove = false;
+				// } else {
+				// 	isAttackMove = false;
 					rb.velocity = Vector2.zero;
-				}
+				// }
 			} else {
 				rb.velocity = Vector2.zero;
 			}
@@ -187,26 +188,43 @@ public class PlayerMovementSystem : ComponentSystem {
 			// moveDir = input.moveDir;
 
 			if (state == PlayerState.DODGE) {
-				if (!isDodgeMove) {
-					Transform target = facing.attackArea.transform;
-					isDodgeMove = true;
-					rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
-				} 
+				Transform target = facing.attackArea.transform;
+				
+				//=====SPEED GOING SLOWER=====//
+				// if (!isDodgeMove) { 
+				// 	isDodgeMove = true;
+				// 	rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
+				// } 
+				
+				//=====SPEED CONSTANT=====//
+				rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
 			} else {
-				isDodgeMove = false;
+				// isDodgeMove = false;
 				moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir;	
 				
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
+					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming && state != PlayerState.OPEN_CHEST) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}
 			}
+		} else if (input.AttackMode >= -1 && input.AttackMode <= 3 && input.AttackMode != 0 && input.moveDir != Vector2.zero) {
+			if (player.isMoveAttack) {
+				Transform target = facing.attackArea.transform;
+				player.isMoveAttack = false;
+				rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
+			} else {
+				rb.velocity = Vector2.zero;
+			}
 		} else {
 			rb.velocity = Vector2.zero;
+		}
+
+		if (rb.velocity.y != 0f) {
+			spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 		}
 	}
 
@@ -259,7 +277,17 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	bool CheckIfAllowedToMove () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
+		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
+			if (attackMode == -3) {
+				tr.position = teleportBulletTime.Teleport();
+				Time.timeScale = 0.1f;
+				input.AttackMode = 0;
+				rb.velocity = Vector2.zero;
+				spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+			}
+
+			return false;
+		} else if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			return false;
 		} else {
 			return true;

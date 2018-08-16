@@ -42,13 +42,13 @@ public class Animation2D : MonoBehaviour {
 	// public AnimationState animState;
 	// public StandAnimationState standAnimState;
 
-	[SerializeField] bool isCheckAfterAnimation = false;
-	[SerializeField] bool isCheckBeforeAnimation = false;
-	[SerializeField] bool isCheckAfterStandAnimation = false;
-	[SerializeField] bool isCheckBeforeStandAnimation = false;
+	public bool isCheckAfterAnimation = false;
+	public bool isCheckBeforeAnimation = false;
+	public bool isCheckAfterStandAnimation = false;
+	public bool isCheckBeforeStandAnimation = false;
 
 	void OnEnable () {
-		animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
 		animationControl.OnStartStandAnimation += StartStandAnimation;
@@ -61,62 +61,26 @@ public class Animation2D : MonoBehaviour {
 		animationControl.OnStartStandAnimation -= StartStandAnimation;
 		animationControl.OnExitStandAnimation -= ExitStandAnimation;
 	}
-	
-	public bool IsCheckBeforeAnimation {
-		get {return isCheckBeforeAnimation;}
-		set {
-			if (isCheckBeforeAnimation == value) return;
-
-			isCheckBeforeAnimation = value;
-		}
-	}
-	
-	public bool IsCheckAfterAnimation {
-		get {return isCheckAfterAnimation;}
-		set {
-			if (isCheckAfterAnimation == value) return;
-
-			isCheckAfterAnimation = value;
-		}
-	}
-	
-	public bool IsCheckBeforeStandAnimation {
-		get {return isCheckBeforeStandAnimation;}
-		set {
-			if (isCheckBeforeStandAnimation == value) return;
-
-			isCheckBeforeStandAnimation = value;
-		}
-	}
-	
-	public bool IsCheckAfterStandAnimation {
-		get {return isCheckAfterStandAnimation;}
-		set {
-			if (isCheckAfterStandAnimation == value) return;
-
-			isCheckAfterStandAnimation = value;
-		}
-	}
 
 	#region Player and Enemy Animation
 	void StartAnimation () {
-		IsCheckBeforeAnimation = false;
+		isCheckBeforeAnimation = false;
 	}
 
 	void ExitAnimation () {
-		IsCheckAfterAnimation = false;
+		isCheckAfterAnimation = false;
 	}
 	#endregion
 
 	#region Stand Animation
 	void StartStandAnimation () {
-		IsCheckBeforeStandAnimation = false;
-		// Debug.Log("Set IsCheckBeforeStandAnimation FALSE StartStan");
+		isCheckBeforeStandAnimation = false;
+		// Debug.Log("Set isCheckBeforeStandAnimation FALSE StartStan");
 	}
 	
 	void ExitStandAnimation () {
-		IsCheckAfterStandAnimation = false;
-		// Debug.Log("Set IsCheckAfterStandAnimation FALSE ExitStand");
+		isCheckAfterStandAnimation = false;
+		// Debug.Log("Set isCheckAfterStandAnimation FALSE ExitStand");
 	}
 	#endregion
 }

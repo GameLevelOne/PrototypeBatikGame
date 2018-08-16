@@ -19,7 +19,9 @@ public class ChestOpenerSystem : ComponentSystem {
 			chestOpener = chestOpenerData.ChestOpener[i];
 
 			if (chestOpener.isInteracting && !chestOpener.chest.isOpened) {
-				//PLAYER.ISCANOPENCHEST
+				chestOpener.player.isCanOpenChest = true;
+			} else {
+				chestOpener.player.isCanOpenChest = false;
 			}
 		}
 	}
@@ -27,5 +29,16 @@ public class ChestOpenerSystem : ComponentSystem {
 	public void OpenChest () { //CALL BY PLAYERINPUTSYSTEM
 		//SET CHEST TO BE OPENED
 		//PLAY CHEST OPEN ANIMATION
+		chestOpener.chest.isOpened = true;
+		chestOpener.player.isCanOpenChest = false;
+		chestOpener.chest.chestAnimator.Play(Constants.AnimationName.CHEST_OPEN);
+	}
+
+	public void SpawnTreasure (Vector2 playerPos) {
+		ChestType type = chestOpener.chest.chestType;
+		
+		if (type == ChestType.TREASURE) {
+			GameObject.Instantiate(chestOpener.chest.treasurePrize, playerPos, Quaternion.identity);
+		}
 	}
 }

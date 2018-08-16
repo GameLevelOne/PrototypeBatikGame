@@ -7,21 +7,21 @@ public static class Constants {
 	{
 		public static class Int
 		{
-			public const string INTERACT_VALUE = "InteractValue";
+			// public const string INTERACT_VALUE = "InteractValue";
 		}
 
 		public static class Float
 		{
-			public const string ATTACK_MODE = "AttackMode";
-			public const string MOVE_MODE = "MoveMode";
-			public const string SLASH_COMBO = "SlashCombo";
+			// public const string ATTACK_MODE = "AttackMode";
+			// public const string MOVE_MODE = "MoveMode";
+			// public const string SLASH_COMBO = "SlashCombo";
 			
-			public const string IDLE_MODE = "IdleMode";
+			// public const string IDLE_MODE = "IdleMode";
 			public const string FACE_X = "FaceX";
 			public const string FACE_Y = "FaceY";
-			public const string TOOL_TYPE = "ToolType";
-			public const string INTERACT_MODE = "InteractMode";
-			public const string LIFTING_MODE = "LiftingMode";
+			// public const string TOOL_TYPE = "ToolType";
+			// public const string INTERACT_MODE = "InteractMode";
+			// public const string LIFTING_MODE = "LiftingMode";
 		}
 
 		public static class Trigger
@@ -31,11 +31,11 @@ public static class Constants {
 
 		public static class Bool
 		{
-			public const string IS_ATTACKING = "IsAttacking";
-			public const string IS_MOVING = "IsMoving";
-			public const string IS_RAPID_SLASHING = "IsRapidSlashing";
-			public const string IS_USING_TOOL = "IsUsingTool";
-			public const string IS_INTERACT = "IsInteract";
+			// public const string IS_ATTACKING = "IsAttacking";
+			// public const string IS_MOVING = "IsMoving";
+			// public const string IS_RAPID_SLASHING = "IsRapidSlashing";
+			// public const string IS_USING_TOOL = "IsUsingTool";
+			// public const string IS_INTERACT = "IsInteract";
 		}
 
 	}
@@ -67,12 +67,16 @@ public static class Constants {
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
+		public const string PLAYER_SLASH = "Player Slash";
 	}
 
 	public static class PlayerPrefKey
 	{
 
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
+		public const string PLAYER_STATS_HP = "Player/Stats/HP";
+		public const string PLAYER_STATS_MAXMANA = "Player/Stats/MaxMana";
+		public const string PLAYER_STATS_MANA = "Player/Stats/Mana";
 
 		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
 		public const string PLAYER_TOOL_HOOK = "Player/Tool/Hook";
@@ -163,5 +167,10 @@ public static class Constants {
 		public const string STAND_MAGIC_MEDALLION = "StandMagicMedallion";
 		public const string STAND_INACTIVE = "StandInactive";
 		#endregion
+	}
+
+	public static class AnimationName
+	{
+		public const string CHEST_OPEN = "ChestOpen";
 	}
 }

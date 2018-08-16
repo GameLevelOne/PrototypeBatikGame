@@ -5,14 +5,5 @@ public class Cloak : MonoBehaviour {
 
 	public float invisibleAlpha = 0f;
 
-	[SerializeField] bool isInvisible = false;
-	
-	public bool IsInvisible {
-		get {return isInvisible;}
-		set {
-			if (isInvisible == value) return;
-
-			isInvisible = value;
-		}
-	}
+	public bool isInvisible = false;
 }

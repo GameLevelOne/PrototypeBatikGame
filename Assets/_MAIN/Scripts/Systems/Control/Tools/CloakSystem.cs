@@ -23,7 +23,7 @@ public class CloakSystem : ComponentSystem {
 			// cloak.is.SetActive(cloak.IsLightOn);
             Color temp = cloak.spriteRen.color;
 
-            if (cloak.IsInvisible) {
+            if (cloak.isInvisible) {
                 temp.a = cloak.invisibleAlpha;
             } else {
                 temp.a = 1f;

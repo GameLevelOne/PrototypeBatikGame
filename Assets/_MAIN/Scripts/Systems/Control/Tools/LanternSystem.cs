@@ -20,7 +20,7 @@ public class LanternSystem : ComponentSystem {
 		for (int i=0; i<lanternData.Length; i++) {
 			lantern = lanternData.lantern[i];
 
-			lantern.lanternLight.SetActive(lantern.IsLightOn);
+			lantern.lanternLight.SetActive(lantern.isLightOn);
 		}
 	}
 }
