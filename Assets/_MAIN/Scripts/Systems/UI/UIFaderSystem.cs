@@ -23,9 +23,7 @@ public class UIFaderSystem : ComponentSystem {
 		for(int i=0;i<uiFaderComponent.Length;i++){
 			currUIFader = uiFaderComponent.uiFader[i];
 			currUIFaderImage = uiFaderComponent.uiFaderImage[i];
-
 			CheckFaderState();
-
 		}
 	}
 
@@ -46,8 +44,7 @@ public class UIFaderSystem : ComponentSystem {
 	{
 		
 		if(!currUIFader.initFadingIn){
-			currUIFader.initClear = false;
-			currUIFader.initBlack = false;
+			DisableAllFlags();
 			currUIFader.initFadingIn = true;
 			faderColor = currUIFaderImage.color;
 			tFade = 0f;
@@ -68,8 +65,7 @@ public class UIFaderSystem : ComponentSystem {
 	void FadeOut()
 	{
 		if(!currUIFader.initFadingOut){
-			currUIFader.initClear = false;
-			currUIFader.initBlack = false;
+			DisableAllFlags();
 			currUIFader.initFadingOut = true;
 			faderColor = currUIFaderImage.color;
 			tFade = 0f;
@@ -90,6 +86,7 @@ public class UIFaderSystem : ComponentSystem {
 	void Clear()
 	{
 		if(!currUIFader.initClear){
+			DisableAllFlags();
 			currUIFader.initClear = true;
 			currUIFaderImage.color = Color.clear;
 		}
@@ -98,8 +95,17 @@ public class UIFaderSystem : ComponentSystem {
 	void Black()
 	{
 		if(!currUIFader.initBlack){
+			DisableAllFlags();
 			currUIFader.initBlack = true;
 			currUIFaderImage.color = Color.black;
 		}
+	}
+
+	void DisableAllFlags()
+	{
+		currUIFader.initClear = false;
+		currUIFader.initBlack = false;
+		currUIFader.initFadingIn = false;
+		currUIFader.initFadingOut = false;
 	}
 }
