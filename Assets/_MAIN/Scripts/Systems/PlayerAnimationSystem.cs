@@ -38,8 +38,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
 		set {
-			isFinishAnyAnim = value;
-			// Debug.Log(isFinishAnyAnim + " on state " + state);
+			if (!value && state == PlayerState.IDLE) {
+				isFinishAnyAnim = true;
+			} else {
+				isFinishAnyAnim = value;
+			}
+			
+			Debug.Log(isFinishAnyAnim + " on state " + state);
 		}
 	}
 
@@ -511,10 +516,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.isHitAnEnemy = false;
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
-					Debug.Log("Idle");
+				} else {
+					isFinishAnyAnimation = true;
 				}
-
-				isFinishAnyAnimation = true;
 
 				break;
 			case PlayerState.GET_HURT:

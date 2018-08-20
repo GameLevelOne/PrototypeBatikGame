@@ -636,6 +636,7 @@ public class PlayerInputSystem : ComponentSystem {
 				input.moveMode = 0;
 				input.AttackMode = 1;
 				player.SetPlayerState(PlayerState.RAPID_SLASH);
+				ChangeDir(0f, 0f);
 			}
 
 			return true;
