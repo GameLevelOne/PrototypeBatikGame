@@ -296,7 +296,7 @@ public class PlayerInputSystem : ComponentSystem {
 			input.interactValue = 0;
 
 			if (toolType == ToolType.Bow) {
-				CheckMana((int) ToolType.Bow);
+				CheckMana((int) ToolType.Bow, true);
 
 				if (player.isUsingStand) {
 					input.interactMode = 5;
@@ -344,9 +344,16 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 				input.interactValue = 0;
 				input.interactMode = 3;
+				
+				if (powerBraceletSystem.withStand) {
+					player.isUsingStand = true;
+					powerBraceletSystem.withStand = false;
+					UseMana((int) ToolType.PowerBracelet);
+				}
+
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
 				isButtonToolHold = true;
-			}
+			} 
 
 			return;
 		}
@@ -526,10 +533,12 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Button Tools
 		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING) && state != PlayerState.BOW) {
 			if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
+				// player.isUsingStand = false;
 				toolSystem.NextTool();
 			}
 			
 			if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyUp(KeyCode.Joystick1Button6)){
+				// player.isUsingStand = false;
 				toolSystem.PrevTool();
 			}
 
@@ -559,19 +568,20 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			} 
-		} else if (state == PlayerState.POWER_BRACELET) { 				
-			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && input.liftingMode < 0){ //THROW
-				input.interactValue = 2;
-			}
-
-			if ((Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) && input.liftingMode >= 0){
-				isButtonToolHold = false;
-			}
-			
-			if (!isButtonToolHold) {
-				input.interactValue = 2;
-			} 
 		} 
+		// else if (state == PlayerState.POWER_BRACELET) { 				
+		// 	if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && input.liftingMode < 0){ //THROW
+		// 		input.interactValue = 2;
+		// 	}
+
+		// 	if ((Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) && input.liftingMode >= 0){
+		// 		isButtonToolHold = false;
+		// 	}
+			
+		// 	if (!isButtonToolHold) {
+		// 		input.interactValue = 2;
+		// 	} 
+		// } 
 		// else if (state == PlayerState.BOW) { 				
 		// 	// if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Joystick1Button9)){ //SHOT
 		// 	// 	input.interactValue = 2;
@@ -625,14 +635,35 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else if (state == PlayerState.RAPID_SLASH) {
 			return true;
-		} else  if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
-			currentDir = Vector2.zero;
+		} else  if (state == PlayerState.POWER_BRACELET) {
+			if (input.interactValue == 0) {
+				currentDir = Vector2.zero;
 
-			if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-				isButtonToolHold = false;
+				if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+					// isButtonToolHold = false;
+					CheckEndMove();
+					input.interactValue = 2;
+				}
+
+				return true;
+			} else if (input.interactValue == 1) { 	
+				if (input.liftingMode < 0) { //LIFTING
+					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)){
+						CheckEndMove();
+						input.interactValue = 2;
+					}
+				} else { //PUSHING / SWEATING
+					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+						CheckEndMove();
+						// isButtonToolHold = false;
+						input.interactValue = 2;
+					}
+				}
+
+				return false; 
+			} else { 	
+				return true;
 			}
-
-			return true;
 		} 
 		// else if (state == PlayerState.BOW && input.interactValue == 0 && input.interactValue == 1) {
 		// 	currentDir = Vector2.zero;
@@ -780,8 +811,12 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	void CheckMana (int toolIdx) {
+	void CheckMana (int toolIdx, bool isUseMana) {
 		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
-		manaSystem.CheckMana(tool.GetToolManaCost(toolIdx));
+		manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana);
+	}
+
+	void UseMana (int toolIdx) {
+		manaSystem.UseMana(tool.GetToolManaCost(toolIdx));
 	}
 }

@@ -249,6 +249,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						animator.Play(Constants.BlendTreeName.LIFTING);
 					}
 				} else if (input.interactValue == 2) {
+					Debug.Log("Throw anim");
 					if (input.liftingMode == 0) {
 						animator.Play(Constants.BlendTreeName.UNGRABBING);
 					} else if (input.liftingMode == -1) {
@@ -520,6 +521,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 					}
 					
+					// player.isUsingStand = false;
 					StopAnyAnimation();
 				}
 

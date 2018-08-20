@@ -16,6 +16,7 @@ public enum LiftableState {
 public class Liftable : MonoBehaviour {
 	public LiftableType liftableType;
 	public LiftableState state;
+	public int weight;
 
 	public GameObject attachedObject;
 	public Transform shadowTransform;

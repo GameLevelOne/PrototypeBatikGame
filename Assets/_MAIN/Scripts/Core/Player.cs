@@ -69,6 +69,14 @@ public class Player : MonoBehaviour {
 		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
+	// public bool isUsingStand {
+	// 	get {return isStand;}
+	// 	set {
+	// 		isStand = value;
+	// 		Debug.Log("Stand "+isStand);
+	// 	}
+	// }
+
     public int MaxHP{
         get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
         set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);}

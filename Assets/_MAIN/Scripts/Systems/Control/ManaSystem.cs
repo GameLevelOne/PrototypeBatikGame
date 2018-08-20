@@ -38,18 +38,26 @@ public class ManaSystem : ComponentSystem {
 		}
 	}
 
-	public void CheckMana (int manaCost) { //WHEN USING STAND
-		isCheckingMana = true;
-		
+	public bool isHaveEnoughMana (int manaCost, bool isUseMana) { //WHEN USING STAND	
 		if (currMana >= manaCost) {
-			mana.PlayerMana -= manaCost;
-			player.isUsingStand = true;
-			isManaFull = false;
+			if (isUseMana) {
+				UseMana(manaCost);
+			}
+
+			return true;
 		} else {
 			player.isUsingStand = false;
+			return false;
 		}
+	}
 
+	public void UseMana (int manaCost) {
+		isCheckingMana = true;
+		mana.PlayerMana -= manaCost;
+		isManaFull = false;
 		isCheckingMana = false;
+		player.isUsingStand = true;
+
 		PrintMana();
 	}
 

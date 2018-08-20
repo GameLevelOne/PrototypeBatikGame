@@ -649,7 +649,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1565756163263292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.53, y: 2.58, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790928859334420}
@@ -1175,14 +1175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 114174096162710116}
   manaCost: 15
+  liftPower: 20
+  standLiftPower: 50
+  throwRange: 5
+  speed: 300
   state: 0
   liftable: {fileID: 0}
   liftShadowParent: {fileID: 4083766296258914}
   liftMainObjParent: {fileID: 4532544263056470}
-  collider: {fileID: 58172422623113266}
-  throwRange: 5
-  speed: 300
   isInteracting: 0
   isColliderOn: 0
 --- !u!114 &114127731848570966
