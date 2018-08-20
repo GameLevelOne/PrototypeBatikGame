@@ -296,9 +296,8 @@ public class PlayerInputSystem : ComponentSystem {
 			input.interactValue = 0;
 
 			if (toolType == ToolType.Bow) {
-				CheckMana((int) ToolType.Bow, true);
 
-				if (player.isUsingStand) {
+				if (isHaveEnoughMana((int) ToolType.Bow, true)) {
 					input.interactMode = 5;
 				} else {
 					input.AttackMode = -4;
@@ -564,6 +563,10 @@ public class PlayerInputSystem : ComponentSystem {
 
 						if (toolType == ToolType.Bomb) {
 							tool.isActToolReady = true;
+						} else if (toolType == ToolType.MagicMedallion) {
+							if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true)) {
+								player.SetPlayerIdle();
+							}
 						}
 					}
 				}
@@ -811,9 +814,13 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	void CheckMana (int toolIdx, bool isUseMana) {
+	bool isHaveEnoughMana (int toolIdx, bool isUseMana) {
 		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
-		manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana);
+		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	void UseMana (int toolIdx) {
