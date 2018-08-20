@@ -69,14 +69,22 @@ public class Player : MonoBehaviour {
 		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
-    public int MaxHP{
-        get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
-        set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);}
+	// public bool isUsingStand {
+	// 	get {return isStand;}
+	// 	set {
+	// 		isStand = value;
+	// 		Debug.Log("Stand "+isStand);
+	// 	}
+	// }
+
+    public float MaxHP{
+        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);}
     }
 
-    public int MaxMana{
-        get{return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMana);}
-        set{PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
+    public float MaxMana{
+        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMana);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
     }
 
 	void OnCollisionEnter2D (Collision2D col) {

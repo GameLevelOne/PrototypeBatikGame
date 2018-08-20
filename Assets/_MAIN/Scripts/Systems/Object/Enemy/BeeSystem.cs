@@ -121,7 +121,7 @@ public class BeeSystem : ComponentSystem {
 		currBeeAnim.Play(EnemyState.Idle.ToString());
 		if(currBee.enemy.isAttack){
 			currBee.enemy.state = EnemyState.Attack;
-			currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
+			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
 		}else{
 			currBeeRigidbody.position = 
 				Vector2.MoveTowards(

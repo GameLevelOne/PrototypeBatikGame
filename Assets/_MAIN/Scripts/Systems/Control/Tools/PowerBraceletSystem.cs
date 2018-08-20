@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class PowerBraceletSystem : ComponentSystem {
 	public struct PowerBraceletData {
@@ -13,14 +9,17 @@ public class PowerBraceletSystem : ComponentSystem {
 	[InjectAttribute] PowerBraceletData powerBraceletData;
 
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] ManaSystem manaSystem;
 
 	public PowerBracelet powerBracelet;
+	
+	public bool withStand = false;
 
 	PlayerInput input;
 
 	PowerBraceletState state;
 
-	bool isLiftResponse = false;
+	bool isDoneCheckState = false;
 
 	protected override void OnUpdate () {
 		if (powerBraceletData.Length == 0) return;
@@ -34,33 +33,87 @@ public class PowerBraceletSystem : ComponentSystem {
 		for (int i=0; i<powerBraceletData.Length; i++) {
 			powerBracelet = powerBraceletData.powerBracelet[i];
 
-			if (powerBracelet.isInteracting && !isLiftResponse && state != PowerBraceletState.NONE) {
-				isLiftResponse = true;
-			}
+			if (powerBracelet.isInteracting && !isDoneCheckState) {
+				CheckLiftableObject();
+				
+				state = powerBracelet.state;
 
-			state = powerBracelet.state;
-
-			if (isLiftResponse) {
-				if (state == PowerBraceletState.NONE) {
-					//
-				} else if (state == PowerBraceletState.CAN_LIFT) {
-					input.liftingMode = -3;
-				} else if (state == PowerBraceletState.CANNOT_LIFT) {
-					input.liftingMode = 0;
-				} else if (state == PowerBraceletState.GRAB) {
-					input.liftingMode = 1;
+				if (state != PowerBraceletState.NONE) {
+					SetLiftableInput();
 				}
+			} 
+		}
+	}
 
-				powerBracelet.isInteracting = false;
-				isLiftResponse = false;
-				// powerBracelet.IsColliderOn = false;
+	void CheckLiftableObject () {
+		LiftableType type = powerBracelet.liftable.liftableType;
+
+		if (type == LiftableType.LIFTABLE) {
+			if (powerBracelet.liftPower >= powerBracelet.liftable.weight) {
+				powerBracelet.SetState(PowerBraceletState.CAN_LIFT);
+				withStand = false;
+			} else {
+				if (isHaveEnoughMana()) {
+					powerBracelet.SetState(PowerBraceletState.CAN_LIFT);
+				} else {
+					powerBracelet.SetState(PowerBraceletState.CANNOT_LIFT);
+				}
 			}
+		} else if (type == LiftableType.UNLIFTABLE) {
+			powerBracelet.SetState(PowerBraceletState.CANNOT_LIFT);
+		} else if (type == LiftableType.GRABABLE) {
+			if (powerBracelet.liftPower >= powerBracelet.liftable.weight) {
+				powerBracelet.SetState(PowerBraceletState.GRAB);
+				withStand = false;
+			} else {
+				if (isHaveEnoughMana()) {
+					powerBracelet.SetState(PowerBraceletState.GRAB);
+				} else {
+					powerBracelet.SetState(PowerBraceletState.CANNOT_LIFT);
+				}
+			}
+		} else {
+			powerBracelet.SetState(PowerBraceletState.NONE);
+		}
+		// Debug.Log("CheckLiftableObject");
+		isDoneCheckState = true;
+	}
+
+	void SetLiftableInput () {
+		if (state == PowerBraceletState.NONE) {
+			//
+		} else if (state == PowerBraceletState.CAN_LIFT) {
+			input.liftingMode = -3;
+		} else if (state == PowerBraceletState.CANNOT_LIFT) {
+			input.liftingMode = 0;
+		} else if (state == PowerBraceletState.GRAB) {
+			input.liftingMode = 1;
+		}
+		// Debug.Log("SetLiftableInput");
+		powerBracelet.isInteracting = false;
+		isDoneCheckState = false;
+		// isCanSetLiftableInput = false;
+		// powerBracelet.IsColliderOn = false;
+	}
+
+	bool isHaveEnoughMana () {
+		if (manaSystem.isHaveEnoughMana(powerBracelet.manaCost, false)) {
+			if (powerBracelet.liftPower + powerBracelet.standLiftPower >= powerBracelet.liftable.weight) {
+				withStand = true;
+				return true;
+			} else {
+				withStand = false;
+				return false;
+			}
+		} else {
+			withStand = false;
+			return false;
 		}
 	}
 
 	public void SetTargetRigidbody (RigidbodyType2D type) {
 		powerBracelet.liftable.shadowRigidbody.bodyType = type;
-		// powerBracelet.liftable.mainObjRigidbody.bodyType = type; //SET TO DYNAMIC FOR CURVE MOVE
+		// powerBracelet.liftable.mainObjRigidbody.bodyType = type; //SET TO DYNAMIC FOR CURVE THROW
 	}
 
 	public void AddForceRigidbody (int dirID) {

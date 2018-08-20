@@ -8,16 +8,17 @@ public enum PowerBraceletState {
 }
 
 public class PowerBracelet : MonoBehaviour {
-	public int manaCost = 0;
+	public Player player;
+	public float manaCost = 0;
+	public float liftPower;
+	public float standLiftPower;
+	public float throwRange;
+	public float speed;
 	public PowerBraceletState state;
 	public Liftable liftable;
 	public Transform liftShadowParent;
 	public Transform liftMainObjParent;
-	public Collider2D collider;
-	
-	// public float liftPower;
-	public float throwRange;
-	public float speed;
+	// public Collider2D collider;
 
 	public bool isInteracting = false;
 	public bool isColliderOn = false;
@@ -25,33 +26,22 @@ public class PowerBracelet : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col) {
 		if (col.GetComponent<Liftable>() != null && !isInteracting && liftable == null) {
 			liftable = col.GetComponent<Liftable>();
-			LiftableType type = liftable.liftableType;
-
-			if (type == LiftableType.LIFTABLE) {
-				// Debug.Log("CAN_LIFT");
-				state = PowerBraceletState.CAN_LIFT;
-			} else if (type == LiftableType.UNLIFTABLE) {
-				state = PowerBraceletState.CANNOT_LIFT;
-				// Debug.Log("CANNOT_LIFT");
-			} else if (type == LiftableType.GRABABLE) {
-				// Debug.Log("GRABABLE");
-				state = PowerBraceletState.GRAB;
-			} else {
-				state = PowerBraceletState.NONE;
-			}
-
 			isInteracting = true;
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		if (col.GetComponent<Liftable>() != null) {
+		if (liftable != null && col.GetComponent<Liftable>() != null && player.state != PlayerState.POWER_BRACELET) {
 
 			if (liftable.gameObject == col.GetComponent<Liftable>().gameObject) {
-				liftable = null;
 				isInteracting = false;
-				state = PowerBraceletState.NONE;
+				liftable = null;
+				SetState(PowerBraceletState.NONE);
 			}
 		}
+	}
+
+	public void SetState (PowerBraceletState state) {
+		this.state = state;
 	}
 }

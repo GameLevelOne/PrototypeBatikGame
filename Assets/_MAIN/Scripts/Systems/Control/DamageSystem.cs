@@ -81,9 +81,7 @@ public class DamageSystem : ComponentSystem {
 		Player player = health.player;
 		PlayerState playerState = player.state;
 
-		if (playerState == PlayerState.DIE) return;
-
-		if (!player.isPlayerHit) return;
+		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
 			if (player.damageReceive.tag == Constants.Tag.ENEMY_ATTACK) {
 				if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE

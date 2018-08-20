@@ -649,7 +649,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1565756163263292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.53, y: 2.58, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790928859334420}
@@ -1175,14 +1175,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 114174096162710116}
   manaCost: 15
+  liftPower: 20
+  standLiftPower: 50
+  throwRange: 5
+  speed: 300
   state: 0
   liftable: {fileID: 0}
   liftShadowParent: {fileID: 4083766296258914}
   liftMainObjParent: {fileID: 4532544263056470}
-  collider: {fileID: 58172422623113266}
-  throwRange: 5
-  speed: 300
   isInteracting: 0
   isColliderOn: 0
 --- !u!114 &114127731848570966
@@ -1215,8 +1217,8 @@ MonoBehaviour:
   normalSpeed: 100
   slowSpeed: 50
   dodgeSpeed: 200
-  attackMoveSpeed: 50
-  bounceSpeed: 100
+  attackMoveForce: 20
+  bounceSpeed: 200
   dashDelay: 1
   brakeTime: 0.5
 --- !u!114 &114149986137599572
@@ -1346,7 +1348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manaCost: 2
-  bootsSpeed: 0
+  bootsSpeed: 500
 --- !u!114 &114329116918779182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1601,7 +1603,6 @@ MonoBehaviour:
   bootsObj: {fileID: 1305521436026474}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
-  dashSpeed: 200
   isPowerBraceletSelected: 0
   isActToolReady: 0
 --- !u!114 &114750834157724972
@@ -1721,8 +1722,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMana: {fileID: 0}
-  mana: 10
-  manaRegenPerSecond: 1
+  mana: 90
+  manaRegenPerSecond: 5
+  isTestMana: 1
 --- !u!198 &198419373771927748
 ParticleSystem:
   m_ObjectHideFlags: 1

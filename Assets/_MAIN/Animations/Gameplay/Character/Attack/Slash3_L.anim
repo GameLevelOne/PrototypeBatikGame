@@ -20,19 +20,17 @@ AnimationClip:
   - curve:
     - time: 0
       value: {fileID: 21300000, guid: 57ad15c502057ab4ab0a534240b6643f, type: 3}
-    - time: 0.05
-      value: {fileID: 21300000, guid: 9c08412acad8f6d41ad59ac24efe1782, type: 3}
-    - time: 0.083333336
+    - time: 0.06666667
       value: {fileID: 21300000, guid: 7896840b86f96814badc9d7019321ebe, type: 3}
-    - time: 0.16666667
+    - time: 0.15
       value: {fileID: 21300000, guid: ef38466aaba5cc7489a198e8a079ab50, type: 3}
-    - time: 0.25
+    - time: 0.23333333
       value: {fileID: 21300000, guid: 77b202873874cab4ca656eb33f47591d, type: 3}
-    - time: 0.33333334
+    - time: 0.31666666
       value: {fileID: 21300000, guid: e4aabeb17cb0f4f40a2f9d415ca52a3c, type: 3}
-    - time: 0.41666666
+    - time: 0.4
       value: {fileID: 21300000, guid: 1985ec28f4d39b04c9a9871c6744ae87, type: 3}
-    - time: 0.5
+    - time: 0.48333332
       value: {fileID: 21300000, guid: 18c017861b2de15488ac623ed6f21fba, type: 3}
     attribute: m_Sprite
     path: 
@@ -54,7 +52,6 @@ AnimationClip:
       isPPtrCurve: 1
     pptrCurveMapping:
     - {fileID: 21300000, guid: 57ad15c502057ab4ab0a534240b6643f, type: 3}
-    - {fileID: 21300000, guid: 9c08412acad8f6d41ad59ac24efe1782, type: 3}
     - {fileID: 21300000, guid: 7896840b86f96814badc9d7019321ebe, type: 3}
     - {fileID: 21300000, guid: ef38466aaba5cc7489a198e8a079ab50, type: 3}
     - {fileID: 21300000, guid: 77b202873874cab4ca656eb33f47591d, type: 3}
@@ -66,7 +63,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -87,14 +84,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0.083333336
+  - time: 0.016666668
     functionName: StartAnim
-    data: Slash
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.06666667
+    functionName: SpawnSomethingAnim
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.48333332
     functionName: ExitAnim
     data: Slash
     objectReferenceParameter: {fileID: 0}

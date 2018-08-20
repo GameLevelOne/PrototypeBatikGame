@@ -58,11 +58,13 @@ AnimationClip:
       value: {fileID: 21300000, guid: fd2481cc9ddc9dd4289a74f06797622a, type: 3}
     - time: 0.33333334
       value: {fileID: 21300000, guid: 1aaf3b2bd84f21143a41cb69d9e16e85, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: 1aaf3b2bd84f21143a41cb69d9e16e85, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 60
+  m_SampleRate: 30
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -90,12 +92,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 62fc14561cc454b409a543490e72758f, type: 3}
     - {fileID: 21300000, guid: fd2481cc9ddc9dd4289a74f06797622a, type: 3}
     - {fileID: 21300000, guid: 1aaf3b2bd84f21143a41cb69d9e16e85, type: 3}
+    - {fileID: 21300000, guid: 1aaf3b2bd84f21143a41cb69d9e16e85, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.43333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -144,28 +147,42 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0.016666668
+  - time: 0.033333335
     functionName: StartAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 8
     messageOptions: 0
-  - time: 0.11666667
+  - time: 0.033333335
+    functionName: SpawnSomethingAnim
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.13333334
     functionName: ExitAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 9
     messageOptions: 0
-  - time: 0.21666667
+  - time: 0.23333333
     functionName: StartAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 8
     messageOptions: 0
-  - time: 0.31666666
+  - time: 0.23333333
+    functionName: SpawnSomethingAnim
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.33333334
     functionName: ExitAnim
     data: 
     objectReferenceParameter: {fileID: 0}

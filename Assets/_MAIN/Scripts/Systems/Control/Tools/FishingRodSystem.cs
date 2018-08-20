@@ -94,27 +94,41 @@ public class FishingRodSystem : ComponentSystem {
 		float x = throwObjInitPos.x;
 		float y = throwObjInitPos.y;
 
+		#region 4 Direction
 		if(dirID == 1){ //bottom
-			y-=range;
-		}else if(dirID == 2){ //bottom left
-			x-=range;
 			y-=range;
 		}else if(dirID == 3){ //left
 			x-=range;
-		}else if(dirID == 4){ //top left
-			x-=range;
-			y+=range;
 		}else if(dirID == 5){ //top
-			y+=range;
-		}else if(dirID == 6){ //top right
-			x+=range;
 			y+=range;
 		}else if(dirID == 7){ //right
 			x+=range;
-		}else if(dirID == 8){ //bottom right
-			x+=range;
-			y-=range;
 		}
+		#endregion
+
+		#region 8 Direction
+		// if(dirID == 1){ //bottom
+		// 	y-=range;
+		// }else if(dirID == 2){ //bottom left
+		// 	x-=range;
+		// 	y-=range;
+		// }else if(dirID == 3){ //left
+		// 	x-=range;
+		// }else if(dirID == 4){ //top left
+		// 	x-=range;
+		// 	y+=range;
+		// }else if(dirID == 5){ //top
+		// 	y+=range;
+		// }else if(dirID == 6){ //top right
+		// 	x+=range;
+		// 	y+=range;
+		// }else if(dirID == 7){ //right
+		// 	x+=range;
+		// }else if(dirID == 8){ //bottom right
+		// 	x+=range;
+		// 	y-=range;
+		// }
+		#endregion
 
 		return new Vector2(x,y);
 	}
