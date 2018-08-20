@@ -689,29 +689,45 @@ public class PlayerAnimationSystem : ComponentSystem {
 	int CheckDirID (float dirX, float dirY) {
 		int dirIdx = 0;
 
+		#region 4 Direction
 		if (dirX == 0) {
 			if (dirY > 0) {
-				dirIdx = 5;
+				dirIdx = 3;
 			} else {
 				dirIdx = 1;
 			}
 		} else if (dirX < 0) {
-			if (dirY < 0) {
-				dirIdx = 2;
-			} else if (dirY > 0) {
-				dirIdx = 4;
-			} else {
-				dirIdx = 3;
-			}
+			dirIdx = 2;
 		} else if (dirX > 0) {
-			if (dirY < 0) {
-				dirIdx = 8;
-			} else if (dirY > 0) {
-				dirIdx = 6;
-			} else {
-				dirIdx = 7;
-			}
+			dirIdx = 4;
 		}
+		#endregion
+
+		#region 8 Direction
+		// if (dirX == 0) {
+		// 	if (dirY > 0) {
+		// 		dirIdx = 5;
+		// 	} else {
+		// 		dirIdx = 1;
+		// 	}
+		// } else if (dirX < 0) {
+		// 	if (dirY < 0) {
+		// 		dirIdx = 2;
+		// 	} else if (dirY > 0) {
+		// 		dirIdx = 4;
+		// 	} else {
+		// 		dirIdx = 3;
+		// 	}
+		// } else if (dirX > 0) {
+		// 	if (dirY < 0) {
+		// 		dirIdx = 8;
+		// 	} else if (dirY > 0) {
+		// 		dirIdx = 6;
+		// 	} else {
+		// 		dirIdx = 7;
+		// 	}
+		// }
+		#endregion
 
 		return dirIdx;
 	}
