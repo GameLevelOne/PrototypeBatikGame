@@ -518,7 +518,8 @@ public class PlayerInputSystem : ComponentSystem {
 		if (player.isBulletTiming) {
 			if (player.isPlayerHit) {	
 				player.isBulletTiming = false;
-				ChangeDir(0f, 0f);
+				// ChangeDir(0f, 0f);
+				ChangeDir(-currentDir.x, -currentDir.y);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.AttackMode = -3;
 				// Debug.Log("Start BulletTime");

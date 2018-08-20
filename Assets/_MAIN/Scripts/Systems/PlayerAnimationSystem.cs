@@ -63,9 +63,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 			animator = anim.animator; 
 			moveDir = input.moveDir;
 			
-
 			CheckPlayerState ();
 			CheckAnimation ();
+			CheckSpawnOnAnimation ();
 
 			if (CheckIfAllowedToChangeDir()) {
 				SetAnimationFaceDirection ();
@@ -354,15 +354,56 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void CheckSpawnOnAnimation () {
+		if (!anim.isSpawnSomethingOnAnimation) {
+			switch(state) {
+				case PlayerState.ATTACK: 
+					attack.isAttacking = true;				
+					break;
+				case PlayerState.CHARGE: 
+					attack.isAttacking = true;
+					break;
+				case PlayerState.RAPID_SLASH:
+					attack.isAttacking  = true;
+					isFinishAnyAnimation = true;
+					break;
+				case PlayerState.BLOCK_ATTACK:
+					attack.isAttacking  = true;
+					break;
+				case PlayerState.COUNTER:
+					attack.isAttacking  = true;
+					break;
+				case PlayerState.USING_TOOL:
+					tool.isActToolReady = true;
+					break;
+				case PlayerState.BOW:
+					if (input.interactValue == 2) { 
+						if (!player.isUsingStand) {
+							attack.isAttacking = true;
+						} else {
+							tool.isActToolReady = true;
+						}
+					}
+
+					break;
+				default:
+					Debug.LogWarning ("Unknown Animation played");
+					break;
+			}
+			
+			anim.isSpawnSomethingOnAnimation = true;
+		}
+	}
+
 	void CheckStartAnimation () {
 		isFinishAnyAnimation = false;
 		
 		switch(state) {
 			case PlayerState.ATTACK: 
-				attack.isAttacking = true;				
+				// attack.isAttacking = true;				
 				break;
 			case PlayerState.CHARGE: 
-				attack.isAttacking = true;
+				// attack.isAttacking = true;
 				break;
 			case PlayerState.DODGE:
 				isFinishAnyAnimation = true;
@@ -371,13 +412,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				//
 				break;
 			case PlayerState.RAPID_SLASH:
-				attack.isAttacking  = true;
+				// attack.isAttacking  = true;
 				break;
 			case PlayerState.BLOCK_ATTACK:
-				attack.isAttacking  = true;
+				// attack.isAttacking  = true;
 				break;
 			case PlayerState.COUNTER:
-				attack.isAttacking  = true;
+				// attack.isAttacking  = true;
 				break;
 			case PlayerState.GET_HURT:
 				//
@@ -389,19 +430,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 				//
 				break;
 			case PlayerState.USING_TOOL:
-				tool.isActToolReady = true;
+				// tool.isActToolReady = true;
 				break;
 			case PlayerState.FISHING:
 				//
 				break;
 			case PlayerState.BOW:
-				if (input.interactValue == 2) { 
-					if (!player.isUsingStand) {
-						attack.isAttacking = true;
-					} else {
-						tool.isActToolReady = true;
-					}
-				}
+				// if (input.interactValue == 2) { 
+				// 	if (!player.isUsingStand) {
+				// 		attack.isAttacking = true;
+				// 	} else {
+				// 		tool.isActToolReady = true;
+				// 	}
+				// }
 
 				break;
 			case PlayerState.DIE: 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationControl : MonoBehaviour {
 	public delegate void ControllingAnimation();
 	public event ControllingAnimation OnStartAnimation;
+	public event ControllingAnimation OnSpawnSomethingOnAnimation;
 	public event ControllingAnimation OnExitAnimation;
 	
 	public delegate void ControllingStandAnimation();
@@ -19,9 +20,7 @@ public class AnimationControl : MonoBehaviour {
 	}
 
 	public void StartAnim () {
-		if (isAnimating) {
-			return;
-		}
+		if (isAnimating) return;
 
 		isAnimating = true;
 		if (OnStartAnimation != null) {
@@ -36,8 +35,14 @@ public class AnimationControl : MonoBehaviour {
 		}
 	}
 
+	public void SpawnSomethingAnim () {
+		if (OnSpawnSomethingOnAnimation != null) {
+			OnSpawnSomethingOnAnimation();
+		}
+	}
+
 	public void StartStandAnim () {
-		if (isAnimating) return;
+		if (isAnimating)
 
 		isAnimating = true;
 		if (OnStartStandAnimation != null) {

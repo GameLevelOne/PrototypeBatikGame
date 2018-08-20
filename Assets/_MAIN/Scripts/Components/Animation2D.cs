@@ -44,6 +44,7 @@ public class Animation2D : MonoBehaviour {
 
 	public bool isCheckAfterAnimation = false;
 	public bool isCheckBeforeAnimation = false;
+	public bool isSpawnSomethingOnAnimation = false;
 	public bool isCheckAfterStandAnimation = false;
 	public bool isCheckBeforeStandAnimation = false;
 
@@ -51,6 +52,7 @@ public class Animation2D : MonoBehaviour {
 		// animator.SetFloat(Constants.AnimatorParameter.Float.MOVE_MODE, 0f);
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
+		animationControl.OnSpawnSomethingOnAnimation += SpawnSomethingOnAnimation;
 		animationControl.OnStartStandAnimation += StartStandAnimation;
 		animationControl.OnExitStandAnimation += ExitStandAnimation;
 	}
@@ -58,6 +60,7 @@ public class Animation2D : MonoBehaviour {
 	void OnDisable () {
 		animationControl.OnStartAnimation -= StartAnimation;
 		animationControl.OnExitAnimation -= ExitAnimation;
+		animationControl.OnSpawnSomethingOnAnimation -= SpawnSomethingOnAnimation;
 		animationControl.OnStartStandAnimation -= StartStandAnimation;
 		animationControl.OnExitStandAnimation -= ExitStandAnimation;
 	}
@@ -69,6 +72,10 @@ public class Animation2D : MonoBehaviour {
 
 	void ExitAnimation () {
 		isCheckAfterAnimation = false;
+	}
+
+	void SpawnSomethingOnAnimation () {
+		isSpawnSomethingOnAnimation = false;
 	}
 	#endregion
 
