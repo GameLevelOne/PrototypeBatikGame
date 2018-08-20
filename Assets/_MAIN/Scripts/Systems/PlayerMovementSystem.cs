@@ -16,6 +16,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] MovementData movementData;
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
+	[InjectAttribute] ManaSystem manaSystem;
 
 	public PlayerInput input;
 	public Facing2D facing;
@@ -37,6 +38,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	// bool isStartDashing = false;
 	float brakeTime = 0f;
 	float dashDelay = 0f;
+	float dashTime = 0f;
 	int attackMode;
 	Vector2 moveDir;
 
@@ -121,7 +123,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else if (state == PlayerState.DASH) {
 					// isStartDashing = true;
 					// rb.AddForce(dir * tool.dashSpeed);
-					rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
+					// rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
 				} else {
 					rb.velocity = Vector2.zero;
 				}
@@ -167,7 +169,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				// if (!isAttackMove) {
 					Transform target = facing.attackArea.transform;
 					// isAttackMove = true;
-					rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
+					rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
 				// } else {
 				// 	isAttackMove = false;
 					rb.velocity = Vector2.zero;
@@ -215,7 +217,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			if (player.isMoveAttack) {
 				Transform target = facing.attackArea.transform;
 				player.isMoveAttack = false;
-				rb.AddForce((target.position - tr.position) * movement.attackMoveSpeed);
+				rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
 			} else {
 				rb.velocity = Vector2.zero;
 			}
@@ -231,7 +233,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	void SetPlayerSpecificMove () {
 		Transform target = facing.attackArea.transform;
 		Vector2 dir = target.position - tr.position;
-
+		float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
 		// if (state == PlayerState.HOOK) {
 		// 	rb.velocity = Vector2.zero;
 		// }
@@ -239,16 +241,30 @@ public class PlayerMovementSystem : ComponentSystem {
 		if (state == PlayerState.DASH) {
 			if (input.interactValue == 0) {
 				if (dashDelay > 0f) {
-				dashDelay -= deltaTime;
-				rb.velocity = Vector2.zero;
+					dashDelay -= deltaTime;
+					rb.velocity = Vector2.zero;
+					player.isUsingStand = false;
 				} else {
-					input.interactValue = 1;
+					if (isHaveEnoughMana((int) ToolType.Boots, false)) {
+						input.interactValue = 1;
+						UseMana((int) ToolType.Boots);
+					}
 				}
 			} else if (input.interactValue == 1) {
 				if (player.isBouncing) {
 					input.interactValue = 2;
 				} else {
-					rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
+					if (isHaveEnoughMana((int) ToolType.Boots, false)) {
+						rb.velocity = dir.normalized * dashSpeed * deltaTime;
+
+						if (dashTime <= 0.2f) {
+							dashTime += deltaTime;
+						} else {
+							dashTime = 0f;
+							// Debug.Log("Use mana dash");
+							UseMana((int) ToolType.Boots);
+						}
+					}
 				}
 			} else if (input.interactValue == 2) {
 				if (brakeTime > 0f) {
@@ -262,6 +278,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					input.moveDir = Vector2.zero;
 					player.isBouncing = false;
+					dashTime = 0f;
 					player.SetPlayerIdle();
 				}
 			} else {
@@ -292,5 +309,18 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else {
 			return true;
 		}
+	}
+
+	bool isHaveEnoughMana (int toolIdx, bool isUseMana) {
+		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	void UseMana (int toolIdx) {
+		manaSystem.UseMana(tool.GetToolManaCost(toolIdx));
 	}
 }

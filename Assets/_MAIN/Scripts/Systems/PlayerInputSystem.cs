@@ -551,8 +551,10 @@ public class PlayerInputSystem : ComponentSystem {
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
 					} else if (toolType == ToolType.Boots) {
-						input.interactMode = 1;
-						player.SetPlayerState(PlayerState.DASH);
+						if (isHaveEnoughMana((int) ToolType.Boots, true)) {
+							input.interactMode = 1;
+							player.SetPlayerState(PlayerState.DASH);
+						}
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
 							input.interactMode = 4;
@@ -707,7 +709,8 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.DASH) {
 			if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3))){
 				if (input.interactValue == 1) {
-					input.interactValue = 2;				
+					input.interactValue = 2;
+					player.isUsingStand = false;				
 				} else {
 					player.SetPlayerIdle();
 				}

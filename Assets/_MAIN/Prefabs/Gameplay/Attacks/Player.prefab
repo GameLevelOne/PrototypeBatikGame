@@ -1217,8 +1217,8 @@ MonoBehaviour:
   normalSpeed: 100
   slowSpeed: 50
   dodgeSpeed: 200
-  attackMoveSpeed: 50
-  bounceSpeed: 100
+  attackMoveForce: 20
+  bounceSpeed: 200
   dashDelay: 1
   brakeTime: 0.5
 --- !u!114 &114149986137599572
@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manaCost: 2
-  bootsSpeed: 0
+  bootsSpeed: 500
 --- !u!114 &114329116918779182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1603,7 +1603,6 @@ MonoBehaviour:
   bootsObj: {fileID: 1305521436026474}
   textToolName: {fileID: 0}
   currentActiveContainer: 0
-  dashSpeed: 200
   isPowerBraceletSelected: 0
   isActToolReady: 0
 --- !u!114 &114750834157724972
@@ -1723,8 +1722,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMana: {fileID: 0}
-  mana: 10
-  manaRegenPerSecond: 1
+  mana: 90
+  manaRegenPerSecond: 5
+  isTestMana: 1
 --- !u!198 &198419373771927748
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -9,7 +9,7 @@ public enum PowerBraceletState {
 
 public class PowerBracelet : MonoBehaviour {
 	public Player player;
-	public int manaCost = 0;
+	public float manaCost = 0;
 	public float liftPower;
 	public float standLiftPower;
 	public float throwRange;

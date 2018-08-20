@@ -50,7 +50,7 @@ public class PlayerTool : MonoBehaviour {
 	public Text textToolName;
 
 	public int currentActiveContainer;
-	public float dashSpeed = 500f;
+	// public float dashSpeed = 500f;
 	public bool isPowerBraceletSelected = false;
 
 	public bool isActToolReady = false;
@@ -160,7 +160,7 @@ public class PlayerTool : MonoBehaviour {
         }
 	}
 
-	public int GetToolManaCost (int toolType) {
+	public float GetToolManaCost (int toolType) {
 		switch (toolType) {
             case 1:
                 return arrowObj.GetComponent<Arrow>().manaCost;

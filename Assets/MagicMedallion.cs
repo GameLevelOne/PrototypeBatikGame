@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
 public class MagicMedallion : MonoBehaviour {
-	public int manaCost = 0;
+	public float manaCost = 0;
 }

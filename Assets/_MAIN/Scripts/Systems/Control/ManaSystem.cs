@@ -14,8 +14,8 @@ public class ManaSystem : ComponentSystem {
 
 	float deltaTime;
 	float regenTime;
-	int currMana;
-	int maxMana;
+	float currMana;
+	float maxMana;
 
 	bool isManaFull = false;
 	bool isCheckingMana = false;
@@ -38,7 +38,7 @@ public class ManaSystem : ComponentSystem {
 		}
 	}
 
-	public bool isHaveEnoughMana (int manaCost, bool isUseMana) { //WHEN USING STAND	
+	public bool isHaveEnoughMana (float manaCost, bool isUseMana) { //WHEN USING STAND	
 		if (currMana >= manaCost) {
 			if (isUseMana) {
 				UseMana(manaCost);
@@ -51,7 +51,7 @@ public class ManaSystem : ComponentSystem {
 		}
 	}
 
-	public void UseMana (int manaCost) {
+	public void UseMana (float manaCost) {
 		isCheckingMana = true;
 		mana.PlayerMana -= manaCost;
 		isManaFull = false;
@@ -68,9 +68,12 @@ public class ManaSystem : ComponentSystem {
 			} else {
 				mana.PlayerMana += mana.manaRegenPerSecond;
 				regenTime = 0f;
+		
+				if (mana.PlayerMana > maxMana) {
+					mana.PlayerMana = maxMana;
+				}
 			}
-		} else if (currMana > maxMana) {
-			mana.PlayerMana = maxMana;
+		} else {
 			isManaFull = true;
 		}
 
