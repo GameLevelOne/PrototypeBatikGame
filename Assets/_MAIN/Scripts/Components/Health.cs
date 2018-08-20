@@ -92,25 +92,25 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter2D (Collision2D col) {
-		if (col.gameObject.GetComponent<Damage>() == null) return;
+	// void OnCollisionEnter2D (Collision2D col) {
+	// 	if (col.gameObject.GetComponent<Damage>() == null) return;
 		
-		// damage = col.gameObject.GetComponent<Damage>().damage;
-		// initialDamage = damage;
+	// 	// damage = col.gameObject.GetComponent<Damage>().damage;
+	// 	// initialDamage = damage;
 
-		if (col.gameObject.tag == Constants.Tag.PLAYER) {
-			Player player = col.gameObject.GetComponent<Player>();
+	// 	if (col.gameObject.tag == Constants.Tag.PLAYER) {
+	// 		Player player = col.gameObject.GetComponent<Player>();
 
-			if (player.state == PlayerState.DASH) {
-				enemy.playerThatHitsEnemy = player;
-				player.isHitAnEnemy = true;
+	// 		if (player.state == PlayerState.DASH) {
+	// 			enemy.playerThatHitsEnemy = player;
+	// 			player.isHitAnEnemy = true;
 
-				// enemy.isEnemyHit = true;
-				// enemy.isEnemyGetHurt = true;
-				// damage = initialDamage;
-				Debug.Log("Enemy get damaged from player dash");
-			}
-		}
-	}
+	// 			// enemy.isEnemyHit = true;
+	// 			// enemy.isEnemyGetHurt = true;
+	// 			// damage = initialDamage;
+	// 			Debug.Log("Enemy get damaged from player dash");
+	// 		}
+	// 	}
+	// }
 	#endregion
 }

@@ -85,21 +85,23 @@ public class DamageSystem : ComponentSystem {
 
 		if (!player.isPlayerHit) return;
 		else {
-			if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE
-				Debug.Log("Player is invulnerable");
-			} else if (player.isGuarding) {
-				player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-			} else {
-				health.HealthPower -= player.damageReceive.damage;
-				player.SetPlayerState(PlayerState.GET_HURT);
-			}
-			
-			player.damageReceive = null;
-			player.isPlayerHit = false;
-		}
+			if (player.damageReceive.tag == Constants.Tag.ENEMY_ATTACK) {
+				if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE
+					Debug.Log("Player is invulnerable");
+				} else if (player.isGuarding) {
+					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+				} else {
+					health.HealthPower -= player.damageReceive.damage;
+					player.SetPlayerState(PlayerState.GET_HURT);
+				}
+				
+				player.damageReceive = null;
+				player.isPlayerHit = false;
 
-		if (health.HealthPower <= 0f) {
-			player.SetPlayerState(PlayerState.DIE);
+				if (health.HealthPower <= 0f) {
+					player.SetPlayerState(PlayerState.DIE);
+				}
+			}
 		}
 	}
 

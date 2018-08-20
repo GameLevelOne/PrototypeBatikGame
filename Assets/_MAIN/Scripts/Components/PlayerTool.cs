@@ -160,6 +160,22 @@ public class PlayerTool : MonoBehaviour {
         }
 	}
 
+	public int GetToolManaCost (int toolType) {
+		switch (toolType) {
+            case 1:
+                return arrowObj.GetComponent<Arrow>().manaCost;
+            case 14:
+                return magicMedallionAreaEffectObj.GetComponent<MagicMedallion>().manaCost;
+            case 16:
+                return powerBraceletAreaEffectObj.GetComponent<PowerBracelet>().manaCost;
+            case 18:
+                return bootsObj.GetComponent<Boots>().manaCost;
+			default:
+				Debug.Log("Unknown Tool Object");
+				return 0;
+        }
+	}
+
 	// public bool IsPowerBraceletSelected {
     //     get {return isPowerBraceletSelected;}
 	// 	set {

@@ -14,6 +14,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	[InjectAttribute] PlayerAnimationSystem playerAnimationSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
+	[InjectAttribute] ManaSystem manaSystem;
 
 	public PlayerInput input;
 	public Player player;
@@ -294,14 +295,26 @@ public class PlayerInputSystem : ComponentSystem {
 			toolType = tool.currentTool;
 			input.interactValue = 0;
 
-			if (toolType == ToolType.Bow && player.isUsingStand) {
-				input.interactMode = 5;
+			if (toolType == ToolType.Bow) {
+				CheckMana((int) ToolType.Bow);
+
+				if (player.isUsingStand) {
+					input.interactMode = 5;
+				} else {
+					input.AttackMode = -4;
+				}
 			} else {
 				input.AttackMode = -4;
 			}
 
 			player.SetPlayerState(PlayerState.BOW);
 			isButtonToolHold = true;
+		} else if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
+			isButtonToolHold = false;
+		} else {
+			if (!isButtonToolHold && input.interactValue == 1) {
+				input.interactValue = 2;
+			}
 		}
 		#endregion
 
@@ -558,19 +571,22 @@ public class PlayerInputSystem : ComponentSystem {
 			if (!isButtonToolHold) {
 				input.interactValue = 2;
 			} 
-		} else if (state == PlayerState.BOW) { 				
-			if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Joystick1Button9)){ //SHOT
-				input.interactValue = 2;
-			}
+		} 
+		// else if (state == PlayerState.BOW) { 				
+		// 	// if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Joystick1Button9)){ //SHOT
+		// 	// 	input.interactValue = 2;
+		// 	// }
 
-			if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
-				isButtonToolHold = false;
-			}
+		// 	if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
+		// 		isButtonToolHold = false;
+		// 	}
 			
-			if (!isButtonToolHold) {
-				input.interactValue = 2;
-			}
-		} 		
+		// 	if (!isButtonToolHold && input.interactValue == 1) {
+		// 		input.interactValue = 2;
+		// 	} else {
+		// 		input.interactValue = 1;
+		// 	}
+		// } 		
 		#endregion
 	}
 
@@ -617,15 +633,17 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			return true;
-		} else if (state == PlayerState.BOW && input.interactValue == 0 && input.interactValue == 1) {
-			currentDir = Vector2.zero;
+		} 
+		// else if (state == PlayerState.BOW && input.interactValue == 0 && input.interactValue == 1) {
+		// 	currentDir = Vector2.zero;
 
-			if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
-				isButtonToolHold = false;
-			}
+		// 	if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
+		// 		isButtonToolHold = false;
+		// 	}
 
-			return true;
-		} else if (state == PlayerState.FISHING) { 	
+		// 	return true;
+		// } 
+		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector2.zero;
 						
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
@@ -760,5 +778,10 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.POWER_BRACELET && input.liftingMode == 2) {
 			input.liftingMode = 1;
 		}
+	}
+
+	void CheckMana (int toolIdx) {
+		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		manaSystem.CheckMana(tool.GetToolManaCost(toolIdx));
 	}
 }

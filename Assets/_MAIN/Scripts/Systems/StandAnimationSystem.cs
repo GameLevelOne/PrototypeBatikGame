@@ -83,7 +83,7 @@ public class StandAnimationSystem : ComponentSystem {
 				animator.Play(Constants.BlendTreeName.STAND_DASH);
 				break;
 			case PlayerState.BOW:
-				if (standType == ToolType.Bow && player.isUsingStand) {
+				// if (standType == ToolType.Bow && player.isUsingStand) {
 					if (input.interactValue == 0) {
 						animator.Play(Constants.BlendTreeName.STAND_TAKE_AIM_BOW);
 					} else if (input.interactValue == 1) {
@@ -91,7 +91,7 @@ public class StandAnimationSystem : ComponentSystem {
 					} else if (input.interactValue == 2) {
 						animator.Play(Constants.BlendTreeName.STAND_SHOT_BOW);
 					}
-				}
+				// }
 				
 				break;
 			case PlayerState.POWER_BRACELET:

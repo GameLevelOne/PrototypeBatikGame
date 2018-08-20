@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Mana : MonoBehaviour {
+	public Text textMana;
 	public int mana = 0;
 	public int manaRegenPerSecond = 0;
 

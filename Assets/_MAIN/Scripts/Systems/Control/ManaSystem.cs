@@ -18,6 +18,7 @@ public class ManaSystem : ComponentSystem {
 	int maxMana;
 
 	bool isManaFull = false;
+	bool isCheckingMana = false;
 
 	protected override void OnUpdate () {
 		if (manaData.Length == 0) return;
@@ -31,13 +32,15 @@ public class ManaSystem : ComponentSystem {
 			currMana = mana.PlayerMana;
 			maxMana = player.MaxMana;
 
-			if (!isManaFull) {
+			if (!isManaFull && !isCheckingMana) {
 				RegenMana();
 			}
 		}
 	}
 
 	public void CheckMana (int manaCost) { //WHEN USING STAND
+		isCheckingMana = true;
+		
 		if (currMana >= manaCost) {
 			mana.PlayerMana -= manaCost;
 			player.isUsingStand = true;
@@ -45,6 +48,9 @@ public class ManaSystem : ComponentSystem {
 		} else {
 			player.isUsingStand = false;
 		}
+
+		isCheckingMana = false;
+		PrintMana();
 	}
 
 	void RegenMana () {
@@ -59,5 +65,11 @@ public class ManaSystem : ComponentSystem {
 			mana.PlayerMana = maxMana;
 			isManaFull = true;
 		}
+
+		PrintMana();
+	}
+
+	void PrintMana () {
+		mana.textMana.text = currMana.ToString();
 	}
 }
