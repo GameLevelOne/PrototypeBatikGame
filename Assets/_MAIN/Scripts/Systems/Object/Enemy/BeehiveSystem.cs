@@ -40,7 +40,7 @@ public class BeehiveSystem : ComponentSystem{
 			currBeehive.TSpawn -= deltaTime;
 			if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
 		}else{
-			Debug.Log("SPAWN!");
+			// Debug.Log("SPAWN!");
 			GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
 			currentBee.GetComponent<Bee>().beeHiveTransform = currBeehiveTransform;
 			currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
