@@ -193,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1443524941269246
 GameObject:
   m_ObjectHideFlags: 1
@@ -277,7 +277,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1511757565402642
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1565756163263292
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1672147044819348
 GameObject:
   m_ObjectHideFlags: 1
@@ -1216,9 +1216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalSpeed: 100
   slowSpeed: 50
-  dodgeSpeed: 200
-  attackMoveForce: 20
-  bounceSpeed: 200
+  dodgeSpeed: 300
+  attackMoveForce: 30
+  bounceSpeed: 300
   dashDelay: 1
   brakeTime: 0.5
 --- !u!114 &114149986137599572
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDirections: []
-  isNotPlayerNOrEnemy: 0
+  isNotPlayerNorEnemy: 0
   attackArea: {fileID: 1499518558271156}
   blindArea: {fileID: 1900152048898546}
   attackDirParent: {fileID: 1674454437098582}
@@ -1517,6 +1517,7 @@ MonoBehaviour:
   animator: {fileID: 95987120919603828}
   isCheckAfterAnimation: 0
   isCheckBeforeAnimation: 0
+  isSpawnSomethingOnAnimation: 0
   isCheckAfterStandAnimation: 1
   isCheckBeforeStandAnimation: 1
 --- !u!114 &114646064306593824
@@ -1634,6 +1635,7 @@ MonoBehaviour:
   animator: {fileID: 95152014746876474}
   isCheckAfterAnimation: 1
   isCheckBeforeAnimation: 1
+  isSpawnSomethingOnAnimation: 0
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
 --- !u!114 &114858647597742916
@@ -6402,7 +6404,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1829551841
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 100
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0.98573875, b: 0.504717, a: 0.2509804}
@@ -6447,7 +6449,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1829551841
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 510ea533c7feeda449a21f1a3a2a8b66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6492,9 +6494,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1829551841
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 997f0dee19b2c4e4993eb9e6ee3864b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3b2e0caf575e964182e713372e9a7b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

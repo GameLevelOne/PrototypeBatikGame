@@ -49,7 +49,8 @@ public static class Constants {
 	{
 		public const string PLAYER = "Player"; 
 		public const string ENEMY = "Enemy"; 
-		public const string PLAYER_ATTACK = "Player Attack"; 
+		public const string PLAYER_SLASH = "Player Slash";
+		public const string PLAYER_DASH_ATTACK = "Player Dash Attack"; 
 		public const string PLAYER_COUNTER = "Player Counter"; 
 		public const string ENEMY_ATTACK = "Enemy Attack"; 
 		public const string STONE = "Stone"; 
@@ -67,7 +68,6 @@ public static class Constants {
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
-		public const string PLAYER_SLASH = "Player Slash";
 	}
 
 	public static class PlayerPrefKey

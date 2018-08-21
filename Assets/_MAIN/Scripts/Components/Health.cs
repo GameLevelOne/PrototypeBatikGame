@@ -75,7 +75,7 @@ public class Health : MonoBehaviour {
 
 			if (enemyState == EnemyState.Die) return;
 			
-			if (col.tag == Constants.Tag.PLAYER_ATTACK || col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
+			if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
 				Player player = col.GetComponentInParent<Player>();
 				enemy.playerThatHitsEnemy = player;
 

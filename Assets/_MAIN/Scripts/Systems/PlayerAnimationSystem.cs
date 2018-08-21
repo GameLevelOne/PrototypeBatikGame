@@ -148,7 +148,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.SWIM: 
 				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.GRABBING);
+					animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
 				} else if (input.interactValue == 1) {
 					if (moveDir != Vector2.zero) {
 					animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
@@ -156,7 +156,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.IDLE_SWIM);						
 				}	
 				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.UNGRABBING);
+					animator.Play(Constants.BlendTreeName.UNGRABBING); //TEMP
 				}
 				
 				break;

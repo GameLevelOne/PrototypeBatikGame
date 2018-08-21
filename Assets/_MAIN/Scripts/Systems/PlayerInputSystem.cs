@@ -725,6 +725,11 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else if (state == PlayerState.SWIM) {
 			SetButtonUp ();
+			
+			if (input.interactValue == 0 || input.interactValue == 2) {
+				Debug.Log("Pause swim");
+			}
+
 			return true;
 		} else {
 			return false;
