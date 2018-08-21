@@ -23,6 +23,10 @@ public class ArmorEnemySystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
+		if (armorEnemyComponent.Length == 0) return;
+
+		deltaTime = Time.deltaTime;
+
 		for(int i =0;i<armorEnemyComponent.Length;i++){
 			currArmorEnemyTransform = armorEnemyComponent.armorEnemyTransform[i];
 			currArmorEnemy = armorEnemyComponent.armorEnemy[i];
@@ -88,7 +92,7 @@ public class ArmorEnemySystem : ComponentSystem {
 		if(!currArmorEnemy.enemy.initIdle){
 			currArmorEnemy.enemy.initIdle = true;
 			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? Constants.BlendTreeName.ENEMY_IDLE : Constants.BlendTreeName.ENEMY_IDLE_BARE);
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			currArmorEnemy.enemy.TIdle = currArmorEnemy.enemy.idleDuration;
 		}else{
 			currArmorEnemy.enemy.TIdle -= deltaTime;
@@ -104,7 +108,7 @@ public class ArmorEnemySystem : ComponentSystem {
 	{
 		if(!currArmorEnemy.enemy.initPatrol){
 			currArmorEnemy.enemy.initPatrol = true;
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 
 			currArmorEnemy.enemy.patrolDestination = GetRandomPatrolPos(currArmorEnemy.patrolArea,currArmorEnemy.enemy.patrolRange);
 			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? Constants.BlendTreeName.ENEMY_PATROL : Constants.BlendTreeName.ENEMY_PATROL_BARE);
@@ -129,7 +133,7 @@ public class ArmorEnemySystem : ComponentSystem {
 			currArmorEnemy.initRoll = true;
 			currArmorEnemy.TRollInit = currArmorEnemy.rollInitDuration;
 			currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 		}else if(currArmorEnemy.initRoll && !currArmorEnemy.startRoll){
 			currArmorEnemy.TRollInit -= deltaTime;
 			if(currArmorEnemy.TRollInit <= 0f){

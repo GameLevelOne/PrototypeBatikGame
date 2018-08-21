@@ -181,4 +181,10 @@ public static class Constants {
 	{
 		public const string CHEST_OPEN = "ChestOpen";
 	}
+
+	public static class SceneName
+	{
+		public const string MAIN_MENU = "SceneMenu";
+		public const string GAME_MAP_01 = "SceneMap_01";
+	}
 }
