@@ -68,6 +68,7 @@ public class BeeSystem : ComponentSystem {
 				currBee.enemy.initIdle = false;
 				currBee.enemy.initPatrol = false;	
 				currBee.enemy.chaseIndicator.SetActive(true);
+				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
 		}
 	}
@@ -102,6 +103,7 @@ public class BeeSystem : ComponentSystem {
 
 			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBee.enemy.patrolRange);
 			deltaTime = Time.deltaTime;
+			// currMonkeyAnim.Play(EnemyState.Patrol.ToString()); //NO
 		}else{
 			currBeeRigidbody.position = 
 				Vector2.MoveTowards(

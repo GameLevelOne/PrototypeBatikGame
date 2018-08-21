@@ -36,7 +36,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		if(currEnemy.state == EnemyState.Patrol){
 			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
 			SetEnemyFacing(dir);
-		}else if(currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack){
+		}else if((currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack) && currEnemy.playerTransform != null){
 			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
 			SetEnemyFacing(dir);
 		}
