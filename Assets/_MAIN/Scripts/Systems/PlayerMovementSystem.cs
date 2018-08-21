@@ -214,7 +214,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST) {
+					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}

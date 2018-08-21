@@ -67,6 +67,7 @@ public class BeeSystem : ComponentSystem {
 				currBee.enemy.state = EnemyState.Chase;
 				currBee.enemy.initIdle = false;
 				currBee.enemy.initPatrol = false;	
+				currBee.enemy.chaseIndicator.SetActive(true);
 			}
 		}
 	}
@@ -118,7 +119,7 @@ public class BeeSystem : ComponentSystem {
 
 	void Chase()
 	{
-		currBeeAnim.Play(EnemyState.Idle.ToString());
+		currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		if(currBee.enemy.isAttack){
 			currBee.enemy.state = EnemyState.Attack;
 			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
@@ -133,6 +134,8 @@ public class BeeSystem : ComponentSystem {
 			if(Vector2.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBee.enemy.chaseRange){
 				currBee.enemy.state = EnemyState.Idle;
 				currBee.enemy.playerTransform = null;
+				currBee.enemy.chaseIndicator.SetActive(false);
+
 				if(currBee.beeHiveTransform == null) currBee.isStartled = true;
 			}
 		}
@@ -145,7 +148,7 @@ public class BeeSystem : ComponentSystem {
 				currBee.enemy.state = EnemyState.Chase;
 			}else{
 				currBee.enemy.initAttack = true;
-				currBeeAnim.Play(EnemyState.Attack.ToString());
+				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
 			currBee.enemy.attackObject.SetActive(currBee.enemy.attackHit);

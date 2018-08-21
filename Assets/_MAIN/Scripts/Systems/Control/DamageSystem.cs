@@ -146,7 +146,7 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			//
 			default: 
-				Debug.Log("Unknown state detected at DamageSystem");
+				Debug.Log("State "+playerState+" detected at DamageSystem is out of invulnerable list");
 				return false;
 		}
 	}

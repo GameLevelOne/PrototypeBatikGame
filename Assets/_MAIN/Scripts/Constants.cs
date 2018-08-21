@@ -167,6 +167,11 @@ public static class Constants {
 		public const string STAND_MAGIC_MEDALLION = "StandMagicMedallion";
 		public const string STAND_INACTIVE = "StandInactive";
 		#endregion
+
+		#region Enemy
+		public const string ENEMY_IDLE = "Idle";
+		public const string ENEMY_ATTACK = "Attack";
+		#endregion
 	}
 
 	public static class AnimationName

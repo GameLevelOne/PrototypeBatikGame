@@ -36,7 +36,11 @@ public class Bee : MonoBehaviour {
 
 	void SetPlayerTransform(GameObject player)
 	{
-		enemy.playerTransform = player.transform;
+		if (player != null) {
+			enemy.playerTransform = player.transform;			
+		} else {
+			//
+		}
 	}
 	#endregion
 
