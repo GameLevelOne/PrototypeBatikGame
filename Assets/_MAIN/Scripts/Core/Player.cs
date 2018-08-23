@@ -29,8 +29,6 @@ public class Player : MonoBehaviour {
 	public Health health;
 	public PlayerState state;
 	public Collider2D playerCol;
-	public int maxHP;
-	public int maxMana;
 	
 	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;
@@ -54,6 +52,9 @@ public class Player : MonoBehaviour {
 	public bool isInvisible = false;
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
+	
+	[SerializeField] float maxHP;
+	[SerializeField] float maxMP;
 
 	void OnEnable () {
 		health.OnDamageCheck += DamageCheck;
@@ -82,8 +83,8 @@ public class Player : MonoBehaviour {
         set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);}
     }
 
-    public float MaxMana{
-        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMana);}
+    public float MaxMP{
+        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMP);}
         set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
     }
 

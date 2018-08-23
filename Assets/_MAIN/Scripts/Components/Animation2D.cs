@@ -39,11 +39,13 @@
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
-	// public AnimationState animState;
-	// public StandAnimationState standAnimState;
 
 	public bool isCheckAfterAnimation = false;
 	public bool isCheckBeforeAnimation = false;
+
+
+	// [SpaceAttribute(10f)]
+	[HeaderAttribute("For Player / Enemy / Stand")]
 	public bool isSpawnSomethingOnAnimation = false;
 	public bool isCheckAfterStandAnimation = false;
 	public bool isCheckBeforeStandAnimation = false;

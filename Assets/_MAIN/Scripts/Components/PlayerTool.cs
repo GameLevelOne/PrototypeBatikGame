@@ -24,6 +24,9 @@ public enum ToolType{
 }
 
 public class PlayerTool : MonoBehaviour {
+	// public delegate void ControllingTool();
+	// public event ControllingTool OnChangeAnimation;
+	
 	/// <summary>
     /// Indicates current tool
     /// </summary>
@@ -46,8 +49,6 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject bootsObj;
 
 	// public GameObject regularArrow;
-
-	public Text textToolName;
 
 	public int currentActiveContainer;
 	// public float dashSpeed = 500f;
@@ -78,9 +79,9 @@ public class PlayerTool : MonoBehaviour {
 		Boots = 1;
 	}
 
-	void Awake () {
-		textToolName.text = currentTool.ToString();
-	}
+	// void Awake () {
+	// 	textToolName.text = currentTool.ToString();
+	// }
 
 	public GameObject GetObj (int toolType) {
         switch (toolType) {
@@ -155,7 +156,7 @@ public class PlayerTool : MonoBehaviour {
             case 18:
                 return Boots;
 			default:
-				Debug.Log("You have no tools");
+				Debug.Log("Tools NONE");
 				return 0;
         }
 	}

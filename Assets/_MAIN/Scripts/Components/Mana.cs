@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 
 public class Mana : MonoBehaviour {
+	public delegate void ManaChange ();
+	public event ManaChange OnManaChange;
+
 	public Text textMana;
 	public float mana = 0;
 	public float manaRegenPerSecond = 0;
@@ -15,8 +18,16 @@ public class Mana : MonoBehaviour {
 		} 
 	}
 
-	public float PlayerMana {
+	public float PlayerMP {
 		get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, mana);}
-		set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, value);}
+		set{
+			if (PlayerMP == value) return;
+
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, value);
+			
+			if (OnManaChange != null) {
+				OnManaChange();
+			}
+		}
 	}
 }

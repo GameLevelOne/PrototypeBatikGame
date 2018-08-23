@@ -179,7 +179,15 @@ public static class Constants {
 
 	public static class AnimationName
 	{
-		public const string CHEST_OPEN = "ChestOpen";
+		#region Another Object
+		public const string CHEST_OPEN = "ChestOpen"; //CHEST
+		#endregion
+
+		#region UI
+		public const string SLIDE_IDLE = "SlideIdle";
+		public const string SLIDE_RIGHT = "SlideRight";
+		public const string SLIDE_LEFT = "SlideLeft";
+		#endregion
 	}
 
 	public static class SceneName

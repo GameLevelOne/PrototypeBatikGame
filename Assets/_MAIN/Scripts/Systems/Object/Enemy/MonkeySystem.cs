@@ -55,7 +55,7 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHit()
 	{
 		if(!currMonkey.isHitByPlayer){
-			if(currMonkey.enemy.isHit){ //IsEnemyHit
+			if(currMonkey.enemy.isHit && currMonkey.enemy.playerThatHitsEnemy != null){ //IsEnemyHit
 				currMonkey.enemy.playerTransform = currMonkey.enemy.playerThatHitsEnemy.transform;
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
 					m.enemy.playerTransform = currMonkey.enemy.playerTransform;
@@ -85,7 +85,7 @@ public class MonkeySystem : ComponentSystem {
 
 	void CheckHealth()
 	{
-		if(currMonkeyHealth.HealthPower <= 0f){
+		if(currMonkeyHealth.EnemyHP <= 0f){
 			GameObject.Destroy(currMonkey.gameObject);
 			UpdateInjectedComponentGroups();
 		}

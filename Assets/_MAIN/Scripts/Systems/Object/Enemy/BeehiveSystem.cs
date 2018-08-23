@@ -54,7 +54,7 @@ public class BeehiveSystem : ComponentSystem{
 
 	void CheckHealth()
 	{
-		if(currHealth.HealthPower <= 0f || currBeehive.destroyed){
+		if(currHealth.EnemyHP <= 0f || currBeehive.destroyed){
 			DestroyBeehive();
 		}
 	}

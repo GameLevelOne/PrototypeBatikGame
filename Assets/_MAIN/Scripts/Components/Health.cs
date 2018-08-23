@@ -4,6 +4,9 @@ public class Health : MonoBehaviour {
 	public delegate void DamageCheck(Damage damage);
 	public event DamageCheck OnDamageCheck;
 
+	public delegate void HPChange ();
+	public event HPChange OnHPChange;
+
 	// public float guardReduceDamage;
 	// public float damage;
 
@@ -14,14 +17,32 @@ public class Health : MonoBehaviour {
 	PlayerState playerState;
 	EnemyState enemyState;
 
-	[SerializeField] float healthPower;
+	public float healthPower;
 
-	public float HealthPower {
+
+	public float EnemyHP { 
 		get {return healthPower;}
 		set {
 			if (healthPower == value) return;
 
 			healthPower = value;
+
+			if (OnHPChange != null) {
+				OnHPChange();
+			}
+		}
+	}
+
+	public float PlayerHP {
+		get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);}
+		set{
+			if (PlayerHP == value) return;
+
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, value);
+			
+			if (OnHPChange != null) {
+				OnHPChange();
+			}
 		}
 	}
 
@@ -41,76 +62,76 @@ public class Health : MonoBehaviour {
 
 	#region OLD
 	void onTriggerEnter2D (Collider2D col) {
-		if (col.GetComponent<Damage>() == null) return;
+		// if (col.GetComponent<Damage>() == null) return;
 		
-		// damage = col.GetComponent<Damage>().damage;
-		// initialDamage = damage;
+		// // damage = col.GetComponent<Damage>().damage;
+		// // initialDamage = damage;
 
-		if (role.gameRole == GameRole.Player) {
-			playerState = player.state;
+		// if (role.gameRole == GameRole.Player) {
+		// 	playerState = player.state;
 
-			if (playerState == PlayerState.DIE) return;
+		// 	if (playerState == PlayerState.DIE) return;
 
-			if (col.tag == Constants.Tag.ENEMY_ATTACK) {
-				Enemy enemy = col.GetComponentInParent<Enemy>();
-				player.enemyThatHitsPlayer = enemy;
-				// enemy.isHitAPlayer = true;
+		// 	if (col.tag == Constants.Tag.ENEMY_ATTACK) {
+		// 		Enemy enemy = col.GetComponentInParent<Enemy>();
+		// 		player.enemyThatHitsPlayer = enemy;
+		// 		// enemy.isHitAPlayer = true;
 
-				player.isPlayerHit = true;
+		// 		player.isPlayerHit = true;
 
-				if (player.isParrying || player.isBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
-					Debug.Log ("Player ignored damage");
-				} else if (player.isGuarding) {
-					player.isPlayerGetHurt = true;
-					// damage *= guardReduceDamage;
-				} else {
-					player.isPlayerGetHurt = true;
-					// damage = initialDamage;
-				}
+		// 		if (player.isParrying || player.isBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
+		// 			Debug.Log ("Player ignored damage");
+		// 		} else if (player.isGuarding) {
+		// 			player.isPlayerGetHurt = true;
+		// 			// damage *= guardReduceDamage;
+		// 		} else {
+		// 			player.isPlayerGetHurt = true;
+		// 			// damage = initialDamage;
+		// 		}
 
-				// Invoke ("StopResponseHitPlayer", 0.5f);
-			}
-		} else if (role.gameRole == GameRole.Enemy) {
-			enemyState = enemy.state;
+		// 		// Invoke ("StopResponseHitPlayer", 0.5f);
+		// 	}
+		// } else if (role.gameRole == GameRole.Enemy) {
+		// 	enemyState = enemy.state;
 
-			if (enemyState == EnemyState.Die) return;
+		// 	if (enemyState == EnemyState.Die) return;
 			
-			if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
-				Player player = col.GetComponentInParent<Player>();
-				enemy.playerThatHitsEnemy = player;
+		// 	if (col.tag == Constants.Tag.PLAYER_COUNTER || col.tag == Constants.Tag.HAMMER || col.tag == Constants.Tag.BOW || col.tag == Constants.Tag.MAGIC_MEDALLION || col.tag == Constants.Tag.PLAYER_SLASH) {
+		// 		Player player = col.GetComponentInParent<Player>();
+		// 		enemy.playerThatHitsEnemy = player;
 
-				if (col.tag == Constants.Tag.PLAYER_SLASH) {
-					player.isHitAnEnemy = true;
-				}
+		// 		if (col.tag == Constants.Tag.PLAYER_SLASH) {
+		// 			player.isHitAnEnemy = true;
+		// 		}
 				
-				// enemy.isEnemyHit = true;
-				// enemy.isEnemyGetHurt = true;
-				// damage = initialDamage;
-			} else {
-				Debug.Log("Enemy get damaged from other source");
-			}
-		}
+		// 		// enemy.isEnemyHit = true;
+		// 		// enemy.isEnemyGetHurt = true;
+		// 		// damage = initialDamage;
+		// 	} else {
+		// 		Debug.Log("Enemy get damaged from other source");
+		// 	}
+		// }
 	}
 
-	// void OnCollisionEnter2D (Collision2D col) {
-	// 	if (col.gameObject.GetComponent<Damage>() == null) return;
+	void OnCollisionEnter2D (Collision2D col) {
+		// if (col.gameObject.GetComponent<Damage>() == null) return;
 		
-	// 	// damage = col.gameObject.GetComponent<Damage>().damage;
-	// 	// initialDamage = damage;
+		// // damage = col.gameObject.GetComponent<Damage>().damage;
+		// // initialDamage = damage;
 
-	// 	if (col.gameObject.tag == Constants.Tag.PLAYER) {
-	// 		Player player = col.gameObject.GetComponent<Player>();
+		// if (col.gameObject.tag == Constants.Tag.PLAYER) {
+		// 	Player player = col.gameObject.GetComponent<Player>();
 
-	// 		if (player.state == PlayerState.DASH) {
-	// 			enemy.playerThatHitsEnemy = player;
-	// 			player.isHitAnEnemy = true;
+		// 	if (player.state == PlayerState.DASH) {
+		// 		enemy.playerThatHitsEnemy = player;
+		// 		player.isHitAnEnemy = true;
 
-	// 			// enemy.isEnemyHit = true;
-	// 			// enemy.isEnemyGetHurt = true;
-	// 			// damage = initialDamage;
-	// 			Debug.Log("Enemy get damaged from player dash");
-	// 		}
-	// 	}
-	// }
+		// 		// enemy.isEnemyHit = true;
+		// 		// enemy.isEnemyGetHurt = true;
+		// 		// damage = initialDamage;
+		// 		Debug.Log("Enemy get damaged from player dash");
+		// 	}
+		// }
+	}
 	#endregion
 }

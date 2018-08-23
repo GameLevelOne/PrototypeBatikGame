@@ -11,6 +11,24 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1565756163263292}
   m_IsPrefabParent: 1
+--- !u!1 &1021759705122790
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4451601084229002}
+  - component: {fileID: 114298339835255354}
+  - component: {fileID: 58781577218063398}
+  - component: {fileID: 114372054060248996}
+  m_Layer: 0
+  m_Name: Dash Attack
+  m_TagString: Player Dash Attack
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1048860842682558
 GameObject:
   m_ObjectHideFlags: 1
@@ -362,7 +380,6 @@ GameObject:
   - component: {fileID: 114950218148248466}
   - component: {fileID: 114244005769516886}
   - component: {fileID: 114236418279336380}
-  - component: {fileID: 114592571174930306}
   - component: {fileID: 114979239036606184}
   m_Layer: 0
   m_Name: Player
@@ -719,6 +736,19 @@ Transform:
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4451601084229002
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021759705122790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4723722416754214}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4532544263056470
 Transform:
   m_ObjectHideFlags: 1
@@ -851,6 +881,7 @@ Transform:
   - {fileID: 4152565989933534}
   - {fileID: 4705957946542318}
   - {fileID: 4834055521619652}
+  - {fileID: 4451601084229002}
   m_Father: {fileID: 4179517273141854}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1106,6 +1137,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!58 &58781577218063398
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021759705122790}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
 --- !u!58 &58935266708611992
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -1257,8 +1303,6 @@ MonoBehaviour:
   health: {fileID: 114244005769516886}
   state: 0
   playerCol: {fileID: 58018810419284058}
-  maxHP: 100
-  maxMana: 100
   enemyThatHitsPlayer: {fileID: 0}
   damageReceive: {fileID: 0}
   isGuarding: 0
@@ -1276,6 +1320,8 @@ MonoBehaviour:
   isInvisible: 0
   isHitLiftableObject: 0
   isCanFishing: 0
+  maxHP: 100
+  maxMP: 100
 --- !u!114 &114195519658314114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1349,6 +1395,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 2
   bootsSpeed: 500
+--- !u!114 &114298339835255354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021759705122790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114329116918779182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1371,6 +1428,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114372054060248996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1021759705122790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!114 &114403882440353514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1437,18 +1506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRen: {fileID: 212697090223062848}
   isStaticObject: 0
---- !u!114 &114592571174930306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1565756163263292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
 --- !u!114 &114619591953681366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1602,7 +1659,6 @@ MonoBehaviour:
   powerBraceletAreaEffectObj: {fileID: 1218381095245030}
   flippersObj: {fileID: 1492941681265070}
   bootsObj: {fileID: 1305521436026474}
-  textToolName: {fileID: 0}
   currentActiveContainer: 0
   isPowerBraceletSelected: 0
   isActToolReady: 0
@@ -1696,9 +1752,11 @@ MonoBehaviour:
     type: 2}
   regularArrow: {fileID: 1162479136290338, guid: 71f7daf6d77d4844bb69ccc4eef0298a,
     type: 2}
+  dashAttackArea: {fileID: 1021759705122790}
   bulletSpawnPos: {fileID: 4723722416754214}
   attackRate: 0.5
   isAttacking: 0
+  isDashing: 0
 --- !u!114 &114965734544605188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1724,7 +1782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMana: {fileID: 0}
-  mana: 90
+  mana: 80
   manaRegenPerSecond: 5
   isTestMana: 1
 --- !u!198 &198419373771927748

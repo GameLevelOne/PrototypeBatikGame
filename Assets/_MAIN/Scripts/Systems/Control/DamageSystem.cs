@@ -54,7 +54,7 @@ public class DamageSystem : ComponentSystem {
 			// 	}
 			// }
 
-			CalculateDamaageToPlayer();
+			CalculateDamageToPlayer();
 		} else if (role.gameRole == GameRole.Enemy) {
 			// enemy = health.GetComponent<Enemy>();
 			// enemyState = enemy.state;
@@ -76,7 +76,7 @@ public class DamageSystem : ComponentSystem {
 		}
 	}
 
-	void CalculateDamaageToPlayer()
+	void CalculateDamageToPlayer()
 	{	
 		Player player = health.player;
 		PlayerState playerState = player.state;
@@ -89,14 +89,14 @@ public class DamageSystem : ComponentSystem {
 				} else if (player.isGuarding) {
 					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 				} else {
-					health.HealthPower -= player.damageReceive.damage;
+					health.PlayerHP -= player.damageReceive.damage;
 					player.SetPlayerState(PlayerState.GET_HURT);
 				}
 				
 				player.damageReceive = null;
 				player.isPlayerHit = false;
 
-				if (health.HealthPower <= 0f) {
+				if (health.PlayerHP <= 0f) {
 					player.SetPlayerState(PlayerState.DIE);
 				}
 			}
@@ -161,16 +161,16 @@ public class DamageSystem : ComponentSystem {
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
 				}else{
-					health.HealthPower -= currEnemy.damageReceive.damage;
+					health.EnemyHP -= currEnemy.damageReceive.damage;
 				}
 			} else if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_DASH_ATTACK) {
-				health.HealthPower -= currEnemy.damageReceive.damage;
+				health.EnemyHP -= currEnemy.damageReceive.damage;
 			} else {
 				if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
 					playerInputSystem.player.isHitAnEnemy = true;
 				}
 			
-				health.HealthPower -= currEnemy.damageReceive.damage;
+				health.EnemyHP -= currEnemy.damageReceive.damage;
 			}
 			// currEnemy.isEnemyGetHurt = false;
 			currEnemy.damageReceive = null;

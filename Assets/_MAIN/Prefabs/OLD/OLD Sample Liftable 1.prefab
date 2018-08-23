@@ -103,7 +103,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   liftableType: 0
   state: 0
-  mainObj: {fileID: 0}
+  weight: 0
+  attachedObject: {fileID: 0}
+  shadowTransform: {fileID: 0}
+  mainObjTransform: {fileID: 0}
+  shadowRigidbody: {fileID: 0}
+  mainObjRigidbody: {fileID: 0}
+  collider: {fileID: 0}
+  initPos: {x: 0, y: 0}
+  targetDirPos: {x: 0, y: 0}
+  dirID: 0
+  speed: 0
+  throwRange: 0
 --- !u!114 &114254703759713932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,7 +172,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1829551841
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300006, guid: 813314b288500d24c86e0756dc01321a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

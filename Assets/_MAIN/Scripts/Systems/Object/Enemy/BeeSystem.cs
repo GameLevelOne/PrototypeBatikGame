@@ -39,7 +39,7 @@ public class BeeSystem : ComponentSystem {
 
 	void CheckHealth()
 	{
-		if(currBeeHealth.HealthPower <= 0f){
+		if(currBeeHealth.EnemyHP <= 0f){
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();
 		}

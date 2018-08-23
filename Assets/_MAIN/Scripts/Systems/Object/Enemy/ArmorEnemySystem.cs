@@ -81,7 +81,7 @@ public class ArmorEnemySystem : ComponentSystem {
 
 	void CheckHealth()
 	{
-		if(currArmorEnemyHealth.HealthPower <= 0f){
+		if(currArmorEnemyHealth.EnemyHP <= 0f){
 			GameObject.Destroy(currArmorEnemyHealth.gameObject);
 			UpdateInjectedComponentGroups();
 		}

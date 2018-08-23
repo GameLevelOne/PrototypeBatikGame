@@ -15,6 +15,7 @@ public class ToolSystem : ComponentSystem {
 
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] ContainerSystem containerSystem;
+	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 	
 	// public struct ToolComponent
 	// {
@@ -30,6 +31,7 @@ public class ToolSystem : ComponentSystem {
 	PlayerState state;
 
 	int toolType;
+	bool isInitCurrentTool = false;
 
 	protected override void OnUpdate()
 	{
@@ -47,6 +49,10 @@ public class ToolSystem : ComponentSystem {
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			
+			if (!isInitCurrentTool) {
+				InitTool();
+			}
+
 			if ((state == PlayerState.USING_TOOL) || (state == PlayerState.HOOK) || (state == PlayerState.FISHING) || (state == PlayerState.BOW)) {
 				if (tool.isActToolReady) {
 					UseTool ();
@@ -62,8 +68,27 @@ public class ToolSystem : ComponentSystem {
 		}
 	}
 
+	void InitTool () {
+		for (int i=1; i<=(int)ToolType.Boots; i++) {
+			if (CheckIfToolHasBeenUnlocked(i)) {
+				tool.currentTool = (ToolType) i;
+				uiToolsSelectionSystem.SetPrintedTool();
+				break;
+			}
+		}
+
+		if (tool.currentTool == 0) {
+			Debug.Log("No Tools Unlocked");
+			//
+		}
+
+		isInitCurrentTool = true;
+	}
+
 	public void NextTool ()
 	{
+		if (uiToolsSelectionSystem.isChangingTool) return;
+
 		int current = (int) tool.currentTool;
 		
 		if(current >= ((int)ToolType.Boots)){
@@ -71,16 +96,19 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current++;
 		}
-		
 		tool.currentTool = (ToolType) current;
 
 		if (!CheckIfToolHasBeenUnlocked(current)) {
 			NextTool ();
 		}
+		
+		uiToolsSelectionSystem.uiToolsSelection.OnClickNextToolsSelection();
 	}
 
 	public void PrevTool () 
 	{
+		if (uiToolsSelectionSystem.isChangingTool) return;
+
 		int current = (int) tool.currentTool;
 		
 		if(current <= ((int)ToolType.None)){
@@ -88,18 +116,19 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current--;
 		}
-		
 		tool.currentTool = (ToolType) current;
 		
 		if (!CheckIfToolHasBeenUnlocked(current)) {
 			PrevTool ();
 		}
+		
+		uiToolsSelectionSystem.uiToolsSelection.OnClickPrevToolsSelection();
 	}
 
 	bool CheckIfToolHasBeenUnlocked (int type) {
 		if (tool.CheckIfToolHasBeenUnlocked(type) > 0) {
 			toolType = type;
-			tool.textToolName.text = ((ToolType) toolType).ToString();
+			// tool.textToolName.text = ((ToolType) toolType).ToString();
 			// CheckPowerBracelet();
 			// CheckFlipper();
 			return true;
