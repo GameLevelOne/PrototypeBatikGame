@@ -519,7 +519,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.isPlayerHit) {	
 				player.isBulletTiming = false;
 				// ChangeDir(0f, 0f);
-				ChangeDir(-currentDir.x, -currentDir.y);
+				// ChangeDir(-currentDir.x, -currentDir.y);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.AttackMode = -3;
 				// Debug.Log("Start BulletTime");
@@ -725,6 +725,11 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else if (state == PlayerState.SWIM) {
 			SetButtonUp ();
+			
+			// if (input.interactValue == 0 || input.interactValue == 2) {
+			// 	Debug.Log("Pause swim");
+			// }
+
 			return true;
 		} else {
 			return false;

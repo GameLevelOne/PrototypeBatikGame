@@ -50,7 +50,8 @@ public static class Constants {
 	{
 		public const string PLAYER = "Player"; 
 		public const string ENEMY = "Enemy"; 
-		public const string PLAYER_ATTACK = "Player Attack"; 
+		public const string PLAYER_SLASH = "Player Slash";
+		public const string PLAYER_DASH_ATTACK = "Player Dash Attack"; 
 		public const string PLAYER_COUNTER = "Player Counter"; 
 		public const string ENEMY_ATTACK = "Enemy Attack"; 
 		public const string STONE = "Stone"; 
@@ -68,7 +69,6 @@ public static class Constants {
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
-		public const string PLAYER_SLASH = "Player Slash";
 	}
 
 	public static class PlayerPrefKey
@@ -168,10 +168,24 @@ public static class Constants {
 		public const string STAND_MAGIC_MEDALLION = "StandMagicMedallion";
 		public const string STAND_INACTIVE = "StandInactive";
 		#endregion
+
+		#region Enemy
+		public const string ENEMY_IDLE = "Idle";
+		public const string ENEMY_ATTACK = "Attack";
+		public const string ENEMY_PATROL = "Patrol";
+		public const string ENEMY_IDLE_BARE = "IdleBare";
+		public const string ENEMY_PATROL_BARE = "PatrolBare";
+		#endregion
 	}
 
 	public static class AnimationName
 	{
 		public const string CHEST_OPEN = "ChestOpen";
+	}
+
+	public static class SceneName
+	{
+		public const string MAIN_MENU = "SceneMenu";
+		public const string GAME_MAP_01 = "SceneMap_01";
 	}
 }

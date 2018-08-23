@@ -82,7 +82,13 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					moveDir = input.moveDir;
 				}
-			} 
+			} else if (state == PlayerState.SWIM) {
+				if (input.interactValue == 2 || input.interactValue == 0) {
+					moveDir = Vector2.zero;
+				} else {
+					moveDir = input.moveDir;
+				}
+			}
 			// else if (state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			// 	moveDir = Vector2.zero;
 			// 	rb.velocity = moveDir;
@@ -102,85 +108,85 @@ public class PlayerMovementSystem : ComponentSystem {
 			continue; //TEMP
 			
 			#region OLD
-			if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
-				if (attackMode == -3) {
-					tr.position = teleportBulletTime.Teleport();
-					Time.timeScale = 0.1f;
-					input.AttackMode = 0;
-					rb.velocity = Vector2.zero;
-					spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-				}
+			// if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
+			// 	if (attackMode == -3) {
+			// 		tr.position = teleportBulletTime.Teleport();
+			// 		Time.timeScale = 0.1f;
+			// 		input.AttackMode = 0;
+			// 		rb.velocity = Vector2.zero;
+			// 		spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+			// 	}
 
-				continue;
-			}
+			// 	continue;
+			// }
 
-			if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
-				Transform target = facing.attackArea.transform;
-				Vector2 dir = target.position - tr.position;
+			// if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+			// 	Transform target = facing.attackArea.transform;
+			// 	Vector2 dir = target.position - tr.position;
 				
-				if (state == PlayerState.HOOK) {
-					rb.velocity = Vector2.zero;
-				} else if (state == PlayerState.DASH) {
-					// isStartDashing = true;
-					// rb.AddForce(dir * tool.dashSpeed);
-					// rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
-				} else {
-					rb.velocity = Vector2.zero;
-				}
+			// 	if (state == PlayerState.HOOK) {
+			// 		rb.velocity = Vector2.zero;
+			// 	} else if (state == PlayerState.DASH) {
+			// 		// isStartDashing = true;
+			// 		// rb.AddForce(dir * tool.dashSpeed);
+			// 		// rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
+			// 	} else {
+			// 		rb.velocity = Vector2.zero;
+			// 	}
 				
-				continue;
-			} else if (state == PlayerState.POWER_BRACELET) {
-				// rb.AddForce(-dir * movement.bounceSpeed);
-				if (input.interactValue == 2 || input.interactValue == 0) {
-					// Debug.Log("input.InteractValue : "+input.InteractValue);
-					input.moveDir = Vector2.zero;
-				}
-			} else if (state == PlayerState.FISHING) {
-				input.moveDir = Vector2.zero;
-				rb.velocity = Vector2.zero;
-			} else {
-				brakeTime = movement.brakeTime;
-				// player.IsDashing = false;
-			}
+			// 	continue;
+			// } else if (state == PlayerState.POWER_BRACELET) {
+			// 	// rb.AddForce(-dir * movement.bounceSpeed);
+			// 	if (input.interactValue == 2 || input.interactValue == 0) {
+			// 		// Debug.Log("input.InteractValue : "+input.InteractValue);
+			// 		input.moveDir = Vector2.zero;
+			// 	}
+			// } else if (state == PlayerState.FISHING) {
+			// 	input.moveDir = Vector2.zero;
+			// 	rb.velocity = Vector2.zero;
+			// } else {
+			// 	brakeTime = movement.brakeTime;
+			// 	// player.IsDashing = false;
+			// }
 
-			if (attackMode == 0) {
-				moveDir = input.moveDir;
+			// if (attackMode == 0) {
+			// 	moveDir = input.moveDir;
 
-				if (state == PlayerState.DODGE) {
-					if (!isDodgeMove) {
-						Transform target = facing.attackArea.transform;
-						isDodgeMove = true;
-						rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
-					}
-				} else {
-					isDodgeMove = false;
-					moveDir = moveDir.normalized * moveSpeed * deltaTime;
-					rb.velocity = moveDir;	
+			// 	if (state == PlayerState.DODGE) {
+			// 		if (!isDodgeMove) {
+			// 			Transform target = facing.attackArea.transform;
+			// 			isDodgeMove = true;
+			// 			rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
+			// 		}
+			// 	} else {
+			// 		isDodgeMove = false;
+			// 		moveDir = moveDir.normalized * moveSpeed * deltaTime;
+			// 		rb.velocity = moveDir;	
 					
-					if (moveDir == Vector2.zero) {
-						// player.SetPlayerIdle();
-					} else {
-						if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
-							player.SetPlayerState(PlayerState.MOVE);
-						}
-					}
-				}
-			} else if ((attackMode == 2) || (attackMode == 3)) {
-				// if (!isAttackMove) {
-					Transform target = facing.attackArea.transform;
-					// isAttackMove = true;
-					rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
-				// } else {
-				// 	isAttackMove = false;
-					rb.velocity = Vector2.zero;
-				// }
-			} else {
-				rb.velocity = Vector2.zero;
-			}
+			// 		if (moveDir == Vector2.zero) {
+			// 			// player.SetPlayerIdle();
+			// 		} else {
+			// 			if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
+			// 				player.SetPlayerState(PlayerState.MOVE);
+			// 			}
+			// 		}
+			// 	}
+			// } else if ((attackMode == 2) || (attackMode == 3)) {
+			// 	// if (!isAttackMove) {
+			// 		Transform target = facing.attackArea.transform;
+			// 		// isAttackMove = true;
+			// 		rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
+			// 	// } else {
+			// 	// 	isAttackMove = false;
+			// 		rb.velocity = Vector2.zero;
+			// 	// }
+			// } else {
+			// 	rb.velocity = Vector2.zero;
+			// }
 
-			if (rb.velocity.y != 0f) {
-				spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-			}
+			// if (rb.velocity.y != 0f) {
+			// 	spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+			// }
 			#endregion OLD
 		}
 	}
@@ -208,7 +214,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (moveDir == Vector2.zero) {
 					// player.SetPlayerIdle();
 				} else {
-					if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming && state != PlayerState.OPEN_CHEST) {
+					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}

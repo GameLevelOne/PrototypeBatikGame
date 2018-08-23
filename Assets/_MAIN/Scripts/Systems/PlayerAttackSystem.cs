@@ -15,7 +15,9 @@ public class PlayerAttackSystem : ComponentSystem {
 	[InjectAttribute] AttackData attackData;
 
 	public Attack attack;
+
 	Player player;
+	PlayerInput input;
 
 	PlayerState state;
 
@@ -26,23 +28,12 @@ public class PlayerAttackSystem : ComponentSystem {
 
 		for (int i=0; i<attackData.Length; i++) {
 			attack = attackData.Attack[i];
-			PlayerInput input = attackData.PlayerInput[i];
+			input = attackData.PlayerInput[i];
 			player = attackData.Player[i];
 			state = player.state;
-			
-			int attackMode = input.AttackMode;
-			bool isAttacking = attack.isAttacking;
 
-			if (attackMode == 0 || (state == PlayerState.USING_TOOL) || (state == PlayerState.USING_TOOL)) continue;
-
-			//Attack
-        	// attack.isAttacking = true;
-			if (isAttacking) {
-				if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
-					// Debug.Log("Slash Attack : "+attackMode);
-					SpawnSlashEffect(attackMode);
-				}
-			}
+			CheckIfPlayerDash ();
+			CheckIfPlayerAttack ();
 		}
 	}
 
@@ -73,6 +64,26 @@ public class PlayerAttackSystem : ComponentSystem {
 
 		attack.isAttacking = false;
     }
+
+	void CheckIfPlayerDash () {
+		if (state == PlayerState.DASH) {
+			if (attack.isDashing) {
+				attack.dashAttackArea.SetActive(true);
+			} else {
+				attack.dashAttackArea.SetActive(false);
+			}
+		}
+	}
+
+	void CheckIfPlayerAttack () {
+		int attackMode = input.AttackMode;
+
+		if (attack.isAttacking && attackMode != 0) {
+			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
+				SpawnSlashEffect(attackMode);
+			}
+		}
+	}
 
     void SpawnObj (GameObject obj) {
         GameObject spawnedBullet = GameObject.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());

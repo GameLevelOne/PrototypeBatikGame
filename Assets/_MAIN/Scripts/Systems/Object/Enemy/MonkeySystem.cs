@@ -67,6 +67,7 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.enemy.initPatrol = false;
 				currMonkey.enemy.state = EnemyState.Chase;
 				currMonkey.isHitByPlayer = true;
+				currMonkey.enemy.chaseIndicator.SetActive(true);
 			}
 		}		
 	}
@@ -77,6 +78,7 @@ public class MonkeySystem : ComponentSystem {
 			if(currMonkey.isCollidingWithPlayer){
 				currMonkey.enemy.state = EnemyState.Attack;
 				currMonkey.isCollidingWithPlayer = false;
+				currMonkey.enemy.chaseIndicator.SetActive(true);
 			}
 		}
 	}
@@ -95,7 +97,7 @@ public class MonkeySystem : ComponentSystem {
 			currMonkey.enemy.initIdle = true;
 			currMonkey.enemy.TIdle = currMonkey.enemy.idleDuration;
 			deltaTime = Time.deltaTime;
-			currMonkeyAnim.Play(EnemyState.Idle.ToString());
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		}else{
 			currMonkey.enemy.TIdle -= deltaTime;
 			if(currMonkey.enemy.TIdle <= 0f){
@@ -111,7 +113,7 @@ public class MonkeySystem : ComponentSystem {
 			currMonkey.enemy.initPatrol = true;
 			currMonkey.enemy.patrolDestination = GetRandomPatrolPos(currMonkey.patrolArea,currMonkey.enemy.patrolRange);
 			deltaTime = Time.deltaTime;
-			currMonkeyAnim.Play(EnemyState.Patrol.ToString());
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 		}else{
 			currMonkeyRigidbody.position = 
 				Vector2.MoveTowards(
@@ -134,7 +136,7 @@ public class MonkeySystem : ComponentSystem {
 			currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
 		}else{
 			deltaTime = Time.deltaTime;
-			currMonkeyAnim.Play(EnemyState.Patrol.ToString());
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			currMonkeyRigidbody.position = 
 				Vector2.MoveTowards(
 					currMonkeyRigidbody.position,
@@ -146,6 +148,7 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.isHitByPlayer = false;
 				currMonkey.enemy.state = EnemyState.Idle;
 				currMonkey.enemy.playerTransform = null;
+				currMonkey.enemy.chaseIndicator.SetActive(false);
 			}
 		}
 	}
@@ -158,7 +161,7 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.enemy.state = EnemyState.Chase;
 			}else{
 				currMonkey.enemy.initAttack = true;
-				currMonkeyAnim.Play(EnemyState.Attack.ToString());
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
 			currMonkey.enemy.attackObject.SetActive(currMonkey.enemy.attackHit);

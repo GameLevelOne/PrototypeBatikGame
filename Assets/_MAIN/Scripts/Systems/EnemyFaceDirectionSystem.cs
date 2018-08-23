@@ -36,7 +36,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		if(currEnemy.state == EnemyState.Patrol){
 			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
 			SetEnemyFacing(dir);
-		}else if(currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack){
+		}else if((currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack) && currEnemy.playerTransform != null){
 			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
 			SetEnemyFacing(dir);
 		}
@@ -44,10 +44,10 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 
 	/// <summary>
     /// <para>4 Directions: <br /></para>
-	/// <para>UL = (-1, 1) <br /></para>
-	/// <para>UR = ( 1, 1) <br /></para>
-	/// <para>DL = (-1,-1) <br /></para>
-	/// <para>DR = ( 1,-1) <br /></para>
+	/// <para>D = (0, -1) <br /></para>
+	/// <para>L = (-1, 0) <br /></para>
+	/// <para>R = (1, 0) <br /></para>
+	/// <para>U = (0 ,1) <br /></para>
     /// </summary>
 	Vector2 GetDirection(Vector2 self, Vector2 target)
 	{

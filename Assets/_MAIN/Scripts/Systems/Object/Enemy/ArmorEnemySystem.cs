@@ -23,6 +23,10 @@ public class ArmorEnemySystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
+		if (armorEnemyComponent.Length == 0) return;
+
+		deltaTime = Time.deltaTime;
+
 		for(int i =0;i<armorEnemyComponent.Length;i++){
 			currArmorEnemyTransform = armorEnemyComponent.armorEnemyTransform[i];
 			currArmorEnemy = armorEnemyComponent.armorEnemy[i];
@@ -30,9 +34,9 @@ public class ArmorEnemySystem : ComponentSystem {
 			currArmorEnemyRigidbody = armorEnemyComponent.armorEnemyRigidbody[i];
 			currArmorEnemyAnim = armorEnemyComponent.armorEnemyAnim[i];
 
-		CheckPlayer();
-		CheckState();
-		CheckHealth();
+			CheckPlayer();
+			CheckState();
+			CheckHealth();
 		}
 	}
 
@@ -55,12 +59,14 @@ public class ArmorEnemySystem : ComponentSystem {
 					currArmorEnemy.enemy.state = EnemyState.Attack;
 					currArmorEnemy.enemy.initIdle = false;
 					currArmorEnemy.enemy.initPatrol = false; 
+					currArmorEnemy.enemy.chaseIndicator.SetActive(true);
 				}
 			}else if(currArmorEnemy.enemy.state == EnemyState.Attack){
 				if(currArmorEnemy.enemy.playerTransform == null){
 					currArmorEnemy.enemy.state = EnemyState.Idle;
 					currArmorEnemy.initRoll = false;
 					currArmorEnemy.startRoll = false;
+					currArmorEnemy.enemy.chaseIndicator.SetActive(false);
 				}
 			}
 		}else{
@@ -68,6 +74,7 @@ public class ArmorEnemySystem : ComponentSystem {
 				currArmorEnemy.enemy.state = EnemyState.Idle;
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.enemy.initPatrol = false;
+				currArmorEnemy.enemy.chaseIndicator.SetActive(false);
 			}
 		}
 	}
@@ -84,8 +91,8 @@ public class ArmorEnemySystem : ComponentSystem {
 	{
 		if(!currArmorEnemy.enemy.initIdle){
 			currArmorEnemy.enemy.initIdle = true;
-			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? EnemyState.Idle.ToString() : "IdleBare");
-			deltaTime = Time.deltaTime;
+			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? Constants.BlendTreeName.ENEMY_IDLE : Constants.BlendTreeName.ENEMY_IDLE_BARE);
+			// deltaTime = Time.deltaTime;
 			currArmorEnemy.enemy.TIdle = currArmorEnemy.enemy.idleDuration;
 		}else{
 			currArmorEnemy.enemy.TIdle -= deltaTime;
@@ -101,10 +108,10 @@ public class ArmorEnemySystem : ComponentSystem {
 	{
 		if(!currArmorEnemy.enemy.initPatrol){
 			currArmorEnemy.enemy.initPatrol = true;
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 
 			currArmorEnemy.enemy.patrolDestination = GetRandomPatrolPos(currArmorEnemy.patrolArea,currArmorEnemy.enemy.patrolRange);
-			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? EnemyState.Patrol.ToString() : "PatrolBare");
+			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? Constants.BlendTreeName.ENEMY_PATROL : Constants.BlendTreeName.ENEMY_PATROL_BARE);
 		}else{
 			currArmorEnemyRigidbody.position = 
 				Vector2.MoveTowards(
@@ -125,14 +132,14 @@ public class ArmorEnemySystem : ComponentSystem {
 		if(!currArmorEnemy.initRoll && !currArmorEnemy.startRoll){
 			currArmorEnemy.initRoll = true;
 			currArmorEnemy.TRollInit = currArmorEnemy.rollInitDuration;
-			currArmorEnemyAnim.Play(EnemyState.Idle.ToString());
-			deltaTime = Time.deltaTime;
+			currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			// deltaTime = Time.deltaTime;
 		}else if(currArmorEnemy.initRoll && !currArmorEnemy.startRoll){
 			currArmorEnemy.TRollInit -= deltaTime;
 			if(currArmorEnemy.TRollInit <= 0f){
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.startRoll = true;
-				currArmorEnemyAnim.Play("Roll");
+				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 				currArmorEnemy.rollTargetPos = currArmorEnemy.enemy.playerTransform.position;				
 			}
 		}
@@ -142,7 +149,7 @@ public class ArmorEnemySystem : ComponentSystem {
 			
 			
 			if(Vector2.Distance(currArmorEnemyRigidbody.position,currArmorEnemy.rollTargetPos) <= 0.1f){
-				currArmorEnemyAnim.Play(EnemyState.Idle.ToString());
+				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 				currArmorEnemy.startRoll = false;
 				currArmorEnemy.initRoll = false;
 			}

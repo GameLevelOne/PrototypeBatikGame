@@ -146,7 +146,7 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			//
 			default: 
-				Debug.Log("Unknown state detected at DamageSystem");
+				Debug.Log("State "+playerState+" detected at DamageSystem is out of invulnerable list");
 				return false;
 		}
 	}
@@ -157,17 +157,19 @@ public class DamageSystem : ComponentSystem {
 
 		if(!currEnemy.isHit) return;
 		else{
-			if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
-				playerInputSystem.player.isHitAnEnemy = true;
-			}
-
 			if(currEnemy.damageReceive.tag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
 				}else{
 					health.HealthPower -= currEnemy.damageReceive.damage;
 				}
-			}else{
+			} else if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_DASH_ATTACK) {
+				health.HealthPower -= currEnemy.damageReceive.damage;
+			} else {
+				if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
+					playerInputSystem.player.isHitAnEnemy = true;
+				}
+			
 				health.HealthPower -= currEnemy.damageReceive.damage;
 			}
 			// currEnemy.isEnemyGetHurt = false;

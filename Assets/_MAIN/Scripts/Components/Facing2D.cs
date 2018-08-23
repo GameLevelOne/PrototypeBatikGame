@@ -15,7 +15,10 @@ public class Facing2D : MonoBehaviour {
 		attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
 
 		#region 4 Direction
-		attackArea.transform.position = attackDirections[1].position;
+		if (attackArea != null) {
+			attackArea.transform.position = attackDirections[1].position;
+		}
+		
 		blindArea.transform.position = attackDirections[3].position;
 		#endregion
 
@@ -42,7 +45,9 @@ public class Facing2D : MonoBehaviour {
 			
 			if (isNotPlayerNorEnemy) return;
 
-			attackArea.transform.position = attackDirections[CurDirID].position;
+			if (attackArea != null) {
+				attackArea.transform.position = attackDirections[CurDirID].position;
+			}
 
 			int tempDirID = CurDirID;
 			if (tempDirID >= 3 ) {

@@ -44,7 +44,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnim = value;
 			}
 			
-			Debug.Log(isFinishAnyAnim + " on state " + state);
+			// Debug.Log(isFinishAnyAnim + " on state " + state);
 		}
 	}
 
@@ -114,10 +114,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void CheckPlayerState () {
-		if (!isFinishAnyAnimation) return;
+		if (!isFinishAnyAnimation && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+			StopAnyAnimation ();
+			return;
+		}
 		
 		switch (state) {
 			case PlayerState.IDLE:
+				isFinishAnyAnimation = true;
 				switch (input.moveMode) {
 					case 0: 
 						animator.Play(Constants.BlendTreeName.IDLE_STAND);
@@ -128,12 +132,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 					case 2: 
 						animator.Play(Constants.BlendTreeName.IDLE_GUARD);
 						break;
-					case 3: 
-						animator.Play(Constants.BlendTreeName.IDLE_SWIM);
-						break;
 				}
 				break;
 			case PlayerState.MOVE:
+				isFinishAnyAnimation = true;
 				switch (input.moveMode) {
 					case 0: 
 						animator.Play(Constants.BlendTreeName.MOVE_RUN);
@@ -147,8 +149,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 			case PlayerState.SWIM: 
+				isFinishAnyAnimation = true;
 				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.GRABBING);
+					animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
 				} else if (input.interactValue == 1) {
 					if (moveDir != Vector2.zero) {
 					animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
@@ -156,12 +159,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.IDLE_SWIM);						
 				}	
 				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.UNGRABBING);
+					animator.Play(Constants.BlendTreeName.UNGRABBING); //TEMP
 				}
 				
 				break;
 			case PlayerState.DODGE: 
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
+				isFinishAnyAnimation = true;
 				break;
 			case PlayerState.COUNTER: 
 				if (input.AttackMode == -2) {
@@ -170,6 +174,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.SLOW_MOTION: 
 				if (input.AttackMode == -3) {
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.y);
+					facing.DirID = CheckDirID(-currentDir.x, -currentDir.y);
+
 					animator.Play(Constants.BlendTreeName.IDLE_BULLET_TIME);
 				}
 
@@ -215,10 +223,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.DASH: 
 				if (input.interactValue == 0) {
 					animator.Play(Constants.BlendTreeName.MOVE_RUN);
+					attack.isDashing = false;
 				} else if (input.interactValue == 1) {
 					animator.Play(Constants.BlendTreeName.MOVE_DASH);
+					attack.isDashing = true;
 				} else if (input.interactValue == 2) {
 					animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
+					attack.isDashing = false;
 				}
 				break;
 			case PlayerState.USING_TOOL: 
@@ -279,9 +290,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_HURT: 
 				animator.Play(Constants.BlendTreeName.GET_HURT);
+				isFinishAnyAnimation = true;
 				break;
 			case PlayerState.BLOCK_ATTACK: 
 				animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
+				isFinishAnyAnimation = true;
 				break;
 			case PlayerState.FISHING:
 				if (input.interactValue == 0) {
@@ -411,7 +424,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// attack.isAttacking = true;
 				break;
 			case PlayerState.DODGE:
-				isFinishAnyAnimation = true;
+				// isFinishAnyAnimation = true;
 				break;
 			case PlayerState.SLOW_MOTION:
 				//
@@ -512,7 +525,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.RAPID_SLASH:
 				input.bulletTimeAttackQty--;
 
-				if (input.bulletTimeAttackQty == 0) {
+				if (input.bulletTimeAttackQty <= 0) {
 					player.isHitAnEnemy = false;
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
@@ -671,19 +684,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void SetFaceDir (string animName, float animValue, bool isVertical) {
-		Vector2 movement = input.moveDir;
+		// Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
 		
 		if (isVertical) {
-			movement.y = Mathf.RoundToInt(animValue);
+			moveDir.y = Mathf.RoundToInt(animValue);
 		} else {
-			movement.x = Mathf.RoundToInt(animValue);
+			moveDir.x = Mathf.RoundToInt(animValue);
 		}
 
-		if (currentDir != movement) {
-			currentDir = movement;
+		// if (currentDir != moveDir) {
+			currentDir = moveDir;
 			facing.DirID = CheckDirID(currentDir.x, currentDir.y);
-		}
+		// }
 	}
 
 	int CheckDirID (float dirX, float dirY) {

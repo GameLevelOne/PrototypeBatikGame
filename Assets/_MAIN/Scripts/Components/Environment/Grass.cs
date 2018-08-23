@@ -10,7 +10,7 @@ public class Grass : MonoBehaviour {
 	{
 		if(other.tag == Constants.Tag.PLAYER) interact = true;
 
-		if(other.tag == Constants.Tag.PLAYER_ATTACK) destroy = true;
+		if(other.tag == Constants.Tag.PLAYER_SLASH) destroy = true;
 	}
 
 	void OnGrassAnimateEnd()
