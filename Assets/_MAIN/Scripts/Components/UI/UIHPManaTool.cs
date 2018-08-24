@@ -6,9 +6,13 @@ public class UIHPManaTool : MonoBehaviour {
 	public Health playerHealth;
 	public Mana playerMana;
 
-	public Image imageHP;
+	// public Image imageHP;
+	public Transform clothHP;
 	public Image imageMana;
 	public Image imageTool;
+
+	public float maxClothWidth;
+	public float healthReduceValue;
 
 	public bool isHPChange = false;
 	public bool isMPChange = false;

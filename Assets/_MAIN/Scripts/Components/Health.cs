@@ -19,6 +19,14 @@ public class Health : MonoBehaviour {
 
 	public float healthPower;
 
+	public bool isTestHealth = false;
+
+	void Awake () { //TEMP
+		if (isTestHealth) {
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
+		} 
+	}
+
 
 	public float EnemyHP { 
 		get {return healthPower;}
