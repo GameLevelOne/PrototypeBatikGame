@@ -28,8 +28,12 @@ public class SpriteOrderSystem : ComponentSystem {
 
 	void CheckSpriteOrder()
 	{
+		
+
 		if(!currSpriteOrder.initOrder){
-			currSpriteOrder.initOrder = true;
+			if(!currSpriteOrder.dynamicSprite){
+				currSpriteOrder.initOrder = true;
+			}	
 			currSprite.sortingOrder = GetSpriteOrder(currTransform.position.y);
 		}
 	}
