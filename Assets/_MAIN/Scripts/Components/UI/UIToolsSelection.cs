@@ -6,10 +6,12 @@ public class UIToolsSelection : MonoBehaviour {
 	public PlayerTool tool;
 	
 	// public Text textToolName;
+	public CanvasGroup canvasToolsGroup;
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;
 
 	public bool isToolChange = false;
+	public float showDuration;
 	
 	/// <summary>
     /// <para>Values: <br /></para>

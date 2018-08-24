@@ -27,9 +27,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	int changeIndex = 0;
 	bool isInitToolImage = false;
+	bool isShowingTools = false;
+	float deltaTime;
+	float showTime;
+	float showDuration;
+	float alphaValue;
 
 	protected override void OnUpdate () {
 		if (uiToolsSelectionData.Length == 0) return;
+
+		deltaTime = Time.deltaTime;
 
 		for (int i=0; i<uiToolsSelectionData.Length; i++) {
 			uiToolsSelection = uiToolsSelectionData.UIToolsSelection[i];
@@ -39,13 +46,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			animator = anim.animator;
 			toolSprites = uiToolsSelection.arrayOfToolSprites;
 			toolImages = uiToolsSelection.arrayOfToolImages;
-
+			showDuration = uiToolsSelection.showDuration;
 
 			if (!isInitToolImage) {
 				InitImages ();
+				isShowingTools = true;
+				showTime = 0f;
 			}
 
 			CheckAnimation ();
+			CheckShowingTools ();
 			
 			if (uiToolsSelection.isToolChange && !isChangingTool) {
 				changeIndex = uiToolsSelection.changeIndex;
@@ -91,6 +101,34 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		uiHPManaToolSystem.PrintTool(toolImages[0].sprite);
 		// Debug.Log(toolImages[0].sprite.name);
 	}
+
+	void CheckShowingTools () {
+		if (isShowingTools) {
+			ShowTools ();
+		} else {
+			HideTools ();
+		}
+	}
+
+	void ShowTools () {
+		if (alphaValue < 1) {
+			alphaValue += Time.deltaTime * 5f;
+			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+		} else {
+			if (showTime < showDuration) {
+				showTime += Time.deltaTime;
+			} else {
+				isShowingTools = false;
+			}
+		}
+	}
+
+	void HideTools () {
+		if (alphaValue > 0) {
+			alphaValue -= Time.deltaTime;
+			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+		}
+	}
 	
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
@@ -108,6 +146,9 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		} else if (changeIndex == -1) {
 			PrevTools();
 		}
+
+		isShowingTools = true;
+		showTime = 0f;
 	}
 
 	void NextTools () {
