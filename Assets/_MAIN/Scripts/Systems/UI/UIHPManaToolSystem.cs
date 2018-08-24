@@ -76,7 +76,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	public void ReduceCloth () {
 		float playerHP = uiHPManaTool.playerHealth.PlayerHP;
-		// Debug.Log(playerHP);
+		Debug.Log(playerHP);
 		currentClothWidth = (playerHP/maxHP) * maxClothWidth;
 		isReducingCloth = true;
 		uiHPManaTool.isHPChange = false;
@@ -84,8 +84,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	public void PrintMana () {
 		float playerMP = uiHPManaTool.playerMana.PlayerMP;
-		// Debug.Log("maxMP "+maxMP);
-		// Debug.Log("playerMP "+playerMP);
+		Debug.Log("maxMP "+maxMP);
+		Debug.Log("playerMP "+playerMP);
 		uiHPManaTool.imageMana.fillAmount = playerMP/maxMP;
 		uiHPManaTool.isMPChange = false;
 	}
@@ -116,6 +116,6 @@ public class UIHPManaToolSystem : ComponentSystem {
 		// } else {
 		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[4].texture;
 		// } 
-		Debug.Log("Print HP "+newPosX);
+		// Debug.Log("Print HP "+newPosX);
 	}
 }
