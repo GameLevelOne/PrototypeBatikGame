@@ -73,6 +73,8 @@ public class ToolSystem : ComponentSystem {
 			if (CheckIfToolHasBeenUnlocked(i)) {
 				tool.currentTool = (ToolType) i;
 				uiToolsSelectionSystem.SetPrintedTool();
+
+				isInitCurrentTool = true;
 				break;
 			}
 		}
