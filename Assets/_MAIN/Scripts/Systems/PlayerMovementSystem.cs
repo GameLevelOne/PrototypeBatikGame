@@ -231,9 +231,9 @@ public class PlayerMovementSystem : ComponentSystem {
 			rb.velocity = Vector2.zero;
 		}
 
-		if (rb.velocity.y != 0f) {
-			spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-		}
+		// if (rb.velocity.y != 0f) {
+		// 	spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
+		// }
 	}
 
 	void SetPlayerSpecificMove () {
