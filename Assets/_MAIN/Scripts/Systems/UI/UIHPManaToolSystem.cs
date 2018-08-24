@@ -105,6 +105,17 @@ public class UIHPManaToolSystem : ComponentSystem {
 		float newPosX = (healthThreshold - 1f) / 2f;
 		uiHPManaTool.clothHP.localPosition = new Vector2 (newPosX, pos.y);
 		
-		Debug.Log("Print HP");
+		// if (newPosX <= 0.2f) {
+		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[0].texture;
+		// } else if (newPosX <= 0.4f) {
+		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[1].texture;
+		// } else if (newPosX <= 0.6f) {
+		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[2].texture;
+		// } else if (newPosX <= 0.8f) {
+		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[3].texture;
+		// } else {
+		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[4].texture;
+		// } 
+		Debug.Log("Print HP "+newPosX);
 	}
 }

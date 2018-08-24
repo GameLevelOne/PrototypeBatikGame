@@ -5,8 +5,9 @@ public class UIHPManaTool : MonoBehaviour {
 	public Player player;
 	public Health playerHealth;
 	public Mana playerMana;
-
-	// public Image imageHP;
+	
+	public Wavy wavy;
+	public Sprite[] spritesHP;
 	public Transform clothHP;
 	public Image imageMana;
 	public Image imageTool;
