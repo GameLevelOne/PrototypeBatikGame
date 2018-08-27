@@ -51,6 +51,9 @@ public class FishingPoolSystem : ComponentSystem {
 			fishingPool.fishList.Add(fish);
 			fish.parentPoolCol = fishingPool.fishingPoolCol.GetComponent<Transform>();
 			fish.parentPoolRadius = fishingPool.fishingPoolCol.bounds.size.x / 2; //CIRCLE
+			// fish.fishChar = (FishCharacteristic)Random.Range(0, System.Enum.GetValues(typeof(FishCharacteristic)).Length);
+			fish.fishChar = FishCharacteristic.WILD; //TEMP
+			// Debug.Log(fish.fishChar);
 
 			newFish.SetActive(true);
 

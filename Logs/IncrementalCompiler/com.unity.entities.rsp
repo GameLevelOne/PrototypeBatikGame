@@ -2,15 +2,9 @@
 -target:library
 -nowarn:0169
 -langversion:7
--out:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Temp/Unity.Entities.Editor.dll"
+-out:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Temp/com.unity.entities.dll"
 -nostdlib
 -unsafe
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Entities.dll"
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Entities.Hybrid.dll"
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Entities.Properties.dll"
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Mathematics.dll"
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Properties.dll"
--r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/ScriptAssemblies/Unity.Collections.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.AIModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -44,7 +38,6 @@
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.ProfilerModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll"
--r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll"
 -r:"D:\Unity 2018.2.5f1\Editor\Data\Managed/UnityEngine/UnityEngine.StreamingModule.dll"
@@ -77,6 +70,9 @@
 -r:"D:/Bhakti/Unity Projects/PrototypeBatikGame/Library/FacebookSDK/Facebook.Unity.Settings.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll"
+-r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll"
+-r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll"
+-r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll"
@@ -91,16 +87,10 @@
 -r:"D:/Unity 2018.2.5f1/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"D:/Unity 2018.2.5f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll"
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/UnityEngine.Advertisements.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.collections@0.0.9-preview.3/System.Runtime.CompilerServices.Unsafe.dll
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.properties@0.2.11-preview/Editor/Serialization/External/Cecil/Mono.Cecil.dll
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.properties@0.2.11-preview/Editor/Serialization/External/Cecil/Mono.Cecil.Mdb.dll
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.properties@0.2.11-preview/Editor/Serialization/External/Cecil/Mono.Cecil.Pdb.dll
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.properties@0.2.11-preview/Editor/Serialization/External/Cecil/Mono.Cecil.Rocks.dll
--r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/UnityEngine.Purchasing.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.render-pipelines.core@3.0.0-preview/CoreRP/Editor/ShaderGenerator/ICSharpCode.NRefactory.dll
 -r:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
@@ -234,7 +224,6 @@
 -d:UNITY_2018
 -d:PLATFORM_ARCH_64
 -d:UNITY_64
--d:UNITY_ANALYTICS
 -d:ENABLE_AUDIO
 -d:ENABLE_CACHING
 -d:ENABLE_CLOTH
@@ -317,25 +306,8 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:UNITY_POST_PROCESSING_STACK_V2
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/AssemblyInfo.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/ComponentGroupGUI.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/ComponentGroupListView.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/ComponentTypeChooser.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/ComponentTypeFilterUI.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/ComponentTypeListView.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityArrayListAdapter.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityDebugger.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityDebuggerStyles.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityIMGUIVisitor.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityListQuery.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntityListView.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntitySelectionProxy.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/EntitySelectionProxyEditor.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/SystemListView.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/EntityDebugger/WorldPopup.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/ExtraTypesProvider.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/GameObjectEntityEditor.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/GUIHelpers.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/GUIStyleAsset.cs
--i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Entities.Editor/SystemInclusionList.cs
+-i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Transforms2D/Heading2DComponent.cs
+-i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Transforms2D/MoveForward2DSystem.cs
+-i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Transforms2D/Position2DComponent.cs
+-i:C:/Users/user/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.entities@0.0.12-preview.11/Unity.Transforms2D/Transform2DSystem.cs
 -v:0

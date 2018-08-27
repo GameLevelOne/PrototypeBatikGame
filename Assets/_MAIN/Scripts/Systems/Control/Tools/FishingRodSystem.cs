@@ -49,8 +49,6 @@ public class FishingRodSystem : ComponentSystem {
 		if (fishingRod.fish != null) {
 			if (fishingRod.fish.state == FishState.CATCH) {
 				fishingRod.isCatchSomething = true;
-			} else if (fishingRod.fish.state == FishState.FLEE) {
-				playerMovementSystem.input.interactMode = -3;
 			} else {
 				fishingRod.isCatchSomething = false;
 			}
@@ -64,10 +62,10 @@ public class FishingRodSystem : ComponentSystem {
 			// playerMovementSystem.input.interactMode = -4;
 		} else {
 			if (fishingRod.fish != null) {
-				if (fishingRod.fish.state == FishState.CHASE) {
-					playerMovementSystem.input.interactMode = -3;
-
+				if (fishingRod.fish.state == FishState.CHASE || fishingRod.fish.state == FishState.TRYINGGRAB || fishingRod.fish.state == FishState.WAIT) {
 					fishingRod.fish.state = FishState.IDLE;
+				} else if (fishingRod.fish.state == FishState.FLEE) {
+					playerMovementSystem.input.interactMode = -3;
 				}
 			}
 		}
