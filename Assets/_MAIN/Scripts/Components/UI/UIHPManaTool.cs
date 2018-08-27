@@ -3,20 +3,25 @@ using UnityEngine.UI;
 
 public class UIHPManaTool : MonoBehaviour {
 	public Player player;
+
+	[HeaderAttribute("UI HP Attributes")]
 	public Health playerHealth;
-	public Mana playerMana;
-	
-	public Wavy wavy;
-	public Sprite[] spritesHP;
-	public Transform clothHP;
-	public Image imageMana;
-	public Image imageTool;
+	public Image clothHP;
 
-	public float maxClothWidth;
+	// public float maxClothWidth;
 	public float healthReduceValue;
-
 	public bool isHPChange = false;
+	
+	[HeaderAttribute("UI HP Attributes")]
+	public Mana playerMana;
+	public Image imageMana;
 	public bool isMPChange = false;
+	
+	[SpaceAttribute(10f)]
+	// public Wavy wavy;
+	// public Sprite[] spritesHP;
+	// public Transform clothHP;
+	public Image imageTool;
 
 	void OnEnable () {
 		playerHealth.OnHPChange += OnHPChange;

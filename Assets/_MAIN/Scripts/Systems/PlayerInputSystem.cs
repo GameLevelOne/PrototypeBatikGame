@@ -39,6 +39,8 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isReadyForDodging = true;
 
 	bool isDodging = false;
+	bool isBulletTimePeriod = false;
+	bool isParryPeriod = false;
 	bool isButtonToolHold = false;
 
 	protected override void OnUpdate () {
@@ -444,7 +446,8 @@ public class PlayerInputSystem : ComponentSystem {
 		if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 			SetMovement(2); //START GUARD
 			
-			player.isGuarding = true;
+			player.isGuarding = true;	
+			isParryPeriod = true;
 		} else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
 			
 			if (state == PlayerState.BLOCK_ATTACK) {
@@ -452,10 +455,10 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			if (parryTimer < guardParryDelay) {
-				parryTimer += deltaTime;	
-				player.isParrying = true;
+				parryTimer += deltaTime;
 			} else {
-				player.isParrying = false;
+				isParryPeriod = false;
+				player.isCanParry = false;
 				// player.isPlayerHit = false;	
 			}
 		} else if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
@@ -463,13 +466,15 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			player.isGuarding = false;
 			parryTimer = 0f;
-			player.isParrying = false;
+			isParryPeriod = false;
+			player.isCanParry = false;
 		}
 
-		if (player.isParrying) {
-			if (player.isPlayerHit) {
+		if (isParryPeriod) {
+			if (player.isPlayerHit && player.isCanParry) {
 				input.AttackMode = -2;
-				player.isParrying = false;
+				isParryPeriod = false;
+				player.isCanParry = false;
 				// player.isPlayerHit = false;
 				Debug.Log("Start Counter");
 				player.SetPlayerState(PlayerState.COUNTER);
@@ -507,17 +512,19 @@ public class PlayerInputSystem : ComponentSystem {
 			if (state == PlayerState.DODGE) {
 				if (bulletTimeTimer < bulletTimeDelay) {
 					bulletTimeTimer += deltaTime;
-					player.isBulletTiming = true;
+					isBulletTimePeriod = true;
 				} else {
-					player.isBulletTiming = false;
+					isBulletTimePeriod = false;
+					player.isCanBulletTime = false;
 					// player.isPlayerHit = false;
 				}
 			}
 		}
 
-		if (player.isBulletTiming) {
-			if (player.isPlayerHit) {	
-				player.isBulletTiming = false;
+		if (isBulletTimePeriod) {
+			if (player.isPlayerHit && player.isCanBulletTime) {	
+				isBulletTimePeriod = false;
+				player.isCanBulletTime = false;
 				// ChangeDir(0f, 0f);
 				// ChangeDir(-currentDir.x, -currentDir.y);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
@@ -617,7 +624,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		player.isGuarding = false;
 		parryTimer = 0f;
-		player.isParrying = false;
+		isParryPeriod = false;
 	}
 
 	bool CheckIfUsingAnyTool () {

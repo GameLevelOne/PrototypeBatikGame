@@ -60,12 +60,14 @@ public class MonkeySystem : ComponentSystem {
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
 					m.enemy.playerTransform = currMonkey.enemy.playerTransform;
 					m.enemy.state = EnemyState.Chase;
+					currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 					m.enemy.initIdle = false;
 					m.enemy.initPatrol = false;
 				}
 				currMonkey.enemy.initIdle = false;
 				currMonkey.enemy.initPatrol = false;
 				currMonkey.enemy.state = EnemyState.Chase;
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 				currMonkey.isHitByPlayer = true;
 				currMonkey.enemy.chaseIndicator.SetActive(true);
 			}
@@ -133,10 +135,10 @@ public class MonkeySystem : ComponentSystem {
 	{
 		if(currMonkey.enemy.isAttack){
 			currMonkey.enemy.state = EnemyState.Attack;
-			currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
+			// currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
 		}else{
 			deltaTime = Time.deltaTime;
-			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			// currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			currMonkeyRigidbody.position = 
 				Vector2.MoveTowards(
 					currMonkeyRigidbody.position,
@@ -159,6 +161,7 @@ public class MonkeySystem : ComponentSystem {
 			if(!currMonkey.enemy.isAttack){
 				currMonkey.enemy.initAttack = false;
 				currMonkey.enemy.state = EnemyState.Chase;
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}else{
 				currMonkey.enemy.initAttack = true;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);

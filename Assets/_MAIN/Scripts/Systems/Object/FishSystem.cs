@@ -5,7 +5,7 @@ public class FishSystem : ComponentSystem {
 	public struct FishCollectibleData {
 		public readonly int Length;
 		public ComponentArray<Fish> Fish;
-		public ComponentArray<Rigidbody2D> Rigidbody;
+		// public ComponentArray<Rigidbody2D> Rigidbody;
 
 	}
 	[InjectAttribute] FishCollectibleData fishCollectibleData;
@@ -26,8 +26,8 @@ public class FishSystem : ComponentSystem {
 
 		for (int i=0; i<fishCollectibleData.Length; i++) {
 			fish = fishCollectibleData.Fish[i];
-			rigidbody = fishCollectibleData.Rigidbody[i];
 			
+			rigidbody = fish.rigidbody;
 			state = fish.state;
 			anim = fish.anim;
 			
@@ -46,20 +46,20 @@ public class FishSystem : ComponentSystem {
 	}
 
 	void Idle () {
-		anim.Play(FishState.IDLE.ToString());
 		if (fish.TimeIdle <= 0f) {
 			fish.targetPos = RandomPosition ();
 			fish.state = FishState.PATROL;
+			anim.Play(FishState.CHASE.ToString());
 		} else {
 			fish.TimeIdle -= deltaTime;
 		}
 	}
 
 	void Patrol () {
-		anim.Play(FishState.CHASE.ToString());
 		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
 			fish.TimeIdle = fish.idleDuration;
 			fish.state = FishState.IDLE;
+			anim.Play(FishState.IDLE.ToString());
 		} else {
 			Move (rigidbody.position, fish.targetPos, fish.moveSpeed);
 		}
@@ -68,25 +68,25 @@ public class FishSystem : ComponentSystem {
 	void ChaseBait () {
 		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
 			fish.state = FishState.CATCH;
+			anim.Play(FishState.IDLE.ToString());
 		} else {
 			Move (rigidbody.position, fish.targetPos, fish.chaseSpeed);
 		}
 	}
 
 	void WaitingToCatch () {
-		anim.Play(FishState.IDLE.ToString());
 		if (timer < fish.timeToCatch) {
 			timer += deltaTime;
 		} else {
 			timer = 0f;
+			fish.selfCol.enabled = false;
 			fish.targetPos = RandomPosition ();
 			fish.state = FishState.FLEE;
-			fish.selfCol.enabled = false;
+			anim.Play(FishState.CHASE.ToString());
 		}
 	}
 
 	void Flee () {
-		anim.Play(FishState.CHASE.ToString());
 		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
 			fish.TimeIdle = fish.idleDuration;
 			fish.selfCol.enabled = true;
@@ -113,8 +113,8 @@ public class FishSystem : ComponentSystem {
 	}
 
 	Vector2 RandomPosition () {
-		float poolRadius = fish.parentPoolCol.bounds.size.x / 2; //CIRCLE
-		Vector2 poolPos = fish.parentPoolCol.transform.position;
+		float poolRadius = fish.parentPoolRadius;
+		Vector2 poolPos = fish.parentPoolCol.position;
 		float randomX = poolPos.x + Random.Range(-poolRadius, poolRadius);
 		float randomY = poolPos.y + Random.Range(-poolRadius, poolRadius);
 		

@@ -18,6 +18,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 	float maxHP;
 	float maxMP;
 	float maxClothWidth;
+	float initClothPos;
 	float currentClothWidth;
 	float healthThreshold;
 	float healthReduceValue;
@@ -41,7 +42,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 		if (!isInitHPManaImage) {
 			maxHP = uiHPManaTool.player.MaxHP;
 			maxMP = uiHPManaTool.player.MaxMP;
-			maxClothWidth = uiHPManaTool.maxClothWidth;
+			maxClothWidth = uiHPManaTool.clothHP.rectTransform.sizeDelta.x;
+			initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x * 3;
 
 			ReduceCloth ();
 			
@@ -76,7 +78,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	public void ReduceCloth () {
 		float playerHP = uiHPManaTool.playerHealth.PlayerHP;
-		Debug.Log(playerHP);
+		// Debug.Log(playerHP);
 		currentClothWidth = (playerHP/maxHP) * maxClothWidth;
 		isReducingCloth = true;
 		uiHPManaTool.isHPChange = false;
@@ -84,8 +86,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	public void PrintMana () {
 		float playerMP = uiHPManaTool.playerMana.PlayerMP;
-		Debug.Log("maxMP "+maxMP);
-		Debug.Log("playerMP "+playerMP);
+		// Debug.Log("maxMP "+maxMP);
+		// Debug.Log("playerMP "+playerMP);
 		uiHPManaTool.imageMana.fillAmount = playerMP/maxMP;
 		uiHPManaTool.isMPChange = false;
 	}
@@ -96,26 +98,19 @@ public class UIHPManaToolSystem : ComponentSystem {
 	}
 
 	void PrintHP () {
-		//SET CLOTH SCALE X
-		Vector2 scale = uiHPManaTool.clothHP.localScale;
-		uiHPManaTool.clothHP.localScale = new Vector2 (healthThreshold, scale.y);
-
 		//SET CLOTH POS X
-		Vector2 pos = uiHPManaTool.clothHP.localPosition;
-		float newPosX = (healthThreshold - 1f) / 2f;
-		uiHPManaTool.clothHP.localPosition = new Vector2 (newPosX, pos.y);
-		
-		// if (newPosX <= 0.2f) {
-		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[0].texture;
-		// } else if (newPosX <= 0.4f) {
-		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[1].texture;
-		// } else if (newPosX <= 0.6f) {
-		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[2].texture;
-		// } else if (newPosX <= 0.8f) {
-		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[3].texture;
-		// } else {
-		// 	uiHPManaTool.wavy.texture = uiHPManaTool.spritesHP[4].texture;
-		// } 
-		// Debug.Log("Print HP "+newPosX);
+		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold + initClothPos, 0f);
+		// Debug.Log(uiHPManaTool.clothHP.rectTransform.localPosition);
+
+		#region OLD (Using Shader Plugin)
+		//SET CLOTH SCALE X
+		// Vector2 scale = uiHPManaTool.clothHP.localScale;
+		// uiHPManaTool.clothHP.localScale = new Vector2 (healthThreshold, scale.y);
+
+		// //SET CLOTH POS X
+		// Vector2 pos = uiHPManaTool.clothHP.localPosition;
+		// float newPosX = (healthThreshold - 1f) / 2f;
+		// uiHPManaTool.clothHP.localPosition = new Vector2 (newPosX, pos.y);
+		#endregion
 	}
 }

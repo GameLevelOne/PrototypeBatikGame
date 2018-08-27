@@ -32,6 +32,11 @@ public class FishingPoolSystem : ComponentSystem {
 	}
 
 	void SpawnFish() {
+		if (fishingPool.maxSpawn == 0) {
+			fishingPool.isFinishSpawning = true;
+			return;
+		}
+
 		if (!fishingPool.isSpawning) {
 			fishingPool.TimeSpawn -= deltaTime;
 			
@@ -44,7 +49,8 @@ public class FishingPoolSystem : ComponentSystem {
 
 			Fish fish = newFish.GetComponent<Fish>();
 			fishingPool.fishList.Add(fish);
-			fish.parentPoolCol = fishingPool.fishingPoolCol;
+			fish.parentPoolCol = fishingPool.fishingPoolCol.GetComponent<Transform>();
+			fish.parentPoolRadius = fishingPool.fishingPoolCol.bounds.size.x / 2; //CIRCLE
 
 			newFish.SetActive(true);
 

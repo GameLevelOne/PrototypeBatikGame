@@ -168,9 +168,8 @@ public class DamageSystem : ComponentSystem {
 			} else {
 				if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
 					playerInputSystem.player.isHitAnEnemy = true;
+					health.EnemyHP -= currEnemy.damageReceive.damage;
 				}
-			
-				health.EnemyHP -= currEnemy.damageReceive.damage;
 			}
 			// currEnemy.isEnemyGetHurt = false;
 			currEnemy.damageReceive = null;

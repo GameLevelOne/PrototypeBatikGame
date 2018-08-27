@@ -64,6 +64,7 @@ public class ArmorEnemySystem : ComponentSystem {
 			}else if(currArmorEnemy.enemy.state == EnemyState.Attack){
 				if(currArmorEnemy.enemy.playerTransform == null){
 					currArmorEnemy.enemy.state = EnemyState.Idle;
+					currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 					currArmorEnemy.initRoll = false;
 					currArmorEnemy.startRoll = false;
 					currArmorEnemy.enemy.chaseIndicator.SetActive(false);
@@ -72,6 +73,7 @@ public class ArmorEnemySystem : ComponentSystem {
 		}else{
 			if(currArmorEnemy.enemy.state != EnemyState.Idle){
 				currArmorEnemy.enemy.state = EnemyState.Idle;
+				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.enemy.initPatrol = false;
 				currArmorEnemy.enemy.chaseIndicator.SetActive(false);

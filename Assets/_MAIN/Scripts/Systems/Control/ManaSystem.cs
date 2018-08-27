@@ -57,8 +57,6 @@ public class ManaSystem : ComponentSystem {
 		isManaFull = false;
 		isCheckingMana = false;
 		player.isUsingStand = true;
-
-		PrintMana();
 	}
 
 	void RegenMana () {
@@ -76,11 +74,5 @@ public class ManaSystem : ComponentSystem {
 		} else {
 			isManaFull = true;
 		}
-
-		PrintMana();
-	}
-
-	void PrintMana () {
-		mana.textMana.text = currMana.ToString();
 	}
 }

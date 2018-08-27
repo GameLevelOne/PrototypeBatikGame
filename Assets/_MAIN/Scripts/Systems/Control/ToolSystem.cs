@@ -161,48 +161,62 @@ public class ToolSystem : ComponentSystem {
 
 	public void UseTool ()
 	{
-		if (tool.currentTool == ToolType.Bow){
-			UseBow();
-		} else if (tool.currentTool == ToolType.Hook){
-			UseHook();
-		} else if (tool.currentTool == ToolType.Bomb){
-			UseBomb();
-		} else if (tool.currentTool == ToolType.Hammer){
-			UseHammer();
-		} else if (tool.currentTool == ToolType.Net){
-			UseNet();
-		} else if (tool.currentTool == ToolType.FishingRod){
-			UseFisingRod();
-		} else if (tool.currentTool == ToolType.Container1){
-			UseContainer1();
-		} else if (tool.currentTool == ToolType.Container2){
-			UseContainer2();
-		} else if (tool.currentTool == ToolType.Container3){
-			UseContainer3();
-		} else if (tool.currentTool == ToolType.Container4){
-			UseContainer4();
-		} else if (tool.currentTool == ToolType.Shovel){
-			UseShovel();
-		} else if (tool.currentTool == ToolType.Lantern){
-			UseLantern();
-		} else if (tool.currentTool == ToolType.InvisibilityCloak){
-			UseInvisibilityCloak();
-		} else if (tool.currentTool == ToolType.MagicMedallion){
-			UseMagicMedallion();
-		} else if (tool.currentTool == ToolType.FastTravel){
-			UseFastTravel();
-		} 
-		// else if (tool.currentTool == ToolType.PowerBracelet){
-		// 	UsePowerBracelet();
-		// } 
-		// else if (tool.currentTool == ToolType.Flippers){
-		// 	UseFlippers();
-		// } 
-		// else if (tool.currentTool == ToolType.Boots){
-		// 	UseBoots();
-		// }
-		
-		// input.isUsingTool = false;
+		switch (tool.currentTool) {
+			case ToolType.Bow:
+				UseBow();
+				break;
+			// case ToolType.Hook:
+			// 	UseHook();
+			// 	break;
+			case ToolType.Hammer:
+				UseHammer();
+				break;
+			// case ToolType.Net:
+			// 	UseNet();
+			// 	break;
+			case ToolType.FishingRod:
+				UseFisingRod();
+				break;
+			case ToolType.Container1:
+				UseContainer(0);
+				break;
+			case ToolType.Container2:
+				UseContainer(1);
+				break;
+			case ToolType.Container3:
+				UseContainer(2);
+				break;
+			case ToolType.Container4:
+				UseContainer(3);
+				break;
+			case ToolType.Shovel:
+				UseShovel();
+				break;
+			// case ToolType.Lantern:
+			// 	UseLantern();
+			// 	break;
+			// case ToolType.InvisibilityCloak:
+			// 	UseInvisibilityCloak();
+			// 	break;
+			case ToolType.MagicMedallion:
+				UseMagicMedallion();
+				break;
+			// case ToolType.FastTravel:
+			// 	UseFastTravel();
+			// 	break;
+			// case ToolType.PowerBracelet:
+			// 	UsePowerBracelet();
+			// 	break;
+			// case ToolType.Flippers:
+			// 	UseFlippers();
+			// 	break;
+			// case ToolType.Boots:
+			// 	UseBoots();
+			// 	break;
+			default :
+				Debug.Log("Player using unknown tool");
+				break;
+		}
 	}
 
 	void UseBow()
@@ -220,15 +234,15 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseHook()
 	{
-		Debug.Log("Using Hook");
-		//shoots projectile with rope. shoot in face direction. has range.
-		//if the projectiles reaches something, do thigs:
-		//1. enemy: pull the enemy towards player
-		//2. solid objects: pull player towards the object
+		// Debug.Log("Using Hook");
+		// //shoots projectile with rope. shoot in face direction. has range.
+		// //if the projectiles reaches something, do thigs:
+		// //1. enemy: pull the enemy towards player
+		// //2. solid objects: pull player towards the object
 		
-		//small damage to enemies
-		SpawnSlashEffect(toolType);
-		player.SetPlayerState(PlayerState.HOOK);
+		// //small damage to enemies
+		// SpawnSlashEffect(toolType);
+		// player.SetPlayerState(PlayerState.HOOK);
 	}
 	
 	void UseBomb()
@@ -256,9 +270,9 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseNet()
 	{
-		Debug.Log("Using Net");
-		//catch certain objects (land/air)
-		SpawnSlashEffect(toolType);
+		// Debug.Log("Using Net");
+		// //catch certain objects (land/air)
+		// SpawnSlashEffect(toolType);
 	}
 	
 	void UseFisingRod()
@@ -279,29 +293,35 @@ public class ToolSystem : ComponentSystem {
 	
 
 	//containers can store certain enemies or items. (caught enemies will be stored in containers)
-	void UseContainer1()
+	void UseContainer(int containerType)
 	{
-		Debug.Log("Using Container1");
-		containerSystem.UseCollectibleInContainer(0);
+		Debug.Log("Using Container " + containerType++);
+		containerSystem.UseCollectibleInContainer(containerType);
 	}
 	
-	void UseContainer2()
-	{
-		Debug.Log("Using Container2");
-		containerSystem.UseCollectibleInContainer(1);
-	}
+	// void UseContainer1()
+	// {
+	// 	Debug.Log("Using Container1");
+	// 	containerSystem.UseCollectibleInContainer(0);
+	// }
+
+	// void UseContainer2()
+	// {
+	// 	Debug.Log("Using Container2");
+	// 	containerSystem.UseCollectibleInContainer(1);
+	// }
 	
-	void UseContainer3()
-	{
-		Debug.Log("Using Container3");
-		containerSystem.UseCollectibleInContainer(2);
-	}
+	// void UseContainer3()
+	// {
+	// 	Debug.Log("Using Container3");
+	// 	containerSystem.UseCollectibleInContainer(2);
+	// }
 	
-	void UseContainer4()
-	{
-		Debug.Log("Using Container4");
-		containerSystem.UseCollectibleInContainer(3);
-	}
+	// void UseContainer4()
+	// {
+	// 	Debug.Log("Using Container4");
+	// 	containerSystem.UseCollectibleInContainer(3);
+	// }
 
 	void UseShovel()
 	{
@@ -312,30 +332,30 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseLantern()
 	{
-		Debug.Log("Using Lantern");
+		// Debug.Log("Using Lantern");
 
-		Lantern lantern = tool.GetObj(toolType).GetComponent<Lantern>();
+		// Lantern lantern = tool.GetObj(toolType).GetComponent<Lantern>();
 			
-		if (!lantern.isLightOn) {
-			lantern.isLightOn = true;
-		} else {
-			lantern.isLightOn = false;
-		}
+		// if (!lantern.isLightOn) {
+		// 	lantern.isLightOn = true;
+		// } else {
+		// 	lantern.isLightOn = false;
+		// }
 	}
 	
 	void UseInvisibilityCloak()
 	{
-		Debug.Log("Using Invisibility Cloak");
+		// Debug.Log("Using Invisibility Cloak");
 
-		Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
+		// Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
 
-		if (!player.isInvisible) {
-			player.isInvisible = true;
-			cloak.isInvisible = true;
-		} else {
-			player.isInvisible = false;	
-			cloak.isInvisible = false;
-		}
+		// if (!player.isInvisible) {
+		// 	player.isInvisible = true;
+		// 	cloak.isInvisible = true;
+		// } else {
+		// 	player.isInvisible = false;	
+		// 	cloak.isInvisible = false;
+		// }
 	}
 	
 	void UseMagicMedallion()
@@ -351,7 +371,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseFastTravel()
 	{
-		Debug.Log("Using Fast Travel");
+		// Debug.Log("Using Fast Travel");
 	}
 	
 	// void UsePowerBracelet(bool value)

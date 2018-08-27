@@ -103,6 +103,7 @@ public class BeeSystem : ComponentSystem {
 
 			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBee.enemy.patrolRange);
 			deltaTime = Time.deltaTime;
+			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			// currMonkeyAnim.Play(EnemyState.Patrol.ToString()); //NO
 		}else{
 			currBeeRigidbody.position = 
@@ -121,7 +122,6 @@ public class BeeSystem : ComponentSystem {
 
 	void Chase()
 	{
-		currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		if(currBee.enemy.isAttack){
 			currBee.enemy.state = EnemyState.Attack;
 			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
@@ -148,6 +148,7 @@ public class BeeSystem : ComponentSystem {
 		if(!currBee.enemy.initAttack){
 			if(!currBee.enemy.isAttack){
 				currBee.enemy.state = EnemyState.Chase;
+				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}else{
 				currBee.enemy.initAttack = true;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);

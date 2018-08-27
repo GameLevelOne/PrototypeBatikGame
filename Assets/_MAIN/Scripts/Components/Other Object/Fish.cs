@@ -14,10 +14,12 @@ public class Fish : MonoBehaviour {
 
 	public Animator anim;
 	public Collider2D selfCol;
-	public Collider2D parentPoolCol;
+	public Rigidbody2D rigidbody;
+	public Transform parentPoolCol;
 	public FishingRod fishingRod;
 
 	public Vector2 targetPos;
+	public float parentPoolRadius;
 	public float moveSpeed;
 	public float chaseSpeed;
 	public float fleeSpeed;

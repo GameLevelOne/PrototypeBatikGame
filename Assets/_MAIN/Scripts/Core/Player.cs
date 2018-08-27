@@ -36,20 +36,21 @@ public class Player : MonoBehaviour {
 
 	[SpaceAttribute(10f)]
 	public Damage damageReceive;
+    public bool isPlayerHit = false; 
+    public bool isHitAnEnemy = false;
+	public bool isPlayerGetHurt = false;
 	public bool isGuarding = false; 
-	public bool isParrying = false;
+	public bool isCanParry = false;
+	public bool isCanBulletTime = false;
 	public bool isUsingStand = false; //By Mana  
 	public bool isBouncing = false;
-	public bool isHitChestObject = false;
-	public bool isCanOpenChest = false;
 	public bool isMoveAttack = false;
-	    
-    public bool isPlayerHit = false; 
-	public bool isPlayerGetHurt = false;
-    public bool isHitAnEnemy = false;
-	public bool isBulletTiming = false;
+	// public bool isInvisible = false;
+	
+	[SpaceAttribute(10f)]
+	public bool isHitChestObject = false;
+	public bool isCanOpenChest = false;   
 	public bool isCanDigging = false;
-	public bool isInvisible = false;
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
 	
@@ -67,6 +68,23 @@ public class Player : MonoBehaviour {
 	void DamageCheck (Damage damage) {
 		damageReceive = damage;
 		isPlayerHit = true;
+
+		switch (damage.damageChar) {
+			case DamageCharacteristic.COUNTERABLE:
+				isCanBulletTime = true;
+				break;
+			case DamageCharacteristic.PARRYABLE:
+				isCanParry = true;
+				break;
+			case DamageCharacteristic.COUNTER_AND_PARRYABLE:
+				isCanBulletTime = true;
+				isCanParry = true;
+				break;
+			default: // DamageCharacteristic.NONE
+				isCanBulletTime = false;
+				isCanParry = false;
+				break;
+		}
 		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
