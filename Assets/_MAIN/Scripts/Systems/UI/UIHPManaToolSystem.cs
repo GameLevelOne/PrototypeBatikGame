@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+// using UnityEngine.UI;
 using Unity.Entities;
-using UnityEngine;
 
 public class UIHPManaToolSystem : ComponentSystem {
 	public struct UIHPManaToolData {
@@ -10,11 +9,15 @@ public class UIHPManaToolSystem : ComponentSystem {
 	}
 	[InjectAttribute] UIHPManaToolData uiHPManaToolData;
 
+	[InjectAttribute] UIPlayerInfoSystem uiPlayerInfoSystem;
+
 	UIHPManaTool uiHPManaTool;
 
 	bool isInitHPManaImage = false;
 	bool isReducingCloth = false;
 
+	float playerHP;
+	float playerMP;
 	float maxHP;
 	float maxMP;
 	float maxClothWidth;
@@ -51,6 +54,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 			healthReduceValue = uiHPManaTool.healthReduceValue;
 
 			PrintHP ();
+			DrawClothHP ();
 			PrintMana ();
 
 			isInitHPManaImage = true;
@@ -63,7 +67,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 		} else if (isReducingCloth) {
 			if (healthThreshold > currentClothWidth) {
 				healthThreshold -= healthReduceValue * Time.deltaTime;
-				PrintHP();
+				DrawClothHP();
 			} else {
 				isReducingCloth = false;
 			}
@@ -77,27 +81,34 @@ public class UIHPManaToolSystem : ComponentSystem {
 	}
 
 	public void ReduceCloth () {
-		float playerHP = uiHPManaTool.playerHealth.PlayerHP;
+		playerHP = uiHPManaTool.playerHealth.PlayerHP;
 		// Debug.Log(playerHP);
 		currentClothWidth = (playerHP/maxHP) * maxClothWidth;
 		isReducingCloth = true;
 		uiHPManaTool.isHPChange = false;
+		PrintHP ();
+	}
+
+	void PrintHP () {
+		uiPlayerInfoSystem.PrintHP(playerHP.ToString()+" / "+maxHP);
 	}
 
 	public void PrintMana () {
-		float playerMP = uiHPManaTool.playerMana.PlayerMP;
+		playerMP = uiHPManaTool.playerMana.PlayerMP;
 		// Debug.Log("maxMP "+maxMP);
 		// Debug.Log("playerMP "+playerMP);
 		uiHPManaTool.imageMana.fillAmount = playerMP/maxMP;
 		uiHPManaTool.isMPChange = false;
+		uiPlayerInfoSystem.PrintMP(playerMP.ToString()+" / "+maxMP);
 	}
 
-	public void PrintTool (Sprite toolSprite) {
+	public void PrintTool (Sprite toolSprite, string toolName) {
 		uiHPManaTool.imageTool.sprite = toolSprite;
 		// Debug.Log(toolSprite.name);
+		uiPlayerInfoSystem.PrintTool(toolName);
 	}
 
-	void PrintHP () {
+	void DrawClothHP () {
 		//SET CLOTH POS X
 		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold + initClothPos, 0f);
 		// Debug.Log(uiHPManaTool.clothHP.rectTransform.localPosition);

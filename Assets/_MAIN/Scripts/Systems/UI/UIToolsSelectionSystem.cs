@@ -98,7 +98,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	public void SetPrintedTool () {
-		uiHPManaToolSystem.PrintTool(toolImages[0].sprite);
+		uiHPManaToolSystem.PrintTool(toolImages[0].sprite, tool.currentTool.ToString());
 		// Debug.Log(toolImages[0].sprite.name);
 	}
 
