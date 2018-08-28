@@ -398,17 +398,17 @@ public class ToolSystem : ComponentSystem {
 	// 	flippers.isEquipped = value;
 	// }
 	
-	void UseBoots()
-	{
-		Debug.Log("Using Boots");
+	// void UseBoots()
+	// {
+		// Debug.Log("Using Boots");
 		
 		//allow dash attack
 		//dash straight until hit an obstacle
 		//bounce back on impact
 		
 		// tool.SpawnSlashEffect(toolType);
-		player.SetPlayerState(PlayerState.DASH);
-	}
+		// player.SetPlayerState(PlayerState.DASH);
+	// }
 
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {

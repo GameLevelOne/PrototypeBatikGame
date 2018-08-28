@@ -6,6 +6,7 @@ public class UIToolsSelection : MonoBehaviour {
 	public PlayerTool tool;
 	
 	// public Text textToolName;
+	public GameObject panelToolsSelection;
 	public CanvasGroup canvasToolsGroup;
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;

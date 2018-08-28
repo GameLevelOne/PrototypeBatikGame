@@ -28,7 +28,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	int changeIndex = 0;
 	bool isInitToolImage = false;
 	bool isShowingTools = false;
-	// bool isUpdateList = true;
+	bool isActivatingPlayerInfo = false;
 	float deltaTime;
 	float showTime;
 	float showDuration;
@@ -64,9 +64,12 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 			if (!isInitToolImage) {
 				InitImages (false);
-				isShowingTools = true;
+
 				showTime = 0f;
 				alphaValue = 0f;
+				uiToolsSelection.canvasToolsGroup.alpha = 0f;
+				uiToolsSelection.panelToolsSelection.SetActive(false);
+				isShowingTools = true;
 				
 				isInitToolImage = true;
 			}
@@ -171,7 +174,12 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckShowingTools () {
 		if (isShowingTools) {
-			ShowTools ();
+			if (!isActivatingPlayerInfo) {
+				uiToolsSelection.panelToolsSelection.SetActive(true);
+				isActivatingPlayerInfo = true;
+			} else {
+				ShowTools ();
+			}
 		} else {
 			HideTools ();
 		}
@@ -194,6 +202,9 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		if (alphaValue > 0f) {
 			alphaValue -= deltaTime * hideMultiplier;
 			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+		} else {
+			uiToolsSelection.panelToolsSelection.SetActive(false);
+			isActivatingPlayerInfo = false;
 		}
 	}
 	
