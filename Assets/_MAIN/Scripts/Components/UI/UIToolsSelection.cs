@@ -12,6 +12,8 @@ public class UIToolsSelection : MonoBehaviour {
 
 	public bool isToolChange = false;
 	public float showDuration;
+	public float showMultiplier;
+	public float hideMultiplier;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
@@ -21,6 +23,7 @@ public class UIToolsSelection : MonoBehaviour {
 	public int changeIndex = 0; 
 
 	public List<int> toolIndexes;
+	public bool[] checker;
 
 	public void OnClickNextToolsSelection () {
 		changeIndex = 1; 

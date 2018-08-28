@@ -28,13 +28,25 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	int changeIndex = 0;
 	bool isInitToolImage = false;
 	bool isShowingTools = false;
+	// bool isUpdateList = true;
 	float deltaTime;
 	float showTime;
 	float showDuration;
+	float showMultiplier;
+	float hideMultiplier;
 	float alphaValue;
 
 	protected override void OnUpdate () {
 		if (uiToolsSelectionData.Length == 0) return;
+		
+		// if (GameStatus.Bool.IsPauseGame) {
+		// 	// isUpdateList = false;
+		// 	return;
+		// } 
+		// else {			
+		// 	// CheckToolIndexes ();
+		// 	Debug.Log("Game Is Running");
+		// }
 
 		deltaTime = Time.deltaTime;
 
@@ -47,11 +59,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			toolSprites = uiToolsSelection.arrayOfToolSprites;
 			toolImages = uiToolsSelection.arrayOfToolImages;
 			showDuration = uiToolsSelection.showDuration;
+			showMultiplier = uiToolsSelection.showMultiplier;
+			hideMultiplier = uiToolsSelection.hideMultiplier;
 
 			if (!isInitToolImage) {
-				InitImages ();
+				InitImages (false);
 				isShowingTools = true;
 				showTime = 0f;
+				alphaValue = 0f;
+				
+				isInitToolImage = true;
 			}
 
 			CheckAnimation ();
@@ -70,18 +87,42 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		}
 	}
 
-	void InitImages () {
+	public void InitImages (bool isUpdatedList) {
 		uiToolsSelection.toolIndexes = new List<int>();
 
-		for (int i=0; i<toolSprites.Length; i++) {
-			if (tool.CheckIfToolHasBeenUnlocked(i) > 0) {
-				// toolImages[i].sprite = toolSprites[i];
-				uiToolsSelection.toolIndexes.Add(i);
+		if (!isUpdatedList) {
+			for (int i=0; i<toolSprites.Length; i++) {
+				if (tool.CheckIfToolHasBeenUnlocked(i) > 0) {
+					uiToolsSelection.toolIndexes.Add(i);
+				}
 			}
-		}
 		
-		SetImages();
-		isInitToolImage = true;
+			SetImages();
+		} else {
+			// int whileIdx = 0;
+			int tempIdx = (int) tool.currentTool;
+			uiToolsSelection.checker = new bool[toolSprites.Length];
+			
+			while (uiToolsSelection.checker[tempIdx] != true) {
+				if (!uiToolsSelection.checker[tempIdx]) {
+					if (tool.CheckIfToolHasBeenUnlocked(tempIdx) > 0) {
+						uiToolsSelection.toolIndexes.Add(tempIdx);
+						Debug.Log("Add");
+					}
+					
+					uiToolsSelection.checker[tempIdx] = true;
+					Debug.Log("Check : "+tempIdx+" "+uiToolsSelection.checker[tempIdx]);
+
+					if (tempIdx >= (int) ToolType.Boots) {
+						tempIdx = 0;
+					} else {
+						tempIdx++;
+					}
+				}
+			}
+
+			ResetChange();
+		}
 	}
 
 	void SetImages () {
@@ -97,9 +138,35 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		}
 	}
 
+	void CheckToolIndexes () {
+		// if (!isUpdateList) {
+		// 	if (uiToolsSelection.toolIndexes[0] != (int) tool.currentTool) {
+		// 		int tempIdx = (int) tool.currentTool;
+		// 		bool[] checker = new bool[uiToolsSelection.toolIndexes.Count];
+		// 		List<int> tempList = uiToolsSelection.toolIndexes;
+
+		// 		uiToolsSelection.toolIndexes = new List<int>();
+
+		// 		for (int i=0; i<checker.Length; i++) {
+		// 			if (!checker[i]) {
+		// 				uiToolsSelection.toolIndexes[i] = 1;
+		// 				checker[i] = true;
+
+		// 				if (tempIdx >= (int) ToolType.Boots) {
+		// 					tempIdx = 1;
+		// 				} else {
+		// 					tempIdx++;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+			
+		// 	isUpdateList = true;
+		// }
+	}
+
 	public void SetPrintedTool () {
 		uiHPManaToolSystem.PrintTool(toolImages[0].sprite, tool.currentTool.ToString());
-		// Debug.Log(toolImages[0].sprite.name);
 	}
 
 	void CheckShowingTools () {
@@ -111,12 +178,12 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void ShowTools () {
-		if (alphaValue < 1) {
-			alphaValue += Time.deltaTime * 5f;
+		if (alphaValue < 1f) {
+			alphaValue += deltaTime * showMultiplier;
 			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
 		} else {
 			if (showTime < showDuration) {
-				showTime += Time.deltaTime;
+				showTime += deltaTime;
 			} else {
 				isShowingTools = false;
 			}
@@ -124,8 +191,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void HideTools () {
-		if (alphaValue > 0) {
-			alphaValue -= Time.deltaTime;
+		if (alphaValue > 0f) {
+			alphaValue -= deltaTime * hideMultiplier;
 			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
 		}
 	}

@@ -34,31 +34,36 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 		for (int i=0; i<uiHPManaToolData.Length; i++) {
 			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];
+			
+			
+			if (!isInitHPManaImage) {
+				try {
+					CheckInit ();
+				} catch {
+					return;
+				}
 
-			CheckInit ();
+				isInitHPManaImage = true;
+			}
+
 			CheckHP ();
 			CheckMP ();
 		}
 	}
 
 	void CheckInit () {
-		if (!isInitHPManaImage) {
-			maxHP = uiHPManaTool.player.MaxHP;
-			maxMP = uiHPManaTool.player.MaxMP;
-			maxClothWidth = uiHPManaTool.clothHP.rectTransform.sizeDelta.x;
-			initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x * 3;
+		maxHP = uiHPManaTool.player.MaxHP;
+		maxMP = uiHPManaTool.player.MaxMP;
+		maxClothWidth = uiHPManaTool.clothHP.rectTransform.sizeDelta.x;
+		initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x * 3;
+		
+		healthThreshold = currentClothWidth;
+		healthReduceValue = uiHPManaTool.healthReduceValue;
 
-			ReduceCloth ();
-			
-			healthThreshold = currentClothWidth;
-			healthReduceValue = uiHPManaTool.healthReduceValue;
-
-			PrintHP ();
-			DrawClothHP ();
-			PrintMana ();
-
-			isInitHPManaImage = true;
-		}
+		ReduceCloth ();
+		// PrintHP ();
+		DrawClothHP ();
+		PrintMana ();
 	}
 
 	void CheckHP () {
