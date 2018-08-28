@@ -25,6 +25,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	bool isShowingInfo = false;
 	bool isAfterPressPause = false;
 	bool isActivatingPlayerInfo = false;
+	bool isInitShowInfo = false;
 	// int timeSwitch = 1;
 	int usedToolNSummonIdx;
 	int selectedToolNSummonIdx;
@@ -70,6 +71,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			Time.timeScale = 1;
 		}
 
+		uiInfo.canvasInfoGroup.alpha = 0f;
 		uiInfo.panelUIInfo.SetActive(false);
 		InitTool ();
 	}
@@ -93,6 +95,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			// uiInfo.panelUIInfo.SetActive(isShowingInfo);
 			
 			if (isShowingInfo) {
+				isInitShowInfo = false;
 				CheckActiveTool ();
 			} else {
 				Time.timeScale = 1;
@@ -202,11 +205,14 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void ShowTools () {
-		if (alphaValue < 1f) {
-			alphaValue += deltaTime * showMultiplier;
-			uiInfo.canvasInfoGroup.alpha = alphaValue;
-		} else {
-			Time.timeScale = 0;
+		if (!isInitShowInfo) {
+			if (alphaValue < 1f) {
+				alphaValue += deltaTime * showMultiplier;
+				uiInfo.canvasInfoGroup.alpha = alphaValue;
+			} else {
+				Time.timeScale = 0;
+				isShowingInfo = true;
+			}
 		}
 	}
 

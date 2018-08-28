@@ -168,6 +168,9 @@ public class ToolSystem : ComponentSystem {
 			// case ToolType.Hook:
 			// 	UseHook();
 			// 	break;
+			case ToolType.Bomb:
+				UseBomb();
+				break;
 			case ToolType.Hammer:
 				UseHammer();
 				break;
@@ -214,7 +217,7 @@ public class ToolSystem : ComponentSystem {
 			// 	UseBoots();
 			// 	break;
 			default :
-				Debug.Log("Player using unknown tool");
+				Debug.Log("Player using unknown tool : "+tool.currentTool);
 				break;
 		}
 	}

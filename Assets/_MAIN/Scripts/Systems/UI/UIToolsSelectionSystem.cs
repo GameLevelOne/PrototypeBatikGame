@@ -236,11 +236,11 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void CheckStartAnimation () {
-		Debug.Log("CheckStartAnimation");
+		// Debug.Log("CheckStartAnimation");
 	}
 
 	void CheckEndAnimation () {
-		Debug.Log("CheckEndAnimation");
+		// Debug.Log("CheckEndAnimation");
 		ResetChange ();
 	}
 
