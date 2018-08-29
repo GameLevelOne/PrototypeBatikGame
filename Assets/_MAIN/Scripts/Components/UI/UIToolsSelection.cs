@@ -6,12 +6,15 @@ public class UIToolsSelection : MonoBehaviour {
 	public PlayerTool tool;
 	
 	// public Text textToolName;
+	public GameObject panelToolsSelection;
 	public CanvasGroup canvasToolsGroup;
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;
 
 	public bool isToolChange = false;
 	public float showDuration;
+	public float showMultiplier;
+	public float hideMultiplier;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
@@ -21,6 +24,7 @@ public class UIToolsSelection : MonoBehaviour {
 	public int changeIndex = 0; 
 
 	public List<int> toolIndexes;
+	public bool[] checker;
 
 	public void OnClickNextToolsSelection () {
 		changeIndex = 1; 

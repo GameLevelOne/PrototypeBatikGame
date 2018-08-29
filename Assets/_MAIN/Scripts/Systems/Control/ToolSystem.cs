@@ -30,7 +30,7 @@ public class ToolSystem : ComponentSystem {
 
 	PlayerState state;
 
-	int toolType;
+	// int toolType;
 	bool isInitCurrentTool = false;
 
 	protected override void OnUpdate()
@@ -120,7 +120,7 @@ public class ToolSystem : ComponentSystem {
 		}
 		tool.currentTool = (ToolType) current;
 		
-		if (!CheckIfToolHasBeenUnlocked(current)) {
+		if (!CheckIfToolHasBeenUnlocked((int) tool.currentTool)) {
 			PrevTool ();
 		}
 		
@@ -129,7 +129,7 @@ public class ToolSystem : ComponentSystem {
 
 	bool CheckIfToolHasBeenUnlocked (int type) {
 		if (tool.CheckIfToolHasBeenUnlocked(type) > 0) {
-			toolType = type;
+			// toolType = type;
 			// tool.textToolName.text = ((ToolType) toolType).ToString();
 			// CheckPowerBracelet();
 			// CheckFlipper();
@@ -168,6 +168,9 @@ public class ToolSystem : ComponentSystem {
 			// case ToolType.Hook:
 			// 	UseHook();
 			// 	break;
+			case ToolType.Bomb:
+				UseBomb();
+				break;
 			case ToolType.Hammer:
 				UseHammer();
 				break;
@@ -214,7 +217,7 @@ public class ToolSystem : ComponentSystem {
 			// 	UseBoots();
 			// 	break;
 			default :
-				Debug.Log("Player using unknown tool");
+				Debug.Log("Player using unknown tool : "+tool.currentTool);
 				break;
 		}
 	}
@@ -229,7 +232,7 @@ public class ToolSystem : ComponentSystem {
 		//can break certain objects.
 
 		//medium damage to enemies
-		SpawnSlashEffect(toolType);
+		SpawnSlashEffect((int) tool.currentTool);
 	}
 	
 	void UseHook()
@@ -254,7 +257,7 @@ public class ToolSystem : ComponentSystem {
 		//limited amount
 
 		//big damage to enemies
-		SpawnSlashEffect(toolType);
+		SpawnSlashEffect((int) tool.currentTool);
 		player.SetPlayerIdle();
 	}
 	
@@ -265,7 +268,7 @@ public class ToolSystem : ComponentSystem {
 		//break some enemy armor
 		
 		//small damage to enemy
-		SpawnSlashEffect(toolType);
+		SpawnSlashEffect((int) tool.currentTool);
 	}
 	
 	void UseNet()
@@ -280,7 +283,7 @@ public class ToolSystem : ComponentSystem {
 		Debug.Log("Using Fishing Rod");
 		//catch water object
 		//mini game fishing when triggered
-		FishingRod fishingRod = tool.GetObj(toolType).GetComponent<FishingRod>();
+		FishingRod fishingRod = tool.GetObj((int) tool.currentTool).GetComponent<FishingRod>();
 		FishingRodState fishingState = fishingRod.state;
 
 		if (!fishingRod.isBaitLaunched && fishingState == FishingRodState.IDLE) {
@@ -327,7 +330,7 @@ public class ToolSystem : ComponentSystem {
 	{
 		Debug.Log("Using Shovel");
 		//dig items from ground
-		SpawnSlashEffect(toolType);
+		SpawnSlashEffect((int) tool.currentTool);
 	}
 	
 	void UseLantern()
@@ -366,7 +369,7 @@ public class ToolSystem : ComponentSystem {
 		//affect some objects (destroy objects)
 
 		//big damage
-		SpawnSlashEffect(toolType);
+		SpawnSlashEffect((int) tool.currentTool);
 	}
 	
 	void UseFastTravel()
@@ -395,17 +398,17 @@ public class ToolSystem : ComponentSystem {
 	// 	flippers.isEquipped = value;
 	// }
 	
-	void UseBoots()
-	{
-		Debug.Log("Using Boots");
+	// void UseBoots()
+	// {
+		// Debug.Log("Using Boots");
 		
 		//allow dash attack
 		//dash straight until hit an obstacle
 		//bounce back on impact
 		
 		// tool.SpawnSlashEffect(toolType);
-		player.SetPlayerState(PlayerState.DASH);
-	}
+		// player.SetPlayerState(PlayerState.DASH);
+	// }
 
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {

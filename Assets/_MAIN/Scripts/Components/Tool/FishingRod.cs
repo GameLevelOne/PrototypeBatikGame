@@ -44,7 +44,8 @@ public class FishingRod : MonoBehaviour {
 
 					fish.fishingRod = this;
 					fish.targetPos = this.transform.position;
-					fish.state = FishState.CHASE;
+					fish.state = FishState.THINK;
+					// fish.state = FishState.CHASE;
 					// Debug.Log("Set Chase"); 
 
 					isBaitFish = true;

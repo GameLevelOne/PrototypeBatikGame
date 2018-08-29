@@ -12,12 +12,20 @@ public class FishSystem : ComponentSystem {
 
 	Fish fish;
 	
+	FishCharacteristic fishChar;
 	FishState state;
 	Rigidbody2D rigidbody;
 	Animator anim;
 	
-	float timer;
+	float waitingTimer = 0f;
+	float randomWaitingDuration;
+	int randomTryingGrabTime;
+	float catchTimer = 0f;
 	float deltaTime;
+
+	Vector2 readyPos;
+
+	bool isInitThinking = false;
 
 	protected override void OnUpdate () {
 		if (fishCollectibleData.Length == 0) return;
@@ -27,6 +35,7 @@ public class FishSystem : ComponentSystem {
 		for (int i=0; i<fishCollectibleData.Length; i++) {
 			fish = fishCollectibleData.Fish[i];
 			
+			fishChar = fish.fishChar;
 			rigidbody = fish.rigidbody;
 			state = fish.state;
 			anim = fish.anim;
@@ -35,10 +44,16 @@ public class FishSystem : ComponentSystem {
 				Idle ();
 			} else if (state == FishState.PATROL) {
 				Patrol ();
+			} else if (state == FishState.THINK) {
+				Think ();
+			} else if (state == FishState.WAIT) {
+				Wait ();
+			} else if (state == FishState.TRYINGGRAB) {
+				TryingGrab ();
 			} else if (state == FishState.CHASE) {
 				ChaseBait ();
 			} else if (state == FishState.CATCH) {
-				WaitingToCatch ();
+				Catching ();
 			} else if (state == FishState.FLEE) {
 				Flee ();
 			}
@@ -46,51 +61,131 @@ public class FishSystem : ComponentSystem {
 	}
 
 	void Idle () {
-		if (fish.TimeIdle <= 0f) {
-			fish.targetPos = RandomPosition ();
-			fish.state = FishState.PATROL;
-			anim.Play(FishState.CHASE.ToString());
+		if (!fish.initIdle) {
+			anim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			randomWaitingDuration = 0f;
+			// randomTryingGrabTime = 0;
+			readyPos = Vector2.zero;
+			isInitThinking = false;
+			fish.initIdle = true;
 		} else {
-			fish.TimeIdle -= deltaTime;
+			if (fish.TimeIdle <= 0f) {
+				fish.targetPos = RandomPosition ();
+				fish.state = FishState.PATROL;
+				anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			} else {
+				fish.TimeIdle -= deltaTime;
+			}
 		}
 	}
 
 	void Patrol () {
-		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
+		if (isObjReachDestination(fish.targetPos, rigidbody.position)) {
 			fish.TimeIdle = fish.idleDuration;
 			fish.state = FishState.IDLE;
-			anim.Play(FishState.IDLE.ToString());
+			fish.initIdle = false;
 		} else {
 			Move (rigidbody.position, fish.targetPos, fish.moveSpeed);
 		}
 	}
 
+	void Think () {
+		if (!isInitThinking) {
+			randomWaitingDuration = Random.Range(0f, fish.maxWaitingDuration);
+			isInitThinking = true;
+		} else {
+			switch (fishChar) {
+				case FishCharacteristic.CALM: 
+					fish.state = FishState.WAIT;
+					anim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+					isInitThinking = false;
+					break;
+				case FishCharacteristic.WILD:
+					int tempRandom = Random.Range(0, fish.maxTryingGrabTimes);
+					randomTryingGrabTime = tempRandom % 2 == 0 ? tempRandom : tempRandom++;
+					// randomTryingGrabTime = fish.randomTryingGrabTime;
+					readyPos = rigidbody.position;
+					fish.state = FishState.TRYINGGRAB;
+					anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+					isInitThinking = false;
+					break;
+				default:
+					fish.state = FishState.CHASE;
+					anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+					isInitThinking = false;
+					break;
+			}
+		}
+	}
+
+	void Wait () {
+		if (waitingTimer < randomWaitingDuration) {
+			waitingTimer += Time.deltaTime;
+		} else {
+			fish.state = FishState.CHASE;
+			anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			waitingTimer = 0f;
+		}
+	}
+
+	void TryingGrab () {
+		if (waitingTimer < randomWaitingDuration) {
+			waitingTimer += Time.deltaTime;
+		} else {
+			Debug.Log("end waiting");
+			// if (randomTryingGrabTime > 0) {
+			// 	if (randomTryingGrabTime % 2 == 0) {
+			// 		if (isObjReachDestination(fish.targetPos, rigidbody.position)) {
+			// 			randomTryingGrabTime--;
+			// 			Debug.Log("go to : "+readyPos);
+			// 			return;
+			// 		} else {
+			// 			Move (rigidbody.position, fish.targetPos, fish.moveSpeed);
+			// 		}
+			// 	} else {
+			// 		if (isObjReachDestination(readyPos, rigidbody.position)) {
+			// 			fish.randomTryingGrabTime--;
+			// 			Debug.Log("go to : "+fish.targetPos);
+			// 			return;
+			// 		} else {
+			// 			Move (rigidbody.position, readyPos, fish.moveSpeed);
+			// 		}
+			// 	}
+			// } else {
+				fish.state = FishState.CHASE;
+				anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				waitingTimer = 0f;
+			// }
+		}
+	}
+
 	void ChaseBait () {
-		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
+		if (isObjReachDestination(fish.targetPos, rigidbody.position)) {
 			fish.state = FishState.CATCH;
-			anim.Play(FishState.IDLE.ToString());
+			anim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		} else {
 			Move (rigidbody.position, fish.targetPos, fish.chaseSpeed);
 		}
 	}
 
-	void WaitingToCatch () {
-		if (timer < fish.timeToCatch) {
-			timer += deltaTime;
+	void Catching () {
+		if (catchTimer < fish.timeToCatch) {
+			catchTimer += deltaTime;
 		} else {
-			timer = 0f;
+			catchTimer = 0f;
 			fish.selfCol.enabled = false;
 			fish.targetPos = RandomPosition ();
 			fish.state = FishState.FLEE;
-			anim.Play(FishState.CHASE.ToString());
+			anim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 		}
 	}
 
 	void Flee () {
-		if (Vector2.Distance(fish.targetPos, rigidbody.position) < 0.1f) {
+		if (isObjReachDestination(fish.targetPos, rigidbody.position)) {
 			fish.TimeIdle = fish.idleDuration;
 			fish.selfCol.enabled = true;
 			fish.state = FishState.IDLE;
+			fish.initIdle = false;
 		} else {
 			Move (rigidbody.position, fish.targetPos, fish.fleeSpeed);
 		}
@@ -119,6 +214,14 @@ public class FishSystem : ComponentSystem {
 		float randomY = poolPos.y + Random.Range(-poolRadius, poolRadius);
 		
 		return new Vector2 (randomX, randomY);
+	}
+
+	bool isObjReachDestination (Vector2 destinationPos, Vector2 currentPos) {
+		if (Vector2.Distance(destinationPos, currentPos) < 0.1f) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/// <summary>
