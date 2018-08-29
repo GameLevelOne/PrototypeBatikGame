@@ -55,7 +55,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 		maxHP = uiHPManaTool.player.MaxHP;
 		maxMP = uiHPManaTool.player.MaxMP;
 		maxClothWidth = uiHPManaTool.clothHP.rectTransform.sizeDelta.x;
-		initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x;
+		// initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x;
+		initClothPos = maxClothWidth / 2;
 		
 		healthThreshold = currentClothWidth;
 		healthReduceValue = uiHPManaTool.healthReduceValue;
@@ -115,7 +116,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		//SET CLOTH POS X
-		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold + initClothPos, 0f);
+		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
 		// Debug.Log(initClothPos);
 
 		#region OLD (Using Shader Plugin)

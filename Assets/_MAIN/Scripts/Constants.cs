@@ -69,6 +69,9 @@ public static class Constants {
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
+
+		public const string NPC = "NPC";
+		public const string PLAYER_INTERACT = "Player Interact";
 	}
 
 	public static class PlayerPrefKey
