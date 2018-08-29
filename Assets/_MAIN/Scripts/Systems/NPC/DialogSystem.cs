@@ -90,7 +90,7 @@ public class DialogSystem : ComponentSystem {
 
 	void CheckNPCIdleDialog () {
 		if (!isShowingDialog) {
-			dialog.dialogIndex = GetRandomIndexType(currentState);
+			dialog.dialogIndex = Random.Range(0, dialog.idleDialogs.Length);
 			SetList (GetDialogStringType(currentState, dialog.dialogIndex));			
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
@@ -106,7 +106,8 @@ public class DialogSystem : ComponentSystem {
 
 	void CheckNPCInteractDialog () {
 		if (!isShowingDialog) {
-			dialog.dialogIndex = GetRandomIndexType(currentState);
+			Debug.Log(currentNPC.InteractIndex);
+			dialog.dialogIndex = currentNPC.InteractIndex;
 			SetList (GetDialogStringType(currentState, dialog.dialogIndex));			
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
@@ -119,6 +120,10 @@ public class DialogSystem : ComponentSystem {
 		} else {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 				HideDialog ();
+
+				if (currentNPC.InteractIndex < dialog.interactDialogs.Length-1) {
+					currentNPC.InteractIndex++;
+				}
 			}
 			// if (showDialogTime < showDialogDuration) {
 			// 	dialog.showDialogTime += deltaTime;
@@ -128,17 +133,9 @@ public class DialogSystem : ComponentSystem {
 		}
 	}
 
-	int GetRandomIndexType (NPCState state) {
-		switch (state) {
-			case NPCState.IDLE:
-				return Random.Range(0, dialog.idleDialogs.Length);
-			case NPCState.INTERACT:
-				return Random.Range(0, dialog.interactDialogs.Length);
-			default:
-				return 0;
-		}
-	}
+	void GetInteractIndexType () {
 
+	}
 
 	string GetDialogStringType (NPCState state, int dialogIdx) {
 		switch (state) {

@@ -11,13 +11,36 @@ public enum NPCState {
 }
 
 public class NPC : MonoBehaviour {
+	public string npcName;
 	public NPCCharacteristic npcChar;
 	public NPCState state;
-
 	public Dialog dialog;
 
+	[SpaceAttribute(10f)]
 	[SerializeField] bool isInteracting; //TEMP Public
+	string savedStr;
 	
+	[HeaderAttribute("Testing")]
+	public bool isTestNPC = false;
+
+
+	void Awake () { //TEMP
+		if (isTestNPC) {
+			InteractIndex = 0;
+		} 
+	}
+	public int InteractIndex {
+		get {
+			savedStr = Constants.NPCPrefKey.NPC_INTERACT_STATE + npcName;
+
+			return PlayerPrefs.GetInt(Constants.NPCPrefKey.NPC_INTERACT_STATE, 0);}
+		set {
+			savedStr = Constants.NPCPrefKey.NPC_INTERACT_STATE + npcName;
+
+			PlayerPrefs.SetInt(Constants.NPCPrefKey.NPC_INTERACT_STATE, value);
+		}
+	}
+
 	public bool IsInteracting {
 		get {return isInteracting;}
 		set {

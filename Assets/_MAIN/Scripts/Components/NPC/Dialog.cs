@@ -24,9 +24,9 @@ public class Dialog : MonoBehaviour {
 	};
 	
 	public string[] interactDialogs = new string[] {
-		"Welcome to JavaTale",
-		"Are you ready for next dungeon ?",
-		"Good luck and have fun !"
+		"1. Welcome to JavaTale",
+		"2. Are you ready for next dungeon ?",
+		"3. Good luck and have fun !"
 	};
 
 	public List<string> letterList;

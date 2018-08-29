@@ -1785,12 +1785,12 @@ GameObject:
   - component: {fileID: 319968232}
   - component: {fileID: 319968231}
   m_Layer: 5
-  m_Name: Canvas UI Gameplay
+  m_Name: Canvas UI Gameplay OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &319968231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2436,7 +2436,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1412254001702594, guid: 303525bfb6dc1594f9f1664e7301c3dc, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303525bfb6dc1594f9f1664e7301c3dc, type: 2}
@@ -2828,10 +2828,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a83dbc90e38e8438d4c7faad522d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcName: NPC1
   npcChar: 1
   state: 0
   dialog: {fileID: 575663456}
   isInteracting: 0
+  isTestNPC: 0
 --- !u!136 &575663458
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4822,7 +4824,7 @@ Prefab:
       objectReference: {fileID: 267917369}
     - target: {fileID: 1945007987741056, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
@@ -6555,7 +6557,7 @@ Prefab:
       objectReference: {fileID: 308666129}
     - target: {fileID: 1137321986040422, guid: 9a9c3e2231b908a4a8d150ae64baef21, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9c3e2231b908a4a8d150ae64baef21, type: 2}
@@ -8227,10 +8229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a83dbc90e38e8438d4c7faad522d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcName: NPC0
   npcChar: 1
   state: 0
   dialog: {fileID: 1843587436}
   isInteracting: 0
+  isTestNPC: 0
 --- !u!114 &1843587433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8405,7 +8409,7 @@ Prefab:
       objectReference: {fileID: 267917369}
     - target: {fileID: 1652031930848008, guid: fd923c2a013a1cc49b003dcb211e2a43, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd923c2a013a1cc49b003dcb211e2a43, type: 2}

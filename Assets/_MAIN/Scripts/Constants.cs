@@ -101,6 +101,10 @@ public static class Constants {
 		public const string PLAYER_TOOL_FLIPPERS = "Player/Tool/Flippers";
 		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
 	}
+	
+	public static class NPCPrefKey {
+		public const string NPC_INTERACT_STATE = "NPC/InteractState/";
+	}
 
 	public static class BlendTreeName
 	{
