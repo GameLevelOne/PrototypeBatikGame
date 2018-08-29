@@ -8,8 +8,10 @@ public class Dialog : MonoBehaviour {
 	public Text textDialog;
 
 	public int dialogIndex;
+	public int letterIndex;
 	public float showDialogDuration;
 	public float showDialogTime;
+	public float dialogTime;
 	public float showDialogDelay;
 	public bool isInitShowingDialog;
 	public bool isShowingDialog;

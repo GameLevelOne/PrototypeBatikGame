@@ -25,10 +25,10 @@ public class NPCSystem : ComponentSystem {
 	}
 
 	void CheckNPCInteraction () {
-		if (currentState == NPCState.INTERACTING) {
-			if (!currentNPC.isInteracting) {
+		if (currentState == NPCState.INTERACT) {
+			if (!currentNPC.IsInteracting) {
 				Debug.Log(currentNPC.gameObject.name + "is interacting");
-				currentNPC.isInteracting = true;
+				currentNPC.IsInteracting = true;
 			}
 		}
 	}

@@ -13,7 +13,7 @@ public class PlayerInteract : MonoBehaviour {
 
 			Debug.Log("NPC "+col.name+" is "+currentNPC.npcChar);
 			if (currentNPC.npcChar == NPCCharacteristic.TALKABLE) {
-				currentNPC.state = NPCState.INTERACTING;
+				currentNPC.state = NPCState.INTERACT;
 			}
 		}
 	}

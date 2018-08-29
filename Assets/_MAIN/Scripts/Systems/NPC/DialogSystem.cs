@@ -15,16 +15,23 @@ public class DialogSystem : ComponentSystem {
 	
 	NPCState currentState;
 
+	float showDialogTime;
 	float showDialogDuration;
 	float showDialogDelay;
 	float deltaTime;
 	float timer;
 
-	bool isInitShowingDialog;
+	// int dialogIndex;
+	int letterIndex;
+	// int listEndIdx;
+	// int listCount;
 
-	// bool isFinishShowingDialog;
-	string testStr = "Hello World";
-	string blackColor = "000000ff";
+	bool isInitShowingDialog;
+	bool isShowingDialog = false;
+
+	bool isFinishShowingDialog;
+	// string testStr = "Hello World";
+	// string blackColor = "000000ff";
 	string transparentColor = "00000000";
 	string[] tag = new string[]{"<color=#", ">", "</color>"};
 	char[] tempChar;
@@ -42,18 +49,18 @@ public class DialogSystem : ComponentSystem {
 			currentState = currentNPC.state;
 			showDialogDuration = dialog.showDialogDuration;
 			showDialogDelay = dialog.showDialogDelay;
-			// isFinishShowingDialog = dialog.isFinishShowingDialog;
+			isFinishShowingDialog = dialog.isFinishShowingDialog;
 			isInitShowingDialog = dialog.isInitShowingDialog;
+			isShowingDialog = dialog.isShowingDialog;
+			letterIndex = dialog.letterIndex;
+			// dialogIndex = dialog.dialogIndex;
+			showDialogTime = dialog.showDialogTime;
+			timer = dialog.dialogTime;
 
 			if (!isInitShowingDialog) {
 				InitDialog ();
 			} else {
-				if (timer < showDialogDelay) {
-					timer += deltaTime;
-				} else {
-					CheckNPCDialog ();
-					Debug.Log("Check Dialog");
-				}
+				CheckNPCState ();
 			}
 		}
 	}
@@ -61,57 +68,134 @@ public class DialogSystem : ComponentSystem {
 	void InitDialog () {
 		dialog.panelDialog.SetActive(false);
 
+		dialog.letterIndex = 0;
 		dialog.isInitShowingDialog = true;
 	}
 
-	void CheckNPCDialog () {
-		if (currentState == NPCState.IDLE) {
-			if (!currentNPC.isInteracting) {
-				Debug.Log(currentNPC.gameObject.name + "is showing dialog");
-				dialog.panelDialog.SetActive (true);
-				currentNPC.isInteracting = true;
-				dialog.isFinishShowingDialog = false;
-				
-				tempChar = testStr.ToCharArray();
-				openingTag = tag[0] + transparentColor + tag[1];
-				dialog.textDialog.text = openingTag + testStr + tag[2];
-		
-				//Set List
-				dialog.letterList = new List<string>();
-				dialog.letterList.Add(openingTag);
-				for (int i=0; i<tempChar.Length; i++) {
-					dialog.letterList.Add(tempChar[i].ToString());
-				} 
-				dialog.letterList.Add(tag[2]);
-			} else if (!dialog.isFinishShowingDialog) {
-				PrintLetterOneByOne ();
-			} else {
-				if (dialog.showDialogTime < showDialogDuration) {
-					dialog.showDialogTime += deltaTime;
+	void CheckNPCState () {
+		switch (currentState) {
+			case NPCState.IDLE:
+			if (timer < showDialogDelay) {
+					dialog.dialogTime += deltaTime;
 				} else {
-					Debug.Log(currentNPC.gameObject.name + "is hiding dialog");
-					dialog.panelDialog.SetActive (false);
-					currentNPC.isInteracting = false;
-					dialog.showDialogTime = 0f;
-					timer = 0f;
+					CheckNPCIdleDialog ();
 				}
+
+				break;
+			case NPCState.INTERACT:
+					CheckNPCInteractDialog ();
+				break;
+		}
+	}
+
+	void CheckNPCIdleDialog () {
+		if (!isShowingDialog) {
+			dialog.dialogIndex = GetRandomIndexType(currentState);
+			SetList (GetDialogStringType(currentState, dialog.dialogIndex));			
+			ShowDialog ();
+		} else if (!isFinishShowingDialog) {
+			PrintLetterOneByOne ();
+		} else {
+			if (showDialogTime < showDialogDuration) {
+				dialog.showDialogTime += deltaTime;
+			} else {
+				HideDialog ();
 			}
 		}
 	}
 
-	void PrintLetterOneByOne () {
-		string temp = "";
+	void CheckNPCInteractDialog () {
+		if (!isShowingDialog) {
+			dialog.dialogIndex = GetRandomIndexType(currentState);
+			SetList (GetDialogStringType(currentState, dialog.dialogIndex));			
+			ShowDialog ();
+		} else if (!isFinishShowingDialog) {
+			PrintLetterOneByOne ();
 
-		for (int i=0; i<dialog.letterList.Count-2; i++) {
-			int tempIdx = i+1;
-
-			if (dialog.letterList[i] == openingTag) {
-				SwapList (dialog.letterList, i, tempIdx);
-				break;
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				dialog.textDialog.text = GetDialogStringType(currentState, dialog.dialogIndex) + openingTag + tag[2];
+				dialog.isFinishShowingDialog = true;
 			}
+		} else {
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				HideDialog ();
+			}
+			// if (showDialogTime < showDialogDuration) {
+			// 	dialog.showDialogTime += deltaTime;
+			// } else {
+			// 	HideDialog ();
+			// }
 		}
+	}
+
+	int GetRandomIndexType (NPCState state) {
+		switch (state) {
+			case NPCState.IDLE:
+				return Random.Range(0, dialog.idleDialogs.Length);
+			case NPCState.INTERACT:
+				return Random.Range(0, dialog.interactDialogs.Length);
+			default:
+				return 0;
+		}
+	}
 
 
+	string GetDialogStringType (NPCState state, int dialogIdx) {
+		switch (state) {
+			case NPCState.IDLE:
+				return dialog.idleDialogs[dialogIdx];
+			case NPCState.INTERACT:
+				return dialog.interactDialogs[dialogIdx];
+			default:
+				return "NOTHING";
+		}
+	}
+
+	void SetList (string strDialog) {
+		tempChar = strDialog.ToCharArray();
+
+		openingTag = tag[0] + transparentColor + tag[1];
+		dialog.textDialog.text = openingTag + strDialog + tag[2];
+
+		//Set List
+		dialog.letterList = new List<string>();
+		dialog.letterList.Add(openingTag);
+		for (int i=0; i<tempChar.Length; i++) {
+			dialog.letterList.Add(tempChar[i].ToString());
+		} 
+		dialog.letterList.Add(tag[2]);
+	}
+
+	void ShowDialog () {
+		Debug.Log(currentNPC.gameObject.name + "is showing dialog");
+		dialog.panelDialog.SetActive (true);
+		dialog.isFinishShowingDialog = false;
+
+		dialog.isShowingDialog = true;
+	}
+
+	void HideDialog () {
+		Debug.Log(currentNPC.gameObject.name + "is hiding dialog");
+		dialog.panelDialog.SetActive (false);
+		dialog.isShowingDialog = false;
+		dialog.isFinishShowingDialog = false;
+		dialog.letterIndex = 0;
+		dialog.showDialogTime = 0f;
+		dialog.dialogTime = 0f;
+	}
+
+	void PrintLetterOneByOne () {
+		if (letterIndex == dialog.letterList.Count-2) {
+			dialog.isFinishShowingDialog = true;
+			return;
+		}
+		
+		string temp = "";
+		int tempIdx = letterIndex + 1;
+		if (dialog.letterList[letterIndex] == openingTag) {
+			SwapList (dialog.letterList, letterIndex, tempIdx);
+			dialog.letterIndex++;
+		}
 
 		// Print List
 		for (int i=0; i<dialog.letterList.Count; i++) {
@@ -119,12 +203,6 @@ public class DialogSystem : ComponentSystem {
 		}
 
 		dialog.textDialog.text = temp;
-		// Debug.Log(tempList.Count);
-		Debug.Log(temp);
-		
-		if (dialog.letterList[dialog.letterList.Count-2] == openingTag) {
-			dialog.isFinishShowingDialog = true;
-		}
 	}
 
 	public void SwapList<T> (List<T> list, int idxA, int idxB) {
