@@ -101,8 +101,8 @@ public class CameraMovementSystem : ComponentSystem {
 	Vector3 ValidateCamBoundraries()
 	{
 		float x = GetX();
-		float y = GetY();
-		float z = currCameraMovement.offset.z;
+		float y = currCameraMovement.offset.y;
+		float z = GetZ();
 
 		return new Vector3(x,y,z);
 	}
@@ -118,14 +118,16 @@ public class CameraMovementSystem : ComponentSystem {
 		}
 	}
 
-	float GetY()
+	float GetZ()
 	{
-		if(currCameraTransform.position.y <= cameraHeight/2f){
-			return cameraHeight/2f;
-		}else if(currCameraTransform.position.y >= mapHeight-(cameraHeight/2f)){
-			return mapHeight-(cameraHeight/2f);
+		Debug.Log((cameraHeight/2f)-9.4f);
+		Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
+		if(currCameraTransform.position.z <= (cameraHeight/2f) - 9.4f){
+			return (cameraHeight/2f) - 9.4f;
+		}else if(currCameraTransform.position.z >= (mapHeight-(cameraHeight/2f)) - 14.4f){
+			return (mapHeight-(cameraHeight/2f)) - 14.4f;
 		}else{
-			return currCameraTransform.position.y;
+			return currCameraTransform.position.z;
 		}
 	}
 }
