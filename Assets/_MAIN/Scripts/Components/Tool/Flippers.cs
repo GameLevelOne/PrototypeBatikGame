@@ -6,7 +6,7 @@ public class Flippers : MonoBehaviour {
 	public PlayerInput input;
 	public Water water;
 	
-	public Collider2D waterBoundariesCol;
+	public Collider waterBoundariesCol;
 	public bool isEquipped = false;
 	public bool isPlayerOnWater = false;
 	public bool isPlayerSwimming = false;

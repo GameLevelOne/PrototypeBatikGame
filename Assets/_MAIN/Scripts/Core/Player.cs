@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
 	[HeaderAttribute("Player Attributes")]
 	public Health health;
 	public PlayerState state;
-	public Collider2D playerCol;
+	public Collider playerCol;
 	
 	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;

@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Mana : MonoBehaviour {
 	public delegate void ManaChange ();
 	public event ManaChange OnManaChange;
 
-	public Text textMana;
 	public float mana = 0;
 	public float manaRegenPerSecond = 0;
 

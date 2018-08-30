@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour {
 
 	[SerializeField] int attackMode = 0;
 
-	public Vector2 moveDir = Vector2.down; //TEMP Set to Down Direction
+	public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction
 	
 	/// <summary>
     /// <para>Values: <br /></para>

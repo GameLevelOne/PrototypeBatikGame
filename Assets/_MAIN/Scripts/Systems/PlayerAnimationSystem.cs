@@ -29,9 +29,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	PlayerState state;
 	
-	Vector2 moveDir;
-	Vector2 currentMove;
-	Vector2 currentDir;
+	Vector3 moveDir;
+	Vector3 currentMove;
+	Vector3 currentDir;
 	bool isFinishAnyAnim = true;
 	int attackMode = 0;
 
@@ -83,7 +83,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
 				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
 				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.y, true);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.z, true);
 
 				continue;
 			} else if (state == PlayerState.RAPID_SLASH) {
@@ -160,7 +160,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.GRABBING))
 						animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
 				} else if (input.interactValue == 1) {
-					if (moveDir != Vector2.zero) {
+					if (moveDir != Vector3.zero) {
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_SWIM))
 							animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
 					} else {
@@ -186,8 +186,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.SLOW_MOTION: 
 				if (input.AttackMode == -3) {
 					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.y);
-					facing.DirID = CheckDirID(-currentDir.x, -currentDir.y);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+					facing.DirID = CheckDirID(-currentDir.x, -currentDir.z);
 
 					animator.Play(Constants.BlendTreeName.IDLE_BULLET_TIME);
 				}
@@ -357,7 +357,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (currentMove != moveDir) {
 			currentMove = moveDir;
 			
-			if (currentMove == Vector2.zero) {
+			if (currentMove == Vector3.zero) {
 
 				if (input.liftingMode == -2) {
 					input.liftingMode = -1;
@@ -366,7 +366,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 			} else {
 				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.y, true);
+				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.z, true);
 				
 				if (input.liftingMode == -1) {
 					input.liftingMode = -2;
@@ -705,14 +705,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 		animator.SetFloat(animName, animValue);
 		
 		if (isVertical) {
-			moveDir.y = Mathf.RoundToInt(animValue);
+			moveDir.z = Mathf.RoundToInt(animValue);
 		} else {
 			moveDir.x = Mathf.RoundToInt(animValue);
 		}
 
 		// if (currentDir != moveDir) {
 			currentDir = moveDir;
-			facing.DirID = CheckDirID(currentDir.x, currentDir.y);
+			facing.DirID = CheckDirID(currentDir.x, currentDir.z);
 		// }
 	}
 
@@ -724,12 +724,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	int CheckDirID (float dirX, float dirY) {
+	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;
 
 		#region 4 Direction
 		if (dirX == 0) {
-			if (dirY > 0) {
+			if (dirZ > 0) {
 				dirIdx = 3;
 			} else {
 				dirIdx = 1;
