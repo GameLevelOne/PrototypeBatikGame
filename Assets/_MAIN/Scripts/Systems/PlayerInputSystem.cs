@@ -276,13 +276,13 @@ public class PlayerInputSystem : ComponentSystem {
 			} 
 			
 			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				ChangeDir(maxValue, currentDir.y);
+				ChangeDir(maxValue, currentDir.z);
 			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				ChangeDir(minValue, currentDir.y);
+				ChangeDir(minValue, currentDir.z);
 			} 
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-				ChangeDir(0f, currentDir.y);
+				ChangeDir(0f, currentDir.z);
 				CheckEndMove();
 			}
 

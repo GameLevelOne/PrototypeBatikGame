@@ -38,7 +38,14 @@ public class ChestOpenerSystem : ComponentSystem {
 		ChestType type = chestOpener.chest.chestType;
 		
 		if (type == ChestType.TREASURE) {
-			GameObject.Instantiate(chestOpener.chest.treasurePrize, playerPos, Quaternion.identity);
+			SpawnTreasureObj(chestOpener.chest.treasurePrize, playerPos);
 		}
 	}
+
+    void SpawnTreasureObj (GameObject obj, Vector3 pos) {
+		// Quaternion rot = Quaternion.Euler(40f, 0f, 0f);
+		Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
+        GameObject spawnedObj = GameObject.Instantiate(obj, pos, rot);
+        spawnedObj.SetActive(true);
+    }
 }

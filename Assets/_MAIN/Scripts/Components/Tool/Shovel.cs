@@ -6,6 +6,8 @@ public class Shovel : MonoBehaviour {
 	// public Vector3 diggingCheckPos;
 	public List<bool> listDig = new List<bool>();
 
+	public float digResultPosY = 0.15f;
+
 	// [SerializeField] bool isNotCleanForDigging = false;
 
 	// public bool IsNotCleanForDigging {
@@ -17,7 +19,7 @@ public class Shovel : MonoBehaviour {
 	// 	}
 	// }
 
-	void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerEnter (Collider col) {
 		if (col.tag == Constants.Tag.DIG_RESULT) {
 			// IsNotCleanForDigging = true;
 			listDig.Add(true);

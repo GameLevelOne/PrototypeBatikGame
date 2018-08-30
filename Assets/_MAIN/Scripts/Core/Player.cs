@@ -106,7 +106,7 @@ public class Player : MonoBehaviour {
         set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
     }
 
-	void OnCollisionEnter2D (Collision2D col) {
+	void OnCollisionEnter (Collision col) {
 		if (state == PlayerState.DASH && !isBouncing) {
 			isBouncing = true;	
 		}
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionExit2D (Collision2D col) {
+	void OnCollisionExit (Collision col) {
 		if (col.gameObject.GetComponent<Liftable>() != null && isHitLiftableObject) {
 			isHitLiftableObject = false;
 		}
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D (Collider2D col) {		
+	void OnTriggerEnter (Collider col) {		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = true;
 		} 
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D col) {
+	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = false;
 		}

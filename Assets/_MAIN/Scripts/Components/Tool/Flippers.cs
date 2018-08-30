@@ -13,7 +13,7 @@ public class Flippers : MonoBehaviour {
 	
     bool isSetPlayerSwim = false;
 
-	void OnTriggerStay2D (Collider2D col) {
+	void OnTriggerStay (Collider col) {
 		if (col.tag == Constants.Tag.SWIM_AREA && !isPlayerOnWater) {
 			isPlayerOnWater = true;
 			water = col.GetComponent<Water>();
@@ -29,7 +29,7 @@ public class Flippers : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D col) {
+	void OnTriggerExit (Collider col) {
 		if (col == waterBoundariesCol) {
 			isPlayerSwimming = false;
 			isSetPlayerSwim = false;

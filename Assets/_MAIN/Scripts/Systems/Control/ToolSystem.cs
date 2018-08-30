@@ -449,28 +449,29 @@ public class ToolSystem : ComponentSystem {
     }
 
     void SpawnObj (int toolType, bool isSpawnAtPlayerPos, bool isAlwaysUp) {
-        GameObject spawnedBullet = GameObjectEntity.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacing());
+        GameObject spawnedObj = GameObjectEntity.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacing());
         // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
 		
 		if (isSpawnAtPlayerPos) {
-			spawnedBullet.transform.position = tool.transform.root.position;
+			spawnedObj.transform.position = tool.transform.root.position;
 		}
 
 		if (isAlwaysUp) {
-			spawnedBullet.transform.eulerAngles = Vector3.zero;
+			spawnedObj.transform.eulerAngles = Vector3.zero;
+			spawnedObj.transform.eulerAngles = new Vector3 (40f, 0f, 0f);
 		}
 
-        spawnedBullet.SetActive(true);
+        spawnedObj.SetActive(true);
     }
 
     Quaternion SetFacing () {
-        Vector2 targetPos = tool.areaSpawnPos.position;
-        Vector2 initPos = tool.transform.position; //TEMPORARY
+        Vector3 targetPos = tool.areaSpawnPos.position;
+        Vector3 initPos = tool.transform.position; //TEMPORARY
 
         targetPos.x -= initPos.x;
-        targetPos.y -= initPos.y;
-        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
+        targetPos.z -= initPos.z;
+        float angle = Mathf.Atan2 (targetPos.z, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
 
         return targetRot;
     }

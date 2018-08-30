@@ -7,7 +7,7 @@ public class ArrowSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<Arrow> Arrow;
 		public  ComponentArray<Transform> Transform;
-		public  ComponentArray<Rigidbody2D> Rigidbody2D;
+		public  ComponentArray<Rigidbody> Rigidbody;
 	}
 	[InjectAttribute] ArrowData arrowData;
 
@@ -16,13 +16,14 @@ public class ArrowSystem : ComponentSystem {
 
 		for (int i=0; i<arrowData.Length; i++) {
 			Arrow arrow = arrowData.Arrow[i];
-			Rigidbody2D rb = arrowData.Rigidbody2D[i];
+			Rigidbody rb = arrowData.Rigidbody[i];
 			Transform tr = arrowData.Transform[i];
 
 			float speed = arrow.speed;
 
 			if (!arrow.isShot) {
-				rb.AddForce (tr.right * speed * 50f);
+				Vector3 newDir = new Vector3 (tr.right.x, 0f, tr.right.z);
+				rb.AddForce (newDir.normalized * speed * 50f);
 				arrow.isShot = true;
 			}
 

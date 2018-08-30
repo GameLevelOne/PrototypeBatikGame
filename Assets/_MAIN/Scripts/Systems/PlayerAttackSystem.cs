@@ -86,19 +86,19 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
     void SpawnObj (GameObject obj) {
-        GameObject spawnedBullet = GameObject.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
-        spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
-        spawnedBullet.SetActive(true);
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
+        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+        spawnedObj.SetActive(true);
     }
 
     Quaternion SetFacing () {
-        Vector2 targetPos = attack.bulletSpawnPos.position;
-        Vector2 initPos = attack.transform.position; //TEMPORARY
+        Vector3 targetPos = attack.bulletSpawnPos.position;
+        Vector3 initPos = attack.transform.position; //TEMPORARY
 
         targetPos.x -= initPos.x;
-        targetPos.y -= initPos.y;
-        float angle = Mathf.Atan2 (targetPos.y, targetPos.x) * Mathf.Rad2Deg;
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, 0f, angle));
+        targetPos.z -= initPos.z;
+        float angle = Mathf.Atan2 (targetPos.z, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
 
         return targetRot;
     }

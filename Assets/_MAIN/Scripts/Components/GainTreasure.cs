@@ -9,7 +9,7 @@ public class GainTreasure : MonoBehaviour {
 
 	public bool isLooting = false;
 	
-	void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerEnter (Collider col) {
 		PlayerState state = player.state;
 
 		if (col.tag == Constants.Tag.LOOTABLE && !isLooting && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
