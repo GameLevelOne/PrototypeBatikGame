@@ -28,4 +28,22 @@ public class DigSystem : ComponentSystem {
 			// }
 		// }
 	}
+
+	#region SAMPLE ECS
+	// public struct StructData {
+	//	public readonly int Length;
+	// 	public ComponentArray<ComponentName> ComponentName;
+	// }
+	// [InjectAttribute] StructData structData;
+
+	// ComponentName componentName;
+
+	// protected override void OnUpdate () {
+	// 	if (structData.Length == 0) return;
+
+	// 	for (int i=0; i<structData.Length; i++) {
+	// 		componentName = structData.ComponentName[i];
+	// 	}
+	// }
+	#endregion
 }

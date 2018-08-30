@@ -64,6 +64,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	void InitPlayerInfo () {
 		isShowingInfo = false;
+		isInitShowInfo = false;
 		// timeSwitch = 1;
 		alphaValue = 0f;
 
@@ -211,7 +212,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				uiInfo.canvasInfoGroup.alpha = alphaValue;
 			} else {
 				Time.timeScale = 0;
-				isShowingInfo = true;
+				isInitShowInfo = true;
 			}
 		}
 	}

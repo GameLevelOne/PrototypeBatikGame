@@ -69,6 +69,9 @@ public static class Constants {
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
+
+		public const string NPC = "NPC";
+		public const string PLAYER_INTERACT = "Player Interact";
 	}
 
 	public static class PlayerPrefKey
@@ -97,6 +100,10 @@ public static class Constants {
 		public const string PLAYER_TOOL_POWERBRACELET = "Player/Tool/PowerBracelet";
 		public const string PLAYER_TOOL_FLIPPERS = "Player/Tool/Flippers";
 		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
+	}
+	
+	public static class NPCPrefKey {
+		public const string NPC_INTERACT_STATE = "NPC/InteractState/";
 	}
 
 	public static class BlendTreeName
