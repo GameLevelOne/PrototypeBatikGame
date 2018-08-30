@@ -34,7 +34,7 @@ public class ChestOpenerSystem : ComponentSystem {
 		chestOpener.chest.chestAnimator.Play(Constants.AnimationName.CHEST_OPEN);
 	}
 
-	public void SpawnTreasure (Vector2 playerPos) {
+	public void SpawnTreasure (Vector3 playerPos) {
 		ChestType type = chestOpener.chest.chestType;
 		
 		if (type == ChestType.TREASURE) {
