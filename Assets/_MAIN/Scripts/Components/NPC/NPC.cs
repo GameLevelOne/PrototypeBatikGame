@@ -16,12 +16,15 @@ public class NPC : MonoBehaviour {
 	public NPCState state;
 	public Dialog dialog;
 
-	[SpaceAttribute(10f)]
+	[HeaderAttribute("Current")]
+	public Player player;
+	public bool isDoneInitNPC = false;
 	[SerializeField] bool isInteracting; //TEMP Public
-	string savedStr;
 	
 	[HeaderAttribute("Testing")]
 	public bool isTestNPC = false;
+
+	string savedStr;
 
 
 	void Awake () { //TEMP
@@ -52,7 +55,7 @@ public class NPC : MonoBehaviour {
 				dialog.isShowingDialog = false;
 				dialog.dialogTime = dialog.showDialogDelay;
 				dialog.showDialogTime = 0f;
-				Debug.Log("OK");
+				// Debug.Log("OK");
 			}
 		}
 	}

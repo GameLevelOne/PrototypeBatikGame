@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
 	public bool isCanDigging = false;
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
-	// public bool isInteractingWithNPC = false;
+	public bool isInteractingWithNPC = false;
 	
 	[SerializeField] float maxHP;
 	[SerializeField] float maxMP;

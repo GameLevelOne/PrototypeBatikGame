@@ -7,12 +7,11 @@ public class PlayerInteract : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public NPC currentNPC;
 	
-	[SerializeField] bool isCanInteractWithNPC;
+	public bool isCanInteractWithNPC;
 
 	void OnTriggerStay (Collider col) {
 		if (col.tag == Constants.Tag.NPC && currentNPC == null) {
 			currentNPC = col.GetComponent<NPC>();
-			Debug.Log("NPC "+col.name+" is "+currentNPC.npcChar);
 
 			if (currentNPC.npcChar == NPCCharacteristic.TALKABLE) {
 				// currentNPC.state = NPCState.INTERACT;
@@ -23,8 +22,11 @@ public class PlayerInteract : MonoBehaviour {
 
 	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.NPC && currentNPC == col.GetComponent<NPC>()) {
-			currentNPC = null;
 			isCanInteractWithNPC = false;
+			player.isInteractingWithNPC = false;
+			currentNPC.IsInteracting = false;
+			currentNPC.player = null;
+			currentNPC = null;
 		}
 	}
 }

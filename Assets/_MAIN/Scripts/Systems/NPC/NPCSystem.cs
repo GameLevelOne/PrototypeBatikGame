@@ -17,19 +17,30 @@ public class NPCSystem : ComponentSystem {
 
 		for (int i=0; i<npcData.Length; i++) {
 			currentNPC = npcData.NPC[i];
-
+			
 			currentState = currentNPC.state;
 
-			CheckNPCInteraction ();
+			if (!currentNPC.isDoneInitNPC) {
+				InitNPC ();
+				currentNPC.isDoneInitNPC = true;
+			} else {
+				CheckNPCInteraction ();
+			}
 		}
 	}
 
+	void InitNPC () {
+		//
+	}
+
 	void CheckNPCInteraction () {
-		if (currentState == NPCState.INTERACT) {
-			if (!currentNPC.IsInteracting) {
-				Debug.Log(currentNPC.gameObject.name + "is interacting");
-				currentNPC.IsInteracting = true;
-			}
+		if (currentNPC.IsInteracting) return;
+		
+		if (currentState == NPCState.INTERACT && currentNPC.player != null) {
+			currentNPC.IsInteracting = true;
+			Debug.Log(currentNPC.gameObject.name + "is interacting");
+		} else {
+			//
 		}
 	}
 }
