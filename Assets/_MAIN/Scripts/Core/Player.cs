@@ -54,6 +54,9 @@ public class Player : MonoBehaviour {
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
 	public bool isInteractingWithNPC = false;
+	// public bool isInteractingNotWithNPC = false;
+
+	public int interactIndex;
 	
 	[SerializeField] float maxHP;
 	[SerializeField] float maxMP;

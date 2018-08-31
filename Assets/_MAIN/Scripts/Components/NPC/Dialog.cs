@@ -3,7 +3,14 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Dialog : MonoBehaviour {
+	
+	[HeaderAttribute("Player Only")]
+	public Player player;
+	
+	[HeaderAttribute("NPC Only")]
 	public NPC npc;
+
+	[SpaceAttribute(10f)]
 	public GameObject panelDialog;
 	public Text textDialog;
 
