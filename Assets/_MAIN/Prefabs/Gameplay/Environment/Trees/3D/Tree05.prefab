@@ -51,7 +51,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267584218378434}
-  - component: {fileID: 65668518442412652}
+  - component: {fileID: 136528950449992956}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -169,6 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4007255616859978}
+  - component: {fileID: 95731495006777058}
   m_Layer: 0
   m_Name: Tree05
   m_TagString: Untagged
@@ -249,7 +250,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536921299500522}
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 22.5, y: 0.15, z: 6.5}
+  m_LocalPosition: {x: 0.5, y: 0.15, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4267584218378434}
@@ -857,8 +858,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454159412046590}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65668518442412652
-BoxCollider:
+--- !u!95 &95731495006777058
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536921299500522}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f2c47bbbd7ba6994d973714f5bab496c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &136528950449992956
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -866,6 +885,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1.2185297}
-  m_Center: {x: 0, y: 1, z: 0.5260153}
+  m_Radius: 0.4479613
+  m_Height: 1.5203876
+  m_Direction: 2
+  m_Center: {x: -0.0520387, y: 0.5, z: 0.49436855}

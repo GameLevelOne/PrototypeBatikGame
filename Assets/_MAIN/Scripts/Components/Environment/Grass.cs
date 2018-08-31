@@ -6,7 +6,7 @@ public class Grass : MonoBehaviour {
 	public bool animateEnd = false;
 	public bool destroy = false;
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == Constants.Tag.PLAYER) interact = true;
 
@@ -15,6 +15,6 @@ public class Grass : MonoBehaviour {
 
 	void OnGrassAnimateEnd()
 	{
-
+		animateEnd = true;
 	}
 }
