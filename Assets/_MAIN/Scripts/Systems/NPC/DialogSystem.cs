@@ -21,15 +21,12 @@ public class DialogSystem : ComponentSystem {
 	float deltaTime;
 	float timer;
 
-	// int dialogIndex;
 	int letterIndex;
-	// int listEndIdx;
-	// int listCount;
 
 	bool isInitShowingDialog;
-	bool isShowingDialog = false;
-
+	bool isShowingDialog;
 	bool isFinishShowingDialog;
+	
 	// string testStr = "Hello World";
 	// string blackColor = "000000ff";
 	string transparentColor = "00000000";
@@ -45,8 +42,8 @@ public class DialogSystem : ComponentSystem {
 		for (int i=0; i<dialogData.Length; i++) {
 			dialog = dialogData.Dialog[i];
 
-			// currentNPC = dialog.npc;
-			// currentState = currentNPC.state;
+			currentNPC = dialog.npc;
+			currentState = currentNPC.state;
 			showDialogDuration = dialog.showDialogDuration;
 			showDialogDelay = dialog.showDialogDelay;
 			isFinishShowingDialog = dialog.isFinishShowingDialog;
@@ -75,7 +72,7 @@ public class DialogSystem : ComponentSystem {
 	void CheckNPCState () {
 		switch (currentState) {
 			case NPCState.IDLE:
-				if (timer < showDialogDelay) {
+			if (timer < showDialogDelay) {
 					dialog.dialogTime += deltaTime;
 				} else {
 					CheckNPCIdleDialog ();
@@ -83,18 +80,7 @@ public class DialogSystem : ComponentSystem {
 
 				break;
 			case NPCState.INTERACT:
-				if (currentNPC.IsInteracting) {
-					CheckNPCInteractDialog ();					
-				} else {
-					if (showDialogTime < showDialogDuration) {
-						dialog.showDialogTime += deltaTime;
-					} else {
-						HideDialog ();
-						if (currentState != NPCState.IDLE) {
-							currentNPC.state = NPCState.IDLE;
-						}
-					}
-				}
+					CheckNPCInteractDialog ();
 				break;
 		}
 	}
@@ -117,7 +103,7 @@ public class DialogSystem : ComponentSystem {
 
 	void CheckNPCInteractDialog () {
 		if (!isShowingDialog) {
-			// Debug.Log(currentNPC.InteractIndex);
+			Debug.Log(currentNPC.InteractIndex);
 			dialog.dialogIndex = currentNPC.InteractIndex;
 			SetList (GetDialogStringType(currentState, dialog.dialogIndex));			
 			ShowDialog ();
@@ -144,9 +130,9 @@ public class DialogSystem : ComponentSystem {
 		}
 	}
 
-	// void GetInteractIndexType () {
+	void GetInteractIndexType () {
 
-	// }
+	}
 
 	string GetDialogStringType (NPCState state, int dialogIdx) {
 		switch (state) {
@@ -175,7 +161,7 @@ public class DialogSystem : ComponentSystem {
 	}
 
 	void ShowDialog () {
-		// Debug.Log(currentNPC.gameObject.name + "is showing dialog");
+		Debug.Log(currentNPC.gameObject.name + "is showing dialog");
 		dialog.panelDialog.SetActive (true);
 		dialog.isFinishShowingDialog = false;
 
@@ -183,7 +169,7 @@ public class DialogSystem : ComponentSystem {
 	}
 
 	void HideDialog () {
-		// Debug.Log(currentNPC.gameObject.name + "is hiding dialog");
+		Debug.Log(currentNPC.gameObject.name + "is hiding dialog");
 		dialog.panelDialog.SetActive (false);
 		dialog.isShowingDialog = false;
 		dialog.isFinishShowingDialog = false;

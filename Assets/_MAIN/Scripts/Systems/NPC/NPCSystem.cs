@@ -22,7 +22,6 @@ public class NPCSystem : ComponentSystem {
 
 			if (!currentNPC.isDoneInitNPC) {
 				InitNPC ();
-				currentNPC.isDoneInitNPC = true;
 			} else {
 				CheckNPCInteraction ();
 			}
@@ -31,6 +30,7 @@ public class NPCSystem : ComponentSystem {
 
 	void InitNPC () {
 		//
+		currentNPC.isDoneInitNPC = true;
 	}
 
 	void CheckNPCInteraction () {
@@ -40,7 +40,9 @@ public class NPCSystem : ComponentSystem {
 			currentNPC.IsInteracting = true;
 			Debug.Log(currentNPC.gameObject.name + "is interacting");
 		} else {
-			//
+			if (currentState != NPCState.IDLE) {
+				currentNPC.state = NPCState.IDLE;
+			}
 		}
 	}
 }

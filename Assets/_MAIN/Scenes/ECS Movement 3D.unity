@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2235,6 +2235,8 @@ MonoBehaviour:
   npcChar: 1
   state: 0
   dialog: {fileID: 575663456}
+  player: {fileID: 0}
+  isDoneInitNPC: 0
   isInteracting: 0
   isTestNPC: 0
 --- !u!136 &575663458
@@ -2268,7 +2270,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 575663455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17, y: 1, z: 0}
+  m_LocalPosition: {x: 12, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1203079835}
@@ -4970,6 +4972,8 @@ MonoBehaviour:
   npcChar: 1
   state: 0
   dialog: {fileID: 1843587436}
+  player: {fileID: 0}
+  isDoneInitNPC: 0
   isInteracting: 0
   isTestNPC: 0
 --- !u!114 &1843587433
@@ -4990,7 +4994,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1843587431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: 1, z: 0}
+  m_LocalPosition: {x: 8, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1986362180}

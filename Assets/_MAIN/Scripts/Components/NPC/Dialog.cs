@@ -7,15 +7,19 @@ public class Dialog : MonoBehaviour {
 	public GameObject panelDialog;
 	public Text textDialog;
 
+	public float showDialogDuration;
+	public float showDialogDelay;
+
+	[HeaderAttribute("Current")]
+	public bool isInitShowingDialog;
 	public int dialogIndex;
 	public int letterIndex;
-	public float showDialogDuration;
-	public float showDialogTime;
-	public float dialogTime;
-	public float showDialogDelay;
-	public bool isInitShowingDialog;
+	public bool isStartDialog;
 	public bool isShowingDialog;
 	public bool isFinishShowingDialog;
+	public float showDialogTime;
+	public float dialogTime;
+	// public string stringDialog;
 
 	public string[] idleDialogs = new string[] {
 		"Hi !",

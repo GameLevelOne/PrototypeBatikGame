@@ -19,6 +19,7 @@ public class NPC : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public Player player;
 	public bool isDoneInitNPC = false;
+	// public bool isStartingDialog = false;
 	[SerializeField] bool isInteracting; //TEMP Public
 	
 	[HeaderAttribute("Testing")]
