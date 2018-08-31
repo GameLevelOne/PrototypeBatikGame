@@ -26,8 +26,11 @@ public class PlayerInputSystem : ComponentSystem {
 
 	PlayerState state;
 
-	Vector2 currentDir = Vector2.zero;
-	Vector2 playerDir = Vector2.zero;
+	/// <summary>
+    /// <para>Current Move Direction (X, Z)<br /></para>
+	/// </summary>
+	Vector3 currentDir = Vector3.zero;
+	Vector3 playerDir = Vector3.zero;
 	float deltaTime;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
@@ -273,13 +276,13 @@ public class PlayerInputSystem : ComponentSystem {
 			} 
 			
 			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				ChangeDir(maxValue, currentDir.y);
+				ChangeDir(maxValue, currentDir.z);
 			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				ChangeDir(minValue, currentDir.y);
+				ChangeDir(minValue, currentDir.z);
 			} 
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-				ChangeDir(0f, currentDir.y);
+				ChangeDir(0f, currentDir.z);
 				CheckEndMove();
 			}
 
@@ -321,9 +324,9 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Open Chest
 		if (player.isCanOpenChest) {
-			playerDir = input.moveDir == Vector2.zero ? playerDir : input.moveDir;
+			playerDir = input.moveDir == Vector3.zero ? playerDir : input.moveDir;
 
-			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector2.up) {
+			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector3.forward) {
 				input.interactValue = 0;
 				input.interactMode = -4;
 				player.SetPlayerState(PlayerState.OPEN_CHEST);
@@ -491,7 +494,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Button Dodge
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-			if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
+			if (!isDodging && isReadyForDodging && (currentDir != Vector3.zero)) {
 				player.SetPlayerState(PlayerState.DODGE);
 				bulletTimeTimer = 0f;	
 				dodgeCooldownTimer = 0f;
@@ -651,7 +654,7 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else  if (state == PlayerState.POWER_BRACELET) {
 			if (input.interactValue == 0) {
-				currentDir = Vector2.zero;
+				currentDir = Vector3.zero;
 
 				if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 					// isButtonToolHold = false;
@@ -689,7 +692,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// 	return true;
 		// } 
 		else if (state == PlayerState.FISHING) { 	
-			currentDir = Vector2.zero;
+			currentDir = Vector3.zero;
 						
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
 				input.interactValue = 2;
@@ -698,7 +701,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			return true;
 		} else if (state == PlayerState.GET_TREASURE) { 
-			currentDir = Vector2.zero;
+			currentDir = Vector3.zero;
 
 			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)){ //ANY BUTTON
 				gainTreasureSystem.UseTreasure();
@@ -759,8 +762,8 @@ public class PlayerInputSystem : ComponentSystem {
 		// }
 	}
 
-	void ChangeDir (float dirX, float dirY) {
-		Vector2 newDir = new Vector2(dirX, dirY);
+	void ChangeDir (float dirX, float dirZ) {
+		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
 
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.liftingMode == 1 || input.liftingMode == 2) {
@@ -769,51 +772,51 @@ public class PlayerInputSystem : ComponentSystem {
 				// Debug.Log("Before " + facing.DirID);
 				switch (facing.DirID) {
 					case 1: 
-						if (newDir.x == 0 && newDir.y <= 0) SetDir (0f, newDir.y);
+						if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, newDir.z);
 						// Debug.Log("Bottom");
 						break;
 					case 2: 
-						if (newDir.x <= 0 && newDir.y <= 0) SetDir (newDir.x, newDir.y);
+						if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, newDir.z);
 						// Debug.Log("Bottom left");
 						break;
 					case 3: 
-						if (newDir.x <= 0 && newDir.y <= 0) SetDir (newDir.x, 0f);
+						if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f);
 						// Debug.Log("Left");
 						break;
 					case 4: 
-						if (newDir.x <= 0 && newDir.y >= 0) SetDir (newDir.x, newDir.y);
+						if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, newDir.z);
 						// Debug.Log("Top left");
 						break;
 					case 5: 
-						if (newDir.x == 0 && newDir.y >= 0) SetDir (0f, newDir.y);
+						if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, newDir.z);
 						// Debug.Log("Top");
 						break;
 					case 6: 
-						if (newDir.x >= 0 && newDir.y >= 0) SetDir (newDir.x, newDir.y);
+						if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, newDir.z);
 						// Debug.Log("Top right");
 						break;
 					case 7: 
-						if (newDir.x >= 0 && newDir.y == 0) SetDir (newDir.x, 0f);
+						if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f);
 						// Debug.Log("right");
 						break;
 					case 8: 
-						if (newDir.x >= 0 && newDir.y <= 0) SetDir (newDir.x, newDir.y);
+						if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, newDir.z);
 						// Debug.Log("Bottom right");
 						break;
 				}
 				// Debug.Log("After " + facing.DirID);
 				// Debug.Log("==========End Grabbing==========");
 			} else if (input.liftingMode == -1 || input.liftingMode == -2){
-				SetDir (newDir.x, newDir.y);
+				SetDir (newDir.x, newDir.z);
 			} 
 		} else {
 			// player.SetPlayerState(PlayerState.MOVE);
-			SetDir (newDir.x, newDir.y);
+			SetDir (newDir.x, newDir.z);
 		}
 	}
 
-	void SetDir (float dirX, float dirY) {
-		Vector2 fixDir = new Vector2(dirX, dirY);
+	void SetDir (float dirX, float dirZ) {
+		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
 		if (currentDir != fixDir) {
 			currentDir = fixDir;

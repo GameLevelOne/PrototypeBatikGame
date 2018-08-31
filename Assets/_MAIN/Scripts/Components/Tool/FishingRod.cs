@@ -13,7 +13,7 @@ public class FishingRod : MonoBehaviour {
 	public Fish fish;
 
 	public GameObject fishObj;
-	public Collider2D baitCol;
+	public Collider baitCol;
 	public float fishingRange;
 
 	public bool isBaitLaunched = false;

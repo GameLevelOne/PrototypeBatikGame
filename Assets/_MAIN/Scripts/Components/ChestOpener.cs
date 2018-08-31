@@ -8,7 +8,7 @@ public class ChestOpener : MonoBehaviour {
 
 	public bool isInteracting = false;
 
-	void OnTriggerStay2D (Collider2D col) {
+	void OnTriggerStay (Collider col) {
 		if (col.tag == Constants.Tag.CHEST && player.isHitChestObject) {
 			chest = col.GetComponent<Chest>();
 
@@ -24,7 +24,7 @@ public class ChestOpener : MonoBehaviour {
 		// }
 	}
 
-	void OnTriggerExit2D (Collider2D col) {
+	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.CHEST) {
 			Chest newChest = col.GetComponent<Chest>();
 			if (chest == newChest && !newChest.isOpened && newChest.isSelected) {

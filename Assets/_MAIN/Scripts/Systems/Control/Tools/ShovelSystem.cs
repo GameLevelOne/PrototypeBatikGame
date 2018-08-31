@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class ShovelSystem : ComponentSystem {
 	public struct ShovelData {
@@ -28,23 +24,20 @@ public class ShovelSystem : ComponentSystem {
 				checkList = shovel.listDig.Contains(true) ? true : false;
 
 				if (!checkList && playerInputSystem.player.isCanDigging) {
-					GameObjectEntity.Instantiate(shovel.diggingObj, shovel.transform.position, Quaternion.identity);
-					// shovel.IsNotCleanForDigging = true;
+					SpawnDigResult (shovel.diggingObj);
+					// shovel.IsNotCleanForDigging = true
+					Debug.Log("SpawnDigResult");
 				}
 			} 
 		}
-		
-		// foreach (var e in GetEntities<ShovelData>()) {
-		// 	Shovel shovel = e.shovel;
-			
-		// 	if (shovel.listDig.Count >= 1) {
-		// 		checkList = shovel.listDig.Contains(true) ? true : false;
-
-		// 		if (!checkList && playerInputSystem.player.IsCanDigging) {
-		// 			GameObjectEntity.Instantiate(shovel.diggingObj, shovel.transform.position, Quaternion.identity);
-		// 			// shovel.IsNotCleanForDigging = true;
-		// 		}
-		// 	} 
-		// }
 	}
+
+    void SpawnDigResult (GameObject obj) {
+		Vector3 shovelPos = shovel.transform.position;
+		Vector3 pos = new Vector3 (shovelPos.x, shovel.digResultPosY, shovelPos.z);
+		// Quaternion rot = Quaternion.Euler(40f, 0f, 0f);
+		Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
+        GameObject spawnedObj = GameObject.Instantiate(obj, pos, rot);
+        spawnedObj.SetActive(true);
+    }
 }

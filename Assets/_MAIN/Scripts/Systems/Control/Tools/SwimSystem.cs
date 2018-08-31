@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class SwimSystem : ComponentSystem {
 	public struct SwimData {
@@ -26,19 +22,19 @@ public class SwimSystem : ComponentSystem {
 			flippers = swimData.Flippers[i];
 			
             if (flippers.isPlayerOnWater) {
-                Collider2D waterBoundariesCol = flippers.waterBoundariesCol;
+                Collider waterBoundariesCol = flippers.waterBoundariesCol;
                 player = flippers.player;
 				input = flippers.input;
 
                 if (flippers.isEquipped) {
-					Physics2D.IgnoreCollision(player.playerCol, waterBoundariesCol, true);
+					Physics.IgnoreCollision(player.playerCol, waterBoundariesCol, true);
 
                     if (flippers.isPlayerSwimming && input.interactValue == 0) {
 				        player.SetPlayerState(PlayerState.SWIM);
                     }
 				} else {
                     if (waterBoundariesCol != null) {
-					    Physics2D.IgnoreCollision(player.playerCol, waterBoundariesCol, false);
+					    Physics.IgnoreCollision(player.playerCol, waterBoundariesCol, false);
                     }
                 }
             }

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class FishingPool : MonoBehaviour {
-	public Collider2D fishingPoolCol;
+	public Collider fishingPoolCol;
 	public GameObject fishCollectibleObj;
 	public int maxSpawn;
 	public int spawnInterval;
