@@ -120,8 +120,8 @@ public class CameraMovementSystem : ComponentSystem {
 
 	float GetZ()
 	{
-		Debug.Log((cameraHeight/2f)-9.4f);
-		Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
+		// Debug.Log((cameraHeight/2f)-9.4f);
+		// Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
 		if(currCameraTransform.position.z <= (cameraHeight/2f) - 9.4f){
 			return (cameraHeight/2f) - 9.4f;
 		}else if(currCameraTransform.position.z >= (mapHeight-(cameraHeight/2f)) - 14.4f){
