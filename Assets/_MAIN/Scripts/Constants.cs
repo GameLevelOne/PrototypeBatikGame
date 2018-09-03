@@ -84,6 +84,8 @@ public static class Constants {
 		public const string PLAYER_STATS_MAXMANA = "Player/Stats/MaxMana";
 		public const string PLAYER_STATS_MANA = "Player/Stats/Mana";
 
+		public const string PLAYER_COIN = "Player/Stats/Coin";
+
 		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
 		public const string PLAYER_TOOL_HOOK = "Player/Tool/Hook";
 		public const string PLAYER_TOOL_BOMB = "Player/Tool/Bomb";
@@ -194,6 +196,10 @@ public static class Constants {
 		#endregion
 
 		#region UI
+		public const string CANVAS_VISIBLE = "IdleOn";
+		public const string CANVAS_INVISIBLE = "IdleOff";
+		public const string FADE_IN = "FadeIn";
+		public const string FADE_OUT = "FadeOut";
 		public const string SLIDE_IDLE = "SlideIdle";
 		public const string SLIDE_RIGHT = "SlideRight";
 		public const string SLIDE_LEFT = "SlideLeft";

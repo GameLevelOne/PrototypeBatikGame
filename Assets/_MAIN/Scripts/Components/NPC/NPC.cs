@@ -17,11 +17,16 @@ public enum NPCType {
 }
 
 public class NPC : MonoBehaviour {
+	[HeaderAttribute("NPC Attributes")]
 	public string npcName;
 	public NPCCharacteristic npcChar;
 	public NPCType npcType;
 	public NPCState state;
 	public Dialog dialog;
+
+	[HeaderAttribute("NPC Shop Only")]
+	public bool isShopNPC;
+	public UIShop uiShop;
 
 	[HeaderAttribute("Current")]
 	public Player player;

@@ -1,16 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+// using UnityEngine.UI;
 
 public class UIShop : MonoBehaviour {
+	public delegate void ShopControl(LootableType type, int price);
+	public event ShopControl OnBuyItem;	
 
-	// Use this for initialization
-	void Start () {
-		
+	public UIItemShop[] itemShops;
+
+	public AnimationControl animationControl;
+	public Animator animator;
+	public GameObject panelUIShop;
+	// public CanvasGroup canvasShopGroup;
+	// public float showMultiplier;
+	// public float hideMultiplier;
+	public bool isOpeningShop;
+	public bool isPlayingAnimation;
+
+	void OnEnable () {
+		animationControl.OnExitAnimation += OnExitAnimation;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void OnDisable () {
+		animationControl.OnExitAnimation -= OnExitAnimation;
+	}
+
+	void OnExitAnimation () {
+		isPlayingAnimation = false;
+	}
+
+	public void BuyItem (LootableType type, int price) {
+		if (OnBuyItem != null) {
+			OnBuyItem(type, price);
+		}
 	}
 }

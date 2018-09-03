@@ -3,9 +3,31 @@
 public class Container : MonoBehaviour {
 	[HeaderAttribute("4 Container types")]
 	public LootableType[] lootableTypes = new LootableType[4];
+
+	[SpaceAttribute(10f)]
+	public UIShop uiShop;
+	public LootableType boughtItemLootabelType;
 	
-	[HeaderAttribute("Quantity of Collectible types")]
-	public GameObject[] collectibleObj;
+	// [HeaderAttribute("Quantity of Collectible types")]
+	// public GameObject[] collectibleObj;
+
+	public bool isProcessingBuyItem;
+
+	public int boughtItemPrice;
+
+	void OnEnable () {
+		uiShop.OnBuyItem += OnBuyItem;
+	}
+
+	void OnDisable () {
+		uiShop.OnBuyItem -= OnBuyItem;
+	}
+
+	void OnBuyItem (LootableType type, int price) {
+		boughtItemLootabelType = type;
+		boughtItemPrice = price;
+		isProcessingBuyItem = true;
+	}
 
 	public bool CheckIfContainerIsEmpty (int collectibleTypeIdx) {
 		if (lootableTypes[collectibleTypeIdx] == LootableType.NONE) {

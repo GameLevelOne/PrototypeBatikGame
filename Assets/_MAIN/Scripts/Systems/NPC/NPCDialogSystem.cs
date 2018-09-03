@@ -81,7 +81,10 @@ public class NPCDialogSystem : ComponentSystem {
 
 				break;
 			case NPCState.INTERACT:
+				if(!currentNPC.uiShop.isOpeningShop) {
 					CheckNPCInteractDialog ();
+				}
+				
 				break;
 		}
 	}
@@ -103,25 +106,32 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void CheckNPCInteractDialog () {
+		int interactIndex = currentNPC.InteractIndex;
+		int dialogLength = currentDialog.interactDialogs.Length;
+
 		if (!isShowingDialog) {
-			// Debug.Log(currentNPC.InteractIndex);
-			currentDialog.dialogIndex = currentNPC.InteractIndex;
-			SetList (GetDialogStringType(currentState, currentDialog.dialogIndex));			
+			Debug.Log("interactIndex : "+interactIndex);
+			SetList (GetDialogStringType(currentState, interactIndex));			
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
 			PrintLetterOneByOne ();
 
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				currentDialog.textDialog.text = GetDialogStringType(currentState, currentDialog.dialogIndex) + openingTag + tag[2];
+				currentDialog.textDialog.text = GetDialogStringType(currentState, interactIndex) + openingTag + tag[2];
 				currentDialog.isFinishShowingDialog = true;
 			}
 		} else {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				HideDialog ();
-
-				if (currentNPC.InteractIndex < currentDialog.interactDialogs.Length-1) {
+				
+				if (interactIndex == dialogLength-1) {
+					if (currentNPC.isShopNPC && !currentNPC.uiShop.isOpeningShop) {
+						currentNPC.uiShop.isOpeningShop = true;
+					}
+				} else if (interactIndex < dialogLength-1) {
 					currentNPC.InteractIndex++;
 				}
+
+				HideDialog (); 
 			}
 			// if (showDialogTime < showDialogDuration) {
 			// 	currentDialog.showDialogTime += deltaTime;
@@ -162,7 +172,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void ShowDialog () {
-		Debug.Log(currentNPC.gameObject.name + "is showing currentDialog");
+		Debug.Log(currentNPC.gameObject.name + " is showing currentDialog");
 		currentDialog.panelDialog.SetActive (true);
 		currentDialog.isFinishShowingDialog = false;
 
@@ -170,7 +180,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void HideDialog () {
-		Debug.Log(currentNPC.gameObject.name + "is hiding currentDialog");
+		Debug.Log(currentNPC.gameObject.name + " is hiding currentDialog");
 		currentDialog.panelDialog.SetActive (false);
 		currentDialog.isShowingDialog = false;
 		currentDialog.isFinishShowingDialog = false;
@@ -182,6 +192,7 @@ public class NPCDialogSystem : ComponentSystem {
 	void PrintLetterOneByOne () {
 		if (letterIndex == currentDialog.letterList.Count-2) {
 			currentDialog.isFinishShowingDialog = true;
+
 			return;
 		}
 		
