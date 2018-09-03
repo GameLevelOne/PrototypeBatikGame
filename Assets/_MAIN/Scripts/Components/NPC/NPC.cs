@@ -10,9 +10,16 @@ public enum NPCState {
 	INTERACT
 }
 
+public enum NPCType {
+	NONE,
+	SHOP,
+	GUIDE, //Gives helpful tips for player
+}
+
 public class NPC : MonoBehaviour {
 	public string npcName;
 	public NPCCharacteristic npcChar;
+	public NPCType npcType;
 	public NPCState state;
 	public Dialog dialog;
 
