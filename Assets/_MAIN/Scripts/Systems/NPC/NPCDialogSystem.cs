@@ -81,7 +81,7 @@ public class NPCDialogSystem : ComponentSystem {
 
 				break;
 			case NPCState.INTERACT:
-				if(!currentDialog.uiShop.isOpeningShop) {
+				if(!currentNPC.uiShop.isOpeningShop) {
 					CheckNPCInteractDialog ();
 				}
 				
@@ -106,29 +106,32 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void CheckNPCInteractDialog () {
+		int interactIndex = currentNPC.InteractIndex;
+		int dialogLength = currentDialog.interactDialogs.Length;
+
 		if (!isShowingDialog) {
-			Debug.Log(currentNPC.InteractIndex);
-			currentDialog.dialogIndex = currentNPC.InteractIndex;
-			SetList (GetDialogStringType(currentState, currentDialog.dialogIndex));			
+			Debug.Log("interactIndex : "+interactIndex);
+			SetList (GetDialogStringType(currentState, interactIndex));			
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
 			PrintLetterOneByOne ();
 
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				currentDialog.textDialog.text = GetDialogStringType(currentState, currentDialog.dialogIndex) + openingTag + tag[2];
+				currentDialog.textDialog.text = GetDialogStringType(currentState, interactIndex) + openingTag + tag[2];
 				currentDialog.isFinishShowingDialog = true;
 			}
 		} else {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				HideDialog ();
-
-				if (currentNPC.InteractIndex < currentDialog.interactDialogs.Length-1) {
-					currentNPC.InteractIndex++;
-				} else {
-					if (currentDialog.isShopNPC) {
-						currentDialog.uiShop.isOpeningShop = true;
+				
+				if (interactIndex == dialogLength-1) {
+					if (currentNPC.isShopNPC && !currentNPC.uiShop.isOpeningShop) {
+						currentNPC.uiShop.isOpeningShop = true;
 					}
+				} else if (interactIndex < dialogLength-1) {
+					currentNPC.InteractIndex++;
 				}
+
+				HideDialog (); 
 			}
 			// if (showDialogTime < showDialogDuration) {
 			// 	currentDialog.showDialogTime += deltaTime;
@@ -189,6 +192,7 @@ public class NPCDialogSystem : ComponentSystem {
 	void PrintLetterOneByOne () {
 		if (letterIndex == currentDialog.letterList.Count-2) {
 			currentDialog.isFinishShowingDialog = true;
+
 			return;
 		}
 		

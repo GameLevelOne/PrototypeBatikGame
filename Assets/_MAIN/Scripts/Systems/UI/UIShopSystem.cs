@@ -10,27 +10,31 @@ public class UIShopSystem : ComponentSystem {
 	
 	UIShop uiShop;
 
+	Animator animator;
+
 	bool isInitShop = false;
-	bool isShowingShop = false;
-	bool isAfterPressPause = false;
+	bool isOpeningShop = false;
+	bool isPlayingAnimation = false;
+	// bool isAfterPressPause = false;
 	bool isActivatingShop = false;
-	bool isInitShowShop = false;
+	// bool isInitShowShop = false;
 	// int timeSwitch = 1;
-	float showTime;
-	float showMultiplier;
-	float hideMultiplier;
-	float alphaValue;
-	float deltaTime;
+	// float showTime;
+	// float showMultiplier;
+	// float hideMultiplier;
+	// float alphaValue;
+	// float deltaTime;
 
 	protected override void OnUpdate () {
 		if (uiShopData.Length == 0) return;
 
-		deltaTime = Time.deltaTime;
+		// deltaTime = Time.deltaTime;
 
 		for (int i=0; i<uiShopData.Length; i++) {
 			uiShop = uiShopData.UIShop[i];
-			showMultiplier = uiShop.showMultiplier;
-			hideMultiplier = uiShop.hideMultiplier;
+			animator = uiShop.animator;
+			// showMultiplier = uiShop.showMultiplier;
+			// hideMultiplier = uiShop.hideMultiplier;
 
 			if (!isInitShop) {
 				try {
@@ -41,64 +45,87 @@ public class UIShopSystem : ComponentSystem {
 
 				isInitShop = true;
 			} else {
-				isShowingShop = uiShop.isOpeningShop;
-				CheckShowingShop ();
+				isOpeningShop = uiShop.isOpeningShop;
+				isPlayingAnimation = uiShop.isPlayingAnimation;
+				CheckShowingShop ();	
 			}
 		}
 	}
 
 	void InitPlayerInfo () {
-		isShowingShop = false;
-		isInitShowShop = false;
+		isOpeningShop = false;
+		// isInitShowShop = false;
 		// timeSwitch = 1;
-		alphaValue = 0f;
+		// alphaValue = 0f;
 
 		if (Time.timeScale == 0) {
 			Time.timeScale = 1;
 		}
 
-		uiShop.canvasShopGroup.alpha = 0f;
+		// uiShop.canvasShopGroup.alpha = 0f;
+		animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 		uiShop.panelUIShop.SetActive(false);
 	}
 
 	void CheckShowingShop () {
-		if (isShowingShop) {
+		if (isOpeningShop) {
 			if (!isActivatingShop) {
+				Time.timeScale = 0;
 				uiShop.panelUIShop.SetActive(true);
+				uiShop.isPlayingAnimation = true;
+				animator.Play(Constants.AnimationName.FADE_IN);
 				// isInitShowShop = false;
 				isActivatingShop = true;
 			} else {
-				ShowShop ();
+				if (!isPlayingAnimation) {
+					animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
+					uiShop.isPlayingAnimation = true;
+					// isInitShowShop = true;
+				}
+
+				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
+					uiShop.isOpeningShop = false;
+				}
 			}
-		} else if (!isShowingShop && Time.timeScale == 0) {
-			Time.timeScale = 1;
 		} else {
-			HideShop ();
+			if (isActivatingShop) {
+				// isInitShowShop = false;
+				uiShop.isPlayingAnimation = true;
+				animator.Play(Constants.AnimationName.FADE_OUT);
+				isActivatingShop = false;
+			} else {
+				if (!isPlayingAnimation) {
+					// isInitShowShop = false;
+					animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+					uiShop.panelUIShop.SetActive(false);
+					Time.timeScale = 1;
+				}
+			}
 		}
 	}
 
 	void ShowShop () {
-		if (!isInitShowShop) {
-			if (alphaValue < 1f) {
-				alphaValue += deltaTime * showMultiplier;
-				uiShop.canvasShopGroup.alpha = alphaValue;
-			} else {
-				Time.timeScale = 0;
-				isInitShowShop = true;
-			}
-		}
+		// if (!isInitShowShop) {
+		// 	if (alphaValue < 1f) {
+		// 		alphaValue += deltaTime * showMultiplier;
+		// 		uiShop.canvasShopGroup.alpha = alphaValue;
+		// 	} else {
+		// 		Time.timeScale = 0;
+		// 		isInitShowShop = true;
+		// 	}
+		// }
 	}
 
 	void HideShop () {
-		if (isInitShowShop) {
-			if (alphaValue > 0f) {
-				alphaValue -= deltaTime * hideMultiplier;
-				uiShop.canvasShopGroup.alpha = alphaValue;
-			} else {
-				uiShop.panelUIShop.SetActive(false);
-				isActivatingShop = false;
-				isInitShowShop = false;
-			}	
-		}
+		// if (isInitShowShop) {
+		// 	if (alphaValue > 0f) {
+		// 		alphaValue -= deltaTime * hideMultiplier;
+		// 		uiShop.canvasShopGroup.alpha = alphaValue;
+		// 	} else {
+		// 		uiShop.panelUIShop.SetActive(false);
+		// 		isActivatingShop = false;
+		// 		isInitShowShop = false;
+		// 	}	
+		// }
 	}
 }

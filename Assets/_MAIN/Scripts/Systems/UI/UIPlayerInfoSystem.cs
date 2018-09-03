@@ -89,7 +89,12 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	void CheckInput () {
 		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) { //ESCAPE / START (Gamepad)
-			isShowingInfo = !isShowingInfo;
+			if (Time.timeScale == 1) {
+				isShowingInfo = true;
+			} else {
+				isShowingInfo = false;
+			}
+			// isShowingInfo = !isShowingInfo;
 			// timeSwitch = Mathf.Abs(timeSwitch-1);
 
 			GameStatus.Bool.IsPauseGame = isShowingInfo;

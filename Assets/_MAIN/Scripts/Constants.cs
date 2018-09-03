@@ -192,6 +192,10 @@ public static class Constants {
 		#endregion
 
 		#region UI
+		public const string CANVAS_VISIBLE = "IdleOn";
+		public const string CANVAS_INVISIBLE = "IdleOff";
+		public const string FADE_IN = "FadeIn";
+		public const string FADE_OUT = "FadeOut";
 		public const string SLIDE_IDLE = "SlideIdle";
 		public const string SLIDE_RIGHT = "SlideRight";
 		public const string SLIDE_LEFT = "SlideLeft";
