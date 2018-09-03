@@ -32,13 +32,14 @@ public class UIShopSystem : ComponentSystem {
 
 		for (int i=0; i<uiShopData.Length; i++) {
 			uiShop = uiShopData.UIShop[i];
+			
 			animator = uiShop.animator;
 			// showMultiplier = uiShop.showMultiplier;
 			// hideMultiplier = uiShop.hideMultiplier;
 
 			if (!isInitShop) {
 				try {
-					InitPlayerInfo ();
+					InitShop ();
 				} catch {
 					return;
 				}
@@ -52,7 +53,7 @@ public class UIShopSystem : ComponentSystem {
 		}
 	}
 
-	void InitPlayerInfo () {
+	void InitShop () {
 		isOpeningShop = false;
 		// isInitShowShop = false;
 		// timeSwitch = 1;
@@ -69,63 +70,47 @@ public class UIShopSystem : ComponentSystem {
 
 	void CheckShowingShop () {
 		if (isOpeningShop) {
-			if (!isActivatingShop) {
-				Time.timeScale = 0;
-				uiShop.panelUIShop.SetActive(true);
-				uiShop.isPlayingAnimation = true;
-				animator.Play(Constants.AnimationName.FADE_IN);
-				// isInitShowShop = false;
-				isActivatingShop = true;
-			} else {
-				if (!isPlayingAnimation) {
-					animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
-					uiShop.isPlayingAnimation = true;
-					// isInitShowShop = true;
-				}
+			ShowShop ();
+		} else {
+			HideShop ();
+		}
+	}
 
+	void ShowShop () {
+		if (!isActivatingShop) {
+			Time.timeScale = 0;
+			uiShop.panelUIShop.SetActive(true);
+			uiShop.isPlayingAnimation = true;
+			animator.Play(Constants.AnimationName.FADE_IN);
+			// isInitShowShop = false;
+			isActivatingShop = true;
+		} else {
+			if (!isPlayingAnimation) {
+				animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
+				uiShop.isPlayingAnimation = true;
+				// isInitShowShop = true;
+			} else {
 				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
 					uiShop.isOpeningShop = false;
-				}
-			}
-		} else {
-			if (isActivatingShop) {
-				// isInitShowShop = false;
-				uiShop.isPlayingAnimation = true;
-				animator.Play(Constants.AnimationName.FADE_OUT);
-				isActivatingShop = false;
-			} else {
-				if (!isPlayingAnimation) {
-					// isInitShowShop = false;
-					animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
-					uiShop.panelUIShop.SetActive(false);
-					Time.timeScale = 1;
 				}
 			}
 		}
 	}
 
-	void ShowShop () {
-		// if (!isInitShowShop) {
-		// 	if (alphaValue < 1f) {
-		// 		alphaValue += deltaTime * showMultiplier;
-		// 		uiShop.canvasShopGroup.alpha = alphaValue;
-		// 	} else {
-		// 		Time.timeScale = 0;
-		// 		isInitShowShop = true;
-		// 	}
-		// }
-	}
-
 	void HideShop () {
-		// if (isInitShowShop) {
-		// 	if (alphaValue > 0f) {
-		// 		alphaValue -= deltaTime * hideMultiplier;
-		// 		uiShop.canvasShopGroup.alpha = alphaValue;
-		// 	} else {
-		// 		uiShop.panelUIShop.SetActive(false);
-		// 		isActivatingShop = false;
-		// 		isInitShowShop = false;
-		// 	}	
-		// }
+		if (isActivatingShop) {
+			// isInitShowShop = false;
+			uiShop.isPlayingAnimation = true;
+			animator.Play(Constants.AnimationName.FADE_OUT);
+			isActivatingShop = false;
+		} else {
+			if (!isPlayingAnimation) {
+				// isInitShowShop = false;
+				animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+				uiShop.isPlayingAnimation = true;
+				uiShop.panelUIShop.SetActive(false);
+				Time.timeScale = 1;
+			}
+		}
 	}
 }

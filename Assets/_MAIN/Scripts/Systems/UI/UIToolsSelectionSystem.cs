@@ -18,7 +18,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	PlayerTool tool;
 	Animation2D anim;
 
-	Animator animator;
+	Animator sliderAnimator;
+	Animator panelAnimator;
 
 	public bool isChangingTool = false;
 
@@ -28,26 +29,18 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	int changeIndex = 0;
 	bool isInitToolImage = false;
 	bool isShowingTools = false;
-	bool isActivatingPlayerInfo = false;
-	bool isInitShowInfo = false;
+	bool isPlayingAnimation = false;
+	bool isActivatingTools = false;
+	// bool isInitShowInfo = false;
 	float deltaTime;
 	float showTime;
 	float showDuration;
-	float showMultiplier;
-	float hideMultiplier;
-	float alphaValue;
+	// float showMultiplier;
+	// float hideMultiplier;
+	// float alphaValue;
 
 	protected override void OnUpdate () {
 		if (uiToolsSelectionData.Length == 0) return;
-		
-		// if (GameStatus.Bool.IsPauseGame) {
-		// 	// isUpdateList = false;
-		// 	return;
-		// } 
-		// else {			
-		// 	// CheckToolIndexes ();
-		// 	Debug.Log("Game Is Running");
-		// }
 
 		deltaTime = Time.deltaTime;
 
@@ -56,33 +49,41 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			tool = uiToolsSelection.tool;
 			anim = uiToolsSelectionData.Animation[i];
 			
-			animator = anim.animator;
+			sliderAnimator = anim.animator;
+			panelAnimator = uiToolsSelection.animator;
 			toolSprites = uiToolsSelection.arrayOfToolSprites;
 			toolImages = uiToolsSelection.arrayOfToolImages;
 			showDuration = uiToolsSelection.showDuration;
-			showMultiplier = uiToolsSelection.showMultiplier;
-			hideMultiplier = uiToolsSelection.hideMultiplier;
+			// showMultiplier = uiToolsSelection.showMultiplier;
+			// hideMultiplier = uiToolsSelection.hideMultiplier;
 
 			if (!isInitToolImage) {
 				try {
 					InitToolsSelection ();
 				} catch {
+					Debug.Log("HERE");
 					return;
 				}
 				
 				isInitToolImage = true;
 			} else {
+				isPlayingAnimation = uiToolsSelection.isPlayingAnimation;
 				CheckAnimation ();
 				CheckShowingTools ();
 				
-				if (uiToolsSelection.isToolChange && !isChangingTool) {
+				if (uiToolsSelection.isToolChange && !isChangingTool ) {
 					changeIndex = uiToolsSelection.changeIndex;
+					// Debug.Log("ChangingTools");
 
 					if (changeIndex == 0) {
 						ResetChange();
 					} else {
-						isChangingTool = true;
+						if (!uiToolsSelection.panelToolsSelection.activeSelf) {
+							uiToolsSelection.panelToolsSelection.SetActive(true);
+						}
+
 						CheckToolsButton ();
+						isChangingTool = true;
 					}				
 				}
 			}
@@ -91,13 +92,13 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void InitToolsSelection () {
 		InitImages (false);
-
 		showTime = 0f;
-		alphaValue = 0f;
-		uiToolsSelection.canvasToolsGroup.alpha = 0f;
+		// alphaValue = 0f;
+		// uiToolsSelection.canvasToolsGroup.alpha = 0f;
+		panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 		uiToolsSelection.panelToolsSelection.SetActive(false);
-		isShowingTools = true;
-		isInitShowInfo = false;
+		// isShowingTools = true;
+		// isInitShowInfo = false;
 	}
 
 	public void InitImages (bool isUpdatedList) {
@@ -120,11 +121,11 @@ public class UIToolsSelectionSystem : ComponentSystem {
 				if (!uiToolsSelection.checker[tempIdx]) {
 					if (tool.CheckIfToolHasBeenUnlocked(tempIdx) > 0) {
 						uiToolsSelection.toolIndexes.Add(tempIdx);
-						Debug.Log("Add");
+						// Debug.Log("Add");
 					}
 					
 					uiToolsSelection.checker[tempIdx] = true;
-					Debug.Log("Check : "+tempIdx+" "+uiToolsSelection.checker[tempIdx]);
+					// Debug.Log("Check : "+tempIdx+" "+uiToolsSelection.checker[tempIdx]);
 
 					if (tempIdx >= (int) ToolType.Boots) {
 						tempIdx = 0;
@@ -184,42 +185,97 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckShowingTools () {
 		if (isShowingTools) {
-			if (!isActivatingPlayerInfo) {
-				uiToolsSelection.panelToolsSelection.SetActive(true);
-				isActivatingPlayerInfo = true;
-			} else {
-				ShowTools ();
-			}
+			ShowTools ();
 		} else {
 			HideTools ();
 		}
 	}
 
 	void ShowTools () {
-		if (!isInitShowInfo) {
-			if (alphaValue < 1f) {
-				alphaValue += deltaTime * showMultiplier;
-				uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+		if (!isActivatingTools) {
+			uiToolsSelection.panelToolsSelection.SetActive(true);
+			uiToolsSelection.isPlayingAnimation = true;
+			panelAnimator.Play(Constants.AnimationName.FADE_IN);
+			// isInitShowShop = false;
+			isActivatingTools = true;
+		} else {
+			if (!isPlayingAnimation) {
+				panelAnimator.Play(Constants.AnimationName.CANVAS_VISIBLE);
+				uiToolsSelection.isPlayingAnimation = true;
+				// isInitShowShop = true;
 			} else {
 				if (showTime < showDuration) {
 					showTime += deltaTime;
 				} else {
 					isShowingTools = false;
-					isInitShowInfo = true;
+					// isInitShowInfo = true;
 				}
 			}
 		}
 	}
 
 	void HideTools () {
-		if (alphaValue > 0f) {
-			alphaValue -= deltaTime * hideMultiplier;
-			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+		if (isActivatingTools) {
+			// isInitShowShop = false;
+			uiToolsSelection.isPlayingAnimation = true;
+			panelAnimator.Play(Constants.AnimationName.FADE_OUT);
+			isActivatingTools = false;
 		} else {
-			// uiToolsSelection.panelToolsSelection.SetActive(false);
-			isActivatingPlayerInfo = false;
+			if (!isPlayingAnimation) {
+				// isInitShowShop = false;
+				panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+				uiToolsSelection.isPlayingAnimation = true;
+				uiToolsSelection.panelToolsSelection.SetActive(false);
+			} else {
+				// if (!isChangingTool) {
+				// 	panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+				// 	uiToolsSelection.isPlayingAnimation = true;
+				// 	uiToolsSelection.panelToolsSelection.SetActive(false);
+				// }
+			}
 		}
 	}
+
+#region OLD Show & Hide
+	// void CheckShowingTools () {
+	// 	if (isShowingTools) {
+	// 		if (!isActivatingPlayerInfo) {
+	// 			uiToolsSelection.panelToolsSelection.SetActive(true);
+	// 			isActivatingPlayerInfo = true;
+	// 		} else {
+	// 			ShowTools ();
+	// 		}
+	// 	} else {
+	// 		HideTools ();
+	// 	}
+	// }
+
+	// void ShowTools () {
+	// 	if (!isInitShowInfo) {
+	// 		if (alphaValue < 1f) {
+	// 			alphaValue += deltaTime * showMultiplier;
+	// 			uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+	// 		} else {
+	// 			if (showTime < showDuration) {
+	// 				showTime += deltaTime;
+	// 			} else {
+	// 				isShowingTools = false;
+	// 				isInitShowInfo = true;
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	// void HideTools () {
+	// 	if (alphaValue > 0f) {
+	// 		alphaValue -= deltaTime * hideMultiplier;
+	// 		uiToolsSelection.canvasToolsGroup.alpha = alphaValue;
+	// 	} else {
+	// 		// uiToolsSelection.panelToolsSelection.SetActive(false);
+	// 		isActivatingPlayerInfo = false;
+	// 	}
+	// }
+#endregion
 	
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
@@ -232,29 +288,30 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void CheckToolsButton () {
+		isShowingTools = true;
+		panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+		
 		if (changeIndex == 1) {
 			NextTools();
 		} else if (changeIndex == -1) {
 			PrevTools();
 		}
 
-		Debug.Log("isShowingTools isInitShowInfo");
-		isShowingTools = true;
-		isInitShowInfo = false;
+		// isInitShowInfo = false;
 		showTime = 0f;
 	}
 
 	void NextTools () {
-		animator.Play(Constants.AnimationName.SLIDE_LEFT);
-
+		Debug.Log("NextTools "+sliderAnimator.name);
+		sliderAnimator.Play(Constants.AnimationName.SLIDE_LEFT);
 		int tempToolIdx = uiToolsSelection.toolIndexes[0];
 		uiToolsSelection.toolIndexes.RemoveAt(0);
 		uiToolsSelection.toolIndexes.Add(tempToolIdx);
 	}
 
 	void PrevTools () {
-		animator.Play(Constants.AnimationName.SLIDE_RIGHT);
-
+		Debug.Log("PrevTools "+sliderAnimator.name);
+		sliderAnimator.Play(Constants.AnimationName.SLIDE_RIGHT);
 		int lastToolIdx = uiToolsSelection.toolIndexes.Count-1;
 		int tempToolIdx = uiToolsSelection.toolIndexes[lastToolIdx];
 		uiToolsSelection.toolIndexes.RemoveAt(lastToolIdx);
@@ -272,15 +329,17 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void ResetChange () {
 		Debug.Log("ResetChange");
-		animator.Play(Constants.AnimationName.SLIDE_IDLE);
+		sliderAnimator.Play(Constants.AnimationName.SLIDE_IDLE);
 		SetImages();
 		SetPrintedTool ();
 		uiToolsSelection.changeIndex = 0;
 		uiToolsSelection.isToolChange = false;
 		isChangingTool = false;
 		
-		if (!isActivatingPlayerInfo) {
-			uiToolsSelection.panelToolsSelection.SetActive(false);
-		}
+		// if (!isActivatingTools) {
+		// 	panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+		// 	uiToolsSelection.isPlayingAnimation = true;
+		// 	uiToolsSelection.panelToolsSelection.SetActive(false);
+		// }
 	}
 }

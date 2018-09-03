@@ -16,6 +16,10 @@ public class UIShop : MonoBehaviour {
 		animationControl.OnExitAnimation += OnExitAnimation;
 	}
 
+	void OnDisable () {
+		animationControl.OnExitAnimation -= OnExitAnimation;
+	}
+
 	void OnExitAnimation () {
 		isPlayingAnimation = false;
 	}

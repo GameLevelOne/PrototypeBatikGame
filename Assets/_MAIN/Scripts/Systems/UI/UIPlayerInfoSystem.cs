@@ -19,60 +19,67 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	UIPlayerStatus uiPlayerStatus;
 	UIToolsNSummons uiToolsNSummons;
 
+	Animator animator;
+
 	List<ButtonToolNSummon> listOfToolsNSummons;
 
-	bool isInitPlayerInfo = false;
+	bool isInitInfo = false;
 	bool isShowingInfo = false;
-	bool isAfterPressPause = false;
-	bool isActivatingPlayerInfo = false;
-	bool isInitShowInfo = false;
+	bool isPlayingAnimation = false;
+	// bool isAfterPressPause = false;
+	bool isActivatingInfo = false;
+	// bool isInitShowInfo = false;
 	// int timeSwitch = 1;
 	int usedToolNSummonIdx;
 	int selectedToolNSummonIdx;
-	float showTime;
-	float showMultiplier;
-	float hideMultiplier;
-	float alphaValue;
-	float deltaTime;
+	// float showTime;
+	// float showMultiplier;
+	// float hideMultiplier;
+	// float alphaValue;
+	// float deltaTime;
 
 	protected override void OnUpdate () {
 		if (uiPlayerInfoData.Length == 0) return;
 
-		deltaTime = Time.deltaTime;
+		// deltaTime = Time.deltaTime;
 
 		for (int i=0; i<uiPlayerInfoData.Length; i++) {
 			uiInfo = uiPlayerInfoData.UIInfo[i];
 			uiPlayerStatus = uiPlayerInfoData.UIPlayerStatus[i];
 			uiToolsNSummons = uiPlayerInfoData.UIToolsNSummons[i];
-			showMultiplier = uiInfo.showMultiplier;
-			hideMultiplier = uiInfo.hideMultiplier;
+			
+			animator = uiInfo.animator;
+			// showMultiplier = uiInfo.showMultiplier;
+			// hideMultiplier = uiInfo.hideMultiplier;
 
-			if (!isInitPlayerInfo) {
+			if (!isInitInfo) {
 				try {
 					InitPlayerInfo ();
 				} catch {
 					return;
 				}
 
-				isInitPlayerInfo = true;
+				isInitInfo = true;
 			} else {
+				isPlayingAnimation = uiInfo.isPlayingAnimation;
 				CheckInput ();
-				CheckShowingTools ();
+				CheckShowingInfo ();
 			}
 		}
 	}
 
 	void InitPlayerInfo () {
 		isShowingInfo = false;
-		isInitShowInfo = false;
+		// isInitShowInfo = false;
 		// timeSwitch = 1;
-		alphaValue = 0f;
+		// alphaValue = 0f;
 
 		if (Time.timeScale == 0) {
 			Time.timeScale = 1;
 		}
 
-		uiInfo.canvasInfoGroup.alpha = 0f;
+		// uiInfo.canvasInfoGroup.alpha = 0f;
+		animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 		uiInfo.panelUIInfo.SetActive(false);
 		InitTool ();
 	}
@@ -101,7 +108,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			// uiInfo.panelUIInfo.SetActive(isShowingInfo);
 			
 			if (isShowingInfo) {
-				isInitShowInfo = false;
+				// isInitShowInfo = false;
 				CheckActiveTool ();
 			} else {
 				Time.timeScale = 1;
@@ -197,38 +204,84 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		uiPlayerStatus.textTool.text = value;
 	}
 
-	void CheckShowingTools () {
+	void CheckShowingInfo () {
 		if (isShowingInfo) {
-			if (!isActivatingPlayerInfo) {
-				uiInfo.panelUIInfo.SetActive(true);
-				isActivatingPlayerInfo = true;
-			} else {
-				ShowTools ();
-			}
+			ShowInfo ();
 		} else {
-			HideTools ();
+			HideInfo ();
 		}
 	}
 
-	void ShowTools () {
-		if (!isInitShowInfo) {
-			if (alphaValue < 1f) {
-				alphaValue += deltaTime * showMultiplier;
-				uiInfo.canvasInfoGroup.alpha = alphaValue;
+	void ShowInfo () {
+		if (!isActivatingInfo) {
+			Time.timeScale = 0;
+			uiInfo.panelUIInfo.SetActive(true);
+			uiInfo.isPlayingAnimation = true;
+			animator.Play(Constants.AnimationName.FADE_IN);
+			// isInitShowShop = false;
+			isActivatingInfo = true;
+		} else {
+			if (!isPlayingAnimation) {
+				animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
+				uiInfo.isPlayingAnimation = true;
+				// isInitShowShop = true;
 			} else {
-				Time.timeScale = 0;
-				isInitShowInfo = true;
+				//
 			}
 		}
 	}
 
-	void HideTools () {
-		if (alphaValue > 0f) {
-			alphaValue -= deltaTime * hideMultiplier;
-			uiInfo.canvasInfoGroup.alpha = alphaValue;
+	void HideInfo () {
+		if (isActivatingInfo) {
+			// isInitShowShop = false;
+			uiInfo.isPlayingAnimation = true;
+			animator.Play(Constants.AnimationName.FADE_OUT);
+			isActivatingInfo = false;
 		} else {
-			uiInfo.panelUIInfo.SetActive(false);
-			isActivatingPlayerInfo = false;
+			if (!isPlayingAnimation) {
+				// isInitShowShop = false;
+				animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+				uiInfo.isPlayingAnimation = true;
+				uiInfo.panelUIInfo.SetActive(false);
+				Time.timeScale = 1;
+			}
 		}
 	}
+
+#region OLD Show & Hide
+	// void CheckShowingTools () {
+	// 	if (isShowingInfo) {
+	// 		if (!isActivatingPlayerInfo) {
+	// 			uiInfo.panelUIInfo.SetActive(true);
+	// 			isActivatingPlayerInfo = true;
+	// 		} else {
+	// 			ShowTools ();
+	// 		}
+	// 	} else {
+	// 		HideTools ();
+	// 	}
+	// }
+
+	// void ShowTools () {
+	// 	if (!isInitShowInfo) {
+	// 		if (alphaValue < 1f) {
+	// 			alphaValue += deltaTime * showMultiplier;
+	// 			uiInfo.canvasInfoGroup.alpha = alphaValue;
+	// 		} else {
+	// 			Time.timeScale = 0;
+	// 			isInitShowInfo = true;
+	// 		}
+	// 	}
+	// }
+
+	// void HideTools () {
+	// 	if (alphaValue > 0f) {
+	// 		alphaValue -= deltaTime * hideMultiplier;
+	// 		uiInfo.canvasInfoGroup.alpha = alphaValue;
+	// 	} else {
+	// 		uiInfo.panelUIInfo.SetActive(false);
+	// 		isActivatingPlayerInfo = false;
+	// 	}
+	// }
+#endregion
 }
