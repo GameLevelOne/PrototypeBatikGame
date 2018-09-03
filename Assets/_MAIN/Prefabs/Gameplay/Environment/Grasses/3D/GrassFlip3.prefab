@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1543397313897150}
   m_IsPrefabAsset: 1
+--- !u!1 &1072774848137382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4170466462884488}
+  m_Layer: 0
+  m_Name: Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1543397313897150
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +62,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1969617834829360
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -55,14 +70,27 @@ GameObject:
   - component: {fileID: 4561478721858762}
   - component: {fileID: 33393869991208542}
   - component: {fileID: 23758392641767722}
-  - component: {fileID: 65456536420317594}
   m_Layer: 0
-  m_Name: GrassFlip3
+  m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4170466462884488
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072774848137382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4561478721858762}
+  m_Father: {fileID: 4833728662763662}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4561478721858762
 Transform:
   m_ObjectHideFlags: 1
@@ -70,11 +98,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1969617834829360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.469, z: 0}
+  m_LocalPosition: {x: -0.08, y: 0.46900004, z: 0}
   m_LocalScale: {x: -0.4, y: 0.9416667, z: 1}
   m_Children: []
-  m_Father: {fileID: 4833728662763662}
-  m_RootOrder: 1
+  m_Father: {fileID: 4170466462884488}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4833728662763662
 Transform:
@@ -87,7 +115,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4964559412601252}
-  - {fileID: 4561478721858762}
+  - {fileID: 4170466462884488}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
@@ -158,18 +186,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.053967364, y: 0.50335574, z: 0}
   m_Center: {x: 0, y: 0.24832214, z: 0}
---- !u!65 &65456536420317594
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1969617834829360}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95546301183874862
 Animator:
   serializedVersion: 3
