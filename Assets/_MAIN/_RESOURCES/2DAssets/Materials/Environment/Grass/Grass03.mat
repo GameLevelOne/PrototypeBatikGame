@@ -6,20 +6,21 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Grass02
-  m_Shader: {fileID: 4800000, guid: 4dd5c3ab52a46874c971a557ca1bce58, type: 3}
+  m_Name: Grass03
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_7C764995:
-        m_Texture: {fileID: 2800000, guid: 1fdc022a43d11814081163f1da68f30a, type: 3}
+        m_Texture: {fileID: 2800000, guid: d07303c3980f7e94ebeeed1e9645a508, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -43,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1fdc022a43d11814081163f1da68f30a, type: 3}
+        m_Texture: {fileID: 2800000, guid: d07303c3980f7e94ebeeed1e9645a508, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

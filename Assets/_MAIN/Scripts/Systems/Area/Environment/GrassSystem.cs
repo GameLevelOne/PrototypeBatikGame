@@ -50,7 +50,9 @@ public class GrassSystem : ComponentSystem {
 	void Interact()
 	{
 		currGrass.interact = false;
-		currGrassAnim.SetTrigger(Constants.AnimatorParameter.Trigger.ANIMATE);
+		float rnd = Random.value;
+		if(rnd < 0.5f) currGrassAnim.SetTrigger(Constants.AnimatorParameter.Trigger.GRASS_WAVElEFT);
+		else currGrassAnim.SetTrigger(Constants.AnimatorParameter.Trigger.GRASS_WAVERIGHT);
 	}
 
 	void Destroy()

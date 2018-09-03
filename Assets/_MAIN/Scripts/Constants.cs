@@ -28,6 +28,8 @@ public static class Constants {
 		{
 			public const string EXPLODE = "Explode";
 			public const string ANIMATE = "Animate";
+			public const string GRASS_WAVElEFT = "WaveLeft";
+			public const string GRASS_WAVERIGHT = "WaveRight";
 		}
 
 		public static class Bool
