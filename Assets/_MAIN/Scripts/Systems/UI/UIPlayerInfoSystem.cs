@@ -210,6 +210,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		} else {
 			HideInfo ();
 		}
+		Debug.Log("Set timescale CheckShowingInfo : "+Time.timeScale);
 	}
 
 	void ShowInfo () {

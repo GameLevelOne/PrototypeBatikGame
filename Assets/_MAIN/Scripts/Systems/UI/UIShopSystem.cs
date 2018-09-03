@@ -50,7 +50,7 @@ public class UIShopSystem : ComponentSystem {
 			} else {
 				isOpeningShop = uiShop.isOpeningShop;
 				isPlayingAnimation = uiShop.isPlayingAnimation;
-				// CheckInput ();
+				CheckInput ();
 				CheckShowingShop ();	
 			}
 		}
@@ -117,6 +117,7 @@ public class UIShopSystem : ComponentSystem {
 		} else {
 			HideShop ();
 		}
+		Debug.Log("Set timescale CheckShowingShop : "+Time.timeScale);
 	}
 
 	void ShowShop () {
