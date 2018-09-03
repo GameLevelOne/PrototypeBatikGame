@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 
 public class ContainerSystem : ComponentSystem {
@@ -25,19 +20,41 @@ public class ContainerSystem : ComponentSystem {
 			container = containerData.Container[i];
 
 			lootableTypes = container.lootableTypes;
+
+			if (container.isProcessingBuyItem) {
+				ProcessCoin (container.boughtItemLootabelType, container.boughtItemPrice);		
+			}
 		}
 	}
 
-	public void SaveToContainer (Lootable lootable) {
+	void ProcessCoin (LootableType type, int price) {
+		if (price <= GameStorage.Instance.PlayerCoin) {
+			if (SaveToContainer (type)) {
+				GameStorage.Instance.PlayerCoin -= price;
+			} else {
+				//No Empty Container
+			}
+		} else {
+			Debug.Log("You have not enough coin");
+		}
+
+		container.isProcessingBuyItem = false;
+	}
+
+	public bool SaveToContainer (LootableType currentLootableType) {
 		for (int i=0; i<lootableTypes.Length; i++) {
 			if (container.CheckIfContainerIsEmpty(i)) {
-				lootableTypes[i] = lootable.lootableType;
+				lootableTypes[i] = currentLootableType;
 
-				break;
+				return true;
 			} else {
-				Debug.Log(lootableTypes[i] + " is failed to contain, there is no empty container");
+				Debug.Log(lootableTypes[i] + " is failed to contain");
+				// return false;
 			}
 		}
+
+		Debug.Log("There is no empty container");
+		return false; //
 	}
 
 	public void UseCollectibleInContainer (int lootableTypeIdx) {

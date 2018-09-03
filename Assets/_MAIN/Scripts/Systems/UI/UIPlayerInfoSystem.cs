@@ -56,6 +56,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				try {
 					InitPlayerInfo ();
 				} catch {
+					Debug.Log("Error init UIPlayerInfoSystem");
 					return;
 				}
 
@@ -101,17 +102,16 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			} else {
 				isShowingInfo = false;
 			}
+			Debug.Log("Escape " +Time.timeScale);
 			// isShowingInfo = !isShowingInfo;
 			// timeSwitch = Mathf.Abs(timeSwitch-1);
 
-			GameStatus.Bool.IsPauseGame = isShowingInfo;
+			// GameStatus.Bool.IsPauseGame = isShowingInfo;
 			// uiInfo.panelUIInfo.SetActive(isShowingInfo);
 			
 			if (isShowingInfo) {
 				// isInitShowInfo = false;
 				CheckActiveTool ();
-			} else {
-				Time.timeScale = 1;
 			}
 		} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
 			PrevButtonTool ();

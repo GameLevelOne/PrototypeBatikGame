@@ -2,7 +2,11 @@
 // using UnityEngine.UI;
 
 public class UIShop : MonoBehaviour {
-	// public Dialog dialog;
+	public delegate void ShopControl(LootableType type, int price);
+	public event ShopControl OnBuyItem;	
+
+	public UIItemShop[] itemShops;
+
 	public AnimationControl animationControl;
 	public Animator animator;
 	public GameObject panelUIShop;
@@ -22,5 +26,11 @@ public class UIShop : MonoBehaviour {
 
 	void OnExitAnimation () {
 		isPlayingAnimation = false;
+	}
+
+	public void BuyItem (LootableType type, int price) {
+		if (OnBuyItem != null) {
+			OnBuyItem(type, price);
+		}
 	}
 }

@@ -24,6 +24,8 @@ public class UIShopSystem : ComponentSystem {
 	// float hideMultiplier;
 	// float alphaValue;
 	// float deltaTime;
+	int buttonIndex;
+	int buttonItemLength;
 
 	protected override void OnUpdate () {
 		if (uiShopData.Length == 0) return;
@@ -48,6 +50,7 @@ public class UIShopSystem : ComponentSystem {
 			} else {
 				isOpeningShop = uiShop.isOpeningShop;
 				isPlayingAnimation = uiShop.isPlayingAnimation;
+				// CheckInput ();
 				CheckShowingShop ();	
 			}
 		}
@@ -55,6 +58,8 @@ public class UIShopSystem : ComponentSystem {
 
 	void InitShop () {
 		isOpeningShop = false;
+		buttonIndex = 0;
+		buttonItemLength = uiShop.itemShops.Length;
 		// isInitShowShop = false;
 		// timeSwitch = 1;
 		// alphaValue = 0f;
@@ -65,7 +70,45 @@ public class UIShopSystem : ComponentSystem {
 
 		// uiShop.canvasShopGroup.alpha = 0f;
 		animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+		uiShop.itemShops[buttonIndex].buttonItem.Select();
 		uiShop.panelUIShop.SetActive(false);
+	}
+
+	void CheckInput () {
+		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+			PrevButtonTool ();
+		} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+			NextButtonTool ();
+		} else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
+			if (isActivatingShop) {
+				uiShop.isOpeningShop = false;
+			}
+		}
+	}
+
+	void NextButtonTool () {
+		if (buttonIndex >= buttonItemLength-1){
+			buttonIndex = 0;
+		} else {
+			buttonIndex++;
+		}
+
+		SelectTool(buttonIndex);
+	}
+
+	void PrevButtonTool () {
+		if (buttonIndex <= 0){
+			buttonIndex = buttonItemLength-1;
+		} else {
+			buttonIndex--;
+		}
+
+		SelectTool(buttonIndex);
+	}
+
+	void SelectTool (int idx) {
+		uiShop.itemShops[buttonIndex].buttonItem.Select();
+		uiShop.BuyItem(uiShop.itemShops[idx].lootableType, uiShop.itemShops[idx].itemPrice);
 	}
 
 	void CheckShowingShop () {
@@ -90,9 +133,7 @@ public class UIShopSystem : ComponentSystem {
 				uiShop.isPlayingAnimation = true;
 				// isInitShowShop = true;
 			} else {
-				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
-					uiShop.isOpeningShop = false;
-				}
+				//
 			}
 		}
 	}

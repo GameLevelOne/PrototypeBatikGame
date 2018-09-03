@@ -82,6 +82,8 @@ public static class Constants {
 		public const string PLAYER_STATS_MAXMANA = "Player/Stats/MaxMana";
 		public const string PLAYER_STATS_MANA = "Player/Stats/Mana";
 
+		public const string PLAYER_COIN = "Player/Stats/Coin";
+
 		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
 		public const string PLAYER_TOOL_HOOK = "Player/Tool/Hook";
 		public const string PLAYER_TOOL_BOMB = "Player/Tool/Bomb";

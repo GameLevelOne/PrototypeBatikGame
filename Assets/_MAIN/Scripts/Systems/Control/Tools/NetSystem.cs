@@ -23,9 +23,12 @@ public class NetSystem : ComponentSystem {
 			net = netData.net[i];
 
 			if (net.IsGotSomething) {
-				containerSystem.SaveToContainer(net.lootableObj);
+				if (containerSystem.SaveToContainer(net.lootableObj.lootableType)) {
+					GameObjectEntity.Destroy(net.lootableObj.gameObject);
+				} else {
+					//
+				}
 
-				GameObjectEntity.Destroy(net.lootableObj.gameObject);
 				net.IsGotSomething = false;
 			}
 		}
