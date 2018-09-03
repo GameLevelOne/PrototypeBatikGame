@@ -81,7 +81,10 @@ public class NPCDialogSystem : ComponentSystem {
 
 				break;
 			case NPCState.INTERACT:
+				if(!currentDialog.uiShop.isOpeningShop) {
 					CheckNPCInteractDialog ();
+				}
+				
 				break;
 		}
 	}
@@ -104,7 +107,7 @@ public class NPCDialogSystem : ComponentSystem {
 
 	void CheckNPCInteractDialog () {
 		if (!isShowingDialog) {
-			// Debug.Log(currentNPC.InteractIndex);
+			Debug.Log(currentNPC.InteractIndex);
 			currentDialog.dialogIndex = currentNPC.InteractIndex;
 			SetList (GetDialogStringType(currentState, currentDialog.dialogIndex));			
 			ShowDialog ();
@@ -121,6 +124,10 @@ public class NPCDialogSystem : ComponentSystem {
 
 				if (currentNPC.InteractIndex < currentDialog.interactDialogs.Length-1) {
 					currentNPC.InteractIndex++;
+				} else {
+					if (currentDialog.isShopNPC) {
+						currentDialog.uiShop.isOpeningShop = true;
+					}
 				}
 			}
 			// if (showDialogTime < showDialogDuration) {
@@ -162,7 +169,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void ShowDialog () {
-		Debug.Log(currentNPC.gameObject.name + "is showing currentDialog");
+		Debug.Log(currentNPC.gameObject.name + " is showing currentDialog");
 		currentDialog.panelDialog.SetActive (true);
 		currentDialog.isFinishShowingDialog = false;
 
@@ -170,7 +177,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void HideDialog () {
-		Debug.Log(currentNPC.gameObject.name + "is hiding currentDialog");
+		Debug.Log(currentNPC.gameObject.name + " is hiding currentDialog");
 		currentDialog.panelDialog.SetActive (false);
 		currentDialog.isShowingDialog = false;
 		currentDialog.isFinishShowingDialog = false;

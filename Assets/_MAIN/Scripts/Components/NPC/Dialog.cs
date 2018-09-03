@@ -9,6 +9,9 @@ public class Dialog : MonoBehaviour {
 	
 	[HeaderAttribute("NPC Only")]
 	public NPC npc;
+	[HeaderAttribute("NPC Shop Only")]
+	public bool isShopNPC;
+	public UIShop uiShop;
 
 	[SpaceAttribute(10f)]
 	public GameObject panelDialog;
