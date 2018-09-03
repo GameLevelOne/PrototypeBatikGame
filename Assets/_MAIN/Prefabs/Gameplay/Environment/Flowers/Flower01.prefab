@@ -91,7 +91,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1238122477989248
 GameObject:
   m_ObjectHideFlags: 1
@@ -152,6 +152,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4776390623822386}
   - component: {fileID: 95488053996915564}
+  - component: {fileID: 114314367112533550}
+  - component: {fileID: 114714535600286392}
   m_Layer: 0
   m_Name: Flower01
   m_TagString: Untagged
@@ -262,7 +264,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964174893880334}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4482002216002150}
@@ -526,3 +528,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114314367112533550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1964174893880334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ca4e0ef28ad5b4bac1c263835ad6eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mRenderer:
+  - {fileID: 23498544057035556}
+  - {fileID: 23483383123738054}
+  dissolveValue: []
+  dissolveSpeed: 0.5
+  init: 0
+  dissolve: 0
+  unDissolve: 0
+--- !u!114 &114714535600286392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1964174893880334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
