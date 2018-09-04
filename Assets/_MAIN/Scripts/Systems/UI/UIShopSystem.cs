@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using Unity.Entities;
 
 public class UIShopSystem : ComponentSystem {
@@ -43,6 +44,7 @@ public class UIShopSystem : ComponentSystem {
 				try {
 					InitShop ();
 				} catch {
+					Debug.Log("Error init UIShopSystem");
 					return;
 				}
 
@@ -75,13 +77,15 @@ public class UIShopSystem : ComponentSystem {
 	}
 
 	void CheckInput () {
-		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-			PrevButtonTool ();
-		} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-			NextButtonTool ();
-		} else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
-			if (isActivatingShop) {
+		if (isOpeningShop) {
+			if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
 				uiShop.isOpeningShop = false;
+			} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+				PrevButtonTool ();
+			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+				NextButtonTool ();
+			} else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+				BuyItemShop ();
 			}
 		}
 	}
@@ -93,7 +97,7 @@ public class UIShopSystem : ComponentSystem {
 			buttonIndex++;
 		}
 
-		SelectTool(buttonIndex);
+		SelectItemShop();
 	}
 
 	void PrevButtonTool () {
@@ -103,12 +107,15 @@ public class UIShopSystem : ComponentSystem {
 			buttonIndex--;
 		}
 
-		SelectTool(buttonIndex);
+		SelectItemShop();
 	}
 
-	void SelectTool (int idx) {
+	void SelectItemShop () {
 		uiShop.itemShops[buttonIndex].buttonItem.Select();
-		uiShop.BuyItem(uiShop.itemShops[idx].lootableType, uiShop.itemShops[idx].itemPrice);
+	}
+
+	void BuyItemShop () {
+		uiShop.BuyItem(uiShop.itemShops[buttonIndex].lootableType, uiShop.itemShops[buttonIndex].itemPrice);
 	}
 
 	void CheckShowingShop () {
@@ -117,7 +124,6 @@ public class UIShopSystem : ComponentSystem {
 		} else {
 			HideShop ();
 		}
-		Debug.Log("Set timescale CheckShowingShop : "+Time.timeScale);
 	}
 
 	void ShowShop () {
@@ -127,6 +133,8 @@ public class UIShopSystem : ComponentSystem {
 			uiShop.isPlayingAnimation = true;
 			animator.Play(Constants.AnimationName.FADE_IN);
 			// isInitShowShop = false;
+			EventSystem.current.SetSelectedGameObject(null);
+			uiShop.itemShops[buttonIndex].buttonItem.Select();
 			isActivatingShop = true;
 		} else {
 			if (!isPlayingAnimation) {

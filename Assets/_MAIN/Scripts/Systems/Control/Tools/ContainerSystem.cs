@@ -28,14 +28,17 @@ public class ContainerSystem : ComponentSystem {
 	}
 
 	void ProcessCoin (LootableType type, int price) {
+		Debug.Log("Your have "+GameStorage.Instance.PlayerCoin+" coins");
 		if (price <= GameStorage.Instance.PlayerCoin) {
 			if (SaveToContainer (type)) {
+				Debug.Log("You have buy item "+type+" for "+price+" coins");
 				GameStorage.Instance.PlayerCoin -= price;
+				Debug.Log("Your remaining coins "+GameStorage.Instance.PlayerCoin);
 			} else {
 				//No Empty Container
 			}
 		} else {
-			Debug.Log("You have not enough coin");
+			Debug.Log("You have not enough coins");
 		}
 
 		container.isProcessingBuyItem = false;
@@ -46,9 +49,9 @@ public class ContainerSystem : ComponentSystem {
 			if (container.CheckIfContainerIsEmpty(i)) {
 				lootableTypes[i] = currentLootableType;
 
+				Debug.Log(lootableTypes[i] + " is contained in container "+i);
 				return true;
 			} else {
-				Debug.Log(lootableTypes[i] + " is failed to contain");
 				// return false;
 			}
 		}

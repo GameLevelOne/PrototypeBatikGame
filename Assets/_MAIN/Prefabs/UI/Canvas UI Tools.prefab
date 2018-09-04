@@ -75,6 +75,8 @@ GameObject:
   - component: {fileID: 114549867277062934}
   - component: {fileID: 114962285749923016}
   - component: {fileID: 225637008089523740}
+  - component: {fileID: 95690058119058300}
+  - component: {fileID: 114752983068624030}
   m_Layer: 5
   m_Name: Panel Tool
   m_TagString: Untagged
@@ -280,6 +282,24 @@ Animator:
   m_Controller: {fileID: 9100000, guid: dacaba8c8d29e954db8f5e63b994c4dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95690058119058300
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290540210389950}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58e6c34f723b4264e9c5f49e66808df1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -581,8 +601,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tool: {fileID: 0}
-  panelToolsSelection: {fileID: 1869867075583132}
-  canvasToolsGroup: {fileID: 225637008089523740}
+  animationControl: {fileID: 114752983068624030}
+  animator: {fileID: 95690058119058300}
+  panelToolsSelection: {fileID: 1290540210389950}
   arrayOfToolSprites:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 21300000, guid: 20dd1268f20ec5b4aa9f01252e160b15, type: 3}
@@ -613,11 +634,21 @@ MonoBehaviour:
   - {fileID: 114683992481223146}
   isToolChange: 0
   showDuration: 2
-  showMultiplier: 5
-  hideMultiplier: 2
   changeIndex: 0
   toolIndexes: 
   checker: 
+  isPlayingAnimation: 0
+--- !u!114 &114752983068624030
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290540210389950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114800809189599362
 MonoBehaviour:
   m_ObjectHideFlags: 1
