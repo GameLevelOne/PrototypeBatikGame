@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3dc8ba09b446d4fa8705f9e59db6d5, type: 3}
+  m_Name: PlayerGuard
+  m_EditorClassIdentifier: 
+  animationName: PlayerCharge
+  tileX: 4
+  tileY: 4
+  isLooping: 1
+  isCanSpawningSomething: 0
+  spawnIndex: 0
+  materials:
+  - {fileID: 2100000, guid: 5debfbc5b2da54b47ad970cf0fb27630, type: 2}
+  - {fileID: 2100000, guid: 6d52d18a18a932a4aa10593b34615e2b, type: 2}
+  - {fileID: 2100000, guid: 8d2cab614b06095499f21161dcd8daef, type: 2}
+  - {fileID: 2100000, guid: 5c997bf66a9ad204d880aacab1cf21c9, type: 2}

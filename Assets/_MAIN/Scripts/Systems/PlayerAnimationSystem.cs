@@ -17,7 +17,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
-	[InjectAttribute] UVAnimationSystem uvAnimationSystem;
+	// [InjectAttribute] UVAnimationSystem uvAnimationSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -36,7 +36,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	bool isFinishAnyAnim = true;
 	int attackMode = 0;
 	int currentDirID = 1;
-	int currentAnimMatIndex = 0;
+	// int currentAnimMatIndex = 0;
 
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
@@ -130,19 +130,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_STAND))
 							animator.Play(Constants.BlendTreeName.IDLE_STAND);
 						
-						currentAnimMatIndex = 0;
+						// AnimationMaterialIndex = 0;
 						break;
 					case 1: 
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_CHARGE))
 							animator.Play(Constants.BlendTreeName.IDLE_CHARGE);
 						
-						currentAnimMatIndex = 1;
+						// AnimationMaterialIndex = 1;
 						break;
 					case 2: 
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_GUARD))
 							animator.Play(Constants.BlendTreeName.IDLE_GUARD);;
 						
-						currentAnimMatIndex = 2;
+						// AnimationMaterialIndex = 2;
 						break;
 				}
 				break;
@@ -361,9 +361,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 		}
-
-		
-		SetUVAnimationMaterial (currentAnimMatIndex);
 	}
 
 	void SetAnimationFaceDirection () {			
@@ -713,10 +710,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetUVAnimationMaterial (int animMatIndex) {
-		uvAnimationSystem.SetMaterialUV(animMatIndex, currentDirID-1);
-	}
-
 	void SetFaceDir (string animName, float animValue, bool isVertical) {
 		// Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
@@ -737,7 +730,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		currentDirID = CheckDirID(x, z);
 		facing.DirID = currentDirID;
 
-		SetUVAnimationMaterial (currentAnimMatIndex);
+		// uvAnimationSystem.SetMaterial(currentDirID-1);
 	}
 
 	bool CheckCurrentPlayedAnimation (string animName) {
@@ -795,7 +788,22 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 #region OLD	
-	void StartCheckAnimation () {
+
+	// void SetAnimationMaterials (int animMatIndex) {
+	// 	uvAnimationSystem.SetAnimationMaterials(animMatIndex);
+	// }
+
+	// public int AnimationMaterialIndex {
+	// 	get {return currentAnimMatIndex;}
+	// 	set {
+	// 		if (currentAnimMatIndex == value) return;
+			
+	// 		currentAnimMatIndex = value;
+	// 		SetAnimationMaterials (currentAnimMatIndex);
+	// 	}
+	// }
+
+	// void StartCheckAnimation () {
 		// if (!anim.isCheckBeforeAnimation) {
 		// 	CheckBeforeAnimation ();
 		// 	anim.isCheckBeforeAnimation = true;
@@ -803,9 +811,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 	CheckAfterAnimation ();
 		// 	anim.isCheckAfterAnimation = true;
 		// }
-	}
+	// }
 
-	void CheckAttackList () {		
+	// void CheckAttackList () {		
 		// if (input.slashComboVal.Count == 0) {
 			// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, 0f);
 			// player.isHitAnEnemy = false;
@@ -813,9 +821,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// } else {
 			// Debug.Log("Must Stop Attack Animation");
 		// }
-	}
+	// }
 
-	void CheckAfterAnimation (AnimationState animState) {
+	// void CheckAfterAnimation (AnimationState animState) {
 		// switch (animState) {
 		// 	case AnimationState.AFTER_SLASH:
 		// 		// if (input.slashComboVal.Count > 0) {
@@ -903,6 +911,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 		Debug.LogWarning ("Unknown Animation played");
 		// 		break;
 		// }
-	} 
+	// } 
 #endregion OLD
 }

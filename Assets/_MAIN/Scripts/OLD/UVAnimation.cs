@@ -25,7 +25,7 @@ public class UVAnimation : MonoBehaviour {
 	public bool isCheckBeforeAnimation = false;
 	public bool isCheckAfterAnimation = false;
 	public bool isSpawnSomethingOnAnimation = false;
-	public bool isChangeDirection = false;
+	public bool isChangeAnimation = false;
 	
 	void OnEnable () {
 		uvAnimControl.OnStartAnimation += StartAnimation;

@@ -6,6 +6,9 @@ public class AnimationMaterials : ScriptableObject {
 	public int tileX;
 	public int tileY;
 	public bool isLooping;
+
+	// [HeaderAttribute("If can spawn only")]
+	// public bool isCanSpawningSomething = false;
 	
 	[HeaderAttribute("If can spawn only")]
 	public bool isCanSpawningSomething = false;

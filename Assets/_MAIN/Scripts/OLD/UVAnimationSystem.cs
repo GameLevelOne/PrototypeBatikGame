@@ -10,7 +10,7 @@ public class UVAnimationSystem : ComponentSystem {
 
 	UVAnimation currentUVAnimation;
 
-    int currentAnimMatIndex;
+    // int currentAnimMatIndex;
     int currentUVIndex;
     int currentUVTileX;
     int currentUVTileY;
@@ -35,7 +35,7 @@ public class UVAnimationSystem : ComponentSystem {
 
                 currentUVAnimation.isInitUV = true;
             } else {
-                currentAnimMatIndex = currentUVAnimation.animationMaterialIndex;
+                // currentAnimMatIndex = currentUVAnimation.animationMaterialIndex;
                 currentUVIndex = currentUVAnimation.uvIndex;
                 currentUVTileX = currentUVAnimation.uvTileX;
                 currentUVTileY = currentUVAnimation.uvTileY; 
@@ -46,12 +46,11 @@ public class UVAnimationSystem : ComponentSystem {
     }
 
     void InitUV () {
-        //Set size of each tile
-        currentUVAnimation.uvSize = new Vector2(1.0f / currentUVAnimation.uvTileX, 1.0f / currentUVAnimation.uvTileY);
+        currentUVAnimation.animationMaterialIndex = 0;
+        currentUVAnimation.materialIndex = 0;
 
         //Set first rendered material (index 0, for DOWN)
-        SetMaterialUV(0, 0);
-        SetMaterialAttributes (0);
+        SetAnimationMaterials (0);
     }
 
     void CheckUVMaterial () {
@@ -89,20 +88,26 @@ public class UVAnimationSystem : ComponentSystem {
         }
     }
 
-    void SetMaterialAttributes (int index) {
-        currentUVAnimation.uvTileX = currentUVAnimation.animationMaterials[index].tileX;
-        currentUVAnimation.uvTileY = currentUVAnimation.animationMaterials[index].tileY;
-        currentUVAnimation.isLooping = currentUVAnimation.animationMaterials[index].isLooping;
-        currentUVAnimation.isCanSpawningSomething = currentUVAnimation.animationMaterials[index].isCanSpawningSomething;
-        currentUVAnimation.spawnIndex = currentUVAnimation.animationMaterials[index].spawnIndex;
+    public void SetAnimationMaterials (int animMatIndex) {
+        currentUVAnimation.animationMaterialIndex = animMatIndex;
+
+        currentUVAnimation.uvTileX = currentUVAnimation.animationMaterials[animMatIndex].tileX;
+        currentUVAnimation.uvTileY = currentUVAnimation.animationMaterials[animMatIndex].tileY;
+        currentUVAnimation.isLooping = currentUVAnimation.animationMaterials[animMatIndex].isLooping;
+        currentUVAnimation.isCanSpawningSomething = currentUVAnimation.animationMaterials[animMatIndex].isCanSpawningSomething;
+        currentUVAnimation.spawnIndex = currentUVAnimation.animationMaterials[animMatIndex].spawnIndex;
+
+        SetMaterial(currentUVAnimation.materialIndex);
     }
 
-    public void SetMaterialUV (int animMatIndex, int matIndex) {
-        currentUVAnimation.animationMaterialIndex = animMatIndex;
+    public void SetMaterial (int matIndex) {
         currentUVAnimation.materialIndex = matIndex;
-        // Debug.Log(animMatIndex+" , "+matIndex);
-        currentUVAnimation.uvRenderer.material = currentUVAnimation.animationMaterials[animMatIndex].materials[matIndex];
         
+        currentUVAnimation.uvRenderer.material = currentUVAnimation.animationMaterials[currentUVAnimation.animationMaterialIndex].materials[matIndex];
+        
+        //Set size of each tile
+        currentUVAnimation.uvSize = new Vector2(1.0f / currentUVAnimation.uvTileX, 1.0f / currentUVAnimation.uvTileY);
+
         //Set texture scale by its tile size
         currentUVAnimation.uvRenderer.material.SetTextureScale ("_MainTex", currentUVAnimation.uvSize);  
     }
