@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1261179749177504
 GameObject:
   m_ObjectHideFlags: 1
@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 222228740384826968}
   - component: {fileID: 114102948031426514}
   - component: {fileID: 114343462601155582}
+  - component: {fileID: 114058380686695170}
   m_Layer: 5
   m_Name: Button HP
   m_TagString: Untagged
@@ -94,6 +95,7 @@ GameObject:
   - component: {fileID: 222813060708789074}
   - component: {fileID: 114942341547358950}
   - component: {fileID: 114480156895486002}
+  - component: {fileID: 114097196574562964}
   m_Layer: 5
   m_Name: Button MP
   m_TagString: Untagged
@@ -217,6 +219,34 @@ MonoBehaviour:
   m_Text: 'HEALTH
 
     POTION'
+--- !u!114 &114058380686695170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1261179749177504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c28e3c3df0acd4d8745fb814bb0e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonItem: {fileID: 114343462601155582}
+  lootableType: 2
+  itemPrice: 5
+--- !u!114 &114097196574562964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1328267635527492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c28e3c3df0acd4d8745fb814bb0e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonItem: {fileID: 114480156895486002}
+  lootableType: 3
+  itemPrice: 3
 --- !u!114 &114102948031426514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -282,6 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbec3ba8e464db64fb1721a8bc1f31a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemShops:
+  - {fileID: 114058380686695170}
+  - {fileID: 114097196574562964}
   animationControl: {fileID: 114004996317731590}
   animator: {fileID: 95374383101413532}
   panelUIShop: {fileID: 1258271986851712}
@@ -307,8 +340,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6347193, b: 0, a: 1}
+    m_PressedColor: {r: 0.2970481, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -431,8 +464,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6347193, b: 0, a: 1}
+    m_PressedColor: {r: 0.2970481, g: 1, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

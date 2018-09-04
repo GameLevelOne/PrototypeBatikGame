@@ -7,7 +7,7 @@ public class GameStorage : MonoBehaviour {
 
 	public int PlayerCoin {
 		get {return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_COIN, initCoin);}
-		set {PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_MANA, value);
+		set {PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_COIN, value);
 		}
 	}
 

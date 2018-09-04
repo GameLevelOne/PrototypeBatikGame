@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.EventSystems; //TEMP
 using Unity.Entities;
 using System.Collections.Generic;
 
@@ -96,29 +96,22 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void CheckInput () {
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) { //ESCAPE / START (Gamepad)
-			if (Time.timeScale == 1) {
-				isShowingInfo = true;
-			} else {
-				isShowingInfo = false;
-			}
-			Debug.Log("Escape " +Time.timeScale);
-			// isShowingInfo = !isShowingInfo;
-			// timeSwitch = Mathf.Abs(timeSwitch-1);
-
-			// GameStatus.Bool.IsPauseGame = isShowingInfo;
-			// uiInfo.panelUIInfo.SetActive(isShowingInfo);
-			
-			if (isShowingInfo) {
+		if (!isShowingInfo) {
+			if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.JoystickButton8)) { //ESCAPE / START (Gamepad)
 				// isInitShowInfo = false;
 				CheckActiveTool ();
+				isShowingInfo = true;
 			}
-		} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-			PrevButtonTool ();
-		} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-			NextButtonTool ();
-		} else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
-			SetSelectedTool ();
+		} else {
+			if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) { //ESCAPE / START (Gamepad)
+				isShowingInfo = false;
+			} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+				PrevButtonTool ();
+			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+				NextButtonTool ();
+			} else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+				SetSelectedTool ();
+			}
 		}
 	}
 
@@ -210,7 +203,6 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		} else {
 			HideInfo ();
 		}
-		Debug.Log("Set timescale CheckShowingInfo : "+Time.timeScale);
 	}
 
 	void ShowInfo () {

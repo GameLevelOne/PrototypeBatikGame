@@ -56,6 +56,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 		maxMP = uiHPManaTool.player.MaxMP;
 		maxClothWidth = uiHPManaTool.clothHP.rectTransform.sizeDelta.x;
 		// initClothPos = uiHPManaTool.clothHP.rectTransform.localPosition.x;
+		// initClothPos = maxClothWidth;
 		initClothPos = maxClothWidth / 2;
 		// initClothPos = uiHPManaTool.initClothPosX;
 		
@@ -117,7 +118,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		//SET CLOTH POS X
-		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
+		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold + initClothPos, 0f);
 		// Debug.Log(healthThreshold);
 		// Debug.Log(initClothPos);
 

@@ -196,6 +196,8 @@ GameObject:
   - component: {fileID: 222496587778693910}
   - component: {fileID: 114949447194950784}
   - component: {fileID: 225844128883579030}
+  - component: {fileID: 95564473124480808}
+  - component: {fileID: 114713202158345934}
   m_Layer: 5
   m_Name: Panel Info
   m_TagString: Untagged
@@ -923,6 +925,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95564473124480808
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171381749638326}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58e6c34f723b4264e9c5f49e66808df1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114001488362120366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1947,10 +1967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085edda3979377649831e53ba81f79fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationControl: {fileID: 114713202158345934}
+  animator: {fileID: 95564473124480808}
   panelUIInfo: {fileID: 1171381749638326}
-  canvasInfoGroup: {fileID: 225844128883579030}
-  showMultiplier: 5
-  hideMultiplier: 5
+  isPlayingAnimation: 0
 --- !u!114 &114469991112194084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2397,6 +2417,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Bomb
+--- !u!114 &114713202158345934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171381749638326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114716969749469276
 MonoBehaviour:
   m_ObjectHideFlags: 1
