@@ -6,7 +6,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	{
 		public readonly int Length;
 		public ComponentArray<Enemy> enemy;
-		public ComponentArray<Rigidbody2D> enemyRigidbody;
+		public ComponentArray<Rigidbody> enemyRigidbody;
 		public ComponentArray<Animator> enemyAnim;
 		public ComponentArray<Facing2D> facing;
 	}
@@ -14,7 +14,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	#region injected component
 	[InjectAttribute] FaceDirectionComponent faceDirectionComponent;
 	Enemy currEnemy;
-	Rigidbody2D currEnemyRigidbody;
+	Rigidbody currEnemyRigidbody;
 	Animator currEnemyAnim;
 	Facing2D currEnemyFacing;
 	#endregion
@@ -34,10 +34,10 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	void SetFaceDirection()
 	{
 		if(currEnemy.state == EnemyState.Patrol){
-			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
+			Vector3 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
 			SetEnemyFacing(dir);
 		}else if((currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack) && currEnemy.playerTransform != null){
-			Vector2 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
+			Vector3 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
 			SetEnemyFacing(dir);
 		}
 	}
@@ -49,14 +49,14 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	/// <para>R = (1, 0) <br /></para>
 	/// <para>U = (0 ,1) <br /></para>
     /// </summary>
-	Vector2 GetDirection(Vector2 self, Vector2 target)
+	Vector3 GetDirection(Vector3 self, Vector3 target)
 	{
 		Vector3 distance = target - self;
 		float magnitude = distance.magnitude;
 		Vector3 direction = distance / magnitude;
 
 		float x = Mathf.RoundToInt(direction.x);
-		float y = Mathf.RoundToInt(direction.y);
+		float z = Mathf.RoundToInt(direction.z);
 		
 
 		// if(x < 0f) x = -1f;
@@ -64,21 +64,21 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 
 		// if(y < 0f) y = -1f;
 		// else y = 1f;
-		currEnemyFacing.DirID = CheckDirID(x,y);
-		return new Vector2(x,y);
+		currEnemyFacing.DirID = CheckDirID(x,z);
+		return new Vector3(x, 0,z);
 	}
 
-	void SetEnemyFacing (Vector2 facingDir) {
+	void SetEnemyFacing (Vector3 facingDir) {
 		currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,facingDir.x);
-		currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,facingDir.y);
+		currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,facingDir.z);
 	}
 
-	int CheckDirID (float dirX, float dirY) {
+	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;
 
 		#region 4 Direction
 		if (dirX == 0) {
-			if (dirY > 0) {
+			if (dirZ > 0) {
 				dirIdx = 3;
 			} else {
 				dirIdx = 1;
@@ -90,7 +90,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		}
 		#endregion
 
-		#region 8 Direction
+#region 8 Direction
 		// if (dirX == 0) {
 		// 	if (dirY > 0) {
 		// 		dirIdx = 5;
@@ -114,7 +114,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		// 		dirIdx = 7;
 		// 	}
 		// }
-		#endregion
+#endregion
 
 		return dirIdx;
 	}

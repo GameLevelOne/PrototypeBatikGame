@@ -2,21 +2,21 @@
 
 public class TriggerDetection : MonoBehaviour {
 	public delegate void TriggerEnter(GameObject other);
-	public event TriggerEnter OnTriggerEnter;
+	public event TriggerEnter OnTriggerEnterObj;
 
 	public string tagName;
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter (Collider other)
 	{
 		if(other.tag == tagName){
-			if(OnTriggerEnter != null) OnTriggerEnter(other.gameObject);
+			if(OnTriggerEnterObj != null) OnTriggerEnterObj(other.gameObject);
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D other)
+	void OnTriggerExit (Collider other)
 	{
 		if(other.tag == tagName){
-			if(OnTriggerEnter != null) OnTriggerEnter(null);
+			if(OnTriggerEnterObj != null) OnTriggerEnterObj(null);
 		}
 	}
 }

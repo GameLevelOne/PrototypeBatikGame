@@ -31,12 +31,12 @@ public class ArmorEnemy : MonoBehaviour {
 
 	void OnEnable()
 	{
-		playerTriggerDetection.OnTriggerEnter += SetPlayer;
+		playerTriggerDetection.OnTriggerEnterObj += SetPlayer;
 	}
 
 	void OnDisable()
 	{
-		playerTriggerDetection.OnTriggerEnter -= SetPlayer;
+		playerTriggerDetection.OnTriggerEnterObj -= SetPlayer;
 	}
 
 	void SetPlayer(GameObject player)

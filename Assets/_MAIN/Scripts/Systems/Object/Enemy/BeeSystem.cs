@@ -7,7 +7,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		public readonly int Length;
 		public ComponentArray<Bee> bee;
-		public ComponentArray<Rigidbody2D> beeRigidbody;
+		public ComponentArray<Rigidbody> beeRigidbody;
 		public ComponentArray<Animator> beeAnim;
 		public ComponentArray<Health> beeHealth;
 	}
@@ -15,7 +15,7 @@ public class BeeSystem : ComponentSystem {
 	#region injected component
 	[InjectAttribute] public BeeComponent beeComponent;
 	Bee currBee;
-	Rigidbody2D currBeeRigidbody;
+	Rigidbody currBeeRigidbody;
 	Animator currBeeAnim;
 	Health currBeeHealth;
 	#endregion
@@ -107,13 +107,13 @@ public class BeeSystem : ComponentSystem {
 			// currMonkeyAnim.Play(EnemyState.Patrol.ToString()); //NO
 		}else{
 			currBeeRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currBeeRigidbody.position,
 					currBee.enemy.patrolDestination,
 					currBee.enemy.patrolSpeed * deltaTime
 				);
 
-			if(Vector2.Distance(currBee.enemy.patrolDestination,currBeeRigidbody.position) < 0.1f){
+			if(Vector3.Distance(currBee.enemy.patrolDestination,currBeeRigidbody.position) < 0.1f){
 				currBee.enemy.state = EnemyState.Idle;
 				currBee.enemy.initPatrol = false;
 			}
@@ -127,13 +127,13 @@ public class BeeSystem : ComponentSystem {
 			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
 		}else{
 			currBeeRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currBeeRigidbody.position,
 					currBee.enemy.playerTransform.position,
 					currBee.enemy.chaseSpeed * deltaTime
 				);
 
-			if(Vector2.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBee.enemy.chaseRange){
+			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBee.enemy.chaseRange){
 				currBee.enemy.state = EnemyState.Idle;
 				currBee.enemy.playerTransform = null;
 				currBee.enemy.chaseIndicator.SetActive(false);
@@ -171,30 +171,30 @@ public class BeeSystem : ComponentSystem {
 			currBee.enemy.patrolDestination = GetRandomPatrolPos(currBeeRigidbody.position,currBee.startledRange);
 		}else{
 			currBeeRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currBeeRigidbody.position,
 					currBee.enemy.patrolDestination,
 					currBee.enemy.chaseSpeed * deltaTime
 				);
 
-			if(Vector2.Distance(currBeeRigidbody.position,currBee.enemy.patrolDestination) < 0.1f){
+			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.patrolDestination) < 0.1f){
 				currBee.initStartled = false;
 				currBee.enemy.state = EnemyState.Idle;
 			}
 		}
 	}
 
-	Vector2 GetRandomPatrolPos(Vector3 origin, float range)
+	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
 	{
-		float x,y;
+		float x,z;
 		if(currBee.initStartled){
 			x = Random.value < 0.5f ? range + origin.x : (-1*range) + origin.x;
-			y = Random.value < 0.5f ? range + origin.y : (-1*range) + origin.y;
+			z = Random.value < 0.5f ? range + origin.z : (-1*range) + origin.z;
 		}else{
 			x = Random.Range(-1 * range, range) + origin.x;
-			y = Random.Range(-1 * range, range) + origin.y;
+			z = Random.Range(-1 * range, range) + origin.z;
 		}
 		
-		return new Vector2(x,y);
+		return new Vector3(x,z);
 	}
 }

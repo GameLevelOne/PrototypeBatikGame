@@ -19,13 +19,13 @@ public class Bee : MonoBehaviour {
 	#region event delegate
 	void OnEnable()
 	{
-		playerTriggerDetection.OnTriggerEnter += SetPlayerTransform;
+		playerTriggerDetection.OnTriggerEnterObj += SetPlayerTransform;
 		attackRangeTrigger.OnExecuteAttack += SetAttack;
 	}
 
 	void OnDisable()
 	{
-		playerTriggerDetection.OnTriggerEnter -= SetPlayerTransform;
+		playerTriggerDetection.OnTriggerEnterObj -= SetPlayerTransform;
 		attackRangeTrigger.OnExecuteAttack -= SetAttack;
 	}
 

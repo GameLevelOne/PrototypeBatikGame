@@ -18,12 +18,12 @@ public class WaterShooterEnemy : MonoBehaviour {
 
 	void OnEnable()
 	{
-		playerTriggerDetection.OnTriggerEnter += SetPlayerTransform;
+		playerTriggerDetection.OnTriggerEnterObj += SetPlayerTransform;
 	}
 
 	void OnDisable()
 	{
-		playerTriggerDetection.OnTriggerEnter -= SetPlayerTransform;
+		playerTriggerDetection.OnTriggerEnterObj -= SetPlayerTransform;
 	}
 
 
