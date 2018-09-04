@@ -17,6 +17,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
+	[InjectAttribute] UVAnimationSystem uvAnimationSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -34,6 +35,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector3 currentDir;
 	bool isFinishAnyAnim = true;
 	int attackMode = 0;
+	int currentDirID = 1;
+	int currentAnimMatIndex = 0;
 
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
@@ -78,38 +81,38 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			continue; //TEMP
 
-			#region OLD		
-			if (state == PlayerState.SLOW_MOTION) {
-				// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
-				// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.z, true);
+#region OLD		
+			// if (state == PlayerState.SLOW_MOTION) {
+			// 	// animator.SetBool(Constants.AnimatorParameter.Bool.IS_MOVING, false);
+			// 	// animator.SetFloat(Constants.AnimatorParameter.Float.IDLE_MODE, input.steadyMode);
+			// 	SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, -currentMove.x, false);
+			// 	SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, -currentMove.z, true);
 
-				continue;
-			} else if (state == PlayerState.RAPID_SLASH) {
-				if (attackMode == 1) {
-					// SetRapidAttack(0f); //BULLET TIME RAPID SLASH
-				} else {
-					player.SetPlayerIdle();
-				}
+			// 	continue;
+			// } else if (state == PlayerState.RAPID_SLASH) {
+			// 	if (attackMode == 1) {
+			// 		// SetRapidAttack(0f); //BULLET TIME RAPID SLASH
+			// 	} else {
+			// 		player.SetPlayerIdle();
+			// 	}
 				
-				StartCheckAnimation();
-				continue;
-			}
+			// 	StartCheckAnimation();
+			// 	continue;
+			// }
 
-			if (attackMode >= 1) {
-				// SetAttack(0f); //SLASH
-			} else if (attackMode == -1) {
-				// SetAttack(1f); //CHARGE
-			} else if (attackMode == -2) {
-				// SetAttack(2f); //COUNTER
-				Debug.Log("Animation Counter");
-			} else if (attackMode == -3) {
-				Debug.Log("Steady for crazy standing");
-			}
+			// if (attackMode >= 1) {
+			// 	// SetAttack(0f); //SLASH
+			// } else if (attackMode == -1) {
+			// 	// SetAttack(1f); //CHARGE
+			// } else if (attackMode == -2) {
+			// 	// SetAttack(2f); //COUNTER
+			// 	Debug.Log("Animation Counter");
+			// } else if (attackMode == -3) {
+			// 	Debug.Log("Steady for crazy standing");
+			// }
 
-			StartCheckAnimation();
-			#endregion OLD
+			// StartCheckAnimation();
+#endregion OLD
 		}
 	}
 
@@ -126,14 +129,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 					case 0: 
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_STAND))
 							animator.Play(Constants.BlendTreeName.IDLE_STAND);
+						
+						currentAnimMatIndex = 0;
 						break;
 					case 1: 
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_CHARGE))
 							animator.Play(Constants.BlendTreeName.IDLE_CHARGE);
+						
+						currentAnimMatIndex = 1;
 						break;
 					case 2: 
 						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_GUARD))
-							animator.Play(Constants.BlendTreeName.IDLE_GUARD);
+							animator.Play(Constants.BlendTreeName.IDLE_GUARD);;
+						
+						currentAnimMatIndex = 2;
 						break;
 				}
 				break;
@@ -187,7 +196,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (input.AttackMode == -3) {
 					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
 					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-					facing.DirID = CheckDirID(-currentDir.x, -currentDir.z);
+					// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z);
+					SetFacingDirID (-currentDir.x, -currentDir.z);
 
 					animator.Play(Constants.BlendTreeName.IDLE_BULLET_TIME);
 				}
@@ -351,6 +361,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 				break;
 		}
+
+		
+		SetUVAnimationMaterial (currentAnimMatIndex);
 	}
 
 	void SetAnimationFaceDirection () {			
@@ -589,7 +602,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				} else if (input.interactValue == 2) {
 					if (input.liftingMode == -1 || input.liftingMode == -2) {
 						powerBraceletSystem.UnSetLiftObjectParent();
-						powerBraceletSystem.AddForceRigidbody(facing.DirID);
+						powerBraceletSystem.AddForceRigidbody(currentDirID);
 					} else if (input.liftingMode == 1) {
 						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 					}
@@ -700,6 +713,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void SetUVAnimationMaterial (int animMatIndex) {
+		uvAnimationSystem.SetMaterialUV(animMatIndex, currentDirID-1);
+	}
+
 	void SetFaceDir (string animName, float animValue, bool isVertical) {
 		// Vector2 movement = input.moveDir;
 		animator.SetFloat(animName, animValue);
@@ -712,8 +729,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 		// if (currentDir != moveDir) {
 			currentDir = moveDir;
-			facing.DirID = CheckDirID(currentDir.x, currentDir.z);
+			SetFacingDirID (currentDir.x, currentDir.z);
 		// }
+	}
+
+	void SetFacingDirID (float x, float z) {
+		currentDirID = CheckDirID(x, z);
+		facing.DirID = currentDirID;
+
+		SetUVAnimationMaterial (currentAnimMatIndex);
 	}
 
 	bool CheckCurrentPlayedAnimation (string animName) {
@@ -741,7 +765,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 		#endregion
 
-		#region 8 Direction
+#region 8 Direction
 		// if (dirX == 0) {
 		// 	if (dirY > 0) {
 		// 		dirIdx = 5;
@@ -765,12 +789,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 		dirIdx = 7;
 		// 	}
 		// }
-		#endregion
+#endregion
 
 		return dirIdx;
 	}
 
-	#region OLD	
+#region OLD	
 	void StartCheckAnimation () {
 		// if (!anim.isCheckBeforeAnimation) {
 		// 	CheckBeforeAnimation ();
@@ -880,5 +904,5 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 		break;
 		// }
 	} 
-	#endregion OLD
+#endregion OLD
 }

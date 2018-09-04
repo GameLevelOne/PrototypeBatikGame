@@ -40,12 +40,13 @@ public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
 
+	[HeaderAttribute("For Player & Enemy")]
 	public bool isCheckAfterAnimation = false;
 	public bool isCheckBeforeAnimation = false;
 
 
 	// [SpaceAttribute(10f)]
-	[HeaderAttribute("For Player / Enemy / Stand")]
+	[HeaderAttribute("For Attack / Stand / Tool")]
 	public bool isSpawnSomethingOnAnimation = false;
 	public bool isCheckAfterStandAnimation = false;
 	public bool isCheckBeforeStandAnimation = false;

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb3dc8ba09b446d4fa8705f9e59db6d5, type: 3}
+  m_Name: PlayerIdle
+  m_EditorClassIdentifier: 
+  animationName: PlayerIdle
+  tileX: 4
+  tileY: 3
+  isLooping: 1
+  isCanSpawningSomething: 0
+  spawnIndex: 0
+  materials:
+  - {fileID: 2100000, guid: 54ad7d556095a484b830135a9bf45c57, type: 2}
+  - {fileID: 2100000, guid: 58c7a5b76b4b6074a8709182a48f6b6a, type: 2}
+  - {fileID: 2100000, guid: 1d5373566e1f8934980e01f9d49b6bea, type: 2}
+  - {fileID: 2100000, guid: 51cb00f11df84144a94b843d41bc9a28, type: 2}
