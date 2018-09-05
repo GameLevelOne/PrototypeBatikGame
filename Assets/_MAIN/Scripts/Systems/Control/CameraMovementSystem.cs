@@ -27,7 +27,9 @@ public class CameraMovementSystem : ComponentSystem {
 
 	int mapWidth;
 	int mapHeight;
-	bool initLevelData = false;
+	float cameraBottomBound;
+	float cameraTopBound;
+	bool initLevelData;
 
 	float cameraSize;
 	float cameraWidth;
@@ -40,7 +42,7 @@ public class CameraMovementSystem : ComponentSystem {
 		if(!initLevelData){
 			for(int i = 0;i<levelDataComponent.Length;i++){
 				currLevelData = levelDataComponent.levelData[i];
-				GetMapSize();
+				GetLevelData();
 			}
 		}else{
 			for(int i = 0;i<cameraMovementComponent.Length;i++){
@@ -57,13 +59,17 @@ public class CameraMovementSystem : ComponentSystem {
 		}
 	}
 
-	void GetMapSize()
+	void GetLevelData()
 	{
-		if(!initLevelData){
+		if(!currLevelData.isInitialied){
 			initLevelData = true;
+			currLevelData.isInitialied = true;
 
 			mapWidth = currLevelData.mapWidth;
 			mapHeight = currLevelData.mapHeight;
+
+			cameraBottomBound = currLevelData.cameraBottomBound;
+			cameraTopBound = currLevelData.cameraTopBound;
 
 			deltaTime = Time.fixedDeltaTime;
 		}
@@ -109,6 +115,8 @@ public class CameraMovementSystem : ComponentSystem {
 
 	float GetX()
 	{
+		Debug.Log(mapWidth);
+		Debug.Log(cameraWidth/2f);
 		if(currCameraTransform.position.x <= cameraWidth/2f){
 			return cameraWidth/2f;
 		}else if(currCameraTransform.position.x >= mapWidth-(cameraWidth/2f)){
@@ -122,9 +130,9 @@ public class CameraMovementSystem : ComponentSystem {
 	{
 		// Debug.Log((cameraHeight/2f)-9.4f);
 		// Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
-		if(currCameraTransform.position.z <= (cameraHeight/2f) - 9.4f){
+		if(currCameraTransform.position.z <= (cameraHeight/2f) - cameraBottomBound){
 			return (cameraHeight/2f) - 9.4f;
-		}else if(currCameraTransform.position.z >= (mapHeight-(cameraHeight/2f)) - 14.4f){
+		}else if(currCameraTransform.position.z >= (mapHeight-(cameraHeight/2f)) - cameraTopBound){
 			return (mapHeight-(cameraHeight/2f)) - 14.4f;
 		}else{
 			return currCameraTransform.position.z;
