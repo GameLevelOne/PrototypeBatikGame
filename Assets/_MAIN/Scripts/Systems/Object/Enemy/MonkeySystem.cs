@@ -7,7 +7,7 @@ public class MonkeySystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<Transform> monkeyTransform;
 		public ComponentArray<Monkey> monkey;
-		public ComponentArray<Rigidbody2D> monkeyRigidbody;
+		public ComponentArray<Rigidbody> monkeyRigidbody;
 		public ComponentArray<Animator> monkeyAnim;
 		public ComponentArray<Health> monkeyHealth;
 	}
@@ -16,7 +16,7 @@ public class MonkeySystem : ComponentSystem {
 	[InjectAttribute] public MonkeyComponent monkeyComponent;
 	public Transform currMonkeyTransform;
 	public Monkey currMonkey;
-	public Rigidbody2D currMonkeyRigidbody;
+	public Rigidbody currMonkeyRigidbody;
 	public Animator currMonkeyAnim;
 	public Health currMonkeyHealth;
 	#endregion
@@ -118,13 +118,13 @@ public class MonkeySystem : ComponentSystem {
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 		}else{
 			currMonkeyRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currMonkeyRigidbody.position,
 					currMonkey.enemy.patrolDestination,
 					currMonkey.enemy.patrolSpeed * deltaTime
 				);
 
-			if(Vector2.Distance(currMonkeyRigidbody.position,currMonkey.enemy.patrolDestination) < 0.1f){
+			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.patrolDestination) < 0.1f){
 				currMonkey.enemy.initPatrol = false;
 				currMonkey.enemy.state = EnemyState.Idle;
 			}
@@ -140,13 +140,13 @@ public class MonkeySystem : ComponentSystem {
 			deltaTime = Time.deltaTime;
 			// currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			currMonkeyRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currMonkeyRigidbody.position,
 					currMonkey.enemy.playerTransform.position,
 					currMonkey.enemy.chaseSpeed * deltaTime
 				);
 			
-			if(Vector2.Distance(currMonkeyRigidbody.position,currMonkey.enemy.playerTransform.position) >= currMonkey.enemy.chaseRange){
+			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.playerTransform.position) >= currMonkey.enemy.chaseRange){
 				currMonkey.isHitByPlayer = false;
 				currMonkey.enemy.state = EnemyState.Idle;
 				currMonkey.enemy.playerTransform = null;
@@ -171,11 +171,11 @@ public class MonkeySystem : ComponentSystem {
 		}
 	}
 
-	Vector2 GetRandomPatrolPos(Vector3 origin, float range)
+	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
 	{
 		float x = Random.Range(-1 * range, range) + origin.x;
-		float y = Random.Range(-1 * range, range) + origin.y;
+		float z = Random.Range(-1 * range, range) + origin.z;
 		
-		return new Vector2(x,y);
+		return new Vector3(x, currMonkeyTransform.position.y, z);
 	}
 }

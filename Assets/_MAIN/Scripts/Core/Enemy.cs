@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public Player playerThatHitsEnemy;
 	public Transform playerTransform;
-	public Vector2 patrolDestination;
+	public Vector3 patrolDestination;
 
 	[SpaceAttribute(10f)]
 	public bool initIdle = false;

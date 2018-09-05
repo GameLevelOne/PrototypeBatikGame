@@ -107,7 +107,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 			continue; //TEMP
 			
-			#region OLD
+#region OLD
 			// if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
 			// 	if (attackMode == -3) {
 			// 		tr.position = teleportBulletTime.Teleport();
@@ -187,7 +187,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			// if (rb.velocity.y != 0f) {
 			// 	spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 			// }
-			#endregion OLD
+#endregion OLD
 		}
 	}
 
@@ -222,8 +222,8 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else if (attackMode >= -1 && attackMode <= 3 && attackMode != 0 && input.moveDir != Vector3.zero) {
 			if (player.isMoveAttack) {
 				Transform target = facing.attackArea.transform;
-				player.isMoveAttack = false;
 				rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
+				// player.isMoveAttack = false;
 			} else {
 				rb.velocity = Vector3.zero;
 			}

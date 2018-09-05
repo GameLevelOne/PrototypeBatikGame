@@ -213,7 +213,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 				break;
 			case PlayerState.ATTACK:
-				player.isMoveAttack = true;
 				// if (attack.isAttacking) {
 				// 	animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
 				// } else 
@@ -401,9 +400,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (!anim.isSpawnSomethingOnAnimation) {
 			switch(state) {
 				case PlayerState.ATTACK: 
+					player.isMoveAttack = false;
 					attack.isAttacking = true;				
 					break;
 				case PlayerState.CHARGE: 
+					player.isMoveAttack = false;
 					attack.isAttacking = true;
 					break;
 				case PlayerState.RAPID_SLASH:
@@ -443,9 +444,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 		
 		switch(state) {
 			case PlayerState.ATTACK: 
+				player.isMoveAttack = true;
 				// attack.isAttacking = true;				
 				break;
 			case PlayerState.CHARGE: 
+				player.isMoveAttack = true;
 				// attack.isAttacking = true;
 				break;
 			case PlayerState.DODGE:

@@ -7,7 +7,7 @@ public class UIHPManaTool : MonoBehaviour {
 	[HeaderAttribute("UI HP Attributes")]
 	public Health playerHealth;
 	public Image clothHP;
-	public float initClothPosX;
+	// public float initClothPosX;
 
 	// public float maxClothWidth;
 	public float healthReduceValue;

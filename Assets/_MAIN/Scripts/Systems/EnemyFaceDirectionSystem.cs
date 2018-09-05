@@ -65,7 +65,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		// if(y < 0f) y = -1f;
 		// else y = 1f;
 		currEnemyFacing.DirID = CheckDirID(x,z);
-		return new Vector3(x, 0,z);
+		return new Vector3(x, 0f,z);
 	}
 
 	void SetEnemyFacing (Vector3 facingDir) {

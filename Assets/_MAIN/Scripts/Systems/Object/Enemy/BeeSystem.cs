@@ -6,6 +6,7 @@ public class BeeSystem : ComponentSystem {
 	public struct BeeComponent
 	{
 		public readonly int Length;
+		public ComponentArray<Transform> beeTransform;
 		public ComponentArray<Bee> bee;
 		public ComponentArray<Rigidbody> beeRigidbody;
 		public ComponentArray<Animator> beeAnim;
@@ -14,6 +15,7 @@ public class BeeSystem : ComponentSystem {
 
 	#region injected component
 	[InjectAttribute] public BeeComponent beeComponent;
+	public Transform currBeeTransform;
 	Bee currBee;
 	Rigidbody currBeeRigidbody;
 	Animator currBeeAnim;
@@ -26,6 +28,7 @@ public class BeeSystem : ComponentSystem {
 	protected override void OnUpdate()
 	{
 		for(int i = 0;i<beeComponent.Length;i++){
+			currBeeTransform = beeComponent.beeTransform[i];
 			currBee = beeComponent.bee[i];
 			currBeeRigidbody = beeComponent.beeRigidbody[i];
 			currBeeAnim = beeComponent.beeAnim[i];
@@ -195,6 +198,6 @@ public class BeeSystem : ComponentSystem {
 			z = Random.Range(-1 * range, range) + origin.z;
 		}
 		
-		return new Vector3(x,z);
+		return new Vector3(x, currBeeTransform.position.y, z);
 	}
 }

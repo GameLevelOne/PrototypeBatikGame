@@ -118,11 +118,11 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		//SET CLOTH POS X
-		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold + initClothPos, 0f);
+		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
 		// Debug.Log(healthThreshold);
 		// Debug.Log(initClothPos);
 
-		#region OLD (Using Shader Plugin)
+#region OLD (Using Shader Plugin)
 		//SET CLOTH SCALE X
 		// Vector2 scale = uiHPManaTool.clothHP.localScale;
 		// uiHPManaTool.clothHP.localScale = new Vector2 (healthThreshold, scale.y);
@@ -131,6 +131,6 @@ public class UIHPManaToolSystem : ComponentSystem {
 		// Vector2 pos = uiHPManaTool.clothHP.localPosition;
 		// float newPosX = (healthThreshold - 1f) / 2f;
 		// uiHPManaTool.clothHP.localPosition = new Vector2 (newPosX, pos.y);
-		#endregion
+#endregion
 	}
 }

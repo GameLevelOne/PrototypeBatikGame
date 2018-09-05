@@ -9,7 +9,7 @@ public class Monkey : MonoBehaviour {
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;
-	public Vector2 patrolArea;
+	public Vector3 patrolArea;
 	public bool isCollidingWithPlayer = false;
 	public bool isHitByPlayer = false;
 	
@@ -18,7 +18,7 @@ public class Monkey : MonoBehaviour {
 		patrolArea = transform.position;
 	}
 
-	void OnCollisionEnter2D(Collision2D other)
+	void OnCollisionEnter(Collision other)
 	{
 		if(other.gameObject.tag == Constants.Tag.PLAYER)
 		{

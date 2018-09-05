@@ -4,11 +4,11 @@ public class ArmorEnemy : MonoBehaviour {
 	[HeaderAttribute("ArmorEnemy Attributes")]
 	public Enemy enemy;
 	public TriggerDetection playerTriggerDetection;
-	public Collider2D selfCollider;
+	public Collider selfCollider;
 	
 	[SpaceAttribute(15f)]
-	public Vector2 patrolArea;
-	public Vector2 rollTargetPos;
+	public Vector3 patrolArea;
+	public Vector3 rollTargetPos;
 	public float rollSpeed;
 	public float rollCooldown;
 	public bool initRoll = false;
@@ -45,7 +45,7 @@ public class ArmorEnemy : MonoBehaviour {
 		else enemy.playerTransform = player.transform;
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == Constants.Tag.HAMMER)
 		{

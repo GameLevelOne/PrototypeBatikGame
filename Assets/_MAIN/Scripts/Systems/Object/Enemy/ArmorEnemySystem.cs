@@ -8,7 +8,7 @@ public class ArmorEnemySystem : ComponentSystem {
 		public ComponentArray<Transform> armorEnemyTransform;
 		public ComponentArray<ArmorEnemy> armorEnemy;
 		public ComponentArray<Health> armorEnemyHealth;
-		public ComponentArray<Rigidbody2D> armorEnemyRigidbody;
+		public ComponentArray<Rigidbody> armorEnemyRigidbody;
 		public ComponentArray<Animator> armorEnemyAnim;
 	}
 
@@ -16,7 +16,7 @@ public class ArmorEnemySystem : ComponentSystem {
 	Transform currArmorEnemyTransform;
 	ArmorEnemy currArmorEnemy;
 	Health currArmorEnemyHealth;
-	Rigidbody2D currArmorEnemyRigidbody;
+	Rigidbody currArmorEnemyRigidbody;
 	Animator currArmorEnemyAnim;
 
 	float deltaTime;
@@ -116,13 +116,13 @@ public class ArmorEnemySystem : ComponentSystem {
 			currArmorEnemyAnim.Play(currArmorEnemy.enemy.hasArmor ? Constants.BlendTreeName.ENEMY_PATROL : Constants.BlendTreeName.ENEMY_PATROL_BARE);
 		}else{
 			currArmorEnemyRigidbody.position = 
-				Vector2.MoveTowards(
+				Vector3.MoveTowards(
 					currArmorEnemyRigidbody.position,
 					currArmorEnemy.enemy.patrolDestination,
 					currArmorEnemy.enemy.patrolSpeed * deltaTime
 				);
 			
-			if(Vector2.Distance(currArmorEnemyRigidbody.position,currArmorEnemy.enemy.patrolDestination) < 0.1f){
+			if(Vector3.Distance(currArmorEnemyRigidbody.position,currArmorEnemy.enemy.patrolDestination) < 0.1f){
 				currArmorEnemy.enemy.initPatrol = false;
 				currArmorEnemy.enemy.state = EnemyState.Idle;
 			}
@@ -142,27 +142,28 @@ public class ArmorEnemySystem : ComponentSystem {
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.startRoll = true;
 				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
-				currArmorEnemy.rollTargetPos = currArmorEnemy.enemy.playerTransform.position;				
+				currArmorEnemy.rollTargetPos = currArmorEnemy.enemy.playerTransform.position;
+				currArmorEnemy.enemy.attackObject.SetActive(true);
 			}
 		}
 
 		if(currArmorEnemy.startRoll){
-			currArmorEnemyRigidbody.position = Vector2.MoveTowards(currArmorEnemyRigidbody.position,currArmorEnemy.rollTargetPos, currArmorEnemy.rollSpeed * deltaTime);
+			currArmorEnemyRigidbody.position = Vector3.MoveTowards(currArmorEnemyRigidbody.position,currArmorEnemy.rollTargetPos, currArmorEnemy.rollSpeed * deltaTime);	
 			
-			
-			if(Vector2.Distance(currArmorEnemyRigidbody.position,currArmorEnemy.rollTargetPos) <= 0.1f){
-				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			if(Vector3.Distance(currArmorEnemyRigidbody.position,currArmorEnemy.rollTargetPos) <= 0.5f){
+				// currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			currArmorEnemy.enemy.attackObject.SetActive(false);
 				currArmorEnemy.startRoll = false;
 				currArmorEnemy.initRoll = false;
 			}
 		}
 	}
 	
-	Vector2 GetRandomPatrolPos(Vector3 origin, float range)
+	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
 	{
 		float x = Random.Range(-1 * range, range) + origin.x;
-		float y = Random.Range(-1 * range, range) + origin.y;
+		float z = Random.Range(-1 * range, range) + origin.z;
 		
-		return new Vector2(x,y);
+		return new Vector3(x, currArmorEnemyTransform.position.y, z);
 	}
 }

@@ -54,7 +54,7 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
@@ -68,8 +68,8 @@ public class Health : MonoBehaviour {
 		}
 	}
 
-	#region OLD
-	void onTriggerEnter2D (Collider2D col) {
+#region OLD
+	// void onTriggerEnter2D (Collider2D col) {
 		// if (col.GetComponent<Damage>() == null) return;
 		
 		// // damage = col.GetComponent<Damage>().damage;
@@ -119,9 +119,9 @@ public class Health : MonoBehaviour {
 		// 		Debug.Log("Enemy get damaged from other source");
 		// 	}
 		// }
-	}
+	// }
 
-	void OnCollisionEnter2D (Collision2D col) {
+	// void OnCollisionEnter2D (Collision2D col) {
 		// if (col.gameObject.GetComponent<Damage>() == null) return;
 		
 		// // damage = col.gameObject.GetComponent<Damage>().damage;
@@ -140,6 +140,6 @@ public class Health : MonoBehaviour {
 		// 		Debug.Log("Enemy get damaged from player dash");
 		// 	}
 		// }
-	}
-	#endregion
+	// }
+#endregion
 }
