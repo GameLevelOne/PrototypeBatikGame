@@ -172,7 +172,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void ShowDialog () {
-		Debug.Log(currentNPC.gameObject.name + " is showing currentDialog");
+		// Debug.Log(currentNPC.gameObject.name + " is showing currentDialog");
 		currentDialog.panelDialog.SetActive (true);
 		currentDialog.isFinishShowingDialog = false;
 
@@ -180,7 +180,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void HideDialog () {
-		Debug.Log(currentNPC.gameObject.name + " is hiding currentDialog");
+		// Debug.Log(currentNPC.gameObject.name + " is hiding currentDialog");
 		currentDialog.panelDialog.SetActive (false);
 		currentDialog.isShowingDialog = false;
 		currentDialog.isFinishShowingDialog = false;

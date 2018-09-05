@@ -5,7 +5,7 @@ public class FishSystem : ComponentSystem {
 	public struct FishCollectibleData {
 		public readonly int Length;
 		public ComponentArray<Fish> Fish;
-		// public ComponentArray<Rigidbody2D> Rigidbody;
+		public ComponentArray<Rigidbody> Rigidbody;
 
 	}
 	[InjectAttribute] FishCollectibleData fishCollectibleData;
@@ -14,7 +14,7 @@ public class FishSystem : ComponentSystem {
 	
 	FishCharacteristic fishChar;
 	FishState state;
-	Rigidbody2D rigidbody;
+	Rigidbody rigidbody;
 	Animator anim;
 	
 	float waitingTimer = 0f;
@@ -23,7 +23,7 @@ public class FishSystem : ComponentSystem {
 	float catchTimer = 0f;
 	float deltaTime;
 
-	Vector2 readyPos;
+	Vector3 readyPos;
 
 	bool isInitThinking = false;
 
@@ -34,9 +34,9 @@ public class FishSystem : ComponentSystem {
 
 		for (int i=0; i<fishCollectibleData.Length; i++) {
 			fish = fishCollectibleData.Fish[i];
+			rigidbody = fishCollectibleData.Rigidbody[i];
 			
 			fishChar = fish.fishChar;
-			rigidbody = fish.rigidbody;
 			state = fish.state;
 			anim = fish.anim;
 			
@@ -65,7 +65,7 @@ public class FishSystem : ComponentSystem {
 			anim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			randomWaitingDuration = 0f;
 			// randomTryingGrabTime = 0;
-			readyPos = Vector2.zero;
+			readyPos = Vector3.zero;
 			isInitThinking = false;
 			fish.initIdle = true;
 		} else {
@@ -199,25 +199,29 @@ public class FishSystem : ComponentSystem {
 		UpdateInjectedComponentGroups();
 	}
 
-	void Move (Vector2 initPos, Vector2 targetPos, float speed) {
-		rigidbody.position = Vector2.MoveTowards(initPos, targetPos, speed * deltaTime);
+	void Move (Vector3 initPos, Vector3 targetPos, float speed) {
+		targetPos = new Vector3 (targetPos.x, 0f, targetPos.z);
+
+		rigidbody.position = Vector3.MoveTowards(initPos, targetPos, speed * deltaTime);
 		
-		Vector2 dir = GetDirection(rigidbody.position,fish.targetPos);
+		Vector3 dir = GetDirection(rigidbody.position,fish.targetPos);
 		anim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,dir.x);
-		anim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.y);
+		anim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,dir.z);
 	}
 
-	Vector2 RandomPosition () {
+	Vector3 RandomPosition () {
 		float poolRadius = fish.parentPoolRadius;
-		Vector2 poolPos = fish.parentPoolCol.position;
+		Vector3 poolPos = fish.parentPoolCol.position;
 		float randomX = poolPos.x + Random.Range(-poolRadius, poolRadius);
-		float randomY = poolPos.y + Random.Range(-poolRadius, poolRadius);
+		float randomZ = poolPos.z + Random.Range(-poolRadius, poolRadius);
 		
-		return new Vector2 (randomX, randomY);
+		return new Vector3 (randomX, 0f, randomZ);
 	}
 
-	bool isObjReachDestination (Vector2 destinationPos, Vector2 currentPos) {
-		if (Vector2.Distance(destinationPos, currentPos) < 0.1f) {
+	bool isObjReachDestination (Vector3 destinationPos, Vector3 currentPos) {
+		destinationPos = new Vector3 (destinationPos.x, 0f, destinationPos.z);
+
+		if (Vector3.Distance(destinationPos, currentPos) < 0.1f) {
 			return true;
 		} else {
 			return false;
@@ -231,21 +235,21 @@ public class FishSystem : ComponentSystem {
 	/// <para>DL = (-1,-1) <br /></para>
 	/// <para>DR = ( 1,-1) <br /></para>
     /// </summary>
-	Vector2 GetDirection(Vector2 self, Vector2 target)
+	Vector3 GetDirection(Vector3 self, Vector3 target)
 	{
 		Vector3 distance = target - self;
 		float magnitude = distance.magnitude;
 		Vector3 direction = distance / magnitude;
 
 		float x = direction.x;
-		float y = direction.y;
+		float z = direction.z;
 		
 		if(x < 0f) x = -1f;
 		else x = 1f;
 
-		if(y < 0f) y = -1f;
-		else y = 1f;
+		if(z < 0f) z = -1f;
+		else z = 1f;
 
-		return new Vector2(x,y);
+		return new Vector3(x, 0f, z);
 	}
 }

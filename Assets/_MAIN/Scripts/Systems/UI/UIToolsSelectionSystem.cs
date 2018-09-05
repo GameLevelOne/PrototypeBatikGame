@@ -80,6 +80,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 					} else {
 						if (!uiToolsSelection.panelToolsSelection.activeSelf) {
 							uiToolsSelection.panelToolsSelection.SetActive(true);
+							panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 						}
 
 						CheckToolsButton ();
@@ -289,7 +290,6 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckToolsButton () {
 		isShowingTools = true;
-		panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 		
 		if (changeIndex == 1) {
 			NextTools();
@@ -302,7 +302,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void NextTools () {
-		Debug.Log("NextTools "+sliderAnimator.name);
+		// Debug.Log("NextTools "+sliderAnimator.name);
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_LEFT);
 		int tempToolIdx = uiToolsSelection.toolIndexes[0];
 		uiToolsSelection.toolIndexes.RemoveAt(0);
@@ -310,7 +310,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void PrevTools () {
-		Debug.Log("PrevTools "+sliderAnimator.name);
+		// Debug.Log("PrevTools "+sliderAnimator.name);
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_RIGHT);
 		int lastToolIdx = uiToolsSelection.toolIndexes.Count-1;
 		int tempToolIdx = uiToolsSelection.toolIndexes[lastToolIdx];

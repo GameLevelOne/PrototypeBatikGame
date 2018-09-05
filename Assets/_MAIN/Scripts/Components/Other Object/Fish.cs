@@ -23,13 +23,8 @@ public class Fish : MonoBehaviour {
 	public GameObject[] lootableObjs;
 
 	public Animator anim;
-	public Collider2D selfCol;
-	public Rigidbody2D rigidbody;
-	public Transform parentPoolCol;
-	public FishingRod fishingRod;
-
-	public Vector2 targetPos;
-	public float parentPoolRadius;
+	public Collider selfCol;
+	// public Rigidbody rigidbody;
 	public float moveSpeed;
 	public float chaseSpeed;
 	public float fleeSpeed;
@@ -44,6 +39,10 @@ public class Fish : MonoBehaviour {
 
 	[HeaderAttribute("Current")]
 	public bool initIdle;
+	public Transform parentPoolCol;
+	public FishingRod fishingRod;
+	public Vector3 targetPos;
+	public float parentPoolRadius;
 	
 	[SerializeField] float timeIdle;
 
