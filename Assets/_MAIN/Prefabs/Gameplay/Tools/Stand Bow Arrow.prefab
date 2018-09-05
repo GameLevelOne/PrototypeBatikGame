@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4048464424325140}
   - component: {fileID: 114567851341663138}
   - component: {fileID: 212438940760174226}
-  - component: {fileID: 114033809226425450}
   - component: {fileID: 114101340933521480}
+  - component: {fileID: 114303060703954168}
+  - component: {fileID: 114033809226425450}
   - component: {fileID: 54635328239783276}
   - component: {fileID: 135773510986789546}
   m_Layer: 0
@@ -84,11 +85,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f04fb20cdf3624ab0250f1765d3c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Projectile: {fileID: 114303060703954168}
   manaCost: 20
+--- !u!114 &114303060703954168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1913286693341378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
   speed: 20
-  rb: {fileID: 54635328239783276}
-  isShot: 0
-  isHit: 0
+  isStartLaunching: 1
+  isDestroyOnTriggering: 1
+  isDestroyOnColliding: 0
+  elevationAngle: 0
+  isLaunching: 0
+  isCollideSomething: 0
+  isTriggerSomething: 0
 --- !u!114 &114567851341663138
 MonoBehaviour:
   m_ObjectHideFlags: 1

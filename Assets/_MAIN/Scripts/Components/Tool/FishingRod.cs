@@ -23,7 +23,7 @@ public class FishingRod : MonoBehaviour {
 	FishState fishState;
 
 	void OnTriggerEnter (Collider col) {
-		Debug.Log(col.tag);
+		// Debug.Log(col.tag);
 		
 		if (col.tag == Constants.Tag.FISHING_AREA) {
 			player.isCanFishing = true;

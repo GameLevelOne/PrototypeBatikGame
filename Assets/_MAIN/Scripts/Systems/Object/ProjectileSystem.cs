@@ -21,8 +21,8 @@ public class ProjectileSystem : ComponentSystem {
 
 		for (int i=0; i<projectileData.Length; i++) {
 			projectile = projectileData.Projectile[i];
-			Transform tr = projectileData.Transform[i];
-			Rigidbody rb = projectileData.Rigidbody[i];
+			tr = projectileData.Transform[i];
+			rb = projectileData.Rigidbody[i];
 
             projectileType = projectile.type;
 			float speed = projectile.speed * 50f;
@@ -33,7 +33,6 @@ public class ProjectileSystem : ComponentSystem {
                         if (!projectile.isLaunching) {
                             Vector3 bulletDir = new Vector3 (tr.right.x, 0f, tr.right.z);
                             rb.AddForce(bulletDir.normalized * speed);
-
                             projectile.isLaunching = true;
                         }
 
@@ -53,21 +52,23 @@ public class ProjectileSystem : ComponentSystem {
 
                 projectile.isStartLaunching = false;
             } else {
-                if (projectile.isDestroyOnHit) {	
+                if (projectile.isDestroyOnTriggering) {	
                     if (projectile.isTriggerSomething) {
-
-                    }
-
-                    if (projectile.isCollideSomething) {
-                        
+                        DestroyProjectile();
                     }		
+                }
+
+                if (projectile.isDestroyOnColliding) {
+                    if (projectile.isCollideSomething) {
+                        DestroyProjectile();
+                    }
                 }
             }
 		}
 	}
 
-    void DestroyProjectile (Projectile obj) {
-        GameObjectEntity.Destroy(obj.gameObject);
+    void DestroyProjectile () {
+        GameObjectEntity.Destroy(projectile.gameObject);
         UpdateInjectedComponentGroups(); //TEMP, Error without this
     }
 }
