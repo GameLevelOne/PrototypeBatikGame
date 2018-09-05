@@ -4,22 +4,34 @@ using UnityEngine.SceneManagement;
 public class PortalSystem : ComponentSystem {
 
 	
-	public struct Component{
-		public Portal portal;
+	public struct PortalComponent{
+		public readonly int Length;
+		public ComponentArray<Portal> portal;
 	}
+
+	[InjectAttribute] PortalComponent portalComponent;
+	Portal currPortal;
+
+	//inject important systems here
 
 	protected override void OnUpdate()
 	{
-		foreach(var e in GetEntities<Component>()){
-			if(e.portal.triggered){
-				ChangeMap(e);
-			}
+		for(int i = 0;i<portalComponent.Length;i++){
+			currPortal = portalComponent.portal[i];
+			CheckPlayer();
 		}
 		
 	}
 
-	void ChangeMap(Component e)
+	void CheckPlayer()
 	{
-		SceneManager.LoadScene(e.portal.sceneDestination);
+		if(currPortal.triggered){
+			currPortal.triggered = false;
+			
+			//disble control systems
+			//fader
+			//change scene
+		}
 	}
+
 }
