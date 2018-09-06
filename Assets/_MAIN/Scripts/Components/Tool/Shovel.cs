@@ -6,7 +6,7 @@ public class Shovel : MonoBehaviour {
 	// public Vector3 diggingCheckPos;
 	public List<bool> listDig = new List<bool>();
 
-	public float digResultPosY = 0.15f;
+	// public float digResultPosY = 0.15f;
 
 	// [SerializeField] bool isNotCleanForDigging = false;
 

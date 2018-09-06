@@ -34,7 +34,8 @@ public class ShovelSystem : ComponentSystem {
 
     void SpawnDigResult (GameObject obj) {
 		Vector3 shovelPos = shovel.transform.position;
-		Vector3 pos = new Vector3 (shovelPos.x, shovel.digResultPosY, shovelPos.z);
+		// Vector3 pos = new Vector3 (shovelPos.x, shovel.digResultPosY, shovelPos.z);
+		Vector3 pos = new Vector3 (shovelPos.x, 0f, shovelPos.z);
 		// Quaternion rot = Quaternion.Euler(40f, 0f, 0f);
 		Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
         GameObject spawnedObj = GameObject.Instantiate(obj, pos, rot);

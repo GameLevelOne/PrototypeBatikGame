@@ -83,13 +83,16 @@ public class DamageSystem : ComponentSystem {
 
 		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
-			if (player.damageReceive.tag == Constants.Tag.ENEMY_ATTACK) {
+			string damageTag = player.damageReceive.tag;
+			float damage = player.damageReceive.damage;
+
+			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
 				if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE
 					Debug.Log("Player is invulnerable");
 				} else if (player.isGuarding) {
 					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 				} else {
-					health.PlayerHP -= player.damageReceive.damage;
+					health.PlayerHP -= damage;
 					player.SetPlayerState(PlayerState.GET_HURT);
 				}
 				
@@ -108,6 +111,10 @@ public class DamageSystem : ComponentSystem {
 		PlayerInput input = playerInputSystem.input;
 
 		switch (playerState) {
+			case PlayerState.IDLE:
+				return false;
+			case PlayerState.MOVE:
+				return false;
 			case PlayerState.USING_TOOL:
 				switch (toolType) {
 					case ToolType.MagicMedallion:
@@ -157,18 +164,21 @@ public class DamageSystem : ComponentSystem {
 
 		if(!currEnemy.isHit) return;
 		else{
-			if(currEnemy.damageReceive.tag == Constants.Tag.HAMMER){
+			string damageTag = currEnemy.damageReceive.tag;
+			float damage = currEnemy.damageReceive.damage;
+
+			if(damageTag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
 				}else{
-					health.EnemyHP -= currEnemy.damageReceive.damage;
+					health.EnemyHP -= damage;
 				}
-			} else if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_DASH_ATTACK) {
-				health.EnemyHP -= currEnemy.damageReceive.damage;
+			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
+				health.EnemyHP -= damage;
 			} else {
-				if (currEnemy.damageReceive.tag == Constants.Tag.PLAYER_SLASH) {
+				if (damageTag == Constants.Tag.PLAYER_SLASH) {
 					playerInputSystem.player.isHitAnEnemy = true;
-					health.EnemyHP -= currEnemy.damageReceive.damage;
+					health.EnemyHP -= damage;
 				}
 			}
 			// currEnemy.isEnemyGetHurt = false;

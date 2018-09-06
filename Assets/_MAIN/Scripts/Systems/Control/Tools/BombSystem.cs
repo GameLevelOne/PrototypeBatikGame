@@ -1,63 +1,67 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class BombSystem : ComponentSystem {
 	public struct BombData{
 		public readonly int Length;
-		public ComponentArray<Bomb> bomb;
+		public ComponentArray<Bomb> Bomb;
+		public ComponentArray<Transform> Transform;
 	}
 	[InjectAttribute] BombData bombData;
 
 	Bomb bomb;
 
+	Transform bombTransform;
+
+	float deltaTime;
+
 	protected override void OnUpdate()
 	{
 		if (bombData.Length == 0) return;
 
+		deltaTime = Time.deltaTime;
+		// deltaTime = Time.fixedDeltaTime;
+
 		for (int i=0; i<bombData.Length; i++) { 
-			bomb = bombData.bomb[i];
+			bomb = bombData.Bomb[i];
+			bombTransform= bombData.Transform[i];
 
 			TickBomb();
 			
-			if (bomb.destroy){				
-				GameObjectEntity.Destroy(bomb.gameObject);
-				UpdateInjectedComponentGroups(); //TEMP, Error without this
-			}
+			// if (bomb.destroy){				
+			// 	GameObjectEntity.Destroy(bomb.gameObject);
+			// 	UpdateInjectedComponentGroups(); //TEMP, Error without this
+			// }
 		}
-
-		// foreach(var e in GetEntities<BombComponent>()){
-		// 	TickBomb(e);
-			
-		// 	if(e.bomb.destroy){
-		// 		GameObject.Destroy(e.bomb.gameObject);
-		// 		return; //TEMP, Error without this
-				
-		// 		// GameObjectEntity.Destroy(e.bomb.gameObject);
-		// 		// UpdateInjectedComponentGroups(); //TEMP, Error without this
-		// 	}
-		// }
 	}
 
 	void TickBomb()
 	{
 		if (bomb.timer <= 0){
 			if(!bomb.explode){
+				SpawnExplosion ();
+				// Explode();
+				DestroyBomb ();
 				bomb.explode = true;
-				Explode();
 			}
 		} else {
-			float deltaTime = Time.fixedDeltaTime;
 			bomb.timer -= deltaTime;
 		}
 	}
 
+	void SpawnExplosion () {
+		Quaternion rot = Quaternion.Euler(40f, 0f, 0f);
 
-	void Explode()
-	{
-		bomb.bombAnimator.SetTrigger(Constants.AnimatorParameter.Trigger.EXPLODE);
+		GameObject spawnedObj = GameObjectEntity.Instantiate(bomb.bombExplodeAreaObj, bombTransform.position, rot);
 	}
+
+	void DestroyBomb () {
+		GameObjectEntity.Destroy(bomb.gameObject);
+		UpdateInjectedComponentGroups(); //TEMP, Error without this
+	}
+
+	// void Explode()
+	// {
+	// 	bomb.bombAnimator.SetTrigger(Constants.AnimatorParameter.Trigger.EXPLODE);
+	// }
 }

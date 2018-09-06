@@ -587,9 +587,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 
 					if (powerBraceletState == PowerBraceletState.GRAB) {
-						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+						powerBraceletSystem.SetTargetRigidbodyType(1);
 					} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
-						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+						powerBraceletSystem.SetTargetRigidbodyType(2);
 						powerBraceletSystem.SetLiftObjectParent();
 					}
 
@@ -604,7 +606,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						powerBraceletSystem.UnSetLiftObjectParent();
 						powerBraceletSystem.AddForceRigidbody(currentDirID);
 					} else if (input.liftingMode == 1) {
-						powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
+						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
+						powerBraceletSystem.SetTargetRigidbodyType(0);
 					}
 					
 					// player.isUsingStand = false;
