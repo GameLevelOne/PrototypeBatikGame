@@ -212,5 +212,12 @@ public static class Constants {
 	{
 		public const string MAIN_MENU = "SceneMenu";
 		public const string GAME_MAP_01 = "SceneMap_01";
+		public const string SCENE_LEVEL_1 = "SceneLevel_1";
+		public const string SCENE_LEVEL_2_1 = "SceneLevel_2-1";
+		public const string SCENE_LEVEL_2_2 = "SceneLevel_2-2";
+		public const string SCENE_LEVEL_2_3 = "SceneLevel_2-3";
+		public const string SCENE_LEVEL_3_1 = "SceneLevel_3-1";
+		public const string SCENE_LEVEL_3_2 = "SceneLevel_3-2";
+		public const string SCENE_LEVEL_3_3 = "SceneLevel_3-3";
 	}
 }
