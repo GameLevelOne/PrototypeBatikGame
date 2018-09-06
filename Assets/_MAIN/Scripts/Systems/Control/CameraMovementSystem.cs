@@ -27,8 +27,6 @@ public class CameraMovementSystem : ComponentSystem {
 
 	int mapWidth;
 	int mapHeight;
-	float cameraBottomBound;
-	float cameraTopBound;
 	bool initLevelData;
 
 	float cameraSize;
@@ -67,9 +65,6 @@ public class CameraMovementSystem : ComponentSystem {
 
 			mapWidth = currLevelData.mapWidth;
 			mapHeight = currLevelData.mapHeight;
-
-			cameraBottomBound = currLevelData.cameraBottomBound;
-			cameraTopBound = currLevelData.cameraTopBound;
 
 			deltaTime = Time.fixedDeltaTime;
 		}
