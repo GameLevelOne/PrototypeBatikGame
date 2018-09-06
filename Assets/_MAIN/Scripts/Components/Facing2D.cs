@@ -15,17 +15,22 @@ public class Facing2D : MonoBehaviour {
 		attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
 
 		#region 4 Direction
-		if (attackArea != null) {
-			attackArea.transform.position = attackDirections[1].position;
-		}
+		SetAreaPos (attackArea, 1);
+		SetAreaPos (blindArea, 3);
+
+		// if (attackArea != null) {
+		// 	attackArea.transform.position = attackDirections[1].position;
+		// }
 		
-		blindArea.transform.position = attackDirections[3].position;
+		// if (blindArea != null) {
+		// 	blindArea.transform.position = attackDirections[3].position;
+		// }
 		#endregion
 
-		#region 8 Direction
+#region 8 Direction
 		// attackArea.transform.position = attackDirections[1].position;
 		// blindArea.transform.position = attackDirections[5].position;
-		#endregion
+#endregion
 	}
 
 	#region 4 Direction
@@ -45,21 +50,30 @@ public class Facing2D : MonoBehaviour {
 			
 			if (isNotPlayerNorEnemy) return;
 
-			if (attackArea != null) {
-				attackArea.transform.position = attackDirections[CurDirID].position;
-			}
+			// if (attackArea != null) {
+			// 	attackArea.transform.position = attackDirections[CurDirID].position;
+			// }
+			SetAreaPos (attackArea, CurDirID);
 
 			int tempDirID = CurDirID;
 			if (tempDirID >= 3 ) {
-				blindArea.transform.position = attackDirections[tempDirID - 2].position;
+				SetAreaPos (blindArea, tempDirID - 2);
+				// blindArea.transform.position = attackDirections[tempDirID - 2].position;
 			} else {
-				blindArea.transform.position = attackDirections[tempDirID + 2].position;
+				SetAreaPos (blindArea, tempDirID + 2);
+				// blindArea.transform.position = attackDirections[tempDirID + 2].position;
 			}
 		}
 	}
 	#endregion
 
-	#region 8 Direction
+	void SetAreaPos (GameObject areaObj, int posIndex) {
+		if (areaObj != null) {
+			areaObj.transform.position = attackDirections[posIndex].position;
+		}
+	}
+
+#region 8 Direction
 	/// <summary>
     /// <para>Values: <br /></para>
 	/// <para>1. Bottom<br /></para>
@@ -90,5 +104,5 @@ public class Facing2D : MonoBehaviour {
 	// 		}
 	// 	}
 	// }
-	#endregion
+#endregion
 }

@@ -12,7 +12,7 @@ public class FishingPoolSystem : ComponentSystem {
 
 	float deltaTime;
 	float poolRadius;
-	Vector2 poolPos;
+	Vector3 poolPos;
 
 	protected override void OnUpdate () {
 		if (fishingPoolData.Length == 0) return;
@@ -66,10 +66,10 @@ public class FishingPoolSystem : ComponentSystem {
 		}
 	}
 
-	Vector2 RandomPosition () {
+	Vector3 RandomPosition () {
 		float randomX = poolPos.x + Random.Range(-poolRadius, poolRadius);
-		float randomY = poolPos.y + Random.Range(-poolRadius, poolRadius);
+		float randomZ = poolPos.z + Random.Range(-poolRadius, poolRadius);
 		
-		return new Vector2 (randomX, randomY);
+		return new Vector3 (randomX, 0f, randomZ);
 	}
 }

@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 4420301229614188}
   - component: {fileID: 114524687024544860}
   - component: {fileID: 114485415111803336}
-  - component: {fileID: 54253315582100226}
   - component: {fileID: 135121500310841298}
   m_Layer: 0
   m_Name: Fishing Bait
@@ -1061,21 +1060,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!54 &54253315582100226
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1126661092014762}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!54 &54918470649024868
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1619,7 +1603,7 @@ MonoBehaviour:
   fish: {fileID: 0}
   fishObj: {fileID: 0}
   baitCol: {fileID: 135121500310841298}
-  fishingRange: 1
+  fishingRange: 3
   isBaitLaunched: 0
   isCatchSomething: 0
   isBaitFish: 0

@@ -22,13 +22,15 @@ public class FishingRod : MonoBehaviour {
 
 	FishState fishState;
 
-	void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerEnter (Collider col) {
+		// Debug.Log(col.tag);
+		
 		if (col.tag == Constants.Tag.FISHING_AREA) {
 			player.isCanFishing = true;
 		}
 	}
 
-	void OnTriggerStay2D (Collider2D col) {
+	void OnTriggerStay (Collider col) {
 		if (col.tag == Constants.Tag.FISH) {
 			if (!isBaitLaunched || player.state != PlayerState.FISHING) return;
 
@@ -60,7 +62,7 @@ public class FishingRod : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D (Collider2D col) {
+	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.FISHING_AREA) {
 			player.isCanFishing = false;
 		}

@@ -6,14 +6,14 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	public struct WaterShooterEnemyComponent{
 		public readonly int Length;
 		public ComponentArray<WaterShooterEnemy> waterShooterEnemy;
-		public ComponentArray<Rigidbody2D> waterShooterEnemyRigidbody;
+		public ComponentArray<Rigidbody> waterShooterEnemyRigidbody;
 		public ComponentArray<Animator> waterShooterEnemyAnim;
 	}
 
 	#region injected component
 	[InjectAttribute] public WaterShooterEnemyComponent waterShooterEnemyComponent;
 	WaterShooterEnemy currWaterShooterEnemy;
-	Rigidbody2D currWaterShooterEnemyRidigbody;
+	Rigidbody currWaterShooterEnemyRidigbody;
 	Animator currWaterShooterEnemyAnim;
 	#endregion
 
@@ -45,7 +45,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		}else{
 			if(!currWaterShooterEnemy.enemy.initIdle){
 				currWaterShooterEnemy.enemy.initIdle = true;
-				currWaterShooterEnemyAnim.Play(EnemyState.Idle.ToString());
+				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
 		}
 	}
@@ -63,9 +63,10 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				currWaterShooterEnemy.TShootInterval -= Time.deltaTime;
 				if(currWaterShooterEnemy.TShootInterval <= 0f){
 					//shoot
-					GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet,currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
-					bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
-					bullet.GetComponent<WaterShooterBullet>().init = true;
+					// GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet, currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
+					// bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
+
+					SpawnObj (currWaterShooterEnemy.bullet);
 					
 					currWaterShooterEnemy.enemy.initAttack = false;
 				}
@@ -73,11 +74,31 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		}
 	}
 
-	Vector2 GetProjectileDirection(Vector2 origin, Vector2 target)
-	{
-		Vector2 distance = target-origin;
-		float magnitude = distance.magnitude;
+	// Vector3 GetProjectileDirection(Vector3 origin, Vector3 target)
+	// {
+	// 	Vector3 distance = target-origin;
+	// 	float magnitude = distance.magnitude;
 
-		return distance/magnitude;
-	}
+	// 	return distance/magnitude;
+	// }
+
+	void SpawnObj (GameObject obj) {
+        GameObject spawnedObj = GameObject.Instantiate(obj, currWaterShooterEnemyRidigbody.position, SetFacing());
+        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+		// spawnedObj.GetComponent<WaterShooterBullet>().init = true;
+		// spawnedObj.GetComponent<Projectile>().isStartLaunching = true;
+        spawnedObj.SetActive(true);
+    }
+
+    Quaternion SetFacing () {
+        Vector3 targetPos = currWaterShooterEnemy.enemy.playerTransform.position;
+        Vector3 initPos = currWaterShooterEnemyRidigbody.position; //TEMPORARY
+
+        targetPos.x -= initPos.x;
+        targetPos.z -= initPos.z;
+        float angleZ = Mathf.Atan2(targetPos.z, targetPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angleZ));
+
+        return targetRot;
+    }
 }

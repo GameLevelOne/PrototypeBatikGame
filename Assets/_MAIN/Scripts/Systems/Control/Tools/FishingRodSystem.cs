@@ -38,7 +38,7 @@ public class FishingRodSystem : ComponentSystem {
 	}
 
 	void Throw () {
-		fishingRod.transform.localPosition = GetDestinationPos(Vector2.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
+		fishingRod.transform.localPosition = GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
 		// fishingRod.baitCol.enabled = true;
 		fishingRod.isBaitFish = false;
 		fishingRod.state = FishingRodState.STAY;
@@ -78,7 +78,7 @@ public class FishingRodSystem : ComponentSystem {
 		fishingRod.fishObj = null;
 		fishingRod.fish = null;
 		fishingRod.isBaitLaunched = false;
-		fishingRod.transform.localPosition = Vector2.zero;
+		fishingRod.transform.localPosition = Vector3.zero;
 		fishingRod.state = FishingRodState.IDLE;
 	}
 
@@ -86,48 +86,48 @@ public class FishingRodSystem : ComponentSystem {
 		fishSystem.CatchFish(fishingRod.fish, playerMovementSystem.player.transform);
 	}
 
-	Vector2 GetDestinationPos(Vector2 throwObjInitPos, int dirID, float range)
+	Vector3 GetDestinationPos(Vector3 throwObjInitPos, int dirID, float range)
 	{
 		Vector3 destination = throwObjInitPos;
 		float x = throwObjInitPos.x;
-		float y = throwObjInitPos.y;
+		float z = throwObjInitPos.z;
 
 		#region 4 Direction
 		if(dirID == 1){ //bottom
-			y-=range;
+			z-=range;
 		}else if(dirID == 3){ //left
 			x-=range;
 		}else if(dirID == 5){ //top
-			y+=range;
+			z+=range;
 		}else if(dirID == 7){ //right
 			x+=range;
 		}
 		#endregion
 
-		#region 8 Direction
+#region 8 Direction
 		// if(dirID == 1){ //bottom
-		// 	y-=range;
+		// 	z-=range;
 		// }else if(dirID == 2){ //bottom left
 		// 	x-=range;
-		// 	y-=range;
+		// 	z-=range;
 		// }else if(dirID == 3){ //left
 		// 	x-=range;
 		// }else if(dirID == 4){ //top left
 		// 	x-=range;
-		// 	y+=range;
+		// 	z+=range;
 		// }else if(dirID == 5){ //top
-		// 	y+=range;
+		// 	z+=range;
 		// }else if(dirID == 6){ //top right
 		// 	x+=range;
-		// 	y+=range;
+		// 	z+=range;
 		// }else if(dirID == 7){ //right
 		// 	x+=range;
 		// }else if(dirID == 8){ //bottom right
 		// 	x+=range;
-		// 	y-=range;
+		// 	z-=range;
 		// }
-		#endregion
+#endregion
 
-		return new Vector2(x,y);
+		return new Vector3(x, 0f, z);
 	}
 }

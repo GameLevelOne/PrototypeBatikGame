@@ -9,7 +9,8 @@ public class Projectile : MonoBehaviour {
 	public ProjectileType type;
 	public float speed;
 	public bool isStartLaunching;
-	public bool isDestroyOnHit;
+	public bool isDestroyOnTriggering;
+	public bool isDestroyOnColliding;
 
 	[HeaderAttribute("If CATAPULT Type (Need Gravity)")]
 	public float elevationAngle;
@@ -19,12 +20,11 @@ public class Projectile : MonoBehaviour {
 	public bool isCollideSomething;
 	public bool isTriggerSomething;
 
-	void OnCollisionEnter (Collision col) {
-		isCollideSomething = true;
-	}
+	// void OnCollisionEnter (Collision col) {
+	// 	isCollideSomething = true;
+	// }
 
-	void OnTriggerEnter (Collider col) {
-		isTriggerSomething = true;
-	}
-
+	// void OnTriggerEnter (Collider col) {
+	// 	isTriggerSomething = true;
+	// }
 }

@@ -8,6 +8,9 @@ public class TriggerDetection : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
+		// Debug.Log("Trigger Detection : "+other.tag);
+		// Debug.Log("Tag target : "+tagName);
+
 		if(other.tag == tagName){
 			if(OnTriggerEnterObj != null) OnTriggerEnterObj(other.gameObject);
 		}

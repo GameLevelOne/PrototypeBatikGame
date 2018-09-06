@@ -9,7 +9,6 @@ public class UIToolsSelection : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
 	public GameObject panelToolsSelection;
-	// public CanvasGroup canvasToolsGroup;
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;
 
