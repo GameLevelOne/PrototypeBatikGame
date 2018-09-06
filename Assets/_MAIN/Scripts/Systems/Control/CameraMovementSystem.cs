@@ -109,14 +109,11 @@ public class CameraMovementSystem : ComponentSystem {
 		float x = GetX();
 		float y = currCameraMovement.offset.y;
 		float z = GetZ();
-
 		return new Vector3(x,y,z);
 	}
 
 	float GetX()
 	{
-		Debug.Log(mapWidth);
-		Debug.Log(cameraWidth/2f);
 		if(currCameraTransform.position.x <= cameraWidth/2f){
 			return cameraWidth/2f;
 		}else if(currCameraTransform.position.x >= mapWidth-(cameraWidth/2f)){
@@ -130,10 +127,10 @@ public class CameraMovementSystem : ComponentSystem {
 	{
 		// Debug.Log((cameraHeight/2f)-9.4f);
 		// Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
-		if(currCameraTransform.position.z <= (cameraHeight/2f) - cameraBottomBound){
-			return (cameraHeight/2f) - 9.4f;
-		}else if(currCameraTransform.position.z >= (mapHeight-(cameraHeight/2f)) - cameraTopBound){
-			return (mapHeight-(cameraHeight/2f)) - 14.4f;
+		if(currCameraTransform.position.z <= 7f + currCameraMovement.offset.z ){
+			return 7f + currCameraMovement.offset.z;
+		}else if(currCameraTransform.position.z >= (mapHeight- 7f) + currCameraMovement.offset.z){
+			return (mapHeight- 7f) + currCameraMovement.offset.z;
 		}else{
 			return currCameraTransform.position.z;
 		}
