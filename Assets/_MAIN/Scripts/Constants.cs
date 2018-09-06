@@ -73,6 +73,7 @@ public static class Constants {
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
 		public const string EXPLOSION = "Explosion";
+		public const string GROUND = "Ground";
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";

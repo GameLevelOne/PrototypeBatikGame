@@ -12,13 +12,16 @@ public class Projectile : MonoBehaviour {
 	public bool isDestroyOnTriggering;
 	public bool isDestroyOnColliding;
 
-	[HeaderAttribute("If CATAPULT Type (Need Gravity)")]
+	[HeaderAttribute("CATAPULT Type Only (Need Gravity)")]
 	public float elevationAngle;
 
 	[HeaderAttribute("Current")]
 	public bool isLaunching;
 	public bool isCollideSomething;
 	public bool isTriggerSomething;
+
+	[HeaderAttribute("Current CATAPULT")]
+	public Vector3 direction;
 
 	// void OnCollisionEnter (Collision col) {
 	// 	isCollideSomething = true;

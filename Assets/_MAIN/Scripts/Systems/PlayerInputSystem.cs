@@ -768,54 +768,74 @@ public class PlayerInputSystem : ComponentSystem {
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.liftingMode == 1 || input.liftingMode == 2) {
 				facing = playerAnimationSystem.facing;
+				Debug.Log(facing.DirID);
 				// Debug.Log("==========Grabbing==========");
 				// Debug.Log("Before " + facing.DirID);
 				switch (facing.DirID) {
 					case 1: 
-						if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, newDir.z);
+						if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
 						// Debug.Log("Bottom");
 						break;
 					case 2: 
-						if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, newDir.z);
-						// Debug.Log("Bottom left");
-						break;
-					case 3: 
-						if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f);
+						if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
 						// Debug.Log("Left");
 						break;
-					case 4: 
-						if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, newDir.z);
-						// Debug.Log("Top left");
-						break;
-					case 5: 
-						if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, newDir.z);
+					case 3: 
+						if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
 						// Debug.Log("Top");
 						break;
-					case 6: 
-						if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, newDir.z);
-						// Debug.Log("Top right");
-						break;
-					case 7: 
-						if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f);
+					case 4: 
+						if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
 						// Debug.Log("right");
 						break;
-					case 8: 
-						if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, newDir.z);
-						// Debug.Log("Bottom right");
-						break;
+
+#region OLD 8 Direction
+					// case 1: 
+					// 	if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
+					// 	// Debug.Log("Bottom");
+					// 	break;
+					// case 2: 
+					// 	if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
+					// 	// Debug.Log("Bottom left");
+					// 	break;
+					// case 3: 
+					// 	if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+					// 	// Debug.Log("Left");
+					// 	break;
+					// case 4: 
+					// 	if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
+					// 	// Debug.Log("Top left");
+					// 	break;
+					// case 5: 
+					// 	if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
+					// 	// Debug.Log("Top");
+					// 	break;
+					// case 6: 
+					// 	if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
+					// 	// Debug.Log("Top right");
+					// 	break;
+					// case 7: 
+					// 	if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+					// 	// Debug.Log("right");
+					// 	break;
+					// case 8: 
+					// 	if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
+					// 	// Debug.Log("Bottom right");
+					// 	break;
+#endregion
 				}
 				// Debug.Log("After " + facing.DirID);
 				// Debug.Log("==========End Grabbing==========");
 			} else if (input.liftingMode == -1 || input.liftingMode == -2){
-				SetDir (newDir.x, newDir.z);
+				SetDir (newDir.x, 0f, newDir.z);
 			} 
 		} else {
 			// player.SetPlayerState(PlayerState.MOVE);
-			SetDir (newDir.x, newDir.z);
+			SetDir (newDir.x, 0f, newDir.z);
 		}
 	}
 
-	void SetDir (float dirX, float dirZ) {
+	void SetDir (float dirX, float dirY, float dirZ) {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
 		if (currentDir != fixDir) {

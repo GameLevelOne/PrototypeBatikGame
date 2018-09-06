@@ -145,7 +145,7 @@ public class PowerBraceletSystem : ComponentSystem {
 
 	void SetTargetRigidbodyPositionConstraints (bool isStatic) { // OLD Parameter RigidbodyType2D type
 		if (isStatic) {
-			powerBracelet.liftable.mainRigidbody.constraints = RigidbodyConstraints.FreezePosition;
+			powerBracelet.liftable.mainRigidbody.constraints = RigidbodyConstraints.FreezeAll;
 		} else {
 			powerBracelet.liftable.mainRigidbody.constraints = RigidbodyConstraints.None;
 			powerBracelet.liftable.mainRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
@@ -175,12 +175,17 @@ public class PowerBraceletSystem : ComponentSystem {
 		}
 	}
 
-	public void AddForceRigidbody (int dirID) {
+	public void AddForceRigidbody () {
 		// SetTargetRigidbody(RigidbodyType2D.Dynamic);
 		SetTargetRigidbodyType(1);
 		// powerBracelet.liftable.dirID = dirID;
-		powerBracelet.liftable.throwRange = powerBracelet.throwRange;
-		powerBracelet.liftable.speed = powerBracelet.speed;
+		// powerBracelet.liftable.throwRange = powerBracelet.throwRange;
+		// powerBracelet.liftable.speed = powerBracelet.speed;
+		powerBracelet.liftable.mainRigidbody.drag = 0f;
+		powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
+		powerBracelet.liftable.projectile.isStartLaunching = true;
+		// powerBracelet.liftable.mainRigidbody.useGravity = true;
+
 		powerBracelet.liftable.state = LiftableState.THROW;
 	}
 
@@ -192,9 +197,37 @@ public class PowerBraceletSystem : ComponentSystem {
 		powerBracelet.liftable.mainTransform.localPosition = Vector2.zero;
 	}
 
-	public void UnSetLiftObjectParent () {
+	public void UnSetLiftObjectParent (int dirID) {
+		powerBracelet.liftable.projectile.direction = GetDirPos (powerBracelet.liftable.mainTransform.localPosition, dirID);
+		// powerBracelet.liftable.testDir.localPosition = powerBracelet.liftable.projectile.direction; // TEMP
 		powerBracelet.liftable.mainCollider.isTrigger = false;
 		// powerBracelet.liftable.shadowTransform.parent = null;
 		powerBracelet.liftable.mainTransform.parent = null;
+	}
+
+	public void ResetPowerBracelet () {	
+		powerBracelet.isInteracting = false;
+		powerBracelet.liftable = null;
+		powerBracelet.SetState(PowerBraceletState.NONE);
+	}
+
+	Vector3 GetDirPos(Vector3 throwObjInitPos, int dirID)
+	{
+		// Vector3 destination = throwObjInitPos;
+		float x = throwObjInitPos.x;
+		float z = throwObjInitPos.z;
+
+		if (dirID == 1){ //bottom
+			return new Vector3(0f, 0f, z-1);
+		} else if (dirID == 2){ //left
+			return new Vector3(x-1, 0f, 0f);
+		} else if (dirID == 3){ //top
+			return new Vector3(0f, 0f, z+1);
+		} else if (dirID == 4){ //right
+			return new Vector3(x+1, 0f, 0f);
+		} else {
+			Debug.Log("Something wrong in Power Bracelet throw direction");
+			return new Vector3(0f, 0f, 0f);
+		}
 	}
 }

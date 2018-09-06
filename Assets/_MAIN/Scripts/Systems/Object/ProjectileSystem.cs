@@ -16,8 +16,12 @@ public class ProjectileSystem : ComponentSystem {
 
     ProjectileType projectileType;
 
+    float deltaTime;
+
 	protected override void OnUpdate () {
 		if (projectileData.Length == 0) return;
+
+        deltaTime = Time.deltaTime;
 
 		for (int i=0; i<projectileData.Length; i++) {
 			projectile = projectileData.Projectile[i];
@@ -39,11 +43,10 @@ public class ProjectileSystem : ComponentSystem {
                         break;
                     case ProjectileType.CATAPULT: 
                         if (!projectile.isLaunching) {
-                            Vector3 catapultDir = new Vector3 (tr.right.x, 0f, tr.right.z);             
+                            Vector3 catapultDir = projectile.direction;           
                             catapultDir.Normalize();
                             catapultDir.y = Mathf.Sin(projectile.elevationAngle * Mathf.Deg2Rad);
-                            rb.AddForce(catapultDir.normalized * speed);
-                            
+                            rb.AddForce(catapultDir * speed);
                             projectile.isLaunching = true;
                         }
 

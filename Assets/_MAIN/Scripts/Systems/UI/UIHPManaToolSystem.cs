@@ -118,7 +118,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		//SET CLOTH POS X
-		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
+		// uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
+		uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold, 0f);
 		// Debug.Log(healthThreshold);
 		// Debug.Log(initClothPos);
 

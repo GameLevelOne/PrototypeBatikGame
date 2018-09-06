@@ -11,6 +11,24 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1760986108266002}
   m_IsPrefabAsset: 1
+--- !u!1 &1520470358101322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4298079288059492}
+  - component: {fileID: 33635472360491282}
+  - component: {fileID: 23248069337864448}
+  - component: {fileID: 65328417711719488}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1642801545120906
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,9 +74,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4333595074743098}
   - component: {fileID: 114019947376017278}
+  - component: {fileID: 114694318327763236}
+  - component: {fileID: 114888292747843270}
   - component: {fileID: 114990845818212162}
   - component: {fileID: 95931181692002584}
-  - component: {fileID: 114694318327763236}
   - component: {fileID: 54006402430560670}
   - component: {fileID: 135506030136493200}
   m_Layer: 0
@@ -68,6 +87,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4298079288059492
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520470358101322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 4333595074743098}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4333595074743098
 Transform:
   m_ObjectHideFlags: 1
@@ -75,11 +107,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760986108266002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.37, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4853061334452354}
   - {fileID: 4366089378692250}
+  - {fileID: 4298079288059492}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -109,6 +142,48 @@ Transform:
   m_Father: {fileID: 4333595074743098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+--- !u!23 &23248069337864448
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520470358101322}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33635472360491282
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520470358101322}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54006402430560670
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -116,14 +191,26 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760986108266002}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 5
+  m_Drag: 20
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &65328417711719488
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1520470358101322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95931181692002584
 Animator:
   serializedVersion: 3
@@ -155,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombExplodeAreaObj: {fileID: 1433282509824878, guid: 7dc2b8d4c34a28f40bbf6c40a13b2ffd,
     type: 2}
-  timer: Infinity
+  timer: 5
   explode: 0
 --- !u!114 &114694129294827484
 MonoBehaviour:
@@ -179,15 +266,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8af523af4c2c446adf445623413ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 114888292747843270}
   liftableType: 0
   state: 0
+  testDir: {fileID: 4298079288059492}
   mainTransform: {fileID: 4333595074743098}
   mainRigidbody: {fileID: 54006402430560670}
   mainCollider: {fileID: 135506030136493200}
   weight: 10
-  attachedObject: {fileID: 0}
-  speed: 5
-  throwRange: 5
+  initDrag: 20
+  initGravityAwakeTime: 0.2
+  gravityAwakeTimer: 0
+  isLanding: 0
 --- !u!114 &114870214574054352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,6 +302,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9ea4ac6664f7d40bc4f5e6a77ccd27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114888292747843270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1760986108266002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  speed: 50
+  isStartLaunching: 0
+  isDestroyOnTriggering: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 10
+  isLaunching: 0
+  isCollideSomething: 0
+  isTriggerSomething: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114990845818212162
 MonoBehaviour:
   m_ObjectHideFlags: 1

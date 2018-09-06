@@ -603,8 +603,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 2) {
 					if (input.liftingMode == -1 || input.liftingMode == -2) {
-						powerBraceletSystem.UnSetLiftObjectParent();
-						powerBraceletSystem.AddForceRigidbody(currentDirID);
+						powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+						powerBraceletSystem.AddForceRigidbody();
+						powerBraceletSystem.ResetPowerBracelet();
 					} else if (input.liftingMode == 1) {
 						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 						powerBraceletSystem.SetTargetRigidbodyType(0);
