@@ -4748,10 +4748,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1788cd25af9234090e0164318b0fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHeight: 28
   mapWidth: 32
-  cameraBottomBound: 9.4
-  cameraTopBound: 14.4
+  mapHeight: 28
   playerObj: {fileID: 0}
   playerStartPos: {x: 0, y: 0, z: 0}
   isInitialied: 0
@@ -7754,6 +7752,11 @@ Prefab:
     - target: {fileID: 4471494087497504, guid: df7e0ce35a82501408cb0d85fcb62089, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114783876335681260, guid: df7e0ce35a82501408cb0d85fcb62089,
+        type: 2}
+      propertyPath: sceneDestination
+      value: SceneLevel_2-1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df7e0ce35a82501408cb0d85fcb62089, type: 2}
