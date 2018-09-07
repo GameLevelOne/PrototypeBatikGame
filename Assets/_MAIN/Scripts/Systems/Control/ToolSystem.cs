@@ -31,7 +31,7 @@ public class ToolSystem : ComponentSystem {
 	PlayerState state;
 
 	// int toolType;
-	bool isInitCurrentTool = false;
+	public bool isInitCurrentTool = false;
 
 	protected override void OnUpdate()
 	{
@@ -69,6 +69,7 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void InitTool () {
+		Debug.Log("InitTool");
 		for (int i=1; i<=(int)ToolType.Boots; i++) {
 			if (CheckIfToolHasBeenUnlocked(i)) {
 				tool.currentTool = (ToolType) i;

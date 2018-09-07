@@ -77,6 +77,7 @@ public class PlayerTool : MonoBehaviour {
 		PowerBracelet = 0; //
 		Flippers = 0; //
 		Boots = 1;
+		Debug.Log("SetAvailableTools");
 	}
 
 	// void Awake () {

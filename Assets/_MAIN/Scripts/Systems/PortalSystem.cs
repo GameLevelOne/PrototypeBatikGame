@@ -58,17 +58,17 @@ public class PortalSystem : ComponentSystem {
 		Vector2 dir = Vector2.zero;
 
 		switch (dirID) {
-			case 1: { //LEFT
+			case 1: { //DOWN
+				return new Vector2 (0f, -1f);
+			}
+			case 2: { //LEFT
 				return new Vector2 (-1f, 0f);
 			}
-			case 2: { //UP
+			case 3: { //UP
 				return new Vector2 (0f, 1f);
 			}
-			case 3: { //RIGHT
+			case 4: { //RIGHT
 				return new Vector2 (1f, 0f);
-			}
-			case 4: { //DOWN
-				return new Vector2 (0f, -1f);
 			}
 			default: {
 				return Vector2.zero;

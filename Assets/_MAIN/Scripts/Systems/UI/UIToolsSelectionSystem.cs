@@ -27,7 +27,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	Sprite[] toolSprites;
 
 	int changeIndex = 0;
-	bool isInitToolImage = false;
+	public bool isInitToolImage = false;
 	bool isShowingTools = false;
 	bool isPlayingAnimation = false;
 	bool isActivatingTools = false;
