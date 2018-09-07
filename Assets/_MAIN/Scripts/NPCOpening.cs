@@ -2,6 +2,9 @@
 using Unity.Entities;
 
 public class NPCOpening : MonoBehaviour {
+	public delegate void NPCOpeningEvent();
+	public event NPCOpeningEvent OnNPCEndDialogueTrigger;
+
 	public TimelineEventTrigger openingDialogueTrigger;
 	public GameObjectEntity entity;
 	public NPC npc;
@@ -20,5 +23,14 @@ public class NPCOpening : MonoBehaviour {
 		npc.IsInteracting = true;
 
 		Debug.Log("Finish set opening");
+	}
+
+	public void EndOpeningDialogue () {
+		npc.state = NPCState.IDLE;
+		npc.IsInteracting = false;
+
+		if (OnNPCEndDialogueTrigger != null) {
+			OnNPCEndDialogueTrigger ();
+		}
 	}
 }

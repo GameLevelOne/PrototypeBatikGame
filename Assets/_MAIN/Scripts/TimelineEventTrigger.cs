@@ -4,13 +4,13 @@ using UnityEngine;
 
 public enum EventType {
 	NPC_DIALOGUE,
-	COMINGSOON
+	END_TIMELINE
 }
 
 public class TimelineEventTrigger : MonoBehaviour {
 	public delegate void TimelineEvent();
 	public event TimelineEvent OnNPCDialogueTrigger;
-
+	public event TimelineEvent OnEndTimelineTrigger;
 
 	public EventType type;	
 
@@ -26,7 +26,11 @@ public class TimelineEventTrigger : MonoBehaviour {
 				if (OnNPCDialogueTrigger != null) {
 					OnNPCDialogueTrigger();
 				}
-			}			
+			} else if (type == EventType.END_TIMELINE) {
+				if (OnEndTimelineTrigger != null) {
+					OnEndTimelineTrigger();
+				}
+			}		
 		}
 	}
 

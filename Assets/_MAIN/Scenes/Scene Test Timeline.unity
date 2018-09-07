@@ -123,12 +123,12 @@ GameObject:
   - component: {fileID: 1452927}
   - component: {fileID: 1452926}
   m_Layer: 0
-  m_Name: Timeline Event (1)
+  m_Name: End Timeline Event
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1452926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,15 +436,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4589479152573096, guid: 698c774782b00524fac79bb71d7cde44, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4589479152573096, guid: 698c774782b00524fac79bb71d7cde44, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4589479152573096, guid: 698c774782b00524fac79bb71d7cde44, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4589479152573096, guid: 698c774782b00524fac79bb71d7cde44, type: 2}
       propertyPath: m_LocalRotation.w
@@ -753,6 +753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1172546173}
   - component: {fileID: 1172546172}
+  - component: {fileID: 1172546174}
   m_Layer: 0
   m_Name: Time Line
   m_TagString: Untagged
@@ -768,9 +769,9 @@ PlayableDirector:
   m_GameObject: {fileID: 1172546171}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 080c5db7d433c164e8602d41aed0c60d, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 0
+  m_PlayableAsset: {fileID: 11400000, guid: e1bc9bbd104fc6d41bd70872513d68ff, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 1
   m_DirectorUpdateMode: 2
   m_InitialTime: 0
   m_SceneBindings:
@@ -808,6 +809,16 @@ PlayableDirector:
     value: {fileID: 1452925}
   - key: {fileID: 0}
     value: {fileID: 537807741}
+  - key: {fileID: 114596587677588570, guid: 8e5668ed6ce961c458f2cbb2443de912, type: 2}
+    value: {fileID: 1765775396}
+  - key: {fileID: 114567002209557348, guid: 8e5668ed6ce961c458f2cbb2443de912, type: 2}
+    value: {fileID: 71429897}
+  - key: {fileID: 114602428362850168, guid: 8e5668ed6ce961c458f2cbb2443de912, type: 2}
+    value: {fileID: 1452925}
+  - key: {fileID: 114959376149959456, guid: e1bc9bbd104fc6d41bd70872513d68ff, type: 2}
+    value: {fileID: 1241852358}
+  - key: {fileID: 114175980154594508, guid: e1bc9bbd104fc6d41bd70872513d68ff, type: 2}
+    value: {fileID: 71429897}
   m_ExposedReferences:
     m_References:
     - 30518163279a66649b03257bd305af78: {fileID: 754085709}
@@ -828,6 +839,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1172546174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1172546171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1883a999b77c7d84b8b2128a61511d3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playableDirector: {fileID: 1172546172}
+  playableAssets:
+  - {fileID: 11400000, guid: 080c5db7d433c164e8602d41aed0c60d, type: 2}
+  - {fileID: 11400000, guid: e1bc9bbd104fc6d41bd70872513d68ff, type: 2}
+  - {fileID: 11400000, guid: 8e5668ed6ce961c458f2cbb2443de912, type: 2}
+  npcOpening: {fileID: 1765775398}
+  openingDialogueTrigger: {fileID: 906767925}
+  endingTimelineTrigger: {fileID: 1452926}
 --- !u!95 &1241852358 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95687041734106846, guid: 48c8d0db54edec043ac957c3486b5def,

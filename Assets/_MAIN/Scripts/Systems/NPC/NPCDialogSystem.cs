@@ -146,9 +146,8 @@ public class NPCDialogSystem : ComponentSystem {
 							currentNPC.uiShop.isOpeningShop = true;
 						}
 					} else if (currentType == NPCType.OPENING) {
-						currentNPC.state = NPCState.IDLE;
-						currentNPC.IsInteracting = false;
 						Debug.Log("Send Event to timeline!!!");
+						currentNPC.GetComponent<NPCOpening>().EndOpeningDialogue();
 					} else {
 						currentNPC.InteractIndex = dialogLength-1;
 					} 
