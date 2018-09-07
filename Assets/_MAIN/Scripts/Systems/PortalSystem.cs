@@ -54,24 +54,24 @@ public class PortalSystem : ComponentSystem {
 		systemManagerSystem.SetSystems(false);
 	}
 
-	Vector2 GetDirection (int dirID) {
-		Vector2 dir = Vector2.zero;
+	Vector3 GetDirection (int dirID) {
+		Vector3 dir = Vector2.zero;
 
 		switch (dirID) {
 			case 1: { //DOWN
-				return new Vector2 (0f, -1f);
+				return new Vector3 (0f, 0f, -1f);
 			}
 			case 2: { //LEFT
-				return new Vector2 (-1f, 0f);
+				return new Vector3 (-1f, 0f, 0f);
 			}
 			case 3: { //UP
-				return new Vector2 (0f, 1f);
+				return new Vector3 (0f, 0f, 1f);
 			}
 			case 4: { //RIGHT
-				return new Vector2 (1f, 0f);
+				return new Vector3 (1f, 0f, 0f);
 			}
 			default: {
-				return Vector2.zero;
+				return Vector3.zero;
 			}
 		}
 	}
