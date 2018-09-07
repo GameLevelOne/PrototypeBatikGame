@@ -14,6 +14,7 @@ public enum NPCType {
 	NONE,
 	SHOP,
 	GUIDE, //Gives helpful tips for player
+	OPENING,
 }
 
 public class NPC : MonoBehaviour {
@@ -25,7 +26,7 @@ public class NPC : MonoBehaviour {
 	public Dialog dialog;
 
 	[HeaderAttribute("NPC Shop Only")]
-	public bool isShopNPC;
+	// public bool isShopNPC;
 	public UIShop uiShop;
 
 	[HeaderAttribute("Current")]

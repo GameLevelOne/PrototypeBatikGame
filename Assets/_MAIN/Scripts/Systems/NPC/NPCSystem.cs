@@ -11,6 +11,7 @@ public class NPCSystem : ComponentSystem {
 	NPC currentNPC;
 	
 	NPCState currentState;
+	NPCType currentType;
 
 	protected override void OnUpdate () {
 		if (npcData.Length == 0) return;
@@ -23,7 +24,11 @@ public class NPCSystem : ComponentSystem {
 			if (!currentNPC.isDoneInitNPC) {
 				InitNPC ();
 			} else {
-				CheckNPCInteraction ();
+				currentType = currentNPC.npcType;
+
+				if (currentType != NPCType.NONE) {
+					CheckNPCInteraction ();
+				}
 			}
 		}
 	}

@@ -15,6 +15,7 @@ public class NPCDialogSystem : ComponentSystem {
 	Dialog currentDialog;
 	
 	NPCState currentState;
+	NPCType currentType;
 
 	float showDialogTime;
 	float showDialogDuration;
@@ -58,7 +59,11 @@ public class NPCDialogSystem : ComponentSystem {
 			if (!isInitShowingDialog) {
 				InitDialog ();
 			} else {
-				CheckNPCState ();
+				currentType = currentNPC.npcType;
+
+				if (currentType != NPCType.NONE) {
+					CheckNPCState ();
+				}
 			}
 		}
 	}
@@ -72,17 +77,29 @@ public class NPCDialogSystem : ComponentSystem {
 
 	void CheckNPCState () {
 		switch (currentState) {
-			case NPCState.IDLE:
-				if (timer < showDialogDelay) {
-					currentDialog.dialogTime += deltaTime;
-				} else {
-					CheckNPCIdleDialog ();
-				}
+			case NPCState.IDLE: //TEMP
+
+				// if (timer < showDialogDelay) {
+				// 	currentDialog.dialogTime += deltaTime;
+				// } else {
+				// 	CheckNPCIdleDialog ();
+				// }
 
 				break;
 			case NPCState.INTERACT:
-				if(!currentNPC.uiShop.isOpeningShop) {
-					CheckNPCInteractDialog ();
+				switch (currentType) {
+					case NPCType.SHOP:
+						if(!currentNPC.uiShop.isOpeningShop) {
+							CheckNPCInteractDialog ();
+						}
+
+						break;
+					case NPCType.GUIDE:
+						//
+						break;
+					case NPCType.OPENING:
+						CheckNPCInteractDialog ();
+						break;
 				}
 				
 				break;
@@ -124,12 +141,28 @@ public class NPCDialogSystem : ComponentSystem {
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 				
 				if (interactIndex == dialogLength-1) {
-					if (currentNPC.isShopNPC && !currentNPC.uiShop.isOpeningShop) {
-						currentNPC.uiShop.isOpeningShop = true;
-					}
+					if (currentType == NPCType.SHOP) {
+						if (!currentNPC.uiShop.isOpeningShop) {
+							currentNPC.uiShop.isOpeningShop = true;
+						}
+					} else if (currentType == NPCType.OPENING) {
+						currentNPC.state = NPCState.IDLE;
+						currentNPC.IsInteracting = false;
+						Debug.Log("Send Event to timeline!!!");
+					} else {
+						currentNPC.InteractIndex = dialogLength-1;
+					} 
 				} else if (interactIndex < dialogLength-1) {
 					currentNPC.InteractIndex++;
 				}
+
+				// if (interactIndex == dialogLength-1) {
+				// 	if (currentType == NPCType.SHOP && !currentNPC.uiShop.isOpeningShop) {
+				// 		currentNPC.uiShop.isOpeningShop = true;
+				// 	}
+				// } else if (interactIndex < dialogLength-1) {
+				// 	currentNPC.InteractIndex++;
+				// }
 
 				HideDialog (); 
 			}
