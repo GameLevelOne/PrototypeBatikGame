@@ -74,7 +74,7 @@ public class PlayerInputSystem : ComponentSystem {
 			CheckDodgeInput ();
 			continue; //TEMP
 
-			#region OLD
+#region OLD
 			// if (state == PlayerState.SLOW_MOTION) {
 			// 	if (slowDownTimer < bulletTimeDuration) {
 			// 		slowDownTimer += deltaTime;
@@ -111,7 +111,7 @@ public class PlayerInputSystem : ComponentSystem {
 			// } 
 
 			#region Button Movement
-			CheckMovementInput ();
+			// CheckMovementInput ();
 			#endregion
 
 			#region Button Tools
@@ -244,7 +244,7 @@ public class PlayerInputSystem : ComponentSystem {
 			// } else {
 			// 	player.isPlayerHit = false;
 			// }
-			#endregion OLD
+#endregion OLD
 		}
 	}
 
@@ -679,6 +679,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 				return false; 
 			} else { 	
+				CheckMovementInput ();
 				return true;
 			}
 		} 
