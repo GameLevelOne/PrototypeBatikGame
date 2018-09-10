@@ -8,8 +8,8 @@ public class SystemManagerSystem : ComponentSystem {
 	}
 	[InjectAttribute] SystemManagerComponent systemManagerComponent;[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] DamageSystem damageSystem;
-	[InjectAttribute] ToolSystem toolSystem;
-	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
+	// [InjectAttribute] ToolSystem toolSystem;
+	// [InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
 	SystemManager systemManager;
 
@@ -36,10 +36,5 @@ public class SystemManagerSystem : ComponentSystem {
 	public void SetSystems (bool value) {
 		playerInputSystem.Enabled = value;
 		damageSystem.Enabled = value;
-
-		if (value) {
-			toolSystem.isInitCurrentTool = false;
-			uiToolsSelectionSystem.isInitToolImage = false;
-		}
 	}
 }

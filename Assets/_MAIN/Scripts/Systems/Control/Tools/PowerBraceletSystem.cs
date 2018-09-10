@@ -121,7 +121,7 @@ public class PowerBraceletSystem : ComponentSystem {
 	}
 
 	bool isHaveEnoughMana () {
-		if (manaSystem.isHaveEnoughMana(powerBracelet.manaCost, false)) {
+		if (manaSystem.isHaveEnoughMana(powerBracelet.manaCost, false, false)) {
 			if (liftPower + standLiftPower >= weight) {
 				withStand = true;
 				return true;

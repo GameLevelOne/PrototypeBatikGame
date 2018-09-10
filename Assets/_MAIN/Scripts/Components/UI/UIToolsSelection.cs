@@ -23,6 +23,7 @@ public class UIToolsSelection : MonoBehaviour {
 	/// <para>1 NEXT<br /></para>
     /// </summary>
 	public int changeIndex = 0; 
+	public bool isInitToolImage = false;
 
 	public List<int> toolIndexes;
 	public bool[] checker;

@@ -302,7 +302,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			if (toolType == ToolType.Bow) {
 
-				if (isHaveEnoughMana((int) ToolType.Bow, true)) {
+				if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
 					input.interactMode = 5;
 				} else {
 					input.AttackMode = -4;
@@ -352,7 +352,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (powerBraceletSystem.withStand) {
 					player.isUsingStand = true;
 					powerBraceletSystem.withStand = false;
-					UseMana((int) ToolType.PowerBracelet);
+					UseMana((int) ToolType.PowerBracelet, true);
 				}
 
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
@@ -556,13 +556,13 @@ public class PlayerInputSystem : ComponentSystem {
 				toolType = tool.currentTool;
 
 				if (toolType != ToolType.None && toolType != ToolType.Bow) {
-					Debug.Log("Input Use Tool : " + toolType);
+					// Debug.Log("Input Use Tool : " + toolType);
 					input.interactValue = 0;
 
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
 					} else if (toolType == ToolType.Boots) {
-						if (isHaveEnoughMana((int) ToolType.Boots, true)) {
+						if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
 							input.interactMode = 1;
 							player.SetPlayerState(PlayerState.DASH);
 						}
@@ -577,7 +577,7 @@ public class PlayerInputSystem : ComponentSystem {
 						if (toolType == ToolType.Bomb) {
 							tool.isActToolReady = true;
 						} else if (toolType == ToolType.MagicMedallion) {
-							if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true)) {
+							if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true, true)) {
 								player.SetPlayerIdle();
 							}
 						}
@@ -855,16 +855,16 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	bool isHaveEnoughMana (int toolIdx, bool isUseMana) {
+	bool isHaveEnoughMana (int toolIdx, bool isUseMana, bool isUsingStand) {
 		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
-		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana)) {
+		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	void UseMana (int toolIdx) {
-		manaSystem.UseMana(tool.GetToolManaCost(toolIdx));
+	void UseMana (int toolIdx, bool isUsingStand) {
+		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
 	}
 }

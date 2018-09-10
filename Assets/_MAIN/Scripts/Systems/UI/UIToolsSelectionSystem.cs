@@ -27,7 +27,6 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	Sprite[] toolSprites;
 
 	int changeIndex = 0;
-	public bool isInitToolImage = false;
 	bool isShowingTools = false;
 	bool isPlayingAnimation = false;
 	bool isActivatingTools = false;
@@ -57,7 +56,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			// showMultiplier = uiToolsSelection.showMultiplier;
 			// hideMultiplier = uiToolsSelection.hideMultiplier;
 
-			if (!isInitToolImage) {
+			if (!uiToolsSelection.isInitToolImage) {
 				try {
 					InitToolsSelection ();
 				} catch {
@@ -65,7 +64,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 					return;
 				}
 				
-				isInitToolImage = true;
+				uiToolsSelection.isInitToolImage = true;
 			} else {
 				isPlayingAnimation = uiToolsSelection.isPlayingAnimation;
 				CheckAnimation ();
@@ -328,7 +327,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void ResetChange () {
-		Debug.Log("ResetChange");
+		// Debug.Log("ResetChange");
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_IDLE);
 		SetImages();
 		SetPrintedTool ();

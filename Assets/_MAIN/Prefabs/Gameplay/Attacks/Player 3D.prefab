@@ -52,7 +52,7 @@ GameObject:
   m_Layer: 0
   m_Name: Attack Area
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -67,7 +67,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -83,12 +83,12 @@ GameObject:
   - component: {fileID: 114376433117735634}
   - component: {fileID: 135553351757550186}
   m_Layer: 0
-  m_Name: Chest Opener
+  m_Name: Chest Opener OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1126661092014762
 GameObject:
   m_ObjectHideFlags: 1
@@ -101,12 +101,12 @@ GameObject:
   - component: {fileID: 114485415111803336}
   - component: {fileID: 135121500310841298}
   m_Layer: 0
-  m_Name: Fishing Bait
+  m_Name: Fishing Bait OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1127741175785652
 GameObject:
   m_ObjectHideFlags: 1
@@ -148,10 +148,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4425261096037340}
-  - component: {fileID: 114621169588703446}
   - component: {fileID: 114513854608232102}
   m_Layer: 0
-  m_Name: Boots
+  m_Name: Boots Attribute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,7 +234,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -250,7 +249,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -282,12 +281,12 @@ GameObject:
   - component: {fileID: 114153000788423042}
   - component: {fileID: 114367424331594064}
   m_Layer: 0
-  m_Name: Lantern
+  m_Name: Lantern SOON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1412192523179792
 GameObject:
   m_ObjectHideFlags: 1
@@ -299,12 +298,12 @@ GameObject:
   - component: {fileID: 114232081014331968}
   - component: {fileID: 114173961424483686}
   m_Layer: 0
-  m_Name: Cloak
+  m_Name: Cloak SOON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1492458895486652
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,12 +331,12 @@ GameObject:
   - component: {fileID: 114916912127639146}
   - component: {fileID: 135471855282991680}
   m_Layer: 0
-  m_Name: Power Bracelet
+  m_Name: Power Bracelet OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1519722861440014
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +382,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -513,6 +512,9 @@ GameObject:
   - component: {fileID: 114270379899339828}
   - component: {fileID: 114375571834631886}
   - component: {fileID: 135412637570983374}
+  - component: {fileID: 114971732195158082}
+  - component: {fileID: 114925006342211010}
+  - component: {fileID: 114286191795224190}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -531,7 +533,7 @@ GameObject:
   m_Layer: 0
   m_Name: Blind Area
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -581,7 +583,7 @@ GameObject:
   m_Layer: 0
   m_Name: Temp Lifting Parent
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1273,6 +1275,7 @@ MonoBehaviour:
   powerBraceletAreaEffectObj: {fileID: 1510106147354160}
   flippersObj: {fileID: 1787302671548888}
   bootsObj: {fileID: 1223443603101166}
+  isInitCurrentTool: 0
   currentActiveContainer: 0
   isPowerBraceletSelected: 0
   isActToolReady: 0
@@ -1446,6 +1449,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114286191795224190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60cf700c602bd54794c58d82e60faf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114208348427726864}
+  manaCost: 15
+  liftPower: 20
+  standLiftPower: 50
+  throwRange: 5
+  speed: 300
+  liftMainObjParent: {fileID: 4661674578168208}
+  state: 0
+  liftable: {fileID: 0}
+  isInteracting: 0
 --- !u!114 &114299327109917812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1760,17 +1784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114621169588703446
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1223443603101166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114660973151035496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1898,6 +1911,20 @@ MonoBehaviour:
   state: 0
   liftable: {fileID: 0}
   isInteracting: 0
+--- !u!114 &114925006342211010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6995567da50b20341beb221f924aba88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114208348427726864}
+  chest: {fileID: 0}
+  isInteracting: 0
 --- !u!114 &114936165899855532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1909,6 +1936,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114971732195158082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef921dbc5c3f02449b33b320adb4e10b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  player: {fileID: 114208348427726864}
+  fish: {fileID: 0}
+  fishObj: {fileID: 0}
+  baitCol: {fileID: 135121500310841298}
+  fishingRange: 3
+  isBaitLaunched: 0
+  isCatchSomething: 0
+  isBaitFish: 0
 --- !u!135 &135121500310841298
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1955,7 +2002,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135471855282991680
 SphereCollider:

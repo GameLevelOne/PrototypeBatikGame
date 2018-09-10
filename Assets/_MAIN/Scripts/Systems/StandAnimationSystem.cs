@@ -63,15 +63,21 @@ public class StandAnimationSystem : ComponentSystem {
 
 			continue; //TEMP
 
-			#region OLD
-			if(state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
+#region OLD
+			// if(state == PlayerState.USING_TOOL || state == PlayerState.HOOK) {
 			// 	int standType = (int)stand.currentTool;
 			// 	SetStand(standType);
 			// 	continue;
 			// } else {
 			// 	StopStandAnimation();
-			}
-			#endregion
+			// }
+#endregion
+		}
+	}
+
+	void PlayLoopingAnimation (string animName) {
+		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
+			animator.Play(animName);
 		}
 	}
 
@@ -80,14 +86,14 @@ public class StandAnimationSystem : ComponentSystem {
 
 		switch (state) {
 			case PlayerState.DASH: 
-				animator.Play(Constants.BlendTreeName.STAND_DASH);
+				PlayLoopingAnimation(Constants.BlendTreeName.STAND_DASH);
 				break;
 			case PlayerState.BOW:
 				// if (standType == ToolType.Bow && player.isUsingStand) {
 					if (input.interactValue == 0) {
 						animator.Play(Constants.BlendTreeName.STAND_TAKE_AIM_BOW);
 					} else if (input.interactValue == 1) {
-						animator.Play(Constants.BlendTreeName.STAND_AIMING_BOW);
+						PlayLoopingAnimation(Constants.BlendTreeName.STAND_AIMING_BOW);
 					} else if (input.interactValue == 2) {
 						animator.Play(Constants.BlendTreeName.STAND_SHOT_BOW);
 					}
@@ -101,20 +107,21 @@ public class StandAnimationSystem : ComponentSystem {
 					if (input.liftingMode == 0) {
 						// animator.Play(Constants.BlendTreeName.SWEATING_GRAB);
 					} else if (input.liftingMode == -1) {
-						animator.Play(Constants.BlendTreeName.STAND_IDLE_LIFT);
+						PlayLoopingAnimation(Constants.BlendTreeName.STAND_IDLE_LIFT);
 					} else if (input.liftingMode == 1) {
-						animator.Play(Constants.BlendTreeName.STAND_IDLE_PUSH);
+						PlayLoopingAnimation(Constants.BlendTreeName.STAND_IDLE_PUSH);
 					} else if (input.liftingMode == -2) {
-						animator.Play(Constants.BlendTreeName.STAND_MOVE_LIFT);
+						PlayLoopingAnimation(Constants.BlendTreeName.STAND_MOVE_LIFT);
 					} else if (input.liftingMode == 2) {
-						animator.Play(Constants.BlendTreeName.STAND_MOVE_PUSH);
+						PlayLoopingAnimation(Constants.BlendTreeName.STAND_MOVE_PUSH);
 					} else if (input.liftingMode == -3) {
 						animator.Play(Constants.BlendTreeName.STAND_LIFTING);
 					}
 				} else if (input.interactValue == 2) {
-					if (input.liftingMode == 0) {
-						animator.Play(Constants.BlendTreeName.STAND_UNGRABBING);
-					} else if (input.liftingMode == -1) {
+					// if (input.liftingMode == 0) {
+					// 	animator.Play(Constants.BlendTreeName.STAND_UNGRABBING);
+					// } else 
+					if (input.liftingMode == -1) {
 						animator.Play(Constants.BlendTreeName.STAND_THROWING_LIFT);
 					} else if (input.liftingMode == 1) {
 						animator.Play(Constants.BlendTreeName.STAND_UNGRABBING);
@@ -224,22 +231,14 @@ public class StandAnimationSystem : ComponentSystem {
 
 	bool CheckIfPlayerUseStand () {
 		if (state == PlayerState.BOW || state == PlayerState.POWER_BRACELET || state == PlayerState.DASH) {
-			if (player.isUsingStand) {
-				return true;
-			} else {
-				return false;
-			}
+			return player.isUsingStand;
 		} else if (state == PlayerState.USING_TOOL) {
 			// if (standType == ToolType.Bomb) {
 			// 	return true;
 			// } 
 			
 			if (standType == ToolType.MagicMedallion) {
-				if (player.isUsingStand) {
-					return true;
-				} else {
-					return false;
-				}
+				return player.isUsingStand;
 			} else {
 				return false;
 			}

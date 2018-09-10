@@ -116,6 +116,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
+	void PlayLoopingAnimation (string animName) {
+		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
+			animator.Play(animName);
+		}
+	}
+
 	void CheckPlayerState () {
 		if (!isFinishAnyAnimation && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			StopAnyAnimation ();
@@ -127,21 +133,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnimation = true;
 				switch (input.moveMode) {
 					case 0: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_STAND))
-							animator.Play(Constants.BlendTreeName.IDLE_STAND);
-						
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_STAND);
 						// AnimationMaterialIndex = 0;
 						break;
 					case 1: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_CHARGE))
-							animator.Play(Constants.BlendTreeName.IDLE_CHARGE);
-						
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_CHARGE);
 						// AnimationMaterialIndex = 1;
 						break;
 					case 2: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_GUARD))
-							animator.Play(Constants.BlendTreeName.IDLE_GUARD);;
-						
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_GUARD);;
 						// AnimationMaterialIndex = 2;
 						break;
 				}
@@ -150,42 +150,34 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnimation = true;
 				switch (input.moveMode) {
 					case 0: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_RUN))
-							animator.Play(Constants.BlendTreeName.MOVE_RUN);
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_RUN);
 						break;
 					case 1: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_CHARGE))
-							animator.Play(Constants.BlendTreeName.MOVE_CHARGE);
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_CHARGE);
 						break;
 					case 2: 
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_GUARD))
-							animator.Play(Constants.BlendTreeName.MOVE_GUARD);
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_GUARD);
 						break;
 				}
 				break;
 			case PlayerState.SWIM: 
 				isFinishAnyAnimation = true;
 				if (input.interactValue == 0) {
-					if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.GRABBING))
-						animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
+					animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
 				} else if (input.interactValue == 1) {
 					if (moveDir != Vector3.zero) {
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_SWIM))
-							animator.Play(Constants.BlendTreeName.MOVE_SWIM);						
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_SWIM);						
 					} else {
-						if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.IDLE_SWIM))
-							animator.Play(Constants.BlendTreeName.IDLE_SWIM);						
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_SWIM);						
 					}	
 				} else if (input.interactValue == 2) {
-					if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.UNGRABBING))
-						animator.Play(Constants.BlendTreeName.UNGRABBING); //TEMP
+					animator.Play(Constants.BlendTreeName.UNGRABBING); //TEMP
 				}
 				
 				break;
 			case PlayerState.DODGE: 
 				isFinishAnyAnimation = true;
-				if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.MOVE_DODGE))
-					animator.Play(Constants.BlendTreeName.MOVE_DODGE);
+				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
 				break;
 			case PlayerState.COUNTER: 
 				if (input.AttackMode == -2) {
@@ -272,15 +264,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 					animator.Play(Constants.BlendTreeName.GRABBING);
 				} else if (input.interactValue == 1) {
 					if (input.liftingMode == 0) {
-						animator.Play(Constants.BlendTreeName.SWEATING_GRAB);
+						PlayLoopingAnimation(Constants.BlendTreeName.SWEATING_GRAB);
 					} else if (input.liftingMode == -1) {
-						animator.Play(Constants.BlendTreeName.IDLE_LIFT);
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_LIFT);
 					} else if (input.liftingMode == 1) {
-						animator.Play(Constants.BlendTreeName.IDLE_PUSH);
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_PUSH);
 					} else if (input.liftingMode == -2) {
-						animator.Play(Constants.BlendTreeName.MOVE_LIFT);
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_LIFT);
 					} else if (input.liftingMode == 2) {
-						animator.Play(Constants.BlendTreeName.MOVE_PUSH);
+						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_PUSH);
 					} else if (input.liftingMode == -3) {
 						animator.Play(Constants.BlendTreeName.LIFTING);
 					}
@@ -300,7 +292,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (input.interactValue == 0) {
 					animator.Play(Constants.BlendTreeName.TAKE_AIM_BOW);
 				} else if (input.interactValue == 1) {
-					animator.Play(Constants.BlendTreeName.AIMING_BOW);
+					PlayLoopingAnimation(Constants.BlendTreeName.AIMING_BOW);
 				} else if (input.interactValue == 2) {
 					animator.Play(Constants.BlendTreeName.SHOT_BOW);
 				}
@@ -310,19 +302,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_HURT: 
 				isFinishAnyAnimation = true;
-				if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.GET_HURT))
-					animator.Play(Constants.BlendTreeName.GET_HURT);
+				animator.Play(Constants.BlendTreeName.GET_HURT);
 				break;
 			case PlayerState.BLOCK_ATTACK:
 				isFinishAnyAnimation = true; 
-				if (CheckCurrentPlayedAnimation(Constants.BlendTreeName.BLOCK_ATTACK))
-					animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
+				animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
 				break;
 			case PlayerState.FISHING:
 				if (input.interactValue == 0) {
 					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
 				} else if (input.interactValue == 1) {
-					animator.Play(Constants.BlendTreeName.IDLE_FISHING);
+					PlayLoopingAnimation(Constants.BlendTreeName.IDLE_FISHING);
 				} else if (input.interactValue == 2) {
 					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
 				} else if (input.interactValue == 3) {
@@ -335,7 +325,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactValue == 0) { 
 						animator.Play(Constants.BlendTreeName.LIFTING_TREASURE);
 					} else if (input.interactValue == 1) {
-						animator.Play(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
+						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
 					} else if (input.interactValue == 2) {
 						animator.Play(Constants.BlendTreeName.END_LIFT_TREASURE);
 					}
@@ -740,13 +730,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// uvAnimationSystem.SetMaterial(currentDirID-1);
 	}
 
-	bool CheckCurrentPlayedAnimation (string animName) {
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+	// bool CheckCurrentPlayedAnimation (string animName) {
+	// 	if (animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// }
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;

@@ -246,21 +246,21 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		if (state == PlayerState.DASH) {
 			if (input.interactValue == 0) {
+				player.isUsingStand = false;
 				if (dashDelay > 0f) {
 					dashDelay -= deltaTime;
 					rb.velocity = Vector3.zero;
-					player.isUsingStand = false;
 				} else {
-					if (isHaveEnoughMana((int) ToolType.Boots, false)) {
+					if (isHaveEnoughMana((int) ToolType.Boots, true, true)) {
 						input.interactValue = 1;
-						UseMana((int) ToolType.Boots);
+						// UseMana((int) ToolType.Boots);
 					}
 				}
 			} else if (input.interactValue == 1) {
 				if (player.isBouncing) {
 					input.interactValue = 2;
 				} else {
-					if (isHaveEnoughMana((int) ToolType.Boots, false)) {
+					if (isHaveEnoughMana((int) ToolType.Boots, false, false)) {
 						rb.velocity = dir.normalized * dashSpeed * deltaTime;
 
 						if (dashTime <= 0.2f) {
@@ -268,7 +268,7 @@ public class PlayerMovementSystem : ComponentSystem {
 						} else {
 							dashTime = 0f;
 							// Debug.Log("Use mana dash");
-							UseMana((int) ToolType.Boots);
+							UseMana((int) ToolType.Boots, true);
 						}
 					}
 				}
@@ -317,16 +317,16 @@ public class PlayerMovementSystem : ComponentSystem {
 		}
 	}
 
-	bool isHaveEnoughMana (int toolIdx, bool isUseMana) {
+	bool isHaveEnoughMana (int toolIdx, bool isUseMana, bool isUsingStand) {
 		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
-		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana)) {
+		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	void UseMana (int toolIdx) {
-		manaSystem.UseMana(tool.GetToolManaCost(toolIdx));
+	void UseMana (int toolIdx, bool isUsingStand) {
+		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
 	}
 }

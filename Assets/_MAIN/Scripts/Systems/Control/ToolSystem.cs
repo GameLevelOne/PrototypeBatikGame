@@ -31,7 +31,6 @@ public class ToolSystem : ComponentSystem {
 	PlayerState state;
 
 	// int toolType;
-	public bool isInitCurrentTool = false;
 
 	protected override void OnUpdate()
 	{
@@ -49,7 +48,7 @@ public class ToolSystem : ComponentSystem {
 			tool = toolData.PlayerTool[i];
 			Animation2D anim = toolData.Animation[i];
 			
-			if (!isInitCurrentTool) {
+			if (!tool.isInitCurrentTool) {
 				InitTool();
 			}
 
@@ -69,14 +68,14 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void InitTool () {
-		Debug.Log("InitTool");
+		// Debug.Log("InitTool");
 		for (int i=1; i<=(int)ToolType.Boots; i++) {
 			if (CheckIfToolHasBeenUnlocked(i)) {
 				tool.currentTool = (ToolType) i;
 				uiToolsSelectionSystem.SetPrintedTool();
 
-				isInitCurrentTool = true;
-				break;
+				tool.isInitCurrentTool = true;
+				return;
 			}
 		}
 
@@ -85,7 +84,7 @@ public class ToolSystem : ComponentSystem {
 			//
 		}
 
-		isInitCurrentTool = true;
+		tool.isInitCurrentTool = true;
 	}
 
 	public void NextTool ()

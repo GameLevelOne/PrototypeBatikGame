@@ -50,6 +50,8 @@ public class PlayerTool : MonoBehaviour {
 
 	// public GameObject regularArrow;
 
+	public bool isInitCurrentTool = false;
+
 	public int currentActiveContainer;
 	// public float dashSpeed = 500f;
 	public bool isPowerBraceletSelected = false;
@@ -77,7 +79,7 @@ public class PlayerTool : MonoBehaviour {
 		PowerBracelet = 0; //
 		Flippers = 0; //
 		Boots = 1;
-		Debug.Log("SetAvailableTools");
+		// Debug.Log("SetAvailableTools");
 	}
 
 	// void Awake () {
