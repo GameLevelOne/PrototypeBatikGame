@@ -18,6 +18,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
 	// [InjectAttribute] UVAnimationSystem uvAnimationSystem;
+	[InjectAttribute] PlayerFXSystem playerFXSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -440,9 +441,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.CHARGE: 
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;
+				// isFinishAnyAnimation = true;
+				playerFXSystem.SpawnObj(playerFXSystem.playerFX.chargingEffect);
 				break;
 			case PlayerState.DODGE:
 				// isFinishAnyAnimation = true;
+				playerFXSystem.SpawnObj(playerFXSystem.playerFX.dodgeEffect);
 				break;
 			case PlayerState.SLOW_MOTION:
 				//
@@ -457,7 +461,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// attack.isAttacking  = true;
 				break;
 			case PlayerState.GET_HURT:
-				//
+				// isFinishAnyAnimation = true;
+				playerFXSystem.SpawnObj(playerFXSystem.playerFX.hitEffect);
 				break;
 			case PlayerState.DASH:
 				//
