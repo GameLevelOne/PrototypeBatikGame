@@ -11,7 +11,7 @@ public class Arrow : MonoBehaviour {
 
 	void OnTriggerEnter (Collider col) {
 		if (col.tag == Constants.Tag.ENEMY || col.tag == Constants.Tag.STONE || col.tag == Constants.Tag.BOUNDARIES) {
-			Projectile.isTriggerSomething = true;
+			Projectile.isSelfDestroying = true;
 			// isHit = true;
 		}
 	}

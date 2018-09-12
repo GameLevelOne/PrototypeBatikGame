@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
 	[HeaderAttribute("Player Attributes")]
 	public Health health;
 	public PlayerState state;
+	public Transform playerWeaponPos;
 	public Collider playerCol;
 	
 	[HeaderAttribute("Current")]

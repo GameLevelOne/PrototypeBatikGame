@@ -15,7 +15,7 @@ public class WaterShooterBullet : MonoBehaviour {
 	void OnTriggerEnter (Collider col) {
 		if(col.transform.root.GetComponent<WaterShooterEnemy>() == null || col.tag == Constants.Tag.BOUNDARIES) {
 			// Debug.Log("null "+col.name);
-			Projectile.isTriggerSomething = true;
+			Projectile.isSelfDestroying = true;
 		}
 	}
 }

@@ -644,7 +644,7 @@ public class PlayerInputSystem : ComponentSystem {
 				slowDownTimer = 0f;
 				Time.timeScale = 1f;
 				input.moveMode = 0;
-				input.AttackMode = 1;
+				input.AttackMode = 3; //Set attack3 first
 				player.SetPlayerState(PlayerState.RAPID_SLASH);
 				ChangeDir(0f, 0f);
 			}

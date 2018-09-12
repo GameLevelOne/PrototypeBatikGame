@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerFX : MonoBehaviour {
+public class GameFX : MonoBehaviour {
 	// public GameObject counterChargeEffect;
 	// public GameObject counterEffect;
 	public GameObject dodgeEffect;

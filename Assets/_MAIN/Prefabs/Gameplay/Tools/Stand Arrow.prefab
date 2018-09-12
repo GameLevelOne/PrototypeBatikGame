@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 54635328239783276}
   - component: {fileID: 135773510986789546}
   m_Layer: 0
-  m_Name: Stand Bow Arrow
+  m_Name: Stand Arrow
   m_TagString: Bow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,6 +74,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 20
+  isAffectGrass: 1
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114101340933521480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,15 +101,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
+  isDestroyOnTriggering: 1
   speed: 20
   isStartLaunching: 1
-  isDestroyOnTriggering: 1
   isDestroyOnColliding: 0
   elevationAngle: 0
   isLaunching: 0
   isCollideSomething: 0
-  isTriggerSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114567851341663138
 MonoBehaviour:
   m_ObjectHideFlags: 1

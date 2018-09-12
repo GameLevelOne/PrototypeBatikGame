@@ -475,7 +475,6 @@ GameObject:
   - component: {fileID: 4711527927922416}
   - component: {fileID: 114765443796437952}
   - component: {fileID: 114746841283859362}
-  - component: {fileID: 54425612398874118}
   m_Layer: 0
   m_Name: Parent Cloth
   m_TagString: Untagged
@@ -997,14 +996,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1618355825055334}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.42261827, y: 0, z: 0, w: 0.9063079}
   m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4934398728125398}
   m_Father: {fileID: 4928826898908698}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
 --- !u!4 &4722752427298108
 Transform:
   m_ObjectHideFlags: 1
@@ -1118,7 +1117,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722749280159252}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
+  m_LocalPosition: {x: 0, y: -0.905, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4094135077549126}
@@ -1182,21 +1181,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!54 &54425612398874118
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1618355825055334}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!54 &54918470649024868
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1441,6 +1425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 114265990626498192}
   state: 0
+  playerWeaponPos: {fileID: 0}
   playerCol: {fileID: 136916452541748184}
   enemyThatHitsPlayer: {fileID: 0}
   damageReceive: {fileID: 0}
@@ -1621,7 +1606,7 @@ MonoBehaviour:
   normalSpeed: 100
   slowSpeed: 50
   dodgeSpeed: 300
-  attackMoveForce: 300
+  attackMoveForce: 100
   bounceSpeed: 300
   dashDelay: 1
   brakeTime: 0.5
@@ -1942,6 +1927,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 10
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114840518099298792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2202,8 +2190,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0.00000011920929, z: 0.0000009536743}
-    m_Extent: {x: 4.9999995, y: 0.98480785, z: 5.000001}
+    m_Center: {x: 0, y: 0.000000059604645, z: 0.0000011175871}
+    m_Extent: {x: 4.9999995, y: 0.00000014901164, z: 5.0000033}
   m_DirtyAABB: 0
 --- !u!183 &183409921190244292
 Cloth:

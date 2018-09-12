@@ -8,6 +8,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		public ComponentArray<Player> Player;
 		public ComponentArray<Animation2D> Animation;
 		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<Transform> Transform;
 	}
 	[InjectAttribute] AnimationData animationData;
 	
@@ -18,7 +19,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
 	// [InjectAttribute] UVAnimationSystem uvAnimationSystem;
-	[InjectAttribute] PlayerFXSystem playerFXSystem;
+	[InjectAttribute] GameFXSystem gameFXSystem;
 	
 	public Facing2D facing;
 	public Animator animator;
@@ -28,6 +29,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Attack attack;
 	PlayerTool tool;
 	Animation2D anim;
+	Transform playerTransform;
 
 	PlayerState state;
 	
@@ -35,7 +37,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector3 currentMove;
 	Vector3 currentDir;
 	bool isFinishAnyAnim = true;
-	int attackMode = 0;
+	int attackCombo = 0;
 	int currentDirID = 1;
 	// int currentAnimMatIndex = 0;
 
@@ -67,6 +69,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			player = animationData.Player[i];
 			anim = animationData.Animation[i];
 			facing = animationData.Facing[i];
+			playerTransform = animationData.Transform[i];
 			
 			state = player.state;
 			animator = anim.animator; 
@@ -198,10 +201,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.RAPID_SLASH: 
 				Debug.Log("RAPID_SLASH "+input.AttackMode);
-
+				
 				if (input.AttackMode == 1) {
 					animator.Play(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
 					Debug.Log("Rapid Slash");
+				} else if (input.AttackMode == 3) {
+					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
 				}
 
 				break;
@@ -210,13 +215,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// 	animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
 				// } else 
 				if (input.slashComboVal.Count > 0) {
-					attackMode = input.slashComboVal[0];
+					attackCombo = input.slashComboVal[0];
 
-					if (attackMode == 1) {
+					if (attackCombo == 1) {
 						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
-					} else if (attackMode == 2) {
+					} else if (attackCombo == 2) {
 						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);
-					} else if (attackMode == 3) {
+					} else if (attackCombo == 3) {
 						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
 					}
 				} else { //TEMP SOLUTION FOR STUCK
@@ -442,11 +447,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;
 				// isFinishAnyAnimation = true;
-				playerFXSystem.SpawnObj(playerFXSystem.playerFX.chargingEffect);
+				gameFXSystem.SpawnObj(gameFXSystem.gameFX.chargingEffect, player.playerWeaponPos.position);
 				break;
 			case PlayerState.DODGE:
 				// isFinishAnyAnimation = true;
-				playerFXSystem.SpawnObj(playerFXSystem.playerFX.dodgeEffect);
+				gameFXSystem.SpawnObj(gameFXSystem.gameFX.dodgeEffect, playerTransform.position);
 				break;
 			case PlayerState.SLOW_MOTION:
 				//
@@ -462,7 +467,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
-				playerFXSystem.SpawnObj(playerFXSystem.playerFX.hitEffect);
+				gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
 				break;
 			case PlayerState.DASH:
 				//
@@ -523,7 +528,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.ATTACK: 
 				if (input.AttackMode > 0 && input.AttackMode <= 3) {
 					if (input.slashComboVal.Count > 0) {			
-						if (attackMode == 3) {					
+						if (attackCombo == 3) {					
 							input.slashComboVal.Clear();
 						} else {
 							input.slashComboVal.RemoveAt(0);
@@ -546,7 +551,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnimation = true;
 				break;
 			case PlayerState.RAPID_SLASH:
-				input.bulletTimeAttackQty--;
+				if (input.AttackMode == 3) {
+					input.AttackMode = 1;
+				} else {
+					input.bulletTimeAttackQty--;
+				}
 
 				if (input.bulletTimeAttackQty <= 0) {
 					player.isHitAnEnemy = false;
@@ -790,7 +799,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 #region OLD	
-
 	// void SetAnimationMaterials (int animMatIndex) {
 	// 	uvAnimationSystem.SetAnimationMaterials(animMatIndex);
 	// }

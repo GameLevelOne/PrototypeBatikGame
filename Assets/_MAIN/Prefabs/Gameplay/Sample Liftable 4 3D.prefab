@@ -222,15 +222,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 2
+  isDestroyOnTriggering: 0
   speed: 50
   isStartLaunching: 0
-  isDestroyOnTriggering: 0
   isDestroyOnColliding: 0
   elevationAngle: 10
   isLaunching: 0
   isCollideSomething: 0
-  isTriggerSomething: 0
+  isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114921395838671790
 MonoBehaviour:
