@@ -3,21 +3,21 @@ using Unity.Entities;
 
 public class NPCOpening : MonoBehaviour {
 	public delegate void NPCOpeningEvent();
-	public event NPCOpeningEvent OnNPCEndDialogueTrigger;
+	public event NPCOpeningEvent OnNPCEndDialogue;
 
 	public TimelineEventTrigger openingDialogueTrigger;
 	public GameObjectEntity entity;
 	public NPC npc;
 
 	void OnEnable () {
-		openingDialogueTrigger.OnNPCDialogueTrigger += OnNPCDialogueTrigger;
+		openingDialogueTrigger.OnNPCStartDialogue += OnNPCStartDialogue;
 	}
 
 	void OnDisable () {
-		openingDialogueTrigger.OnNPCDialogueTrigger -= OnNPCDialogueTrigger;
+		openingDialogueTrigger.OnNPCStartDialogue -= OnNPCStartDialogue;
 	}
 
-	void OnNPCDialogueTrigger () {
+	void OnNPCStartDialogue () {
 		entity.enabled = true;
 		npc.state = NPCState.INTERACT;
 		npc.IsInteracting = true;
@@ -28,9 +28,10 @@ public class NPCOpening : MonoBehaviour {
 	public void EndOpeningDialogue () {
 		npc.state = NPCState.IDLE;
 		npc.IsInteracting = false;
+		npc.npcType = NPCType.SHOP;
 
-		if (OnNPCEndDialogueTrigger != null) {
-			OnNPCEndDialogueTrigger ();
+		if (OnNPCEndDialogue != null) {
+			OnNPCEndDialogue ();
 		}
 	}
 }
