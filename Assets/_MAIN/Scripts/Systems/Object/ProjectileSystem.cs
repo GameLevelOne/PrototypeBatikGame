@@ -29,9 +29,10 @@ public class ProjectileSystem : ComponentSystem {
 			rb = projectileData.Rigidbody[i];
 
             projectileType = projectile.type;
-			float speed = projectile.speed * 50f;
 
             if (projectile.isStartLaunching) {
+			    float speed = projectile.speed * 50f;
+
                 switch (projectileType) {
                     case ProjectileType.BULLET: 
                         if (!projectile.isLaunching) {
@@ -56,14 +57,16 @@ public class ProjectileSystem : ComponentSystem {
                 projectile.isStartLaunching = false;
             } else {
                 if (projectile.isDestroyOnTriggering) {	
-                    if (projectile.isTriggerSomething) {
+                    Debug.Log("isDestroyOnTriggering");
+                    if (projectile.isSelfDestroying) {
+                        Debug.Log("isSelfDestroying");
                         DestroyProjectile();
                     }		
                 }
 
                 if (projectile.isDestroyOnColliding) {
                     if (projectile.isCollideSomething) {
-                        DestroyProjectile();
+                        //
                     }
                 }
             }
