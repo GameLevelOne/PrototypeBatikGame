@@ -253,23 +253,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1348971058779078
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4200071709070256}
-  - component: {fileID: 20561075990149142}
-  - component: {fileID: 81716358800227242}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1406129362068856
 GameObject:
   m_ObjectHideFlags: 1
@@ -426,6 +409,7 @@ GameObject:
   - component: {fileID: 114840518099298792}
   - component: {fileID: 114901627235131250}
   - component: {fileID: 114317875474212942}
+  - component: {fileID: 95527639298465496}
   m_Layer: 0
   m_Name: Player 3D
   m_TagString: Player
@@ -729,19 +713,6 @@ Transform:
   m_Father: {fileID: 4928826898908698}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4200071709070256
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348971058779078}
-  m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 15, z: -18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4663221437161056}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!4 &4206401591412670
 Transform:
   m_ObjectHideFlags: 1
@@ -964,7 +935,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 18, y: 0.9, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -972,7 +943,6 @@ Transform:
   - {fileID: 4834055824091674}
   - {fileID: 4653104232577144}
   - {fileID: 4329506924013250}
-  - {fileID: 4200071709070256}
   - {fileID: 224212668266899612}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1141,46 +1111,6 @@ Transform:
   m_Father: {fileID: 4711527927922416}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20561075990149142
-Camera:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348971058779078}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 0
-  m_HDR: 1
-  m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!54 &54918470649024868
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1196,13 +1126,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!81 &81716358800227242
-AudioListener:
+--- !u!95 &95527639298465496
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348971058779078}
+  m_GameObject: {fileID: 1552680715280630}
   m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95687041734106846
 Animator:
   serializedVersion: 3
@@ -2190,8 +2131,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0.000000059604645, z: 0.0000011175871}
-    m_Extent: {x: 4.9999995, y: 0.00000014901164, z: 5.0000033}
+    m_Center: {x: 0, y: -0.00000023841858, z: 0.0000011175871}
+    m_Extent: {x: 5.000019, y: 0.00000026822096, z: 5.0000033}
   m_DirtyAABB: 0
 --- !u!183 &183409921190244292
 Cloth:
@@ -2660,7 +2601,7 @@ RectTransform:
   m_Children:
   - {fileID: 224352118795819188}
   m_Father: {fileID: 4663221437161056}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

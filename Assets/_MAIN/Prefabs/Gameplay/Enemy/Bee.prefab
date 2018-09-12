@@ -254,7 +254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1956781601810772
 GameObject:
   m_ObjectHideFlags: 1
@@ -400,8 +400,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424338574027968}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.4}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 4029921571708260}
   m_Father: {fileID: 4226678458294174}
@@ -639,6 +639,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 3
   damage: 5
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114568380459309790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -813,12 +816,12 @@ SpriteRenderer:
   m_SortingLayerID: 1829551841
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 22fbe5508fbd25a438d4c068dd75a90f, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 79cf51631c598274898569f577fcc5f6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.79, y: 1.28}
+  m_Size: {x: 1.6, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
