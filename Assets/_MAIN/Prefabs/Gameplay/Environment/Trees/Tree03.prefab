@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 95852413046126874}
   - component: {fileID: 114579853877033498}
   - component: {fileID: 114914611429161808}
+  - component: {fileID: 114058392765868578}
   m_Layer: 0
   m_Name: Tree03
   m_TagString: Untagged
@@ -231,7 +232,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661314641678568}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0.5, y: 0.196, z: 0.5}
+  m_LocalPosition: {x: 9.5, y: 0.196, z: 12.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4886584950353924}
@@ -732,6 +733,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114058392765868578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661314641678568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initAnimSpeed: 0
+  minAnimSpeed: 1
+  maxAnimSpeed: 2
+  animSpeed: 1
 --- !u!114 &114579853877033498
 MonoBehaviour:
   m_ObjectHideFlags: 1
