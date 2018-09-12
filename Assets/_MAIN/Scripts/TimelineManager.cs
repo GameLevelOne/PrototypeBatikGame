@@ -1,62 +1,71 @@
 ﻿using UnityEngine;
 using UnityEngine.Playables;
+using Unity.Entities;
 // using UnityEngine.Timeline;
 
 public class TimelineManager : MonoBehaviour {
 	public PlayableDirector playableDirector;
 	public PlayableAsset[] playableAssets;
-	public NPCOpening npcOpening;
+	public NPCOpening npcOpening;	
+	public GameObjectEntity playerEntity;
+	public GameObjectEntity npcEntity;
 	public TimelineEventTrigger openingDialogueTrigger;
 	public TimelineEventTrigger endingTimelineTrigger;
 
 	public double startDialogueInitTime;
 	public double endDialogueInitTime;
+
+	public bool isTesting = true;
+	public int initPlayableAssetIndex;
 	
 	void Awake () {
 		//TODO : Check If First Time
-
-		SetPlayableAsset(0);
-		// playableDirector.extrapolationMode = DirectorWrapMode.Hold;
+		if (isTesting) {
+			SetPlayableAsset(initPlayableAssetIndex);
+		}
+		// playableDirector.Play();
 	}
 
 	void OnEnable () {
 		openingDialogueTrigger.OnNPCDialogueTrigger += OnNPCDialogueTrigger;
-		openingDialogueTrigger.OnDialogingTrigger += OnDialogingTrigger;
+		openingDialogueTrigger.OnStopPlaybackTrigger += OnStopPlaybackTrigger;
 		npcOpening.OnNPCEndDialogueTrigger += OnNPCEndDialogueTrigger;
 		endingTimelineTrigger.OnEndTimelineTrigger += OnEndTimelineTrigger;
 	}
 
 	void OnDisable () {
 		openingDialogueTrigger.OnNPCDialogueTrigger -= OnNPCDialogueTrigger;
-		openingDialogueTrigger.OnDialogingTrigger -= OnDialogingTrigger;
+		openingDialogueTrigger.OnStopPlaybackTrigger -= OnStopPlaybackTrigger;
 		npcOpening.OnNPCEndDialogueTrigger -= OnNPCEndDialogueTrigger;
 		endingTimelineTrigger.OnEndTimelineTrigger -= OnEndTimelineTrigger;
 	}
 
 	void OnNPCDialogueTrigger () {
-		// SetPlayableAsset(1);
 		playableDirector.initialTime = startDialogueInitTime;
-		// SetPlayableAsset(0);
-		playableDirector.Play(playableAssets[0]);
-		// playableDirector.extrapolationMode = DirectorWrapMode.Loop;
+		OnStopPlaybackTrigger();
 		Debug.Log("START DIALOGUE SESSION");
 	}
 
-	void OnDialogingTrigger () {
-		// SetPlayableAsset(0);
-		playableDirector.Play(playableAssets[0]);
-		Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
+	void OnStopPlaybackTrigger () {
+		playableDirector.Stop();
+		playableDirector.DeferredEvaluate(); //IMPORTANT
+		playableDirector.Play();
+		// Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
 	}
 
 	void OnNPCEndDialogueTrigger () {
-		SetPlayableAsset(2);
-		// playableDirector.extrapolationMode = DirectorWrapMode.Hold;
-		Debug.Log("END DIALOGUE SESSION");
+		playableDirector.initialTime = endDialogueInitTime;
+		OnStopPlaybackTrigger();
+		// Debug.Log("END DIALOGUE SESSION");
 	}
 
 	void OnEndTimelineTrigger () {
-		playableDirector.Stop();
-		Debug.Log("STOP TIMELINE");
+		playableDirector.enabled = false;
+		playerEntity.enabled = true;
+		npcEntity.enabled = true;
+		// GameStorage.Instance.
+		//
+		// Debug.Log("STOP TIMELINE");
 	}
 
 	void SetPlayableAsset (int index) {

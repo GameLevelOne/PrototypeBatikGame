@@ -10,14 +10,14 @@ public enum EventType {
 public class TimelineEventTrigger : MonoBehaviour {
 	public delegate void TimelineEvent();
 	public event TimelineEvent OnNPCDialogueTrigger;
-	public event TimelineEvent OnDialogingTrigger;
+	public event TimelineEvent OnStopPlaybackTrigger;
 	public event TimelineEvent OnEndTimelineTrigger;
 
 	public EventType type;	
 
 	public bool isInitEnableTrigger = false;
 	// public bool isInitDisableTrigger = false;
-	public bool isInitStartEntranceDialogue = false;
+	public bool isInitEvent = false;
 
 	void OnEnable () {
 		if (!isInitEnableTrigger) {
@@ -25,20 +25,28 @@ public class TimelineEventTrigger : MonoBehaviour {
 		} else {
 			// Debug.Log("Call something "+type);
 			if (type == EventType.NPC_DIALOGUE) {
-				if (!isInitStartEntranceDialogue) {	
+				if (!isInitEvent) {	
 					if (OnNPCDialogueTrigger != null) {
 						OnNPCDialogueTrigger();
 					}
 
-					isInitStartEntranceDialogue = true;
+					isInitEvent = true;
 				} else {
-					if (OnDialogingTrigger != null) {
-						OnDialogingTrigger();
+					if (OnStopPlaybackTrigger != null) {
+						OnStopPlaybackTrigger();
 					}
 				}
 			} else if (type == EventType.END_TIMELINE) {
-				if (OnEndTimelineTrigger != null) {
-					OnEndTimelineTrigger();
+				if (!isInitEvent) {
+					if (OnEndTimelineTrigger != null) {
+						OnEndTimelineTrigger();
+					}
+
+					isInitEvent = true;
+				} else {
+					if (OnStopPlaybackTrigger != null) {
+						OnStopPlaybackTrigger();
+					}
 				}
 			}		
 		}

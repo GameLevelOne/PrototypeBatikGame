@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 114591064048800194}
   - component: {fileID: 114336858769809190}
   - component: {fileID: 95313922365370642}
+  - component: {fileID: 114183619912297644}
   m_Layer: 0
   m_Name: Sample NPC Opening
   m_TagString: NPC
@@ -180,6 +181,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114183619912297644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1164100846737466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06afa316da8edf54faf94b62a4f0bb72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openingDialogueTrigger: {fileID: 0}
+  entity: {fileID: 114862431728596606}
+  npc: {fileID: 114591064048800194}
 --- !u!114 &114265851142585686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,13 +247,11 @@ MonoBehaviour:
   isFinishShowingDialog: 0
   showDialogTime: 0
   dialogTime: 0
-  idleDialogs:
-  - Hi !
-  - Have fun !
-  - Nice to meet you !
+  idleDialogs: []
   interactDialogs:
-  - I HAVE SOMETHING FOR YOU, BUT I CANNOT GIVE IT TO YOU FOR FREE
-  - WHAT DO YOU NEED ?
+  - LOOKS LIKE WE'RE HERE...
+  - WELCOME TO MADA KARI FOREST !
+  - HMM... HAPPY HUNTING !
   letterList: []
 --- !u!114 &114498370013027948
 MonoBehaviour:
@@ -305,9 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a83dbc90e38e8438d4c7faad522d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: NPC0
+  npcName: NPC Opening
   npcChar: 1
-  npcType: 1
+  npcType: 3
   state: 0
   dialog: {fileID: 114336858769809190}
   uiShop: {fileID: 0}
