@@ -127,7 +127,7 @@ public class NPCDialogSystem : ComponentSystem {
 		int dialogLength = currentDialog.interactDialogs.Length;
 
 		if (!isShowingDialog) {
-			Debug.Log("interactIndex : "+interactIndex);
+			// Debug.Log("interactIndex : "+interactIndex);
 			SetList (GetDialogStringType(currentState, interactIndex));			
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
@@ -146,7 +146,7 @@ public class NPCDialogSystem : ComponentSystem {
 							currentNPC.uiShop.isOpeningShop = true;
 						}
 					} else if (currentType == NPCType.OPENING) {
-						Debug.Log("Send Event to timeline!!!");
+						Debug.Log("Send Event to timeline !!!");
 						currentNPC.GetComponent<NPCOpening>().EndOpeningDialogue();
 					} else {
 						currentNPC.InteractIndex = dialogLength-1;
