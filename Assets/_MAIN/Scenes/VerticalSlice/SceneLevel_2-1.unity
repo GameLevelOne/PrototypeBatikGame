@@ -11381,10 +11381,10 @@ Transform:
   - {fileID: 300770353}
   - {fileID: 1190926746}
   - {fileID: 702277435}
-  - {fileID: 1684722571}
   - {fileID: 1176070472}
   - {fileID: 1179984008}
   - {fileID: 259891974}
+  - {fileID: 1684722571}
   - {fileID: 196708787}
   - {fileID: 2058015258}
   - {fileID: 1092142110}
@@ -11597,6 +11597,11 @@ Prefab:
       propertyPath: m_Name
       value: LeafParticles (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 199340155917823082, guid: 69e5c574e9fbf34428bf6f93fef59580,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 179fc866a44c08c4cb8eb3c140135a22, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69e5c574e9fbf34428bf6f93fef59580, type: 2}
   m_IsPrefabAsset: 0
