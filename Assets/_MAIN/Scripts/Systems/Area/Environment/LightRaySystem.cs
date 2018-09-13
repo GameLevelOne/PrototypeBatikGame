@@ -42,8 +42,6 @@ public class LightRaySystem : ComponentSystem {
 		if(delta < 0f) delta = 0f;
 		else if(delta > currLightRay.distanceFactor) delta = currLightRay.distanceFactor;
 
-
-
 		return delta / currLightRay.distanceFactor;
 	}
 }
