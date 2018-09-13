@@ -35,6 +35,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4862797965146130}
   - component: {fileID: 95554685393652402}
+  - component: {fileID: 114571100569334122}
+  - component: {fileID: 114114938767467930}
   m_Layer: 0
   m_Name: LightRayB
   m_TagString: Untagged
@@ -364,3 +366,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114114938767467930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455957897259838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fe23181203481479e6407b972c84df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 0}
+  lightRays:
+  - {fileID: 23884054532312216}
+  - {fileID: 23768565510133742}
+  - {fileID: 23640264599334132}
+--- !u!114 &114571100569334122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455957897259838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
