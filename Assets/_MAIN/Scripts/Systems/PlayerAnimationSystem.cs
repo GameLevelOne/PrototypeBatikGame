@@ -186,10 +186,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnimation = true;
 				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
 				break;
-			case PlayerState.COUNTER: 
-				if (input.AttackMode == -2) {
-					animator.Play(Constants.BlendTreeName.COUNTER_ATTACK);
-				}
+			// case PlayerState.COUNTER: 
+			// 	if (input.AttackMode == -2) {
+			// 		animator.Play(Constants.BlendTreeName.COUNTER_ATTACK);
+			// 	}
+			// 	break;
+			case PlayerState.PARRY: 
+				animator.Play(Constants.BlendTreeName.PARRY);
 				break;
 			case PlayerState.SLOW_MOTION: 
 				if (input.AttackMode == -3) {
@@ -413,9 +416,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.BLOCK_ATTACK:
 					attack.isAttacking  = true;
 					break;
-				case PlayerState.COUNTER:
-					attack.isAttacking  = true;
-					break;
+				// case PlayerState.COUNTER:
+				// 	attack.isAttacking  = true;
+				// 	break;
 				case PlayerState.USING_TOOL:
 					tool.isActToolReady = true;
 					break;
@@ -465,8 +468,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.BLOCK_ATTACK:
 				// attack.isAttacking  = true;
 				break;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
 				// attack.isAttacking  = true;
+				// break;
+			case PlayerState.PARRY:
+				//
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
@@ -583,9 +589,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// player.isPlayerHit = false;
 				StopAnyAnimation();
 				break;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
+			// 	// player.isPlayerHit = false;
+			// 	StopAttackAnimation();
+			// 	break;
+			case PlayerState.PARRY:
 				// player.isPlayerHit = false;
-				StopAttackAnimation();
+				StopAnyAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:
 				if (input.interactValue == 0) {

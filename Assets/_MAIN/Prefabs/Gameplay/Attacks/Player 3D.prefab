@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1212496218498256
 GameObject:
   m_ObjectHideFlags: 1
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519722861440014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5074f580532ba6b4789321b837d6c297, type: 3}
   m_Name: 
@@ -1791,13 +1791,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slash: {fileID: 1198958859540564, guid: 448349984bddc274e8b9a92e196754c3, type: 2}
-  heavySlash: {fileID: 1526457515686840, guid: 9d03a98212cbde54da75f9cf2ec74ff4, type: 2}
+  chargeSlash: {fileID: 1510612986109592, guid: 6d84c3136cec65b4c90ee82a110f20eb,
+    type: 2}
   counterSlash: {fileID: 1650780204235450, guid: 014a0987240bb0a40ae8dccc8df412ca,
     type: 2}
   regularArrow: {fileID: 1162479136290338, guid: 71f7daf6d77d4844bb69ccc4eef0298a,
     type: 2}
   dashAttackArea: {fileID: 1212496218498256}
-  bulletSpawnPos: {fileID: 4653104232577144}
+  normalAttackSpawnPos: {fileID: 4653104232577144}
+  chargeAttackSpawnPos: {fileID: 4834055824091674}
   attackRate: 0.5
   isAttacking: 0
   isDashing: 0
@@ -2649,7 +2651,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -7074,7 +7076,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -11616,7 +11618,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -16122,7 +16124,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -20655,7 +20657,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

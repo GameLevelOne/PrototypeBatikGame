@@ -126,7 +126,9 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			case PlayerState.DODGE:
 				return true;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
+			// 	return true;
+			case PlayerState.PARRY:
 				return true;
 			case PlayerState.CHARGE:
 				return true;

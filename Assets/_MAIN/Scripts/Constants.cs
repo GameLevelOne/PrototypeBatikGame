@@ -132,7 +132,8 @@ public static class Constants {
 		public const string MOVE_SWIM = "MoveSwim";
 		public const string GET_HURT = "GetHurt";
 		public const string BLOCK_ATTACK = "BlockAttack";
-		public const string COUNTER_ATTACK = "CounterAttack";
+		// public const string COUNTER_ATTACK = "CounterAttack";
+		public const string PARRY = "Parry";
 		public const string CHARGE_ATTACK = "ChargeAttack";
 		public const string NORMAL_ATTACK_1 = "NormalAttack1";
 		public const string NORMAL_ATTACK_2 = "NormalAttack2";

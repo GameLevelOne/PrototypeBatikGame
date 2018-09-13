@@ -79,7 +79,8 @@ public class PlayerAttackSystem : ComponentSystem {
 		int attackMode = input.AttackMode;
 
 		if (attack.isAttacking && attackMode != 0) {
-			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.COUNTER || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
+			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
+				// || state == PlayerState.COUNTER
 				SpawnSlashEffect(attackMode);
 			}
 		}

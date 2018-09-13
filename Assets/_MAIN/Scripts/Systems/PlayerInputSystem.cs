@@ -482,12 +482,12 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (isParryPeriod) {
 			if (player.isPlayerHit && player.isCanParry) {
-				input.AttackMode = -2;
+				// input.AttackMode = -2;
 				isParryPeriod = false;
 				player.isCanParry = false;
 				// player.isPlayerHit = false;
 				Debug.Log("Start Counter");
-				player.SetPlayerState(PlayerState.COUNTER);
+				player.SetPlayerState(PlayerState.PARRY);
 			}
 		} else {
 			// player.isPlayerHit = false;
@@ -755,7 +755,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfPlayerIsAttacking () {
-		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.COUNTER || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH) {
+		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH) {
 			return true;
 		} else {
 			return false;

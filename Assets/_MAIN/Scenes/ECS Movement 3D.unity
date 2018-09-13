@@ -626,7 +626,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1951058270258266, guid: acdc66303a491424a9a4bcae0d36867f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212404354562153180, guid: acdc66303a491424a9a4bcae0d36867f,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212404354562153180, guid: acdc66303a491424a9a4bcae0d36867f,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212404354562153180, guid: acdc66303a491424a9a4bcae0d36867f,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212404354562153180, guid: acdc66303a491424a9a4bcae0d36867f,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acdc66303a491424a9a4bcae0d36867f, type: 2}
@@ -2439,64 +2459,9 @@ Prefab:
       propertyPath: uiShop
       value: 
       objectReference: {fileID: 1483447616}
-    - target: {fileID: 114431920646943880, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: chargeSlash
-      value: 
-      objectReference: {fileID: 1510612986109592, guid: 6d84c3136cec65b4c90ee82a110f20eb,
-        type: 2}
-    - target: {fileID: 114431920646943880, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: normalAttackSpawnPos
-      value: 
-      objectReference: {fileID: 1257308396}
-    - target: {fileID: 114431920646943880, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: chargeAttackSpawnPos
-      value: 
-      objectReference: {fileID: 1257308395}
-    - target: {fileID: 198811349812944898, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198656898653729060, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198785426891880554, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198866181074335148, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198988502741257070, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1205186576948010, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
---- !u!4 &1257308395 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4834055824091674, guid: 48c8d0db54edec043ac957c3486b5def,
-    type: 2}
-  m_PrefabInternal: {fileID: 1257308394}
---- !u!4 &1257308396 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4653104232577144, guid: 48c8d0db54edec043ac957c3486b5def,
-    type: 2}
-  m_PrefabInternal: {fileID: 1257308394}
 --- !u!1001 &1305443043
 Prefab:
   m_ObjectHideFlags: 0
