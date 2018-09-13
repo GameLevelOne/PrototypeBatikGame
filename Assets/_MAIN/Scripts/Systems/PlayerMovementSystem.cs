@@ -219,7 +219,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					} 
 				}
 			}
-		} else if (attackMode >= -1 && attackMode <= 3 && attackMode != 0 && input.moveDir != Vector3.zero) {
+		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {
 			if (player.isMoveAttack) {
 				Transform target = facing.attackArea.transform;
 				rb.AddForce((target.position - tr.position) * movement.attackMoveForce);

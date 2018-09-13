@@ -235,7 +235,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 				break;
 			case PlayerState.CHARGE:
-				player.isMoveAttack = true;
+				// player.isMoveAttack = true;
 				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
 				break;
 			case PlayerState.DASH: 
@@ -447,7 +447,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;
 				// isFinishAnyAnimation = true;
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.chargingEffect, player.playerWeaponPos.position);
+				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.chargingEffect, player.playerWeaponPos.position);
 				break;
 			case PlayerState.DODGE:
 				// isFinishAnyAnimation = true;
