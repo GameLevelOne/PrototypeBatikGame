@@ -617,6 +617,7 @@ GameObject:
   - component: {fileID: 114971732195158082}
   - component: {fileID: 114925006342211010}
   - component: {fileID: 114286191795224190}
+  - component: {fileID: 54288561919198836}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -1311,6 +1312,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!54 &54288561919198836
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54918470649024868
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1800,7 +1816,6 @@ MonoBehaviour:
   dashAttackArea: {fileID: 1212496218498256}
   normalAttackSpawnPos: {fileID: 4653104232577144}
   chargeAttackSpawnPos: {fileID: 4834055824091674}
-  attackRate: 0.5
   isAttacking: 0
   isDashing: 0
 --- !u!114 &114456323651409390

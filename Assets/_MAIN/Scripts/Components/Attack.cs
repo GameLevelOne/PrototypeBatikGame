@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour {
 	// public GameObject bullet;
     public Transform normalAttackSpawnPos;
     public Transform chargeAttackSpawnPos; 
-    public float attackRate = 0.5f;
+    // public float attackRate = 0.5f;
     public bool isAttacking = false;
     public bool isDashing = false;
 }
