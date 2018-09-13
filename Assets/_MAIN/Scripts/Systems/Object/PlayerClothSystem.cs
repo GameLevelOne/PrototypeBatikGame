@@ -14,6 +14,14 @@ public class PlayerClothSystem : ComponentSystem {
 
 	Transform clothTransform;
 
+	bool isReducingCloth = false;
+
+	float playerHP;
+	float maxHP;
+	float clothReduceValue;
+	float currentDissolveValue;
+	float healthThreshold;
+
 	protected override void OnUpdate () {
 		if (playerClothData.Length == 0) return;
 
@@ -24,21 +32,58 @@ public class PlayerClothSystem : ComponentSystem {
 			if (!playerCloth.isInitCLoth) {
 				InitCloth ();
 			} else {
-				facing = playerCloth.facing;
-
+				CheckHP ();				
 				CheckDirection ();
 			}
 		}
 	}
 
 	void InitCloth () {
-		SetClothRotation(0f, Vector3.forward);
+		maxHP = playerCloth.player.MaxHP;
+		clothReduceValue = playerCloth.clothReduceValue;
+		
+		// healthThreshold = currentDissolveValue; //OLD
+		healthThreshold = playerCloth.clothRenderer.material.GetFloat("_Level");
+
+		clothReduceValue = playerCloth.clothReduceValue;
+
 		// playerCloth.cloth.ClearTransformMotion();
 
+		DissolveCloth();
+		DrawClothHP ();
+		
+		SetClothRotation(0f, Vector3.forward);
 		playerCloth.isInitCLoth = true; 
 	}
 
+	void CheckHP () {
+		if (playerCloth.isHPChange) {
+			DissolveCloth();
+		} else if (isReducingCloth) {
+			if (healthThreshold < currentDissolveValue) {
+				healthThreshold += clothReduceValue * Time.deltaTime;
+				DrawClothHP();
+			} else {
+				isReducingCloth = false;
+			}
+		}
+	}
+
+	void DissolveCloth () {
+		playerHP = playerCloth.playerHealth.PlayerHP;
+		currentDissolveValue = 1 - playerHP / maxHP;
+		// currentDissolveValue = playerCloth.clothRenderer.material.GetFloat("_Level");
+		isReducingCloth = true;
+		playerCloth.isHPChange = false;
+	}
+
+	void DrawClothHP () {
+		playerCloth.clothRenderer.material.SetFloat("_Level", healthThreshold);
+		Debug.Log(healthThreshold);
+	}
+
 	void CheckDirection () {
+		facing = playerCloth.facing;
 		// Debug.Log(playerCloth.currentDirID+" : "+facing.DirID);
 		if (playerCloth.currentDirID != facing.DirID) {
 			playerCloth.currentDirID = facing.DirID;
@@ -46,7 +91,7 @@ public class PlayerClothSystem : ComponentSystem {
 
 			switch (currentDirID) {
 				case 1: //DOWN
-					SetClothRotation(0f, new Vector3(1f, -1f, 0.5f)); 
+					SetClothRotation(0f, new Vector3(2f, -1f, 2f)); 
 					break;
 				case 2: //LEFT
 					SetClothRotation(90f, new Vector3(1f, -0.5f, -1f)); 
@@ -55,7 +100,7 @@ public class PlayerClothSystem : ComponentSystem {
 					SetClothRotation(180f, new Vector3(-1f, -0.5f, -1f)); 
 					break;
 				case 4: //RIGHT
-					SetClothRotation(-90f, new Vector3(-1f, -1f, 0.5f)); 
+					SetClothRotation(-90f, new Vector3(-2f, -1f, 2f)); 
 					break;
 			}
 		}

@@ -58,13 +58,14 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		float x = Mathf.RoundToInt(direction.x);
 		float z = Mathf.RoundToInt(direction.z);
 		
-
-		// if(x < 0f) x = -1f;
-		// else x = 1f;
-
-		// if(y < 0f) y = -1f;
-		// else y = 1f;
 		currEnemyFacing.DirID = CheckDirID(x,z);
+
+		if(x < 0f) x = -1f;
+		else x = 1f;
+
+		if(z < 0f) z = -1f;
+		else z = 1f;
+		
 		return new Vector3(x, 0f,z);
 	}
 
@@ -77,15 +78,15 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		int dirIdx = 0;
 
 		#region 4 Direction
-		if (dirX == 0) {
-			if (dirZ > 0) {
+		if (dirX == 0f) {
+			if (dirZ > 0f) {
 				dirIdx = 3;
 			} else {
 				dirIdx = 1;
 			}
-		} else if (dirX < 0) {
+		} else if (dirX < 0f) {
 			dirIdx = 2;
-		} else if (dirX > 0) {
+		} else if (dirX > 0f) {
 			dirIdx = 4;
 		}
 		#endregion

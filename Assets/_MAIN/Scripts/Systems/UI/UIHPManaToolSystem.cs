@@ -13,7 +13,6 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	UIHPManaTool uiHPManaTool;
 
-	bool isInitHPManaImage = false;
 	bool isReducingCloth = false;
 
 	float playerHP;
@@ -36,14 +35,14 @@ public class UIHPManaToolSystem : ComponentSystem {
 			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];
 			
 			
-			if (!isInitHPManaImage) {
+			if (!uiHPManaTool.isInitHPManaImage) {
 				try {
 					CheckInit ();
 				} catch {
 					return;
 				}
 
-				isInitHPManaImage = true;
+				uiHPManaTool.isInitHPManaImage = true;
 			}
 
 			CheckHP ();
@@ -60,7 +59,10 @@ public class UIHPManaToolSystem : ComponentSystem {
 		// initClothPos = maxClothWidth / 2;
 		// initClothPos = uiHPManaTool.initClothPosX;
 		
-		healthThreshold = currentClothWidth;
+		// healthThreshold = currentClothWidth; //OLD
+		playerHP = uiHPManaTool.playerHealth.PlayerHP;
+		healthThreshold = (playerHP/maxHP) * maxClothWidth;
+
 		healthReduceValue = uiHPManaTool.healthReduceValue;
 
 		ReduceCloth ();
