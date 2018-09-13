@@ -13,7 +13,7 @@ public class UIHPManaTool : MonoBehaviour {
 	public float healthReduceValue;
 	public bool isHPChange = false;
 	
-	[HeaderAttribute("UI HP Attributes")]
+	[HeaderAttribute("UI Mana Attributes")]
 	public Mana playerMana;
 	public Image imageMana;
 	public bool isMPChange = false;
@@ -23,6 +23,7 @@ public class UIHPManaTool : MonoBehaviour {
 	// public Sprite[] spritesHP;
 	// public Transform clothHP;
 	public Image imageTool;
+	public bool isInitHPManaImage = false;
 
 	void OnEnable () {
 		playerHealth.OnHPChange += OnHPChange;

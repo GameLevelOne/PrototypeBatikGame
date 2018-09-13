@@ -7,7 +7,7 @@ public class Facing2D : MonoBehaviour {
 	public GameObject blindArea;
 	public GameObject attackDirParent;
 
-	int CurDirID = 1;
+	[SerializeField] int curDirID = 1;
 
 	void Awake () {
 		if (isNotPlayerNorEnemy) return;
@@ -42,20 +42,20 @@ public class Facing2D : MonoBehaviour {
 	/// <para>4. Right<br /></para>
 	/// </summary>
 	public int DirID {
-		get {return CurDirID;}
+		get {return curDirID;}
 		set {
 			if (value == 0) return;
 			
-			CurDirID = value;
+			curDirID = value;
 			
 			if (isNotPlayerNorEnemy) return;
 
 			// if (attackArea != null) {
 			// 	attackArea.transform.position = attackDirections[CurDirID].position;
 			// }
-			SetAreaPos (attackArea, CurDirID);
+			SetAreaPos (attackArea, curDirID);
 
-			int tempDirID = CurDirID;
+			int tempDirID = curDirID;
 			if (tempDirID >= 3 ) {
 				SetAreaPos (blindArea, tempDirID - 2);
 				// blindArea.transform.position = attackDirections[tempDirID - 2].position;

@@ -302,7 +302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996236088468888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.9, y: 0.7, z: 0}
+  m_LocalPosition: {x: 21.41, y: 0.7, z: 6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4513978079428178}
@@ -599,6 +599,7 @@ MonoBehaviour:
   attackArea: {fileID: 1017072127329316}
   blindArea: {fileID: 1511729180191734}
   attackDirParent: {fileID: 1984302523314878}
+  curDirID: 1
 --- !u!114 &114533312071947508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -612,6 +613,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 1
   damage: 5
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114793461666681586
 MonoBehaviour:
   m_ObjectHideFlags: 1
