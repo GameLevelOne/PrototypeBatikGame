@@ -15,6 +15,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] PlayerAnimationSystem playerAnimationSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ManaSystem manaSystem;
+	[InjectAttribute] GameFXSystem gameFXSystem;
 
 	public PlayerInput input;
 	public Player player;
@@ -45,6 +46,7 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isBulletTimePeriod = false;
 	bool isParryPeriod = false;
 	bool isButtonToolHold = false;
+	bool isInitChargeAttack = false;
 
 	protected override void OnUpdate () {
 		if (inputData.Length == 0) return;
@@ -380,12 +382,16 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			attackAwayTimer = 0f;
 			isAttackAway = false;	
+			isInitChargeAttack = true;
 		} else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			chargeAttackTimer += deltaTime;
-			
-			// if (chargeAttackTimer >= beforeChargeDelay) {
-			if (chargeAttackTimer >= chargeAttackThreshold) {
-				SetMovement(1); //START CHARGE
+			if (isInitChargeAttack) {
+				// if (chargeAttackTimer >= beforeChargeDelay) {
+				if (chargeAttackTimer >= chargeAttackThreshold) {
+					SetMovement(1); //START CHARGE
+					isInitChargeAttack = false;
+				} else {
+					chargeAttackTimer += deltaTime;
+				}
 			}
 		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 			if (input.moveMode == 1) {
@@ -395,6 +401,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			SetMovement(0); //RUN / STAND
 			chargeAttackTimer = 0f;
+			isInitChargeAttack = false;
 		} 
 		
 		if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
@@ -758,6 +765,13 @@ public class PlayerInputSystem : ComponentSystem {
 	public void SetMovement (int value) {
 		input.moveMode = value;
 		
+		#region CHARGE ATTACK EFFECT
+		if (input.moveMode == 1 && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+			gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, true);
+		} else {
+			gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, false);
+		}
+		#endregion
 		// if (!isMoveOnly) {
 		// 	input.steadyMode = value;
 		// }

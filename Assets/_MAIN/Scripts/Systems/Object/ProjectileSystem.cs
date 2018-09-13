@@ -57,9 +57,7 @@ public class ProjectileSystem : ComponentSystem {
                 projectile.isStartLaunching = false;
             } else {
                 if (projectile.isDestroyOnTriggering) {	
-                    Debug.Log("isDestroyOnTriggering");
                     if (projectile.isSelfDestroying) {
-                        Debug.Log("isSelfDestroying");
                         DestroyProjectile();
                     }		
                 }

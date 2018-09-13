@@ -36,10 +36,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector3 moveDir;
 	Vector3 currentMove;
 	Vector3 currentDir;
-	bool isFinishAnyAnim = true;
+	
 	int attackCombo = 0;
 	int currentDirID = 1;
 	// int currentAnimMatIndex = 0;
+
+	bool isFinishAnyAnim = true;
+	bool isEnableChargeEffect = false;
 
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}

@@ -37,6 +37,14 @@ public class GameFXSystem : ComponentSystem {
         spawnedObj.SetActive(true);
     }
 
+    public void ToggleEffect (GameObject effectObj, bool value) {
+        if (effectObj.activeSelf != value) {
+            effectObj.SetActive(value);
+            
+            Debug.Log("Toogle effect "+effectObj+" to "+value);
+        }
+    }
+
     Quaternion SetFacing (Vector3 spawnPos, Vector3 spawnInitPos) {
         Vector3 targetPos = spawnPos;
         Vector3 initPos = spawnInitPos; //TEMPORARY

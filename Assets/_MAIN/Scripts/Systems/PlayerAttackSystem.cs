@@ -40,25 +40,25 @@ public class PlayerAttackSystem : ComponentSystem {
 	public void SpawnSlashEffect (int mode) {
 		switch (mode) {
             case 1:
-                SpawnObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash);
                 break;
             case 2:
-                SpawnObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash);
                 break;
             case 3:
-                SpawnObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash);
                 break;
             case -1:
-                SpawnObj (attack.heavySlash);
+                SpawnChargeAttackObj (attack.chargeSlash);
                 break;
             case -2:
-                SpawnObj (attack.counterSlash);
+                SpawnNormalAttackObj (attack.counterSlash);
                 break;
             // case -3:
             //     SpawnObj (attack.counterSlash); //RAPIDSLASH
             //     break;
             case -4:
-                SpawnObj (attack.regularArrow);
+                SpawnNormalAttackObj (attack.regularArrow);
                 break;
         }
 
@@ -85,14 +85,22 @@ public class PlayerAttackSystem : ComponentSystem {
 		}
 	}
 
-    void SpawnObj (GameObject obj) {
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.bulletSpawnPos.position, SetFacing());
+    void SpawnNormalAttackObj (GameObject obj) {
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacing());
+        // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+        spawnedObj.SetActive(true);
+    }
+
+	void SpawnChargeAttackObj (GameObject obj) {
+		// Vector3 spawnPos = attack.bulletSpawnPos.parent.position;
+		Quaternion spawnRot = Quaternion.Euler(new Vector3(90f, 0f, 0f));
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.chargeAttackSpawnPos.position, spawnRot);
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
         spawnedObj.SetActive(true);
     }
 
     Quaternion SetFacing () {
-        Vector3 targetPos = attack.bulletSpawnPos.position;
+        Vector3 targetPos = attack.normalAttackSpawnPos.position;
         Vector3 initPos = attack.transform.position; //TEMPORARY
 
         targetPos.x -= initPos.x;

@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 4382811960260794}
   - component: {fileID: 114887913359553144}
   - component: {fileID: 135258440709609476}
+  - component: {fileID: 54873045097161670}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -191,6 +192,7 @@ GameObject:
   - component: {fileID: 4296187032284236}
   - component: {fileID: 114094072571811210}
   - component: {fileID: 135074921262848462}
+  - component: {fileID: 54619216378511354}
   m_Layer: 0
   m_Name: PlayerTriggerDetection
   m_TagString: Untagged
@@ -508,6 +510,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!54 &54619216378511354
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706748306656640}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54873045097161670
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466666537592108}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!95 &95360632365132876
 Animator:
   serializedVersion: 3
@@ -657,7 +689,7 @@ MonoBehaviour:
   role: {fileID: 114272828399055306}
   player: {fileID: 0}
   enemy: {fileID: 114259807309887138}
-  healthPower: 5
+  healthPower: 20
   isTestHealth: 0
 --- !u!114 &114887913359553144
 MonoBehaviour:
