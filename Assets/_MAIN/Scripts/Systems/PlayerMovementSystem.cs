@@ -205,9 +205,14 @@ public class PlayerMovementSystem : ComponentSystem {
 				// } 
 				
 				//=====SPEED CONSTANT=====//
-				rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
+				if (!isDodgeMove) { 
+					isDodgeMove = true;
+					rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
+
+					input.moveDir = -moveDir; //REVERSE
+				}
 			} else {
-				// isDodgeMove = false;
+				isDodgeMove = false;
 				moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir;	
 				

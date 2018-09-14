@@ -216,21 +216,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.SLOW_MOTION: 
 					if (input.AttackMode == -3) {
-						animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-						animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z);
-						SetFacingDirID (-currentDir.x, -currentDir.z);
+						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
+						ReverseDir();
 
 						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME);
 					}
 
 					break;
 				case PlayerState.RAPID_SLASH: 
-					Debug.Log("RAPID_SLASH "+input.AttackMode);
+					// Debug.Log("RAPID_SLASH "+input.AttackMode);
 					
 					if (input.AttackMode == 1) {
 						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
-						Debug.Log("Rapid Slash");
+						// Debug.Log("Rapid Slash");
 					} else if (input.AttackMode == 3) {
 						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
 					}
@@ -334,6 +332,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.GET_HURT: 
 					isFinishAnyAnimation = true;
+					input.AttackMode = 0;
 					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
 					break;
 				case PlayerState.BLOCK_ATTACK:
@@ -397,9 +396,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.liftingMode = 1;
 				}
 			} else {
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.z, true);
-				
+				if (state == PlayerState.DODGE) {
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, currentMove.x);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, currentMove.z);
+					SetFacingDirID (currentMove.x, currentMove.z);
+				} else {
+					SetFacingDirection ();
+				}
+
+				// SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+				// SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.z, true);
+
 				if (input.liftingMode == -1) {
 					input.liftingMode = -2;
 				} else if (input.liftingMode == 1) {
@@ -533,13 +540,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void StopAttackAnimation () {
 		StopAnyAnimation();
-		input.AttackMode = 0;
 		// player.isHitAnEnemy = false;
 	}
 
 	void StopAnyAnimation () {
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
+		input.AttackMode = 0;
 	}
 
 	void CheckAttackCombo () {
@@ -574,6 +581,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.DODGE:
 				gameFXSystem.gameFX.isEnableDodgeEffect = false;
+				ReverseDir ();
+								
 				StopAnyAnimation();
 				break;
 			case PlayerState.SLOW_MOTION:
@@ -590,6 +599,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.isHitAnEnemy = false;
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
+					input.AttackMode = 0;
 				} else {
 					isFinishAnyAnimation = true;
 				}
@@ -754,21 +764,49 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetFaceDir (string animName, float animValue, bool isVertical) {
-		// Vector2 movement = input.moveDir;
-		animator.SetFloat(animName, animValue);
-		
-		if (isVertical) {
-			moveDir.z = Mathf.RoundToInt(animValue);
-		} else {
-			moveDir.x = Mathf.RoundToInt(animValue);
-		}
+	void SetFacingDirection () {
+		if (input.isLockDir) {
+			int dirID = input.direction + 1;
+			
+			switch (dirID) {
+				case 1:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
+					break;
+				case 2:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+					break;
+				case 3:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
+					break;
+				case 4:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+					break;
+			}
 
-		// if (currentDir != moveDir) {
-			currentDir = moveDir;
-			SetFacingDirID (currentDir.x, currentDir.z);
-		// }
+			SetFacingDirID(dirID);
+			input.isLockDir = false;
+		}
 	}
+
+	// void SetFaceDir (string animName, float animValue, bool isVertical) {
+	// 	// Vector2 movement = input.moveDir;
+	// 	animator.SetFloat(animName, animValue);
+		
+	// 	if (isVertical) {
+	// 		moveDir.z = Mathf.RoundToInt(animValue);
+	// 	} else {
+	// 		moveDir.x = Mathf.RoundToInt(animValue);
+	// 	}
+
+	// 	// if (currentDir != moveDir) {
+	// 		currentDir = moveDir;
+	// 		SetFacingDirID (currentDir.x, currentDir.z);
+	// 	// }
+	// }
 
 	void SetFacingDirID (float x, float z) {
 		currentDirID = CheckDirID(x, z);
@@ -777,13 +815,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// uvAnimationSystem.SetMaterial(currentDirID-1);
 	}
 
-	// bool CheckCurrentPlayedAnimation (string animName) {
-	// 	if (animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
-	// 		return false;
-	// 	} else {
-	// 		return true;
-	// 	}
-	// }
+	void SetFacingDirID (int dirID) {
+		currentDirID = dirID;
+		facing.DirID = currentDirID;
+	}
+
+	void ReverseDir () {
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+		// SetFacingDirID (-currentDir.x, -currentDir.z);
+		input.moveDir = -currentDir;
+	}
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;
@@ -827,6 +869,26 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 	}
 		// }
 #endregion
+
+		return dirIdx;
+	}
+
+	int CheckNewDirID (float dirX, float dirZ) {
+		int dirIdx = 0;
+
+		#region 4 Direction
+		if (dirX == 0) {
+			if (dirZ > 0) {
+				dirIdx = 3;
+			} else {
+				dirIdx = 1;
+			}
+		} else if (dirX < 0) {
+			dirIdx = 2;
+		} else if (dirX > 0) {
+			dirIdx = 4;
+		}
+		#endregion
 
 		return dirIdx;
 	}

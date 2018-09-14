@@ -271,30 +271,117 @@ public class PlayerInputSystem : ComponentSystem {
 			// int midValue = input.moveAnimValue[1];
 			int minValue = input.moveAnimValue[0];
 
+			//KEY DOWN
+			
+			if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+				input.dirButtons[0] = 1;
+				
+				if (input.dirButtons[2] == 0) {
+					ChangeDir(currentDir.x, minValue);
+					CheckLockDir(0, 1, 3);
+				}
+			}  
+			
+			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+				input.dirButtons[1] = 1;
+				
+				if (input.dirButtons[3] == 0) {
+					ChangeDir(minValue, currentDir.z);
+					CheckLockDir(1, 0, 2);
+				}
+			} 
+
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-				ChangeDir(currentDir.x, maxValue);
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-				ChangeDir(currentDir.x, minValue);
+				input.dirButtons[2] = 1;
+				
+				if (input.dirButtons[0] == 0) {
+					ChangeDir(currentDir.x, maxValue);
+					CheckLockDir(2, 1, 3);
+				}
 			} 
 			
 			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				ChangeDir(maxValue, currentDir.z);
-			} else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				ChangeDir(minValue, currentDir.z);
-			} 
-			
-			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-				ChangeDir(0f, currentDir.z);
-				CheckEndMove();
+				input.dirButtons[3] = 1;
+				
+				if (input.dirButtons[1] == 0) {
+					ChangeDir(maxValue, currentDir.z);
+					CheckLockDir(3, 0, 2);
+				}
 			}
 
-			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S)) {
-				ChangeDir(currentDir.x, 0f);
-				CheckEndMove();
+			//KEY UP
+
+			if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) {
+				input.dirButtons[0] = 0;
+				
+				if (input.dirButtons[2] == 0) {
+					ChangeDir(currentDir.x, 0f);
+					CheckEndMove();
+					CheckRareCaseLockDir(1, 3);
+				} else {
+					ChangeDir(currentDir.x, maxValue);
+					CheckLockDir(2, 1, 3);
+				}
+			}
+			
+			if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A)) {
+				input.dirButtons[1] = 0;
+				
+				if (input.dirButtons[3] == 0) {
+					ChangeDir(0f, currentDir.z);
+					CheckEndMove();
+					CheckRareCaseLockDir(0, 2);
+				} else {
+					ChangeDir(maxValue, currentDir.z);
+					CheckLockDir(3, 0, 2);
+				}
+			}
+			
+			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W)) {
+				input.dirButtons[2] = 0;
+				
+				if (input.dirButtons[0] == 0) {
+					ChangeDir(currentDir.x, 0f);
+					CheckEndMove();
+					CheckRareCaseLockDir(1, 3);
+				} else {
+					ChangeDir(currentDir.x, minValue);
+					CheckLockDir(0, 1, 3);
+				}
+			}
+			
+			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D)) {
+				input.dirButtons[3] = 0;
+				
+				if (input.dirButtons[1] == 0) {
+					ChangeDir(0f, currentDir.z);
+					CheckEndMove();
+					CheckRareCaseLockDir(0, 2);
+				} else {
+					ChangeDir(minValue, currentDir.z);
+					CheckLockDir(1, 0, 2);
+				}
 			}
 		}
 		#endregion
 	}
+
+	void CheckLockDir (int dirIndex, int positiveDir, int negativeDir) {
+		if (input.dirButtons[positiveDir] == 0 && input.dirButtons[negativeDir] == 0) {
+			input.direction = dirIndex;
+			input.isLockDir = true;
+		}
+	} 
+
+	void CheckRareCaseLockDir (int positiveDir, int negativeDir) {
+		if (input.dirButtons[positiveDir] == 1) {
+			input.direction = positiveDir;
+			input.isLockDir = true;
+		} else if (input.dirButtons[negativeDir] == 1) {
+			input.direction = negativeDir;
+			input.isLockDir = true;
+		}
+	} 
 
 	void CheckAttackInput () {
 		#region Arrow
@@ -786,7 +873,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.liftingMode == 1 || input.liftingMode == 2) {
 				facing = playerAnimationSystem.facing;
-				Debug.Log(facing.DirID);
+				// Debug.Log(facing.DirID);
 				// Debug.Log("==========Grabbing==========");
 				// Debug.Log("Before " + facing.DirID);
 				switch (facing.DirID) {

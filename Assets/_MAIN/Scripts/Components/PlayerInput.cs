@@ -1,17 +1,50 @@
-﻿using System.Collections;
+﻿// using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
-	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};	
+	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
+
+	public bool isLockDir = false;
+
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>0 or 1<br /></para>
+    /// <para>Indeks: <br /></para>
+	/// <para>0 Down<br /></para>
+	/// <para>1 Left<br /></para>
+	/// <para>2 Up<br /></para>
+	/// <para>3 Right<br /></para>
+	/// </summary>
+	public List<int> dirButtons	= new List<int>(4);
 
 	public List<int> slashComboVal;
 
 	[SerializeField] int attackMode = 0;
 
 	public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction
+				
+	// public Vector3 moveDir {  
+	// 	get {return currMoveDir;}
+	// 	set {
+	// 		if (currMoveDir == value) return;
+			
+	// 		currMoveDir = value;
+			
+	// 		Debug.Log("after dodge "+currMoveDir);
+	// 	}
+	// }
+
+	/// <summary>
+    /// <para>Values: <br /></para>
+	/// <para>0 Down<br /></para>
+	/// <para>1 Left<br /></para>
+	/// <para>2 Up<br /></para>
+	/// <para>3 Right<br /></para>
+	/// </summary>
+	public int direction = 0;
 	
 	/// <summary>
     /// <para>Values: <br /></para>
