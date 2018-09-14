@@ -82,6 +82,7 @@ public class PlayerInput : MonoBehaviour {
 			attackMode = value;
 			
 			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
+				Debug.Log("ComboAdd "+ attackMode);
 				slashComboVal.Add(attackMode);
 			}
 		}

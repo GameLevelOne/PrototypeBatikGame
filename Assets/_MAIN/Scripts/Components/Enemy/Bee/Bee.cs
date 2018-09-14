@@ -15,6 +15,7 @@ public class Bee : MonoBehaviour {
 	[SpaceAttribute(10f)]
 	public bool initStartled = false;
 	public bool isStartled = false;
+	public bool initAttackHitPosition = true;
 
 	#region event delegate
 	void OnEnable()
@@ -48,6 +49,7 @@ public class Bee : MonoBehaviour {
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
+		initAttackHitPosition = false;
 	}
 
 	void DisableAttackHit()

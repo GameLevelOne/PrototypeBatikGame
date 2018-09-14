@@ -27,7 +27,7 @@ public class PortalSystem : ComponentSystem {
 			currPortal = portalComponent.portal[i];
 			CheckPlayer();
 		}
-		
+
 	}
 
 	void CheckPlayer()
@@ -37,6 +37,8 @@ public class PortalSystem : ComponentSystem {
 			
 			playerInputSystem.input.moveDir = GetDirection(currPortal.dir);
 			
+			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,currPortal.startPosIndex);
+
 			//disble control systems
 			DisableSystems();
 			

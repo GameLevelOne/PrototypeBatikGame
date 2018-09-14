@@ -117,6 +117,8 @@ public class DamageSystem : ComponentSystem {
 				return false;
 			case PlayerState.MOVE:
 				return false;
+			case PlayerState.ATTACK:
+				return false;
 			case PlayerState.USING_TOOL:
 				switch (toolType) {
 					case ToolType.MagicMedallion:
@@ -187,6 +189,7 @@ public class DamageSystem : ComponentSystem {
 			} else {
 				if (damageTag == Constants.Tag.PLAYER_SLASH) {
 					playerInputSystem.player.isHitAnEnemy = true;
+					// Debug.Log("AA");
 					// health.EnemyHP -= damage;
 					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);

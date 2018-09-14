@@ -7,7 +7,8 @@ public class LevelData : MonoBehaviour {
 	
 	[SpaceAttribute(20f)]	
 	public GameObject playerObj;
-	public Vector3 playerStartPos;
+	public Vector3[] playerStartPos;
+	public bool hasSetPlayerPos = false;
 	public bool isInitialied = false;
 	[Header("Current")]
 	public GameObject currentPlayer;

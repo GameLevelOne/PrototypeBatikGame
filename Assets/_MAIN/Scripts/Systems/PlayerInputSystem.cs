@@ -458,18 +458,28 @@ public class PlayerInputSystem : ComponentSystem {
 		float attackAwayDelay = input.attackAwayDelay;
 
 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			if (input.AttackMode <= 2) {
-				if (!player.isHitAnEnemy){
-					input.AttackMode = 1; //SLASH	
-					player.SetPlayerState(PlayerState.ATTACK);
-				} else {
-					input.AttackMode += 1; //SLASH COMBO
+			if(player.state == PlayerState.IDLE || player.state == PlayerState.MOVE){
+				if (input.AttackMode <= 2) {
+					if (!player.isHitAnEnemy){
+						input.AttackMode = 1; //SLASH	
+						player.SetPlayerState(PlayerState.ATTACK);
+						Debug.Log("First Hit, AM = "+ input.AttackMode);
+					} else {
+						Debug.Log("Next Hit Before increment, AM = "+input.AttackMode);
+						input.AttackMode += 1; //SLASH COMBO
+						// player.isHitAnEnemy = false;
+						player.SetPlayerState(PlayerState.ATTACK);
+						// player.isHitAnEnemy = false;
+						Debug.Log("Next Hit After Increment, AM = "+input.AttackMode);
+					}
+				}else{
+					//player.isHitAnEnemy = false;
 				}
+				
+				attackAwayTimer = 0f;
+				isAttackAway = false;	
+				isInitChargeAttack = true;
 			}
-			
-			attackAwayTimer = 0f;
-			isAttackAway = false;	
-			isInitChargeAttack = true;
 		} else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if (isInitChargeAttack) {
 				// if (chargeAttackTimer >= beforeChargeDelay) {
@@ -495,6 +505,7 @@ public class PlayerInputSystem : ComponentSystem {
 			attackAwayTimer += deltaTime;
 		} else {
 			input.slashComboVal.Clear();
+			// Debug.Log("CHECK ATTACK INPUT AttackList CLEAR");
 			// attackAwayTimer = 0f;
 			isAttackAway = true;
 		}
@@ -533,6 +544,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// 		isAttackAway = true;
 		// 	}
 		// }
+		
 		#endregion
 	}
 
@@ -719,6 +731,7 @@ public class PlayerInputSystem : ComponentSystem {
 		isAttackAway = false;
 		
 		input.slashComboVal.Clear();
+		// Debug.Log("SET BUTTON UP AttackList CLEAR");
 		attackAwayTimer = 0f;
 		isAttackAway = true;
 

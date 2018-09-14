@@ -60,4 +60,9 @@ public class AnimationControl : MonoBehaviour {
 	public void StopAnim () {
 		anim.enabled = false;
 	}
+
+	// void Update()
+	// {
+	// 	GetComponent<Animator>().Play(Constants.BlendTreeName.NORMAL_ATTACK_1,0,0f);
+	// }
 }

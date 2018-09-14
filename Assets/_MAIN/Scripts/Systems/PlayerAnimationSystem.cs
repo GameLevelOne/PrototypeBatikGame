@@ -145,6 +145,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckPlayerState () {
 		if (!isFinishAnyAnimation && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+			Debug.Log("TEST");
 			StopAnyAnimation ();
 			return;
 		}
@@ -240,7 +241,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// } else 
 					if (input.slashComboVal.Count > 0) {
 						attackCombo = input.slashComboVal[0];
-
+						// Debug.Log("ATTACK COMBO = "+attackCombo);
 						if (attackCombo == 1) {
 							PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
 						} else if (attackCombo == 2) {
@@ -256,7 +257,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// else {
 					// 	PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
 					// }
-
+					isFinishAnyAnimation = true;
 					break;
 				case PlayerState.CHARGE:
 					// player.isMoveAttack = true;
@@ -333,6 +334,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.GET_HURT: 
 					isFinishAnyAnimation = true;
 					input.AttackMode = 0;
+					Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
 					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
 					break;
 				case PlayerState.BLOCK_ATTACK:
@@ -503,6 +505,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
+				input.AttackMode = 0;
+				Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
+				gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, false);
 				break;
 			case PlayerState.DASH:
 				//
@@ -539,19 +544,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StopAttackAnimation () {
+		// attack.isAttacking = false;
 		StopAnyAnimation();
-		// player.isHitAnEnemy = false;
+		input.AttackMode = 0;
+		Debug.Log("Reset AttackMode - StopAttacAnimation");
+		player.isHitAnEnemy = false;
 	}
 
 	void StopAnyAnimation () {
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
 		input.AttackMode = 0;
+		Debug.Log("Reset AttackMode - StopAnyAnimation");
 	}
 
 	void CheckAttackCombo () {
+		Debug.Log("CheckAttackCombo "+ input.slashComboVal.Count);
 		if (input.slashComboVal.Count == 0) {
-			player.isHitAnEnemy = false;
+			// player.isHitAnEnemy = false;
 			StopAttackAnimation ();
 		} else {
 			isFinishAnyAnimation = true;
@@ -565,16 +575,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.slashComboVal.Count > 0) {			
 						if (attackCombo == 3) {					
 							input.slashComboVal.Clear();
+							// Debug.Log("CheckEndAnimation AttackList CLEAR");
 						} else {
-							input.slashComboVal.RemoveAt(0);
+							//input.slashComboVal.RemoveAt(0);
 						}
+						Debug.Log("CheckEndAnimation "+ input.slashComboVal.Count);
 
-						CheckAttackCombo ();
+						StopAttackAnimation ();
+						// CheckAttackCombo ();
 					} else {
 						StopAttackAnimation ();
 					}
 				}
-				
+				//player.isHitAnEnemy = false;
 				break;
 			case PlayerState.CHARGE: 
 				StopAttackAnimation();
@@ -600,6 +613,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
 					input.AttackMode = 0;
+					Debug.Log("Reset AttackMode - CheckEndAnimation BulletTime 0");
 				} else {
 					isFinishAnyAnimation = true;
 				}

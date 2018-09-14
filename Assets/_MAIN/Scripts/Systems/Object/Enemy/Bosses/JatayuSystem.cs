@@ -12,7 +12,7 @@ public class JatayuSystem : ComponentSystem {
 		public ComponentArray<Health> jatayuHealth;
 	}
 
-	[InjectAttribute] public JatayuComponent jatayuComponent;
+	[InjectAttribute] JatayuComponent jatayuComponent;
 	Boss currBoss;
 	Jatayu currJatayu;
 	Animator currJatayuAnim;
@@ -50,7 +50,7 @@ public class JatayuSystem : ComponentSystem {
 	{
 		if(!currJatayu.initAppear){
 			currJatayu.initAppear = true;
-			
+
 		}else{
 
 		}

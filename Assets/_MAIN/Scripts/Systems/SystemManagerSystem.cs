@@ -6,8 +6,17 @@ public class SystemManagerSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<SystemManager> SystemManager;
 	}
+
+	public struct LevelDataComponent{
+		public readonly int Length;
+		public ComponentArray<LevelData> levelData;
+	}
+
 	[InjectAttribute] SystemManagerComponent systemManagerComponent;[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] DamageSystem damageSystem;
+	[InjectAttribute] LevelDataComponent levelDataComponent;
+	LevelData currLevelData;
+
 	// [InjectAttribute] ToolSystem toolSystem;
 	// [InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
@@ -21,6 +30,23 @@ public class SystemManagerSystem : ComponentSystem {
 			// if (!systemManager.isDoneInitDisabledSystem) {
 				CheckSystemManager();
 			// }
+		}
+
+		for(int i = 0;i<levelDataComponent.Length;i++){
+			currLevelData = levelDataComponent.levelData[i];
+
+			SetPlayerStartPos();
+		}
+	}
+
+	void SetPlayerStartPos()
+	{
+		if(!currLevelData.hasSetPlayerPos){
+			currLevelData.hasSetPlayerPos = true;
+
+			int startPosIndex = PlayerPrefs.GetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
+			if(startPosIndex > currLevelData.playerStartPos.Length) startPosIndex = 0;
+			currLevelData.playerObj.transform.position = currLevelData.playerStartPos[startPosIndex];
 		}
 	}
 

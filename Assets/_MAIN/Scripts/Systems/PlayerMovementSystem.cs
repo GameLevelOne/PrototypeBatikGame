@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementSystem : ComponentSystem {
 	public struct MovementData {
@@ -189,6 +190,11 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 #endregion OLD
 		}
+
+		if(player.state == PlayerState.DIE && Input.GetKeyDown(KeyCode.Escape)){
+			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
+			SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
+		}
 	}
 
 	void SetPlayerStandardMove () {
@@ -311,12 +317,21 @@ public class PlayerMovementSystem : ComponentSystem {
 				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 				Time.timeScale = 0.1f;
 				input.AttackMode = 0;
+				Debug.Log("Reset AttackMode - CheckIfAllowedToMove");
 				rb.velocity = Vector3.zero;
 				// spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 			}
 
 			return false;
-		} else if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.BOW || state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
+		} else if (
+			state == PlayerState.USING_TOOL || 
+			state == PlayerState.HOOK || 
+			state == PlayerState.DASH || 
+			state == PlayerState.BOW || 
+			state == PlayerState.FISHING || 
+			state == PlayerState.GET_TREASURE || 
+			state == PlayerState.DIE
+			) {
 			return false;
 		} else {
 			return true;

@@ -6,6 +6,7 @@ public class GhostSystem : ComponentSystem {
 	public struct GhostComponent{
 		public readonly int Length;
 		
+		public ComponentArray<Transform> ghostTransform;
 		public ComponentArray<Enemy> enemy;
 		public ComponentArray<Ghost> ghost;
 		public ComponentArray<Animator> ghostAnim;
@@ -13,16 +14,20 @@ public class GhostSystem : ComponentSystem {
 		public ComponentArray<Health> ghostHealth;
 	}
 
-	[InjectAttribute] public GhostComponent ghostComponent;
+	[InjectAttribute] GhostComponent ghostComponent;
+	Transform currGhostTransform;
 	Enemy currEnemy;
 	Ghost currGhost;
 	Animator currGhostAnim;
 	Rigidbody currGhostRigidbody;
 	Health currGhostHealth;
 
+	float deltaTime;
+
 	protected override void OnUpdate()
 	{
 		for(int i = 0;i<ghostComponent.Length;i++){
+			currGhostTransform = ghostComponent.ghostTransform[i];
 			currEnemy = ghostComponent.enemy[i];
 			currGhost = ghostComponent.ghost[i];
 			currGhostAnim = ghostComponent.ghostAnim[i];
@@ -31,44 +36,164 @@ public class GhostSystem : ComponentSystem {
 
 			CheckHealth();
 			CheckState();
+			CheckPlayer();
 		}
 	}
 
-	void CheckHealth(){}
+	void CheckHealth()
+	{
+		if(currGhostHealth.EnemyHP <= 0f){
+			currEnemy.state = EnemyState.Die;
+		}
+	}
 
 	void CheckState()
 	{
 		if(currEnemy.state == EnemyState.Idle){
-
+			Idle();
 		}else if(currEnemy.state == EnemyState.Patrol){
-
+			Patrol();
 		}else if(currEnemy.state == EnemyState.Chase){
-
+			Chase();
 		}else if(currEnemy.state == EnemyState.Attack){
-
+			Attack();
+		}else if(currEnemy.state == EnemyState.Damaged){
+			Damaged();
+		}else if(currEnemy.state == EnemyState.Die){
+			Die();
 		}
 	}
 
-	
-	void Idle()
+	void CheckPlayer()
 	{
-		
+		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
+			if(currEnemy.playerTransform != null){ 
+				currEnemy.state = EnemyState.Chase;
+				currEnemy.initIdle = false;
+				currEnemy.initPatrol = false;	
+				if(currEnemy.chaseIndicator != null) currEnemy.chaseIndicator.SetActive(true);
+				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			}
+		}
+	}
+
+	void Idle()
+	{	
+		if(!currEnemy.initIdle){
+			currEnemy.initIdle = true;
+			currEnemy.TIdle = currEnemy.idleDuration;
+			deltaTime = Time.deltaTime;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+		}else{
+			currEnemy.TIdle -= deltaTime;
+
+			if(currEnemy.TIdle <= 0f){
+				currEnemy.state = EnemyState.Patrol;
+				currEnemy.initIdle = false;
+			}
+		}
 	}
 	
 	void Patrol()
 	{
+		if(!currEnemy.initPatrol){
+			currEnemy.initPatrol = true;
 
+			Vector3 startPos = currGhostTransform.position;
+			currEnemy.patrolDestination = GetRandomPatrolPos(currGhost.origin,currEnemy.patrolRange);
+			deltaTime = Time.deltaTime;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			
+		}else{
+			currGhostRigidbody.position = 
+				Vector3.MoveTowards(
+						currGhostRigidbody.position,
+						currEnemy.patrolDestination,
+						currEnemy.patrolSpeed * deltaTime
+				);
+
+
+			if(Vector3.Distance(currGhostRigidbody.position,currEnemy.patrolDestination) < 0.1f){
+				currEnemy.initPatrol = false;
+				currEnemy.state = EnemyState.Idle;
+			}
+		}
 	}
 	
 	void Chase()
 	{
+		currGhostRigidbody.position = 
+			Vector3.MoveTowards(
+				currGhostRigidbody.position,
+				currEnemy.playerTransform.position,
+				currEnemy.chaseSpeed * deltaTime
+			);
 
+		if(currGhost.isAttacking){
+			currEnemy.state = EnemyState.Attack;
+		}
 	}
 	
 	void Attack()
 	{
-
+		if(!currEnemy.initAttack){
+			if(!currGhost.isAttacking){
+				currEnemy.initAttack = false;
+				currEnemy.state = EnemyState.Chase;
+				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			}else{
+				currEnemy.initAttack = true;
+				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
+			}
+		}else{
+			currEnemy.attackObject.SetActive(currEnemy.attackHit);
+		}
 	}
 
+	void Damaged()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initDamaged = true;
+			currEnemy.TDamaged = currEnemy.damagedDuration;
+			deltaTime = Time.deltaTime;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			currEnemy.TDamaged = currEnemy.damagedDuration;
+		}else{
+			currEnemy.TDamaged -= deltaTime;
 
+			if(currEnemy.TIdle <= 0f){
+				currEnemy.state = EnemyState.Chase;
+				currEnemy.initDamaged = false;
+			}
+		}
+	}
+
+	void Die()
+	{
+		if(!currEnemy.initDie){
+			currEnemy.initDie = true;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			deltaTime = Time.deltaTime;
+			currEnemy.TDie = currEnemy.dieDuration;
+			currGhost.particle.Play();
+		}else{
+			currEnemy.TDie -= deltaTime;
+			if(currEnemy.TDie <= currEnemy.dieDuration/2f){
+				currGhost.sprite.material.color = Color.clear;
+			}
+			if( currEnemy.TDie <= 0f){
+				GameObject.Destroy(currGhost.gameObject);
+				UpdateInjectedComponentGroups();
+			}
+		}
+		
+	}
+
+	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
+	{
+		float x = Random.Range(-1 * range, range) + origin.x;
+		float z = Random.Range(-1 * range, range) + origin.z;
+		
+		return new Vector3(x, currGhostTransform.position.y, z);
+	}
 }

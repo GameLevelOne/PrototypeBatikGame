@@ -158,6 +158,10 @@ public class BeeSystem : ComponentSystem {
 			}
 		}else{
 			currBee.enemy.attackObject.SetActive(currBee.enemy.attackHit);
+			if(!currBee.initAttackHitPosition){
+				currBee.initAttackHitPosition = true;
+				currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
+			}
 		}
 	}	
 

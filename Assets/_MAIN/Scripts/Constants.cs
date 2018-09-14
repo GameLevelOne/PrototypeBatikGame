@@ -81,7 +81,6 @@ public static class Constants {
 
 	public static class PlayerPrefKey
 	{
-
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
 		public const string PLAYER_STATS_HP = "Player/Stats/HP";
 		public const string PLAYER_STATS_MAXMANA = "Player/Stats/MaxMana";
@@ -107,6 +106,9 @@ public static class Constants {
 		public const string PLAYER_TOOL_POWERBRACELET = "Player/Tool/PowerBracelet";
 		public const string PLAYER_TOOL_FLIPPERS = "Player/Tool/Flippers";
 		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
+
+		public const string LEVEL_PLAYER_START_POS = "Level/PlayerStartPos";
+		
 	}
 	
 	public static class NPCPrefKey {
@@ -214,7 +216,7 @@ public static class Constants {
 	{
 		public const string MAIN_MENU = "SceneMenu";
 		public const string GAME_MAP_01 = "SceneMap_01";
-		public const string SCENE_LEVEL_1 = "SceneLevel_1";
+		public const string SCENE_LEVEL_1 = "SceneLevel_1-1";
 		public const string SCENE_LEVEL_2_1 = "SceneLevel_2-1";
 		public const string SCENE_LEVEL_2_2 = "SceneLevel_2-2";
 		public const string SCENE_LEVEL_2_3 = "SceneLevel_2-3";

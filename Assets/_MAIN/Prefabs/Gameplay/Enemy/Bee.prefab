@@ -318,7 +318,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951058270258266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 1, z: 5}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541998587350718}
@@ -625,6 +625,8 @@ MonoBehaviour:
   patrolSpeed: 1.5
   chaseSpeed: 2.5
   idleDuration: 3
+  damagedDuration: 0
+  dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
@@ -632,6 +634,8 @@ MonoBehaviour:
   initPatrol: 0
   initAttack: 0
   isAttack: 0
+  initDamaged: 0
+  initDie: 0
   attackHit: 0
   hasArmor: 0
   isHit: 0
@@ -689,7 +693,7 @@ MonoBehaviour:
   role: {fileID: 114272828399055306}
   player: {fileID: 0}
   enemy: {fileID: 114259807309887138}
-  healthPower: 20
+  healthPower: 10
   isTestHealth: 0
 --- !u!114 &114887913359553144
 MonoBehaviour:
@@ -720,6 +724,7 @@ MonoBehaviour:
   beeHiveTransform: {fileID: 0}
   initStartled: 0
   isStartled: 0
+  initAttackHitPosition: 1
 --- !u!135 &135074921262848462
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -742,7 +747,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135595323353586452
 SphereCollider:

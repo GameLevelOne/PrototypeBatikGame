@@ -25,7 +25,9 @@ public class Enemy : MonoBehaviour {
 	public float chaseSpeed;
 
 	public float idleDuration;
-	
+	public float damagedDuration;
+	public float dieDuration;
+
 	[HeaderAttribute("Current")]
 	public Player playerThatHitsEnemy;
 	public Transform playerTransform;
@@ -36,6 +38,8 @@ public class Enemy : MonoBehaviour {
 	public bool initPatrol = false;
 	public bool initAttack = false;
 	public bool isAttack = false;
+	public bool initDamaged = false;
+	public bool initDie = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
 	
@@ -47,6 +51,19 @@ public class Enemy : MonoBehaviour {
 		get{return tIdle;}
 		set{tIdle = value;}
 	}
+
+	protected float tDamaged;
+	public float TDamaged{
+		get{return tDamaged;}
+		set{tDamaged = value;}
+	}
+
+	protected float tDie;
+	public float TDie{
+		get{return tDie;}
+		set{tDie = value;}
+	}
+
 
 	#region delegate event
 	void OnEnable()

@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
 public class Portal : MonoBehaviour {
-	public string sceneDestination;
-	public bool triggered = false;
+	[HeaderAttribute("Reference")]
 	public UIFader uiFader;
+	public string sceneDestination;
+	public int startPosIndex;
+	[HeaderAttribute("Current")]
+	public bool triggered = false;
+	
 	
 	[HeaderAttribute("1 Bottom, 2 Left, 3 Up, 4 Right")]
 	public int dir;
