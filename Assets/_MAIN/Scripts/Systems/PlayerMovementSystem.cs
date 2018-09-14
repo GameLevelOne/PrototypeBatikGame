@@ -50,13 +50,20 @@ public class PlayerMovementSystem : ComponentSystem {
 		for (int i=0; i<movementData.Length; i++) {
 			input = movementData.PlayerInput[i];
 			player = movementData.Player[i];
-			state = player.state;
 			tr = movementData.Transform[i];
 			// spriteRen = movementData.Sprite[i].spriteRen;
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
 			teleportBulletTime = movementData.TeleportBulletTime[i];
+
+			if (!movement.isInitMovement) {
+				InitMovement();
+
+				continue;
+			}
+
+			state = player.state;
 			tool = toolSystem.tool;
 
 			if (state == PlayerState.DIE) continue;
@@ -191,6 +198,16 @@ public class PlayerMovementSystem : ComponentSystem {
 		}
 	}
 
+	void InitMovement () {
+		brakeTime = 0f;
+		dashDelay = 0f;
+		dashTime = 0f;
+		isDodgeMove = false;
+		moveDir = Vector3.zero;
+
+		movement.isInitMovement = true;
+	}
+
 	void SetPlayerStandardMove () {
 		if (attackMode == 0) {
 			// moveDir = input.moveDir;
@@ -306,11 +323,11 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	bool CheckIfAllowedToMove () {
 		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
-			if (attackMode == -3) {
+			if (attackMode == 0) {
 				Vector3 teleportPos = teleportBulletTime.Teleport();
 				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 				Time.timeScale = 0.1f;
-				input.AttackMode = 0;
+				input.AttackMode = -3;
 				rb.velocity = Vector3.zero;
 				// spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 			}

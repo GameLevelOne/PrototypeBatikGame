@@ -227,10 +227,16 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// Debug.Log("RAPID_SLASH "+input.AttackMode);
 					
 					if (input.AttackMode == 1) {
-						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
+						// Debug.Log("Rapid Slash");
+					} else if (input.AttackMode == 2) {
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2);
 						// Debug.Log("Rapid Slash");
 					} else if (input.AttackMode == 3) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);
+						// Debug.Log("Rapid Slash");
+					} else if (input.AttackMode == -3) {
+						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);	
 					}
 
 					break;
@@ -589,9 +595,16 @@ public class PlayerAnimationSystem : ComponentSystem {
 				isFinishAnyAnimation = true;
 				break;
 			case PlayerState.RAPID_SLASH:
-				if (input.AttackMode == 3) {
+				if (input.AttackMode == -3) {
 					input.AttackMode = 1;
+					animator.speed = 3f;
 				} else {
+					if (input.AttackMode < 3) {
+						input.AttackMode++;
+					} else {
+						input.AttackMode = 1;
+					}
+					
 					input.bulletTimeAttackQty--;
 				}
 
@@ -600,6 +613,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
 					input.AttackMode = 0;
+					
+					animator.speed = 1f;
 				} else {
 					isFinishAnyAnimation = true;
 				}

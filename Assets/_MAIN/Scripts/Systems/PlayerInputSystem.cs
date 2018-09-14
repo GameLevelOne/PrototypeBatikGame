@@ -56,8 +56,16 @@ public class PlayerInputSystem : ComponentSystem {
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
 			player = inputData.Player[i];
-			state = player.state;
 			Health health = inputData.Health[i];
+
+			if (!input.isInitPlayerInput) {
+				InitPlayerInput();
+
+				continue;
+			}
+			Debug.Log("Time.timeScale "+Time.timeScale);
+
+			state = player.state;
 			tool = toolSystem.tool;
 
 			if (CheckIfUsingAnyTool ()) {
@@ -248,6 +256,27 @@ public class PlayerInputSystem : ComponentSystem {
 			// }
 #endregion OLD
 		}
+	}
+
+	void InitPlayerInput () {
+		currentDir = Vector3.zero;
+		playerDir = Vector3.zero;
+		parryTimer = 0f;
+		bulletTimeTimer = 0f;
+		slowDownTimer = 0f;
+		chargeAttackTimer = 0f;
+		attackAwayTimer = 0f;
+		dodgeCooldownTimer = 0f;
+		isAttackAway = true;
+		isReadyForDodging = true;
+
+		isDodging = false;
+		isBulletTimePeriod = false;
+		isParryPeriod = false;
+		isButtonToolHold = false;
+		isInitChargeAttack = false;
+
+		input.isInitPlayerInput = true;
 	}
 
 	void CheckMovementInput () {
@@ -628,7 +657,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// ChangeDir(0f, 0f);
 				// ChangeDir(-currentDir.x, -currentDir.y);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
-				input.AttackMode = -3;
+				input.AttackMode = 0;
 				// Debug.Log("Start BulletTime");
 				player.SetPlayerState(PlayerState.SLOW_MOTION);
 			}
@@ -730,7 +759,6 @@ public class PlayerInputSystem : ComponentSystem {
 	bool CheckIfUsingAnyTool () {
 		if (state == PlayerState.SLOW_MOTION) {
 			float bulletTimeDuration = input.bulletTimeDuration;
-
 			if (slowDownTimer < bulletTimeDuration) {
 				slowDownTimer += deltaTime;
 
@@ -741,7 +769,7 @@ public class PlayerInputSystem : ComponentSystem {
 				slowDownTimer = 0f;
 				Time.timeScale = 1f;
 				input.moveMode = 0;
-				input.AttackMode = 3; //Set attack3 first
+				// input.AttackMode = -3; //Set counterslash first
 				player.SetPlayerState(PlayerState.RAPID_SLASH);
 				ChangeDir(0f, 0f);
 			}
