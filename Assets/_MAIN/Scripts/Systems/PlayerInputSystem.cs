@@ -502,7 +502,9 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Button Dodge
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
 			if (!isDodging && isReadyForDodging && (currentDir != Vector3.zero)) {
+				gameFXSystem.ToggleDodgeFlag(true);
 				player.SetPlayerState(PlayerState.DODGE);
+
 				bulletTimeTimer = 0f;	
 				dodgeCooldownTimer = 0f;
 				isDodging = true;

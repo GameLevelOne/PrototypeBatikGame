@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114876268718149606}
   - component: {fileID: 114410289836772588}
   - component: {fileID: 114930772874159278}
+  - component: {fileID: 114488678010549542}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -54,7 +55,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChangeScene: 0
-  isDoneInitDisabledSystem: 0
+--- !u!114 &114488678010549542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123924884160216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd64588e0cba4a41be77f5f27f5bf8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dodgeEffect: {fileID: 0}
+  playerSprite: {fileID: 0}
+  parryEffect: {fileID: 1698211491790570, guid: b78bf8161206f6f4bbe177aaecc1dc42,
+    type: 2}
+  guardHitEffect: {fileID: 1698211491790570, guid: b78bf8161206f6f4bbe177aaecc1dc42,
+    type: 2}
+  hitEffect: {fileID: 1698211491790570, guid: b78bf8161206f6f4bbe177aaecc1dc42, type: 2}
+  runEffect: {fileID: 0}
+  chargingEffect: {fileID: 0}
+  chargingRunEffect: {fileID: 0}
+  cannotPushEffect: {fileID: 0}
+  dashBounceEffect: {fileID: 0}
+  fishingCaughtEffect: {fileID: 0}
+  fishingPullEffect: {fileID: 0}
+  gainTreasureEffect: {fileID: 0}
+  swimStartEffect: {fileID: 0}
+  swimIdleEffect: {fileID: 0}
+  swimMoveEffect: {fileID: 0}
+  swimEndEffect: {fileID: 0}
+  isEnableDodgeEffect: 0
 --- !u!114 &114876268718149606
 MonoBehaviour:
   m_ObjectHideFlags: 1
