@@ -15,6 +15,7 @@ public class Portal : MonoBehaviour {
 	void OnTriggerEnter (Collider other)
 	{
 		if(other.tag == Constants.Tag.PLAYER){
+			Debug.Log("Player Hit Portal Destination: "+sceneDestination);
 			triggered = true;
 		}
 	}

@@ -2759,6 +2759,7 @@ GameObject:
   - component: {fileID: 366800978}
   - component: {fileID: 366800977}
   - component: {fileID: 366800976}
+  - component: {fileID: 366800979}
   m_Layer: 0
   m_Name: LevelData
   m_TagString: Untagged
@@ -2809,6 +2810,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366800979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 366800975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9266ca81fd1c4bf4e9587ab7af471057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverObj: {fileID: 603445363}
 --- !u!1001 &398579930
 Prefab:
   m_ObjectHideFlags: 0
@@ -3018,11 +3031,6 @@ Prefab:
     m_Modifications:
     - target: {fileID: 224396326694793320, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224396326694793320, guid: fd8c80b125465a947912a75c8118fed4,
-        type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3111,11 +3119,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1032864961}
     - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
       propertyPath: player
@@ -3131,9 +3134,15 @@ Prefab:
       propertyPath: playerMana
       value: 
       objectReference: {fileID: 105204873}
-    - target: {fileID: 1945007987741056, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1032864961}
+    - target: {fileID: 114515285499462450, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
@@ -3710,6 +3719,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4776390623822386, guid: 0f348a23c0cdc7c4fb87a81feeaf41a3,
     type: 2}
   m_PrefabInternal: {fileID: 602455654}
+--- !u!1 &603445363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1567031602147782, guid: fd8c80b125465a947912a75c8118fed4,
+    type: 2}
+  m_PrefabInternal: {fileID: 432312254}
 --- !u!1001 &612893579
 Prefab:
   m_ObjectHideFlags: 0
@@ -3900,6 +3914,11 @@ Prefab:
       propertyPath: m_Name
       value: LightRayB (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114114938767467930, guid: fc31c3ced4d0049438e533fed2faf18e,
+        type: 2}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1111307177}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
   m_IsPrefabAsset: 0
@@ -4634,18 +4653,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 4925258087952018, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.6116977
-      objectReference: {fileID: 0}
-    - target: {fileID: 4524181704305012, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.6117
-      objectReference: {fileID: 0}
-    - target: {fileID: 4645652797791334, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 4.6117
-      objectReference: {fileID: 0}
+    - target: {fileID: 114114938767467930, guid: fc31c3ced4d0049438e533fed2faf18e,
+        type: 2}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1111307177}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
   m_IsPrefabAsset: 0
@@ -6218,6 +6230,11 @@ Prefab:
       propertyPath: m_Name
       value: LightRayB (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114114938767467930, guid: fc31c3ced4d0049438e533fed2faf18e,
+        type: 2}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1111307177}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc31c3ced4d0049438e533fed2faf18e, type: 2}
   m_IsPrefabAsset: 0
@@ -6277,6 +6294,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4776390623822386, guid: 0f348a23c0cdc7c4fb87a81feeaf41a3,
     type: 2}
   m_PrefabInternal: {fileID: 1106334951}
+--- !u!4 &1111307177 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4892388910476438, guid: 9e4e5ff0f96acb446963c011761cc65d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1032864960}
 --- !u!1001 &1112995934
 Prefab:
   m_ObjectHideFlags: 0
@@ -6730,7 +6752,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4684473922671366, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11
+      value: 14.491
       objectReference: {fileID: 0}
     - target: {fileID: 4684473922671366, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6762,7 +6784,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4684473922671366, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
       propertyPath: m_LocalScale.x
-      value: 2.4
+      value: 3.0985684
       objectReference: {fileID: 0}
     - target: {fileID: 4684473922671366, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
       propertyPath: m_LocalScale.z
@@ -6995,6 +7017,11 @@ Prefab:
       propertyPath: uiFader
       value: 
       objectReference: {fileID: 432312256}
+    - target: {fileID: 114783876335681260, guid: df7e0ce35a82501408cb0d85fcb62089,
+        type: 2}
+      propertyPath: startPosIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df7e0ce35a82501408cb0d85fcb62089, type: 2}
   m_IsPrefabAsset: 0
@@ -10358,6 +10385,11 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 7.7190003
       objectReference: {fileID: 0}
+    - target: {fileID: 114969384135245330, guid: 4554476fc2714bc44a5e266871b3e4b9,
+        type: 2}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1111307177}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4554476fc2714bc44a5e266871b3e4b9, type: 2}
   m_IsPrefabAsset: 0

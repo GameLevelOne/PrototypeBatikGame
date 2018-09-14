@@ -20,6 +20,7 @@ public class PortalSystem : ComponentSystem {
 	Portal currPortal;
 
 	//inject important systems here
+	Portal portalToLoad = null;
 
 	protected override void OnUpdate()
 	{
@@ -34,20 +35,23 @@ public class PortalSystem : ComponentSystem {
 	{
 		if(currPortal.triggered){
 			currPortal.triggered = false;
-			
 			playerInputSystem.input.moveDir = GetDirection(currPortal.dir);
 			
 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,currPortal.startPosIndex);
 
 			//disble control systems
 			DisableSystems();
-			
+			portalToLoad = currPortal;
 			//fader
 			currPortal.uiFader.state = FaderState.FadeOut;
 		} else {
 			if (currPortal.uiFader.initBlack) {
 				//change scene
-				SceneManager.LoadScene(currPortal.sceneDestination);
+				if(portalToLoad!=null){
+					Debug.Log("Scene Destiantion = "+portalToLoad.sceneDestination);
+					SceneManager.LoadScene(portalToLoad.sceneDestination);
+					portalToLoad = null;
+				}
 			}
 		}
 	}

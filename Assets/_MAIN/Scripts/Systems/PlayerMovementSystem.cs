@@ -190,8 +190,13 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 #endregion OLD
 		}
+		
+		if(player.state == PlayerState.DIE){
+			rb.velocity = Vector3.zero;
+			input.moveDir = Vector3.zero;
+		}
 
-		if(player.state == PlayerState.DIE && Input.GetKeyDown(KeyCode.Escape)){
+		if(player.state == PlayerState.DIE && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0"))){
 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
 			SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
 		}
