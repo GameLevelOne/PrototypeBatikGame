@@ -487,17 +487,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// attack.isAttacking  = true;
 				break;
 			case PlayerState.BLOCK_ATTACK:
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);
 				break;
 			// case PlayerState.COUNTER:
 				// attack.isAttacking  = true;
 				// break;
 			case PlayerState.PARRY:
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, playerTransform.position);
+				//
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
 				break;
 			case PlayerState.DASH:
 				//

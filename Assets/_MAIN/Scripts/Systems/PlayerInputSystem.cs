@@ -488,6 +488,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// player.isPlayerHit = false;
 				Debug.Log("Start Counter");
 				player.SetPlayerState(PlayerState.PARRY);
+				gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
 			}
 		} else {
 			// player.isPlayerHit = false;

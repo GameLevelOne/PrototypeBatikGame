@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
 	public PlayerState state;
 	public Transform playerWeaponPos;
 	public Collider playerCol;
+	public float shieldPower;
 	
 	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;
