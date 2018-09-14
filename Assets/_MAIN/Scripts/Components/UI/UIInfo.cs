@@ -7,6 +7,7 @@ public class UIInfo : MonoBehaviour {
 	// public CanvasGroup canvasInfoGroup;
 	// public float showMultiplier;
 	// public float hideMultiplier;
+	public bool isInitUIInfo = false;
 	public bool isPlayingAnimation;
 
 	void OnEnable () {

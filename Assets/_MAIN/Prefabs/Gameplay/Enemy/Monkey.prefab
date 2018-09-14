@@ -85,6 +85,7 @@ GameObject:
   - component: {fileID: 4778014248437264}
   - component: {fileID: 114854413372241128}
   - component: {fileID: 135798593059442142}
+  - component: {fileID: 54812308644110904}
   m_Layer: 0
   m_Name: MonkeyTriggerDetection
   m_TagString: Untagged
@@ -223,6 +224,7 @@ GameObject:
   - component: {fileID: 4972509702551012}
   - component: {fileID: 114900510518298574}
   - component: {fileID: 135513013408371044}
+  - component: {fileID: 54401862248058726}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -492,6 +494,36 @@ Transform:
   m_Father: {fileID: 4486374708732222}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54401862248058726
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900409050963502}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54812308644110904
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302639940972356}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54843693115904574
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -816,15 +848,15 @@ SpriteRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1379044088479826}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d19e262a2f1851c45a2591a608c5c669, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

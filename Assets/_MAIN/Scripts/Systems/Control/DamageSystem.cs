@@ -1,10 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
-using System.Collections.Generic;
 
 public class DamageSystem : ComponentSystem {
 	public struct DamageData {
@@ -14,6 +9,7 @@ public class DamageSystem : ComponentSystem {
 	}
 	[InjectAttribute] DamageData damageData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] GameFXSystem gameFXSystem;
 
 	Health health;
 	Role role;
@@ -83,6 +79,7 @@ public class DamageSystem : ComponentSystem {
 
 		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
+			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
 
@@ -91,9 +88,14 @@ public class DamageSystem : ComponentSystem {
 					Debug.Log("Player is invulnerable");
 				} else if (player.isGuarding) {
 					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);
+					damage -= player.shieldPower;
+					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 				} else {
-					health.PlayerHP -= damage;
 					player.SetPlayerState(PlayerState.GET_HURT);
+					// health.PlayerHP -= damage;
+					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
+					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 				}
 				
 				player.damageReceive = null;
@@ -126,7 +128,9 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			case PlayerState.DODGE:
 				return true;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
+			// 	return true;
+			case PlayerState.PARRY:
 				return true;
 			case PlayerState.CHARGE:
 				return true;
@@ -164,6 +168,7 @@ public class DamageSystem : ComponentSystem {
 
 		if(!currEnemy.isHit) return;
 		else{
+			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
 
@@ -171,19 +176,30 @@ public class DamageSystem : ComponentSystem {
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
 				}else{
-					health.EnemyHP -= damage;
+					// health.EnemyHP -= damage;
+					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}
 			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
-				health.EnemyHP -= damage;
+				// health.EnemyHP -= damage;
+				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 			} else {
 				if (damageTag == Constants.Tag.PLAYER_SLASH) {
 					playerInputSystem.player.isHitAnEnemy = true;
-					health.EnemyHP -= damage;
+					// health.EnemyHP -= damage;
+					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}
 			}
 			// currEnemy.isEnemyGetHurt = false;
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}
+	}
+
+	float ReduceHP (float initHP, float damage, Vector3 hitPos) {
+		gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, hitPos);
+		return initHP -= damage;
 	}
 }

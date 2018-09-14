@@ -205,9 +205,14 @@ public class PlayerMovementSystem : ComponentSystem {
 				// } 
 				
 				//=====SPEED CONSTANT=====//
-				rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
+				if (!isDodgeMove) { 
+					isDodgeMove = true;
+					rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
+
+					input.moveDir = -moveDir; //REVERSE
+				}
 			} else {
-				// isDodgeMove = false;
+				isDodgeMove = false;
 				moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir;	
 				
@@ -219,7 +224,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					} 
 				}
 			}
-		} else if (attackMode >= -1 && attackMode <= 3 && attackMode != 0 && input.moveDir != Vector3.zero) {
+		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {
 			if (player.isMoveAttack) {
 				Transform target = facing.attackArea.transform;
 				rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
@@ -302,7 +307,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	bool CheckIfAllowedToMove () {
 		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
 			if (attackMode == -3) {
-				tr.position = teleportBulletTime.Teleport();
+				Vector3 teleportPos = teleportBulletTime.Teleport();
+				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 				Time.timeScale = 0.1f;
 				input.AttackMode = 0;
 				rb.velocity = Vector3.zero;

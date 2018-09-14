@@ -3,7 +3,9 @@
 public class GameFX : MonoBehaviour {
 	// public GameObject counterChargeEffect;
 	// public GameObject counterEffect;
-	public GameObject dodgeEffect;
+	[HeaderAttribute("Player Effect")]
+	public ParticleSystem dodgeEffect;
+	public SpriteRenderer playerSprite;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
 	public GameObject hitEffect;
@@ -11,7 +13,7 @@ public class GameFX : MonoBehaviour {
 	public GameObject chargingEffect;
 	public GameObject chargingRunEffect;
 
-	[HeaderAttribute("Tool")]
+	[HeaderAttribute("Tool Effect")]
 	public GameObject cannotPushEffect;
 	public GameObject dashBounceEffect;
 	public GameObject fishingCaughtEffect;
@@ -21,4 +23,7 @@ public class GameFX : MonoBehaviour {
 	public GameObject swimIdleEffect;
 	public GameObject swimMoveEffect;
 	public GameObject swimEndEffect;
+
+	[HeaderAttribute("Current")]
+	public bool isEnableDodgeEffect = false;
 }

@@ -23,7 +23,6 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	List<ButtonToolNSummon> listOfToolsNSummons;
 
-	bool isInitInfo = false;
 	bool isShowingInfo = false;
 	bool isPlayingAnimation = false;
 	// bool isAfterPressPause = false;
@@ -52,7 +51,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			// showMultiplier = uiInfo.showMultiplier;
 			// hideMultiplier = uiInfo.hideMultiplier;
 
-			if (!isInitInfo) {
+			if (!uiInfo.isInitUIInfo) {
 				try {
 					InitPlayerInfo ();
 				} catch {
@@ -60,7 +59,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 					return;
 				}
 
-				isInitInfo = true;
+				uiInfo.isInitUIInfo = true;
 			} else {
 				isPlayingAnimation = uiInfo.isPlayingAnimation;
 				CheckInput ();

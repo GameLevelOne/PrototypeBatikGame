@@ -36,10 +36,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector3 moveDir;
 	Vector3 currentMove;
 	Vector3 currentDir;
-	bool isFinishAnyAnim = true;
+	
 	int attackCombo = 0;
 	int currentDirID = 1;
 	// int currentAnimMatIndex = 0;
+
+	bool isFinishAnyAnim = true;
+	bool isEnableChargeEffect = false;
 
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
@@ -120,10 +123,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void PlayLoopingAnimation (string animName) {
+	void PlayLoopAnimation (string animName) {
 		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
 			animator.Play(animName);
+
+			// if (state != PlayerState.DODGE) {
+			// 	gameFXSystem.gameFX.isEnableDodgeEffect = false;
+			// 	Debug.Log("Check dodge loop");
+			// }
 		}
+	}
+
+	void PlayOneShotAnimation (string animName) {
+		animator.Play(animName);
+
+		// if (state != PlayerState.DODGE) {
+		// 	gameFXSystem.gameFX.isEnableDodgeEffect = false;
+		// 	Debug.Log("Check dodge oneshot");
+		// }
 	}
 
 	void CheckPlayerState () {
@@ -132,229 +149,238 @@ public class PlayerAnimationSystem : ComponentSystem {
 			return;
 		}
 		
-		switch (state) {
-			case PlayerState.IDLE:
-				isFinishAnyAnimation = true;
-				switch (input.moveMode) {
-					case 0: 
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_STAND);
-						// AnimationMaterialIndex = 0;
-						break;
-					case 1: 
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_CHARGE);
-						// AnimationMaterialIndex = 1;
-						break;
-					case 2: 
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_GUARD);;
-						// AnimationMaterialIndex = 2;
-						break;
-				}
-				break;
-			case PlayerState.MOVE:
-				isFinishAnyAnimation = true;
-				switch (input.moveMode) {
-					case 0: 
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_RUN);
-						break;
-					case 1: 
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_CHARGE);
-						break;
-					case 2: 
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_GUARD);
-						break;
-				}
-				break;
-			case PlayerState.SWIM: 
-				isFinishAnyAnimation = true;
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.GRABBING); //TEMP
-				} else if (input.interactValue == 1) {
-					if (moveDir != Vector3.zero) {
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_SWIM);						
-					} else {
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_SWIM);						
-					}	
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.UNGRABBING); //TEMP
-				}
-				
-				break;
-			case PlayerState.DODGE: 
-				isFinishAnyAnimation = true;
-				animator.Play(Constants.BlendTreeName.MOVE_DODGE);
-				break;
-			case PlayerState.COUNTER: 
-				if (input.AttackMode == -2) {
-					animator.Play(Constants.BlendTreeName.COUNTER_ATTACK);
-				}
-				break;
-			case PlayerState.SLOW_MOTION: 
-				if (input.AttackMode == -3) {
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-					// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z);
-					SetFacingDirID (-currentDir.x, -currentDir.z);
+		if (state == PlayerState.DODGE) {
+			isFinishAnyAnimation = true;
+			PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DODGE);
+		} else {
+			gameFXSystem.ToggleDodgeFlag(false);
 
-					animator.Play(Constants.BlendTreeName.IDLE_BULLET_TIME);
-				}
-
-				break;
-			case PlayerState.RAPID_SLASH: 
-				Debug.Log("RAPID_SLASH "+input.AttackMode);
-				
-				if (input.AttackMode == 1) {
-					animator.Play(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
-					Debug.Log("Rapid Slash");
-				} else if (input.AttackMode == 3) {
-					animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
-				}
-
-				break;
-			case PlayerState.ATTACK:
-				// if (attack.isAttacking) {
-				// 	animator.Play(Constants.BlendTreeName.IDLE_STAND); break;
-				// } else 
-				if (input.slashComboVal.Count > 0) {
-					attackCombo = input.slashComboVal[0];
-
-					if (attackCombo == 1) {
-						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
-					} else if (attackCombo == 2) {
-						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_2);
-					} else if (attackCombo == 3) {
-						animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+			switch (state) {
+				case PlayerState.IDLE:
+					isFinishAnyAnimation = true;
+					switch (input.moveMode) {
+						case 0: 
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_STAND);
+							// AnimationMaterialIndex = 0;
+							break;
+						case 1: 
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_CHARGE);
+							// AnimationMaterialIndex = 1;
+							break;
+						case 2: 
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD);;
+							// AnimationMaterialIndex = 2;
+							break;
 					}
-				} else { //TEMP SOLUTION FOR STUCK
-					if (!attack.isAttacking) {
-						StopAttackAnimation();
+					break;
+				case PlayerState.MOVE:
+					isFinishAnyAnimation = true;
+					switch (input.moveMode) {
+						case 0: 
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_RUN);
+							break;
+						case 1: 
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_CHARGE);
+							break;
+						case 2: 
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_GUARD);
+							break;
 					}
-				} 
-				// else {
-				// 	animator.Play(Constants.BlendTreeName.NORMAL_ATTACK_1);
-				// }
-
-				break;
-			case PlayerState.CHARGE:
-				player.isMoveAttack = true;
-				animator.Play(Constants.BlendTreeName.CHARGE_ATTACK);
-				break;
-			case PlayerState.DASH: 
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.MOVE_RUN);
-					attack.isDashing = false;
-				} else if (input.interactValue == 1) {
-					animator.Play(Constants.BlendTreeName.MOVE_DASH);
-					attack.isDashing = true;
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.IDLE_BRAKE);
-					attack.isDashing = false;
-				}
-				break;
-			case PlayerState.USING_TOOL: 
-				// if (tool.currentTool == ToolType.Bomb) {
-				// 	animator.Play(Constants.BlendTreeName.USE_BOMB);
-				// }
-				 
-				if (tool.currentTool == ToolType.Hammer) {
-					animator.Play(Constants.BlendTreeName.USE_HAMMER);
-				} else if (tool.currentTool == ToolType.Shovel) {
-					animator.Play(Constants.BlendTreeName.USE_SHOVEL);
-				} else if (tool.currentTool == ToolType.MagicMedallion) {
-					animator.Play(Constants.BlendTreeName.USE_MAGIC_MEDALLION);
-				} else if (tool.currentTool == ToolType.Container1 || tool.currentTool == ToolType.Container2 || tool.currentTool == ToolType.Container3 || tool.currentTool == ToolType.Container4) {
-					animator.Play(Constants.BlendTreeName.USE_CONTAINER);
-				}
-				break;
-			case PlayerState.POWER_BRACELET:
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.GRABBING);
-				} else if (input.interactValue == 1) {
-					if (input.liftingMode == 0) {
-						PlayLoopingAnimation(Constants.BlendTreeName.SWEATING_GRAB);
-					} else if (input.liftingMode == -1) {
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_LIFT);
-					} else if (input.liftingMode == 1) {
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_PUSH);
-					} else if (input.liftingMode == -2) {
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_LIFT);
-					} else if (input.liftingMode == 2) {
-						PlayLoopingAnimation(Constants.BlendTreeName.MOVE_PUSH);
-					} else if (input.liftingMode == -3) {
-						animator.Play(Constants.BlendTreeName.LIFTING);
-					}
-				} else if (input.interactValue == 2) {
-					// Debug.Log("Throw anim");
-					if (input.liftingMode == 0) {
-						animator.Play(Constants.BlendTreeName.UNGRABBING);
-					} else if (input.liftingMode == -1) {
-						animator.Play(Constants.BlendTreeName.THROWING_LIFT);
-					} else if (input.liftingMode == 1) {
-						animator.Play(Constants.BlendTreeName.UNGRABBING);
-					}
-				}
-
-				break;
-			case PlayerState.BOW:
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.TAKE_AIM_BOW);
-				} else if (input.interactValue == 1) {
-					PlayLoopingAnimation(Constants.BlendTreeName.AIMING_BOW);
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.SHOT_BOW);
-				}
-				break;
-			case PlayerState.DIE: 
-				animator.Play(Constants.BlendTreeName.IDLE_DIE);
-				break;
-			case PlayerState.GET_HURT: 
-				isFinishAnyAnimation = true;
-				animator.Play(Constants.BlendTreeName.GET_HURT);
-				break;
-			case PlayerState.BLOCK_ATTACK:
-				isFinishAnyAnimation = true; 
-				animator.Play(Constants.BlendTreeName.BLOCK_ATTACK);
-				break;
-			case PlayerState.FISHING:
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.THROW_FISH_BAIT);
-				} else if (input.interactValue == 1) {
-					PlayLoopingAnimation(Constants.BlendTreeName.IDLE_FISHING);
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.RETURN_FISH_BAIT);
-				} else if (input.interactValue == 3) {
-					animator.Play(Constants.BlendTreeName.FISHING_FAIL);
-				}
-				
-				break;
-			case PlayerState.GET_TREASURE:
-				if (input.interactMode == 6) { //GET SMALL TREASURE
-					if (input.interactValue == 0) { 
-						animator.Play(Constants.BlendTreeName.LIFTING_TREASURE);
-					} else if (input.interactValue == 1) {
-						PlayLoopingAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
-					} else if (input.interactValue == 2) {
-						animator.Play(Constants.BlendTreeName.END_LIFT_TREASURE);
-					}
-				} else if (input.interactMode == 7) { //GET BIG TREASURE
+					break;
+				case PlayerState.SWIM: 
+					isFinishAnyAnimation = true;
 					if (input.interactValue == 0) {
-						Debug.Log("LIFT UP TREASURE ANIMATION");
+						PlayOneShotAnimation(Constants.BlendTreeName.GRABBING); //TEMP
 					} else if (input.interactValue == 1) {
-						Debug.Log("LIFTING TREASURE ANIMATION");
+						if (moveDir != Vector3.zero) {
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_SWIM);						
+						} else {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_SWIM);						
+						}	
 					} else if (input.interactValue == 2) {
-						Debug.Log("LIFT DOWN TREASURE ANIMATION");
+						PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING); //TEMP
 					}
-				}
+					
+					break;
+				// case PlayerState.DODGE: 
+				// 	isFinishAnyAnimation = true;
+				// 	PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DODGE);
+				// 	break;
+				// case PlayerState.COUNTER: 
+				// 	if (input.AttackMode == -2) {
+				// 		PlayOneShotAnimation(Constants.BlendTreeName.COUNTER_ATTACK);
+				// 	}
+				// 	break;
+				case PlayerState.PARRY: 
+					PlayOneShotAnimation(Constants.BlendTreeName.PARRY);
+					break;
+				case PlayerState.SLOW_MOTION: 
+					if (input.AttackMode == -3) {
+						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
+						ReverseDir();
 
-				break;
-			case PlayerState.OPEN_CHEST:
-				if (input.interactValue == 0) {
-					animator.Play(Constants.BlendTreeName.OPENING_CHEST);
-				} else if (input.interactValue == 1) {
-					//
-				} else if (input.interactValue == 2) {
-					animator.Play(Constants.BlendTreeName.AFTER_OPEN_CHEST);
-				}
-				break;
+						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME);
+					}
+
+					break;
+				case PlayerState.RAPID_SLASH: 
+					// Debug.Log("RAPID_SLASH "+input.AttackMode);
+					
+					if (input.AttackMode == 1) {
+						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);
+						// Debug.Log("Rapid Slash");
+					} else if (input.AttackMode == 3) {
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+					}
+
+					break;
+				case PlayerState.ATTACK:
+					// if (attack.isAttacking) {
+					// 	PlayOneShotAnimation(Constants.BlendTreeName.IDLE_STAND); break;
+					// } else 
+					if (input.slashComboVal.Count > 0) {
+						attackCombo = input.slashComboVal[0];
+
+						if (attackCombo == 1) {
+							PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
+						} else if (attackCombo == 2) {
+							PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2);
+						} else if (attackCombo == 3) {
+							PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+						}
+					} else { //TEMP SOLUTION FOR STUCK
+						if (!attack.isAttacking) {
+							StopAttackAnimation();
+						}
+					} 
+					// else {
+					// 	PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
+					// }
+
+					break;
+				case PlayerState.CHARGE:
+					// player.isMoveAttack = true;
+					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK);
+					break;
+				case PlayerState.DASH: 
+					if (input.interactValue == 0) {
+						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_RUN);
+						attack.isDashing = false;
+					} else if (input.interactValue == 1) {
+						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH);
+						attack.isDashing = true;
+					} else if (input.interactValue == 2) {
+						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE);
+						attack.isDashing = false;
+					}
+					break;
+				case PlayerState.USING_TOOL: 
+					// if (tool.currentTool == ToolType.Bomb) {
+					// 	PlayOneShotAnimation(Constants.BlendTreeName.USE_BOMB);
+					// }
+					
+					if (tool.currentTool == ToolType.Hammer) {
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_HAMMER);
+					} else if (tool.currentTool == ToolType.Shovel) {
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL);
+					} else if (tool.currentTool == ToolType.MagicMedallion) {
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_MAGIC_MEDALLION);
+					} else if (tool.currentTool == ToolType.Container1 || tool.currentTool == ToolType.Container2 || tool.currentTool == ToolType.Container3 || tool.currentTool == ToolType.Container4) {
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_CONTAINER);
+					}
+					break;
+				case PlayerState.POWER_BRACELET:
+					if (input.interactValue == 0) {
+						PlayOneShotAnimation(Constants.BlendTreeName.GRABBING);
+					} else if (input.interactValue == 1) {
+						if (input.liftingMode == 0) {
+							PlayLoopAnimation(Constants.BlendTreeName.SWEATING_GRAB);
+						} else if (input.liftingMode == -1) {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
+						} else if (input.liftingMode == 1) {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_PUSH);
+						} else if (input.liftingMode == -2) {
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
+						} else if (input.liftingMode == 2) {
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_PUSH);
+						} else if (input.liftingMode == -3) {
+							PlayOneShotAnimation(Constants.BlendTreeName.LIFTING);
+						}
+					} else if (input.interactValue == 2) {
+						// Debug.Log("Throw anim");
+						if (input.liftingMode == 0) {
+							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
+						} else if (input.liftingMode == -1) {
+							PlayOneShotAnimation(Constants.BlendTreeName.THROWING_LIFT);
+						} else if (input.liftingMode == 1) {
+							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
+						}
+					}
+
+					break;
+				case PlayerState.BOW:
+					if (input.interactValue == 0) {
+						PlayOneShotAnimation(Constants.BlendTreeName.TAKE_AIM_BOW);
+					} else if (input.interactValue == 1) {
+						PlayLoopAnimation(Constants.BlendTreeName.AIMING_BOW);
+					} else if (input.interactValue == 2) {
+						PlayOneShotAnimation(Constants.BlendTreeName.SHOT_BOW);
+					}
+					break;
+				case PlayerState.DIE: 
+					PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DIE);
+					break;
+				case PlayerState.GET_HURT: 
+					isFinishAnyAnimation = true;
+					input.AttackMode = 0;
+					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
+					break;
+				case PlayerState.BLOCK_ATTACK:
+					isFinishAnyAnimation = true; 
+					PlayOneShotAnimation(Constants.BlendTreeName.BLOCK_ATTACK);
+					break;
+				case PlayerState.FISHING:
+					if (input.interactValue == 0) {
+						PlayOneShotAnimation(Constants.BlendTreeName.THROW_FISH_BAIT);
+					} else if (input.interactValue == 1) {
+						PlayLoopAnimation(Constants.BlendTreeName.IDLE_FISHING);
+					} else if (input.interactValue == 2) {
+						PlayOneShotAnimation(Constants.BlendTreeName.RETURN_FISH_BAIT);
+					} else if (input.interactValue == 3) {
+						PlayOneShotAnimation(Constants.BlendTreeName.FISHING_FAIL);
+					}
+					
+					break;
+				case PlayerState.GET_TREASURE:
+					if (input.interactMode == 6) { //GET SMALL TREASURE
+						if (input.interactValue == 0) { 
+							PlayOneShotAnimation(Constants.BlendTreeName.LIFTING_TREASURE);
+						} else if (input.interactValue == 1) {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
+						} else if (input.interactValue == 2) {
+							PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
+						}
+					} else if (input.interactMode == 7) { //GET BIG TREASURE
+						if (input.interactValue == 0) {
+							Debug.Log("LIFT UP TREASURE ANIMATION");
+						} else if (input.interactValue == 1) {
+							Debug.Log("LIFTING TREASURE ANIMATION");
+						} else if (input.interactValue == 2) {
+							Debug.Log("LIFT DOWN TREASURE ANIMATION");
+						}
+					}
+
+					break;
+				case PlayerState.OPEN_CHEST:
+					if (input.interactValue == 0) {
+						PlayOneShotAnimation(Constants.BlendTreeName.OPENING_CHEST);
+					} else if (input.interactValue == 1) {
+						//
+					} else if (input.interactValue == 2) {
+						PlayOneShotAnimation(Constants.BlendTreeName.AFTER_OPEN_CHEST);
+					}
+					break;
+			}
 		}
 	}
 
@@ -370,9 +396,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.liftingMode = 1;
 				}
 			} else {
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
-				SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.z, true);
-				
+				if (state == PlayerState.DODGE) {
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, currentMove.x);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, currentMove.z);
+					SetFacingDirID (currentMove.x, currentMove.z);
+				} else {
+					SetFacingDirection ();
+				}
+
+				// SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
+				// SetFaceDir (Constants.AnimatorParameter.Float.FACE_Y, currentMove.z, true);
+
 				if (input.liftingMode == -1) {
 					input.liftingMode = -2;
 				} else if (input.liftingMode == 1) {
@@ -408,11 +442,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					isFinishAnyAnimation = true;
 					break;
 				case PlayerState.BLOCK_ATTACK:
-					attack.isAttacking  = true;
+					// attack.isAttacking  = true;
 					break;
-				case PlayerState.COUNTER:
-					attack.isAttacking  = true;
-					break;
+				// case PlayerState.COUNTER:
+				// 	attack.isAttacking  = true;
+				// 	break;
 				case PlayerState.USING_TOOL:
 					tool.isActToolReady = true;
 					break;
@@ -447,11 +481,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;
 				// isFinishAnyAnimation = true;
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.chargingEffect, player.playerWeaponPos.position);
+				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.chargingEffect, player.playerWeaponPos.position);
 				break;
 			case PlayerState.DODGE:
 				// isFinishAnyAnimation = true;
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.dodgeEffect, playerTransform.position);
+				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.dodgeEffect, playerTransform.position);
 				break;
 			case PlayerState.SLOW_MOTION:
 				//
@@ -460,14 +494,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// attack.isAttacking  = true;
 				break;
 			case PlayerState.BLOCK_ATTACK:
-				// attack.isAttacking  = true;
 				break;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
 				// attack.isAttacking  = true;
+				// break;
+			case PlayerState.PARRY:
+				//
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
 				break;
 			case PlayerState.DASH:
 				//
@@ -505,13 +540,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void StopAttackAnimation () {
 		StopAnyAnimation();
-		input.AttackMode = 0;
 		// player.isHitAnEnemy = false;
 	}
 
 	void StopAnyAnimation () {
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
+		input.AttackMode = 0;
 	}
 
 	void CheckAttackCombo () {
@@ -545,6 +580,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation();
 				break;
 			case PlayerState.DODGE:
+				gameFXSystem.gameFX.isEnableDodgeEffect = false;
+				ReverseDir ();
+								
 				StopAnyAnimation();
 				break;
 			case PlayerState.SLOW_MOTION:
@@ -561,6 +599,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					player.isHitAnEnemy = false;
 					player.enemyThatHitsPlayer = null;
 					StopAttackAnimation();
+					input.AttackMode = 0;
 				} else {
 					isFinishAnyAnimation = true;
 				}
@@ -580,9 +619,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// player.isPlayerHit = false;
 				StopAnyAnimation();
 				break;
-			case PlayerState.COUNTER:
+			// case PlayerState.COUNTER:
+			// 	// player.isPlayerHit = false;
+			// 	StopAttackAnimation();
+			// 	break;
+			case PlayerState.PARRY:
 				// player.isPlayerHit = false;
-				StopAttackAnimation();
+				StopAnyAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:
 				if (input.interactValue == 0) {
@@ -721,21 +764,49 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetFaceDir (string animName, float animValue, bool isVertical) {
-		// Vector2 movement = input.moveDir;
-		animator.SetFloat(animName, animValue);
-		
-		if (isVertical) {
-			moveDir.z = Mathf.RoundToInt(animValue);
-		} else {
-			moveDir.x = Mathf.RoundToInt(animValue);
-		}
+	void SetFacingDirection () {
+		if (input.isLockDir) {
+			int dirID = input.direction + 1;
+			
+			switch (dirID) {
+				case 1:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
+					break;
+				case 2:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+					break;
+				case 3:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
+					break;
+				case 4:
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+					break;
+			}
 
-		// if (currentDir != moveDir) {
-			currentDir = moveDir;
-			SetFacingDirID (currentDir.x, currentDir.z);
-		// }
+			SetFacingDirID(dirID);
+			input.isLockDir = false;
+		}
 	}
+
+	// void SetFaceDir (string animName, float animValue, bool isVertical) {
+	// 	// Vector2 movement = input.moveDir;
+	// 	animator.SetFloat(animName, animValue);
+		
+	// 	if (isVertical) {
+	// 		moveDir.z = Mathf.RoundToInt(animValue);
+	// 	} else {
+	// 		moveDir.x = Mathf.RoundToInt(animValue);
+	// 	}
+
+	// 	// if (currentDir != moveDir) {
+	// 		currentDir = moveDir;
+	// 		SetFacingDirID (currentDir.x, currentDir.z);
+	// 	// }
+	// }
 
 	void SetFacingDirID (float x, float z) {
 		currentDirID = CheckDirID(x, z);
@@ -744,13 +815,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// uvAnimationSystem.SetMaterial(currentDirID-1);
 	}
 
-	// bool CheckCurrentPlayedAnimation (string animName) {
-	// 	if (animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
-	// 		return false;
-	// 	} else {
-	// 		return true;
-	// 	}
-	// }
+	void SetFacingDirID (int dirID) {
+		currentDirID = dirID;
+		facing.DirID = currentDirID;
+	}
+
+	void ReverseDir () {
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+		// SetFacingDirID (-currentDir.x, -currentDir.z);
+		input.moveDir = -currentDir;
+	}
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;
@@ -794,6 +869,26 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 	}
 		// }
 #endregion
+
+		return dirIdx;
+	}
+
+	int CheckNewDirID (float dirX, float dirZ) {
+		int dirIdx = 0;
+
+		#region 4 Direction
+		if (dirX == 0) {
+			if (dirZ > 0) {
+				dirIdx = 3;
+			} else {
+				dirIdx = 1;
+			}
+		} else if (dirX < 0) {
+			dirIdx = 2;
+		} else if (dirX > 0) {
+			dirIdx = 4;
+		}
+		#endregion
 
 		return dirIdx;
 	}

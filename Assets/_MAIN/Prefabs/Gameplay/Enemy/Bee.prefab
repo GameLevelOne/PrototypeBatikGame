@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 4382811960260794}
   - component: {fileID: 114887913359553144}
   - component: {fileID: 135258440709609476}
+  - component: {fileID: 54873045097161670}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -191,6 +192,7 @@ GameObject:
   - component: {fileID: 4296187032284236}
   - component: {fileID: 114094072571811210}
   - component: {fileID: 135074921262848462}
+  - component: {fileID: 54619216378511354}
   m_Layer: 0
   m_Name: PlayerTriggerDetection
   m_TagString: Untagged
@@ -508,6 +510,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!54 &54619216378511354
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706748306656640}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54873045097161670
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466666537592108}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!95 &95360632365132876
 Animator:
   serializedVersion: 3
@@ -657,7 +689,7 @@ MonoBehaviour:
   role: {fileID: 114272828399055306}
   player: {fileID: 0}
   enemy: {fileID: 114259807309887138}
-  healthPower: 5
+  healthPower: 20
   isTestHealth: 0
 --- !u!114 &114887913359553144
 MonoBehaviour:
@@ -789,15 +821,15 @@ SpriteRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424338574027968}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d19e262a2f1851c45a2591a608c5c669, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -819,7 +851,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 79cf51631c598274898569f577fcc5f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.6, y: 2}

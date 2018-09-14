@@ -79,7 +79,7 @@ public class PlayerClothSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		playerCloth.clothRenderer.material.SetFloat("_Level", healthThreshold);
-		Debug.Log(healthThreshold);
+		// Debug.Log(healthThreshold);
 	}
 
 	void CheckDirection () {
