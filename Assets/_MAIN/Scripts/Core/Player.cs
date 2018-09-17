@@ -157,6 +157,7 @@ public class Player : MonoBehaviour {
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState playerState) {
 		// if (playerState == PlayerState.MOVE) Debug.Log("Move");
+		if (playerState == PlayerState.RAPID_SLASH) Debug.Log("RAPID_SLASH");
 		state = playerState;
 	}
 

@@ -8,4 +8,6 @@ public class Movement : MonoBehaviour {
 	public float bounceSpeed;
 	public float dashDelay;
 	public float brakeTime;
+
+	public bool isInitMovement = false;
 }

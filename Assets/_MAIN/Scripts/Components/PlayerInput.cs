@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour {
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 
 	public bool isLockDir = false;
+	public bool isInitPlayerInput = false;
 
 	/// <summary>
     /// <para>Values: <br /></para>
