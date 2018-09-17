@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 4462343440808822}
   - component: {fileID: 114638670601859158}
   - component: {fileID: 114214187125933026}
+  - component: {fileID: 114284618509968672}
   m_Layer: 0
   m_Name: Bush02
   m_TagString: Untagged
@@ -135,6 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4662872788669724}
   - component: {fileID: 136968031817350680}
+  - component: {fileID: 114004812900555500}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -290,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294306784303512}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 6.5, y: 0, z: 5}
+  m_LocalPosition: {x: 5.84, y: 0, z: 5.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4662872788669724}
@@ -713,6 +715,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740975569959282}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114004812900555500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542781656028088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492bd71b0adf739408e65741aa884bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bush: {fileID: 114284618509968672}
 --- !u!114 &114214187125933026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -724,6 +738,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114284618509968672
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294306784303512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02105d8925fb85b4cb59bddbf8f4ae8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  init: 0
+  animateEnd: 0
+  destroy: 0
 --- !u!114 &114638670601859158
 MonoBehaviour:
   m_ObjectHideFlags: 1
