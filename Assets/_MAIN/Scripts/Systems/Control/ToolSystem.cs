@@ -413,28 +413,28 @@ public class ToolSystem : ComponentSystem {
 	public void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1:
-				SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 2:
-                SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 3:
-                SpawnObj (toolType, false, true);
+                SpawnSpecialToolObj (toolType);
                 break;
             case 4:
-                SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 5:
-                SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 11:
-                SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 12:
-                SpawnObj (toolType, false, false);
+				SpawnNormalToolObj (toolType);
                 break;
             case 14:
-                SpawnObj (toolType, true, true);
+                SpawnBigSummonObj (toolType);
                 break;
             case 16:
                 // SpawnObj (powerBraceletAreaEffectObj, false, false);
@@ -448,29 +448,45 @@ public class ToolSystem : ComponentSystem {
         }
     }
 
-    void SpawnObj (int toolType, bool isSpawnAtPlayerPos, bool isAlwaysUp) {
-        GameObject spawnedObj = GameObjectEntity.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacing());
-        // spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
-		
-		if (isSpawnAtPlayerPos) {
-			spawnedObj.transform.position = tool.transform.root.position;
-		}
+    void SpawnNormalToolObj (int toolType) {
+		Vector3 targetPos = tool.areaSpawnPos.position;
+        Vector3 initPos = tool.transform.position;
 
-		if (isAlwaysUp) {
-			spawnedObj.transform.eulerAngles = Vector3.zero;
-			spawnedObj.transform.eulerAngles = new Vector3 (40f, 0f, 0f);
-		}
+		Vector3 deltaPos = targetPos - initPos;
+		
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacingParent(deltaPos));
+       	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
+
+	   	spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
         spawnedObj.SetActive(true);
     }
 
-    Quaternion SetFacing () {
-        Vector3 targetPos = tool.areaSpawnPos.position;
-        Vector3 initPos = tool.transform.position; //TEMPORARY
+	void SpawnSpecialToolObj (int toolType) {
+		Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, spawnRot);
+       	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
 
-        targetPos.x -= initPos.x;
-        targetPos.z -= initPos.z;
-        float angle = Mathf.Atan2 (targetPos.z, targetPos.x) * Mathf.Rad2Deg;
+        spawnedObj.SetActive(true);
+	}
+
+	void SpawnBigSummonObj (int toolType) {	
+		Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.transform.root.position, spawnRot);
+       	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
+
+        spawnedObj.SetActive(true);
+    }
+	
+	Quaternion SetFacingParent (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.x, resultPos.z) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, angle - 90f, 0f));
+
+        return targetRot;
+	}
+
+    Quaternion SetFacingChild (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.z, resultPos.x) * Mathf.Rad2Deg;
         Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
 
         return targetRot;

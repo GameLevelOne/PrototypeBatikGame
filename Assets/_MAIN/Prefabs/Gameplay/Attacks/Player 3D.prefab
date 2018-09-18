@@ -67,7 +67,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -286,7 +286,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -301,7 +301,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -451,7 +451,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1523,21 +1523,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTool: 0
   areaSpawnPos: {fileID: 4653104232577144}
-  arrowObj: {fileID: 1913286693341378, guid: 46cd7fa7ab0e9b745983ebda3077e3a1, type: 2}
+  arrowObj: {fileID: 1584689571167244, guid: 0ce0e50d445436c489af2c06c3a46731, type: 2}
   hookObj: {fileID: 1022893050716764, guid: e24f32995bea3e147ab2e3c0ac7af79f, type: 2}
   bombObj: {fileID: 1760986108266002, guid: 353850b5c9c48a342a0f2aa7af97b200, type: 2}
-  hammerAreaEffectObj: {fileID: 1329964797512392, guid: 1c0d31ad41e5b8944a030b45fdad7564,
+  hammerAreaEffectObj: {fileID: 1093751733505800, guid: 09f78220303e6504b8e57c3daca711a1,
     type: 2}
-  netObj: {fileID: 1405893428385432, guid: f515b6546eb98d54a86e32f723f987de, type: 2}
-  fishingBaitObj: {fileID: 1126661092014762}
-  shovelAreaEffectObj: {fileID: 1203940644750638, guid: 8177dafa201b9af4cb7351a1c7852e41,
+  netObj: {fileID: 1597055910982500, guid: aea109de21b35da4e9d2ce0db1bce68e, type: 2}
+  fishingBaitObj: {fileID: 1723146514634310}
+  shovelAreaEffectObj: {fileID: 1441254501746250, guid: 7729a030eb6c95e429ee4b61a1b49a3c,
     type: 2}
   lanternObj: {fileID: 1406129362068856}
   invisibleCloak: {fileID: 1412192523179792}
   magicMedallionAreaEffectObj: {fileID: 1371063909327316, guid: f72ee33a62121044d944bad8987f3c4c,
     type: 2}
-  powerBraceletAreaEffectObj: {fileID: 1510106147354160}
-  flippersObj: {fileID: 0}
+  powerBraceletAreaEffectObj: {fileID: 1723146514634310}
+  flippersObj: {fileID: 1176206009387180}
   bootsObj: {fileID: 1223443603101166}
   isInitCurrentTool: 0
   currentActiveContainer: 0
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalSpeed: 170
   slowSpeed: 50
-  dodgeSpeed: 300
+  dodgeSpeed: 200
   attackMoveForce: 450
   bounceSpeed: 300
   dashDelay: 1
@@ -1872,9 +1872,9 @@ MonoBehaviour:
   slash: {fileID: 1715984698995526, guid: 1bde63dd1bb7a4c4895b1689f15b4e23, type: 2}
   chargeSlash: {fileID: 1847233393451708, guid: c0e700c659fb183418def06e664f1af7,
     type: 2}
-  counterSlash: {fileID: 1650780204235450, guid: 014a0987240bb0a40ae8dccc8df412ca,
+  counterSlash: {fileID: 1981715543440124, guid: 4a38ea7deea53304fa6e349f265c0394,
     type: 2}
-  regularArrow: {fileID: 1162479136290338, guid: 71f7daf6d77d4844bb69ccc4eef0298a,
+  regularArrow: {fileID: 1837426780788620, guid: d186118fff67efa428926d2034e12187,
     type: 2}
   dashAttackArea: {fileID: 1212496218498256}
   normalAttackSpawnPos: {fileID: 4653104232577144}
@@ -12222,7 +12222,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 30
+    maxNumParticles: 20
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -12431,7 +12431,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 24
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -12926,7 +12926,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   UVModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     frameOverTime:
       serializedVersion: 2

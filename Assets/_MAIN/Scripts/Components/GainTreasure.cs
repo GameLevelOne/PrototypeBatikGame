@@ -11,7 +11,6 @@ public class GainTreasure : MonoBehaviour {
 	
 	void OnTriggerEnter (Collider col) {
 		PlayerState state = player.state;
-		Debug.Log(col.name);
 
 		if (col.tag == Constants.Tag.LOOTABLE && !isLooting && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			lootable = col.GetComponent<Lootable>();

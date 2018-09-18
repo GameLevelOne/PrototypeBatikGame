@@ -88,11 +88,16 @@ public class PlayerAttackSystem : ComponentSystem {
     }
 
     void SpawnNormalAttackObj (GameObject obj) {
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, quaternion.identity);
+		Vector3 targetPos = attack.normalAttackSpawnPos.position;
+        Vector3 initPos = attack.transform.position;
+
+		Vector3 deltaPos = targetPos - initPos;
+		
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
 		// Debug.Log(spawnedObj.transform.GetChild(0).name);
-		spawnedObj.transform.GetChild(0).rotation = SetFacing();
+		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
         spawnedObj.SetActive(true);
     }
@@ -102,14 +107,16 @@ public class PlayerAttackSystem : ComponentSystem {
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
         spawnedObj.SetActive(true);
     }
+	
+	Quaternion SetFacingParent (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.x, resultPos.z) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, angle - 90f, 0f));
 
-    Quaternion SetFacing () {
-        Vector3 targetPos = attack.transform.position;
-        Vector3 initPos = attack.normalAttackSpawnPos.position; //TEMPORARY
+        return targetRot;
+	}
 
-        targetPos.x -= initPos.x;
-        targetPos.z -= initPos.z;
-        float angle = Mathf.Atan2 (targetPos.z, targetPos.x) * Mathf.Rad2Deg;
+    Quaternion SetFacingChild (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.z, resultPos.x) * Mathf.Rad2Deg;
         Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
 
         return targetRot;

@@ -880,12 +880,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = currentDirID;
 	}
 
-	// void ReverseDir () {
-	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-	// 	// SetFacingDirID (-currentDir.x, -currentDir.z);
-	// 	input.moveDir = -currentDir;
-	// }
+	void ReverseDir () {
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+		// SetFacingDirID (-currentDir.x, -currentDir.z);
+		input.moveDir = -currentMoveDir;
+	}
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;

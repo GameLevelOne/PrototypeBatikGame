@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Unity.Entities;
 using UnityEngine.SceneManagement;
 
@@ -234,7 +235,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			// moveDir = input.moveDir;
 
 			if (state == PlayerState.DODGE) {
-				Transform target = facing.attackArea.transform;
+				// Transform target = facing.attackArea.transform;
 				
 				//=====SPEED GOING SLOWER=====//
 				// if (!isDodgeMove) { 
@@ -245,9 +246,11 @@ public class PlayerMovementSystem : ComponentSystem {
 				//=====SPEED CONSTANT=====//
 				if (!isDodgeMove) { 
 					isDodgeMove = true;
-					input.moveDir = -moveDir; //REVERSE
-					rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
+					rb.velocity = moveDir.normalized * movement.dodgeSpeed * deltaTime;
 
+					input.moveDir = -moveDir; //REVERSE
+				} else {
+					input.dirButtons =  new List<int>(4){0,0,0,0};
 					input.moveDir = Vector3.zero;
 				}
 			} else {

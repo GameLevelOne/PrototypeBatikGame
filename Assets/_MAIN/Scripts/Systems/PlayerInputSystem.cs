@@ -840,7 +840,7 @@ public class PlayerInputSystem : ComponentSystem {
 				CheckMovementInput ();
 				return true;
 			}
-		} 
+		}
 		// else if (state == PlayerState.BOW && input.interactValue == 0 && input.interactValue == 1) {
 		// 	currentDir = Vector2.zero;
 
@@ -867,6 +867,8 @@ public class PlayerInputSystem : ComponentSystem {
 				input.interactValue = 2;
 			}
 			
+			return true;
+		} else if (state == PlayerState.DODGE) {
 			return true;
 		} else {
 			return false;
