@@ -38,7 +38,8 @@ public class GainTreasureSystem : ComponentSystem {
 						break;
 					default: //TEMP
 						SetLiftObjectParent (gainTreasure.lootableTransform);
-						input.interactValue = 0;
+						// input.interactValue = 0;
+						input.interactValue = 1; //NO LIFTING TREASURE
 						input.interactMode = 6;
 						player.SetPlayerState(PlayerState.GET_TREASURE);
 						break;

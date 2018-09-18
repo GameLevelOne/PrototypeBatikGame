@@ -376,23 +376,27 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.GET_TREASURE:
-					if (input.interactMode == 6) { //GET SMALL TREASURE
+					if (input.interactMode == 6) { //GET TREASURE
 						if (input.interactValue == 0) { 
-							PlayOneShotAnimation(Constants.BlendTreeName.LIFTING_TREASURE);
+							// PlayOneShotAnimation(Constants.BlendTreeName.LIFTING_TREASURE);
 						} else if (input.interactValue == 1) {
 							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
 						} else if (input.interactValue == 2) {
-							PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
+							// PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
+							StopAnyAnimation();
+
+							gainTreasureSystem.UseAndDestroyTreasure();
 						}
-					} else if (input.interactMode == 7) { //GET BIG TREASURE
-						if (input.interactValue == 0) {
-							Debug.Log("LIFT UP TREASURE ANIMATION");
-						} else if (input.interactValue == 1) {
-							Debug.Log("LIFTING TREASURE ANIMATION");
-						} else if (input.interactValue == 2) {
-							Debug.Log("LIFT DOWN TREASURE ANIMATION");
-						}
-					}
+					} 
+					// else if (input.interactMode == 7) { //GET BIG TREASURE
+					// 	if (input.interactValue == 0) {
+					// 		Debug.Log("LIFT UP TREASURE ANIMATION");
+					// 	} else if (input.interactValue == 1) {
+					// 		Debug.Log("LIFTING TREASURE ANIMATION");
+					// 	} else if (input.interactValue == 2) {
+					// 		Debug.Log("LIFT DOWN TREASURE ANIMATION");
+					// 	}
+					// }
 
 					break;
 				case PlayerState.OPEN_CHEST:
@@ -782,15 +786,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_TREASURE: 
 				if (input.interactValue == 0) { 
-					input.interactValue = 1;
+					// input.interactValue = 1;
 					
-					isFinishAnyAnimation = true;
+					// isFinishAnyAnimation = true;
 				} else if (input.interactValue == 1) { 
 					//
 				} else if (input.interactValue == 2) { 
-					StopAnyAnimation();
+					// StopAnyAnimation();
 
-					gainTreasureSystem.UseAndDestroyTreasure();
+					// gainTreasureSystem.UseAndDestroyTreasure();
 				}
 
 				break;
