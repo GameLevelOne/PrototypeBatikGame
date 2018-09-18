@@ -40,6 +40,8 @@ public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
 
+	public bool isInitAnimation = false;
+
 	[HeaderAttribute("For Player & Enemy")]
 	public bool isCheckAfterAnimation = false;
 	public bool isCheckBeforeAnimation = false;

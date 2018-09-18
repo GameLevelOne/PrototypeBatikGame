@@ -32,30 +32,33 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Transform playerTransform;
 
 	PlayerState state;
+
+	public bool isFinishAttackAnimation = true;
+	public bool isFinishAnyAnimation = true;
 	
 	Vector3 moveDir;
-	Vector3 currentMove;
-	Vector3 currentDir;
+	Vector3 currentMoveDir;
+	// Vector3 currentDir;
 	
-	int attackCombo = 0;
-	int currentDirID = 1;
+	// int attackCombo = 0;
+	int currentDirID;
 	// int currentAnimMatIndex = 0;
 
-	bool isFinishAnyAnim = true;
+	// bool isFinishAnyAnim = true;
 	bool isEnableChargeEffect = false;
 
-	public bool isFinishAnyAnimation {
-		get {return isFinishAnyAnim;}
-		set {
-			if (!value && state == PlayerState.IDLE) {
-				isFinishAnyAnim = true;
-			} else {
-				isFinishAnyAnim = value;
-			}
+	// public bool isFinishAnyAnimation {
+	// 	get {return isFinishAnyAnim;}
+	// 	set {
+	// 		if (!value && state == PlayerState.IDLE) {
+	// 			isFinishAnyAnim = true;
+	// 		} else {
+	// 			isFinishAnyAnim = value;
+	// 		}
 			
-			// Debug.Log(isFinishAnyAnim + " on state " + state);
-		}
-	}
+	// 		// Debug.Log(isFinishAnyAnim + " on state " + state);
+	// 	}
+	// }
 
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
@@ -74,6 +77,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 			facing = animationData.Facing[i];
 			playerTransform = animationData.Transform[i];
 			
+			if (!anim.isInitAnimation) {
+				InitAnimation();
+
+				continue;
+			}
+
 			state = player.state;
 			animator = anim.animator; 
 			moveDir = input.moveDir;
@@ -121,6 +130,20 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// StartCheckAnimation();
 #endregion OLD
 		}
+	}
+
+	void InitAnimation () {
+		isFinishAttackAnimation = true;
+		isFinishAnyAnimation = true;
+	
+		moveDir = Vector3.zero;
+		currentMoveDir = Vector3.zero;
+
+		isEnableChargeEffect = false;
+		currentDirID = facing.initFacingDirID;
+		SetFacingDirID (currentDirID);
+
+		anim.isInitAnimation = true;
 	}
 
 	void PlayLoopAnimation (string animName) {
@@ -178,6 +201,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 							PlayLoopAnimation(Constants.BlendTreeName.MOVE_GUARD);
 							break;
 					}
+
+					// Debug.Log("Player Move "+input.moveMode.ToString());
 					break;
 				case PlayerState.SWIM: 
 					isFinishAnyAnimation = true;
@@ -209,7 +234,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.SLOW_MOTION: 
 					if (input.attackMode == -3) {
 						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
-						ReverseDir();
+						// ReverseDir();
 
 						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME);
 					}
@@ -236,6 +261,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
 					} 
 					
+					isFinishAnyAnimation = true;
+					
 					// if (input.slashComboVal.Count > 0) {
 					// 	attackCombo = input.slashComboVal[0];
 					// 	// Debug.Log("ATTACK COMBO = "+attackCombo);
@@ -252,7 +279,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// 	}
 					// } 
 					
-					isFinishAnyAnimation = true;
 					break;
 				case PlayerState.CHARGE:
 					// player.isMoveAttack = true;
@@ -382,10 +408,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void SetAnimationFaceDirection () {			
-		if (currentMove != moveDir) {
-			currentMove = moveDir;
+		if (currentMoveDir != moveDir) {
+			currentMoveDir = moveDir;
 			
-			if (currentMove == Vector3.zero) {
+			if (currentMoveDir == Vector3.zero) {
 
 				if (input.liftingMode == -2) {
 					input.liftingMode = -1;
@@ -394,9 +420,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 			} else {
 				if (state == PlayerState.DODGE) {
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, currentMove.x);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, currentMove.z);
-					SetFacingDirID (currentMove.x, currentMove.z);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, currentMoveDir.x);
+					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, currentMoveDir.z);
+					SetFacingDirID (currentMoveDir.x, currentMoveDir.z);
 				} else {
 					SetFacingDirection ();
 				}
@@ -428,7 +454,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			switch(state) {
 				case PlayerState.ATTACK: 
 					player.isMoveAttack = false;
-					attack.isAttacking = true;				
+					attack.isAttacking = true;	
+					isFinishAttackAnimation	= true;	
 					break;
 				case PlayerState.CHARGE: 
 					player.isMoveAttack = false;
@@ -541,7 +568,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void StopAttackAnimation () {
 		// attack.isAttacking = false;
 		StopAnyAnimation();
-		input.attackMode = 0;
+		// input.attackMode = 0;
 		// Debug.Log("Reset AttackMode - StopAttacAnimation");
 		player.isHitAnEnemy = false;
 	}
@@ -549,6 +576,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void StopAnyAnimation () {
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
+		isFinishAttackAnimation	= true;	
 		input.attackMode = 0;
 		// Debug.Log("Reset AttackMode - StopAnyAnimation");
 	}
@@ -583,6 +611,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// 	}
 				// }
 				//player.isHitAnEnemy = false;
+				// isFinishAttackAnimation	= true;	
 				StopAttackAnimation();
 				break;
 			case PlayerState.CHARGE: 
@@ -590,7 +619,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.DODGE:
 				gameFXSystem.gameFX.isEnableDodgeEffect = false;
-				ReverseDir ();
+				// ReverseDir ();
 								
 				StopAnyAnimation();
 				break;
@@ -846,12 +875,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = currentDirID;
 	}
 
-	void ReverseDir () {
-		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-		// SetFacingDirID (-currentDir.x, -currentDir.z);
-		input.moveDir = -currentDir;
-	}
+	// void ReverseDir () {
+	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+	// 	// SetFacingDirID (-currentDir.x, -currentDir.z);
+	// 	input.moveDir = -currentDir;
+	// }
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;

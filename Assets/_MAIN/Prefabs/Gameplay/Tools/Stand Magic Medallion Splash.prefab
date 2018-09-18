@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114527311672351130}
   - component: {fileID: 114828749871346054}
   - component: {fileID: 114082712183648076}
+  - component: {fileID: 114879910542990502}
   - component: {fileID: 54937262749886274}
   - component: {fileID: 135830260199055966}
   m_Layer: 0
@@ -88,9 +89,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &95772939022158678
 Animator:
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf2b7865e7922498e4831fa2f36cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 114879910542990502}
 --- !u!114 &114828749871346054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,6 +159,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 1000
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
+--- !u!114 &114879910542990502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1371063909327316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  isDestroyOnTriggering: 1
+  speed: 0
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 0
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!135 &135830260199055966
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -164,7 +190,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1371063909327316}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2

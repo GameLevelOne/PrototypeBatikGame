@@ -173,6 +173,7 @@ public class DamageSystem : ComponentSystem {
 			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
+			Debug.Log(damage);
 
 			if(damageTag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
@@ -182,7 +183,10 @@ public class DamageSystem : ComponentSystem {
 					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}
-			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
+			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK ||
+			damageTag == Constants.Tag.EXPLOSION ||
+			damageTag == Constants.Tag.MAGIC_MEDALLION ||
+			damageTag == Constants.Tag.BOW) {
 				// health.EnemyHP -= damage;
 				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);

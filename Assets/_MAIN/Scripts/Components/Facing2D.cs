@@ -6,31 +6,27 @@ public class Facing2D : MonoBehaviour {
 	public GameObject attackArea;
 	public GameObject blindArea;
 	public GameObject attackDirParent;
+	
+	[HeaderAttribute("1 Down, 2 Left, 3 Up, 4 Right")]
+	public int initFacingDirID = 1;
 
-	[SerializeField] int curDirID = 1;
+	[HeaderAttribute("Current")]
+	[SerializeField] int curDirID;
 
 	void Awake () {
 		if (isNotPlayerNorEnemy) return;
 
 		attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
 
-		#region 4 Direction
-		SetAreaPos (attackArea, 1);
-		SetAreaPos (blindArea, 3);
+// 		#region 4 Direction
+// 		SetAreaPos (attackArea, 1);
+// 		SetAreaPos (blindArea, 3);
+// 		#endregion
 
-		// if (attackArea != null) {
-		// 	attackArea.transform.position = attackDirections[1].position;
-		// }
-		
-		// if (blindArea != null) {
-		// 	blindArea.transform.position = attackDirections[3].position;
-		// }
-		#endregion
-
-#region 8 Direction
-		// attackArea.transform.position = attackDirections[1].position;
-		// blindArea.transform.position = attackDirections[5].position;
-#endregion
+// #region 8 Direction
+// 		// attackArea.transform.position = attackDirections[1].position;
+// 		// blindArea.transform.position = attackDirections[5].position;
+// #endregion
 	}
 
 	#region 4 Direction
