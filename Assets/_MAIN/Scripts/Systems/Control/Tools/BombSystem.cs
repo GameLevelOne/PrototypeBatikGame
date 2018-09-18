@@ -17,9 +17,8 @@ public class BombSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		if (bombData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (bombData.Length == 0) return;
 		// deltaTime = Time.fixedDeltaTime;
 
 		for (int i=0; i<bombData.Length; i++) { 

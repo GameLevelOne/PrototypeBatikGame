@@ -45,8 +45,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
-		
-		if (movementData.Length == 0) return;
+		// if (movementData.Length == 0) return;
 		
 		for (int i=0; i<movementData.Length; i++) {
 			input = movementData.PlayerInput[i];
@@ -79,12 +78,11 @@ public class PlayerMovementSystem : ComponentSystem {
 				continue;
 			}
 
-			#region TESTING 
-			if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
-				// PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
-				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			}	
-			#endregion
+#region TESTING 
+			// if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
+			// 	SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			// }	
+#endregion
 			
 			attackMode = input.attackMode;
 			// int moveMode = input.MoveMode;
@@ -247,16 +245,17 @@ public class PlayerMovementSystem : ComponentSystem {
 				//=====SPEED CONSTANT=====//
 				if (!isDodgeMove) { 
 					isDodgeMove = true;
+					input.moveDir = -moveDir; //REVERSE
 					rb.velocity = (target.position - tr.position).normalized * movement.dodgeSpeed * deltaTime;
 
-					// input.moveDir = -moveDir; //REVERSE
+					input.moveDir = Vector3.zero;
 				}
 			} else {
 				isDodgeMove = false;
 				//SET VELOCITY
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir.normalized * moveSpeed * deltaTime;
-				Debug.Log("Velocity: "+rb.velocity+"= normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
+				// Debug.Log("Velocity: "+rb.velocity+"= normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
 				if (moveDir == Vector3.zero) {
 					// player.SetPlayerIdle();

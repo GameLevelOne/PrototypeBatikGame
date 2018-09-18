@@ -23,9 +23,8 @@ public class ArmorEnemySystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		if (armorEnemyComponent.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (armorEnemyComponent.Length == 0) return;
 
 		for(int i =0;i<armorEnemyComponent.Length;i++){
 			currArmorEnemyTransform = armorEnemyComponent.armorEnemyTransform[i];

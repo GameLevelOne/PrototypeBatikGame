@@ -49,9 +49,8 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isInitChargeAttack = false;
 
 	protected override void OnUpdate () {
-		if (inputData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (inputData.Length == 0) return;
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];

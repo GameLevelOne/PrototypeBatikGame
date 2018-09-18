@@ -33,9 +33,8 @@ public class HookSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		if (hookComponent.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (hookComponent.Length == 0) return;
 
 		for(int i = 0;i<hookComponent.Length;i++){
 			player = playerInputSystem.player;

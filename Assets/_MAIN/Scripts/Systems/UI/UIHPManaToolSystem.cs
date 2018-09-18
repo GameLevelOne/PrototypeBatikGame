@@ -27,9 +27,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 	float deltaTime;
 
 	protected override void OnUpdate () {
-		if (uiHPManaToolData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (uiHPManaToolData.Length == 0) return;
 
 		for (int i=0; i<uiHPManaToolData.Length; i++) {
 			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];

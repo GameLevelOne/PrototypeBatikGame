@@ -21,9 +21,9 @@ public class ManaSystem : ComponentSystem {
 	bool isCheckingMana = false;
 
 	protected override void OnUpdate () {
-		if (manaData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		
+		if (manaData.Length == 0) return;
 
 		for (int i=0; i<manaData.Length; i++) {
 			mana = manaData.Mana[i];
