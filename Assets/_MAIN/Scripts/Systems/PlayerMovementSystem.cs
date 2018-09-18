@@ -51,18 +51,35 @@ public class PlayerMovementSystem : ComponentSystem {
 		for (int i=0; i<movementData.Length; i++) {
 			input = movementData.PlayerInput[i];
 			player = movementData.Player[i];
-			state = player.state;
 			tr = movementData.Transform[i];
 			// spriteRen = movementData.Sprite[i].spriteRen;
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
 			teleportBulletTime = movementData.TeleportBulletTime[i];
+
+			if (!movement.isInitMovement) {
+				InitMovement();
+
+				continue;
+			}
+
+			state = player.state;
 			tool = toolSystem.tool;
 
-			if (state == PlayerState.DIE) continue;
+			if (state == PlayerState.DIE) {
+				rb.velocity = Vector3.zero;
+				input.moveDir = Vector3.zero;
+
+				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
+					PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
+					SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
+				}	
+
+				continue;
+			}
 			
-			attackMode = input.AttackMode;
+			attackMode = input.attackMode;
 			// int moveMode = input.MoveMode;
 			
 			// switch (moveMode) {
@@ -190,16 +207,16 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 #endregion OLD
 		}
-		
-		if(player.state == PlayerState.DIE){
-			rb.velocity = Vector3.zero;
-			input.moveDir = Vector3.zero;
-		}
+	}
 
-		if(player.state == PlayerState.DIE && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0"))){
-			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
-			SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
-		}
+	void InitMovement () {
+		brakeTime = 0f;
+		dashTime = 0f;
+		dashDelay = 0f;
+		isDodgeMove = false;
+		moveDir = Vector3.zero;
+
+		movement.isInitMovement = true;
 	}
 
 	void SetPlayerStandardMove () {
@@ -262,16 +279,16 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		if (state == PlayerState.DASH) {
 			if (input.interactValue == 0) {
-				player.isUsingStand = false;
-				if (dashDelay > 0f) {
-					dashDelay -= deltaTime;
+				// player.isUsingStand = false;
+				// if (dashDelay > 0f) {
+				// 	dashDelay -= deltaTime;
 					rb.velocity = Vector3.zero;
-				} else {
-					if (isHaveEnoughMana((int) ToolType.Boots, true, true)) {
-						input.interactValue = 1;
-						// UseMana((int) ToolType.Boots);
-					}
-				}
+				// } else {
+				// 	if (isHaveEnoughMana((int) ToolType.Boots, true, true)) {
+				// 		input.interactValue = 1;
+				// 		// UseMana((int) ToolType.Boots);
+				// 	}
+				// }
 			} else if (input.interactValue == 1) {
 				if (player.isBouncing) {
 					input.interactValue = 2;
@@ -317,12 +334,12 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	bool CheckIfAllowedToMove () {
 		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
-			if (attackMode == -3) {
+			if (attackMode == 0) {
 				Vector3 teleportPos = teleportBulletTime.Teleport();
 				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 				Time.timeScale = 0.1f;
-				input.AttackMode = 0;
-				Debug.Log("Reset AttackMode - CheckIfAllowedToMove");
+				input.attackMode = -3; //Set counterslash first
+				// Debug.Log("Reset AttackMode - CheckIfAllowedToMove");
 				rb.velocity = Vector3.zero;
 				// spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
 			}

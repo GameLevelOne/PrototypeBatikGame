@@ -76,7 +76,8 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
 	void CheckIfPlayerAttack () {
-		int attackMode = input.AttackMode;
+		int attackMode = input.attackMode;
+		
 		if (attack.isAttacking && attackMode != 0) {
 			Debug.Log("PlayerState = "+state);
 			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {

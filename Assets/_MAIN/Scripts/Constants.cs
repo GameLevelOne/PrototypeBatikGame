@@ -121,6 +121,7 @@ public static class Constants {
 		public const string IDLE_STAND = "IdleStand";
 		public const string MOVE_RUN = "MoveRun";
 		public const string MOVE_DODGE = "MoveDodge";
+		public const string IDLE_DASH = "IdleDash";
 		public const string MOVE_DASH = "MoveDash";
 		public const string IDLE_DIE = "IdleDie";
 		public const string IDLE_BRAKE = "IdleBrake";
