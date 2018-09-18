@@ -63,7 +63,6 @@ public class PlayerInputSystem : ComponentSystem {
 
 				continue;
 			}
-			Debug.Log("Time.timeScale "+Time.timeScale);
 
 			state = player.state;
 			tool = toolSystem.tool;
@@ -90,7 +89,7 @@ public class PlayerInputSystem : ComponentSystem {
 			// 		slowDownTimer += deltaTime;
 
 			// 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-			// 			input.AttackMode = 1;
+			// 			input.attackMode = 1;
 			// 			input.bulletTimeAttackQty++;
 			// 		}
 			// 	} else {
@@ -148,14 +147,14 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			// if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 			// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-			// 		input.AttackMode = -1; //CHARGE
+			// 		input.attackMode = -1; //CHARGE
 			// 		player.SetPlayerState(PlayerState.CHARGE);
 			// 	} else {
-			// 		if (input.AttackMode <= 2) {
+			// 		if (input.attackMode <= 2) {
 			// 			if (!player.isHitAnEnemy){
-			// 				input.AttackMode = 1; //SLASH							
+			// 				input.attackMode = 1; //SLASH							
 			// 			} else {
-			// 				input.AttackMode += 1; //SLASH
+			// 				input.attackMode += 1; //SLASH
 			// 			}
 			// 		}
 			// 		if (state != PlayerState.ATTACK) {
@@ -236,7 +235,7 @@ public class PlayerInputSystem : ComponentSystem {
 			// 		player.isBulletTiming = false;
 			// 		ChangeDir(0f, 0f);
 			// 		input.moveMode = 3; //STEADY FOR RAPID SLASH
-			// 		input.AttackMode = -3;
+			// 		input.attackMode = -3;
 			// 		Debug.Log("Start BulletTime");
 			// 		player.SetPlayerState(PlayerState.SLOW_MOTION);
 			// 	}
@@ -245,7 +244,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			// if (player.isParrying) {
 			// 	if (player.isPlayerHit) {
-			// 		input.AttackMode = -2;
+			// 		input.attackMode = -2;
 			// 		player.isParrying = false;
 			// 		player.isPlayerHit = false;
 			// 		Debug.Log("Start Counter");
@@ -423,10 +422,10 @@ public class PlayerInputSystem : ComponentSystem {
 				if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
 					input.interactMode = 5;
 				} else {
-					input.AttackMode = -4;
+					input.attackMode = -4;
 				}
 			} else {
-				input.AttackMode = -4;
+				input.attackMode = -4;
 			}
 
 			player.SetPlayerState(PlayerState.BOW);
@@ -488,22 +487,24 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if(player.state == PlayerState.IDLE || player.state == PlayerState.MOVE){
-				if (input.AttackMode <= 2) {
-					if (!player.isHitAnEnemy){
-						input.AttackMode = 1; //SLASH	
-						player.SetPlayerState(PlayerState.ATTACK);
-						Debug.Log("First Hit, AM = "+ input.AttackMode);
-					} else {
-						Debug.Log("Next Hit Before increment, AM = "+input.AttackMode);
-						input.AttackMode += 1; //SLASH COMBO
-						// player.isHitAnEnemy = false;
-						player.SetPlayerState(PlayerState.ATTACK);
-						// player.isHitAnEnemy = false;
-						Debug.Log("Next Hit After Increment, AM = "+input.AttackMode);
-					}
-				}else{
-					//player.isHitAnEnemy = false;
-				}
+				// if (input.attackMode <= 2) {
+				// 	if (!player.isHitAnEnemy){
+				// 		input.attackMode = 1; //SLASH	
+				// 		player.SetPlayerState(PlayerState.ATTACK);
+				// 		Debug.Log("First Hit, AM = "+ input.attackMode);
+				// 	} else {
+				// 		Debug.Log("Next Hit Before increment, AM = "+input.attackMode);
+				// 		input.attackMode += 1; //SLASH COMBO
+				// 		// player.isHitAnEnemy = false;
+				// 		player.SetPlayerState(PlayerState.ATTACK);
+				// 		// player.isHitAnEnemy = false;
+				// 		Debug.Log("Next Hit After Increment, AM = "+input.attackMode);
+				// 	}
+				// }else{
+				// 	//player.isHitAnEnemy = false;
+				// }
+				input.attackMode = 1; //SLASH	
+				player.SetPlayerState(PlayerState.ATTACK);
 				
 				attackAwayTimer = 0f;
 				isAttackAway = false;	
@@ -521,7 +522,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 			if (input.moveMode == 1) {
-				input.AttackMode = -1; //CHARGE
+				input.attackMode = -1; //CHARGE
 				player.SetPlayerState(PlayerState.CHARGE);
 			}
 			
@@ -533,12 +534,13 @@ public class PlayerInputSystem : ComponentSystem {
 		if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
 			attackAwayTimer += deltaTime;
 		} else {
-			input.slashComboVal.Clear();
+			// input.slashComboVal.Clear();
 			// Debug.Log("CHECK ATTACK INPUT AttackList CLEAR");
 			// attackAwayTimer = 0f;
 			isAttackAway = true;
 		}
 
+#region OLD
 		// if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 		// 	chargeAttackTimer += deltaTime;
 			
@@ -547,14 +549,14 @@ public class PlayerInputSystem : ComponentSystem {
 		// 	}
 		// } else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
 		// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-		// 		input.AttackMode = -1; //CHARGE
+		// 		input.attackMode = -1; //CHARGE
 		// 		player.SetPlayerState(PlayerState.CHARGE);
 		// 	} else {
-		// 		if (input.AttackMode <= 2) {
+		// 		if (input.attackMode <= 2) {
 		// 			if (!player.isHitAnEnemy){
-		// 				input.AttackMode = 1; //SLASH							
+		// 				input.attackMode = 1; //SLASH							
 		// 			} else {
-		// 				input.AttackMode += 1; //SLASH
+		// 				input.attackMode += 1; //SLASH
 		// 			}
 		// 		}
 
@@ -573,6 +575,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// 		isAttackAway = true;
 		// 	}
 		// }
+#endregion
 		
 		#endregion
 	}
@@ -610,7 +613,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (isParryPeriod) {
 			if (player.isPlayerHit && player.isCanParry) {
-				// input.AttackMode = -2;
+				// input.attackMode = -2;
 				isParryPeriod = false;
 				player.isCanParry = false;
 				// player.isPlayerHit = false;
@@ -669,8 +672,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// ChangeDir(0f, 0f);
 				// ChangeDir(-currentDir.x, -currentDir.y);
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
-				input.AttackMode = 0;
-				// Debug.Log("Start BulletTime");
+				input.attackMode = 0;
 				player.SetPlayerState(PlayerState.SLOW_MOTION);
 			}
 		}
@@ -702,6 +704,8 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.Boots) {
 						if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
 							input.interactMode = 1;
+							input.interactValue = 0;
+							player.isUsingStand = false;
 							player.SetPlayerState(PlayerState.DASH);
 						}
 					} else if (toolType == ToolType.FishingRod) {
@@ -759,7 +763,7 @@ public class PlayerInputSystem : ComponentSystem {
 		chargeAttackTimer = 0f;
 		isAttackAway = false;
 		
-		input.slashComboVal.Clear();
+		// input.slashComboVal.Clear();
 		// Debug.Log("SET BUTTON UP AttackList CLEAR");
 		attackAwayTimer = 0f;
 		isAttackAway = true;
@@ -772,6 +776,7 @@ public class PlayerInputSystem : ComponentSystem {
 	bool CheckIfUsingAnyTool () {
 		if (state == PlayerState.SLOW_MOTION) {
 			float bulletTimeDuration = input.bulletTimeDuration;
+
 			if (slowDownTimer < bulletTimeDuration) {
 				slowDownTimer += deltaTime;
 
@@ -782,7 +787,7 @@ public class PlayerInputSystem : ComponentSystem {
 				slowDownTimer = 0f;
 				Time.timeScale = 1f;
 				input.moveMode = 0;
-				// input.AttackMode = -3; //Set counterslash first
+				// input.attackMode = -3; //Set counterslash first
 				player.SetPlayerState(PlayerState.RAPID_SLASH);
 				ChangeDir(0f, 0f);
 			}
@@ -863,7 +868,9 @@ public class PlayerInputSystem : ComponentSystem {
 					input.interactValue = 2;
 					player.isUsingStand = false;				
 				} else {
-					player.SetPlayerIdle();
+					if (!player.isBouncing) {
+						player.SetPlayerIdle();
+					}
 				}
 			}
 

@@ -34,10 +34,10 @@ public class UIGameOverSystem : ComponentSystem {
 	void CheckPlayer()
 	{
 		if(currPlayer.state == PlayerState.DIE){
-			Debug.Log("A. Current Player State =" +currPlayer.state);
+			// Debug.Log("A. Current Player State =" +currPlayer.state);
 			if(!currUIGameOVer.gameOverObj.activeSelf) currUIGameOVer.gameOverObj.SetActive(true);
 		}else{
-			Debug.Log("B. Current Player State =" +currPlayer.state);
+			// Debug.Log("B. Current Player State =" +currPlayer.state);
 			if(currUIGameOVer.gameObject.activeSelf) currUIGameOVer.gameOverObj.SetActive(false);
 		}
 	}

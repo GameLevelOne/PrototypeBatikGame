@@ -21,9 +21,9 @@ public class PlayerInput : MonoBehaviour {
 	/// </summary>
 	public List<int> dirButtons	= new List<int>(4);
 
-	public List<int> slashComboVal;
+	// public List<int> slashComboVal;
 
-	[SerializeField] int attackMode = 0;
+	// [SerializeField] int attackMode = 0;
 
 	public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction
 				
@@ -75,19 +75,20 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 SLASH2<br /></para>
 	/// <para>3 SLASH3<br /></para>
 	/// </summary>
-	public int AttackMode {  
-		get {return attackMode;}
-		set {
-			if (attackMode == value) return;
+	public int attackMode = 0;
+	// public int AttackMode {  
+	// 	get {return attackMode;}
+	// 	set {
+	// 		if (attackMode == value) return;
 			
-			attackMode = value;
+	// 		attackMode = value;
 			
-			if (value >= 1 && slashComboVal.Count < 3) { //SLASH
-				Debug.Log("ComboAdd "+ attackMode);
-				slashComboVal.Add(attackMode);
-			}
-		}
-	}
+	// 		if (value >= 1 && slashComboVal.Count < 3) { //SLASH
+	// 			Debug.Log("ComboAdd "+ attackMode);
+	// 			slashComboVal.Add(attackMode);
+	// 		}
+	// 	}
+	// }
 	
 	public int bulletTimeAttackQty = 0;
 		
