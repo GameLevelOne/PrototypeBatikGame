@@ -88,22 +88,24 @@ public class PlayerAttackSystem : ComponentSystem {
     }
 
     void SpawnNormalAttackObj (GameObject obj) {
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacing());
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, quaternion.identity);
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
+		
+		// Debug.Log(spawnedObj.transform.GetChild(0).name);
+		spawnedObj.transform.GetChild(0).rotation = SetFacing();
+
         spawnedObj.SetActive(true);
     }
 
 	void SpawnChargeAttackObj (GameObject obj) {
-		// Vector3 spawnPos = attack.bulletSpawnPos.parent.position;
-		Quaternion spawnRot = Quaternion.Euler(new Vector3(90f, 0f, 0f));
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.chargeAttackSpawnPos.position, spawnRot);
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.chargeAttackSpawnPos.position, quaternion.identity);
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
         spawnedObj.SetActive(true);
     }
 
     Quaternion SetFacing () {
-        Vector3 targetPos = attack.normalAttackSpawnPos.position;
-        Vector3 initPos = attack.transform.position; //TEMPORARY
+        Vector3 targetPos = attack.transform.position;
+        Vector3 initPos = attack.normalAttackSpawnPos.position; //TEMPORARY
 
         targetPos.x -= initPos.x;
         targetPos.z -= initPos.z;

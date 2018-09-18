@@ -13,6 +13,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] AnimationData animationData;
 	
 	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
@@ -612,6 +613,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// }
 				//player.isHitAnEnemy = false;
 				// isFinishAttackAnimation	= true;	
+				if (input.isChargingAttack) {
+					playerInputSystem.SetMovement(1);
+				}
+
 				StopAttackAnimation();
 				break;
 			case PlayerState.CHARGE: 
