@@ -19,10 +19,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4643104287748512}
-  - component: {fileID: 95523243805999788}
-  - component: {fileID: 114620811341943514}
   - component: {fileID: 114783013040680664}
   - component: {fileID: 114390975999012906}
+  - component: {fileID: 114620811341943514}
+  - component: {fileID: 114769327827497300}
+  - component: {fileID: 95523243805999788}
   m_Layer: 0
   m_Name: TreeDummy02
   m_TagString: Untagged
@@ -302,8 +303,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1119694235074712}
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0.5, y: 0.15, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9.8, y: 0.15, z: 39.92}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 4922662105619026}
   - {fileID: 4803761426399660}
@@ -860,10 +861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initAnimSpeed: 0
-  minAnimSpeed: 1
-  maxAnimSpeed: 2
-  animSpeed: 1
 --- !u!114 &114620811341943514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -886,6 +883,21 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114769327827497300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1119694235074712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!114 &114783013040680664
 MonoBehaviour:
   m_ObjectHideFlags: 1

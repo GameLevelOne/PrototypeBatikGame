@@ -235,10 +235,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4391453909869954}
-  - component: {fileID: 95360901952138818}
-  - component: {fileID: 114282987740748092}
   - component: {fileID: 114639321488144736}
-  - component: {fileID: 114327798541106576}
+  - component: {fileID: 114417531761976874}
+  - component: {fileID: 114282987740748092}
+  - component: {fileID: 114725246650649252}
+  - component: {fileID: 95360901952138818}
   m_Layer: 0
   m_Name: Tree02
   m_TagString: Untagged
@@ -901,7 +902,7 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
---- !u!114 &114327798541106576
+--- !u!114 &114417531761976874
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -912,10 +913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initAnimSpeed: 0
-  minAnimSpeed: 1
-  maxAnimSpeed: 2
-  animSpeed: 1
 --- !u!114 &114639321488144736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -927,6 +924,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114725246650649252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994507269779214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!136 &136871142758800730
 CapsuleCollider:
   m_ObjectHideFlags: 1

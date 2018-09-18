@@ -170,10 +170,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4560140757737066}
-  - component: {fileID: 95170735861429114}
-  - component: {fileID: 114380851502052114}
   - component: {fileID: 114695127015224734}
   - component: {fileID: 114869299322478984}
+  - component: {fileID: 114380851502052114}
+  - component: {fileID: 114242235299758274}
+  - component: {fileID: 95170735861429114}
   m_Layer: 0
   m_Name: TreeDummy01
   m_TagString: Untagged
@@ -416,7 +417,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1583604300334616}
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 0.5, y: 0.16, z: 0.5}
+  m_LocalPosition: {x: 1.53, y: 0.16, z: 34.51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4126707869321450}
@@ -1141,6 +1142,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114242235299758274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583604300334616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!114 &114380851502052114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1187,7 +1203,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initAnimSpeed: 0
-  minAnimSpeed: 1
-  maxAnimSpeed: 2
-  animSpeed: 1

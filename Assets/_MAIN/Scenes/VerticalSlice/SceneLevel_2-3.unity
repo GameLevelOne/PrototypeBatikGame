@@ -2759,7 +2759,6 @@ GameObject:
   - component: {fileID: 366800978}
   - component: {fileID: 366800977}
   - component: {fileID: 366800976}
-  - component: {fileID: 366800979}
   m_Layer: 0
   m_Name: LevelData
   m_TagString: Untagged
@@ -2810,18 +2809,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &366800979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 366800975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9266ca81fd1c4bf4e9587ab7af471057, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverObj: {fileID: 603445363}
 --- !u!1001 &398579930
 Prefab:
   m_ObjectHideFlags: 0
@@ -3719,11 +3706,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4776390623822386, guid: 0f348a23c0cdc7c4fb87a81feeaf41a3,
     type: 2}
   m_PrefabInternal: {fileID: 602455654}
---- !u!1 &603445363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1567031602147782, guid: fd8c80b125465a947912a75c8118fed4,
-    type: 2}
-  m_PrefabInternal: {fileID: 432312254}
 --- !u!1001 &612893579
 Prefab:
   m_ObjectHideFlags: 0

@@ -147,9 +147,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4776390623822386}
-  - component: {fileID: 95488053996915564}
-  - component: {fileID: 114314367112533550}
   - component: {fileID: 114714535600286392}
+  - component: {fileID: 114314367112533550}
+  - component: {fileID: 114506304216822284}
+  - component: {fileID: 95488053996915564}
   m_Layer: 0
   m_Name: Flower01
   m_TagString: Untagged
@@ -487,6 +488,21 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114506304216822284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1964174893880334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!114 &114714535600286392
 MonoBehaviour:
   m_ObjectHideFlags: 1
