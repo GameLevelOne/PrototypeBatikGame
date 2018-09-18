@@ -19,9 +19,8 @@ public class ProjectileSystem : ComponentSystem {
     float deltaTime;
 
 	protected override void OnUpdate () {
-		if (projectileData.Length == 0) return;
-
         deltaTime = Time.deltaTime;
+		// if (projectileData.Length == 0) return;
 
 		for (int i=0; i<projectileData.Length; i++) {
 			projectile = projectileData.Projectile[i];

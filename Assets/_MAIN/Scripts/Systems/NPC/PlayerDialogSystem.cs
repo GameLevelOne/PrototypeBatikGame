@@ -37,9 +37,8 @@ public class PlayerDialogSystem : ComponentSystem {
 	string openingTag;
 
 	protected override void OnUpdate () {
-		if (dialogData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (dialogData.Length == 0) return;
 
 		for (int i=0; i<dialogData.Length; i++) {
 			currentPlayer = dialogData.Player[i];

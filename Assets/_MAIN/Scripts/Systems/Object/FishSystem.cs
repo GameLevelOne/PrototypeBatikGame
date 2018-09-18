@@ -28,9 +28,8 @@ public class FishSystem : ComponentSystem {
 	bool isInitThinking = false;
 
 	protected override void OnUpdate () {
-		if (fishCollectibleData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (fishCollectibleData.Length == 0) return;
 
 		for (int i=0; i<fishCollectibleData.Length; i++) {
 			fish = fishCollectibleData.Fish[i];

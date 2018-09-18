@@ -18,9 +18,8 @@ public class FishingRodSystem : ComponentSystem {
 	float deltaTime;
 
 	protected override void OnUpdate () {
-		if (fishingData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (fishingData.Length == 0) return;
 
 		for (int i=0; i<fishingData.Length; i++) {
 			fishingRod = fishingData.FishingRod[i];

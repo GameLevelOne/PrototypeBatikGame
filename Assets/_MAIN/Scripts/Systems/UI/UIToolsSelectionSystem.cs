@@ -39,9 +39,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	// float alphaValue;
 
 	protected override void OnUpdate () {
-		if (uiToolsSelectionData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (uiToolsSelectionData.Length == 0) return;
 
 		for (int i=0; i<uiToolsSelectionData.Length; i++) {
 			uiToolsSelection = uiToolsSelectionData.UIToolsSelection[i];

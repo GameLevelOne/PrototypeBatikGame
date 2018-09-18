@@ -32,9 +32,8 @@ public class ThrowSystem : ComponentSystem {
 	float moveTime;
 
 	protected override void OnUpdate () {
-		if (liftData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (liftData.Length == 0) return;
 
 		for (int i=0; i<liftData.Length; i++) {
 			liftable = liftData.Liftable[i];

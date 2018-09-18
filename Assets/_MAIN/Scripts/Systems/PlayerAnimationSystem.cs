@@ -13,6 +13,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] AnimationData animationData;
 	
 	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] StandAnimationSystem standAnimationSystem;
 	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
@@ -612,6 +613,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// }
 				//player.isHitAnEnemy = false;
 				// isFinishAttackAnimation	= true;	
+				if (input.isChargingAttack) {
+					playerInputSystem.SetMovement(1);
+				}
+
 				StopAttackAnimation();
 				break;
 			case PlayerState.CHARGE: 
@@ -875,12 +880,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		facing.DirID = currentDirID;
 	}
 
-	// void ReverseDir () {
-	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-	// 	// SetFacingDirID (-currentDir.x, -currentDir.z);
-	// 	input.moveDir = -currentDir;
-	// }
+	void ReverseDir () {
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+		// SetFacingDirID (-currentDir.x, -currentDir.z);
+		input.moveDir = -currentMoveDir;
+	}
 
 	int CheckDirID (float dirX, float dirZ) {
 		int dirIdx = 0;

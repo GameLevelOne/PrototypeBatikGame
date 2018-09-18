@@ -66,7 +66,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 					// GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet, currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
 					// bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
 
-					SpawnObj (currWaterShooterEnemy.bullet);
+					SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
 					
 					currWaterShooterEnemy.enemy.initAttack = false;
 				}
@@ -82,22 +82,31 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	// 	return distance/magnitude;
 	// }
 
-	void SpawnObj (GameObject obj) {
-        GameObject spawnedObj = GameObject.Instantiate(obj, currWaterShooterEnemyRidigbody.position, SetFacing());
+	void SpawnWaterBulletObj (GameObject obj) {
+		Vector3 targetPos = currWaterShooterEnemy.enemy.playerTransform.position;
+        Vector3 initPos = currWaterShooterEnemyRidigbody.position;
+
+		Vector3 deltaPos = targetPos - initPos;
+		
+        GameObject spawnedObj = GameObject.Instantiate(obj, currWaterShooterEnemyRidigbody.position, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
-		// spawnedObj.GetComponent<WaterShooterBullet>().init = true;
-		// spawnedObj.GetComponent<Projectile>().isStartLaunching = true;
+		
+		// Debug.Log(spawnedObj.transform.GetChild(0).name);
+		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
+
         spawnedObj.SetActive(true);
     }
+	
+	Quaternion SetFacingParent (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.x, resultPos.z) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (0f, angle - 90f, 0f));
 
-    Quaternion SetFacing () {
-        Vector3 targetPos = currWaterShooterEnemy.enemy.playerTransform.position;
-        Vector3 initPos = currWaterShooterEnemyRidigbody.position; //TEMPORARY
+        return targetRot;
+	}
 
-        targetPos.x -= initPos.x;
-        targetPos.z -= initPos.z;
-        float angleZ = Mathf.Atan2(targetPos.z, targetPos.x) * Mathf.Rad2Deg;
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angleZ));
+    Quaternion SetFacingChild (Vector3 resultPos) {
+        float angle = Mathf.Atan2 (resultPos.z, resultPos.x) * Mathf.Rad2Deg;
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
 
         return targetRot;
     }

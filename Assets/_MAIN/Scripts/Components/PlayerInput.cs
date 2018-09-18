@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour {
 
 	public bool isLockDir = false;
 	public bool isInitPlayerInput = false;
+	public bool isChargingAttack = false;
 
 	/// <summary>
     /// <para>Values: <br /></para>

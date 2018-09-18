@@ -15,9 +15,8 @@ public class FishingPoolSystem : ComponentSystem {
 	Vector3 poolPos;
 
 	protected override void OnUpdate () {
-		if (fishingPoolData.Length == 0) return;
-
 		deltaTime = Time.deltaTime;
+		// if (fishingPoolData.Length == 0) return;
 
 		for (int i=0; i<fishingPoolData.Length; i++) {
 			fishingPool = fishingPoolData.FishingPool[i];
