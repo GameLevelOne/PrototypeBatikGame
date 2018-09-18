@@ -15,23 +15,18 @@ public class TreeSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		for(int i = 0;i<treeComponent.Length;i++){
-			currTree = treeComponent.tree[i];
-			currTreeAnim = treeComponent.treeAnim[i];
+		// for(int i = 0;i<treeComponent.Length;i++){
+		// 	currTree = treeComponent.tree[i];
+		// 	currTreeAnim = treeComponent.treeAnim[i];
 
-			InitTree();
-		}
+		// 	InitTree();
+		// }
 
 	}
 
 	void InitTree()
 	{
-		if(!currTree.initAnimSpeed){
-			currTree.initAnimSpeed = true;
-			float rnd = Random.Range(currTree.minAnimSpeed,currTree.maxAnimSpeed);
-			currTree.animSpeed = rnd;
-			currTreeAnim.speed = currTree.animSpeed;
-		}
+		
 	}
 
 }

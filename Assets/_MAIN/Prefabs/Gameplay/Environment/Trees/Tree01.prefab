@@ -36,10 +36,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4577947886279258}
-  - component: {fileID: 95616559312103812}
-  - component: {fileID: 114187939097885178}
   - component: {fileID: 114329012483988080}
   - component: {fileID: 114948121697474342}
+  - component: {fileID: 114187939097885178}
+  - component: {fileID: 114938011725067572}
+  - component: {fileID: 95616559312103812}
   m_Layer: 0
   m_Name: Tree01
   m_TagString: Untagged
@@ -1206,6 +1207,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114938011725067572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1010372938756784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!114 &114948121697474342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1217,10 +1233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initAnimSpeed: 0
-  minAnimSpeed: 1
-  maxAnimSpeed: 2
-  animSpeed: 1
 --- !u!136 &136669465938153134
 CapsuleCollider:
   m_ObjectHideFlags: 1

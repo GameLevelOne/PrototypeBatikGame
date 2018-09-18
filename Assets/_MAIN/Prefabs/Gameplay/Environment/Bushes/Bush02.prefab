@@ -66,9 +66,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4462343440808822}
-  - component: {fileID: 114638670601859158}
   - component: {fileID: 114214187125933026}
   - component: {fileID: 114284618509968672}
+  - component: {fileID: 114638670601859158}
+  - component: {fileID: 114064651596780966}
+  - component: {fileID: 95094842745363138}
   m_Layer: 0
   m_Name: Bush02
   m_TagString: Untagged
@@ -292,7 +294,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1294306784303512}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 5.84, y: 0, z: 5.57}
+  m_LocalPosition: {x: 3.95, y: 0, z: -3.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4662872788669724}
@@ -715,6 +717,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740975569959282}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &95094842745363138
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294306784303512}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 0b6dc659397f006469aa85f2e91ba384, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114004812900555500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -727,6 +747,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bush: {fileID: 114284618509968672}
+--- !u!114 &114064651596780966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294306784303512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e166f9c76d42c974b9577ef0c8f9d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeed: 1
+  maxSpeed: 2
+  animSpeed: 0
+  initRandomSpeed: 0
 --- !u!114 &114214187125933026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -769,7 +804,7 @@ MonoBehaviour:
   - {fileID: 23985713919527246}
   - {fileID: 23684709309138846}
   dissolveValue: []
-  dissolveSpeed: 0.25
+  dissolveSpeed: 0.3
   init: 0
   dissolve: 0
   unDissolve: 0
