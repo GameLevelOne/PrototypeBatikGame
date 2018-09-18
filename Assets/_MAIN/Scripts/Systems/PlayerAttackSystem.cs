@@ -37,6 +37,28 @@ public class PlayerAttackSystem : ComponentSystem {
 		}
 	}
 
+	void CheckIfPlayerDash () {
+		if (state == PlayerState.DASH) {
+			if (attack.isDashing) {
+				attack.dashAttackArea.SetActive(true);
+			} else {
+				attack.dashAttackArea.SetActive(false);
+			}
+		}
+	}
+
+	void CheckIfPlayerAttack () {
+		int attackMode = input.attackMode;
+		
+		if (attack.isAttacking && attackMode != 0) {
+			// Debug.Log("PlayerState = "+state);
+			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
+				// || state == PlayerState.COUNTER
+				SpawnSlashEffect(attackMode);
+			}
+		}
+	}
+
 	public void SpawnSlashEffect (int mode) {
 		switch (mode) {
             case 1:
@@ -61,31 +83,9 @@ public class PlayerAttackSystem : ComponentSystem {
                 SpawnNormalAttackObj (attack.regularArrow);
                 break;
         }
-
+		// Debug.Log("SpawnSlashEffect "+mode);
 		attack.isAttacking = false;
     }
-
-	void CheckIfPlayerDash () {
-		if (state == PlayerState.DASH) {
-			if (attack.isDashing) {
-				attack.dashAttackArea.SetActive(true);
-			} else {
-				attack.dashAttackArea.SetActive(false);
-			}
-		}
-	}
-
-	void CheckIfPlayerAttack () {
-		int attackMode = input.attackMode;
-		
-		if (attack.isAttacking && attackMode != 0) {
-			Debug.Log("PlayerState = "+state);
-			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
-				// || state == PlayerState.COUNTER
-				SpawnSlashEffect(attackMode);
-			}
-		}
-	}
 
     void SpawnNormalAttackObj (GameObject obj) {
         GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacing());

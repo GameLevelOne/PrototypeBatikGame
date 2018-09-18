@@ -484,9 +484,11 @@ public class PlayerInputSystem : ComponentSystem {
 		float chargeAttackThreshold = input.chargeAttackThreshold;
 		// float beforeChargeDelay = input.beforeChargeDelay;
 		float attackAwayDelay = input.attackAwayDelay;
+		int attackMode = input.attackMode;
 
 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			if(player.state == PlayerState.IDLE || player.state == PlayerState.MOVE){
+			if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
+#region Dennis
 				// if (input.attackMode <= 2) {
 				// 	if (!player.isHitAnEnemy){
 				// 		input.attackMode = 1; //SLASH	
@@ -503,8 +505,20 @@ public class PlayerInputSystem : ComponentSystem {
 				// }else{
 				// 	//player.isHitAnEnemy = false;
 				// }
-				input.attackMode = 1; //SLASH	
-				player.SetPlayerState(PlayerState.ATTACK);
+#endregion
+				if (playerAnimationSystem.isFinishAttackAnimation) {
+					// Debug.Log("NEXT ATTACK");
+					if (attackMode <= 0 || attackMode >= 3) {
+						input.attackMode = 1;	
+						// Debug.Log("Set attackMode 1");
+					} else {
+						input.attackMode++;
+						// Debug.Log("Set attackMode++");
+					}
+					
+					playerAnimationSystem.isFinishAttackAnimation = false;
+					player.SetPlayerState(PlayerState.ATTACK);
+				}
 				
 				attackAwayTimer = 0f;
 				isAttackAway = false;	

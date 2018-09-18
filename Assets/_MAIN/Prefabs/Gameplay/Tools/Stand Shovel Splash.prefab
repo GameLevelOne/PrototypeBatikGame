@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 95735635516279136}
   - component: {fileID: 114988435035581858}
   - component: {fileID: 114465890208668976}
+  - component: {fileID: 114050552224550988}
   - component: {fileID: 54779393017325836}
   - component: {fileID: 136744142885931848}
   m_Layer: 0
@@ -57,9 +58,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &95735635516279136
 Animator:
@@ -79,6 +80,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114050552224550988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203940644750638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  isDestroyOnTriggering: 1
+  speed: 0
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 0
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114099743558190408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf2b7865e7922498e4831fa2f36cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 114050552224550988}
 --- !u!136 &136744142885931848
 CapsuleCollider:
   m_ObjectHideFlags: 1

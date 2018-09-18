@@ -23,8 +23,10 @@ GameObject:
   - component: {fileID: 95198800784118706}
   - component: {fileID: 114700843887407064}
   - component: {fileID: 114778621453084352}
+  - component: {fileID: 114154413594280834}
   - component: {fileID: 54790719935901820}
   - component: {fileID: 136897742294251900}
+  - component: {fileID: 114280446933789570}
   m_Layer: 0
   m_Name: Stand Hammer Splash
   m_TagString: Hammer
@@ -56,9 +58,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &95198800784118706
 Animator:
@@ -78,6 +80,38 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114154413594280834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329964797512392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  isDestroyOnTriggering: 1
+  speed: 0
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 0
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
+--- !u!114 &114280446933789570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329964797512392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114700843887407064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1caf2b7865e7922498e4831fa2f36cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectile: {fileID: 114154413594280834}
 --- !u!114 &114778621453084352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 5
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!136 &136897742294251900
 CapsuleCollider:
   m_ObjectHideFlags: 1

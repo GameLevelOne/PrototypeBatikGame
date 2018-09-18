@@ -115,6 +115,7 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (state == PlayerState.DASH && !isBouncing) {
+			// Debug.Log(col.gameObject.name);
 			isBouncing = true;	
 		}
 		
