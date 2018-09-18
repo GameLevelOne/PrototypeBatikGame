@@ -5,6 +5,7 @@ public class GrassSystem : ComponentSystem {
 
 	public struct GrassComponent{
 		public readonly int Length;
+		public ComponentArray<Transform> grassTransform;
 		public ComponentArray<Grass> grass;
 		public ComponentArray<Animator> grassAnim;
 		
@@ -13,6 +14,7 @@ public class GrassSystem : ComponentSystem {
 	[InjectAttribute] public GrassComponent grassComponent;
 	Grass currGrass;
 	Animator currGrassAnim;
+	Transform currGrassTransform;
 
 	const string IDLE = "Idle";
 
@@ -21,7 +23,7 @@ public class GrassSystem : ComponentSystem {
 		for(int i = 0;i<grassComponent.Length;i++){
 			currGrass = grassComponent.grass[i];
 			currGrassAnim = grassComponent.grassAnim[i];
-
+			currGrassTransform = grassComponent.grassTransform[i];
 			CheckGrass();
 		}
 	}
@@ -57,6 +59,7 @@ public class GrassSystem : ComponentSystem {
 
 	void Destroy()
 	{
+		GameObject.Instantiate(currGrass.grassCutFX,currGrassTransform.position,Quaternion.Euler(40f,0f,0f));
 		GameObject.Destroy(currGrass.gameObject);
 		UpdateInjectedComponentGroups();
 	}

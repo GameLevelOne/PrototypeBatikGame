@@ -6,16 +6,18 @@ public class BushSystem : ComponentSystem {
 	public struct BushComponent{
 		public readonly int Length;
 		public ComponentArray<Bush> bush;
+		public ComponentArray<Transform> bushTransform;
 	}
 
 	[InjectAttribute] BushComponent bushComponent;
 	Bush currBush;
+	Transform currBushTransform;
 
 	protected override void OnUpdate()
 	{
 		for(int i = 0;i<bushComponent.Length;i++){
 			currBush = bushComponent.bush[i];
-
+			currBushTransform = bushComponent.bushTransform[i];
 			CheckBush();
 		}
 	}
@@ -28,7 +30,8 @@ public class BushSystem : ComponentSystem {
 
 	void Destroy()
 	{
-		 GameObject.Destroy(currBush.gameObject);
+		GameObject.Instantiate(currBush.bushCutFX,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
+		GameObject.Destroy(currBush.gameObject);
 		UpdateInjectedComponentGroups();
 	}
 }

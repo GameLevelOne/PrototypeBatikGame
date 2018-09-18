@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class Grass : MonoBehaviour {
+	public GameObject grassCutFX;
+	[HeaderAttribute("Current")]
 	public bool init = false;
 	public bool interact = false;
 	public bool animateEnd = false;
