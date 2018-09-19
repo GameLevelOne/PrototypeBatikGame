@@ -293,7 +293,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH);
 						attack.isDashing = true;
 					} else if (input.interactValue == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE);
+						if (player.isBouncing) {
+							PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE);
+						} else {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_STAND);
+						}
 						attack.isDashing = false;
 					}
 					break;
