@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FogFX : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+	public SpriteRenderer sprite;
+	public float minAnimSpeed = 1f;
+	public float maxAnimSpeed = 1.5f;
 	
-	// Update is called once per frame
-	void Update () {
-		
+	[HeaderAttribute("Current")]
+	public float animSpeed;
+	public bool init = false;
+	public bool changeSpeed = false;
+
+	void OnAnimEnd()
+	{
+		changeSpeed = true;
 	}
 }
