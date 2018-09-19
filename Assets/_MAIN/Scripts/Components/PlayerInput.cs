@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
+	public GlobalSettingsSO settings;
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 
 	public bool isLockDir = false;
+	// public Vector3 initMoveDir = -Vector3.forward;
 	public bool isInitPlayerInput = false;
 	public bool isChargingAttack = false;
 
@@ -25,19 +27,28 @@ public class PlayerInput : MonoBehaviour {
 	// public List<int> slashComboVal;
 
 	// [SerializeField] int attackMode = 0;
+	[SerializeField] Vector3 currMoveDir = Vector3.zero;
 
-	public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction
-				
-	// public Vector3 moveDir {  
-	// 	get {return currMoveDir;}
-	// 	set {
-	// 		if (currMoveDir == value) return;
-			
-	// 		currMoveDir = value;
-			
-	// 		Debug.Log("after dodge "+currMoveDir);
-	// 	}
-	// }
+	// public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction		
+	public Vector3 moveDir {  
+		get {return currMoveDir;}
+		set {
+			Vector3 calculatedMoveDir = Vector3.zero;
+
+			if (value != Vector3.zero) {
+				if (value.x == 0f && value.z != 0f ) { //VERTICAL
+					calculatedMoveDir = new Vector3 (value.x, value.y, value.z * settings.verticalMultiplier);
+				} else if (value.x != 0f && value.z == 0f ) { //HORIZONTAL
+					calculatedMoveDir = value;
+				} else { //DIAGONAL
+					// calculatedMoveDir = new Vector3 (value.x * settings.diagonalMultiplier.x, value.y, value.z * settings.diagonalMultiplier.z);
+					calculatedMoveDir = value;
+				}
+			}
+
+			currMoveDir = calculatedMoveDir;
+		}
+	}
 
 	/// <summary>
     /// <para>Values: <br /></para>

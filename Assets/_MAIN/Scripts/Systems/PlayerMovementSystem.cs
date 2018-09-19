@@ -43,6 +43,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	float dashTime = 0f;
 	int attackMode;
 	Vector3 moveDir;
+	// Vector3 currentMoveDir;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -133,7 +134,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 
 			SetPlayerStandardMove();
-
+			// Debug.Log(currentMoveDir);
 			// continue; //TEMP
 			
 #region OLD
@@ -246,7 +247,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				//=====SPEED CONSTANT=====//
 				if (!isDodgeMove) { 
 					isDodgeMove = true;
-					rb.velocity = moveDir.normalized * movement.dodgeSpeed * deltaTime;
+					rb.velocity = moveDir * movement.dodgeSpeed * deltaTime;
 
 					input.moveDir = -moveDir; //REVERSE
 				} else {
@@ -257,21 +258,24 @@ public class PlayerMovementSystem : ComponentSystem {
 				isDodgeMove = false;
 				//SET VELOCITY
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
-				rb.velocity = moveDir.normalized * moveSpeed * deltaTime;
-				// Debug.Log("Velocity: "+rb.velocity+"= normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
+				rb.velocity = moveDir * moveSpeed * deltaTime;
+				// Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
+				// Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
-				if (moveDir == Vector3.zero) {
-					// player.SetPlayerIdle();
-				} else {
+				if (moveDir != Vector3.zero) {
+					// currentMoveDir = moveDir;
+					
 					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 						player.SetPlayerState(PlayerState.MOVE);
 					} 
 				}
 			}
 		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {
+			// currentMoveDir = moveDir;
+
 			if (player.isMoveAttack) {
-				Transform target = facing.attackArea.transform;
-				rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
+				// Transform target = facing.attackArea.transform;
+				rb.AddForce(moveDir * movement.attackMoveForce);
 				// player.isMoveAttack = false;
 			} else {
 				rb.velocity = Vector3.zero;
@@ -286,8 +290,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	void SetPlayerSpecificMove () {
-		Transform target = facing.attackArea.transform;
-		Vector3 dir = target.position - tr.position;
+		// Transform target = facing.attackArea.transform;
+		// Vector3 dir = target.position - tr.position;
 		float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
 		// if (state == PlayerState.HOOK) {
 		// 	rb.velocity = Vector2.zero;
@@ -310,7 +314,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					input.interactValue = 2;
 				} else {
 					if (isHaveEnoughMana((int) ToolType.Boots, false, false)) {
-						rb.velocity = dir.normalized * dashSpeed * deltaTime;
+						rb.velocity = moveDir * dashSpeed * deltaTime;
 
 						if (dashTime <= 0.2f) {
 							dashTime += deltaTime;
@@ -326,9 +330,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					brakeTime -= deltaTime;
 					
 					if (player.isBouncing) {
-						rb.velocity = -dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+						rb.velocity = -moveDir * movement.bounceSpeed * deltaTime * brakeTime;
 					} else {
-						rb.velocity = dir.normalized * movement.bounceSpeed * deltaTime * brakeTime;
+						rb.velocity = moveDir * movement.bounceSpeed * deltaTime * brakeTime;
 					}
 				} else {
 					input.moveDir = Vector3.zero;

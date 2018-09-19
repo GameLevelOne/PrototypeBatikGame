@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class GlobalSettingsSO : ScriptableObject {
-	public string test;
+	public float verticalMultiplier;
+	// public Vector3 diagonalMultiplier;
 	
 }
