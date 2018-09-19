@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 using Unity.Entities;
-using Unity.Rendering;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 
 public class PlayerAttackSystem : ComponentSystem {
 	public struct AttackData {
@@ -103,7 +99,7 @@ public class PlayerAttackSystem : ComponentSystem {
     }
 
 	void SpawnChargeAttackObj (GameObject obj) {
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.chargeAttackSpawnPos.position, quaternion.identity);
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.chargeAttackSpawnPos.position, Quaternion.identity);
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
         spawnedObj.SetActive(true);
     }

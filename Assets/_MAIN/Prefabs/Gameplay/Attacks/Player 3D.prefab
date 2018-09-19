@@ -669,7 +669,6 @@ GameObject:
   - component: {fileID: 114971732195158082}
   - component: {fileID: 114925006342211010}
   - component: {fileID: 114286191795224190}
-  - component: {fileID: 54288561919198836}
   - component: {fileID: 136133393664828800}
   m_Layer: 0
   m_Name: Player Interaction
@@ -1375,21 +1374,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!54 &54288561919198836
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1723146514634310}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!54 &54918470649024868
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1579,7 +1563,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dcd39dd2c72b38428ebf6faf3937eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: d54a30ab7d2612d4e8d82cb1461e2c08, type: 2}
   idleAnimValue: 0000000001000000
   moveAnimValue: ffffffff0000000001000000
   isLockDir: 0

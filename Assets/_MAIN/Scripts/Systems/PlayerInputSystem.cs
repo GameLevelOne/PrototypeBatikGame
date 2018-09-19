@@ -39,6 +39,8 @@ public class PlayerInputSystem : ComponentSystem {
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	float dodgeCooldownTimer = 0f;
+	float dodgeCooldown = 0f;
+	float bulletTimeDelay = 0f;
 	bool isAttackAway = true;
 	bool isReadyForDodging = true;
 
@@ -274,6 +276,8 @@ public class PlayerInputSystem : ComponentSystem {
 		isButtonToolHold = false;
 		// isInitChargeAttack = false;
 		// input.moveDir = input.initMoveDir;
+		dodgeCooldown = input.dodgeCooldown;
+		bulletTimeDelay = input.bulletTimeDelay;
 
 		input.isInitPlayerInput = true;
 	}
@@ -644,15 +648,13 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckDodgeInput () {
-		float dodgeCooldown = input.dodgeCooldown;
-		float bulletTimeDelay = input.bulletTimeDelay;
-
 		#region Button Dodge
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
 			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 				gameFXSystem.ToggleDodgeFlag(true);
 				player.SetPlayerState(PlayerState.DODGE);
-
+				input.moveDir = -currentDir; //REVERSE
+				currentDir = Vector3.zero;
 				bulletTimeTimer = 0f;	
 				dodgeCooldownTimer = 0f;
 				isDodging = true;
@@ -661,15 +663,13 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		}	
 
+		Debug.Log("isDodging : "+isDodging);
+
 		if (isDodging) {
+			// Debug.Log("dodgeCooldownTimer : "+dodgeCooldownTimer);
 			if (dodgeCooldownTimer < dodgeCooldown) {
 				dodgeCooldownTimer += deltaTime;
-			} else {
-				isDodging = false;
-				isReadyForDodging = true;
-			}
 
-			if (state == PlayerState.DODGE) {
 				if (bulletTimeTimer < bulletTimeDelay) {
 					bulletTimeTimer += deltaTime;
 					isBulletTimePeriod = true;
@@ -678,8 +678,24 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isCanBulletTime = false;
 					// player.isPlayerHit = false;
 				}
+			} else {
+				isDodging = false;
+				isReadyForDodging = true;
 			}
+
+			// if (state == PlayerState.DODGE) {
+			// 	if (bulletTimeTimer < bulletTimeDelay) {
+			// 		bulletTimeTimer += deltaTime;
+			// 		isBulletTimePeriod = true;
+			// 	} else {
+			// 		isBulletTimePeriod = false;
+			// 		player.isCanBulletTime = false;
+			// 		// player.isPlayerHit = false;
+			// 	}
+			// }
 		}
+		// Debug.Log("isBulletTimePeriod : "+isBulletTimePeriod+"\n bulletTimeTimer : "+bulletTimeTimer);
+		// Debug.Log("isPlayerHit : "+player.isPlayerHit+"\n isCanBulletTime : "+player.isCanBulletTime);
 
 		if (isBulletTimePeriod) {
 			if (player.isPlayerHit && player.isCanBulletTime) {	
@@ -872,6 +888,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			return true;
 		} else if (state == PlayerState.DODGE) {
+			CheckDodgeInput ();
 			return true;
 		} else {
 			return false;

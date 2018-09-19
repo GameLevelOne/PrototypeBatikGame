@@ -5,6 +5,7 @@ public class Bee : MonoBehaviour {
 	public Enemy enemy;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
+	public GameObject attackCodeFX;
 	
 	[SpaceAttribute(10f)]
 	public float startledRange;
@@ -15,7 +16,7 @@ public class Bee : MonoBehaviour {
 	[SpaceAttribute(10f)]
 	public bool initStartled = false;
 	public bool isStartled = false;
-	public bool initAttackHitPosition = true;
+	// public bool initAttackHitPosition = true;
 
 	#region event delegate
 	void OnEnable()
@@ -49,7 +50,7 @@ public class Bee : MonoBehaviour {
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
-		initAttackHitPosition = false;
+		// initAttackHitPosition = false;
 	}
 
 	void DisableAttackHit()

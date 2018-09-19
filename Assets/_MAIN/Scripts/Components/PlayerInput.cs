@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour {
-	public GlobalSettingsSO settings;
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
@@ -36,12 +35,9 @@ public class PlayerInput : MonoBehaviour {
 			Vector3 calculatedMoveDir = Vector3.zero;
 
 			if (value != Vector3.zero) {
-				if (value.x == 0f && value.z != 0f ) { //VERTICAL
-					calculatedMoveDir = new Vector3 (value.x, value.y, value.z * settings.verticalMultiplier);
-				} else if (value.x != 0f && value.z == 0f ) { //HORIZONTAL
-					calculatedMoveDir = value;
-				} else { //DIAGONAL
-					// calculatedMoveDir = new Vector3 (value.x * settings.diagonalMultiplier.x, value.y, value.z * settings.diagonalMultiplier.z);
+				if (value.z != 0f ) {
+					calculatedMoveDir = new Vector3 (value.x, value.y, value.z * GameStorage.Instance.settings.verticalMultiplier);
+				} else { 
 					calculatedMoveDir = value;
 				}
 			}

@@ -84,18 +84,18 @@ public class DamageSystem : ComponentSystem {
 			float damage = player.damageReceive.damage;
 
 			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
-				if (CheckIfPlayerIsInvulnerable(player, playerState)) { //INVULNERABLE
-					Debug.Log("Player is invulnerable");
-				} else if (player.isGuarding) {
-					player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);
-					damage -= player.shieldPower;
-					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
-				} else {
-					player.SetPlayerState(PlayerState.GET_HURT);
-					// health.PlayerHP -= damage;
-					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
-					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
+					if (player.isGuarding) {
+						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
+						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);
+						damage -= player.shieldPower;
+						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+					} else {
+						player.SetPlayerState(PlayerState.GET_HURT);
+						// health.PlayerHP -= damage;
+						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
+						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+					}
 				}
 				
 				player.damageReceive = null;
@@ -173,7 +173,7 @@ public class DamageSystem : ComponentSystem {
 			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
-			Debug.Log(damage);
+			// Debug.Log(damage);
 
 			if(damageTag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){

@@ -247,12 +247,15 @@ public class PlayerMovementSystem : ComponentSystem {
 				//=====SPEED CONSTANT=====//
 				if (!isDodgeMove) { 
 					isDodgeMove = true;
-					rb.velocity = moveDir * movement.dodgeSpeed * deltaTime;
+					rb.velocity = -moveDir * movement.dodgeSpeed * deltaTime;
 
-					input.moveDir = -moveDir; //REVERSE
-				} else {
-					input.dirButtons =  new List<int>(4){0,0,0,0};
+					// input.moveDir = -moveDir; //REVERSE
 					input.moveDir = Vector3.zero;
+					input.dirButtons =  new List<int>(4){0,0,0,0};
+				} else {
+					// input.dirButtons =  new List<int>(4){0,0,0,0};
+					// moveDir = Vector3.zero;
+					// input.moveDir = Vector3.zero;
 				}
 			} else {
 				isDodgeMove = false;

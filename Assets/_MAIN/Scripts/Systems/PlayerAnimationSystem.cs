@@ -360,7 +360,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.GET_HURT: 
 					isFinishAnyAnimation = true;
 					input.attackMode = 0;
-					Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
+					// Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
 					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
 					break;
 				case PlayerState.BLOCK_ATTACK:

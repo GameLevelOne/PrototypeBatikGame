@@ -46,18 +46,13 @@ public class Facing2D : MonoBehaviour {
 			
 			if (isNotPlayerNorEnemy) return;
 
-			// if (attackArea != null) {
-			// 	attackArea.transform.position = attackDirections[CurDirID].position;
-			// }
 			SetAreaPos (attackArea, curDirID);
 
 			int tempDirID = curDirID;
 			if (tempDirID >= 3 ) {
 				SetAreaPos (blindArea, tempDirID - 2);
-				// blindArea.transform.position = attackDirections[tempDirID - 2].position;
 			} else {
 				SetAreaPos (blindArea, tempDirID + 2);
-				// blindArea.transform.position = attackDirections[tempDirID + 2].position;
 			}
 		}
 	}
