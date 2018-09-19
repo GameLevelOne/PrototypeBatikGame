@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour {
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 
 	public bool isLockDir = false;
+	// public Vector3 initMoveDir = -Vector3.forward;
 	public bool isInitPlayerInput = false;
 	public bool isChargingAttack = false;
 
@@ -25,19 +26,25 @@ public class PlayerInput : MonoBehaviour {
 	// public List<int> slashComboVal;
 
 	// [SerializeField] int attackMode = 0;
+	[SerializeField] Vector3 currMoveDir = Vector3.zero;
 
-	public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction
-				
-	// public Vector3 moveDir {  
-	// 	get {return currMoveDir;}
-	// 	set {
-	// 		if (currMoveDir == value) return;
-			
-	// 		currMoveDir = value;
-			
-	// 		Debug.Log("after dodge "+currMoveDir);
-	// 	}
-	// }
+	// public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction		
+	public Vector3 moveDir {  
+		get {return currMoveDir;}
+		set {
+			Vector3 calculatedMoveDir = Vector3.zero;
+
+			if (value != Vector3.zero) {
+				if (value.z != 0f ) {
+					calculatedMoveDir = new Vector3 (value.x, value.y, value.z * GameStorage.Instance.settings.verticalMultiplier);
+				} else { 
+					calculatedMoveDir = value;
+				}
+			}
+
+			currMoveDir = calculatedMoveDir;
+		}
+	}
 
 	/// <summary>
     /// <para>Values: <br /></para>

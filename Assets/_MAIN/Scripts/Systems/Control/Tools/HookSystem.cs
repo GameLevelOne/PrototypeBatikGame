@@ -135,7 +135,7 @@ public class HookSystem : ComponentSystem {
 		}
 		#endregion
 
-		#region 8 Direction
+#region 8 Direction
 		// if(dirID == 1){ //bottom
 		// 	y-=range;
 		// }else if(dirID == 2){ //bottom left
@@ -157,7 +157,7 @@ public class HookSystem : ComponentSystem {
 		// 	x+=range;
 		// 	y-=range;
 		// }
-		#endregion
+#endregion
 
 		return new Vector2(x,y);
 	}

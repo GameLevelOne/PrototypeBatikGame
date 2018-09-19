@@ -22,7 +22,7 @@ public class PlayerInputSystem : ComponentSystem {
 	public ToolType toolType;
 
 	PlayerTool tool;
-	Facing2D facing;
+	// Facing2D facing;
 	PowerBracelet powerBracelet;
 
 	PlayerState state;
@@ -31,7 +31,7 @@ public class PlayerInputSystem : ComponentSystem {
     /// <para>Current Move Direction (X, Z)<br /></para>
 	/// </summary>
 	Vector3 currentDir = Vector3.zero;
-	Vector3 playerDir = Vector3.zero;
+	// Vector3 playerDir = Vector3.zero;
 	float deltaTime;
 	float parryTimer = 0f;
 	float bulletTimeTimer = 0f;
@@ -39,6 +39,8 @@ public class PlayerInputSystem : ComponentSystem {
 	float chargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	float dodgeCooldownTimer = 0f;
+	float dodgeCooldown = 0f;
+	float bulletTimeDelay = 0f;
 	bool isAttackAway = true;
 	bool isReadyForDodging = true;
 
@@ -258,7 +260,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void InitPlayerInput () {
 		currentDir = Vector3.zero;
-		playerDir = Vector3.zero;
+		// playerDir = Vector3.zero;
 		parryTimer = 0f;
 		bulletTimeTimer = 0f;
 		slowDownTimer = 0f;
@@ -273,6 +275,9 @@ public class PlayerInputSystem : ComponentSystem {
 		isParryPeriod = false;
 		isButtonToolHold = false;
 		// isInitChargeAttack = false;
+		// input.moveDir = input.initMoveDir;
+		dodgeCooldown = input.dodgeCooldown;
+		bulletTimeDelay = input.bulletTimeDelay;
 
 		input.isInitPlayerInput = true;
 	}
@@ -440,9 +445,9 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Open Chest
 		if (player.isCanOpenChest) {
-			playerDir = input.moveDir == Vector3.zero ? playerDir : input.moveDir;
+			// playerDir = input.moveDir == Vector3.zero ? playerDir : input.moveDir;
 
-			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerDir == Vector3.forward) {
+			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerAnimationSystem.facing.DirID == 3) {
 				input.interactValue = 0;
 				input.interactMode = -4;
 				player.SetPlayerState(PlayerState.OPEN_CHEST);
@@ -643,15 +648,13 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckDodgeInput () {
-		float dodgeCooldown = input.dodgeCooldown;
-		float bulletTimeDelay = input.bulletTimeDelay;
-
 		#region Button Dodge
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-			if (!isDodging && isReadyForDodging && (currentDir != Vector3.zero)) {
+			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 				gameFXSystem.ToggleDodgeFlag(true);
 				player.SetPlayerState(PlayerState.DODGE);
-
+				input.moveDir = -currentDir; //REVERSE
+				currentDir = Vector3.zero;
 				bulletTimeTimer = 0f;	
 				dodgeCooldownTimer = 0f;
 				isDodging = true;
@@ -660,15 +663,13 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		}	
 
+		Debug.Log("isDodging : "+isDodging);
+
 		if (isDodging) {
+			// Debug.Log("dodgeCooldownTimer : "+dodgeCooldownTimer);
 			if (dodgeCooldownTimer < dodgeCooldown) {
 				dodgeCooldownTimer += deltaTime;
-			} else {
-				isDodging = false;
-				isReadyForDodging = true;
-			}
 
-			if (state == PlayerState.DODGE) {
 				if (bulletTimeTimer < bulletTimeDelay) {
 					bulletTimeTimer += deltaTime;
 					isBulletTimePeriod = true;
@@ -677,8 +678,24 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isCanBulletTime = false;
 					// player.isPlayerHit = false;
 				}
+			} else {
+				isDodging = false;
+				isReadyForDodging = true;
 			}
+
+			// if (state == PlayerState.DODGE) {
+			// 	if (bulletTimeTimer < bulletTimeDelay) {
+			// 		bulletTimeTimer += deltaTime;
+			// 		isBulletTimePeriod = true;
+			// 	} else {
+			// 		isBulletTimePeriod = false;
+			// 		player.isCanBulletTime = false;
+			// 		// player.isPlayerHit = false;
+			// 	}
+			// }
 		}
+		// Debug.Log("isBulletTimePeriod : "+isBulletTimePeriod+"\n bulletTimeTimer : "+bulletTimeTimer);
+		// Debug.Log("isPlayerHit : "+player.isPlayerHit+"\n isCanBulletTime : "+player.isCanBulletTime);
 
 		if (isBulletTimePeriod) {
 			if (player.isPlayerHit && player.isCanBulletTime) {	
@@ -717,11 +734,13 @@ public class PlayerInputSystem : ComponentSystem {
 					if (toolType == ToolType.Hook) {
 						player.SetPlayerState(PlayerState.HOOK);
 					} else if (toolType == ToolType.Boots) {
-						if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
-							input.interactMode = 1;
-							input.interactValue = 0;
-							player.isUsingStand = false;
-							player.SetPlayerState(PlayerState.DASH);
+						if (currentDir != Vector3.zero) {
+							if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
+								input.interactMode = 1;
+								input.interactValue = 0;
+								player.isUsingStand = false;
+								player.SetPlayerState(PlayerState.DASH);
+							}
 						}
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
@@ -869,6 +888,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			return true;
 		} else if (state == PlayerState.DODGE) {
+			CheckDodgeInput ();
 			return true;
 		} else {
 			return false;
@@ -937,7 +957,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.liftingMode == 1 || input.liftingMode == 2) {
-				facing = playerAnimationSystem.facing;
+				Facing2D facing = playerAnimationSystem.facing;
 				// Debug.Log(facing.DirID);
 				// Debug.Log("==========Grabbing==========");
 				// Debug.Log("Before " + facing.DirID);

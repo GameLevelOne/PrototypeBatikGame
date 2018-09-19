@@ -21,6 +21,7 @@ public class ProjectileSystem : ComponentSystem {
 	protected override void OnUpdate () {
         deltaTime = Time.deltaTime;
 		// if (projectileData.Length == 0) return;
+        Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
 
 		for (int i=0; i<projectileData.Length; i++) {
 			projectile = projectileData.Projectile[i];
@@ -35,8 +36,9 @@ public class ProjectileSystem : ComponentSystem {
                 switch (projectileType) {
                     case ProjectileType.BULLET: 
                         if (!projectile.isLaunching) {
-                            Vector3 bulletDir = new Vector3 (tr.right.x, 0f, tr.right.z);
-                            rb.AddForce(bulletDir.normalized * speed);
+                            Vector3 bulletDir = new Vector3 (tr.right.x, 0f, tr.right.z).normalized;
+
+                            rb.AddForce(Vector3.Scale(bulletDir,verticalMultVector) * speed);
                             projectile.isLaunching = true;
                         }
 
@@ -46,7 +48,8 @@ public class ProjectileSystem : ComponentSystem {
                             Vector3 catapultDir = projectile.direction;           
                             catapultDir.Normalize();
                             catapultDir.y = Mathf.Sin(projectile.elevationAngle * Mathf.Deg2Rad);
-                            rb.AddForce(catapultDir * speed);
+
+                            rb.AddForce(Vector3.Scale(catapultDir,verticalMultVector) * speed);
                             projectile.isLaunching = true;
                         }
 

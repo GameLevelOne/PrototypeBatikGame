@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class GameStorage : MonoBehaviour {
+	public GlobalSettingsSO settings;
 	public int initCoin;
 
 	public bool isTesting;

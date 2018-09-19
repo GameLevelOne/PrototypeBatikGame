@@ -16,6 +16,7 @@ public class FishingRodSystem : ComponentSystem {
 	FishingRodState state;
 
 	float deltaTime;
+	Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -126,7 +127,8 @@ public class FishingRodSystem : ComponentSystem {
 		// 	z-=range;
 		// }
 #endregion
+		Vector3 resultDestinationPos = new Vector3(x, 0f, z);
 
-		return new Vector3(x, 0f, z);
+		return Vector3.Scale (resultDestinationPos, verticalMultVector);
 	}
 }

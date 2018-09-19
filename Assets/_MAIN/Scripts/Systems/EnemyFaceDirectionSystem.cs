@@ -27,7 +27,9 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 			currEnemyRigidbody = faceDirectionComponent.enemyRigidbody[i];
 			currEnemyFacing = faceDirectionComponent.facing[i];
 
-			SetFaceDirection();
+			if (IsEnemyAllowedToChangeDir(currEnemy.state)) {
+				SetFaceDirection();
+			}
 		}
 	}
 
@@ -72,6 +74,19 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 	void SetEnemyFacing (Vector3 facingDir) {
 		currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_X,facingDir.x);
 		currEnemyAnim.SetFloat(Constants.AnimatorParameter.Float.FACE_Y,facingDir.z);
+	}
+
+	bool IsEnemyAllowedToChangeDir (EnemyState state) {
+		switch (state) {
+			case EnemyState.Attack:
+				return false;
+			case EnemyState.Damaged:
+				return false;
+			case EnemyState.Die:
+				return false;
+			default:
+				return true;
+		}
 	}
 
 	int CheckDirID (float dirX, float dirZ) {
