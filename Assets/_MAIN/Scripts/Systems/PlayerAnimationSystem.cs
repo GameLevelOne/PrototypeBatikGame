@@ -168,7 +168,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			isFinishAnyAnimation = true;
 			PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DODGE);
 		} else {
-			gameFXSystem.ToggleDodgeFlag(false);
+			// gameFXSystem.ToggleDodgeFlag(false);
 			int attackMode = input.attackMode;
 
 			switch (state) {
@@ -238,6 +238,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// ReverseDir();
 
 						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME);
+						gameFXSystem.PlayCounterChargeEffect();
 					}
 
 					break;

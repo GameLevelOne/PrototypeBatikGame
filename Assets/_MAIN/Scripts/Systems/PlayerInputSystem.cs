@@ -651,7 +651,8 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Button Dodge
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
 			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
-				gameFXSystem.ToggleDodgeFlag(true);
+				// gameFXSystem.ToggleDodgeFlag(true);
+				gameFXSystem.PlayDodgeEffect();
 				player.SetPlayerState(PlayerState.DODGE);
 				input.moveDir = -currentDir; //REVERSE
 				currentDir = Vector3.zero;
@@ -663,7 +664,7 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		}	
 
-		Debug.Log("isDodging : "+isDodging);
+		// Debug.Log("isDodging : "+isDodging);
 
 		if (isDodging) {
 			// Debug.Log("dodgeCooldownTimer : "+dodgeCooldownTimer);

@@ -5,6 +5,7 @@ public class GameFX : MonoBehaviour {
 	// public GameObject counterEffect;
 	[HeaderAttribute("Player Effect")]
 	public ParticleSystem dodgeEffect;
+	public ParticleSystem counterChargeEffect;
 	public SpriteRenderer playerSprite;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;

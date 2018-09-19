@@ -20,9 +20,9 @@ public class GameFXSystem : ComponentSystem {
 			gameFX = gameFXData.GameFX[i];
 			// playerFXTransform = gameFXData.Transform[i];
 
-            if (gameFX.isEnableDodgeEffect) {
-                PlayDodgeEffect ();
-            }
+            // if (gameFX.isEnableDodgeEffect) {
+            //     PlayDodgeEffect ();
+            // }
 		}
 	}
 
@@ -48,8 +48,8 @@ public class GameFXSystem : ComponentSystem {
         }
     }
 
-    public void ToggleDodgeFlag (bool value) {
-        gameFX.isEnableDodgeEffect = value;
+    // public void ToggleDodgeFlag (bool value) {
+    //     gameFX.isEnableDodgeEffect = value;
 
         // if (value && !gameFX.dodgeEffect.isPlaying) {
         //     gameFX.dodgeEffect.Play();
@@ -58,15 +58,23 @@ public class GameFXSystem : ComponentSystem {
         //     Debug.Log("StopDodgeEffect");
         // }
         // Debug.Log(value);
-    }
+    // }
 
-    void PlayDodgeEffect () {
+    public void PlayDodgeEffect () {
         if (!gameFX.dodgeEffect.isPlaying) {
             gameFX.dodgeEffect.Play();
-            // Debug.Log("PlayDodgeEffect");
+        } else {
+            gameFX.dodgeEffect.Stop();
+            gameFX.dodgeEffect.Play();
+        }
+    }
+
+    public void PlayCounterChargeEffect () {
+        if (!gameFX.counterChargeEffect.isPlaying) {
+            gameFX.counterChargeEffect.Play();
         }
         
-        gameFX.dodgeEffect.GetComponent<Renderer>().material.mainTexture = gameFX.playerSprite.sprite.texture;
+        gameFX.counterChargeEffect.GetComponent<Renderer>().material.mainTexture = gameFX.playerSprite.sprite.texture;
     }
 
     Quaternion SetFacing (Vector3 spawnPos, Vector3 spawnInitPos) {

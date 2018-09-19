@@ -168,11 +168,14 @@ public class BeeSystem : ComponentSystem {
 	void Attack()
 	{
 		if(!currBee.enemy.initAttack){
+			// Debug.Log("Check initAttack false");
+			currBee.attackCodeFX.SetActive(false);
 			if(!currBee.enemy.isAttack){
+				// Debug.Log("Check isAttack false");
 				currBee.enemy.state = EnemyState.Chase;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
-				currBee.attackCodeFX.SetActive(false);
 			}else{
+				// Debug.Log("Check isAttack true");
 				// if(!currBee.initAttackHitPosition){
 				// 	currBee.initAttackHitPosition = true;
 					currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
@@ -183,6 +186,7 @@ public class BeeSystem : ComponentSystem {
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
+			// Debug.Log("Check initAttack true");
 			currBee.enemy.attackObject.SetActive(currBee.enemy.attackHit);
 		}
 	}	
