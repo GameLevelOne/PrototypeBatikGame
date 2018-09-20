@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour {
 	public bool isLockDir = false;
 	// public Vector3 initMoveDir = -Vector3.forward;
 	public bool isInitPlayerInput = false;
-	public bool isChargingAttack = false;
+	public bool isInitChargeAttack = false;
 
 	/// <summary>
     /// <para>Values: <br /></para>

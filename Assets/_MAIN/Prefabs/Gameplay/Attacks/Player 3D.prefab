@@ -916,13 +916,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519721557274682}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.9063079, y: 0, z: 0, w: 0.42261827}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4928826898908698}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -130, y: 0, z: 0}
 --- !u!4 &4269935745910534
 Transform:
   m_ObjectHideFlags: 1
@@ -1630,7 +1630,7 @@ MonoBehaviour:
   moveAnimValue: ffffffff0000000001000000
   isLockDir: 0
   isInitPlayerInput: 0
-  isChargingAttack: 0
+  isInitChargeAttack: 0
   dirButtons: 00000000000000000000000000000000
   currMoveDir: {x: 0, y: 0, z: 0}
   direction: 0
@@ -1916,7 +1916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b24b74f1df584d82804d2188aaf44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slash: {fileID: 1715984698995526, guid: 1bde63dd1bb7a4c4895b1689f15b4e23, type: 2}
+  slash: {fileID: 1519716526994564, guid: 2b2d956148c876e48992000fc0654efd, type: 2}
   chargeSlash: {fileID: 1847233393451708, guid: c0e700c659fb183418def06e664f1af7,
     type: 2}
   counterSlash: {fileID: 1981715543440124, guid: 4a38ea7deea53304fa6e349f265c0394,
@@ -21323,11 +21323,11 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 5
     enabled: 1
-    type: 2
+    type: 4
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0
+    radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -21347,14 +21347,14 @@ ParticleSystem:
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
     m_TextureUVChannel: 0
-    m_TextureColorAffectsParticles: 1
-    m_TextureAlphaAffectsParticles: 1
+    m_TextureColorAffectsParticles: 0
+    m_TextureAlphaAffectsParticles: 0
     m_TextureBilinearFiltering: 0
     randomDirectionAmount: 0
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 0.4
       mode: 0
       spread: 0
       speed:
@@ -21473,7 +21473,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 60
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -21851,8 +21851,8 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.7853982
-      minScalar: -0.7853981
+      scalar: 3.1415925
+      minScalar: -3.1415925
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -47908,7 +47908,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7a16805e68e8e19409efc52665681301, type: 2}
+  - {fileID: 2100000, guid: 6082dfe93de3c754986feb36a55b2529, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

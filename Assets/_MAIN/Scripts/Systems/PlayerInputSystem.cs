@@ -37,6 +37,7 @@ public class PlayerInputSystem : ComponentSystem {
 	float bulletTimeTimer = 0f;
 	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
+	float startChargeAttackTimer = 0f;
 	float attackAwayTimer = 0f;
 	float dodgeCooldownTimer = 0f;
 	float dodgeCooldown = 0f;
@@ -48,7 +49,7 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isBulletTimePeriod = false;
 	bool isParryPeriod = false;
 	bool isButtonToolHold = false;
-	// public bool isInitChargeAttack = false;
+	bool isChargingAttack = false;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -265,6 +266,7 @@ public class PlayerInputSystem : ComponentSystem {
 		bulletTimeTimer = 0f;
 		slowDownTimer = 0f;
 		chargeAttackTimer = 0f;
+		startChargeAttackTimer = 0f;
 		attackAwayTimer = 0f;
 		dodgeCooldownTimer = 0f;
 		isAttackAway = true;
@@ -274,7 +276,7 @@ public class PlayerInputSystem : ComponentSystem {
 		isBulletTimePeriod = false;
 		isParryPeriod = false;
 		isButtonToolHold = false;
-		// isInitChargeAttack = false;
+		isChargingAttack = false;
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
 		bulletTimeDelay = input.bulletTimeDelay;
@@ -526,29 +528,38 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				attackAwayTimer = 0f;
 				isAttackAway = false;	
-				// isInitChargeAttack = true;
-				input.isChargingAttack = true;
+				isChargingAttack = false;
+				input.isInitChargeAttack = false;
 			}
-		// } else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-		// 	if (isInitChargeAttack) {
-		// 		// if (chargeAttackTimer >= beforeChargeDelay) {
-		// 		if (chargeAttackTimer >= chargeAttackThreshold) {
-		// 			SetMovement(1); //START CHARGE
-		// 			isInitChargeAttack = false;
-		// 		} else {
-		// 			chargeAttackTimer += deltaTime;
-		// 		}
-		// 	}
+		} else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+			if (!input.isInitChargeAttack) {
+				if (startChargeAttackTimer >= 0.3f) {
+					input.isInitChargeAttack = true;
+				} else {
+					startChargeAttackTimer += deltaTime;
+				}
+			} else {
+				if (!isChargingAttack) {
+					if (chargeAttackTimer >= chargeAttackThreshold) {
+						isChargingAttack = true;
+					} else {
+						chargeAttackTimer += deltaTime;
+					}
+				}
+			}
 		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-			if (input.moveMode == 1) {
+			if (input.moveMode == 1 && isChargingAttack) {
 				input.attackMode = -1; //CHARGE
+				isChargingAttack = false;
 				player.SetPlayerState(PlayerState.CHARGE);
+			} else {
+				SetMovement(0);
 			}
 			
 			SetMovement(0); //RUN / STAND
 			chargeAttackTimer = 0f;
-			// isInitChargeAttack = false;
-			input.isChargingAttack = false;
+			startChargeAttackTimer = 0f;
+			input.isInitChargeAttack = false;
 		} 
 		
 		// if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {

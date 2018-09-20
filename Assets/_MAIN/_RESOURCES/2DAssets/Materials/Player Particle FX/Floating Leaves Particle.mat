@@ -4,10 +4,10 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: soulscarredscripturesilverboundkill
-  m_Shader: {fileID: 10720, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Floating Leaves Particle
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,8 +19,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7b077f9c975b65546839fdf3d4f6bc7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: fd11d16b72ad3624c9d1bdb0649a61cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _InvFade: 1
+    m_Colors:
+    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}

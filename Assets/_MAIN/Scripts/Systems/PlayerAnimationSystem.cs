@@ -500,12 +500,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 			}
 			
+			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
 			anim.isSpawnSomethingOnAnimation = true;
 		}
 	}
 
 	void CheckStartAnimation () {
-		Debug.Log("CheckStartAnimation, State : "+state+"\n interactValue : "+input.interactValue);
+		// Debug.Log("CheckStartAnimation, State : "+state+"\n interactValue : "+input.interactValue);
 		isFinishAnyAnimation = false;
 		
 		switch(state) {
@@ -588,7 +589,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StopAnyAnimation () {
-		Debug.Log("StopAnyAnimation");
+		// Debug.Log("StopAnyAnimation");
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
 		isFinishAttackAnimation	= true;	
@@ -607,7 +608,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// }
 
 	void CheckEndAnimation () {
-		Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
+		// Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
 		switch(state) {
 			case PlayerState.ATTACK: 
 				// if (input.AttackMode > 0 && input.AttackMode <= 3) {
@@ -628,21 +629,30 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// }
 				//player.isHitAnEnemy = false;
 				// isFinishAttackAnimation	= true;	
-				if (input.isChargingAttack) {
+				if (input.isInitChargeAttack) {
 					playerInputSystem.SetMovement(1);
+				}
+
+				if (moveDir != Vector3.zero) {
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
 				}
 
 				StopAttackAnimation();
 				break;
 			case PlayerState.CHARGE: 
+				if (moveDir != Vector3.zero) {
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+				}
+
 				StopAttackAnimation();
 				break;
 			case PlayerState.DODGE:
 				// gameFXSystem.gameFX.isEnableDodgeEffect = false;
-				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
 				// ReverseDir ();
 								
 				StopAnyAnimation();
+				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
+				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
 				break;
 			case PlayerState.SLOW_MOTION:
 				isFinishAnyAnimation = true;
