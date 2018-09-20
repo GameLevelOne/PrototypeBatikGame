@@ -12,6 +12,9 @@ public class GrassSystem : ComponentSystem {
 	}
 
 	[InjectAttribute] public GrassComponent grassComponent;
+
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
+
 	Grass currGrass;
 	Animator currGrassAnim;
 	Transform currGrassTransform;
@@ -60,6 +63,10 @@ public class GrassSystem : ComponentSystem {
 	void Destroy()
 	{
 		GameObject.Instantiate(currGrass.grassCutFX,currGrassTransform.position,Quaternion.Euler(40f,0f,0f));
+		
+		//SPAWN ITEM
+		lootableSpawnerSystem.CheckPlayerLuck(currGrass.spawnItemProbability, currGrass.transform.position);
+
 		GameObject.Destroy(currGrass.gameObject);
 		UpdateInjectedComponentGroups();
 	}

@@ -290,10 +290,30 @@ public class PlayerInputSystem : ComponentSystem {
 			if (Input.GetJoystickNames()[0] != "") {
 				float inputX = Input.GetAxis("Horizontal Javatale");
 				float inputY = Input.GetAxis("Vertical Javatale");
-				ChangeDir (inputX, inputY);
+				// ChangeDir (inputX, inputY);
 
-				if (inputX == 0 || inputY == 0) {
-					CheckEndMove();
+				// if (inputX == 0 || inputY == 0) {
+				// 	CheckEndMove();
+				// }
+
+				//KEY DOWN
+			
+				if (inputY < 0f) {
+					SetJoystickAndKeyboardInput(true, 0);
+				} else if (inputY > 0f) {
+					SetJoystickAndKeyboardInput(true, 2);
+				} else {
+					SetJoystickAndKeyboardInput(false, 1);
+					SetJoystickAndKeyboardInput(false, 3);
+				} 
+				
+				if (inputX < 0f) {
+					SetJoystickAndKeyboardInput(true, 1);
+				} else if (inputX > 0f) {
+					SetJoystickAndKeyboardInput(true, 3);
+				} else if (inputY == 0f) {
+					SetJoystickAndKeyboardInput(false, 0);
+					SetJoystickAndKeyboardInput(false, 2);
 				}
 			}
 		} 
@@ -301,103 +321,136 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		#region MOUSE & KEYBOARD
 		else {
-			int maxValue = input.moveAnimValue[2];
+			// int maxValue = input.moveAnimValue[2];
 			// int midValue = input.moveAnimValue[1];
-			int minValue = input.moveAnimValue[0];
+			// int minValue = input.moveAnimValue[0];
 
 			//KEY DOWN
 			
 			if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-				input.dirButtons[0] = 1;
-				
-				if (input.dirButtons[2] == 0) {
-					ChangeDir(currentDir.x, minValue);
-					CheckLockDir(0, 1, 3);
-				}
+				SetJoystickAndKeyboardInput(true, 0);
 			}  
 			
 			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-				input.dirButtons[1] = 1;
-				
-				if (input.dirButtons[3] == 0) {
-					ChangeDir(minValue, currentDir.z);
-					CheckLockDir(1, 0, 2);
-				}
+				SetJoystickAndKeyboardInput(true, 1);
 			} 
 
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-				input.dirButtons[2] = 1;
-				
-				if (input.dirButtons[0] == 0) {
-					ChangeDir(currentDir.x, maxValue);
-					CheckLockDir(2, 1, 3);
-				}
+				SetJoystickAndKeyboardInput(true, 2);
 			} 
 			
 			if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-				input.dirButtons[3] = 1;
-				
-				if (input.dirButtons[1] == 0) {
-					ChangeDir(maxValue, currentDir.z);
-					CheckLockDir(3, 0, 2);
-				}
+				SetJoystickAndKeyboardInput(true, 3);
 			}
 
 			//KEY UP
 
 			if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) {
-				input.dirButtons[0] = 0;
-				
-				if (input.dirButtons[2] == 0) {
-					ChangeDir(currentDir.x, 0f);
-					CheckEndMove();
-					CheckRareCaseLockDir(1, 3);
-				} else {
-					ChangeDir(currentDir.x, maxValue);
-					CheckLockDir(2, 1, 3);
-				}
+				SetJoystickAndKeyboardInput(false, 0);
 			}
 			
 			if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A)) {
-				input.dirButtons[1] = 0;
-				
-				if (input.dirButtons[3] == 0) {
-					ChangeDir(0f, currentDir.z);
-					CheckEndMove();
-					CheckRareCaseLockDir(0, 2);
-				} else {
-					ChangeDir(maxValue, currentDir.z);
-					CheckLockDir(3, 0, 2);
-				}
+				SetJoystickAndKeyboardInput(false, 1);
 			}
 			
 			if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W)) {
-				input.dirButtons[2] = 0;
-				
-				if (input.dirButtons[0] == 0) {
-					ChangeDir(currentDir.x, 0f);
-					CheckEndMove();
-					CheckRareCaseLockDir(1, 3);
-				} else {
-					ChangeDir(currentDir.x, minValue);
-					CheckLockDir(0, 1, 3);
-				}
+				SetJoystickAndKeyboardInput(false, 2);
 			}
 			
 			if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D)) {
-				input.dirButtons[3] = 0;
-				
-				if (input.dirButtons[1] == 0) {
-					ChangeDir(0f, currentDir.z);
-					CheckEndMove();
-					CheckRareCaseLockDir(0, 2);
-				} else {
-					ChangeDir(minValue, currentDir.z);
-					CheckLockDir(1, 0, 2);
-				}
+				SetJoystickAndKeyboardInput(false, 3);
 			}
 		}
 		#endregion
+	}
+
+	/// <summary>
+    /// <para>Direction Index : <br /></para>
+	/// <para>0 Down<br /></para>
+	/// <para>1 Left<br /></para>
+	/// <para>2 Up<br /></para>
+	/// <para>3 Right<br /></para>
+	/// </summary>
+	void SetJoystickAndKeyboardInput (bool isButtonDown, int dirIdx) {
+		if (isButtonDown) { //Key Down
+			input.dirButtons[dirIdx] = 1;
+
+			switch (dirIdx) {
+				case 0:
+					Debug.Log("DOWN");
+					if (input.dirButtons[2] == 0) {
+						ChangeDir(currentDir.x, -1f);
+						CheckLockDir(0, 1, 3);
+					}
+					break;
+				case 1:
+					Debug.Log("LEFT");
+					if (input.dirButtons[3] == 0) {
+						ChangeDir(-1f, currentDir.z);
+						CheckLockDir(1, 0, 2);
+					}
+					break;
+				case 2:
+					Debug.Log("UP");
+					if (input.dirButtons[0] == 0) {
+						ChangeDir(currentDir.x, 1f);
+						CheckLockDir(2, 1, 3);
+					}
+					break;
+				case 3:
+					Debug.Log("RIGHT");
+					if (input.dirButtons[1] == 0) {
+						ChangeDir(1f, currentDir.z);
+						CheckLockDir(3, 0, 2);
+					}
+					break;
+			}
+		} else { //Key Up
+			input.dirButtons[dirIdx] = 0;
+
+			switch (dirIdx) {
+				case 0:
+					if (input.dirButtons[2] == 0) {
+						ChangeDir(currentDir.x, 0f);
+						CheckEndMove();
+						CheckRareCaseLockDir(1, 3);
+					} else {
+						ChangeDir(currentDir.x, 1f);
+						CheckLockDir(2, 1, 3);
+					}
+					break;
+				case 1:
+					if (input.dirButtons[3] == 0) {
+						ChangeDir(0f, currentDir.z);
+						CheckEndMove();
+						CheckRareCaseLockDir(0, 2);
+					} else {
+						ChangeDir(1f, currentDir.z);
+						CheckLockDir(3, 0, 2);
+					}
+					break;
+				case 2:
+					if (input.dirButtons[0] == 0) {
+						ChangeDir(currentDir.x, 0f);
+						CheckEndMove();
+						CheckRareCaseLockDir(1, 3);
+					} else {
+						ChangeDir(currentDir.x, 0f);
+						CheckLockDir(0, 1, 3);
+					}
+					break;
+				case 3:
+					if (input.dirButtons[1] == 0) {
+						ChangeDir(0f, currentDir.z);
+						CheckEndMove();
+						CheckRareCaseLockDir(0, 2);
+					} else {
+						ChangeDir(0f, currentDir.z);
+						CheckLockDir(1, 0, 2);
+					}
+					break;
+			}
+		}
 	}
 
 	void CheckLockDir (int dirIndex, int positiveDir, int negativeDir) {
@@ -974,6 +1027,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void ChangeDir (float dirX, float dirZ) {
 		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
+		Debug.Log(newDir);
 
 		#region RUN EFFECT
 		if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {

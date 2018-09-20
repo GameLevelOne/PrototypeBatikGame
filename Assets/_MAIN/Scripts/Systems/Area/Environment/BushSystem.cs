@@ -10,6 +10,9 @@ public class BushSystem : ComponentSystem {
 	}
 
 	[InjectAttribute] BushComponent bushComponent;
+
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
+
 	Bush currBush;
 	Transform currBushTransform;
 
@@ -31,6 +34,10 @@ public class BushSystem : ComponentSystem {
 	void Destroy()
 	{
 		GameObject.Instantiate(currBush.bushCutFX,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
+		
+		//SPAWN ITEM
+		lootableSpawnerSystem.CheckPlayerLuck(currBush.spawnItemProbability, currBush.transform.position);
+
 		GameObject.Destroy(currBush.gameObject);
 		UpdateInjectedComponentGroups();
 	}
