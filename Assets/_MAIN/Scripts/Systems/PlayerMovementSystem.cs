@@ -341,7 +341,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					input.moveDir = Vector3.zero;
 					player.isBouncing = false;
 					dashTime = 0f;
-					player.SetPlayerIdle();
+					// player.SetPlayerIdle();
 				}
 			} else {
 				rb.velocity = Vector3.zero;

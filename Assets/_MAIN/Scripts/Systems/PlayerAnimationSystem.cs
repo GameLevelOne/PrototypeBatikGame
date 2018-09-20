@@ -287,6 +287,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK);
 					break;
 				case PlayerState.DASH: 
+					// Debug.Log("PlayerState.DASH \n interactValue : "+input.interactValue);
 					if (input.interactValue == 0) {
 						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DASH);
 						attack.isDashing = false;
@@ -294,10 +295,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH);
 						attack.isDashing = true;
 					} else if (input.interactValue == 2) {
+						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
+
 						if (player.isBouncing) {
 							PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE);
 						} else {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_STAND);
+							StopAnyAnimation();
 						}
 						attack.isDashing = false;
 					}
@@ -452,10 +455,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
 			CheckStartAnimation ();
-			anim.isCheckBeforeAnimation = true;
 		} else if (!anim.isCheckAfterAnimation) {
 			CheckEndAnimation ();
-			anim.isCheckAfterAnimation = true;
 		}
 	}
 
@@ -504,6 +505,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void CheckStartAnimation () {
+		Debug.Log("CheckStartAnimation, State : "+state+"\n interactValue : "+input.interactValue);
 		isFinishAnyAnimation = false;
 		
 		switch(state) {
@@ -539,7 +541,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// isFinishAnyAnimation = true;
 				input.attackMode = 0;
 				Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
-				gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, false);
+				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 				break;
 			case PlayerState.DASH:
 				//
@@ -573,6 +575,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
+
+		anim.isCheckBeforeAnimation = true;
 	}
 
 	void StopAttackAnimation () {
@@ -584,6 +588,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	void StopAnyAnimation () {
+		Debug.Log("StopAnyAnimation");
 		player.SetPlayerIdle();
 		isFinishAnyAnimation = true;
 		isFinishAttackAnimation	= true;	
@@ -602,6 +607,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// }
 
 	void CheckEndAnimation () {
+		Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
 		switch(state) {
 			case PlayerState.ATTACK: 
 				// if (input.AttackMode > 0 && input.AttackMode <= 3) {
@@ -632,7 +638,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAttackAnimation();
 				break;
 			case PlayerState.DODGE:
-				gameFXSystem.gameFX.isEnableDodgeEffect = false;
+				// gameFXSystem.gameFX.isEnableDodgeEffect = false;
+				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
 				// ReverseDir ();
 								
 				StopAnyAnimation();
@@ -672,6 +679,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.DASH:
 				if (input.interactValue == 0) { 
 					input.interactValue = 1;
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, true);
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
 					
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 1) { 
@@ -823,6 +832,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				Debug.LogWarning ("Unknown Animation played");
 				break;
 		}
+
+		anim.isCheckAfterAnimation = true;
 	}
 
 	bool CheckIfAllowedToChangeDir () {

@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 
 public class GameFX : MonoBehaviour {
+	public SpriteRenderer playerSprite;
 	// public GameObject counterChargeEffect;
 	// public GameObject counterEffect;
 	[HeaderAttribute("Player Effect")]
 	public ParticleSystem dodgeEffect;
 	public ParticleSystem counterChargeEffect;
-	public SpriteRenderer playerSprite;
+	public ParticleSystem runEffect;
+	public ParticleSystem dashEffect;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
 	public GameObject hitEffect;
-	public GameObject runEffect;
 	public GameObject chargingEffect;
-	public GameObject chargingRunEffect;
+	// public GameObject chargingRunEffect;
 
 	[HeaderAttribute("Tool Effect")]
 	public GameObject cannotPushEffect;

@@ -40,11 +40,24 @@ public class GameFXSystem : ComponentSystem {
         spawnedObj.SetActive(true);
     }
 
-    public void ToggleEffect (GameObject effectObj, bool value) {
-        if (effectObj.activeSelf != value) {
-            effectObj.SetActive(value);
+    public void ToggleObjectEffect (GameObject objFX, bool value) {
+        if (objFX.activeSelf != value) {
+            objFX.SetActive(value);
             
             // Debug.Log("Toogle effect "+effectObj+" to "+value);
+        }
+    }
+
+    public void ToggleParticleEffect (ParticleSystem particleFX, bool value) {
+        if (value) {
+            if (!particleFX.isPlaying) {
+                particleFX.Play(true);
+            } else {
+                particleFX.Stop(true);
+                particleFX.Play(true);
+            }
+        } else {
+            particleFX.Stop(true);
         }
     }
 
@@ -60,14 +73,14 @@ public class GameFXSystem : ComponentSystem {
         // Debug.Log(value);
     // }
 
-    public void PlayDodgeEffect () {
-        if (!gameFX.dodgeEffect.isPlaying) {
-            gameFX.dodgeEffect.Play();
-        } else {
-            gameFX.dodgeEffect.Stop();
-            gameFX.dodgeEffect.Play();
-        }
-    }
+    // public void PlayDodgeEffect () {
+    //     if (!gameFX.dodgeEffect.isPlaying) {
+    //         gameFX.dodgeEffect.Play();
+    //     } else {
+    //         gameFX.dodgeEffect.Stop();
+    //         gameFX.dodgeEffect.Play();
+    //     }
+    // }
 
     public void PlayCounterChargeEffect () {
         if (!gameFX.counterChargeEffect.isPlaying) {

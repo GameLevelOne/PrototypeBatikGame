@@ -652,7 +652,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
 			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 				// gameFXSystem.ToggleDodgeFlag(true);
-				gameFXSystem.PlayDodgeEffect();
+				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
 				player.SetPlayerState(PlayerState.DODGE);
 				input.moveDir = -currentDir; //REVERSE
 				currentDir = Vector3.zero;
@@ -741,6 +741,7 @@ public class PlayerInputSystem : ComponentSystem {
 								input.interactValue = 0;
 								player.isUsingStand = false;
 								player.SetPlayerState(PlayerState.DASH);
+								gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
 							}
 						}
 					} else if (toolType == ToolType.FishingRod) {
@@ -942,12 +943,13 @@ public class PlayerInputSystem : ComponentSystem {
 		input.moveMode = value;
 		
 		#region CHARGE ATTACK EFFECT
-		if (input.moveMode == 1 && state == PlayerState.ATTACK) {
-			gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, true);
+		if (value == 1 && state == PlayerState.ATTACK) {
+			gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, true);
 		} else {
-			gameFXSystem.ToggleEffect(gameFXSystem.gameFX.chargingEffect, false);
+			gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 		}
 		#endregion
+		
 		// if (!isMoveOnly) {
 		// 	input.steadyMode = value;
 		// }
@@ -955,6 +957,14 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void ChangeDir (float dirX, float dirZ) {
 		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
+
+		#region RUN EFFECT
+		if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+		} else {
+			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+		}
+		#endregion
 
 		if (state == PlayerState.POWER_BRACELET) {
 			if (input.liftingMode == 1 || input.liftingMode == 2) {
