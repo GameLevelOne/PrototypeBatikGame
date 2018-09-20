@@ -553,6 +553,7 @@ MonoBehaviour:
   attackObject: {fileID: 1323496127885714}
   chaseIndicator: {fileID: 0}
   health: {fileID: 114880468429442774}
+  spawnItemProbability: 0.5
   patrolRange: 2.5
   chaseRange: 0
   patrolSpeed: 2
@@ -589,6 +590,7 @@ MonoBehaviour:
   attackArea: {fileID: 1323496127885714}
   blindArea: {fileID: 1499357655689114}
   attackDirParent: {fileID: 1003359468821404}
+  initFacingDirID: 1
   curDirID: 1
 --- !u!114 &114339831995602288
 MonoBehaviour:

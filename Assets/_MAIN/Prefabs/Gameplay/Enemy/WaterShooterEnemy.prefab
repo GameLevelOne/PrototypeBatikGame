@@ -504,11 +504,14 @@ MonoBehaviour:
   attackObject: {fileID: 0}
   chaseIndicator: {fileID: 0}
   health: {fileID: 114682836058618086}
+  spawnItemProbability: 0.5
   patrolRange: 0
   chaseRange: 0
   patrolSpeed: 0
   chaseSpeed: 0
   idleDuration: 0
+  damagedDuration: 0
+  dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
@@ -516,6 +519,8 @@ MonoBehaviour:
   initPatrol: 0
   initAttack: 0
   isAttack: 0
+  initDamaged: 0
+  initDie: 0
   attackHit: 0
   hasArmor: 0
   isHit: 0
@@ -579,6 +584,7 @@ MonoBehaviour:
   attackArea: {fileID: 1289114165567766}
   blindArea: {fileID: 0}
   attackDirParent: {fileID: 1290113364020078}
+  initFacingDirID: 1
   curDirID: 1
 --- !u!114 &114898142034348532
 MonoBehaviour:

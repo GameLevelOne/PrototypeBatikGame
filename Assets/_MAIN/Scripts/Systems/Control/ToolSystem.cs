@@ -410,7 +410,7 @@ public class ToolSystem : ComponentSystem {
 		// player.SetPlayerState(PlayerState.DASH);
 	// }
 
-	public void SpawnSlashEffect (int toolType) {
+	void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1:
 				SpawnNormalToolObj (toolType);

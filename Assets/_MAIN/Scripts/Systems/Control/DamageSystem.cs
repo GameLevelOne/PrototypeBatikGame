@@ -183,19 +183,18 @@ public class DamageSystem : ComponentSystem {
 					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}
-			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK ||
-			damageTag == Constants.Tag.EXPLOSION ||
+			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
 			damageTag == Constants.Tag.MAGIC_MEDALLION ||
-			damageTag == Constants.Tag.BOW) {
-				// health.EnemyHP -= damage;
-				// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+			damageTag == Constants.Tag.ARROW) {
+				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+			} else if (damageTag == Constants.Tag.FIRE_ARROW ||
+			damageTag == Constants.Tag.EXPLOSION) {
+				//BURN
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 			} else {
-				if (damageTag == Constants.Tag.PLAYER_SLASH) {
+				if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
 					playerInputSystem.player.isHitAnEnemy = true;
-					// Debug.Log("AA");
-					// health.EnemyHP -= damage;
-					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+					
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}
 			}

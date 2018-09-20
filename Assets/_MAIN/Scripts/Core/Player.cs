@@ -28,6 +28,7 @@ public enum PlayerState {
 public class Player : MonoBehaviour {
 	[HeaderAttribute("Player Attributes")]
 	public Health health;
+	public Mana mana;
 	public PlayerState state;
 	public Transform playerWeaponPos;
 	public Collider playerCol;

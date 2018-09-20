@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
 	public Health health;
 
 	[SpaceAttribute(10f)]
+	public float spawnItemProbability;
 	public float patrolRange;
 	public float chaseRange;
 
@@ -83,13 +84,13 @@ public class Enemy : MonoBehaviour {
 	}
 	#endregion
 
-	#region ENEMY STATE 
-	public void SetEnemyState (EnemyState enemyState) {
-		state = enemyState;
-	}
+#region ENEMY STATE 
+	// public void SetEnemyState (EnemyState enemyState) {
+	// 	state = enemyState;
+	// }
 
-	public void SetEnemyIdle () {
-		state = EnemyState.Idle;
-	}
-	#endregion
+	// public void SetEnemyIdle () {
+	// 	state = EnemyState.Idle;
+	// }
+#endregion
 }

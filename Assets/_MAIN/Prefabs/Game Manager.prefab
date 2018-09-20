@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114876268718149606}
   - component: {fileID: 114410289836772588}
   - component: {fileID: 114930772874159278}
+  - component: {fileID: 114673422435175790}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -54,6 +55,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isChangeScene: 0
+--- !u!114 &114673422435175790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123924884160216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31d5a8088f3bee548b822f4e0829335a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootables:
+  - {fileID: 114350629933089148, guid: ef6df6f90e1fe2d44b02cbd2099d8cf5, type: 2}
+  - {fileID: 114736316838444236, guid: b63d57b9eb6249b489dcd0daa8112290, type: 2}
+  - {fileID: 114904456338008224, guid: 3ffa8aefb1968e04d85bf12f30bd36d6, type: 2}
+  isInitLootableSpawner: 0
 --- !u!114 &114876268718149606
 MonoBehaviour:
   m_ObjectHideFlags: 1

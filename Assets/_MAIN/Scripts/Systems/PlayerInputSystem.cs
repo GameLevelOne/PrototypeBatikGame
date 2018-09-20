@@ -743,9 +743,10 @@ public class PlayerInputSystem : ComponentSystem {
 					// Debug.Log("Input Use Tool : " + toolType);
 					input.interactValue = 0;
 
-					if (toolType == ToolType.Hook) {
-						player.SetPlayerState(PlayerState.HOOK);
-					} else if (toolType == ToolType.Boots) {
+					// if (toolType == ToolType.Hook) {
+					// 	player.SetPlayerState(PlayerState.HOOK);
+					// } else 
+					if (toolType == ToolType.Boots) {
 						if (currentDir != Vector3.zero) {
 							if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
 								input.interactMode = 1;
@@ -762,13 +763,18 @@ public class PlayerInputSystem : ComponentSystem {
 						}
 					} else {
 						player.SetPlayerState(PlayerState.USING_TOOL);
-
-						if (toolType == ToolType.Bomb) {
-							tool.isActToolReady = true;
-						} else if (toolType == ToolType.MagicMedallion) {
-							if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true, true)) {
-								player.SetPlayerIdle();
-							}
+						
+						if (!isHaveEnoughMana((int) toolType, true, true)) {
+							player.SetPlayerIdle();
+						} else {
+							if (toolType == ToolType.Bomb) {
+								tool.isActToolReady = true;
+							} 
+							// else if (toolType == ToolType.MagicMedallion) {
+							// 	if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true, true)) {
+							// 		player.SetPlayerIdle();
+							// 	}
+							// }
 						}
 					}
 				}
@@ -1067,7 +1073,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool isHaveEnoughMana (int toolIdx, bool isUseMana, bool isUsingStand) {
-		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
 		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand)) {
 			return true;
 		} else {

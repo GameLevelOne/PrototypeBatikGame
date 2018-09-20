@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 136961624012356960}
   - component: {fileID: 114381512914773532}
   - component: {fileID: 95626309533862118}
+  - component: {fileID: 114005228665465258}
   m_Layer: 0
   m_Name: Stand Shovel Splash New
   m_TagString: Shovel
@@ -138,6 +139,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114005228665465258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441254501746250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 20
 --- !u!114 &114068013586882620
 MonoBehaviour:
   m_ObjectHideFlags: 1

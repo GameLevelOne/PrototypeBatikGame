@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 95931181692002584}
   - component: {fileID: 54006402430560670}
   - component: {fileID: 135506030136493200}
+  - component: {fileID: 114005495124654076}
   m_Layer: 0
   m_Name: Stand Bomb
   m_TagString: Untagged
@@ -229,6 +230,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114005495124654076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1760986108266002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 20
 --- !u!114 &114019947376017278
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -69,7 +69,30 @@ public class GainTreasureSystem : ComponentSystem {
 
 	public void UseAndDestroyTreasure () {
 		//PROCESS LOOTABLE ITEM
+		int lootQTY = 0;
+		LootableType lootableType = lootable.lootableType;
 
+		if (lootableType != LootableType.NONE) {
+			lootQTY = lootable.lootQuantity;
+			Debug.Log("You got "+lootQTY+" "+lootableType);
+			switch (lootableType) { //TEMP
+				case LootableType.GOLD: 
+					GameStorage.Instance.PlayerCoin += lootQTY;
+					break;
+				case LootableType.HP_POTION: 
+					player.health.PlayerHP += lootQTY;
+					break;
+				case LootableType.MANA_POTION: 
+					player.mana.PlayerMP += lootQTY;
+					break;
+				default:
+					Debug.Log("Unknown LootableType : "+lootableType);
+					break;
+			}
+		}
+
+		//DESTROY LOOTABLE ITEM
 		GameObject.Destroy(gainTreasure.lootableTransform.gameObject);
+		UpdateInjectedComponentGroups();
 	}
 }

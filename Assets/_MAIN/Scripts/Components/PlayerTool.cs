@@ -167,13 +167,19 @@ public class PlayerTool : MonoBehaviour {
 	public float GetToolManaCost (int toolType) {
 		switch (toolType) {
             case 1:
-                return arrowObj.GetComponent<Arrow>().manaCost;
+                return arrowObj.GetComponent<ToolMana>().manaCost;
+            case 3:
+                return bombObj.GetComponent<ToolMana>().manaCost;
+            case 4:
+                return hammerAreaEffectObj.GetComponent<ToolMana>().manaCost;
+            case 11:
+                return shovelAreaEffectObj.GetComponent<ToolMana>().manaCost;
             case 14:
-                return magicMedallionAreaEffectObj.GetComponent<MagicMedallion>().manaCost;
+                return magicMedallionAreaEffectObj.GetComponent<ToolMana>().manaCost;
             case 16:
-                return powerBraceletAreaEffectObj.GetComponent<PowerBracelet>().manaCost;
+                return powerBraceletAreaEffectObj.GetComponent<ToolMana>().manaCost;
             case 18:
-                return bootsObj.GetComponent<Boots>().manaCost;
+                return bootsObj.GetComponent<ToolMana>().manaCost;
 			default:
 				Debug.Log("Unknown Tool Object");
 				return 0;

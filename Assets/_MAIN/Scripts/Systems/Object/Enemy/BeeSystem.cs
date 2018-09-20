@@ -16,6 +16,8 @@ public class BeeSystem : ComponentSystem {
 	#region injected component
 	[InjectAttribute] public BeeComponent beeComponent;
 
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
+
 	// [InjectAttribute] GameFXSystem gameFXSystem;
 	public Transform currBeeTransform;
 	Bee currBee;
@@ -59,6 +61,9 @@ public class BeeSystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currBeeHealth.EnemyHP <= 0f){
+			//SPAWN ITEM
+			lootableSpawnerSystem.CheckPlayerLuck(enemy.spawnItemProbability, currBeeTransform.position);
+
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();
 		}

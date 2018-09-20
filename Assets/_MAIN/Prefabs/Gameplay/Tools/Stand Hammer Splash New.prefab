@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 136216097359038864}
   - component: {fileID: 114640393715823656}
   - component: {fileID: 95639245622640588}
+  - component: {fileID: 114801292075550204}
   m_Layer: 0
   m_Name: Stand Hammer Splash New
   m_TagString: Hammer
@@ -198,6 +199,18 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+--- !u!114 &114801292075550204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093751733505800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 20
 --- !u!136 &136216097359038864
 CapsuleCollider:
   m_ObjectHideFlags: 1

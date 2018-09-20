@@ -220,6 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4425261096037340}
   - component: {fileID: 114513854608232102}
+  - component: {fileID: 114818278758920438}
   m_Layer: 0
   m_Name: Boots Attribute
   m_TagString: Untagged
@@ -705,6 +706,7 @@ GameObject:
   - component: {fileID: 114925006342211010}
   - component: {fileID: 114286191795224190}
   - component: {fileID: 136133393664828800}
+  - component: {fileID: 114243346190958560}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -1379,7 +1381,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722749280159252}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: -0.905, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4094135077549126}
@@ -1689,6 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 114265990626498192}
+  mana: {fileID: 114901627235131250}
   state: 0
   playerWeaponPos: {fileID: 0}
   playerCol: {fileID: 136916452541748184}
@@ -1751,6 +1754,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114243346190958560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 20
 --- !u!114 &114265990626498192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2243,6 +2258,18 @@ MonoBehaviour:
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
+--- !u!114 &114818278758920438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223443603101166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 2
 --- !u!114 &114840518099298792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2498,7 +2525,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.0000008940697}
+    m_Center: {x: 0, y: 0, z: 0.0000016093254}
     m_Extent: {x: 5.000019, y: 0.00000026822096, z: 5.0000033}
   m_DirtyAABB: 0
 --- !u!183 &183409921190244292
@@ -47965,8 +47992,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6082dfe93de3c754986feb36a55b2529, type: 2}
-  - {fileID: 2100000, guid: 6082dfe93de3c754986feb36a55b2529, type: 2}
+  - {fileID: 2100000, guid: 56655462de297c641a7e7bfc82258013, type: 2}
+  - {fileID: 2100000, guid: 56655462de297c641a7e7bfc82258013, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
