@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
+    public bool isInitPlayer = false; 
 
 	[SpaceAttribute(10f)]
 	public Damage damageReceive;
@@ -110,8 +111,8 @@ public class Player : MonoBehaviour {
     }
 
     public float MaxMP{
-        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMP);}
-        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
+        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, maxMP);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, value);}
     }
 
 	void OnCollisionEnter (Collision col) {

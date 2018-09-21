@@ -19,6 +19,7 @@ public class SystemManagerSystem : ComponentSystem {
 
 	// [InjectAttribute] ToolSystem toolSystem;
 	// [InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
+	[InjectAttribute] GameStorageSystem gameStorageSystem;
 
 	SystemManager systemManager;
 
@@ -52,6 +53,19 @@ public class SystemManagerSystem : ComponentSystem {
 
 	void CheckSystemManager() {
 		if (systemManager.isChangeScene) {
+			try {
+				Debug.Log("Try CheckSystemManager \n isChangeScene :"+systemManager.isChangeScene);
+
+				//SAVE PLAYER STATS
+				gameStorageSystem.SaveState();
+
+				//LOAD MAP STATS
+				//
+			} catch {
+				return;
+			}
+
+			Debug.Log("Finish CheckSystemManager \n isChangeScene :"+systemManager.isChangeScene);
 			SetSystems (true);
 			systemManager.isChangeScene = false;
 		}

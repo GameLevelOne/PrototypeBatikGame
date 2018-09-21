@@ -55,10 +55,10 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				try {
 					InitPlayerInfo ();
 				} catch {
-					Debug.Log("Error init UIPlayerInfoSystem");
 					return;
 				}
 
+				Debug.Log("Success init UIPlayerInfoSystem");
 				uiInfo.isInitUIInfo = true;
 			} else {
 				isPlayingAnimation = uiInfo.isPlayingAnimation;

@@ -285,7 +285,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckMovementInput () {
-		#region JOYSTICK
+#region JOYSTICK
 		if (Input.GetJoystickNames().Length >= 1) {
 			if (Input.GetJoystickNames()[0] != "") {
 				float inputX = Input.GetAxis("Horizontal Javatale");
@@ -300,26 +300,41 @@ public class PlayerInputSystem : ComponentSystem {
 			
 				if (inputY < 0f) {
 					SetJoystickAndKeyboardInput(true, 0);
-				} else if (inputY > 0f) {
-					SetJoystickAndKeyboardInput(true, 2);
-				} else {
-					SetJoystickAndKeyboardInput(false, 1);
-					SetJoystickAndKeyboardInput(false, 3);
 				} 
 				
 				if (inputX < 0f) {
 					SetJoystickAndKeyboardInput(true, 1);
-				} else if (inputX > 0f) {
+				}
+				
+				if (inputY > 0f) {
+					SetJoystickAndKeyboardInput(true, 2);
+				}
+				
+				if (inputX > 0f) {
 					SetJoystickAndKeyboardInput(true, 3);
-				} else if (inputY == 0f) {
-					SetJoystickAndKeyboardInput(false, 0);
-					SetJoystickAndKeyboardInput(false, 2);
+				}
+				
+				if (inputY == 0f) {
+					if (input.dirButtons[0] == 1) {
+						SetJoystickAndKeyboardInput(false, 0);						
+					} else if (input.dirButtons[2] == 1) {
+						SetJoystickAndKeyboardInput(false, 2);
+					}
+				}
+				
+
+				if (inputX == 0f) {
+					if (input.dirButtons[1] == 1) {
+						SetJoystickAndKeyboardInput(false, 1);						
+					} else if (input.dirButtons[3] == 1) {
+						SetJoystickAndKeyboardInput(false, 3);
+					}
 				}
 			}
 		} 
-		#endregion
+#endregion
 		
-		#region MOUSE & KEYBOARD
+#region MOUSE & KEYBOARD
 		else {
 			// int maxValue = input.moveAnimValue[2];
 			// int midValue = input.moveAnimValue[1];
@@ -361,7 +376,7 @@ public class PlayerInputSystem : ComponentSystem {
 				SetJoystickAndKeyboardInput(false, 3);
 			}
 		}
-		#endregion
+#endregion
 	}
 
 	/// <summary>
@@ -377,28 +392,28 @@ public class PlayerInputSystem : ComponentSystem {
 
 			switch (dirIdx) {
 				case 0:
-					Debug.Log("DOWN");
+					// Debug.Log("DOWN");
 					if (input.dirButtons[2] == 0) {
 						ChangeDir(currentDir.x, -1f);
 						CheckLockDir(0, 1, 3);
 					}
 					break;
 				case 1:
-					Debug.Log("LEFT");
+					// Debug.Log("LEFT");
 					if (input.dirButtons[3] == 0) {
 						ChangeDir(-1f, currentDir.z);
 						CheckLockDir(1, 0, 2);
 					}
 					break;
 				case 2:
-					Debug.Log("UP");
+					// Debug.Log("UP");
 					if (input.dirButtons[0] == 0) {
 						ChangeDir(currentDir.x, 1f);
 						CheckLockDir(2, 1, 3);
 					}
 					break;
 				case 3:
-					Debug.Log("RIGHT");
+					// Debug.Log("RIGHT");
 					if (input.dirButtons[1] == 0) {
 						ChangeDir(1f, currentDir.z);
 						CheckLockDir(3, 0, 2);
@@ -1027,7 +1042,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void ChangeDir (float dirX, float dirZ) {
 		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
-		Debug.Log(newDir);
+		// Debug.Log(newDir);
 
 		#region RUN EFFECT
 		if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {

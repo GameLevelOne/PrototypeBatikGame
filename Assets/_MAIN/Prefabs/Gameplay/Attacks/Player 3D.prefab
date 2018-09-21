@@ -210,7 +210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1223443603101166
 GameObject:
   m_ObjectHideFlags: 1
@@ -1697,6 +1697,7 @@ MonoBehaviour:
   playerCol: {fileID: 136916452541748184}
   shieldPower: 5
   enemyThatHitsPlayer: {fileID: 0}
+  isInitPlayer: 0
   damageReceive: {fileID: 0}
   isPlayerHit: 0
   isHitAnEnemy: 0
@@ -1781,7 +1782,7 @@ MonoBehaviour:
   player: {fileID: 114208348427726864}
   enemy: {fileID: 0}
   healthPower: 100
-  isTestHealth: 1
+  isTestHealth: 0
 --- !u!114 &114270379899339828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2311,7 +2312,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mana: 80
   manaRegenPerSecond: 5
-  isTestMana: 1
+  isTestMana: 0
+  isInitMana: 0
 --- !u!114 &114915294150666794
 MonoBehaviour:
   m_ObjectHideFlags: 1

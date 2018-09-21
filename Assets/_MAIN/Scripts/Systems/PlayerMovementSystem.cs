@@ -19,6 +19,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
 	[InjectAttribute] ManaSystem manaSystem;
+	[InjectAttribute] GameStorageSystem gameStorageSystem;
 
 	public PlayerInput input;
 	public Facing2D facing;
@@ -73,8 +74,10 @@ public class PlayerMovementSystem : ComponentSystem {
 				input.moveDir = Vector3.zero;
 
 				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
-					PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
-					SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+					gameStorageSystem.LoadState(50);
+					// PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
+					// SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
 				}	
 
 				continue;
@@ -116,6 +119,8 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					moveDir = input.moveDir;
 				}
+			} else if (input.moveMode == 2) {
+				moveDir = Vector3.zero;
 			}
 			// else if (state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			// 	moveDir = Vector2.zero;

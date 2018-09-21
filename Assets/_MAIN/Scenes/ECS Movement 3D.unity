@@ -1097,6 +1097,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114876268718149606, guid: 08355f4618f96e54996e3f1db1d9612a,
+        type: 2}
+      propertyPath: initSavedHP
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114876268718149606, guid: 08355f4618f96e54996e3f1db1d9612a,
+        type: 2}
+      propertyPath: initSavedMP
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08355f4618f96e54996e3f1db1d9612a, type: 2}
   m_IsPrefabAsset: 0
@@ -2494,6 +2504,21 @@ Prefab:
       propertyPath: uiShop
       value: 
       objectReference: {fileID: 1483447616}
+    - target: {fileID: 114265990626498192, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: isTestHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114901627235131250, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: mana
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 114901627235131250, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: isTestMana
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
