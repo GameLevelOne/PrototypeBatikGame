@@ -48,7 +48,7 @@ public class QuestSystem : ComponentSystem {
 		Debug.Log("Process Quest : "+questIdx);
 		quest.questCurrentPoint[questIdx]++;
 
-		if (quest.questCurrentPoint[questIdx] >= quest.questPointRequired[questIdx]) {
+		if (CheckIfQuestIsComplete(questIdx)) {
 			for (int i=0; i<areaDissolverData.Length; i++) {
 				AreaDissolver areaDissolver = areaDissolverData.AreaDissolver[i];
 
@@ -59,6 +59,14 @@ public class QuestSystem : ComponentSystem {
 			}
 			
 			Debug.Log("Quest "+questIdx+" is Complete");
+		}
+	}
+
+	public bool CheckIfQuestIsComplete (int questIdx) {
+		if (quest.questCurrentPoint[questIdx] >= quest.questPointRequired[questIdx]) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

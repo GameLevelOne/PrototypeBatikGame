@@ -20,6 +20,7 @@ public class SystemManagerSystem : ComponentSystem {
 	// [InjectAttribute] ToolSystem toolSystem;
 	// [InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 	[InjectAttribute] GameStorageSystem gameStorageSystem;
+	[InjectAttribute] QuestSystem questSystem;
 
 	SystemManager systemManager;
 
@@ -60,7 +61,7 @@ public class SystemManagerSystem : ComponentSystem {
 				gameStorageSystem.SaveState();
 
 				//LOAD MAP STATS
-				//
+				CheckCurrentMap(systemManager.currentMapIdx);
 			} catch {
 				return;
 			}
@@ -76,5 +77,15 @@ public class SystemManagerSystem : ComponentSystem {
 	public void SetSystems (bool value) {
 		playerInputSystem.Enabled = value;
 		damageSystem.Enabled = value;
+	}
+
+	void CheckCurrentMap (int mapIdx) {
+		switch (mapIdx) {
+			case 0:
+				if (questSystem.CheckIfQuestIsComplete(0)) {
+
+				}
+				break;
+		}
 	}
 }
