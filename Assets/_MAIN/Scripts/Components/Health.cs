@@ -43,7 +43,7 @@ public class Health : MonoBehaviour {
 
 	public float PlayerHP {
 		get{
-			Debug.Log("Player Remaining HP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
+			// Debug.Log("Player Remaining HP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
 			return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);}
 		set{
 			if (PlayerHP == value) return;

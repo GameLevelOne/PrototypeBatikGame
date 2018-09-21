@@ -3,6 +3,7 @@
 public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
 	public Enemy enemy;
+	public QuestTrigger questTrigger;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public GameObject attackCodeFX;

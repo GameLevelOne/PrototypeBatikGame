@@ -28,89 +28,91 @@ public class GameStorage : MonoBehaviour {
 		}
 	}
 
-	public int IsCompletedLevel_1 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_1, value);
-		}
-	}
+#region  QUEST KEY / MAP
+	// public int IsCompletedLevel_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_1, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_2_1 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_1, value);
-		}
-	}
+	// public int IsCompletedLevel_2_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_1, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_2_2 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_2, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_2, value);
-		}
-	}
+	// public int IsCompletedLevel_2_2 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_2, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_2, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_2_3 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_3, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_3, value);
-		}
-	}
+	// public int IsCompletedLevel_2_3 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_2_3, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_2_3, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_3_1 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_1, value);
-		}
-	}
+	// public int IsCompletedLevel_3_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_1, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_3_2 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_2, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_2, value);
-		}
-	}
+	// public int IsCompletedLevel_3_2 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_2, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_2, value);
+	// 	}
+	// }
 
-	public int IsCompletedLevel_3_3 {
-		get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_3, 0);}
-		set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_3, value);
-		}
-	}
+	// public int IsCompletedLevel_3_3 {
+	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_3_3, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.LevelPrefKey.LEVEL_3_3, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_1 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_1, value);
-		}
-	}
+	// public int KillCountQuestLevel_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_1, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_2_1 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_1, value);
-		}
-	}
+	// public int KillCountQuestLevel_2_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_1, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_2_2 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_2, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_2, value);
-		}
-	}
+	// public int KillCountQuestLevel_2_2 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_2, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_2, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_2_3 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_3, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_3, value);
-		}
-	}
+	// public int KillCountQuestLevel_2_3 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_3, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_2_3, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_3_1 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_1, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_1, value);
-		}
-	}
+	// public int KillCountQuestLevel_3_1 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_1, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_1, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_3_2 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_2, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_2, value);
-		}
-	}
+	// public int KillCountQuestLevel_3_2 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_2, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_2, value);
+	// 	}
+	// }
 
-	public int KillCountQuestLevel_3_3 {
-		get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_3, 0);}
-		set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_3, value);
-		}
-	}
+	// public int KillCountQuestLevel_3_3 {
+	// 	get {return PlayerPrefs.GetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_3, 0);}
+	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_3, value);
+	// 	}
+	// }
+#endregion
 
 	void Start () {
 		if (isTesting) {
