@@ -17,25 +17,41 @@ public class ManaSystem : ComponentSystem {
 	float currMana;
 	float maxMana;
 
-	bool isManaFull = false;
-	bool isCheckingMana = false;
+	bool isManaFull;
+	bool isCheckingMana;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
 		
-		if (manaData.Length == 0) return;
+		// if (manaData.Length == 0) return;
 
 		for (int i=0; i<manaData.Length; i++) {
 			mana = manaData.Mana[i];
 			player = manaData.Player[i];
 
-			currMana = mana.PlayerMP;
-			maxMana = player.MaxMP;
+			if (!mana.isInitMana) {
+				InitMana();
 
-			if (!isManaFull && !isCheckingMana) {
-				RegenMana();
+				continue;
+			}
+
+			if (player.state != PlayerState.DIE) {
+				currMana = mana.PlayerMP;
+
+				if (!isManaFull && !isCheckingMana) {
+					RegenMana();
+				}
 			}
 		}
+	}
+
+	void InitMana () {
+		maxMana = player.MaxMP;
+
+		isManaFull = false;
+		isCheckingMana = false;
+
+		mana.isInitMana = true;
 	}
 
 	public bool isHaveEnoughMana (float manaCost, bool isUseMana, bool isUsingStand) { //WHEN USING STAND	

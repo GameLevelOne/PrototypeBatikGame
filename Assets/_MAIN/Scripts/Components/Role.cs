@@ -2,7 +2,8 @@
 
 public enum GameRole {
 	Enemy,
-	Player
+	Player,
+	Boss
 }
 
 public class Role : MonoBehaviour {

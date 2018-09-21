@@ -184,7 +184,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							// AnimationMaterialIndex = 1;
 							break;
 						case 2: 
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD);;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD);
 							// AnimationMaterialIndex = 2;
 							break;
 					}
@@ -199,7 +199,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 							PlayLoopAnimation(Constants.BlendTreeName.MOVE_CHARGE);
 							break;
 						case 2: 
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_GUARD);
+							// PlayLoopAnimation(Constants.BlendTreeName.MOVE_GUARD);
+							StopAnyAnimation();
 							break;
 					}
 
@@ -541,7 +542,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
 				input.attackMode = 0;
-				Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
+				// Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 				break;
 			case PlayerState.DASH:

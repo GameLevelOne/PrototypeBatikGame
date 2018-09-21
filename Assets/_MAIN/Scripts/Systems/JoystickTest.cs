@@ -13,6 +13,13 @@ public class JoystickTest : MonoBehaviour {
 	}
 
 	void Update () {
+		// CheckMovement();
+		CheckButton();
+
+		// Debug.Log(Input.GetAxis("Horizontal"));								
+	}
+
+	void CheckMovement () {
 		float inputX = Input.GetAxis("Horizontal Javatale");
 		float inputY = Input.GetAxis("Vertical Javatale");
 
@@ -38,8 +45,10 @@ public class JoystickTest : MonoBehaviour {
 		}
 
 		dummy.position = new Vector2 (dummy.position.x + inputX, dummy.position.y + inputY);
+	}
 
-		for (int i=0; i<20; i++) {
+	void CheckButton () {
+		for (int i=0; i<Input.GetJoystickNames()[0].Length; i++) {
 			if (Input.GetKeyDown("joystick 1 button " + i.ToString())) {
 				Debug.Log("joystick 1 button " + i);
 			}
@@ -85,8 +94,6 @@ public class JoystickTest : MonoBehaviour {
 		// 	Debug.Log("KeyCode.Joystick1Button18");
 		// } else if (Input.GetKeyDown(KeyCode.Joystick1Button19)) {
 		// 	Debug.Log("KeyCode.Joystick1Button19");
-		// } 	
-
-		// Debug.Log(Input.GetAxis("Horizontal"));								
+		// } 
 	}
 }

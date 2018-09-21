@@ -412,26 +412,17 @@ public class ToolSystem : ComponentSystem {
 
 	void SpawnSlashEffect (int toolType) {
         switch (toolType) {
-            case 1:
+            case 1: //BOW
 				SpawnNormalToolObj (toolType);
                 break;
-            case 2:
-				SpawnNormalToolObj (toolType);
-                break;
-            case 3:
+            case 3: //BOMB
                 SpawnSpecialToolObj (toolType);
                 break;
-            case 4:
-				SpawnNormalToolObj (toolType);
+            case 4: //HAMMER
+                SpawnSpecialToolObj (toolType);
                 break;
-            case 5:
-				SpawnNormalToolObj (toolType);
-                break;
-            case 11:
-				SpawnNormalToolObj (toolType);
-                break;
-            case 12:
-				SpawnNormalToolObj (toolType);
+            case 11: //SHOVEL
+                SpawnSpecialToolObj (toolType);
                 break;
             case 14:
                 SpawnBigSummonObj (toolType);
@@ -463,18 +454,18 @@ public class ToolSystem : ComponentSystem {
     }
 
 	void SpawnSpecialToolObj (int toolType) {
-		Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
-        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, spawnRot);
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, Quaternion.identity);
        	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
 
         spawnedObj.SetActive(true);
 	}
 
 	void SpawnBigSummonObj (int toolType) {	
-		Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
-        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.transform.root.position, spawnRot);
+		// Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.transform.root.position, Quaternion.identity);
        	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
-
+		   
+		Time.timeScale = 0;
         spawnedObj.SetActive(true);
     }
 	

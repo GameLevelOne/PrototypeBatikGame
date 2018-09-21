@@ -10,18 +10,22 @@ public class Mana : MonoBehaviour {
 	// public bool isCheckingMana = false;
 	public bool isTestMana = false;
 
+	public bool isInitMana = false;
+
 	void Awake () { //TEMP
 		if (isTestMana) {
-			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, mana);
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, mana);
 		} 
 	}
 
 	public float PlayerMP {
-		get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, mana);}
+		get{
+			// Debug.Log("Player Remaining MP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP));
+			return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, mana);}
 		set{
 			if (PlayerMP == value) return;
 
-			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MANA, value);
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, value);
 			
 			if (OnManaChange != null) {
 				OnManaChange();

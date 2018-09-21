@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public Enemy enemyThatHitsPlayer;
 	// public PlayerTool playerTool;
+    public bool isInitPlayer = false; 
 
 	[SpaceAttribute(10f)]
 	public Damage damageReceive;
@@ -58,7 +59,9 @@ public class Player : MonoBehaviour {
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
 	public bool isInteractingWithNPC = false;
-	// public bool isInteractingNotWithNPC = false;
+	
+	//JATAYU
+	public bool isHitJatayuAttack2 = false;
 
 	public int interactIndex;
 	
@@ -110,8 +113,8 @@ public class Player : MonoBehaviour {
     }
 
     public float MaxMP{
-        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, maxMP);}
-        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMANA, value);}
+        get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, maxMP);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, value);}
     }
 
 	void OnCollisionEnter (Collision col) {
@@ -148,11 +151,19 @@ public class Player : MonoBehaviour {
 			Enemy enemy = col.GetComponentInParent<Enemy>();
 			enemyThatHitsPlayer = enemy;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = true;
+		}
 	}
 
 	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = false;
+		}
+
+		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = false;
 		}
 	}
 	

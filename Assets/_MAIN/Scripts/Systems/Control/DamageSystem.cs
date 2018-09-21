@@ -67,8 +67,10 @@ public class DamageSystem : ComponentSystem {
 			// }
 
 			CalculateDamageToEnemy();
+		} else if (role.gameRole == GameRole.Boss) {
+			CalculateDamageToBoss();
 		} else {
-			Debug.Log("Unknown");
+			Debug.Log("Unknown Role");
 		}
 	}
 
@@ -202,6 +204,46 @@ public class DamageSystem : ComponentSystem {
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}
+	}
+
+	void CalculateDamageToBoss()
+	{
+		// Enemy currEnemy = health.enemy;
+
+		// if(!currEnemy.isHit) return;
+		// else{
+		// 	Transform enemyTransform = currEnemy.transform;
+		// 	string damageTag = currEnemy.damageReceive.tag;
+		// 	float damage = currEnemy.damageReceive.damage;
+		// 	// Debug.Log(damage);
+
+		// 	if(damageTag == Constants.Tag.HAMMER){
+		// 		if(currEnemy.hasArmor){
+		// 			currEnemy.hasArmor = false;
+		// 		}else{
+		// 			// health.EnemyHP -= damage;
+		// 			// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+		// 			health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+		// 		}
+		// 	} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
+		// 	damageTag == Constants.Tag.MAGIC_MEDALLION ||
+		// 	damageTag == Constants.Tag.ARROW) {
+		// 		health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+		// 	} else if (damageTag == Constants.Tag.FIRE_ARROW ||
+		// 	damageTag == Constants.Tag.EXPLOSION) {
+		// 		//BURN
+		// 		health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+		// 	} else {
+		// 		if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
+		// 			playerInputSystem.player.isHitAnEnemy = true;
+					
+		// 			health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+		// 		}
+		// 	}
+		// 	// currEnemy.isEnemyGetHurt = false;
+		// 	currEnemy.damageReceive = null;
+		// 	currEnemy.isHit = false;
+		// }
 	}
 
 	float ReduceHP (float initHP, float damage, Vector3 hitPos) {

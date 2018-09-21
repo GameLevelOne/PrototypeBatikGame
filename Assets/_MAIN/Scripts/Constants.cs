@@ -78,16 +78,25 @@ public static class Constants {
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";
+
+		//JATAYU ATTACK
+		public const string JATAYU_ATTACK_1 = "Jatayu Attack 1";
+		public const string JATAYU_ATTACK_2 = "Jatayu Attack 2";
+		public const string JATAYU_ATTACK_3 = "Jatayu Attack 3";
+		
 	}
 
 	public static class PlayerPrefKey
 	{
+		public const string PLAYER_SAVED_HP = "Player/Saved/HP";
+		public const string PLAYER_SAVED_MP = "Player/Saved/MP";
+		public const string PLAYER_SAVED_COIN = "Player/Saved/Coin";
+
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
 		public const string PLAYER_STATS_HP = "Player/Stats/HP";
-		public const string PLAYER_STATS_MAXMANA = "Player/Stats/MaxMana";
-		public const string PLAYER_STATS_MANA = "Player/Stats/Mana";
-
-		public const string PLAYER_COIN = "Player/Stats/Coin";
+		public const string PLAYER_STATS_MAXMP = "Player/Stats/MaxMP";
+		public const string PLAYER_STATS_MP = "Player/Stats/MP";
+		public const string PLAYER_STATS_COIN = "Player/Stats/Coin";
 
 		public const string PLAYER_TOOL_BOW = "Player/Tool/Bow";
 		public const string PLAYER_TOOL_HOOK = "Player/Tool/Hook";
@@ -225,5 +234,27 @@ public static class Constants {
 		public const string SCENE_LEVEL_3_1 = "SceneLevel_3-1";
 		public const string SCENE_LEVEL_3_2 = "SceneLevel_3-2";
 		public const string SCENE_LEVEL_3_3 = "SceneLevel_3-3";
+	}
+
+	public static class LevelPrefKey
+	{
+		public const string LEVEL_1 = "Level/Saved/IsCompleted_Level_1";
+		public const string LEVEL_2_1 = "Level/Saved/IsCompleted_Level_2_1";
+		public const string LEVEL_2_2 = "Level/Saved/IsCompleted_Level_2_2";
+		public const string LEVEL_2_3 = "Level/Saved/IsCompleted_Level_2_3";
+		public const string LEVEL_3_1 = "Level/Saved/IsCompleted_Level_3_1";
+		public const string LEVEL_3_2 = "Level/Saved/IsCompleted_Level_3_2";
+		public const string LEVEL_3_3 = "Level/Saved/IsCompleted_Level_3_3";
+	}
+
+	public static class QuestPrefKey
+	{
+		public const string QUEST_LEVEL_1 = "Level/Quest/Kill_Count_Level_1";
+		public const string QUEST_LEVEL_2_1 = "Level/Quest/Kill_Count_Level_2_1";
+		public const string QUEST_LEVEL_2_2 = "Level/Quest/Kill_Count_Level_2_2";
+		public const string QUEST_LEVEL_2_3 = "Level/Quest/Kill_Count_Level_2_3";
+		public const string QUEST_LEVEL_3_1 = "Level/Quest/Kill_Count_Level_3_1";
+		public const string QUEST_LEVEL_3_2 = "Level/Quest/Kill_Count_Level_3_2";
+		public const string QUEST_LEVEL_3_3 = "Level/Quest/Kill_Count_Level_3_3";
 	}
 }

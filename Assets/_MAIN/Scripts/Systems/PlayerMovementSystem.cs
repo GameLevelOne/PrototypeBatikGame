@@ -19,6 +19,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
 	[InjectAttribute] ManaSystem manaSystem;
+	[InjectAttribute] GameStorageSystem gameStorageSystem;
 
 	public PlayerInput input;
 	public Facing2D facing;
@@ -73,8 +74,10 @@ public class PlayerMovementSystem : ComponentSystem {
 				input.moveDir = Vector3.zero;
 
 				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
-					PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
-					SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+					gameStorageSystem.LoadState(50);
+					// PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
+					// SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
 				}	
 
 				continue;
@@ -116,6 +119,8 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					moveDir = input.moveDir;
 				}
+			} else if (input.moveMode == 2) {
+				moveDir = Vector3.zero;
 			}
 			// else if (state == PlayerState.FISHING || state == PlayerState.GET_TREASURE) {
 			// 	moveDir = Vector2.zero;
@@ -124,12 +129,17 @@ public class PlayerMovementSystem : ComponentSystem {
 			// else if (state == PlayerState.BOW) {
 			// 	moveDir = Vector2.zero;
 			// } 
-			else {
+		 	else {
 				dashDelay = movement.dashDelay;
 				brakeTime = movement.brakeTime;
 				player.isBouncing = false;
-				moveDir = input.moveDir;
+				// moveDir = input.moveDir;
 
+				if (player.isHitJatayuAttack2) {
+					moveDir = input.moveDir - Vector3.forward;
+				} else {
+					moveDir = input.moveDir;
+				}
 				// Debug.Log(moveDir +"\n"+ moveDir.normalized);
 			}
 
@@ -270,7 +280,11 @@ public class PlayerMovementSystem : ComponentSystem {
 					
 					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 						player.SetPlayerState(PlayerState.MOVE);
-					} 
+					}
+				} else {
+					if (!player.isHitJatayuAttack2) {
+						player.SetPlayerIdle();
+					}
 				}
 			}
 		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {

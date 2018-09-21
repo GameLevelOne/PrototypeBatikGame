@@ -3,6 +3,7 @@
 public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
 	public Enemy enemy;
+	public QuestTrigger questTrigger;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public GameObject attackCodeFX;
@@ -39,7 +40,9 @@ public class Bee : MonoBehaviour {
 	void SetPlayerTransform(GameObject player)
 	{
 		if (player != null) {
-			enemy.playerTransform = player.transform;			
+			if (player.GetComponent<Player>().state != PlayerState.DIE) {
+				enemy.playerTransform = player.transform;
+			}			
 		} else {
 			//
 		}

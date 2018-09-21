@@ -51,6 +51,11 @@ public class DissolverSystem : ComponentSystem {
 			int maxIndex = currDissolver.dissolveValue.Count-1;
 			
 			if(currDissolver.dissolveValue[maxIndex] >= 1f){
+				//DISABLE GREY MESH
+				for (int i=0; i<currDissolver.mRenderer.Count; i++) {
+					currDissolver.mRenderer[i].gameObject.SetActive(false);
+				}
+
 				currDissolver.dissolve = false;
 				return;
 			} 

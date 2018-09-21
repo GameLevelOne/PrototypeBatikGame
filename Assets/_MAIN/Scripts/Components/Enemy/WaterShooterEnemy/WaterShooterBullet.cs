@@ -13,7 +13,7 @@ public class WaterShooterBullet : MonoBehaviour {
 	// }
 
 	void OnTriggerEnter (Collider col) {
-		if(col.transform.root.GetComponent<WaterShooterEnemy>() == null || col.tag == Constants.Tag.BOUNDARIES) {
+		if(col.tag == Constants.Tag.PLAYER || col.tag == Constants.Tag.BOUNDARIES) {
 			// Debug.Log("null "+col.name);
 			Projectile.isSelfDestroying = true;
 		}
