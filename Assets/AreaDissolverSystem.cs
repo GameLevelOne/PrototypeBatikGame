@@ -45,9 +45,31 @@ public class AreaDissolverSystem : ComponentSystem {
 		}
 	}
 
-	public void CheckCurrentLevelbyQuest (int questIdx) {
-		// if (areaDissolver.levelQuestIndex == questIdx && !areaDissolver.isAreaAlreadyDissolved) {
-		// 	areaDissolver.isDissolveArea = true;
-		// }
+	public void DissolvedArea (int questIdx) {
+		if (areaDissolver.levelQuestIndex == questIdx) {
+			areaDissolver.isDissolveArea = true;
+		}
+	}
+
+	public void DissableGreyDissolver (int questIdx) {
+		if (areaDissolver.levelQuestIndex == questIdx) {
+			for (int i=0; i<dissolverObjQty; i++) {
+				for (int j=0; j<areaDissolver.dissolverObj[i].mRenderer.Count; j++) {
+					areaDissolver.dissolverObj[i].mRenderer[j].gameObject.SetActive(false);
+				}
+			}
+		}
+	}
+
+	public bool CheckCurrentLevelbyQuest (int questIdx) {
+		if (areaDissolver.levelQuestIndex == questIdx && !areaDissolver.isAreaAlreadyDissolved) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public bool CheckIfAreaIsAlreadyDissolved (int questIdx) {
+		return areaDissolver.isAreaAlreadyDissolved;
 	}
 }

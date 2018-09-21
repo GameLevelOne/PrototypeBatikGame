@@ -236,25 +236,27 @@ public static class Constants {
 		public const string SCENE_LEVEL_3_3 = "SceneLevel_3-3";
 	}
 
-	public static class LevelPrefKey
+	public static class DissolvedLevelPrefKey
 	{
-		public const string LEVEL_1 = "Level/Saved/IsCompleted_Level_1";
-		public const string LEVEL_2_1 = "Level/Saved/IsCompleted_Level_2_1";
-		public const string LEVEL_2_2 = "Level/Saved/IsCompleted_Level_2_2";
-		public const string LEVEL_2_3 = "Level/Saved/IsCompleted_Level_2_3";
-		public const string LEVEL_3_1 = "Level/Saved/IsCompleted_Level_3_1";
-		public const string LEVEL_3_2 = "Level/Saved/IsCompleted_Level_3_2";
-		public const string LEVEL_3_3 = "Level/Saved/IsCompleted_Level_3_3";
+		public const string LEVEL_INDEX = "Level/Dissolved/Level_Index";
+		// public const string LEVEL_1 = "Level/Saved/IsCompleted_Level_1";
+		// public const string LEVEL_2_1 = "Level/Saved/IsCompleted_Level_2_1";
+		// public const string LEVEL_2_2 = "Level/Saved/IsCompleted_Level_2_2";
+		// public const string LEVEL_2_3 = "Level/Saved/IsCompleted_Level_2_3";
+		// public const string LEVEL_3_1 = "Level/Saved/IsCompleted_Level_3_1";
+		// public const string LEVEL_3_2 = "Level/Saved/IsCompleted_Level_3_2";
+		// public const string LEVEL_3_3 = "Level/Saved/IsCompleted_Level_3_3";
 	}
 
 	public static class QuestPrefKey
 	{
-		public const string QUEST_LEVEL_1 = "Level/Quest/Kill_Count_Level_1";
-		public const string QUEST_LEVEL_2_1 = "Level/Quest/Kill_Count_Level_2_1";
-		public const string QUEST_LEVEL_2_2 = "Level/Quest/Kill_Count_Level_2_2";
-		public const string QUEST_LEVEL_2_3 = "Level/Quest/Kill_Count_Level_2_3";
-		public const string QUEST_LEVEL_3_1 = "Level/Quest/Kill_Count_Level_3_1";
-		public const string QUEST_LEVEL_3_2 = "Level/Quest/Kill_Count_Level_3_2";
-		public const string QUEST_LEVEL_3_3 = "Level/Quest/Kill_Count_Level_3_3";
+		public const string QUEST_INDEX = "Quest/Completed/Level_Index";
+		// public const string QUEST_LEVEL_1 = "Level/Quest/Kill_Count_Level_1";
+		// public const string QUEST_LEVEL_2_1 = "Level/Quest/Kill_Count_Level_2_1";
+		// public const string QUEST_LEVEL_2_2 = "Level/Quest/Kill_Count_Level_2_2";
+		// public const string QUEST_LEVEL_2_3 = "Level/Quest/Kill_Count_Level_2_3";
+		// public const string QUEST_LEVEL_3_1 = "Level/Quest/Kill_Count_Level_3_1";
+		// public const string QUEST_LEVEL_3_2 = "Level/Quest/Kill_Count_Level_3_2";
+		// public const string QUEST_LEVEL_3_3 = "Level/Quest/Kill_Count_Level_3_3";
 	}
 }

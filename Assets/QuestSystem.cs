@@ -14,7 +14,7 @@ public class QuestSystem : ComponentSystem {
 	}
 	[InjectAttribute] AreaDissolverData areaDissolverData;
 
-	// [InjectAttribute] AreaDissolverSystem areaDissolverSystem;
+	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
 
 	Quest quest;
 
@@ -52,7 +52,7 @@ public class QuestSystem : ComponentSystem {
 			for (int i=0; i<areaDissolverData.Length; i++) {
 				AreaDissolver areaDissolver = areaDissolverData.AreaDissolver[i];
 
-				if (areaDissolver.levelQuestIndex == questIdx && !areaDissolver.isAreaAlreadyDissolved) {
+				if (areaDissolverSystem.CheckCurrentLevelbyQuest(questIdx)) {
 					areaDissolver.isDissolveArea = true;
 					Debug.Log("Dissolving Area Quest "+questIdx);
 				}

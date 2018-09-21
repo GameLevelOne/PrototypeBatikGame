@@ -21,6 +21,7 @@ public class SystemManagerSystem : ComponentSystem {
 	// [InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 	[InjectAttribute] GameStorageSystem gameStorageSystem;
 	[InjectAttribute] QuestSystem questSystem;
+	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
 
 	SystemManager systemManager;
 
@@ -62,6 +63,7 @@ public class SystemManagerSystem : ComponentSystem {
 
 				//LOAD MAP STATS
 				CheckCurrentMap(systemManager.currentMapIdx);
+				Debug.Log("CheckCurrentMap : "+systemManager.currentMapIdx);
 			} catch {
 				return;
 			}
@@ -80,12 +82,23 @@ public class SystemManagerSystem : ComponentSystem {
 	}
 
 	void CheckCurrentMap (int mapIdx) {
-		switch (mapIdx) {
-			case 0:
-				if (questSystem.CheckIfQuestIsComplete(0)) {
+		// switch (mapIdx) {
+		// 	case 4:
+				Debug.Log("CheckIfQuestIsComplete "+mapIdx+" : "+questSystem.CheckIfQuestIsComplete(mapIdx));
+				Debug.Log("CheckCurrentLevelbyQuest "+mapIdx+" : "+areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx));
 
+				if (questSystem.CheckIfQuestIsComplete(mapIdx)) {
+					if (areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx)) {
+						Debug.Log("THIS MAP IS NOT DISSOLVED");
+						areaDissolverSystem.DissolvedArea(mapIdx);
+					} else {
+						Debug.Log("THIS MAP ALREADY DISSOLVED");
+						areaDissolverSystem.DissableGreyDissolver(mapIdx);
+					}
+				} else {
+					Debug.Log("THIS MAP IS NOT COMPLETE");
 				}
-				break;
-		}
+		// 		break;
+		// }
 	}
 }
