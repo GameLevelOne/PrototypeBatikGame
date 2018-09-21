@@ -208,42 +208,23 @@ public class DamageSystem : ComponentSystem {
 
 	void CalculateDamageToBoss()
 	{
-		// Enemy currEnemy = health.enemy;
+		Jatayu currEnemy = health.jatayu;
 
-		// if(!currEnemy.isHit) return;
-		// else{
-		// 	Transform enemyTransform = currEnemy.transform;
-		// 	string damageTag = currEnemy.damageReceive.tag;
-		// 	float damage = currEnemy.damageReceive.damage;
-		// 	// Debug.Log(damage);
+		if(!currEnemy.isHit && !currEnemy.isBurned) return;
+		else{
+			Transform enemyTransform = currEnemy.transform;
+			string damageTag = currEnemy.damageReceive.tag;
+			float damage = currEnemy.damageReceive.damage;
+			// Debug.Log(damage);
 
-		// 	if(damageTag == Constants.Tag.HAMMER){
-		// 		if(currEnemy.hasArmor){
-		// 			currEnemy.hasArmor = false;
-		// 		}else{
-		// 			// health.EnemyHP -= damage;
-		// 			// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
-		// 			health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-		// 		}
-		// 	} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
-		// 	damageTag == Constants.Tag.MAGIC_MEDALLION ||
-		// 	damageTag == Constants.Tag.ARROW) {
-		// 		health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-		// 	} else if (damageTag == Constants.Tag.FIRE_ARROW ||
-		// 	damageTag == Constants.Tag.EXPLOSION) {
-		// 		//BURN
-		// 		health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-		// 	} else {
-		// 		if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
-		// 			playerInputSystem.player.isHitAnEnemy = true;
-					
-		// 			health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-		// 		}
-		// 	}
-		// 	// currEnemy.isEnemyGetHurt = false;
-		// 	currEnemy.damageReceive = null;
-		// 	currEnemy.isHit = false;
-		// }
+			if (!currEnemy.invulnerable) {
+				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+			}
+
+			// currEnemy.isEnemyGetHurt = false;
+			currEnemy.damageReceive = null;
+			currEnemy.isHit = false;
+		}
 	}
 
 	float ReduceHP (float initHP, float damage, Vector3 hitPos) {
