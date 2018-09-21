@@ -331,6 +331,8 @@ public class JatayuSystem : ComponentSystem {
 		if(!jatayu.initDie){
 			jatayu.initDie = true;
 			jatayu.jatayuCollider.enabled = false;
+			jatayu.headSprite.material.color = Color.white;
+			jatayu.bodySprite.material.color = Color.white;
 			SetJatayuAnim(JatayuState.Die);
 		}else{
 
