@@ -59,7 +59,9 @@ public class Player : MonoBehaviour {
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
 	public bool isInteractingWithNPC = false;
-	// public bool isInteractingNotWithNPC = false;
+	
+	//JATAYU
+	public bool isHitJatayuAttack2 = false;
 
 	public int interactIndex;
 	
@@ -149,11 +151,19 @@ public class Player : MonoBehaviour {
 			Enemy enemy = col.GetComponentInParent<Enemy>();
 			enemyThatHitsPlayer = enemy;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = true;
+		}
 	}
 
 	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = false;
+		}
+
+		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = false;
 		}
 	}
 	

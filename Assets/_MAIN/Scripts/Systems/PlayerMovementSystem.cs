@@ -129,12 +129,17 @@ public class PlayerMovementSystem : ComponentSystem {
 			// else if (state == PlayerState.BOW) {
 			// 	moveDir = Vector2.zero;
 			// } 
-			else {
+		 	else {
 				dashDelay = movement.dashDelay;
 				brakeTime = movement.brakeTime;
 				player.isBouncing = false;
-				moveDir = input.moveDir;
+				// moveDir = input.moveDir;
 
+				if (player.isHitJatayuAttack2) {
+					moveDir = input.moveDir - Vector3.forward;
+				} else {
+					moveDir = input.moveDir;
+				}
 				// Debug.Log(moveDir +"\n"+ moveDir.normalized);
 			}
 
@@ -275,7 +280,11 @@ public class PlayerMovementSystem : ComponentSystem {
 					
 					if (state != PlayerState.POWER_BRACELET && state != PlayerState.SWIM && state != PlayerState.OPEN_CHEST && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 						player.SetPlayerState(PlayerState.MOVE);
-					} 
+					}
+				} else {
+					if (!player.isHitJatayuAttack2) {
+						player.SetPlayerIdle();
+					}
 				}
 			}
 		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {

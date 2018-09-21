@@ -18,7 +18,6 @@ public class QuestTriggerSystem : ComponentSystem {
 	// [InjectAttribute] QuestSystem questSystem;
 
 	QuestTrigger questTrigger;
-	Quest quest;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<questTriggerData.Length; i++) {
@@ -30,14 +29,6 @@ public class QuestTriggerSystem : ComponentSystem {
 				CheckQuestTrigger();
 			}
 		}
-
-		for (int i=0; i<questData.Length; i++) {
-			quest = questData.Quest[i];
-
-			if (!quest.isInitQuest) {
-				InitQuest();
-			}
-		}
 	}
 
 	void InitQuestTrigger () {
@@ -45,17 +36,16 @@ public class QuestTriggerSystem : ComponentSystem {
 
 		questTrigger.isInitQuestTrigger = true;
 	}
-	
-	void InitQuest () {
-		//
-
-		quest.isInitQuest = true;
-	}
 
 	void CheckQuestTrigger () {
 		if (questTrigger.isDoQuest) {
 			Debug.Log("Do Quest : "+questTrigger.questIndex);
-			quest.OnQuestProcess(questTrigger.questIndex);
+
+			for (int i=0; i<questData.Length; i++) {
+				Quest quest = questData.Quest[i];
+				
+				quest.OnQuestProcess(questTrigger.questIndex);
+			}
 
 			questTrigger.isDoQuest = false;
 		}

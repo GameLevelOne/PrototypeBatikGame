@@ -78,6 +78,12 @@ public static class Constants {
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";
+
+		//JATAYU ATTACK
+		public const string JATAYU_ATTACK_1 = "Jatayu Attack 1";
+		public const string JATAYU_ATTACK_2 = "Jatayu Attack 2";
+		public const string JATAYU_ATTACK_3 = "Jatayu Attack 3";
+		
 	}
 
 	public static class PlayerPrefKey
