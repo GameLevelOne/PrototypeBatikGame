@@ -25,6 +25,7 @@ public class Jatayu : MonoBehaviour {
 	public SpriteRenderer bodySprite;
 	public Transform playerTransform;
 	public Animator movementAnim;
+	public Health health;
 	public ParticleSystem particleDie;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
@@ -37,6 +38,7 @@ public class Jatayu : MonoBehaviour {
 	public float burnedCooldown = 10f;
 
 	[HeaderAttribute("Current")]
+	public Damage damageReceive;
 	public bool initJatayu = false;
 	public bool initJatayuHP50 = false;
 	public bool invulnerable = false;
@@ -80,11 +82,28 @@ public class Jatayu : MonoBehaviour {
 	public bool isBurned = false;
 	public bool isCBurnedCooldown = false;
 	public bool initParticleDie = false;
+	public bool isHit = false;
 	[HeaderAttribute("SET FALSE FOR RELEASE! DEBUG ONLY!")]
 	public bool testAttack1Only = false;
 	public bool testAttack2Only = false;
 	public bool testAttack3Only = false;
 
+	#region delegate event
+	void OnEnable()
+	{
+		health.OnDamageCheck += DamageCheck;
+	}
+
+	void OnDisable()
+	{
+		health.OnDamageCheck -= DamageCheck;
+	}
+
+	void DamageCheck(Damage damage)
+	{
+		damageReceive = damage;
+	}
+	#endregion
 
 #region animation event
 	void OnEndEntranceAnim()
@@ -157,6 +176,7 @@ public class Jatayu : MonoBehaviour {
 			other.tag == Constants.Tag.HAMMER || 
 			other.tag == Constants.Tag.ARROW ){
 				initHit = true;
+				isHit = true;
 		}
 
 		if(other.tag == Constants.Tag.FIRE_ARROW){

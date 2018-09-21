@@ -13,6 +13,7 @@ public class Health : MonoBehaviour {
 	public Role role;
 	public Player player;
 	public Enemy enemy;
+	public Jatayu jatayu;
 
 	PlayerState playerState;
 	EnemyState enemyState;
