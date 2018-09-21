@@ -461,10 +461,11 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void SpawnBigSummonObj (int toolType) {	
-		Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
-        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.transform.root.position, spawnRot);
+		// Quaternion spawnRot = Quaternion.Euler(new Vector3 (40f, 0f, 0f));	
+        GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.transform.root.position, Quaternion.identity);
        	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY
-
+		   
+		Time.timeScale = 0;
         spawnedObj.SetActive(true);
     }
 	
