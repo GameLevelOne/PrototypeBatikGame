@@ -443,7 +443,14 @@ public class ToolSystem : ComponentSystem {
 		Vector3 targetPos = tool.areaSpawnPos.position;
         Vector3 initPos = tool.transform.position;
 
-		Vector3 deltaPos = targetPos - initPos;
+		Vector3 deltaPos = Vector3.zero;
+		float localTargetPosX = tool.areaSpawnPos.localPosition.x;
+
+		if (localTargetPosX != 0) {
+			deltaPos = new Vector3 (targetPos.x - initPos.x, 0f, 0f); 
+		} else {
+			deltaPos = targetPos - initPos;
+		}
 		
         GameObject spawnedObj = GameObject.Instantiate(tool.GetObj(toolType), tool.areaSpawnPos.position, SetFacingParent(deltaPos));
        	// spawnedBullet.transform.SetParent(this.transform); //TEMPORARY

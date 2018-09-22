@@ -184,5 +184,11 @@ public class Jatayu : MonoBehaviour {
 			isBurned = true;
 		}
 	}
+
+	void OnCollisionEnter(Collision other){
+		if(other.gameObject.tag == "Boundary"){
+			Physics.IgnoreCollision(GetComponent<Collider>(), other.collider);
+		}
+	}
 #endregion
 }

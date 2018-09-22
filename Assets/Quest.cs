@@ -19,6 +19,9 @@ public class Quest : MonoBehaviour {
 	public int currentQuestIndex;
 	public bool isQuestProcess = false;
 
+	[HeaderAttribute("TESTING")]
+	public bool isTesting = false;
+
 	// void OnEnable () {
 	// 	questTrigger.OnQuestProcess += OnQuestProcess;
 	// 	questTrigger.OnQuestComplete += OnQuestComplete;

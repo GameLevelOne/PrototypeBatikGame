@@ -26,9 +26,7 @@ public class ChestOpenerSystem : ComponentSystem {
 		}
 	}
 
-	public void OpenChest () { //CALL BY PLAYERINPUTSYSTEM
-		//SET CHEST TO BE OPENED
-		//PLAY CHEST OPEN ANIMATION
+	public void OpenChest () {
 		chestOpener.chest.isOpened = true;
 		chestOpener.player.isCanOpenChest = false;
 		chestOpener.chest.chestAnimator.Play(Constants.AnimationName.CHEST_OPEN);

@@ -39,6 +39,12 @@ public class Dialog : MonoBehaviour {
 		"2. Are you ready for next dungeon ?",
 		"3. Good luck and have fun !"
 	};
+	
+	public string[] openingDialogs = new string[] {
+		"1. Opening",
+		"2. Opening",
+		"3. Opening"
+	};
 
 	public List<string> letterList;
 }

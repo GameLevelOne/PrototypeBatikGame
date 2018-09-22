@@ -10,4 +10,7 @@ public class AreaDissolver : MonoBehaviour {
 
 	[HeaderAttribute("Current")]
 	public bool isDissolveArea = false;
+
+	[HeaderAttribute("TESTING")]
+	public bool isTesting = false;
 }

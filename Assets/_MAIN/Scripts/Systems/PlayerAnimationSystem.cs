@@ -364,6 +364,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.GET_HURT: 
 					isFinishAnyAnimation = true;
+					isFinishAttackAnimation	= true;	
 					input.attackMode = 0;
 					// Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
 					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
@@ -544,12 +545,25 @@ public class PlayerAnimationSystem : ComponentSystem {
 				input.attackMode = 0;
 				// Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+				
+				if (input.liftingMode == -1 || input.liftingMode == -2) {
+					powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+					powerBraceletSystem.powerBracelet.liftable.throwByAccident = true;
+					powerBraceletSystem.ResetPowerBracelet();
+				}
 				break;
 			case PlayerState.DASH:
 				//
 				break;
 			case PlayerState.POWER_BRACELET:
-				//
+				if (input.liftingMode == -1 || input.liftingMode == -2) {
+					powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+					powerBraceletSystem.AddForceRigidbody();
+					powerBraceletSystem.ResetPowerBracelet();
+				} else if (input.liftingMode == 1) {
+					// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
+					powerBraceletSystem.SetTargetRigidbodyType(0);
+				}
 				break;
 			case PlayerState.USING_TOOL:
 				// tool.isActToolReady = true;
@@ -728,24 +742,25 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
 						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
 						powerBraceletSystem.SetTargetRigidbodyType(2);
-						powerBraceletSystem.SetLiftObjectParent();
+						// powerBraceletSystem.SetLiftObjectParent();
 					}
 
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 1) {
 					if (input.liftingMode == -3) {
 						input.liftingMode = -1;
+						powerBraceletSystem.SetLiftObjectParent();
 					}
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 2) {
-					if (input.liftingMode == -1 || input.liftingMode == -2) {
-						powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
-						powerBraceletSystem.AddForceRigidbody();
-						powerBraceletSystem.ResetPowerBracelet();
-					} else if (input.liftingMode == 1) {
-						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
-						powerBraceletSystem.SetTargetRigidbodyType(0);
-					}
+					// if (input.liftingMode == -1 || input.liftingMode == -2) {
+					// 	powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+					// 	powerBraceletSystem.AddForceRigidbody();
+					// 	powerBraceletSystem.ResetPowerBracelet();
+					// } else if (input.liftingMode == 1) {
+					// 	// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
+					// 	powerBraceletSystem.SetTargetRigidbodyType(0);
+					// }
 					
 					// player.isUsingStand = false;
 					StopAnyAnimation();

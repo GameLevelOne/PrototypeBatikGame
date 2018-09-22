@@ -6,8 +6,6 @@ public class PlayerInteract : MonoBehaviour {
 	
 	[HeaderAttribute("Current")]
 	public NPC currentNPC;
-	
-	public bool isCanInteractWithNPC;
 
 	void OnTriggerStay (Collider col) {
 		if (col.tag == Constants.Tag.NPC && currentNPC == null) {
@@ -15,14 +13,14 @@ public class PlayerInteract : MonoBehaviour {
 
 			if (currentNPC.npcChar == NPCCharacteristic.TALKABLE) {
 				// currentNPC.state = NPCState.INTERACT;
-				isCanInteractWithNPC = true;
+				player.isCanInteractWithNPC = true;
 			}
 		}
 	}
 
 	void OnTriggerExit (Collider col) {
 		if (col.tag == Constants.Tag.NPC && currentNPC == col.GetComponent<NPC>()) {
-			isCanInteractWithNPC = false;
+			player.isCanInteractWithNPC = false;
 			player.isInteractingWithNPC = false;
 			currentNPC.IsInteracting = false;
 			currentNPC.player = null;

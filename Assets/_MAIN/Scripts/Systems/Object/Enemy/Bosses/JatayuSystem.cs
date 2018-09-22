@@ -296,6 +296,20 @@ public class JatayuSystem : ComponentSystem {
 	{
 		if(!jatayu.initHP50){
 			jatayu.initHP50 = true;
+
+			jatayu.initAttack1 = false;
+			jatayu.initAttack2 = false;
+			jatayu.initAttack3 = false;
+			jatayu.initFlapFast = false;
+			jatayu.initCloseWings = false;
+			jatayu.endAttack1 = false;
+			jatayu.endAttack2 = false;
+			jatayu.endAttack3 = false;
+			jatayu.endInitFlapFast = false;
+			jatayu.endCloseWings = false;
+			jatayu.initMove = false;
+			jatayu.endMove = false;
+
 			jatayu.movementAnim.speed = 0f;
 			SetJatayuAnim(JatayuState.HP50);
 		}else{
@@ -397,7 +411,7 @@ public class JatayuSystem : ComponentSystem {
 			}else{
 				float rnd = Random.value;
 
-				if((jatayuHealth.EnemyHP/jatayu.maxHealth) > 0.5f){
+				if(!jatayu.initJatayuHP50){
 					//if health is more than 50%
 					if(rnd < 0.7f){ 
 						//CloseWings -> attack1

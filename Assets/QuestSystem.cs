@@ -31,9 +31,31 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	void InitQuest () {
-		//
+		if (quest.isTesting) {
+			SaveQuest(quest.currentQuestIndex, 0);
+		}
+
+		LoadQuest();
 
 		quest.isInitQuest = true;
+	}
+
+	void LoadQuest () {
+		for (int i=0; i<quest.questCurrentPoint.Length; i++) {
+			string questCurrentPointStr = Constants.QuestPrefKey.QUEST_INDEX + i;
+
+			quest.questCurrentPoint[i] = PlayerPrefs.GetInt(questCurrentPointStr, 0);
+
+			Debug.Log(questCurrentPointStr);
+		}
+	}
+
+	void SaveQuest (int questIdx, int value) {
+		string questCurrentPointStr = Constants.QuestPrefKey.QUEST_INDEX + questIdx;
+
+		PlayerPrefs.SetInt(questCurrentPointStr, value);
+
+		Debug.Log(questCurrentPointStr);
 	}
 
 	void CheckQuest () {
@@ -49,6 +71,8 @@ public class QuestSystem : ComponentSystem {
 		quest.questCurrentPoint[questIdx]++;
 
 		if (CheckIfQuestIsComplete(questIdx)) {
+			SaveQuest (questIdx, quest.questPointRequired[questIdx]);
+
 			for (int i=0; i<areaDissolverData.Length; i++) {
 				AreaDissolver areaDissolver = areaDissolverData.AreaDissolver[i];
 

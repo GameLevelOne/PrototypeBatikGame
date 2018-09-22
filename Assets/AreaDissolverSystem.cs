@@ -26,10 +26,12 @@ public class AreaDissolverSystem : ComponentSystem {
 
 	void InitAreaDissolver () {
 		dissolverObjQty = areaDissolver.dissolverObj.Length;
-
-		if (!areaDissolver.isInitAreaDissolver) {
-			//
+		
+		if (areaDissolver.isTesting) {
+			SaveAreaDissolver(areaDissolver.levelQuestIndex, 0);
 		}
+
+		LoadAreaDissolver ();
 
 		areaDissolver.isInitAreaDissolver = true;
 	}
@@ -42,6 +44,27 @@ public class AreaDissolverSystem : ComponentSystem {
 			
 			areaDissolver.isAreaAlreadyDissolved = true;
 			areaDissolver.isDissolveArea = false;
+			SaveAreaDissolver(areaDissolver.levelQuestIndex, 1);
+		}
+	}
+
+	void LoadAreaDissolver () {
+		string areaDissolverStr = Constants.DissolvedLevelPrefKey.LEVEL_INDEX + areaDissolver.levelQuestIndex;
+
+		areaDissolver.isAreaAlreadyDissolved = PlayerPrefs.GetInt(areaDissolverStr, 0) == 0 ? false : true;
+
+		Debug.Log(areaDissolverStr);
+		Debug.Log(areaDissolver.isAreaAlreadyDissolved);
+	}
+
+	void SaveAreaDissolver (int questIdx, int value) {
+		if (areaDissolver.levelQuestIndex == questIdx) {
+			string areaDissolverStr = Constants.DissolvedLevelPrefKey.LEVEL_INDEX + areaDissolver.levelQuestIndex;
+
+			PlayerPrefs.SetInt(areaDissolverStr, value);
+
+			Debug.Log(areaDissolverStr);
+			Debug.Log(areaDissolver.isAreaAlreadyDissolved);
 		}
 	}
 

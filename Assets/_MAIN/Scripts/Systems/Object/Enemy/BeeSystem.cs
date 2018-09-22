@@ -64,8 +64,12 @@ public class BeeSystem : ComponentSystem {
 			//SPAWN ITEM
 			lootableSpawnerSystem.CheckPlayerLuck(enemy.spawnItemProbability, currBeeTransform.position);
 
-			//SEND QUEST TRIGGER
-			currBee.questTrigger.isDoQuest = true;
+			if (currBee.questTrigger != null) {
+				//SEND QUEST TRIGGER
+				currBee.questTrigger.isDoQuest = true;
+			} else {
+				Debug.Log("No Quest Triggered");
+			}
 
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();

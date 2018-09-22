@@ -788,7 +788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4661674578168208}
   m_Layer: 0
-  m_Name: Temp Lifting Parent
+  m_Name: Temp Lifting Parent OLD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1059,7 +1059,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101447509058732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4834055824091674}
@@ -1389,7 +1389,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548108763317266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4834055824091674}
@@ -1774,6 +1774,7 @@ MonoBehaviour:
   isCanDigging: 0
   isHitLiftableObject: 0
   isCanFishing: 0
+  isCanInteractWithNPC: 0
   isInteractingWithNPC: 0
   isHitJatayuAttack2: 0
   interactIndex: 0
@@ -1923,6 +1924,10 @@ MonoBehaviour:
   - 1. Welcome to JavaTale
   - 2. Are you ready for next dungeon ?
   - 3. Good luck and have fun !
+  openingDialogs:
+  - 1. Opening
+  - 2. Opening
+  - 3. Opening
   letterList: []
 --- !u!114 &114367424331594064
 MonoBehaviour:
@@ -1969,7 +1974,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 114208348427726864}
   currentNPC: {fileID: 0}
-  isCanInteractWithNPC: 0
 --- !u!114 &114376433117735634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2529,7 +2533,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
