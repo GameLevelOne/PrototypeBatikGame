@@ -296,6 +296,20 @@ public class JatayuSystem : ComponentSystem {
 	{
 		if(!jatayu.initHP50){
 			jatayu.initHP50 = true;
+
+			jatayu.initAttack1 = false;
+			jatayu.initAttack2 = false;
+			jatayu.initAttack3 = false;
+			jatayu.initFlapFast = false;
+			jatayu.initCloseWings = false;
+			jatayu.endAttack1 = false;
+			jatayu.endAttack2 = false;
+			jatayu.endAttack3 = false;
+			jatayu.endInitFlapFast = false;
+			jatayu.endCloseWings = false;
+			jatayu.initMove = false;
+			jatayu.endMove = false;
+
 			jatayu.movementAnim.speed = 0f;
 			SetJatayuAnim(JatayuState.HP50);
 		}else{

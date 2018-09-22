@@ -51,7 +51,7 @@ public class CameraMovementSystem : ComponentSystem {
 				MoveCamera();
 			}
 
-			if(currCameraMovement.isZooming){
+			if((currCameraMovement!=null) && (currCameraMovement.isZooming)){    //<---------Mot: Check if currCameraMovement not Null
 				Zoom();
 			}
 		}
