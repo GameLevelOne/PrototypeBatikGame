@@ -103,7 +103,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 			
 			if (player.isPlayerKnockedBack) {
-				Vector3 enemyPos = player.enemyThatHitsPlayer.transform.position;
+				Vector3 enemyPos = player.somethingThatHitsPlayer.transform.position;
 			
 				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
 

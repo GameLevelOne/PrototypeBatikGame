@@ -75,6 +75,7 @@ public static class Constants {
 		public const string CHEST = "Chest";
 		public const string EXPLOSION = "Explosion";
 		public const string GROUND = "Ground";
+		public const string VINES = "Vines";
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";
@@ -88,9 +89,12 @@ public static class Constants {
 
 	public static class PlayerPrefKey
 	{
+		public const string FINISHED_TIMELINE = "Player/Saved/FinishedTimeline/";
+		
 		public const string PLAYER_SAVED_HP = "Player/Saved/HP";
 		public const string PLAYER_SAVED_MP = "Player/Saved/MP";
 		public const string PLAYER_SAVED_COIN = "Player/Saved/Coin";
+		public const string PLAYER_SAVED_KEY = "Player/Saved/Key";
 
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
 		public const string PLAYER_STATS_HP = "Player/Stats/HP";
@@ -123,6 +127,13 @@ public static class Constants {
 	
 	public static class NPCPrefKey {
 		public const string NPC_INTERACT_STATE = "NPC/InteractState/";
+	}
+	
+	public static class EnvirontmentPrefKey
+	{
+		public const string VINES_STATE = "Environtment/State/Vines";
+		public const string GATES_STATE = "Environtment/State/Gates";
+		public const string CRACKED_WALL_STATE = "Environtment/State/CrackedWall";
 	}
 
 	public static class BlendTreeName

@@ -9,35 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1317075934897904}
+  m_RootGameObject: {fileID: 1577844234854870}
   m_IsPrefabAsset: 1
---- !u!1 &1317075934897904
+--- !u!1 &1575096128482834
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4985448090072770}
-  - component: {fileID: 114918955782677214}
-  - component: {fileID: 114417116537530620}
-  - component: {fileID: 135013787687641634}
-  m_Layer: 0
-  m_Name: Sample Lootable Treasure 1
-  m_TagString: Lootable
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1423222981763780
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4749707718786298}
-  - component: {fileID: 212202106467345254}
+  - component: {fileID: 4414894396842098}
+  - component: {fileID: 212794325471575920}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -45,78 +27,99 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4749707718786298
+--- !u!1 &1577844234854870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4935414847687174}
+  - component: {fileID: 114918021992126388}
+  - component: {fileID: 114160110702227944}
+  - component: {fileID: 135558221234827636}
+  m_Layer: 0
+  m_Name: Sample Lootable Treasure Key 0
+  m_TagString: Lootable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4414894396842098
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1423222981763780}
+  m_GameObject: {fileID: 1575096128482834}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
-  m_Father: {fileID: 4985448090072770}
+  m_Father: {fileID: 4935414847687174}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
---- !u!4 &4985448090072770
+--- !u!4 &4935414847687174
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317075934897904}
+  m_GameObject: {fileID: 1577844234854870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.32, y: 0.5, z: 4.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4749707718786298}
+  - {fileID: 4414894396842098}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114417116537530620
+--- !u!114 &114160110702227944
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317075934897904}
+  m_GameObject: {fileID: 1577844234854870}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4c177a3145293643bcbc3aefb3c8897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treasureType: 2
   lootableType: 0
-  initSprite: {fileID: 0}
   mainSprite: {fileID: 0}
+  lootQuantity: 0
+  initPosY: 0
+  treasureType: 3
+  initSprite: {fileID: 0}
+  keyID: 0
   isLooted: 0
---- !u!114 &114918955782677214
+--- !u!114 &114918021992126388
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317075934897904}
+  m_GameObject: {fileID: 1577844234854870}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135013787687641634
+--- !u!135 &135558221234827636
 SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317075934897904}
+  m_GameObject: {fileID: 1577844234854870}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
---- !u!212 &212202106467345254
+--- !u!212 &212794325471575920
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1423222981763780}
+  m_GameObject: {fileID: 1575096128482834}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -146,11 +149,11 @@ SpriteRenderer:
   m_SortingLayerID: 1829551841
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 813314b288500d24c86e0756dc01321a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e597f6a84cc8f2b4ea89b91618d913b4, type: 3}
   m_Color: {r: 0.2970481, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

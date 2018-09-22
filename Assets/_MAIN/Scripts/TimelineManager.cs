@@ -31,8 +31,10 @@ public class TimelineManager : MonoBehaviour {
 			SetPlayableAsset(initPlayableAssetIndex);
 		}
 
-		playerEntity.enabled = false;
-		// playableDirector.Play();
+		if (!IsAlreadyPlayedTimeline()) {
+			playerEntity.enabled = false;
+			playableDirector.Play();
+		}
 	}
 
 	void OnEnable () {
@@ -83,7 +85,9 @@ public class TimelineManager : MonoBehaviour {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
 		npcEntity.enabled = true;
-		// GameStorage.Instance.
+		// GameStorage.Instance.IsPlayerAlreadyEnterForest = true;
+		
+		SavePlayedTimeline ();
 		//
 		// Debug.Log("STOP TIMELINE");
 	}
@@ -99,6 +103,7 @@ public class TimelineManager : MonoBehaviour {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
 		Debug.Log("OnEndBossArea TIMELINE");
+		SavePlayedTimeline ();
 	}
 #endregion
 
@@ -115,5 +120,13 @@ public class TimelineManager : MonoBehaviour {
 
 	public void SetPlayableInitTime (double time) {
 		playableDirector.initialTime = time;
+	}
+
+	void SavePlayedTimeline () {
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+playableDirector.playableAsset.name, 1);
+	}
+
+	bool IsAlreadyPlayedTimeline () {
+		return PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+playableDirector.playableAsset.name, 0) == 1 ? true : false;
 	}
 }
