@@ -30,6 +30,8 @@ public class TimelineManager : MonoBehaviour {
 		if (isTesting) {
 			SetPlayableAsset(initPlayableAssetIndex);
 		}
+
+		playerEntity.enabled = false;
 		// playableDirector.Play();
 	}
 
