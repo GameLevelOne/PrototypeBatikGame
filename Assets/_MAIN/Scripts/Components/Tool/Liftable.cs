@@ -40,18 +40,52 @@ public class Liftable : MonoBehaviour {
 	// public float throwRange;
 	public float gravityAwakeTimer;
 	public bool isLanding;
+	public bool throwByAccident = false;
 	// public GameObject attachedObject;
 
 	void OnCollisionEnter (Collision col)
 	{
 		if (state == LiftableState.THROW || state == LiftableState.FLY) {
+			// Debug.Log("IgnoreCollision "+throwByAccident);
 			if (col.gameObject.tag == Constants.Tag.PLAYER) {
 				Physics.IgnoreCollision(mainCollider, col.collider);
 			}
-		} 
+		}
 
 		if(col.gameObject.tag == Constants.Tag.GROUND){
 			isLanding = true;
+		}
+	}
+
+	// void OnCollisionStay (Collision col) {
+	// 	if (state == LiftableState.IDLE && throwByAccident) {
+	// 		Debug.Log("throwByAccident "+throwByAccident);
+	// 		if (col.gameObject.tag == Constants.Tag.PLAYER) {
+	// 			mainCollider.isTrigger = true;
+	// 		}
+	// 	}
+	// }
+
+	// void OnTriggerEnter (Collider col) {
+	// 	if (state == LiftableState.IDLE && !throwByAccident && mainCollider.isTrigger) {
+	// 		Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
+	// 		if (col.tag == Constants.Tag.PLAYER) {
+	// 			mainCollider.isTrigger = false;
+	// 		}
+	// 	}
+	// }
+
+	void OnTriggerExit (Collider col) {
+		if (state == LiftableState.IDLE && throwByAccident) {
+			// Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
+			if (col.tag == Constants.Tag.PLAYER) {
+				mainCollider.isTrigger = true;
+				throwByAccident = false;
+			}
+		} else if (state == LiftableState.IDLE && !throwByAccident) {
+			if (col.tag == Constants.Tag.PLAYER) {
+				mainCollider.isTrigger = false;
+			}
 		}
 	}
 

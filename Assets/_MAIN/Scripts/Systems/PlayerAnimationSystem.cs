@@ -364,6 +364,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.GET_HURT: 
 					isFinishAnyAnimation = true;
+					isFinishAttackAnimation	= true;	
 					input.attackMode = 0;
 					// Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
 					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
@@ -544,6 +545,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 				input.attackMode = 0;
 				// Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+				
+				if (input.liftingMode == -1 || input.liftingMode == -2) {
+					powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+					powerBraceletSystem.powerBracelet.liftable.throwByAccident = true;
+					powerBraceletSystem.ResetPowerBracelet();
+				}
 				break;
 			case PlayerState.DASH:
 				//

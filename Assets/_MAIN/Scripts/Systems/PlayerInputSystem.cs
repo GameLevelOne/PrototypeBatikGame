@@ -1000,7 +1000,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			return true;
 		} else if (state == PlayerState.GET_HURT) {
-			input.interactMode = -2;
+			// input.interactMode = -2;
 
 			return true;
 		} else if (state == PlayerState.SWIM) {
