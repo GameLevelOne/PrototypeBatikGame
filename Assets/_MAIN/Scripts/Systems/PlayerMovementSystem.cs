@@ -362,6 +362,12 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		} else if (state == PlayerState.OPEN_CHEST) {
 			rb.velocity = Vector3.zero;
+		} else if (state == PlayerState.GET_HURT) {
+			Vector3 enemyPos = player.enemyThatHitsPlayer.transform.position;
+			
+			// Vector3 resultPos = 
+
+			// rb.AddForce(player.enemyThatHitsPlayer.transform.position)
 		} else {
 			input.moveDir = Vector3.zero;
 			rb.velocity = Vector3.zero;

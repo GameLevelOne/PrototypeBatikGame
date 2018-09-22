@@ -87,7 +87,7 @@ public class PlayerAttackSystem : ComponentSystem {
 		Vector3 targetPos = attack.normalAttackSpawnPos.position;
         Vector3 initPos = attack.transform.position;
 
-		Vector3 deltaPos = new Vector3 (targetPos.x, 0f, 0f) - new Vector3 (initPos.x, 0f, 0f);
+		Vector3 deltaPos = targetPos - initPos;
 		
         GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
