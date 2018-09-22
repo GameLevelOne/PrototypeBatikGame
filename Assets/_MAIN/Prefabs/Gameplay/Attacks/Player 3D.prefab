@@ -1762,7 +1762,7 @@ MonoBehaviour:
   damageReceive: {fileID: 0}
   isPlayerHit: 0
   isHitAnEnemy: 0
-  isPlayerGetHurt: 0
+  isPlayerKnockedBack: 0
   isGuarding: 0
   isCanParry: 0
   isCanBulletTime: 0
@@ -1960,6 +1960,8 @@ MonoBehaviour:
   bounceSpeed: 300
   dashDelay: 1
   brakeTime: 0.5
+  knockBackSpeedNormal: 3
+  knockBackSpeedGuard: 2
   isInitMovement: 0
 --- !u!114 &114375571834631886
 MonoBehaviour:
@@ -20806,10 +20808,10 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
-  useUnscaledTime: 0
+  useUnscaledTime: 1
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
   startDelay:

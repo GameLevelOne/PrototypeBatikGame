@@ -77,11 +77,11 @@ public class NPCDialogSystem : ComponentSystem {
 		switch (currentState) {
 			case NPCState.IDLE: //TEMP
 
-				// if (timer < showDialogDelay) {
-				// 	currentDialog.dialogTime += deltaTime;
-				// } else {
-				// 	CheckNPCIdleDialog ();
-				// }
+				if (timer < showDialogDelay) {
+					currentDialog.dialogTime += deltaTime;
+				} else {
+					CheckNPCIdleDialog ();
+				}
 
 				break;
 			case NPCState.INTERACT:
@@ -118,6 +118,17 @@ public class NPCDialogSystem : ComponentSystem {
 		// 		HideDialog ();
 		// 	}
 		// }
+		if (!isShowingDialog) {
+			// ShowDialog ();	
+		} else if (!isFinishShowingDialog) {
+			PrintLetterOneByOne ();
+		} else {
+			if (showDialogTime < showDialogDuration) {
+				currentDialog.showDialogTime += deltaTime;
+			} else {
+				HideDialog ();
+			}
+		}
 	}
 
 	void CheckNPCInteractDialog () {

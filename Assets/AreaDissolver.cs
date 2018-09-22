@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class AreaDissolver : MonoBehaviour {
-	public Dissolver[] dissolverObj;
+	public List<Dissolver> dissolverObjs;
 
 	public int levelQuestIndex;
+
+	public bool initAutoReference = false;
 
 	public bool isInitAreaDissolver = false;
 	public bool isAreaAlreadyDissolved = false;

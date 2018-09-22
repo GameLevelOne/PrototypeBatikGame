@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 public class Dissolver : MonoBehaviour {
+	public GameObject greyLayerObj;
 	public List<Renderer> mRenderer;
 	[RangeAttribute(0f,1f)]
 	public List<float> dissolveValue;
