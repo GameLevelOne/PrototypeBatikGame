@@ -282,7 +282,7 @@ public class PlayerMovementSystem : ComponentSystem {
 						player.SetPlayerState(PlayerState.MOVE);
 					}
 				} else {
-					if (!player.isHitJatayuAttack2) {
+					if (state == PlayerState.MOVE && !player.isHitJatayuAttack2) {
 						player.SetPlayerIdle();
 					}
 				}

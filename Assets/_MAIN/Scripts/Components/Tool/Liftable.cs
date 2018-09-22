@@ -44,6 +44,12 @@ public class Liftable : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col)
 	{
+		if (state == LiftableState.THROW || state == LiftableState.FLY) {
+			if (col.gameObject.tag == Constants.Tag.PLAYER) {
+				Physics.IgnoreCollision(mainCollider, col.collider);
+			}
+		} 
+
 		if(col.gameObject.tag == Constants.Tag.GROUND){
 			isLanding = true;
 		}

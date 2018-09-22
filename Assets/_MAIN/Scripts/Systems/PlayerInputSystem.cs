@@ -983,7 +983,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfInSpecificState () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET) {	
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET || player.isCanInteractWithNPC) {	
 
 			return true;
 		} else if (state == PlayerState.DASH) {

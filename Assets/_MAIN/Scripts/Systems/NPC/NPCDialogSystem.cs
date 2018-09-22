@@ -25,7 +25,6 @@ public class NPCDialogSystem : ComponentSystem {
 
 	int letterIndex;
 
-	bool isInitShowingDialog;
 	bool isShowingDialog;
 	bool isFinishShowingDialog;
 	
@@ -48,14 +47,13 @@ public class NPCDialogSystem : ComponentSystem {
 			showDialogDuration = currentDialog.showDialogDuration;
 			showDialogDelay = currentDialog.showDialogDelay;
 			isFinishShowingDialog = currentDialog.isFinishShowingDialog;
-			isInitShowingDialog = currentDialog.isInitShowingDialog;
 			isShowingDialog = currentDialog.isShowingDialog;
 			letterIndex = currentDialog.letterIndex;
 			// dialogIndex = currentDialog.dialogIndex;
 			showDialogTime = currentDialog.showDialogTime;
 			timer = currentDialog.dialogTime;
 
-			if (!isInitShowingDialog) {
+			if (!currentDialog.isInitShowingDialog) {
 				InitDialog ();
 			} else {
 				currentType = currentNPC.npcType;
@@ -68,6 +66,8 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void InitDialog () {
+		isShowingDialog = false;
+		isFinishShowingDialog = false;
 		currentDialog.panelDialog.SetActive(false);
 
 		currentDialog.letterIndex = 0;
@@ -221,6 +221,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void PrintLetterOneByOne () {
+		Debug.Log("Print Letter");
 		if (letterIndex == currentDialog.letterList.Count-2) {
 			currentDialog.isFinishShowingDialog = true;
 

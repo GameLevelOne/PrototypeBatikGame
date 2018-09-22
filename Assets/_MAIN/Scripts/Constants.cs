@@ -250,7 +250,7 @@ public static class Constants {
 
 	public static class QuestPrefKey
 	{
-		public const string QUEST_INDEX = "Quest/Completed/Level_Index";
+		public const string QUEST_INDEX = "Quest/Completed/Quest_Index";
 		// public const string QUEST_LEVEL_1 = "Level/Quest/Kill_Count_Level_1";
 		// public const string QUEST_LEVEL_2_1 = "Level/Quest/Kill_Count_Level_2_1";
 		// public const string QUEST_LEVEL_2_2 = "Level/Quest/Kill_Count_Level_2_2";
