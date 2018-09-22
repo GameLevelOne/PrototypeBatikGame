@@ -397,7 +397,7 @@ public class JatayuSystem : ComponentSystem {
 			}else{
 				float rnd = Random.value;
 
-				if((jatayuHealth.EnemyHP/jatayu.maxHealth) > 0.5f){
+				if(!jatayu.initJatayuHP50){
 					//if health is more than 50%
 					if(rnd < 0.7f){ 
 						//CloseWings -> attack1
