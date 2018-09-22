@@ -122,14 +122,20 @@ public class NPCDialogSystem : ComponentSystem {
 
 	void CheckNPCInteractDialog () {
 		int interactIndex = currentNPC.InteractIndex;
-		int dialogLength = currentDialog.interactDialogs.Length;
+		int dialogLength = 0;
+		if (currentNPC.npcType == NPCType.SHOP) {
+			dialogLength = currentDialog.interactDialogs.Length;
+		} else if (currentNPC.npcType == NPCType.OPENING) {
+			dialogLength = currentDialog.openingDialogs.Length;
+		}
 
 		if (!isShowingDialog) {
 			// Debug.Log("interactIndex : "+interactIndex);
 			if (currentNPC.npcType == NPCType.SHOP) {
-				SetList (GetDialogStringType(currentState, interactIndex));
-			} else if (currentNPC.npcType == NPCType.OPENING) {
+				// SetList (GetDialogStringType(currentState, interactIndex));
 				SetList (currentDialog.interactDialogs[interactIndex]);
+			} else if (currentNPC.npcType == NPCType.OPENING) {
+				SetList (currentDialog.openingDialogs[interactIndex]);
 			}
 
 			ShowDialog ();
@@ -137,7 +143,7 @@ public class NPCDialogSystem : ComponentSystem {
 			PrintLetterOneByOne ();
 
 			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-				currentDialog.textDialog.text = GetDialogStringType(currentState, interactIndex) + openingTag + tag[2];
+				currentDialog.textDialog.text = currentNPC.npcType == NPCType.SHOP ? currentDialog.interactDialogs[interactIndex] : currentDialog.openingDialogs[interactIndex];
 				currentDialog.isFinishShowingDialog = true;
 			}
 		} else {
@@ -180,16 +186,16 @@ public class NPCDialogSystem : ComponentSystem {
 
 	// }
 
-	string GetDialogStringType (NPCState state, int dialogIdx) {
-		switch (state) {
-			case NPCState.IDLE:
-				return currentDialog.idleDialogs[dialogIdx];
-			case NPCState.INTERACT:
-				return currentDialog.interactDialogs[dialogIdx];
-			default:
-				return "NOTHING";
-		}
-	}
+	// string GetDialogStringType (NPCState state, int dialogIdx) {
+	// 	switch (state) {
+	// 		case NPCState.IDLE:
+	// 			return currentDialog.idleDialogs[dialogIdx];
+	// 		case NPCState.INTERACT:
+	// 			return currentDialog.interactDialogs[dialogIdx];
+	// 		default:
+	// 			return "NOTHING";
+	// 	}
+	// }
 
 	void SetList (string strDialog) {
 		tempChar = strDialog.ToCharArray();
