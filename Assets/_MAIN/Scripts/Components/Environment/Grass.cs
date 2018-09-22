@@ -2,7 +2,7 @@
 
 public class Grass : MonoBehaviour {
 	public GameObject grassCutFX;
-	public float spawnItemProbability;
+	public float spawnItemProbability = 0.1f;
 	
 	[HeaderAttribute("Current")]
 	public bool init = false;
