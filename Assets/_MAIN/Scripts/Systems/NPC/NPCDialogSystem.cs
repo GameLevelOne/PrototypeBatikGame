@@ -43,19 +43,18 @@ public class NPCDialogSystem : ComponentSystem {
 			currentNPC = dialogData.NPC[i];
 			currentDialog = dialogData.Dialog[i];
 
-			currentState = currentNPC.state;
-			showDialogDuration = currentDialog.showDialogDuration;
-			showDialogDelay = currentDialog.showDialogDelay;
-			isFinishShowingDialog = currentDialog.isFinishShowingDialog;
-			isShowingDialog = currentDialog.isShowingDialog;
-			letterIndex = currentDialog.letterIndex;
-			// dialogIndex = currentDialog.dialogIndex;
-			showDialogTime = currentDialog.showDialogTime;
-			timer = currentDialog.dialogTime;
-
 			if (!currentDialog.isInitShowingDialog) {
 				InitDialog ();
 			} else {
+				currentState = currentNPC.state;
+				showDialogDuration = currentDialog.showDialogDuration;
+				showDialogDelay = currentDialog.showDialogDelay;
+				isFinishShowingDialog = currentDialog.isFinishShowingDialog;
+				isShowingDialog = currentDialog.isShowingDialog;
+				letterIndex = currentDialog.letterIndex;
+				// dialogIndex = currentDialog.dialogIndex;
+				showDialogTime = currentDialog.showDialogTime;
+				timer = currentDialog.dialogTime;
 				currentType = currentNPC.npcType;
 
 				if (currentType != NPCType.NONE) {
@@ -106,19 +105,19 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void CheckNPCIdleDialog () {
-		if (!isShowingDialog) {
-			currentDialog.dialogIndex = Random.Range(0, currentDialog.idleDialogs.Length);
-			SetList (GetDialogStringType(currentState, currentDialog.dialogIndex));			
-			ShowDialog ();
-		} else if (!isFinishShowingDialog) {
-			PrintLetterOneByOne ();
-		} else {
-			if (showDialogTime < showDialogDuration) {
-				currentDialog.showDialogTime += deltaTime;
-			} else {
-				HideDialog ();
-			}
-		}
+		// if (!isShowingDialog) {
+		// 	currentDialog.dialogIndex = Random.Range(0, currentDialog.idleDialogs.Length);
+		// 	SetList (GetDialogStringType(currentState, currentDialog.dialogIndex));			
+		// 	ShowDialog ();
+		// } else if (!isFinishShowingDialog) {
+		// 	PrintLetterOneByOne ();
+		// } else {
+		// 	if (showDialogTime < showDialogDuration) {
+		// 		currentDialog.showDialogTime += deltaTime;
+		// 	} else {
+		// 		HideDialog ();
+		// 	}
+		// }
 	}
 
 	void CheckNPCInteractDialog () {
@@ -127,7 +126,12 @@ public class NPCDialogSystem : ComponentSystem {
 
 		if (!isShowingDialog) {
 			// Debug.Log("interactIndex : "+interactIndex);
-			SetList (GetDialogStringType(currentState, interactIndex));			
+			if (currentNPC.npcType == NPCType.SHOP) {
+				SetList (GetDialogStringType(currentState, interactIndex));
+			} else if (currentNPC.npcType == NPCType.OPENING) {
+				SetList (currentDialog.interactDialogs[interactIndex]);
+			}
+
 			ShowDialog ();
 		} else if (!isFinishShowingDialog) {
 			PrintLetterOneByOne ();

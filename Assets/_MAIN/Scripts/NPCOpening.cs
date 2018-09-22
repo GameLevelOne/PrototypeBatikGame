@@ -8,6 +8,7 @@ public class NPCOpening : MonoBehaviour {
 	public TimelineEventTrigger openingDialogueTrigger;
 	public GameObjectEntity entity;
 	public NPC npc;
+	public Animator animator;
 
 	void OnEnable () {
 		openingDialogueTrigger.OnNPCStartDialogue += OnNPCStartDialogue;
@@ -29,6 +30,9 @@ public class NPCOpening : MonoBehaviour {
 		npc.state = NPCState.IDLE;
 		npc.IsInteracting = false;
 		npc.npcType = NPCType.SHOP;
+		npc.InteractIndex = 0;
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1);
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0);
 
 		if (OnNPCEndDialogue != null) {
 			OnNPCEndDialogue ();

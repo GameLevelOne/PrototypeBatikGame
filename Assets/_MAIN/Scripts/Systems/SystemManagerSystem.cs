@@ -64,7 +64,8 @@ public class SystemManagerSystem : ComponentSystem {
 				//LOAD MAP STATS
 				CheckCurrentMap(systemManager.currentMapIdx);
 				Debug.Log("CheckCurrentMap : "+systemManager.currentMapIdx);
-			} catch {
+			} catch (System.Exception e) {
+				Debug.Log("ERROR : "+e);
 				return;
 			}
 

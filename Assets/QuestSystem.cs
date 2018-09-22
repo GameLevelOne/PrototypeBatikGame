@@ -71,7 +71,7 @@ public class QuestSystem : ComponentSystem {
 		quest.questCurrentPoint[questIdx]++;
 
 		if (CheckIfQuestIsComplete(questIdx)) {
-			SaveQuest (questIdx, 1);
+			SaveQuest (questIdx, quest.questPointRequired[questIdx]);
 
 			for (int i=0; i<areaDissolverData.Length; i++) {
 				AreaDissolver areaDissolver = areaDissolverData.AreaDissolver[i];
