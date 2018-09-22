@@ -87,6 +87,8 @@ public class DamageSystem : ComponentSystem {
 
 			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
+					player.isPlayerKnockedBack = true;
+					
 					if (player.isGuarding) {
 						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);

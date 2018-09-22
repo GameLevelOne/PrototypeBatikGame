@@ -102,7 +102,19 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 
 			
-			// Debug.Log("Velocity A "+rb.velocity +" | "+moveSpeed);
+			if (player.isPlayerKnockedBack) {
+				Vector3 enemyPos = player.enemyThatHitsPlayer.transform.position;
+			
+				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
+
+				if (player.isGuarding) {
+					rb.AddForce(resultPos * movement.knockBackSpeedGuard, ForceMode.Impulse);
+				} else {
+					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
+				}
+
+				player.isPlayerKnockedBack = false;
+			}
 
 			if (!CheckIfAllowedToMove()) {
 				SetPlayerSpecificMove ();
@@ -143,6 +155,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				// Debug.Log(moveDir +"\n"+ moveDir.normalized);
 			}
 
+			// rb.drag = movement.initRigidBodyDrag;
 			SetPlayerStandardMove();
 			// Debug.Log(currentMoveDir);
 			// continue; //TEMP
@@ -363,11 +376,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else if (state == PlayerState.OPEN_CHEST) {
 			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.GET_HURT) {
-			Vector3 enemyPos = player.enemyThatHitsPlayer.transform.position;
-			
-			// Vector3 resultPos = 
-
-			// rb.AddForce(player.enemyThatHitsPlayer.transform.position)
+			// 
 		} else {
 			input.moveDir = Vector3.zero;
 			rb.velocity = Vector3.zero;
@@ -394,7 +403,9 @@ public class PlayerMovementSystem : ComponentSystem {
 			state == PlayerState.BOW || 
 			state == PlayerState.FISHING || 
 			state == PlayerState.GET_TREASURE || 
-			state == PlayerState.DIE
+			state == PlayerState.DIE || 
+			// state == PlayerState.OPEN_CHEST || 
+			state == PlayerState.GET_HURT
 			) {
 			return false;
 		} else {

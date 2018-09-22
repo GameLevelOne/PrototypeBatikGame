@@ -43,7 +43,8 @@ public class Player : MonoBehaviour {
 	public Damage damageReceive;
     public bool isPlayerHit = false; 
     public bool isHitAnEnemy = false;
-	public bool isPlayerGetHurt = false;
+	// public bool isPlayerGetHurt = false;
+	public bool isPlayerKnockedBack = false;
 	public bool isGuarding = false; 
 	public bool isCanParry = false;
 	public bool isCanBulletTime = false;
