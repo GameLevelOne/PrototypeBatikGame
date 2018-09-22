@@ -47,6 +47,7 @@ public class DissolverSystem : ComponentSystem {
 	void CheckDissolve()
 	{
 		if(currDissolver.dissolve){
+
 			deltaTime = Time.deltaTime;
 			int maxIndex = currDissolver.dissolveValue.Count-1;
 			
