@@ -104,7 +104,7 @@ public class PlayerInput : MonoBehaviour {
     /// <para>Values: <br /></para>
 	/// <para>-4 OPENCHEST<br /></para>
 	/// <para>-3 FISHINGFAIL<br /></para>
-	/// <para>-2 GET HURT<br /></para>
+	/// <para>-2 GET HURT (USELESS)<br /></para>
 	/// <para>-1 BLOCK<br /></para>
 	/// <para>0 DODGE<br /></para>
 	/// <para>1 DASH<br /></para>

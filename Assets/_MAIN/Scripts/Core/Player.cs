@@ -58,6 +58,7 @@ public class Player : MonoBehaviour {
 	public bool isCanDigging = false;
 	public bool isHitLiftableObject = false;
 	public bool isCanFishing = false;
+	public bool isCanInteractWithNPC = false;
 	public bool isInteractingWithNPC = false;
 	
 	//JATAYU

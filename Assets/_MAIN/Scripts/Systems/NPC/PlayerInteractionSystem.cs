@@ -29,7 +29,7 @@ public class PlayerInteractionSystem : ComponentSystem {
 	}
 
 	void CheckIfPlayerIsCanInteract () {
-		if (!playerInteract.isCanInteractWithNPC) return;
+		if (!player.isCanInteractWithNPC) return;
 
 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
 			if (!player.isInteractingWithNPC) {
