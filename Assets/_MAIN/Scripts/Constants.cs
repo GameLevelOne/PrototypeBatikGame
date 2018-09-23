@@ -135,6 +135,7 @@ public static class Constants {
 		public const string VINES_STATE = "Environtment/State/Vines";
 		public const string GATES_STATE = "Environtment/State/Gates";
 		public const string CHEST_STATE = "Environtment/State/Chest";
+		public const string CHEST_SPAWNER_STATE = "Environtment/State/ChestSpawner";
 		public const string CRACKED_WALL_STATE = "Environtment/State/CrackedWall";
 	}
 

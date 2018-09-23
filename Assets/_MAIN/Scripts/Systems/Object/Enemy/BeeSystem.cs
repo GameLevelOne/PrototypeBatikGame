@@ -66,8 +66,16 @@ public class BeeSystem : ComponentSystem {
 			}
 
 			if (currBee.beeHive!=null) {
+				//REMOVE FROM BEEHIVE
 				currBee.beeHive.currentBees.Remove(currBee);
 				currBee.beeHive = null;
+			}
+
+			if (currBee.chestSpawner != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currBee.chestSpawner.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currBee.gameObject);

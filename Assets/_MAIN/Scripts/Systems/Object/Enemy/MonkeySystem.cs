@@ -109,6 +109,13 @@ public class MonkeySystem : ComponentSystem {
 				Debug.Log("No Quest Triggered");
 			}
 
+			if (currMonkey.chestSpawner != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currMonkey.chestSpawner.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
+			}
+
 			GameObject.Destroy(currMonkey.gameObject);
 			UpdateInjectedComponentGroups();
 		}

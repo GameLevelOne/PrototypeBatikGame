@@ -146,7 +146,7 @@ public class GameStorage : MonoBehaviour {
 
 	void Awake () {
 		DontDestroyOnLoad(gameObject);
-		if ((_instance!=null) && (_instance != this)) {
+		if (_instance != null && _instance != this) {
 			GameObject.Destroy(gameObject);			
 			// gameObject.GetComponent<GameObjectEntity>().enabled = false;
 			// gameObject.SetActive(false);

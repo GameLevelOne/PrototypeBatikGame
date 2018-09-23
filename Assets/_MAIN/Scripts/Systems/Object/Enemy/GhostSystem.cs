@@ -15,6 +15,8 @@ public class GhostSystem : ComponentSystem {
 	}
 
 	[InjectAttribute] GhostComponent ghostComponent;
+
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
 	Transform currGhostTransform;
 	Enemy currEnemy;
 	Ghost currGhost;
@@ -190,6 +192,23 @@ public class GhostSystem : ComponentSystem {
 				currGhost.sprite.material.color = Color.clear;
 			}
 			if( currEnemy.TDie <= 0f){
+				//SPAWN ITEM
+				lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currGhostTransform.position);
+
+				if (currGhost.questTrigger != null) {
+					//SEND QUEST TRIGGER
+					currGhost.questTrigger.isDoQuest = true;
+				} else {
+					Debug.Log("No Quest Triggered");
+				}
+
+				if (currGhost.chestSpawner != null) {
+					//SEND CHEST SPAWNER TRIGGER
+					currGhost.chestSpawner.isTriggerSpawn = true;
+				} else {
+					Debug.Log("No ChestSpawner Triggered");
+				}
+
 				GameObject.Destroy(currGhost.gameObject);
 				UpdateInjectedComponentGroups();
 			}
