@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Unity.Entities;
 
 public class GameStorage : MonoBehaviour {
 	public GlobalSettingsSO settings;
@@ -137,7 +138,7 @@ public class GameStorage : MonoBehaviour {
 		get {
 			if (_instance == null) {
 				_instance = GameObject.FindObjectOfType<GameStorage>();
-			}
+			} 
 
 			return _instance;
 		}
@@ -145,6 +146,11 @@ public class GameStorage : MonoBehaviour {
 
 	void Awake () {
 		DontDestroyOnLoad(gameObject);
+		if (_instance != this) {
+			GameObject.Destroy(gameObject);			
+			// gameObject.GetComponent<GameObjectEntity>().enabled = false;
+			// gameObject.SetActive(false);
+		}
 	}
 #endregion
 }

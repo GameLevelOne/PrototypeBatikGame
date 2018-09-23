@@ -3335,6 +3335,24 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1552680715280630, guid: 48c8d0db54edec043ac957c3486b5def,
     type: 2}
   m_PrefabInternal: {fileID: 285666084}
+--- !u!114 &285666087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114265990626498192, guid: 48c8d0db54edec043ac957c3486b5def,
+    type: 2}
+  m_PrefabInternal: {fileID: 285666084}
+  m_Script: {fileID: 11500000, guid: 94d0f1edebf0f684183d389fd3d920f5, type: 3}
+--- !u!114 &285666088 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114208348427726864, guid: 48c8d0db54edec043ac957c3486b5def,
+    type: 2}
+  m_PrefabInternal: {fileID: 285666084}
+  m_Script: {fileID: 11500000, guid: f98c727661d88474e86b089d43a3eaff, type: 3}
+--- !u!114 &285666089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114901627235131250, guid: 48c8d0db54edec043ac957c3486b5def,
+    type: 2}
+  m_PrefabInternal: {fileID: 285666084}
+  m_Script: {fileID: 11500000, guid: a0405b4afb5419142b895f1c4bd384ae, type: 3}
 --- !u!114 &285666094 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114731853931648524, guid: 48c8d0db54edec043ac957c3486b5def,
@@ -8321,6 +8339,21 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 285666088}
+    - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 285666087}
+    - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: playerMana
+      value: 
+      objectReference: {fileID: 285666089}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
   m_IsPrefabAsset: 0

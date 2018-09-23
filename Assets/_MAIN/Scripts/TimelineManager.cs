@@ -27,9 +27,9 @@ public class TimelineManager : MonoBehaviour {
 	
 	void Awake () {
 		//TODO : Check If First Time
-		if (isTesting) {
-			SetPlayableAsset(initPlayableAssetIndex);
-		}
+		// if (isTesting) {
+		// 	SetPlayableAsset(initPlayableAssetIndex);
+		// }
 
 		if (!IsAlreadyPlayedTimeline()) {
 			playerEntity.enabled = false;

@@ -39,7 +39,7 @@ public class AreaDissolverSystem : ComponentSystem {
 				dissolver = dissolverComponent.dissolver[i];
 
 				ValidateGreyObject();
-				Debug.Log("i = "+i+", dissolverComponentLength = "+dissolverComponent.Length);
+				// Debug.Log("i = "+i+", dissolverComponentLength = "+dissolverComponent.Length);
 				if(i == dissolverComponent.Length-1){
 					areaDissolver.initAutoReference = true;
 				}
@@ -61,9 +61,9 @@ public class AreaDissolverSystem : ComponentSystem {
 		
 
 
-		if (areaDissolver.isTesting) {
-			SaveAreaDissolver(areaDissolver.levelQuestIndex, 0);
-		}
+		// if (areaDissolver.isTesting) {
+		// 	SaveAreaDissolver(areaDissolver.levelQuestIndex, 0);
+		// }
 
 		LoadAreaDissolver ();
 
@@ -110,10 +110,9 @@ public class AreaDissolverSystem : ComponentSystem {
 
 	public void DissableGreyDissolver (int questIdx) {
 		if (areaDissolver.levelQuestIndex == questIdx) {
-			for (int i=0; i<dissolverObjQty; i++) {
-				for (int j=0; j<areaDissolver.dissolverObjs[i].mRenderer.Count; j++) {
-					areaDissolver.dissolverObjs[i].mRenderer[j].gameObject.SetActive(false);
-				}
+			Debug.Log("Dissolve Grey on map "+questIdx);
+			for (int i=0; i<areaDissolver.dissolverObjs.Count; i++) {
+				areaDissolver.dissolverObjs[i].greyLayerObj.SetActive(false);
 			}
 		}
 	}

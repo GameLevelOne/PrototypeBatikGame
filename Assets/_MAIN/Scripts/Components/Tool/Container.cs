@@ -20,7 +20,8 @@ public class Container : MonoBehaviour {
 	}
 
 	void OnDisable () {
-		uiShop.OnBuyItem -= OnBuyItem;
+		if (uiShop!=null)
+			uiShop.OnBuyItem -= OnBuyItem;
 	}
 
 	void OnBuyItem (LootableType type, int price) {

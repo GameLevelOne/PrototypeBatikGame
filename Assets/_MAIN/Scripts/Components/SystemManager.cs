@@ -16,7 +16,7 @@ public class SystemManager : MonoBehaviour {
 	}
 
 	void OnSceneLoaded (Scene scene, LoadSceneMode mode) {
-		Debug.Log("Scene "+scene);
+		Debug.Log("Scene "+scene.name+" Loaded!");
 		isChangeScene = true;
 		currentMapIdx = SceneManager.GetActiveScene().buildIndex;
 	}
