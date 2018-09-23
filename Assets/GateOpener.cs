@@ -1,37 +1,34 @@
 ﻿using UnityEngine;
 
 public class GateOpener : MonoBehaviour {
-	// public Player player;
-	// public Chest chest;
+	public Player player;
 
-	// // public Collider2D chestOpenerCol;
+	[HeaderAttribute("Current")]
+	public Gate gate;
+	public bool isInteracting = false;
 
-	// public bool isInteracting = false;
+	void OnTriggerStay (Collider col) {
+		if (col.tag == Constants.Tag.GATE && player.isHitGateObject) {
+			if (!col.GetComponent<Gate>().isOpened) {
+				gate = col.GetComponent<Gate>();
 
-	// void OnTriggerStay (Collider col) {
-	// 	if (col.tag == Constants.Tag.CHEST && player.isHitChestObject) {
-	// 		chest = col.GetComponent<Chest>();
+				if (!gate.isSelected) {
+					gate.isSelected = true;
+					isInteracting = true;
+				}
+			}
+		} 
+	}
 
-	// 		if (!chest.isOpened && !chest.isSelected) {
-	// 			chest.isSelected = true;
-	// 			// chestOpenerCol.enabled = false;
+	void OnTriggerExit (Collider col) {
+		if (col.tag == Constants.Tag.GATE) {
+			Gate newGate = col.GetComponent<Gate>();
 
-	// 			isInteracting = true;
-	// 		}
-	// 	} 
-	// 	// else {
-	// 	// 	chestOpenerCol.enabled = true;
-	// 	// }
-	// }
-
-	// void OnTriggerExit (Collider col) {
-	// 	if (col.tag == Constants.Tag.CHEST) {
-	// 		Chest newChest = col.GetComponent<Chest>();
-	// 		if (chest == newChest && !newChest.isOpened && newChest.isSelected) {
-	// 			chest.isSelected = false;
-	// 			chest = null;
-	// 			isInteracting = false;
-	// 		}
-	// 	}
-	// }
+			if (gate == newGate && !newGate.isOpened && newGate.isSelected) {
+				gate.isSelected = false;
+				gate = null;
+				isInteracting = false;
+			}
+		}
+	}
 }

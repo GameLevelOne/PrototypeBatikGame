@@ -16,7 +16,7 @@ public class FishingRodSystem : ComponentSystem {
 	FishingRodState state;
 
 	float deltaTime;
-	Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
+	// Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -40,6 +40,8 @@ public class FishingRodSystem : ComponentSystem {
 	void Throw () {
 		fishingRod.transform.localPosition = GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
 		// fishingRod.baitCol.enabled = true;
+		fishingRod.fishingBuoySplashObj.SetActive(true);
+		fishingRod.fishingBuoyObj.SetActive(true);
 		fishingRod.isBaitFish = false;
 		fishingRod.state = FishingRodState.STAY;
 	}
@@ -56,6 +58,8 @@ public class FishingRodSystem : ComponentSystem {
 	}
 
 	void Return () {
+		fishingRod.fishingBuoyObj.SetActive(false);
+
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
 			fishingRod.fish.transform.parent = fishingRod.transform;
@@ -88,18 +92,20 @@ public class FishingRodSystem : ComponentSystem {
 
 	Vector3 GetDestinationPos(Vector3 throwObjInitPos, int dirID, float range)
 	{
+		float verticalRange = range * GameStorage.Instance.settings.verticalMultiplier;
+
 		Vector3 destination = throwObjInitPos;
 		float x = throwObjInitPos.x;
 		float z = throwObjInitPos.z;
 
 		#region 4 Direction
 		if(dirID == 1){ //bottom
-			z-=range;
-		}else if(dirID == 3){ //left
+			z-=verticalRange;
+		}else if(dirID == 2){ //left
 			x-=range;
-		}else if(dirID == 5){ //top
-			z+=range;
-		}else if(dirID == 7){ //right
+		}else if(dirID == 3){ //top
+			z+=verticalRange;
+		}else if(dirID == 4){ //right
 			x+=range;
 		}
 		#endregion
@@ -127,8 +133,15 @@ public class FishingRodSystem : ComponentSystem {
 		// 	z-=range;
 		// }
 #endregion
-		Vector3 resultDestinationPos = new Vector3(x, 0f, z);
 
-		return Vector3.Scale (resultDestinationPos, verticalMultVector);
+		// Debug.Log("verticalRange "+verticalRange);
+		// Debug.Log("dirID "+dirID);
+		// Debug.Log("x "+x);
+		// Debug.Log("z "+z);
+		// Debug.Log(GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange));
+		Vector3 resultDestinationPos = new Vector3(x, 0f, z);
+		// Debug.Log("resultDestinationPos "+resultDestinationPos);
+		// return Vector3.Scale (resultDestinationPos, verticalMultVector);
+		return resultDestinationPos;
 	}
 }

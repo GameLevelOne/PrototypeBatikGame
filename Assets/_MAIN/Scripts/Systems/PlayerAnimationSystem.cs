@@ -377,7 +377,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactValue == 0) {
 						PlayOneShotAnimation(Constants.BlendTreeName.THROW_FISH_BAIT);
 					} else if (input.interactValue == 1) {
-						PlayLoopAnimation(Constants.BlendTreeName.IDLE_FISHING);
+						if (fishingRodSystem.fishingRod.isCatchSomething) {
+							PlayLoopAnimation(Constants.BlendTreeName.FISHING_CAUGHT);
+						} else {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_FISHING);
+						}
 					} else if (input.interactValue == 2) {
 						PlayOneShotAnimation(Constants.BlendTreeName.RETURN_FISH_BAIT);
 					} else if (input.interactValue == 3) {
@@ -392,10 +396,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 						} else if (input.interactValue == 1) {
 							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
 						} else if (input.interactValue == 2) {
-							// PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
-							StopAnyAnimation();
-
-							gainTreasureSystem.UseAndDestroyTreasure();
+							PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
+							// StopAnyAnimation();
+							// gainTreasureSystem.UseAndDestroyTreasure();
 						}
 					} 
 					// else if (input.interactMode == 7) { //GET BIG TREASURE
@@ -832,9 +835,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				} else if (input.interactValue == 1) { 
 					//
 				} else if (input.interactValue == 2) { 
-					// StopAnyAnimation();
-
-					// gainTreasureSystem.UseAndDestroyTreasure();
+					StopAnyAnimation();
+					gainTreasureSystem.UseAndDestroyTreasure();
 				}
 
 				break;

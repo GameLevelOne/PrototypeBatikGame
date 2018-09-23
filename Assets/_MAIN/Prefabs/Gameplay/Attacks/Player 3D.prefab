@@ -690,6 +690,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1717735002392482
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4021864693575606}
+  - component: {fileID: 212026123018761146}
+  - component: {fileID: 95649609806598156}
+  - component: {fileID: 114457249413704152}
+  m_Layer: 0
+  m_Name: Fishing Buoy Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1721729794645928
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4580341179033006}
+  - component: {fileID: 212025026275576852}
+  m_Layer: 0
+  m_Name: Splash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1722749280159252
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +757,7 @@ GameObject:
   - component: {fileID: 114286191795224190}
   - component: {fileID: 136133393664828800}
   - component: {fileID: 114243346190958560}
+  - component: {fileID: 114723821873904240}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -854,6 +889,20 @@ Transform:
   m_Father: {fileID: 4828641503667564}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4021864693575606
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717735002392482}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_Children:
+  - {fileID: 4580341179033006}
+  m_Father: {fileID: 4633958563053818}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!4 &4057295268225918
 Transform:
   m_ObjectHideFlags: 1
@@ -1184,6 +1233,19 @@ Transform:
   m_Father: {fileID: 4928826898908698}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4580341179033006
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721729794645928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1, y: -0.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4021864693575606}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4633958563053818
 Transform:
   m_ObjectHideFlags: 1
@@ -1193,7 +1255,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4021864693575606}
   m_Father: {fileID: 4653104232577144}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1524,7 +1587,25 @@ Animator:
   m_GameObject: {fileID: 1552680715280630}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 21b86802599216842b2ca7ffd8aaca43, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95649609806598156
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717735002392482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d44c76aac03a3a64cb732336558af432, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1754,10 +1835,9 @@ MonoBehaviour:
   health: {fileID: 114265990626498192}
   mana: {fileID: 114901627235131250}
   state: 0
-  playerWeaponPos: {fileID: 0}
   playerCol: {fileID: 136916452541748184}
   shieldPower: 5
-  enemyThatHitsPlayer: {fileID: 0}
+  somethingThatHitsPlayer: {fileID: 0}
   isInitPlayer: 0
   damageReceive: {fileID: 0}
   isPlayerHit: 0
@@ -1769,6 +1849,8 @@ MonoBehaviour:
   isUsingStand: 0
   isBouncing: 0
   isMoveAttack: 0
+  isHitGateObject: 0
+  isCanOpenGate: 0
   isHitChestObject: 0
   isCanOpenChest: 0
   isCanDigging: 0
@@ -2024,6 +2106,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114457249413704152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717735002392482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114466013308383888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2068,10 +2161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 114208348427726864}
-  fish: {fileID: 0}
-  fishObj: {fileID: 0}
+  animationControl: {fileID: 0}
+  fishingBuoyObj: {fileID: 0}
+  fishingBuoySplashObj: {fileID: 0}
   baitCol: {fileID: 135121500310841298}
   fishingRange: 3
+  fish: {fileID: 0}
+  fishObj: {fileID: 0}
   isBaitLaunched: 0
   isCatchSomething: 0
   isBaitFish: 0
@@ -2251,6 +2347,20 @@ MonoBehaviour:
   isSpawnSomethingOnAnimation: 0
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
+--- !u!114 &114723821873904240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b4794964d58254bbcd6d32b9212dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114208348427726864}
+  gate: {fileID: 0}
+  isInteracting: 0
 --- !u!114 &114731853931648524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2458,10 +2568,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   player: {fileID: 114208348427726864}
+  animationControl: {fileID: 114457249413704152}
+  fishingBuoyObj: {fileID: 1717735002392482}
+  fishingBuoySplashObj: {fileID: 1721729794645928}
+  baitCol: {fileID: 136133393664828800}
+  fishingRange: 3
   fish: {fileID: 0}
   fishObj: {fileID: 0}
-  baitCol: {fileID: 135121500310841298}
-  fishingRange: 3
   isBaitLaunched: 0
   isCatchSomething: 0
   isBaitFish: 0
@@ -52922,6 +53035,98 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!212 &212025026275576852
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1721729794645928}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: d19e262a2f1851c45a2591a608c5c669, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1829551841
+  m_SortingLayer: 5
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 7b2ad9c7fa79a7742bfad4a510ee6cd0, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.5, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!212 &212026123018761146
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717735002392482}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: d19e262a2f1851c45a2591a608c5c669, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 1829551841
+  m_SortingLayer: 5
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 0bc0898891c23fb4c9634872e870fb15, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.5, y: 0.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!212 &212520442002914112
 SpriteRenderer:
   m_ObjectHideFlags: 1

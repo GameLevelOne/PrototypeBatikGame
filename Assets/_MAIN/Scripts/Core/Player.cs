@@ -54,6 +54,8 @@ public class Player : MonoBehaviour {
 	// public bool isInvisible = false;
 	
 	[SpaceAttribute(10f)]
+	public bool isHitGateObject = false;
+	public bool isCanOpenGate = false; 
 	public bool isHitChestObject = false;
 	public bool isCanOpenChest = false;   
 	public bool isCanDigging = false;
@@ -132,6 +134,10 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == Constants.Tag.CHEST) {
 			isHitChestObject = true;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.GATE) {
+			isHitGateObject = true;
+		}
 	}
 
 	void OnCollisionExit (Collision col) {
@@ -141,6 +147,10 @@ public class Player : MonoBehaviour {
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
 			isHitChestObject = false;
+		}
+
+		if (col.gameObject.tag == Constants.Tag.GATE && isHitGateObject) {
+			isHitGateObject = false;
 		}
 	}
 

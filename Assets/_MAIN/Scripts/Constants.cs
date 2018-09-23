@@ -76,6 +76,7 @@ public static class Constants {
 		public const string EXPLOSION = "Explosion";
 		public const string GROUND = "Ground";
 		public const string VINES = "Vines";
+		public const string GATE = "Gate";
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";
@@ -133,6 +134,7 @@ public static class Constants {
 	{
 		public const string VINES_STATE = "Environtment/State/Vines";
 		public const string GATES_STATE = "Environtment/State/Gates";
+		public const string CHEST_STATE = "Environtment/State/Chest";
 		public const string CRACKED_WALL_STATE = "Environtment/State/CrackedWall";
 	}
 
@@ -175,6 +177,7 @@ public static class Constants {
 		public const string IDLE_FISHING = "IdleFishing";
 		public const string RETURN_FISH_BAIT = "ReturnFishBait";
 		public const string FISHING_FAIL = "FishingFail";
+		public const string FISHING_CAUGHT = "FishingCaught";
 		public const string LIFTING_TREASURE = "LiftingTreasure";
 		public const string IDLE_LIFT_TREASURE = "IdleLiftTreasure";
 		public const string END_LIFT_TREASURE = "EndLiftTreasure";
@@ -221,6 +224,7 @@ public static class Constants {
 	{
 		#region Another Object
 		public const string CHEST_OPEN = "ChestOpen"; //CHEST
+		public const string DESTROY = "Destroy"; //CHEST
 		#endregion
 
 		#region UI

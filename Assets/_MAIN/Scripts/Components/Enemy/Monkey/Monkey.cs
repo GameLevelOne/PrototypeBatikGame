@@ -4,8 +4,10 @@ using System.Collections.Generic;
 public class Monkey : MonoBehaviour {
 	[HeaderAttribute("Monkey Attributes")]
 	public Enemy enemy;
+	public QuestTrigger questTrigger;
 	public MonkeyTriggerDetection monkeyTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
+	public ParticleSystem attackCodeFX;
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;

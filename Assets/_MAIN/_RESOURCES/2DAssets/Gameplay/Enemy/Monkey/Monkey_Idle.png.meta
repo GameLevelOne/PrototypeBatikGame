@@ -1,12 +1,33 @@
 fileFormatVersion: 2
 guid: 9e491be0fd2326747a120778803dbe26
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Monkey_Idle_0
+    21300002: Monkey_Idle_1
+    21300004: Monkey_Idle_2
+    21300006: Monkey_Idle_3
+    21300008: Monkey_Idle_4
+    21300010: Monkey_Idle_5
+    21300012: Monkey_Idle_6
+    21300014: Monkey_Idle_7
+    21300016: Monkey_Idle_8
+    21300018: Monkey_Idle_9
+    21300020: Monkey_Idle_10
+    21300022: Monkey_Idle_11
+    21300024: Monkey_Idle_12
+    21300026: Monkey_Idle_13
+    21300028: Monkey_Idle_14
+    21300030: Monkey_Idle_15
+    21300032: Monkey_Idle_16
+    21300034: Monkey_Idle_17
+    21300036: Monkey_Idle_18
+    21300038: Monkey_Idle_19
+    21300040: Monkey_Idle_20
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,24 +55,24 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
-    wrapU: -1
-    wrapV: -1
+    wrapU: 1
+    wrapV: 1
     wrapW: -1
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 600
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -69,13 +90,444 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Monkey_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f38420aa3fcda24f9518dc3984b6d99
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 440c0c580f9d2f849aa5a9b8e17437fc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_2
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9678c4437b21d2944a67bdc6fcfe1273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_3
+      rect:
+        serializedVersion: 2
+        x: 2556
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63981dfbcdb0eba4ab7aa19d66895de6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 3408
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0353b741388fc05408dda46d1ae512ca
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 4260
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d6fc9db44ead545ab8197b4704d168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 5112
+        y: 1904
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07fefda6124bfda4eac5b1d8c42bc35d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12c20eb9ca1fdb840a3bed61bd22ba77
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_8
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c74f19c94c3528842b5eac180fbeedb5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_9
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76415c80463569349baf9c29871858a6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_10
+      rect:
+        serializedVersion: 2
+        x: 2556
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296ec3892d0933741bcd395f5f993925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_11
+      rect:
+        serializedVersion: 2
+        x: 3408
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee58c63f50c8fd843b84722cb6cdc7c4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_12
+      rect:
+        serializedVersion: 2
+        x: 4260
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed8cf49a2fa7357428f0cbfa02714283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_13
+      rect:
+        serializedVersion: 2
+        x: 5112
+        y: 952
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edffa40b02912db4dbc86547f191a33b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d22af0871f8b6d142a06d71cab696a40
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_15
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e61c7416c8e6114b9c88362ca306252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_16
+      rect:
+        serializedVersion: 2
+        x: 1704
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a039ed82234363a4eb306e3e51173d7f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_17
+      rect:
+        serializedVersion: 2
+        x: 2556
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa02f087e7f3a7846a7dc5eb494b7a7d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_18
+      rect:
+        serializedVersion: 2
+        x: 3408
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a6eb76b8a0a32a469c4908d7caf23b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_19
+      rect:
+        serializedVersion: 2
+        x: 4260
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eabea0e621169f64c8e7fa190ef29e2d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Monkey_Idle_20
+      rect:
+        serializedVersion: 2
+        x: 5112
+        y: 0
+        width: 852
+        height: 952
+      alignment: 9
+      pivot: {x: 0.426, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab48d05ed08ec98499f10c544dcf8327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 29723eab47c734d4a8125acea42f2b9e
     vertices: []
     indices: 
     edges: []

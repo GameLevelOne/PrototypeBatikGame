@@ -2,10 +2,12 @@
 
 public class Ghost : MonoBehaviour {
 	public Enemy enemy;
+	public QuestTrigger questTrigger;
 	public TriggerDetection playerTriggerDetection;
 	public TriggerDetection attackRangeDetection;
 	public SpriteRenderer sprite;
 	public ParticleSystem particle;
+	public ParticleSystem attackCodeFX;
 	public Vector3 origin;
 
 	public bool isAttacking = false;

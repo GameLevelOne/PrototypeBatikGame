@@ -64,7 +64,7 @@ public class GrassSystem : ComponentSystem {
 	{
 		GameObject.Instantiate(currGrass.grassCutFX,currGrassTransform.position,Quaternion.Euler(40f,0f,0f));
 		
-		//SPAWN ITEM
+		//SPAWN ITEM 
 		lootableSpawnerSystem.CheckPlayerLuck(currGrass.spawnItemProbability, currGrass.transform.position);
 
 		GameObject.Destroy(currGrass.gameObject);

@@ -31,9 +31,9 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	void InitQuest () {
-		if (quest.isTesting) {
-			SaveQuest(quest.currentQuestIndex, 0);
-		}
+		// if (quest.isTesting) {
+		// 	SaveQuest(quest.currentQuestIndex, 0);
+		// }
 
 		LoadQuest();
 
