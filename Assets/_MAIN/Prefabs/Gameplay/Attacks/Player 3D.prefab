@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 114286191795224190}
   - component: {fileID: 136133393664828800}
   - component: {fileID: 114243346190958560}
+  - component: {fileID: 114723821873904240}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -1754,10 +1755,9 @@ MonoBehaviour:
   health: {fileID: 114265990626498192}
   mana: {fileID: 114901627235131250}
   state: 0
-  playerWeaponPos: {fileID: 0}
   playerCol: {fileID: 136916452541748184}
   shieldPower: 5
-  enemyThatHitsPlayer: {fileID: 0}
+  somethingThatHitsPlayer: {fileID: 0}
   isInitPlayer: 0
   damageReceive: {fileID: 0}
   isPlayerHit: 0
@@ -1769,6 +1769,8 @@ MonoBehaviour:
   isUsingStand: 0
   isBouncing: 0
   isMoveAttack: 0
+  isHitGateObject: 0
+  isCanOpenGate: 0
   isHitChestObject: 0
   isCanOpenChest: 0
   isCanDigging: 0
@@ -2251,6 +2253,20 @@ MonoBehaviour:
   isSpawnSomethingOnAnimation: 0
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0
+--- !u!114 &114723821873904240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1723146514634310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b4794964d58254bbcd6d32b9212dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114208348427726864}
+  gate: {fileID: 0}
+  isInteracting: 0
 --- !u!114 &114731853931648524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2460,7 +2476,7 @@ MonoBehaviour:
   player: {fileID: 114208348427726864}
   fish: {fileID: 0}
   fishObj: {fileID: 0}
-  baitCol: {fileID: 135121500310841298}
+  baitCol: {fileID: 136133393664828800}
   fishingRange: 3
   isBaitLaunched: 0
   isCatchSomething: 0

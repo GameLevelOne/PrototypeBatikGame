@@ -192,7 +192,7 @@ public class FishSystem : ComponentSystem {
 
 	public void CatchFish (Fish fish, Transform playerTransform) {
 		//INSTANTIATE LOOTABLE
-		GameObject.Instantiate (fish.lootableObjs[Random.Range(0,fish.lootableObjs.Length)], playerTransform.position, Quaternion.identity);
+		GameObject.Instantiate(fish.lootableObjs[Random.Range(0,fish.lootableObjs.Length)], playerTransform.position, Quaternion.identity);
 
 		GameObject.Destroy (fish.gameObject);
 		UpdateInjectedComponentGroups();
