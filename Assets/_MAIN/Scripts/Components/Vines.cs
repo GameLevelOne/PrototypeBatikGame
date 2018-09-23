@@ -17,13 +17,13 @@ public class Vines : MonoBehaviour {
 	public bool isBurned = false;
 	public bool isDestroyed = false;
 	
-	[HeaderAttribute("Testing")]
-	public bool isTesting;
+	// [HeaderAttribute("Testing")]
+	// public bool isTesting;
 
 	void Awake () {
-		if (isTesting) {
-			PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + vinesID, 0);
-		}
+		// if (isTesting) {
+		// 	PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + vinesID, 0);
+		// }
 	}
 
 	public void OnCollisionEnter (Collision col) {
