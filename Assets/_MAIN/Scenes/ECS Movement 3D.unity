@@ -1488,9 +1488,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 198279889073345726, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
+        type: 2}
+      propertyPath: moveWithCustomTransform
+      value: 
+      objectReference: {fileID: 2074789677}
     - target: {fileID: 1996236088468888, guid: ced7e47e6e4d97049aa1db2db05c9f8e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced7e47e6e4d97049aa1db2db05c9f8e, type: 2}
@@ -3697,6 +3702,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 10, z: 50}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2074789677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4226678458294174, guid: acdc66303a491424a9a4bcae0d36867f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1854303336}
 --- !u!1 &2095157365
 GameObject:
   m_ObjectHideFlags: 0

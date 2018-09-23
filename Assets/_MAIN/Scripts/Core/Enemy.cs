@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour {
 	[HeaderAttribute("Enemy Attributes")]
 	public EnemyState state;
 	public GameObject attackObject;
-	public GameObject chaseIndicator; //TEMP
+	public ParticleSystem chaseIndicator; //TEMP
 	public Health health;
 
 	[SpaceAttribute(10f)]

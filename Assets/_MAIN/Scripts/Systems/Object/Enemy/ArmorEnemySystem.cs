@@ -58,7 +58,7 @@ public class ArmorEnemySystem : ComponentSystem {
 					currArmorEnemy.enemy.state = EnemyState.Attack;
 					currArmorEnemy.enemy.initIdle = false;
 					currArmorEnemy.enemy.initPatrol = false; 
-					currArmorEnemy.enemy.chaseIndicator.SetActive(true);
+					currArmorEnemy.enemy.chaseIndicator.Play(true);
 				}
 			}else if(currArmorEnemy.enemy.state == EnemyState.Attack){
 				if(currArmorEnemy.enemy.playerTransform == null){
@@ -66,7 +66,7 @@ public class ArmorEnemySystem : ComponentSystem {
 					currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 					currArmorEnemy.initRoll = false;
 					currArmorEnemy.startRoll = false;
-					currArmorEnemy.enemy.chaseIndicator.SetActive(false);
+					// currArmorEnemy.enemy.chaseIndicator.SetActive(false);
 				}
 			}
 		}else{
@@ -75,7 +75,7 @@ public class ArmorEnemySystem : ComponentSystem {
 				currArmorEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 				currArmorEnemy.initRoll = false;
 				currArmorEnemy.enemy.initPatrol = false;
-				currArmorEnemy.enemy.chaseIndicator.SetActive(false);
+				// currArmorEnemy.enemy.chaseIndicator.SetActive(false);
 			}
 		}
 	}

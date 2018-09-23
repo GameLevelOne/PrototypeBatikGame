@@ -27,10 +27,6 @@ public class BeeSystem : ComponentSystem {
 	Enemy enemy;
 	#endregion
 
-	float currBeeChaseSpeed;
-	float currBeeChaseRange;
-	float currBeePatrolSpeed;
-	float currBeePatrolRange;
 	float deltaTime;
 	// Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
 
@@ -47,10 +43,6 @@ public class BeeSystem : ComponentSystem {
 			currBeeHealth = beeComponent.beeHealth[i];
 
 			enemy = currBee.enemy;
-			currBeeChaseSpeed = enemy.chaseSpeed;
-			currBeeChaseRange = enemy.chaseRange;
-			currBeePatrolSpeed = enemy.patrolSpeed;
-			currBeePatrolRange = enemy.patrolRange;
 			
 			CheckHealth();
 			CheckState();
@@ -98,7 +90,7 @@ public class BeeSystem : ComponentSystem {
 				currBee.enemy.state = EnemyState.Chase;
 				currBee.enemy.initIdle = false;
 				currBee.enemy.initPatrol = false;	
-				currBee.enemy.chaseIndicator.SetActive(true);
+				currBee.enemy.chaseIndicator.Play(true);
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
 		}
@@ -131,13 +123,13 @@ public class BeeSystem : ComponentSystem {
 					currBee.beeHiveTransform != null ? currBee.beeHiveTransform.position : currBee.transform.position;
 
 
-			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBeePatrolRange);
+			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBee.enemy.patrolRange);
 			// deltaTime = Time.deltaTime;
 			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			// currMonkeyAnim.Play(EnemyState.Patrol.ToString()); //NO
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.patrolDestination, currBeePatrolSpeed);
+				MoveToPos(currBee.enemy.patrolDestination, currBee.enemy.patrolSpeed);
 				// Vector3.MoveTowards(
 				// 	currBeeRigidbody.position,
 				// 	currBee.enemy.patrolDestination,
@@ -158,7 +150,7 @@ public class BeeSystem : ComponentSystem {
 			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.playerTransform.position, currBeeChaseSpeed);
+				MoveToPos(currBee.enemy.playerTransform.position, currBee.enemy.chaseSpeed);
 				// Vector3.Scale(verticalMultVector, 
 				// 	Vector3.MoveTowards(
 				// 		currBeeRigidbody.position,
@@ -167,10 +159,10 @@ public class BeeSystem : ComponentSystem {
 				// 	)
 				// );
 
-			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBeeChaseRange){
+			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBee.enemy.chaseRange){
 				currBee.enemy.state = EnemyState.Idle;
 				currBee.enemy.playerTransform = null;
-				currBee.enemy.chaseIndicator.SetActive(false);
+				// currBee.enemy.chaseIndicator.SetActive(false);
 
 				if(currBee.beeHiveTransform == null) currBee.isStartled = true;
 			}
@@ -181,7 +173,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(!currBee.enemy.initAttack){
 			// Debug.Log("Check initAttack false");
-			currBee.attackCodeFX.SetActive(false);
+			// currBee.attackCodeFX.SetActive(false);
 			if(!currBee.enemy.isAttack){
 				// Debug.Log("Check isAttack false");
 				currBee.enemy.state = EnemyState.Chase;
@@ -193,7 +185,7 @@ public class BeeSystem : ComponentSystem {
 					currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
 				// }
 
-				currBee.attackCodeFX.SetActive(true);
+				currBee.attackCodeFX.Play(true);
 				currBee.enemy.initAttack = true;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
@@ -216,7 +208,7 @@ public class BeeSystem : ComponentSystem {
 			currBee.enemy.patrolDestination = GetRandomPatrolPos(currBeeRigidbody.position,currBee.startledRange);
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.patrolDestination, currBeeChaseSpeed);
+				MoveToPos(currBee.enemy.patrolDestination, currBee.enemy.chaseSpeed);
 				// Vector3.Scale(verticalMultVector, 
 				// 	Vector3.MoveTowards(
 				// 		currBeeRigidbody.position,
@@ -263,8 +255,6 @@ public class BeeSystem : ComponentSystem {
 			z = Random.Range(-1 * verticalRange, verticalRange) + origin.z;
 		}
 		
-		Vector3 resultPatrolPos = new Vector3(x, currBeeTransform.position.y, z);
-
-		return resultPatrolPos;
+		return new Vector3(x, currBeeTransform.position.y, z);
 	}
 }

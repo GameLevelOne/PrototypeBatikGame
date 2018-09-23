@@ -14,17 +14,23 @@ public class MonkeySystem : ComponentSystem {
 	
 	#region injected Component
 	[InjectAttribute] public MonkeyComponent monkeyComponent;
+
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
+
 	public Transform currMonkeyTransform;
 	public Monkey currMonkey;
 	public Rigidbody currMonkeyRigidbody;
 	public Animator currMonkeyAnim;
 	public Health currMonkeyHealth;
+	Enemy enemy;
 	#endregion
 
 	float deltaTime;
 
 	protected override void OnUpdate()
 	{
+		deltaTime = Time.deltaTime;
+		
 		for(int i = 0;i<monkeyComponent.Length;i++){
 			currMonkeyTransform = monkeyComponent.monkeyTransform[i];
 			currMonkey = monkeyComponent.monkey[i];
@@ -32,10 +38,12 @@ public class MonkeySystem : ComponentSystem {
 			currMonkeyAnim = monkeyComponent.monkeyAnim[i];
 			currMonkeyHealth = monkeyComponent.monkeyHealth[i];
 
+			enemy = currMonkey.enemy;
+
+			CheckHealth();
 			CheckState();
 			CheckHit();
 			CheckCollisionWithPlayer();
-			CheckHealth();
 		}
 	}
 
@@ -69,7 +77,7 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.enemy.state = EnemyState.Chase;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 				currMonkey.isHitByPlayer = true;
-				currMonkey.enemy.chaseIndicator.SetActive(true);
+				currMonkey.enemy.chaseIndicator.Play(true);
 			}
 		}		
 	}
@@ -80,7 +88,7 @@ public class MonkeySystem : ComponentSystem {
 			if(currMonkey.isCollidingWithPlayer){
 				currMonkey.enemy.state = EnemyState.Attack;
 				currMonkey.isCollidingWithPlayer = false;
-				currMonkey.enemy.chaseIndicator.SetActive(true);
+				currMonkey.enemy.chaseIndicator.Play(true);
 			}
 		}
 	}
@@ -88,6 +96,16 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currMonkeyHealth.EnemyHP <= 0f){
+			//SPAWN ITEM
+			lootableSpawnerSystem.CheckPlayerLuck(enemy.spawnItemProbability, currMonkeyTransform.position);
+
+			if (currMonkey.questTrigger != null) {
+				//SEND QUEST TRIGGER
+				currMonkey.questTrigger.isDoQuest = true;
+			} else {
+				Debug.Log("No Quest Triggered");
+			}
+
 			GameObject.Destroy(currMonkey.gameObject);
 			UpdateInjectedComponentGroups();
 		}
@@ -118,11 +136,12 @@ public class MonkeySystem : ComponentSystem {
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 		}else{
 			currMonkeyRigidbody.position = 
-				Vector3.MoveTowards(
-					currMonkeyRigidbody.position,
-					currMonkey.enemy.patrolDestination,
-					currMonkey.enemy.patrolSpeed * deltaTime
-				);
+				MoveToPos(currMonkey.enemy.patrolDestination, currMonkey.enemy.patrolSpeed);
+				// Vector3.MoveTowards(
+				// 	currMonkeyRigidbody.position,
+				// 	currMonkey.enemy.patrolDestination,
+				// 	currMonkeyPatrolSpeed * deltaTime
+				// );
 
 			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.patrolDestination) < 0.1f){
 				currMonkey.enemy.initPatrol = false;
@@ -140,17 +159,18 @@ public class MonkeySystem : ComponentSystem {
 			deltaTime = Time.deltaTime;
 			// currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			currMonkeyRigidbody.position = 
-				Vector3.MoveTowards(
-					currMonkeyRigidbody.position,
-					currMonkey.enemy.playerTransform.position,
-					currMonkey.enemy.chaseSpeed * deltaTime
-				);
+				MoveToPos(currMonkey.enemy.playerTransform.position, currMonkey.enemy.chaseSpeed);
+				// Vector3.MoveTowards(
+				// 	currMonkeyRigidbody.position,
+				// 	currMonkey.enemy.playerTransform.position,
+				// 	currMonkey.enemy.chaseSpeed * deltaTime
+				// );
 			
 			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.playerTransform.position) >= currMonkey.enemy.chaseRange){
 				currMonkey.isHitByPlayer = false;
 				currMonkey.enemy.state = EnemyState.Idle;
 				currMonkey.enemy.playerTransform = null;
-				currMonkey.enemy.chaseIndicator.SetActive(false);
+				// currMonkey.enemy.chaseIndicator.SetActive(false);
 			}
 		}
 	}
@@ -163,6 +183,9 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.enemy.state = EnemyState.Chase;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}else{
+				currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
+
+				currMonkey.attackCodeFX.Play(true);
 				currMonkey.enemy.initAttack = true;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
@@ -171,10 +194,29 @@ public class MonkeySystem : ComponentSystem {
 		}
 	}
 
+	Vector3 MoveToPos (Vector3 targetPos, float speed) {
+		Vector3 deltaPos = targetPos-currMonkeyRigidbody.position;
+
+		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
+			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
+			// Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
+			return currMonkeyRigidbody.position + vecticalizeVector * speed * deltaTime;
+		} else {
+			return currMonkeyRigidbody.position + deltaPos * speed * deltaTime;
+		}
+		
+		#region OLD
+		// Vector3 resultPos = Vector3.MoveTowards(currBeeRigidbody.position, targetPos, speed * deltaTime);
+		// return resultPos;
+		#endregion
+	}
+
 	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
 	{
+		float verticalRange = range * GameStorage.Instance.settings.verticalMultiplier;
+
 		float x = Random.Range(-1 * range, range) + origin.x;
-		float z = Random.Range(-1 * range, range) + origin.z;
+		float z = Random.Range(-1 * verticalRange, verticalRange) + origin.z;
 		
 		return new Vector3(x, currMonkeyTransform.position.y, z);
 	}

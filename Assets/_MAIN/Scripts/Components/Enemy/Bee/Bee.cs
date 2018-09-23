@@ -6,7 +6,7 @@ public class Bee : MonoBehaviour {
 	public QuestTrigger questTrigger;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
-	public GameObject attackCodeFX;
+	public ParticleSystem attackCodeFX;
 	
 	[SpaceAttribute(10f)]
 	public float startledRange;
