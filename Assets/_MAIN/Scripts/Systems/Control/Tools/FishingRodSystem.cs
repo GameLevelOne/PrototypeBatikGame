@@ -40,6 +40,8 @@ public class FishingRodSystem : ComponentSystem {
 	void Throw () {
 		fishingRod.transform.localPosition = GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange);
 		// fishingRod.baitCol.enabled = true;
+		fishingRod.fishingBuoySplashObj.SetActive(true);
+		fishingRod.fishingBuoyObj.SetActive(true);
 		fishingRod.isBaitFish = false;
 		fishingRod.state = FishingRodState.STAY;
 	}
@@ -56,6 +58,8 @@ public class FishingRodSystem : ComponentSystem {
 	}
 
 	void Return () {
+		fishingRod.fishingBuoyObj.SetActive(false);
+
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {
 			fishingRod.fish.transform.parent = fishingRod.transform;
