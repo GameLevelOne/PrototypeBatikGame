@@ -3413,6 +3413,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 285666084}
   m_Script: {fileID: 11500000, guid: a0405b4afb5419142b895f1c4bd384ae, type: 3}
+--- !u!114 &285666090 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114082368463013134, guid: 48c8d0db54edec043ac957c3486b5def,
+    type: 2}
+  m_PrefabInternal: {fileID: 285666084}
+  m_Script: {fileID: 11500000, guid: d847400cd8229a04a82ac80fc8669da9, type: 3}
 --- !u!114 &285666094 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114731853931648524, guid: 48c8d0db54edec043ac957c3486b5def,
@@ -6408,6 +6414,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114691031554342336, guid: 9a9c3e2231b908a4a8d150ae64baef21,
+        type: 2}
+      propertyPath: playerContainer
+      value: 
+      objectReference: {fileID: 285666090}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9c3e2231b908a4a8d150ae64baef21, type: 2}
   m_IsPrefabAsset: 0

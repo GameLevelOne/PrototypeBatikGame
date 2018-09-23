@@ -7535,6 +7535,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4174009637284126, guid: 5d517a9966d54b94faa763fe20e84b63,
     type: 2}
   m_PrefabInternal: {fileID: 1035425492}
+--- !u!114 &1041122950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114082368463013134, guid: 48c8d0db54edec043ac957c3486b5def,
+    type: 2}
+  m_PrefabInternal: {fileID: 71646606}
+  m_Script: {fileID: 11500000, guid: d847400cd8229a04a82ac80fc8669da9, type: 3}
 --- !u!1001 &1041280923
 Prefab:
   m_ObjectHideFlags: 0
@@ -10864,7 +10870,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4166209950590532, guid: e678941704b5b8345854b74e877bf14b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.53
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 4166209950590532, guid: e678941704b5b8345854b74e877bf14b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -14763,6 +14769,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114691031554342336, guid: 9a9c3e2231b908a4a8d150ae64baef21,
+        type: 2}
+      propertyPath: playerContainer
+      value: 
+      objectReference: {fileID: 1041122950}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9c3e2231b908a4a8d150ae64baef21, type: 2}
   m_IsPrefabAsset: 0

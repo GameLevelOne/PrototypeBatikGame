@@ -37,30 +37,29 @@ public class CameraMovementSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		if(!initLevelData){
-			for(int i = 0;i<levelDataComponent.Length;i++){
-				currLevelData = levelDataComponent.levelData[i];
-				GetLevelData();
-			}
-		}else{
-			for(int i = 0;i<cameraMovementComponent.Length;i++){
-				currCamera = cameraMovementComponent.camera[i];
-				currCameraTransform = cameraMovementComponent.cameraTransform[i];
-				currCameraMovement = cameraMovementComponent.cameraMovement[i];
-				GetCameraData();
-				MoveCamera();
-			}
-
-			if((currCameraMovement!=null) && (currCameraMovement.isZooming)){    //<---------Mot: Check if currCameraMovement not Null
-				Zoom();
-			}
+		
+		for(int i = 0;i<levelDataComponent.Length;i++){
+			currLevelData = levelDataComponent.levelData[i];
+			GetLevelData();
 		}
+	
+		for(int i = 0;i<cameraMovementComponent.Length;i++){
+			currCamera = cameraMovementComponent.camera[i];
+			currCameraTransform = cameraMovementComponent.cameraTransform[i];
+			currCameraMovement = cameraMovementComponent.cameraMovement[i];
+			GetCameraData();
+			MoveCamera();
+		}
+
+		if((currCameraMovement!=null) && (currCameraMovement.isZooming)){    //<---------Mot: Check if currCameraMovement not Null
+			Zoom();
+		}
+		
 	}
 
 	void GetLevelData()
 	{
 		if(!currLevelData.isInitialied){
-			initLevelData = true;
 			currLevelData.isInitialied = true;
 
 			mapWidth = currLevelData.mapWidth;
@@ -93,6 +92,7 @@ public class CameraMovementSystem : ComponentSystem {
 
 	void MoveCamera()
 	{
+		Debug.Log("CameraMOve");
 		Vector3 destPos = currCameraMovement.playerTransform.position + currCameraMovement.offset;
 		Vector3 smoothedPos = Vector3.Lerp(currCameraTransform.position,destPos,currCameraMovement.smoothSpeed * deltaTime);
 		currCameraTransform.position = smoothedPos;
