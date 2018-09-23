@@ -68,6 +68,7 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void InitTool () {
+		// CheckSavedTool ();
 		// Debug.Log("InitTool");
 		for (int i=1; i<=(int)ToolType.Boots; i++) {
 			if (CheckIfToolHasBeenUnlocked(i)) {
@@ -85,6 +86,10 @@ public class ToolSystem : ComponentSystem {
 		}
 
 		tool.isInitCurrentTool = true;
+	}
+
+	void CheckSavedTool () {
+		tool.Bow = tool.Bow == 1? 1 : 0;
 	}
 
 	public void NextTool ()
