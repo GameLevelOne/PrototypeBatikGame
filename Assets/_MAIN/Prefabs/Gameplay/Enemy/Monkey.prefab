@@ -457,7 +457,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996236088468888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.41, y: 0.7, z: 6.25}
+  m_LocalPosition: {x: -3.37, y: 7.06, z: 2.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4513978079428178}
@@ -763,7 +763,7 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 114134985016821300}
   jatayu: {fileID: 0}
-  healthPower: 60
+  healthPower: 15
   isTestHealth: 0
 --- !u!114 &114280355567613682
 MonoBehaviour:
@@ -857,6 +857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 114134985016821300}
   questTrigger: {fileID: 0}
+  chestSpawner: {fileID: 0}
   monkeyTriggerDetection: {fileID: 114854413372241128}
   attackRangeTrigger: {fileID: 114900510518298574}
   attackCodeFX: {fileID: 198095632589966310}
@@ -898,7 +899,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136116033484910172
 CapsuleCollider:
