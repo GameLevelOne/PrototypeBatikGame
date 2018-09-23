@@ -177,6 +177,7 @@ public static class Constants {
 		public const string IDLE_FISHING = "IdleFishing";
 		public const string RETURN_FISH_BAIT = "ReturnFishBait";
 		public const string FISHING_FAIL = "FishingFail";
+		public const string FISHING_CAUGHT = "FishingCaught";
 		public const string LIFTING_TREASURE = "LiftingTreasure";
 		public const string IDLE_LIFT_TREASURE = "IdleLiftTreasure";
 		public const string END_LIFT_TREASURE = "EndLiftTreasure";
