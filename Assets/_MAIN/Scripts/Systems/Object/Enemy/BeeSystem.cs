@@ -7,6 +7,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		public readonly int Length;
 		public ComponentArray<Transform> beeTransform;
+		public ComponentArray<Enemy> enemy;
 		public ComponentArray<Bee> bee;
 		public ComponentArray<Rigidbody> beeRigidbody;
 		public ComponentArray<Animator> beeAnim;
@@ -20,11 +21,12 @@ public class BeeSystem : ComponentSystem {
 
 	// [InjectAttribute] GameFXSystem gameFXSystem;
 	public Transform currBeeTransform;
+	Enemy currEnemy;
 	Bee currBee;
 	Rigidbody currBeeRigidbody;
 	Animator currBeeAnim;
 	Health currBeeHealth;
-	Enemy enemy;
+	// Enemy enemy;
 	#endregion
 
 	float deltaTime;
@@ -42,7 +44,7 @@ public class BeeSystem : ComponentSystem {
 			currBeeAnim = beeComponent.beeAnim[i];
 			currBeeHealth = beeComponent.beeHealth[i];
 
-			enemy = currBee.enemy;
+			// enemy = currEnemy;
 			
 			CheckHealth();
 			CheckState();
@@ -54,7 +56,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(currBeeHealth.EnemyHP <= 0f){
 			//SPAWN ITEM
-			lootableSpawnerSystem.CheckPlayerLuck(enemy.spawnItemProbability, currBeeTransform.position);
+			lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
 
 			if (currBee.questTrigger != null) {
 				//SEND QUEST TRIGGER
@@ -70,27 +72,27 @@ public class BeeSystem : ComponentSystem {
 
 	void CheckState()
 	{
-		if(currBee.enemy.state == EnemyState.Idle){
+		if(currEnemy.state == EnemyState.Idle){
 			Idle();
-		}else if(currBee.enemy.state == EnemyState.Patrol){
+		}else if(currEnemy.state == EnemyState.Patrol){
 			Patrol();
-		}else if(currBee.enemy.state == EnemyState.Chase){
+		}else if(currEnemy.state == EnemyState.Chase){
 			Chase();
-		}else if(currBee.enemy.state == EnemyState.Startled){
+		}else if(currEnemy.state == EnemyState.Startled){
 			Startled();
-		}else if(currBee.enemy.state == EnemyState.Attack){
+		}else if(currEnemy.state == EnemyState.Attack){
 			Attack();
 		}
 	}
 
 	void CheckPlayer()
 	{
-		if(currBee.enemy.state == EnemyState.Idle || currBee.enemy.state == EnemyState.Patrol){
-			if(currBee.enemy.playerTransform != null){ 
-				currBee.enemy.state = EnemyState.Chase;
-				currBee.enemy.initIdle = false;
-				currBee.enemy.initPatrol = false;	
-				currBee.enemy.chaseIndicator.Play(true);
+		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
+			if(currEnemy.playerTransform != null){ 
+				currEnemy.state = EnemyState.Chase;
+				currEnemy.initIdle = false;
+				currEnemy.initPatrol = false;	
+				currEnemy.chaseIndicator.Play(true);
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
 		}
@@ -99,70 +101,70 @@ public class BeeSystem : ComponentSystem {
 
 	void Idle()
 	{
-		if(!currBee.enemy.initIdle){
-			currBee.enemy.initIdle = true;
-			currBee.enemy.TIdle = currBee.enemy.idleDuration;
+		if(!currEnemy.initIdle){
+			currEnemy.initIdle = true;
+			currEnemy.TIdle = currEnemy.idleDuration;
 			// deltaTime = Time.deltaTime;
 		}else{
-			currBee.enemy.TIdle -= deltaTime;
+			currEnemy.TIdle -= deltaTime;
 
-			if(currBee.enemy.TIdle <= 0f){
-				currBee.enemy.state = EnemyState.Patrol;
-				currBee.enemy.initIdle = false;
+			if(currEnemy.TIdle <= 0f){
+				currEnemy.state = EnemyState.Patrol;
+				currEnemy.initIdle = false;
 			}
 		}
 	}
 
 	void Patrol()
 	{
-		if(!currBee.enemy.initPatrol){
-			currBee.enemy.initPatrol = true;
+		if(!currEnemy.initPatrol){
+			currEnemy.initPatrol = true;
 			
 			Vector3 origin = 
 				currBee.isStartled ?  currBee.transform.position : 
 					currBee.beeHiveTransform != null ? currBee.beeHiveTransform.position : currBee.transform.position;
 
 
-			currBee.enemy.patrolDestination = GetRandomPatrolPos(origin,currBee.enemy.patrolRange);
+			currEnemy.patrolDestination = GetRandomPatrolPos(origin,currEnemy.patrolRange);
 			// deltaTime = Time.deltaTime;
 			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			// currMonkeyAnim.Play(EnemyState.Patrol.ToString()); //NO
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.patrolDestination, currBee.enemy.patrolSpeed);
+				MoveToPos(currEnemy.patrolDestination, currEnemy.patrolSpeed);
 				// Vector3.MoveTowards(
 				// 	currBeeRigidbody.position,
-				// 	currBee.enemy.patrolDestination,
-				// 	currBee.enemy.patrolSpeed * deltaTime
+				// 	currEnemy.patrolDestination,
+				// 	currEnemy.patrolSpeed * deltaTime
 				// );
 
-			if(Vector3.Distance(currBee.enemy.patrolDestination,currBeeRigidbody.position) < 0.1f){
-				currBee.enemy.state = EnemyState.Idle;
-				currBee.enemy.initPatrol = false;
+			if(Vector3.Distance(currEnemy.patrolDestination,currBeeRigidbody.position) < 0.1f){
+				currEnemy.state = EnemyState.Idle;
+				currEnemy.initPatrol = false;
 			}
 		}
 	}
 
 	void Chase()
 	{
-		if(currBee.enemy.isAttack){
-			currBee.enemy.state = EnemyState.Attack;
-			// currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
+		if(currEnemy.isAttack){
+			currEnemy.state = EnemyState.Attack;
+			// currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.playerTransform.position, currBee.enemy.chaseSpeed);
+				MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
 				// Vector3.Scale(verticalMultVector, 
 				// 	Vector3.MoveTowards(
 				// 		currBeeRigidbody.position,
-				// 		currBee.enemy.playerTransform.position,
-				// 		currBee.enemy.chaseSpeed * deltaTime
+				// 		currEnemy.playerTransform.position,
+				// 		currEnemy.chaseSpeed * deltaTime
 				// 	)
 				// );
 
-			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.playerTransform.position) >= currBee.enemy.chaseRange){
-				currBee.enemy.state = EnemyState.Idle;
-				currBee.enemy.playerTransform = null;
-				// currBee.enemy.chaseIndicator.SetActive(false);
+			if(Vector3.Distance(currBeeRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
+				currEnemy.state = EnemyState.Idle;
+				currEnemy.playerTransform = null;
+				// currEnemy.chaseIndicator.SetActive(false);
 
 				if(currBee.beeHiveTransform == null) currBee.isStartled = true;
 			}
@@ -171,27 +173,27 @@ public class BeeSystem : ComponentSystem {
 
 	void Attack()
 	{
-		if(!currBee.enemy.initAttack){
+		if(!currEnemy.initAttack){
 			// Debug.Log("Check initAttack false");
 			// currBee.attackCodeFX.SetActive(false);
-			if(!currBee.enemy.isAttack){
+			if(!currEnemy.isAttack){
 				// Debug.Log("Check isAttack false");
-				currBee.enemy.state = EnemyState.Chase;
+				currEnemy.state = EnemyState.Chase;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}else{
 				// Debug.Log("Check isAttack true");
 				// if(!currBee.initAttackHitPosition){
 				// 	currBee.initAttackHitPosition = true;
-					currBee.enemy.attackObject.transform.position = currBee.enemy.playerTransform.position;
+					currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 				// }
 
 				currBee.attackCodeFX.Play(true);
-				currBee.enemy.initAttack = true;
+				currEnemy.initAttack = true;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
 			// Debug.Log("Check initAttack true");
-			currBee.enemy.attackObject.SetActive(currBee.enemy.attackHit);
+			currEnemy.attackObject.SetActive(currEnemy.attackHit);
 		}
 	}	
 
@@ -199,27 +201,27 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(!currBee.initStartled){
 			currBee.beeHiveTransform = null;
-			currBee.enemy.initIdle = false;
-			currBee.enemy.initPatrol = false;
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
 
 			// deltaTime = Time.deltaTime;
 			currBee.initStartled = true;
 
-			currBee.enemy.patrolDestination = GetRandomPatrolPos(currBeeRigidbody.position,currBee.startledRange);
+			currEnemy.patrolDestination = GetRandomPatrolPos(currBeeRigidbody.position,currBee.startledRange);
 		}else{
 			currBeeRigidbody.position = 
-				MoveToPos(currBee.enemy.patrolDestination, currBee.enemy.chaseSpeed);
+				MoveToPos(currEnemy.patrolDestination, currEnemy.chaseSpeed);
 				// Vector3.Scale(verticalMultVector, 
 				// 	Vector3.MoveTowards(
 				// 		currBeeRigidbody.position,
-				// 		currBee.enemy.patrolDestination,
-				// 		currBee.enemy.chaseSpeed * deltaTime
+				// 		currEnemy.patrolDestination,
+				// 		currEnemy.chaseSpeed * deltaTime
 				// 	)
 				// );
 
-			if(Vector3.Distance(currBeeRigidbody.position,currBee.enemy.patrolDestination) < 0.1f){
+			if(Vector3.Distance(currBeeRigidbody.position,currEnemy.patrolDestination) < 0.1f){
 				currBee.initStartled = false;
-				currBee.enemy.state = EnemyState.Idle;
+				currEnemy.state = EnemyState.Idle;
 			}
 		}
 	}

@@ -244,7 +244,7 @@ public class DamageSystem : ComponentSystem {
 		}
 	}
 
-	float ReduceHP (float initHP, float damage, Vector3 hitPos) {
+	float ReduceHP (float initHP, float damage, Vector3 hitPos) {		
 		gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, hitPos);
 		return initHP -= damage;
 	}
