@@ -6,6 +6,7 @@ public class MonkeySystem : ComponentSystem {
 	{
 		public readonly int Length;
 		public ComponentArray<Transform> monkeyTransform;
+		public ComponentArray<Enemy> enemy;
 		public ComponentArray<Monkey> monkey;
 		public ComponentArray<Rigidbody> monkeyRigidbody;
 		public ComponentArray<Animator> monkeyAnim;
@@ -17,12 +18,13 @@ public class MonkeySystem : ComponentSystem {
 
 	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
 
-	public Transform currMonkeyTransform;
-	public Monkey currMonkey;
-	public Rigidbody currMonkeyRigidbody;
-	public Animator currMonkeyAnim;
-	public Health currMonkeyHealth;
-	Enemy enemy;
+	Transform currMonkeyTransform;
+	Enemy currEnemy;
+	Monkey currMonkey;
+	Rigidbody currMonkeyRigidbody;
+	Animator currMonkeyAnim;
+	Health currMonkeyHealth;
+	// Enemy enemy;
 	#endregion
 
 	float deltaTime;
@@ -33,12 +35,13 @@ public class MonkeySystem : ComponentSystem {
 		
 		for(int i = 0;i<monkeyComponent.Length;i++){
 			currMonkeyTransform = monkeyComponent.monkeyTransform[i];
+			currEnemy = monkeyComponent.enemy[i];
 			currMonkey = monkeyComponent.monkey[i];
 			currMonkeyRigidbody = monkeyComponent.monkeyRigidbody[i];
 			currMonkeyAnim = monkeyComponent.monkeyAnim[i];
 			currMonkeyHealth = monkeyComponent.monkeyHealth[i];
 
-			enemy = currMonkey.enemy;
+			// enemy = currEnemy;
 
 			CheckHealth();
 			CheckState();
@@ -49,13 +52,13 @@ public class MonkeySystem : ComponentSystem {
 
 	void CheckState()
 	{
-		if(currMonkey.enemy.state == EnemyState.Idle){
+		if(currEnemy.state == EnemyState.Idle){
 			Idle();
-		}else if(currMonkey.enemy.state == EnemyState.Patrol){
+		}else if(currEnemy.state == EnemyState.Patrol){
 			Patrol();
-		}else if(currMonkey.enemy.state == EnemyState.Chase){
+		}else if(currEnemy.state == EnemyState.Chase){
 			Chase();
-		}else if(currMonkey.enemy.state == EnemyState.Attack){
+		}else if(currEnemy.state == EnemyState.Attack){
 			Attack();
 		}
 	}
@@ -63,32 +66,32 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHit()
 	{
 		if(!currMonkey.isHitByPlayer){
-			if(currMonkey.enemy.isHit && currMonkey.enemy.playerThatHitsEnemy != null){ //IsEnemyHit
-				currMonkey.enemy.playerTransform = currMonkey.enemy.playerThatHitsEnemy.transform;
+			if(currEnemy.isHit && currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
+				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
-					m.enemy.playerTransform = currMonkey.enemy.playerTransform;
+					m.enemy.playerTransform = currEnemy.playerTransform;
 					m.enemy.state = EnemyState.Chase;
 					currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 					m.enemy.initIdle = false;
 					m.enemy.initPatrol = false;
 				}
-				currMonkey.enemy.initIdle = false;
-				currMonkey.enemy.initPatrol = false;
-				currMonkey.enemy.state = EnemyState.Chase;
+				currEnemy.initIdle = false;
+				currEnemy.initPatrol = false;
+				currEnemy.state = EnemyState.Chase;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 				currMonkey.isHitByPlayer = true;
-				currMonkey.enemy.chaseIndicator.Play(true);
+				currEnemy.chaseIndicator.Play(true);
 			}
 		}		
 	}
 
 	void CheckCollisionWithPlayer()
 	{
-		if(currMonkey.enemy.state != EnemyState.Attack){
+		if(currEnemy.state != EnemyState.Attack){
 			if(currMonkey.isCollidingWithPlayer){
-				currMonkey.enemy.state = EnemyState.Attack;
+				currEnemy.state = EnemyState.Attack;
 				currMonkey.isCollidingWithPlayer = false;
-				currMonkey.enemy.chaseIndicator.Play(true);
+				currEnemy.chaseIndicator.Play(true);
 			}
 		}
 	}
@@ -97,7 +100,7 @@ public class MonkeySystem : ComponentSystem {
 	{
 		if(currMonkeyHealth.EnemyHP <= 0f){
 			//SPAWN ITEM
-			lootableSpawnerSystem.CheckPlayerLuck(enemy.spawnItemProbability, currMonkeyTransform.position);
+			lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currMonkeyTransform.position);
 
 			if (currMonkey.questTrigger != null) {
 				//SEND QUEST TRIGGER
@@ -113,84 +116,84 @@ public class MonkeySystem : ComponentSystem {
 
 	void Idle()
 	{
-		if(!currMonkey.enemy.initIdle){
-			currMonkey.enemy.initIdle = true;
-			currMonkey.enemy.TIdle = currMonkey.enemy.idleDuration;
-			deltaTime = Time.deltaTime;
+		if(!currEnemy.initIdle){
+			currEnemy.initIdle = true;
+			currEnemy.TIdle = currEnemy.idleDuration;
+			// deltaTime = Time.deltaTime;
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		}else{
-			currMonkey.enemy.TIdle -= deltaTime;
-			if(currMonkey.enemy.TIdle <= 0f){
-				currMonkey.enemy.state = EnemyState.Patrol;
-				currMonkey.enemy.initIdle = false;
+			currEnemy.TIdle -= deltaTime;
+			if(currEnemy.TIdle <= 0f){
+				currEnemy.state = EnemyState.Patrol;
+				currEnemy.initIdle = false;
 			}
 		}
 	}
 	
 	void Patrol()
 	{
-		if(!currMonkey.enemy.initPatrol){
-			currMonkey.enemy.initPatrol = true;
-			currMonkey.enemy.patrolDestination = GetRandomPatrolPos(currMonkey.patrolArea,currMonkey.enemy.patrolRange);
-			deltaTime = Time.deltaTime;
+		if(!currEnemy.initPatrol){
+			currEnemy.initPatrol = true;
+			currEnemy.patrolDestination = GetRandomPatrolPos(currMonkey.patrolArea,currEnemy.patrolRange);
+			// deltaTime = Time.deltaTime;
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 		}else{
 			currMonkeyRigidbody.position = 
-				MoveToPos(currMonkey.enemy.patrolDestination, currMonkey.enemy.patrolSpeed);
+				MoveToPos(currEnemy.patrolDestination, currEnemy.patrolSpeed);
 				// Vector3.MoveTowards(
 				// 	currMonkeyRigidbody.position,
-				// 	currMonkey.enemy.patrolDestination,
+				// 	currEnemy.patrolDestination,
 				// 	currMonkeyPatrolSpeed * deltaTime
 				// );
 
-			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.patrolDestination) < 0.1f){
-				currMonkey.enemy.initPatrol = false;
-				currMonkey.enemy.state = EnemyState.Idle;
+			if(Vector3.Distance(currMonkeyRigidbody.position,currEnemy.patrolDestination) < 0.1f){
+				currEnemy.initPatrol = false;
+				currEnemy.state = EnemyState.Idle;
 			}
 		}
 	}
 	
 	void Chase()
 	{
-		if(currMonkey.enemy.isAttack){
-			currMonkey.enemy.state = EnemyState.Attack;
-			// currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
+		if(currEnemy.isAttack){
+			currEnemy.state = EnemyState.Attack;
+			// currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 		}else{
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			// currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			currMonkeyRigidbody.position = 
-				MoveToPos(currMonkey.enemy.playerTransform.position, currMonkey.enemy.chaseSpeed);
+				MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
 				// Vector3.MoveTowards(
 				// 	currMonkeyRigidbody.position,
-				// 	currMonkey.enemy.playerTransform.position,
-				// 	currMonkey.enemy.chaseSpeed * deltaTime
+				// 	currEnemy.playerTransform.position,
+				// 	currEnemy.chaseSpeed * deltaTime
 				// );
 			
-			if(Vector3.Distance(currMonkeyRigidbody.position,currMonkey.enemy.playerTransform.position) >= currMonkey.enemy.chaseRange){
+			if(Vector3.Distance(currMonkeyRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
 				currMonkey.isHitByPlayer = false;
-				currMonkey.enemy.state = EnemyState.Idle;
-				currMonkey.enemy.playerTransform = null;
-				// currMonkey.enemy.chaseIndicator.SetActive(false);
+				currEnemy.state = EnemyState.Idle;
+				currEnemy.playerTransform = null;
+				// currEnemy.chaseIndicator.SetActive(false);
 			}
 		}
 	}
 	
 	void Attack()
 	{
-		if(!currMonkey.enemy.initAttack){
-			if(!currMonkey.enemy.isAttack){
-				currMonkey.enemy.initAttack = false;
-				currMonkey.enemy.state = EnemyState.Chase;
+		if(!currEnemy.initAttack){
+			if(!currEnemy.isAttack){
+				currEnemy.initAttack = false;
+				currEnemy.state = EnemyState.Chase;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}else{
-				currMonkey.enemy.attackObject.transform.position = currMonkey.enemy.playerTransform.position;
+				currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 
 				currMonkey.attackCodeFX.Play(true);
-				currMonkey.enemy.initAttack = true;
+				currEnemy.initAttack = true;
 				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
-			currMonkey.enemy.attackObject.SetActive(currMonkey.enemy.attackHit);
+			currEnemy.attackObject.SetActive(currEnemy.attackHit);
 		}
 	}
 

@@ -47,7 +47,7 @@ public class GateOpenerSystem : ComponentSystem {
 
 		//UNLOCKED GATE SPRITE BY SAVED GATE STATE
 		if (gate.isOpened) {
-			gate.gateSpriteRen.sprite = gate.openedGateSprite;
+			gate.gateSpriteRen.sprite = null;
 			gate.gateCol.enabled = false;
 		} else {
 			gate.gateSpriteRen.sprite = gate.closedGateSprite;
@@ -73,7 +73,7 @@ public class GateOpenerSystem : ComponentSystem {
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateOpener.gate.gateID, 0);
 
 		gateOpener.gate.isOpened = true;
-		gateOpener.gate.gateSpriteRen.sprite = gateOpener.gate.openedGateSprite;
+		gateOpener.gate.gateSpriteRen.sprite = null;
 		gateOpener.gate.gateCol.enabled = false;
 		gateOpener.gate.isSelected = false;
 		gateOpener.gate = null;

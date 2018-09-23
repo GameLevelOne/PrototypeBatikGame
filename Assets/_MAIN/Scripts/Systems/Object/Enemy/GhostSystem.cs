@@ -26,6 +26,8 @@ public class GhostSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
+		deltaTime = Time.deltaTime;
+
 		for(int i = 0;i<ghostComponent.Length;i++){
 			currGhostTransform = ghostComponent.ghostTransform[i];
 			currEnemy = ghostComponent.enemy[i];
@@ -71,7 +73,7 @@ public class GhostSystem : ComponentSystem {
 				currEnemy.state = EnemyState.Chase;
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
-				if(currEnemy.chaseIndicator != null) currEnemy.chaseIndicator.Play(true);
+				currEnemy.chaseIndicator.Play(true);
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}
 		}
@@ -82,7 +84,7 @@ public class GhostSystem : ComponentSystem {
 		if(!currEnemy.initIdle){
 			currEnemy.initIdle = true;
 			currEnemy.TIdle = currEnemy.idleDuration;
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 		}else{
 			currEnemy.TIdle -= deltaTime;
@@ -101,16 +103,18 @@ public class GhostSystem : ComponentSystem {
 
 			Vector3 startPos = currGhostTransform.position;
 			currEnemy.patrolDestination = GetRandomPatrolPos(currGhost.origin,currEnemy.patrolRange);
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			
 		}else{
 			currGhostRigidbody.position = 
-				Vector3.MoveTowards(
-						currGhostRigidbody.position,
-						currEnemy.patrolDestination,
-						currEnemy.patrolSpeed * deltaTime
-				);
+				currGhostRigidbody.position = 
+					MoveToPos(currEnemy.patrolDestination, currEnemy.patrolSpeed);
+				// Vector3.MoveTowards(
+				// 		currGhostRigidbody.position,
+				// 		currEnemy.patrolDestination,
+				// 		currEnemy.patrolSpeed * deltaTime
+				// );
 
 
 			if(Vector3.Distance(currGhostRigidbody.position,currEnemy.patrolDestination) < 0.1f){
@@ -123,11 +127,12 @@ public class GhostSystem : ComponentSystem {
 	void Chase()
 	{
 		currGhostRigidbody.position = 
-			Vector3.MoveTowards(
-				currGhostRigidbody.position,
-				currEnemy.playerTransform.position,
-				currEnemy.chaseSpeed * deltaTime
-			);
+			MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
+			// Vector3.MoveTowards(
+			// 	currGhostRigidbody.position,
+			// 	currEnemy.playerTransform.position,
+			// 	currEnemy.chaseSpeed * deltaTime
+			// );
 
 		if(currGhost.isAttacking){
 			currEnemy.state = EnemyState.Attack;
@@ -142,6 +147,9 @@ public class GhostSystem : ComponentSystem {
 				currEnemy.state = EnemyState.Chase;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}else{
+				currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
+
+				currGhost.attackCodeFX.Play(true);
 				currEnemy.initAttack = true;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
@@ -155,7 +163,7 @@ public class GhostSystem : ComponentSystem {
 		if(!currEnemy.initDamaged){
 			currEnemy.initDamaged = true;
 			currEnemy.TDamaged = currEnemy.damagedDuration;
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			currEnemy.TDamaged = currEnemy.damagedDuration;
 		}else{
@@ -173,7 +181,7 @@ public class GhostSystem : ComponentSystem {
 		if(!currEnemy.initDie){
 			currEnemy.initDie = true;
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
-			deltaTime = Time.deltaTime;
+			// deltaTime = Time.deltaTime;
 			currEnemy.TDie = currEnemy.dieDuration;
 			currGhost.particle.Play();
 		}else{
@@ -189,10 +197,29 @@ public class GhostSystem : ComponentSystem {
 		
 	}
 
+	Vector3 MoveToPos (Vector3 targetPos, float speed) {
+		Vector3 deltaPos = targetPos-currGhostRigidbody.position;
+
+		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
+			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
+			// Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
+			return currGhostRigidbody.position + vecticalizeVector * speed * deltaTime;
+		} else {
+			return currGhostRigidbody.position + deltaPos * speed * deltaTime;
+		}
+		
+		#region OLD
+		// Vector3 resultPos = Vector3.MoveTowards(currBeeRigidbody.position, targetPos, speed * deltaTime);
+		// return resultPos;
+		#endregion
+	}
+
 	Vector3 GetRandomPatrolPos(Vector3 origin, float range)
 	{
+		float verticalRange = range * GameStorage.Instance.settings.verticalMultiplier;
+
 		float x = Random.Range(-1 * range, range) + origin.x;
-		float z = Random.Range(-1 * range, range) + origin.z;
+		float z = Random.Range(-1 * verticalRange, verticalRange) + origin.z;
 		
 		return new Vector3(x, currGhostTransform.position.y, z);
 	}
