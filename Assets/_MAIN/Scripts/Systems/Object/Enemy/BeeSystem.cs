@@ -2,7 +2,6 @@
 using Unity.Entities;
 
 public class BeeSystem : ComponentSystem {
-
 	public struct BeeComponent
 	{
 		public readonly int Length;
@@ -64,6 +63,11 @@ public class BeeSystem : ComponentSystem {
 				currBee.questTrigger.isDoQuest = true;
 			} else {
 				Debug.Log("No Quest Triggered");
+			}
+
+			if (currBee.beeHive!=null) {
+				currBee.beeHive.currentBees.Remove(currBee);
+				currBee.beeHive = null;
 			}
 
 			GameObject.Destroy(currBee.gameObject);
