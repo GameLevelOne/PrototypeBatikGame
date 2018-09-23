@@ -10,6 +10,17 @@ public class GameStorage : MonoBehaviour {
 
 	public bool isInitGameStorage = false;
 
+	// public bool IsPlayerAlreadyEnterForest {
+	// 	get {return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_ALREADY_ENTER_FOREST, 0) == 1 ? true : false;}
+	// 	set {
+	// 		if (value) {
+	// 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_ALREADY_ENTER_FOREST, 1);
+	// 		} else {
+	// 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_ALREADY_ENTER_FOREST, 0);
+	// 		}			
+	// 	}
+	// }
+
 	public int PlayerCoin {
 		get {return PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_COIN, initCoin);}
 		set {PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_COIN, value);

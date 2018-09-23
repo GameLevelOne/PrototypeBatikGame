@@ -3,7 +3,8 @@
 public enum TreasureType {
 	NONE,
 	FISH,
-	POWERARROW //TEMP
+	POWERARROW,
+	KEY
 }
 
 public enum LootableType {
@@ -25,6 +26,9 @@ public class Lootable : MonoBehaviour {
 	[HeaderAttribute("Treasure Only")]
 	public TreasureType treasureType;
 	public GameObject initSprite;
+	
+	[HeaderAttribute("Treasure KEY Only")]
+	public int keyID;
 
 	[HeaderAttribute("Current")]
 	public bool isLooted = false;
