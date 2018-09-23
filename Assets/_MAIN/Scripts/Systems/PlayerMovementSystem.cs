@@ -103,7 +103,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 
 			
-			if (player.isPlayerKnockedBack) {
+			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer!=null) {
 				Vector3 enemyPos = player.somethingThatHitsPlayer.transform.position;
 			
 				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
@@ -113,9 +113,10 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
 				}
-
-				player.isPlayerKnockedBack = false;
 			}
+
+			player.isPlayerKnockedBack = false;
+
 
 			if (!CheckIfAllowedToMove()) {
 				SetPlayerSpecificMove ();
