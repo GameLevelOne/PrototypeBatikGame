@@ -30,12 +30,12 @@ public class Player : MonoBehaviour {
 	public Health health;
 	public Mana mana;
 	public PlayerState state;
-	public Transform playerWeaponPos;
+	// public Transform playerWeaponPos;
 	public Collider playerCol;
 	public float shieldPower;
 	
 	[HeaderAttribute("Current")]
-	public Enemy enemyThatHitsPlayer;
+	public Transform somethingThatHitsPlayer;
 	// public PlayerTool playerTool;
     public bool isInitPlayer = false; 
 
@@ -54,6 +54,8 @@ public class Player : MonoBehaviour {
 	// public bool isInvisible = false;
 	
 	[SpaceAttribute(10f)]
+	public bool isHitGateObject = false;
+	public bool isCanOpenGate = false; 
 	public bool isHitChestObject = false;
 	public bool isCanOpenChest = false;   
 	public bool isCanDigging = false;
@@ -132,6 +134,10 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == Constants.Tag.CHEST) {
 			isHitChestObject = true;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.GATE) {
+			isHitGateObject = true;
+		}
 	}
 
 	void OnCollisionExit (Collision col) {
@@ -142,6 +148,10 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
 			isHitChestObject = false;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.GATE && isHitGateObject) {
+			isHitGateObject = false;
+		}
 	}
 
 	void OnTriggerEnter (Collider col) {		
@@ -150,11 +160,15 @@ public class Player : MonoBehaviour {
 		} 
 
 		if (col.tag == Constants.Tag.ENEMY_ATTACK) {
-			Enemy enemy = col.GetComponentInParent<Enemy>();
-			enemyThatHitsPlayer = enemy;
-		}
-
-		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			// Enemy enemy = col.GetComponentInParent<Enemy>();
+			// enemyThatHitsPlayer = enemy;
+			somethingThatHitsPlayer = col.transform.parent;
+		} else if (col.tag == Constants.Tag.VINES || col.tag == Constants.Tag.EXPLOSION) {
+			somethingThatHitsPlayer = col.transform;
+		} else if (col.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = true;
+		} else if (col.tag == Constants.Tag.JATAYU_ATTACK_1 || col.tag == Constants.Tag.JATAYU_ATTACK_1) {
+			somethingThatHitsPlayer = col.transform;
 			isHitJatayuAttack2 = true;
 		}
 	}

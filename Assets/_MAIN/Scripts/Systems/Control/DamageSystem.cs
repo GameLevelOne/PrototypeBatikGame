@@ -85,7 +85,7 @@ public class DamageSystem : ComponentSystem {
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
 
-			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.EXPLOSION) {
+			if (damageTag == Constants.Tag.ENEMY_ATTACK) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
 					player.isPlayerKnockedBack = true;
 					
@@ -100,6 +100,21 @@ public class DamageSystem : ComponentSystem {
 						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
 						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 					}
+				}
+				
+				player.damageReceive = null;
+				player.isPlayerHit = false;
+
+				if (health.PlayerHP <= 0f) {
+					player.SetPlayerState(PlayerState.DIE);
+				}
+			} else if (damageTag == Constants.Tag.VINES || damageTag == Constants.Tag.EXPLOSION) {
+				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
+					player.isPlayerKnockedBack = true;
+
+					player.SetPlayerState(PlayerState.GET_HURT);
+					
+					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 				}
 				
 				player.damageReceive = null;

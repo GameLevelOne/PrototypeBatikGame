@@ -16,6 +16,7 @@ public class PlayerInputSystem : ComponentSystem {
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ManaSystem manaSystem;
 	[InjectAttribute] GameFXSystem gameFXSystem;
+	[InjectAttribute] GateOpenerSystem gateOpenerSystem;
 
 	public PlayerInput input;
 	public Player player;
@@ -515,13 +516,21 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Open Chest
 		if (player.isCanOpenChest) {
-			// playerDir = input.moveDir == Vector3.zero ? playerDir : input.moveDir;
-
 			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerAnimationSystem.facing.DirID == 3) {
 				input.interactValue = 0;
 				input.interactMode = -4;
 				player.SetPlayerState(PlayerState.OPEN_CHEST);
 				isButtonToolHold = true;
+			}
+
+			return;
+		}
+		#endregion
+
+		#region Open Gate
+		if (player.isCanOpenGate) {
+			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				gateOpenerSystem.CheckAvailabilityGateKey();
 			}
 
 			return;

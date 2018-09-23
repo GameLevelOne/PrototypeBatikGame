@@ -71,7 +71,7 @@ public class GhostSystem : ComponentSystem {
 				currEnemy.state = EnemyState.Chase;
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
-				if(currEnemy.chaseIndicator != null) currEnemy.chaseIndicator.SetActive(true);
+				if(currEnemy.chaseIndicator != null) currEnemy.chaseIndicator.Play(true);
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}
 		}

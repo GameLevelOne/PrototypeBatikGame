@@ -61,6 +61,12 @@ public class GainTreasureSystem : ComponentSystem {
 				lootable.initSprite.SetActive(false);
 				lootable.mainSprite.SetActive(true);
 				break;
+			case TreasureType.POWERARROW: 
+				//UNLOCK POWERARROW
+				break;
+			case TreasureType.KEY: 
+				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + lootable.keyID, 1);
+				break;
 			default:
 				//
 				break;

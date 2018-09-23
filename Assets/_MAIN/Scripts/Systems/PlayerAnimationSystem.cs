@@ -688,7 +688,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 				if (input.bulletTimeAttackQty <= 0) {
 					player.isHitAnEnemy = false;
-					player.enemyThatHitsPlayer = null;
+					player.somethingThatHitsPlayer = null;
 					StopAttackAnimation();
 					// input.attackMode = 0;
 					
