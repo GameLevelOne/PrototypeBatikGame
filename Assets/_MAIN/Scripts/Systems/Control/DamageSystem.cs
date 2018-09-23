@@ -218,6 +218,7 @@ public class DamageSystem : ComponentSystem {
 				}
 			}
 			// currEnemy.isEnemyGetHurt = false;
+			currEnemy.playerThatHitsEnemy = playerInputSystem.player;
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}
