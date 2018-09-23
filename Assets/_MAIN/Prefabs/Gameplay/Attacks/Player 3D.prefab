@@ -1662,6 +1662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootableTypes: 00000000000000000000000000000000
+  player: {fileID: 114208348427726864}
   uiShop: {fileID: 0}
   boughtItemLootabelType: 0
   isProcessingBuyItem: 0
@@ -2035,11 +2036,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854053058e63149428e82c454d8c442e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 170
-  slowSpeed: 50
-  dodgeSpeed: 160
-  attackMoveForce: 450
-  bounceSpeed: 300
+  normalSpeed: 250
+  slowSpeed: 100
+  dodgeSpeed: 400
+  attackMoveForce: 600
+  bounceSpeed: 600
   dashDelay: 1
   brakeTime: 0.5
   knockBackSpeedNormal: 3
@@ -2183,7 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manaCost: 2
-  bootsSpeed: 500
+  bootsSpeed: 750
 --- !u!114 &114524687024544860
 MonoBehaviour:
   m_ObjectHideFlags: 1

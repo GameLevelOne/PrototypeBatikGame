@@ -8,6 +8,8 @@ public class GainTreasureSystem : ComponentSystem {
 	}
 	[InjectAttribute] GainTreasureData gainTreasureData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
 	GainTreasure gainTreasure;
 	PlayerInput input;
@@ -62,7 +64,10 @@ public class GainTreasureSystem : ComponentSystem {
 				lootable.mainSprite.SetActive(true);
 				break;
 			case TreasureType.POWERARROW: 
-				//UNLOCK POWERARROW
+				toolSystem.tool.Bow = 1;
+				toolSystem.tool.isInitCurrentTool = false;
+				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
+				Debug.Log("RESET TOOL"); 
 				break;
 			case TreasureType.KEY: 
 				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + lootable.keyID, 1);

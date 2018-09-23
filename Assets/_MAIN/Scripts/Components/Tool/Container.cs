@@ -5,6 +5,7 @@ public class Container : MonoBehaviour {
 	public LootableType[] lootableTypes = new LootableType[4];
 
 	[SpaceAttribute(10f)]
+	public Player player;
 	public UIShop uiShop;
 	public LootableType boughtItemLootabelType;
 	

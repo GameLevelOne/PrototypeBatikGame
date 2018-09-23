@@ -68,6 +68,7 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void InitTool () {
+		CheckSavedTool ();
 		// Debug.Log("InitTool");
 		for (int i=1; i<=(int)ToolType.Boots; i++) {
 			if (CheckIfToolHasBeenUnlocked(i)) {
@@ -85,6 +86,20 @@ public class ToolSystem : ComponentSystem {
 		}
 
 		tool.isInitCurrentTool = true;
+	}
+
+	void CheckSavedTool () {
+		Debug.Log("Bow "+tool.Bow); //
+		Debug.Log("Bomb "+tool.Bomb);
+		Debug.Log("Hammer "+tool.Hammer);
+		Debug.Log("FishingRod "+tool.FishingRod); //
+		Debug.Log("Container1 "+tool.Container1);
+		Debug.Log("Container2 "+tool.Container2);
+		Debug.Log("Container3 "+tool.Container3);
+		Debug.Log("Container4 "+tool.Container4);
+		Debug.Log("Shovel "+tool.Shovel);
+		Debug.Log("MagicMedallion "+tool.MagicMedallion);
+		Debug.Log("Boots "+tool.Boots);
 	}
 
 	public void NextTool ()
@@ -298,8 +313,10 @@ public class ToolSystem : ComponentSystem {
 	//containers can store certain enemies or items. (caught enemies will be stored in containers)
 	void UseContainer(int containerType)
 	{
-		Debug.Log("Using Container " + containerType++);
+		int idx = containerType + 1;
+		Debug.Log("Using Container " + idx);
 		containerSystem.UseCollectibleInContainer(containerType);
+		player.SetPlayerIdle();
 	}
 	
 	// void UseContainer1()

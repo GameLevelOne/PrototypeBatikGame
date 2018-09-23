@@ -3,6 +3,7 @@
 public class Ghost : MonoBehaviour {
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
+	public ChestSpawner chestSpawner;
 	public TriggerDetection playerTriggerDetection;
 	public TriggerDetection attackRangeDetection;
 	public SpriteRenderer sprite;

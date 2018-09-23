@@ -844,9 +844,13 @@ public class PlayerInputSystem : ComponentSystem {
 						if (!isHaveEnoughMana((int) toolType, true, true)) {
 							player.SetPlayerIdle();
 						} else {
-							if (toolType == ToolType.Bomb) {
+							if (toolType == ToolType.Bomb || 
+							tool.currentTool == ToolType.Container1 || 
+							tool.currentTool == ToolType.Container2 || 
+							tool.currentTool == ToolType.Container3 || 
+							tool.currentTool == ToolType.Container4) {
 								tool.isActToolReady = true;
-							} 
+							}
 							// else if (toolType == ToolType.MagicMedallion) {
 							// 	if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true, true)) {
 							// 		player.SetPlayerIdle();

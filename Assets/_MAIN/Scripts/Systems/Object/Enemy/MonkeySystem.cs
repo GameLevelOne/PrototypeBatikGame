@@ -66,7 +66,8 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHit()
 	{
 		if(!currMonkey.isHitByPlayer){
-			if(currEnemy.isHit && currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
+			if(currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
+				Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
 					m.enemy.playerTransform = currEnemy.playerTransform;
@@ -107,6 +108,13 @@ public class MonkeySystem : ComponentSystem {
 				currMonkey.questTrigger.isDoQuest = true;
 			} else {
 				Debug.Log("No Quest Triggered");
+			}
+
+			if (currMonkey.chestSpawner != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currMonkey.chestSpawner.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currMonkey.gameObject);

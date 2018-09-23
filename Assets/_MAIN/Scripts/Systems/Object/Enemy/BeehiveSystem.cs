@@ -27,7 +27,7 @@ public class BeehiveSystem : ComponentSystem{
 			currBeehive = beehiveComponent.beehive[i];
 			currHealth = beehiveComponent.health[i];
 
-			if(!currBeehive.flagFinishSpawn) Spawnbee();
+			if(currBeehive.currentBees.Count < currBeehive.spawnAmount) Spawnbee();
 			
 			CheckHealth();
 		}
@@ -41,14 +41,14 @@ public class BeehiveSystem : ComponentSystem{
 			if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
 		}else{
 			// Debug.Log("SPAWN!");
-			GameObject currentBee = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
-			currentBee.GetComponent<Bee>().beeHiveTransform = currBeehiveTransform;
-			currBeehive.currentBees.Add(currentBee.GetComponent<Bee>());
+			GameObject currentBeeObj = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
+			Bee currentBee = currentBeeObj.GetComponent<Bee>();
+			currentBee.beeHiveTransform = currBeehiveTransform;
+			currBeehive.currentBees.Add(currentBee);
+			currentBee.beeHive = currBeehive;
 			
 			currBeehive.flagSpawn = false;
-			currBeehive.TSpawn = currBeehive.spawnInterval;
-			
-			if(currBeehive.currentBees.Count >= currBeehive.spawnAmount) currBeehive.flagFinishSpawn = true;
+			currBeehive.TSpawn = currBeehive.spawnInterval;			
 		}
 	}
 

@@ -4,9 +4,11 @@ public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
+	public ChestSpawner chestSpawner;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
+	public Beehive beeHive;
 	
 	[SpaceAttribute(10f)]
 	public float startledRange;

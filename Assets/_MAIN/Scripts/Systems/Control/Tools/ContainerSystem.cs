@@ -8,6 +8,8 @@ public class ContainerSystem : ComponentSystem {
 		public ComponentArray<Container> Container;
 	}
 	[InjectAttribute] ContainerData containerData;
+	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
 	Container container;
 
@@ -50,6 +52,8 @@ public class ContainerSystem : ComponentSystem {
 				lootableTypes[i] = currentLootableType;
 
 				Debug.Log(lootableTypes[i] + " is contained in container "+i);
+				ResetTool();
+
 				return true;
 			} else {
 				// return false;
@@ -70,24 +74,24 @@ public class ContainerSystem : ComponentSystem {
 					//
 					ReportContainerIsEmpty();
 					break;
-				case LootableType.GOLD: 
-					//
-					UseGold();
-					break;
+				// case LootableType.GOLD: 
+				// 	//
+				// 	UseGold();
+				// 	break;
 				case LootableType.HP_POTION: 
 					//
-					UseHPPotion();
+					UseHPPotion(lootableTypeIdx);
+					ResetTool();
 					break;
 				case LootableType.MANA_POTION: 
 					//
-					UseManaPotion();
+					UseManaPotion(lootableTypeIdx);
+					ResetTool();
 					break;
 				default: 
 					Debug.Log("Unknown item in container");
 					break;
 			}
-
-			lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		}
 	}
 
@@ -95,15 +99,27 @@ public class ContainerSystem : ComponentSystem {
 		Debug.Log("This container is empty");
 	}
 
-	void UseGold () {
-		Debug.Log("Use Gold");
-	}
+	// void UseGold () {
+	// 	Debug.Log("Use Gold");
+	// }
 
-	void UseHPPotion () {
+	void UseHPPotion (int lootableTypeIdx) {
 		Debug.Log("Use HP Potion");
+		container.player.health.PlayerHP += container.player.MaxHP;
+		
+		lootableTypes[lootableTypeIdx] = LootableType.NONE;
 	}
 
-	void UseManaPotion () {
+	void UseManaPotion (int lootableTypeIdx) {
 		Debug.Log("Use Mana Potion");
+		container.player.health.PlayerHP += container.player.MaxMP;
+		
+		lootableTypes[lootableTypeIdx] = LootableType.NONE;
+	}
+
+	void ResetTool() {
+		// toolSystem.tool.isInitCurrentTool = false;
+		uiToolsSelectionSystem.InitImages(true);
+		Debug.Log("RESET TOOL"); 
 	}
 }

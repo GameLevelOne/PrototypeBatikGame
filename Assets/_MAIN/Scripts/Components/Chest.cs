@@ -13,6 +13,7 @@ public class Chest : MonoBehaviour {
 	public Sprite openedChestSprite;
 	public GameObject treasurePrize;
 	public GameObject[] normalPrizes;
+	public QuestTrigger questTrigger;
 
 	[HeaderAttribute("Saved ID")]
 	public int chestID;
@@ -22,12 +23,12 @@ public class Chest : MonoBehaviour {
 	public bool isOpened = false;
 	public bool isSelected = false;
 	
-	[HeaderAttribute("Testing")]
-	public bool resetPrefKey;
+	// [HeaderAttribute("Testing")]
+	// public bool resetPrefKey;
 
 	void Awake () {
-		if (resetPrefKey) {
-			PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + chestID, 0);
-		}
+		// if (resetPrefKey) {
+		// 	PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + chestID, 0);
+		// }
 	}
 }

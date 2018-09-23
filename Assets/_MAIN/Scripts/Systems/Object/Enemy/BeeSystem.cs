@@ -2,7 +2,6 @@
 using Unity.Entities;
 
 public class BeeSystem : ComponentSystem {
-
 	public struct BeeComponent
 	{
 		public readonly int Length;
@@ -64,6 +63,19 @@ public class BeeSystem : ComponentSystem {
 				currBee.questTrigger.isDoQuest = true;
 			} else {
 				Debug.Log("No Quest Triggered");
+			}
+
+			if (currBee.beeHive!=null) {
+				//REMOVE FROM BEEHIVE
+				currBee.beeHive.currentBees.Remove(currBee);
+				currBee.beeHive = null;
+			}
+
+			if (currBee.chestSpawner != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currBee.chestSpawner.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currBee.gameObject);

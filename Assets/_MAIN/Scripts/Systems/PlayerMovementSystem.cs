@@ -103,7 +103,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			// }
 
 			
-			if (player.isPlayerKnockedBack) {
+			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer!=null) {
 				Vector3 enemyPos = player.somethingThatHitsPlayer.transform.position;
 			
 				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
@@ -113,9 +113,10 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
 				}
-
-				player.isPlayerKnockedBack = false;
 			}
+
+			player.isPlayerKnockedBack = false;
+
 
 			if (!CheckIfAllowedToMove()) {
 				SetPlayerSpecificMove ();
@@ -287,7 +288,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir * moveSpeed * deltaTime;
 				// Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
-				Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
+				// Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
 				if (moveDir != Vector3.zero) {
 					// currentMoveDir = moveDir;

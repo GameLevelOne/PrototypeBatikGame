@@ -58,8 +58,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			if (!uiToolsSelection.isInitToolImage) {
 				try {
 					InitToolsSelection ();
-				} catch {
-					Debug.Log("HERE");
+				} catch (System.Exception e) {
+					Debug.Log("ERROR : "+e);
 					return;
 				}
 				
@@ -107,6 +107,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			for (int i=0; i<toolSprites.Length; i++) {
 				if (tool.CheckIfToolHasBeenUnlocked(i) > 0) {
 					uiToolsSelection.toolIndexes.Add(i);
+
+					CheckContainerImage (i);
 				}
 			}
 		
@@ -121,6 +123,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 					if (tool.CheckIfToolHasBeenUnlocked(tempIdx) > 0) {
 						uiToolsSelection.toolIndexes.Add(tempIdx);
 						// Debug.Log("Add");
+						CheckContainerImage (tempIdx);
 					}
 					
 					uiToolsSelection.checker[tempIdx] = true;
@@ -135,6 +138,33 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			}
 
 			ResetChange();
+		}
+	}
+
+	void CheckContainerImage(int idx) {
+		if (idx == (int) ToolType.Container1) {
+			// Debug.Log(uiToolsSelection.playerContainer.lootableTypes[0].ToString());
+			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[0], idx);
+		} else if (idx == (int) ToolType.Container2) {
+			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[1], idx);
+		} else if (idx == (int) ToolType.Container3) {
+			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[2], idx);
+		} else if (idx == (int) ToolType.Container4) {
+			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[3], idx);
+		}
+	}
+
+	void SetContainerImage (LootableType type, int toolSpriteIdx) {
+		switch (type) {
+			case LootableType.HP_POTION:
+				toolSprites[toolSpriteIdx] = uiToolsSelection.hpPotSprite;
+				break;
+			case LootableType.MANA_POTION:
+				toolSprites[toolSpriteIdx] = uiToolsSelection.mpPotSprite;
+				break;
+			case LootableType.NONE:
+				toolSprites[toolSpriteIdx] = uiToolsSelection.initContainerSprite;
+				break;
 		}
 	}
 

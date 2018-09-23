@@ -31,10 +31,10 @@ public class TimelineManager : MonoBehaviour {
 		// 	SetPlayableAsset(initPlayableAssetIndex);
 		// }
 
-		if (!IsAlreadyPlayedTimeline()) {
-			playerEntity.enabled = false;
-			playableDirector.Play();
-		}
+		// if (!IsAlreadyPlayedTimeline()) {
+		// 	playerEntity.enabled = false;
+		// 	playableDirector.Play();
+		// }
 	}
 
 	void OnEnable () {
@@ -112,11 +112,11 @@ public class TimelineManager : MonoBehaviour {
 	/// <para>0 Opening Mada Kari Forest<br /></para>
 	/// <para>1 Boss Fight<br /></para>
     /// </summary>
-	public void SetPlayableAsset (int index) {
-		playableDirector.playableAsset = playableAssets[index];
-		playableDirector.enabled = true;
-		playableDirector.Play();
-	}
+	// public void SetPlayableAsset (int index) {
+	// 	playableDirector.playableAsset = playableAssets[index];
+	// 	playableDirector.enabled = true;
+	// 	playableDirector.Play();
+	// }
 
 	public void SetPlayableInitTime (double time) {
 		playableDirector.initialTime = time;
@@ -126,7 +126,7 @@ public class TimelineManager : MonoBehaviour {
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+playableDirector.playableAsset.name, 1);
 	}
 
-	bool IsAlreadyPlayedTimeline () {
-		return PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+playableDirector.playableAsset.name, 0) == 1 ? true : false;
-	}
+	// bool IsAlreadyPlayedTimeline () {
+	// 	return PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+playableDirector.playableAsset.name, 0) == 1 ? true : false;
+	// }
 }

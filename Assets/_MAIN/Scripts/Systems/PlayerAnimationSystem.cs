@@ -317,9 +317,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 						PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL);
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
 						PlayOneShotAnimation(Constants.BlendTreeName.USE_MAGIC_MEDALLION);
-					} else if (tool.currentTool == ToolType.Container1 || tool.currentTool == ToolType.Container2 || tool.currentTool == ToolType.Container3 || tool.currentTool == ToolType.Container4) {
-						PlayOneShotAnimation(Constants.BlendTreeName.USE_CONTAINER);
-					}
+					} 
+					// else if (tool.currentTool == ToolType.Container1 || tool.currentTool == ToolType.Container2 || tool.currentTool == ToolType.Container3 || tool.currentTool == ToolType.Container4) {
+					// 	PlayOneShotAnimation(Constants.BlendTreeName.IDLE_STAND);
+					// }
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.interactValue == 0) {
