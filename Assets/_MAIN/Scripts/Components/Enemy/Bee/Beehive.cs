@@ -4,12 +4,15 @@ using System.Collections.Generic;
 public class Beehive : MonoBehaviour {
 	[HeaderAttribute("Beehive Attribute")]
 	public TriggerDetection playerTriggerDetection;
+	public AnimationControl animationControl;
 	public GameObject prefabBee;
+	public Animator Animator;
 	public int spawnAmount;
 	public float spawnInterval;
 	public bool flagSpawn = false;
 	public bool flagFinishSpawn = false;
 	public bool destroyed = false;
+	public bool isFinishDestroy = false;
 	float tSpawn;
 
 	[HeaderAttribute("Current")]
@@ -25,11 +28,13 @@ public class Beehive : MonoBehaviour {
 	void OnEnable()
 	{
 		playerTriggerDetection.OnTriggerEnterObj += SetPlayer;
+		animationControl.OnExitAnimation += SetDestroy;
 	}
 
 	void OnDisable()
 	{
 		playerTriggerDetection.OnTriggerEnterObj -= SetPlayer;
+		animationControl.OnExitAnimation -= SetDestroy;
 	}
 
 	void SetPlayer(GameObject playerObj)
@@ -40,5 +45,9 @@ public class Beehive : MonoBehaviour {
 	void RemovePlayer(GameObject playerObj)
 	{
 		playerObject = null;
+	}
+
+	void SetDestroy () {
+		isFinishDestroy = true;
 	}
 }

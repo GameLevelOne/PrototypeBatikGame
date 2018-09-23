@@ -54,8 +54,13 @@ public class BeehiveSystem : ComponentSystem{
 
 	void CheckHealth()
 	{
-		if(currHealth.EnemyHP <= 0f || currBeehive.destroyed){
+		if(currHealth.EnemyHP <= 0f && !currBeehive.destroyed){
 			DestroyBeehive();
+		} else if (currBeehive.destroyed) {
+			if (currBeehive.isFinishDestroy) {
+				GameObject.Destroy(currBeehive.gameObject);
+				UpdateInjectedComponentGroups();
+			}
 		}
 	}
 
@@ -73,8 +78,8 @@ public class BeehiveSystem : ComponentSystem{
 				bee.enemy.state = EnemyState.Startled;
 			}
 		}
-		GameObject.Destroy(currBeehive.gameObject);
-		UpdateInjectedComponentGroups();
-		//Debug.Log("ASLDKLAKDLAKDSL");
+
+		currBeehive.Animator.Play(Constants.AnimationName.DESTROY);
+		currBeehive.destroyed = true;
 	}
 }
