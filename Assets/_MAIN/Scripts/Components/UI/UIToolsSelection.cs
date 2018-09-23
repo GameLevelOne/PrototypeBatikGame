@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class UIToolsSelection : MonoBehaviour {
 	public PlayerTool tool;
+	public Container playerContainer;
 	
 	// public Text textToolName;
 	public AnimationControl animationControl;
@@ -12,6 +13,12 @@ public class UIToolsSelection : MonoBehaviour {
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;
 
+	[HeaderAttribute("Container")]
+	public Sprite initContainerSprite;
+	public Sprite hpPotSprite;
+	public Sprite mpPotSprite;
+
+	[SpaceAttribute(10f)]
 	public bool isToolChange = false;
 	public float showDuration;
 	// public float showMultiplier;
