@@ -20,8 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4444112113887006}
   - component: {fileID: 212699744304954492}
-  - component: {fileID: 95968205468337532}
-  - component: {fileID: 114578125279920460}
   m_Layer: 0
   m_Name: Chest Sprite
   m_TagString: Untagged
@@ -41,7 +39,7 @@ GameObject:
   - component: {fileID: 114126891519041290}
   - component: {fileID: 65861151319020886}
   m_Layer: 0
-  m_Name: Sample Chest
+  m_Name: Sample Chest Treasure
   m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1453354470688242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.5, z: 5}
+  m_LocalPosition: {x: 20.58, y: 0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4444112113887006}
@@ -69,7 +67,7 @@ Transform:
   m_GameObject: {fileID: 1364566553909438}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 0.0225, y: 0.0225, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4339493332736702}
   m_RootOrder: 0
@@ -84,26 +82,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.6, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95968205468337532
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1364566553909438}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 123c559a9a5f40d43b15b2ebe7a249d6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114126514346788108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,26 +107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestType: 1
-  chestAnimator: {fileID: 95968205468337532}
+  chestSpriteRen: {fileID: 212699744304954492}
+  closedChestSprite: {fileID: 21300000, guid: 988bf921e73ec304a8b16fcad948d0df, type: 3}
+  openedChestSprite: {fileID: 21300002, guid: 988bf921e73ec304a8b16fcad948d0df, type: 3}
   treasurePrize: {fileID: 1317075934897904, guid: 9f006755dab4a8a4ea6991d812c9c010,
     type: 2}
   normalPrizes:
   - {fileID: 1844725775654284, guid: ef6df6f90e1fe2d44b02cbd2099d8cf5, type: 2}
   - {fileID: 1330448320096520, guid: b63d57b9eb6249b489dcd0daa8112290, type: 2}
   - {fileID: 1312716933553174, guid: 3ffa8aefb1968e04d85bf12f30bd36d6, type: 2}
+  chestID: 0
+  isInitChest: 0
   isOpened: 0
   isSelected: 0
---- !u!114 &114578125279920460
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1364566553909438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  resetPrefKey: 0
 --- !u!212 &212699744304954492
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -182,11 +156,11 @@ SpriteRenderer:
   m_SortingLayerID: 1829551841
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 5b75d178a7ee543449e049ac0072c906, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 988bf921e73ec304a8b16fcad948d0df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
