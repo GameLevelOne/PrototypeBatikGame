@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Entities;
 
+[UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class ProjectileSystem : ComponentSystem {
     public struct ProjectileData {
 		public readonly int Length;

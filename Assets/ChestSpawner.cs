@@ -12,7 +12,17 @@ public class ChestSpawner : MonoBehaviour {
 	public int requiredSpawnTrigger;
 
 	[HeaderAttribute("Current")]
+	public bool isTriggerSpawn = false;
 	public bool isInitChestSpawner;
 	public bool isSpawned;
 	public int currentTotalSpawnTrigger;
+
+	[HeaderAttribute("Testing")]
+	public bool resetPrefKey;
+
+	void Awake () {
+		if (resetPrefKey) {
+			PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_SPAWNER_STATE + chestSpawnerID, 0);
+		}
+	}
 }

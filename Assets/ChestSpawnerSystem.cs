@@ -8,12 +8,12 @@ public class ChestSpawnerSystem : ComponentSystem {
 	[InjectAttribute] ChestSpawnerData chestSpawnerData;
 	ChestSpawner chestSpawner;
 
-	public struct ChestSpawnerTriggerData {
-		public readonly int Length;
-		public ComponentArray<ChestSpawnerTrigger> ChestSpawnerTrigger;
-	}
-	[InjectAttribute] ChestSpawnerTriggerData chestSpawnerTriggerData;
-	ChestSpawnerTrigger chestSpawnerTrigger;
+	// public struct ChestSpawnerTriggerData {
+	// 	public readonly int Length;
+	// 	public ComponentArray<ChestSpawnerTrigger> ChestSpawnerTrigger;
+	// }
+	// [InjectAttribute] ChestSpawnerTriggerData chestSpawnerTriggerData;
+	// ChestSpawnerTrigger chestSpawnerTrigger;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<chestSpawnerData.Length; i++) {
@@ -39,20 +39,27 @@ public class ChestSpawnerSystem : ComponentSystem {
 	}
 
 	void CheckChestSpawner () {
-		for (int i=0; i<chestSpawnerTriggerData.Length; i++) {
-			chestSpawnerTrigger = chestSpawnerTriggerData.ChestSpawnerTrigger[i];
+		// for (int i=0; i<chestSpawnerTriggerData.Length; i++) {
+		// 	chestSpawnerTrigger = chestSpawnerTriggerData.ChestSpawnerTrigger[i];
 
-			if (chestSpawner.chestSpawnerID == chestSpawnerTrigger.targetSpawnChestID) {
-				if (!chestSpawnerTrigger.isAlreadyTrigger) {
-					if (chestSpawnerTrigger.isTriggerSpawn) {
-						chestSpawner.currentTotalSpawnTrigger++;
-						CheckRequiredSpawnTrigger ();
+		// 	if (chestSpawner.chestSpawnerID == chestSpawnerTrigger.targetSpawnChestID) {
+		// 		// if (!chestSpawnerTrigger.isAlreadyTrigger) {
+		// 			if (chestSpawnerTrigger.isTriggerSpawn) {
+		// 				chestSpawner.currentTotalSpawnTrigger++;
+		// 				CheckRequiredSpawnTrigger ();
 
-						chestSpawnerTrigger.isTriggerSpawn = false;
-						chestSpawnerTrigger.isAlreadyTrigger = true;
-					}
-				}
-			}
+		// 				chestSpawnerTrigger.isTriggerSpawn = false;
+		// 				// chestSpawnerTrigger.isAlreadyTrigger = true;
+		// 			}
+		// 		// }
+		// 	}
+		// }
+		if (chestSpawner.isTriggerSpawn) {
+			chestSpawner.currentTotalSpawnTrigger++;
+			CheckRequiredSpawnTrigger ();
+
+			chestSpawner.isTriggerSpawn = false;
+			// chestSpawnerTrigger.isAlreadyTrigger = true;
 		}
 	}
 

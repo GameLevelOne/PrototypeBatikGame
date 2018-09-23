@@ -5,7 +5,7 @@ public class Monkey : MonoBehaviour {
 	[HeaderAttribute("Monkey Attributes")]
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
-	public ChestSpawnerTrigger chestSpawnerTrigger;
+	public ChestSpawner chestSpawner;
 	public MonkeyTriggerDetection monkeyTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;

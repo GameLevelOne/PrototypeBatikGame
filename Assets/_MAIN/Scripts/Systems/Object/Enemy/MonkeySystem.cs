@@ -109,9 +109,9 @@ public class MonkeySystem : ComponentSystem {
 				Debug.Log("No Quest Triggered");
 			}
 
-			if (currMonkey.chestSpawnerTrigger != null) {
+			if (currMonkey.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
-				currMonkey.chestSpawnerTrigger.isTriggerSpawn = true;
+				currMonkey.chestSpawner.isTriggerSpawn = true;
 			} else {
 				Debug.Log("No ChestSpawner Triggered");
 			}
