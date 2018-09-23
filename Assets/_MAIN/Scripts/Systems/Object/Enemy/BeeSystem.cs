@@ -66,6 +66,13 @@ public class BeeSystem : ComponentSystem {
 				Debug.Log("No Quest Triggered");
 			}
 
+			if (currBee.chestSpawnerTrigger != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currBee.chestSpawnerTrigger.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
+			}
+
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();
 		}

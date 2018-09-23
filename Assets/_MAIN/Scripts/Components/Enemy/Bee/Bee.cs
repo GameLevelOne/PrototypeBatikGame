@@ -4,6 +4,7 @@ public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
+	public ChestSpawnerTrigger chestSpawnerTrigger;
 	public TriggerDetection playerTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
