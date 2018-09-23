@@ -39,6 +39,7 @@ public class BeeSystem : ComponentSystem {
 
 		for(int i = 0;i<beeComponent.Length;i++){
 			currBeeTransform = beeComponent.beeTransform[i];
+			currEnemy = beeComponent.enemy[i];
 			currBee = beeComponent.bee[i];
 			currBeeRigidbody = beeComponent.beeRigidbody[i];
 			currBeeAnim = beeComponent.beeAnim[i];
