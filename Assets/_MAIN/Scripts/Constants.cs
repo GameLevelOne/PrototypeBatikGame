@@ -223,6 +223,7 @@ public static class Constants {
 	{
 		#region Another Object
 		public const string CHEST_OPEN = "ChestOpen"; //CHEST
+		public const string DESTROY = "Destroy"; //CHEST
 		#endregion
 
 		#region UI
