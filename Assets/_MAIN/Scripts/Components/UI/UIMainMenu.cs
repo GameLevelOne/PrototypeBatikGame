@@ -10,17 +10,18 @@ using System.Collections;
 // }
 
 public class UIMainMenu : MonoBehaviour {
-	public GameObject canvas;
-	public UIFader fader;
 	public Button btnStartGame;
 	public Button btnContinue;
+
+	public BoxCollider portal11;
+	public Portal nextPortal;
 
 	public bool init = false;
 	// public UITitleState titleState = UITitleState.NONE;
 
 	void Start() {
-		PlayerPrefs.DeleteAll();
-		btnStartGame.Select();
+		// PlayerPrefs.DeleteAll();
+		// btnStartGame.Select();
 		if(PlayerPrefs.HasKey(Constants.PlayerPrefKey.LEVEL_CURRENT)){
 			btnContinue.gameObject.SetActive(true);
 		}else{
@@ -31,7 +32,10 @@ public class UIMainMenu : MonoBehaviour {
 	public void OnClickStartGame ()
 	{
 		// titleState = UITitleState.NEWGAME;
-		OpenScene(Constants.SceneName.SCENE_LEVEL_1);
+		// OpenScene("SceneLevel_1-1");
+		// StartCoroutine(LoadingScene("SceneLevel_1-1"));	
+		PlayerPrefs.DeleteAll();	
+		portal11.enabled = true;
 		DisableButtons();
 	}
 
@@ -39,6 +43,8 @@ public class UIMainMenu : MonoBehaviour {
 	{
 		// titleState = UITitleState.CONTINUE;
 		// 	OpenScene(PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT));
+		nextPortal.sceneDestination = PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT);
+		nextPortal.GetComponent<BoxCollider>().enabled = true;
 		DisableButtons();
 	}
 
@@ -53,12 +59,16 @@ public class UIMainMenu : MonoBehaviour {
 
 
 	IEnumerator LoadingScene(string sceneName) {
+		Debug.Log("YIIIIHAAAA!!!!!");
 		yield return null;
 		AsyncOperation asop = SceneManager.LoadSceneAsync(sceneName);
-		while (!asop.isDone) {
+		asop.allowSceneActivation = false;
+		while (asop.progress<0.9f) {
 			Debug.Log("Loading Progress..."+(asop.progress * 100) + "%");
 			yield return null;
 		}
+		asop.allowSceneActivation = true;
+		yield return null;
 
 	}
 

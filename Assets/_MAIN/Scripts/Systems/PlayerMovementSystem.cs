@@ -288,7 +288,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir * moveSpeed * deltaTime;
 				// Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
-				Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
+				// Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
 				if (moveDir != Vector3.zero) {
 					// currentMoveDir = moveDir;
