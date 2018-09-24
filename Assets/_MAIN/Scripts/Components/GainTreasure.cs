@@ -2,8 +2,10 @@
 
 public class GainTreasure : MonoBehaviour {
 	public Player player;
+	public QuestTrigger questTrigger;
 	public Transform liftingTreasureParent;
 
+	[HeaderAttribute ("Current")]
 	public Lootable lootable;
 	public Transform lootableTransform;
 
