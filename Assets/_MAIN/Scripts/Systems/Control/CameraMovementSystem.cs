@@ -92,7 +92,7 @@ public class CameraMovementSystem : ComponentSystem {
 
 	void MoveCamera()
 	{
-		Debug.Log("CameraMOve");
+		// Debug.Log("CameraMOve");
 		Vector3 destPos = currCameraMovement.playerTransform.position + currCameraMovement.offset;
 		Vector3 smoothedPos = Vector3.Lerp(currCameraTransform.position,destPos,currCameraMovement.smoothSpeed * deltaTime);
 		currCameraTransform.position = smoothedPos;

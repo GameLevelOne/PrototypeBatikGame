@@ -242,7 +242,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void PrintLetterOneByOne () {
-		Debug.Log("Print Letter");
+		// Debug.Log("Print Letter");
 		if (letterIndex == currentDialog.letterList.Count-2) {
 			currentDialog.isFinishShowingDialog = true;
 

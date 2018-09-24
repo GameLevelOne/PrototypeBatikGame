@@ -3,8 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SystemManager : MonoBehaviour {
 	public bool isChangeScene;
-	// public bool isDoneInitDisabledSystem;
-	
+	// public bool isDoneInitDisabledSystem;	
 	public int currentMapIdx;
 
 	void OnEnable () {
@@ -16,10 +15,15 @@ public class SystemManager : MonoBehaviour {
 	}
 
 	void OnSceneLoaded (Scene scene, LoadSceneMode mode) {
-		Debug.Log("Scene "+scene.name+" Loaded!");
-		isChangeScene = true;
-		currentMapIdx = SceneManager.GetActiveScene().buildIndex;
-		GameStorage.Instance.CurrentScene = SceneManager.GetActiveScene().name;
+		if (!isChangeScene) {
+			// Debug.Log("Scene "+scene.name+" Loaded!");
+			isChangeScene = true;
+			currentMapIdx = SceneManager.GetActiveScene().buildIndex - 1;
+			if (currentMapIdx<0) currentMapIdx = 0;
+			if (SceneManager.GetActiveScene().name!="SceneMenu")
+				GameStorage.Instance.CurrentScene = SceneManager.GetActiveScene().name;
+
+		}
 
 	}
 }
