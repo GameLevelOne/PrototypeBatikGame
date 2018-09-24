@@ -3,6 +3,8 @@
 public class WaterShooterEnemy : MonoBehaviour {
 	[HeaderAttribute("WaterShooterEnemy Attributes")]
 	public Enemy enemy;
+	public QuestTrigger questTrigger;
+	public ChestSpawner chestSpawner;
 	public TriggerDetection playerTriggerDetection;
 	public GameObject bullet;
 

@@ -144,7 +144,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				if (CheckIfToolHasBeenUnlocked(i)) {
 					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
 					ChangeUnSelectedButtonSprite(i);
-					Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
+					// Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
 				} else {
 					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
 					ChangeUnSelectedButtonSprite(i);

@@ -8,6 +8,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		public ComponentArray<WaterShooterEnemy> waterShooterEnemy;
 		public ComponentArray<Rigidbody> waterShooterEnemyRigidbody;
 		public ComponentArray<Animator> waterShooterEnemyAnim;
+		public ComponentArray<Health> waterShooterEnemyHealth;
 	}
 
 	#region injected component
@@ -15,6 +16,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	WaterShooterEnemy currWaterShooterEnemy;
 	Rigidbody currWaterShooterEnemyRidigbody;
 	Animator currWaterShooterEnemyAnim;
+	Health currWaterShooterEnemyHealth;
 	#endregion
 
 	protected override void OnUpdate()
@@ -23,7 +25,9 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			currWaterShooterEnemy = waterShooterEnemyComponent.waterShooterEnemy[i];
 			currWaterShooterEnemyRidigbody = waterShooterEnemyComponent.waterShooterEnemyRigidbody[i];
 			currWaterShooterEnemyAnim = waterShooterEnemyComponent.waterShooterEnemyAnim[i];
+			currWaterShooterEnemyHealth = waterShooterEnemyComponent.waterShooterEnemyHealth[i];
 
+			CheckHealth();
 			CheckState();
 		}
 	}
@@ -34,6 +38,31 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			Idle();
 		}else if(currWaterShooterEnemy.enemy.state == EnemyState.Attack){
 			Attack();
+		}
+	}
+
+	void CheckHealth()
+	{
+		if(currWaterShooterEnemyHealth.EnemyHP <= 0f){
+			//SPAWN ITEM
+			// lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
+
+			if (currWaterShooterEnemy.questTrigger != null) {
+				//SEND QUEST TRIGGER
+				currWaterShooterEnemy.questTrigger.isDoQuest = true;
+			} else {
+				Debug.Log("No Quest Triggered");
+			}
+
+			if (currWaterShooterEnemy.chestSpawner != null) {
+				//SEND CHEST SPAWNER TRIGGER
+				currWaterShooterEnemy.chestSpawner.isTriggerSpawn = true;
+			} else {
+				Debug.Log("No ChestSpawner Triggered");
+			}
+
+			GameObject.Destroy(currWaterShooterEnemy.gameObject);
+			UpdateInjectedComponentGroups();
 		}
 	}
 

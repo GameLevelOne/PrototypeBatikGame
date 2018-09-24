@@ -16,7 +16,7 @@ public class QuestSystem : ComponentSystem {
 
 	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
 
-	Quest quest;
+	public Quest quest;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<questData.Length; i++) {
@@ -47,7 +47,13 @@ public class QuestSystem : ComponentSystem {
 			quest.questCurrentPoint[i] = PlayerPrefs.GetInt(questCurrentPointStr, 0);
 
 			Debug.Log(questCurrentPointStr);
+			// if (CheckIfQuestIsComplete(i)) {
+			// 	quest.isQuestDoneForUI = true;
+			// 	Debug.Log("Quest "+i+" is Complete");
+			// }
 		}
+
+		quest.isQuestDoneForUI = true;
 	}
 
 	void SaveQuest (int questIdx, int value) {
@@ -67,7 +73,7 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	void ProcessQuest (int questIdx) {
-		Debug.Log("Process Quest : "+questIdx);
+		Debug.Log("QuestSystem ProcessQuest : "+questIdx);
 		quest.questCurrentPoint[questIdx]++;
 
 		if (CheckIfQuestIsComplete(questIdx)) {
@@ -78,11 +84,12 @@ public class QuestSystem : ComponentSystem {
 
 				if (areaDissolverSystem.CheckCurrentLevelbyQuest(questIdx)) {
 					areaDissolver.isDissolveArea = true;
-					Debug.Log("Dissolving Area Quest "+questIdx);
+					Debug.Log("QuestSystem Dissolving Area Quest "+questIdx);
 				}
 			}
 			
-			Debug.Log("Quest "+questIdx+" is Complete");
+			Debug.Log("QuestSystem Quest "+questIdx+" is Complete");
+			quest.isQuestDoneForUI = true;
 		}
 	}
 
