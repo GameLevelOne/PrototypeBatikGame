@@ -23,6 +23,7 @@ public class CutsceneTriggerSystem : ComponentSystem {
 				//SET TRACK & PLAY
 				cutsceneTrigger.timelineManager.playableDirector.playableAsset = cutsceneTrigger.playableCutscene;
 				cutsceneTrigger.timelineManager.playableDirector.Play();
+				cutsceneTrigger.triggerCol.enabled = false;
 
 				cutsceneTrigger.isTriggered = false;
 			}
@@ -32,8 +33,12 @@ public class CutsceneTriggerSystem : ComponentSystem {
 	void InitCutScene () {
 		if (IsAlreadyPlayedTimeline()) {
 			cutsceneTrigger.triggerCol.enabled = false;
+			if (cutsceneTrigger.timelineManager.npcOpening!=null)
+				cutsceneTrigger.timelineManager.npcOpening.npc.npcType = NPCType.SHOP;
 		} else {
 			cutsceneTrigger.triggerCol.enabled = true;
+			if (cutsceneTrigger.timelineManager.npcOpening!=null)
+				cutsceneTrigger.timelineManager.npcOpening.npc.npcType = NPCType.OPENING;
 		}
 
 		cutsceneTrigger.isInitCutscene = true;

@@ -324,6 +324,19 @@ public class JatayuSystem : ComponentSystem {
 	void Burned()
 	{
 		if(!jatayu.initBurned){
+			jatayu.initAttack1 = false;
+			jatayu.initAttack2 = false;
+			jatayu.initAttack3 = false;
+			jatayu.initFlapFast = false;
+			jatayu.initCloseWings = false;
+			jatayu.endAttack1 = false;
+			jatayu.endAttack2 = false;
+			jatayu.endAttack3 = false;
+			jatayu.endInitFlapFast = false;
+			jatayu.endCloseWings = false;
+			jatayu.initMove = false;
+			jatayu.endMove = false;
+
 			jatayu.initBurned = true;
 
 			jatayu.movementAnim.speed = 0f;
@@ -440,17 +453,22 @@ public class JatayuSystem : ComponentSystem {
 
 	void FacePlayer()
 	{
-		if(jatayu.tDelayFace <= 0f){
-			jatayu.tDelayFace = 1f;
+		if(jatayu.state != JatayuState.Burned){
+			if(jatayu.tDelayFace <= 0f){
+				jatayu.tDelayFace = 1f;
 
-			if(jatayu.state != JatayuState.Burned && jatayu.state != JatayuState.Hit){
-				float delta = jatayu.playerTransform.position.x - jatayu.headSprite.transform.position.x;
-				if(delta >= 0) jatayu.headSprite.flipX = true;
-				else jatayu.headSprite.flipX = false;
-			}
-			
+				if(jatayu.state != JatayuState.Burned && jatayu.state != JatayuState.Hit){
+					float delta = jatayu.playerTransform.position.x - jatayu.headSprite.transform.position.x;
+					if(delta >= 0) jatayu.headSprite.flipX = true;
+					else jatayu.headSprite.flipX = false;
+				}
+				
 
-		}else jatayu.tDelayFace -= deltaTime;
+			}else jatayu.tDelayFace -= deltaTime;
+		}else{
+			jatayu.headSprite.flipX = false;
+		}
+		
 	}
 
 #region mechanic

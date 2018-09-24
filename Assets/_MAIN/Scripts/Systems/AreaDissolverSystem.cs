@@ -87,8 +87,8 @@ public class AreaDissolverSystem : ComponentSystem {
 
 		areaDissolver.isAreaAlreadyDissolved = PlayerPrefs.GetInt(areaDissolverStr, 0) == 0 ? false : true;
 
-		Debug.Log(areaDissolverStr);
-		Debug.Log(areaDissolver.isAreaAlreadyDissolved);
+		// Debug.Log(areaDissolverStr);
+		// Debug.Log(areaDissolver.isAreaAlreadyDissolved);
 	}
 
 	void SaveAreaDissolver (int questIdx, int value) {
