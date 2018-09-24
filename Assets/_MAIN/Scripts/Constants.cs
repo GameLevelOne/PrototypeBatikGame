@@ -123,7 +123,7 @@ public static class Constants {
 		public const string PLAYER_TOOL_BOOTS = "Player/Tool/Boots";
 
 		public const string LEVEL_PLAYER_START_POS = "Level/PlayerStartPos";
-		
+		public const string LEVEL_CURRENT = "Level/CurrentLevel";
 	}
 	
 	public static class NPCPrefKey {

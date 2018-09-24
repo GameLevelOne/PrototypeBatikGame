@@ -40,6 +40,11 @@ public class GameStorage : MonoBehaviour {
 		}
 	}
 
+	public string CurrentScene{
+		get{return PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT,Constants.SceneName.SCENE_LEVEL_1);}
+		set{PlayerPrefs.SetString(Constants.PlayerPrefKey.LEVEL_CURRENT,value);}
+	}
+
 #region  QUEST KEY / MAP
 	// public int IsCompletedLevel_1 {
 	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_1, 0);}
