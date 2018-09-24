@@ -18,6 +18,21 @@ public class Quest : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public int currentQuestIndex;
 	public bool isQuestProcess = false;
+	public bool isQuestProcessForUI = false;
+	public bool isQuestDoneForUI = false;
+
+	public void OnQuestProcess (int questIdx) {
+		if (questCurrentPoint[questIdx] < questPointRequired[questIdx]) {
+			currentQuestIndex = questIdx;
+			isQuestProcess = true;
+			isQuestProcessForUI = true;
+
+			Debug.Log("Quest OnQuestProcess : "+questIdx);
+		} else {
+			isQuestDoneForUI = true;
+			Debug.Log("Quest "+questIdx+" already completed");
+		}
+	}
 
 	// [HeaderAttribute("TESTING")]
 	// public bool isTesting = false;
@@ -31,17 +46,6 @@ public class Quest : MonoBehaviour {
 	// 	questTrigger.OnQuestProcess -= OnQuestProcess;
 	// 	questTrigger.OnQuestComplete -= OnQuestComplete;
 	// }
-
-	public void OnQuestProcess (int questIdx) {
-		if (questCurrentPoint[questIdx] < questPointRequired[questIdx]) {
-			currentQuestIndex = questIdx;
-			isQuestProcess = true;
-
-			Debug.Log("Quest Process : "+questIdx);
-		} else {
-			Debug.Log("Quest "+questIdx+" already completed");
-		}
-	}
 
 	// void OnQuestComplete (int questIdx) {
 	// 	//
