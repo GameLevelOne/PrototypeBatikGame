@@ -54,7 +54,7 @@ public class UIMainMenuSystem : ComponentSystem {
 	{
 		if(!uiMainmenu.init){
 			PlayerPrefs.DeleteAll();
-			playerInputSystem.Enabled = false;
+			//playerInputSystem.Enabled = false;
 			uiMainmenu.init = true;
 			uiMainmenu.btnStartGame.Select();
 			if(PlayerPrefs.HasKey(Constants.PlayerPrefKey.LEVEL_CURRENT)){
