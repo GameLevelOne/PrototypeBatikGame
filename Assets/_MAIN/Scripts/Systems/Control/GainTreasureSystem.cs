@@ -76,6 +76,19 @@ public class GainTreasureSystem : ComponentSystem {
 				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
 				Debug.Log("RESET TOOL"); 
 				break;
+			case TreasureType.FISHINGROD: 
+				if (gainTreasure.questTrigger != null) {
+					//SEND QUEST TRIGGER
+					gainTreasure.questTrigger.isDoQuest = true;
+				} else {
+					Debug.Log("No Quest Triggered");
+				}
+
+				toolSystem.tool.FishingRod = 1;
+				toolSystem.tool.isInitCurrentTool = false;
+				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
+				Debug.Log("RESET TOOL"); 
+				break;
 			case TreasureType.KEY: 
 				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + lootable.keyID, 1);
 				break;
