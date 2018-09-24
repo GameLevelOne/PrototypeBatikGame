@@ -62,6 +62,14 @@ public class ChestOpenerSystem : ComponentSystem {
 		// chestOpener.chest = null;
 		chestOpener.isInteracting = false;
 		chestOpener.player.isCanOpenChest = false;
+
+		if (chestOpener.chest.questTrigger != null) {
+			//SEND QUEST TRIGGER
+			chestOpener.chest.questTrigger.isDoQuest = true;
+		} else {
+			Debug.Log("No Quest Triggered");
+		}
+
 	}
 
 	public void SpawnTreasure (Vector3 playerPos) {

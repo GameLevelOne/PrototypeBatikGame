@@ -26,6 +26,7 @@ public class DebugUI : MonoBehaviour {
 	public Toggle area11CutScene;
 	public Toggle area21VinesBurn;
 	public Toggle area21GateUnlocked;
+	public Toggle area22ChestUnlocked;
 
 	[HeaderAttribute("PLAYER DATA")]
 	public Toggle gateKey;
@@ -61,6 +62,7 @@ public class DebugUI : MonoBehaviour {
 		area11CutScene.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"OpeningMadaKari", 0) == 1 ? true : false;
 		area21VinesBurn.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "0", 0) == 1 ? true : false;
 		area21GateUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.GATES_STATE + "0", 0) == 1 ? true : false;
+		area22ChestUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", 0) == 1 ? true : false;
 
 		//PLAYER DATA
 		gateKey.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", 0) == 1 ? true : false;
@@ -85,6 +87,7 @@ public class DebugUI : MonoBehaviour {
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"OpeningMadaKari", area11CutScene.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "0", area21VinesBurn.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.GATES_STATE + "0", area21GateUnlocked.isOn ? 1 : 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", area22ChestUnlocked.isOn ? 1 : 0);
 
 		//PLAYER DATA
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", gateKey.isOn ? 1 : 0);

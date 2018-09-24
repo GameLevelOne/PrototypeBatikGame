@@ -6,14 +6,14 @@ public class MonkeyTriggerDetection : MonoBehaviour {
 	public event DetectMonkey OnAddMonkey;
 	public event DetectMonkey OnRemoveMonkey;
 
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.GetComponent<Monkey>() != null){
 			if(OnAddMonkey != null) OnAddMonkey(other.GetComponent<Monkey>());
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D other)
+	void OnTriggerExit(Collider other)
 	{
 		if(other.GetComponent<Monkey>() != null){
 			if(OnRemoveMonkey != null) OnRemoveMonkey(other.GetComponent<Monkey>());

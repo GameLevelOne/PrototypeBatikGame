@@ -196,7 +196,7 @@ public class StandAnimationSystem : ComponentSystem {
 		player.isUsingStand = false;
 		isFinishAnyStandAnimation = true;
 		// Debug.Log(isFinishAnyStandAnimation);
-		animator.Play(Constants.BlendTreeName.STAND_INACTIVE);
+		// animator.Play(Constants.BlendTreeName.STAND_INACTIVE);
 	}
 
 	void CheckEndStandAnimation () {
