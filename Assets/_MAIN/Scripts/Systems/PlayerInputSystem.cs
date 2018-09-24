@@ -469,7 +469,7 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	void CheckLockDir (int dirIndex, int positiveDir, int negativeDir) {
+	public void CheckLockDir (int dirIndex, int positiveDir, int negativeDir) {
 		if (input.dirButtons[positiveDir] == 0 && input.dirButtons[negativeDir] == 0) {
 			input.direction = dirIndex;
 			input.isLockDir = true;
@@ -1053,7 +1053,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// }
 	}
 
-	void ChangeDir (float dirX, float dirZ) {
+	public void ChangeDir (float dirX, float dirZ) {
 		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
 		// Debug.Log(newDir);
 
@@ -1135,7 +1135,7 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	void SetDir (float dirX, float dirY, float dirZ) {
+	public void SetDir (float dirX, float dirY, float dirZ) {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
 		if (currentDir != fixDir) {

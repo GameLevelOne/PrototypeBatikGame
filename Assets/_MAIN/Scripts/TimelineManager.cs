@@ -20,6 +20,7 @@ public class TimelineManager : MonoBehaviour {
 	public TimelineEventTrigger beforeBossFightTrigger;
 	public TimelineEventTrigger afterBossFightTrigger;
 	public double AfterBossFightInitTime;
+	public GameObject jatayuObj;
 
 	[SpaceAttribute(10f)]
 	public bool isTesting = true;
@@ -42,7 +43,7 @@ public class TimelineManager : MonoBehaviour {
 		npcOpeningDialogueTrigger.OnWaitingDialogue += OnWaitingDialogue;
 		endOpeningEntranceTrigger.OnEndOpeningMKF += OnEndOpeningMKF;
 
-		npcOpening.OnNPCEndDialogue += OnNPCEndDialogue;
+		if(npcOpening != null) npcOpening.OnNPCEndDialogue += OnNPCEndDialogue;
 		
 		beforeBossFightTrigger.OnEntranceBossArea += OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea += OnEndBossArea;
@@ -53,7 +54,7 @@ public class TimelineManager : MonoBehaviour {
 		npcOpeningDialogueTrigger.OnWaitingDialogue -= OnWaitingDialogue;
 		endOpeningEntranceTrigger.OnEndOpeningMKF -= OnEndOpeningMKF;
 
-		npcOpening.OnNPCEndDialogue -= OnNPCEndDialogue;
+		if(npcOpening != null) npcOpening.OnNPCEndDialogue -= OnNPCEndDialogue;
 		
 		beforeBossFightTrigger.OnEntranceBossArea -= OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea -= OnEndBossArea;
@@ -96,6 +97,10 @@ public class TimelineManager : MonoBehaviour {
 #region Entrance Boss Area
 	void OnEntranceBossArea () {
 		playableDirector.enabled = false;
+		jatayuObj.SetActive(true);
+		playerEntity.GetComponent<PlayerInput>().moveDir = Vector3.zero;
+		playerEntity.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		playerEntity.GetComponent<Player>().SetPlayerIdle();
 		playerEntity.enabled = true;
 	}
 

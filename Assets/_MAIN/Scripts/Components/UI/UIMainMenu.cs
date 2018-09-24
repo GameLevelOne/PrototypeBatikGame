@@ -8,7 +8,6 @@ public enum UITitleState {
 }
 
 public class UIMainMenu : MonoBehaviour {
-	public GameObject canvas;
 	public UIFader fader;
 	public Button btnStartGame;
 	public Button btnContinue;

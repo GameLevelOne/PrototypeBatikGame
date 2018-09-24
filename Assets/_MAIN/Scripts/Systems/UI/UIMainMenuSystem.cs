@@ -24,7 +24,7 @@ public class UIMainMenuSystem : ComponentSystem {
 			if (uiMainmenu.titleState == UITitleState.NEWGAME) {
 				// uiMainmenu.btnStartGame.interactable = false;
 
-				// OpenScene(Constants.SceneName.SCENE_LEVEL_1);
+				//OpenScene(Constants.SceneName.SCENE_LEVEL_1);
 				uiMainmenu.fader.state = FaderState.FadeOut;
 			} else if(uiMainmenu.titleState == UITitleState.CONTINUE){
 				// uiMainmenu.isContinue = false;
@@ -35,11 +35,7 @@ public class UIMainMenuSystem : ComponentSystem {
 			}
 			uiMainmenu.titleState = UITitleState.NONE;
 
-			if(uiMainmenu.fader.state == FaderState.Black){
-				uiMainmenu.fader.state = FaderState.FadeIn;
-				playerInputSystem.Enabled = true;
-				uiMainmenu.canvas.SetActive(false);
-			}
+			
 		}
 	}
 

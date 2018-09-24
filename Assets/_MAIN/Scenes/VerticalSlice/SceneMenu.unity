@@ -698,6 +698,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224074077083082766, guid: 8f840a180110881469106e77c20ec335,
     type: 2}
   m_PrefabInternal: {fileID: 974840811}
+--- !u!114 &974840813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114906905353673806, guid: 8f840a180110881469106e77c20ec335,
+    type: 2}
+  m_PrefabInternal: {fileID: 974840811}
+  m_Script: {fileID: 11500000, guid: 8a2d1fe2f6fd7204e8c5d24f76982562, type: 3}
 --- !u!1001 &1354703946
 Prefab:
   m_ObjectHideFlags: 0
@@ -822,6 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad8a4acf326d7647905da250645e2b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 974840813}
   btnStartGame: {fileID: 918551737}
   btnContinue: {fileID: 1705254224}
   init: 0
