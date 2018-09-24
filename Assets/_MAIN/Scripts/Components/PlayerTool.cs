@@ -61,12 +61,12 @@ public class PlayerTool : MonoBehaviour {
 
 	void Start()
 	{	
-		Bow = 0; //FROM ITEM
+		// Bow = 0; //FROM ITEM
 		Hook = 0; //
 		Bomb = 1;
 		Hammer = 1;
 		Net = 0; //
-		FishingRod = 0; //FROM ITEM
+		// FishingRod = 0; //FROM ITEM
 		Container1 = 1;
 		Container2 = 1;
 		Container3 = 1;

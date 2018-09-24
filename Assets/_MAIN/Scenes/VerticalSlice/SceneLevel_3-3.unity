@@ -597,6 +597,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de503614cfb6e824483a2cb593312af3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &166992768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114993512295790214, guid: de503614cfb6e824483a2cb593312af3,
+    type: 2}
+  m_PrefabInternal: {fileID: 166992767}
+  m_Script: {fileID: 11500000, guid: 0514be783611b0542a700d802ca633cc, type: 3}
 --- !u!1 &178870864
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,6 +2326,11 @@ Prefab:
       propertyPath: m_AABB.m_Extent.z
       value: 5.0000033
       objectReference: {fileID: 0}
+    - target: {fileID: 114950144592136336, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: questTrigger
+      value: 
+      objectReference: {fileID: 166992768}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
@@ -3619,7 +3630,7 @@ Prefab:
     - target: {fileID: 114995755181755964, guid: e706eaeb8c5250e40a3e64aeb7a4daa8,
         type: 2}
       propertyPath: chestSpawnerID
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114995755181755964, guid: e706eaeb8c5250e40a3e64aeb7a4daa8,
         type: 2}

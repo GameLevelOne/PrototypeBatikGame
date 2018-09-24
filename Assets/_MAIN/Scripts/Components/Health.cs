@@ -20,12 +20,12 @@ public class Health : MonoBehaviour {
 
 	public float healthPower;
 
-	public bool isTestHealth = false;
+	// public bool isTestHealth = false;
 
 	void Awake () { //TEMP
-		if (isTestHealth) {
-			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
-		} 
+		// if (isTestHealth) {
+		// 	PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
+		// } 
 	}
 
 
