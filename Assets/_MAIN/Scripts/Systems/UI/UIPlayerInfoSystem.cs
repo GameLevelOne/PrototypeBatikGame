@@ -91,6 +91,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			listOfToolsNSummons.Add(uiToolsNSummons.listOfButtonToolsNSummons[i].GetComponent<ButtonToolNSummon>());
 		}
 
+		// CheckUnlockedButton ();
 		CheckActiveTool ();
 	}
 
@@ -114,6 +115,21 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		}
 	}
 
+	// void CheckUnlockedButton () {
+	// 	for (int i=0; i<uiToolsNSummons.listOfButtonToolsNSummons.Count; i++) {
+	// 		if (CheckIfToolHasBeenUnlocked(i)) {
+	// 			uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+	// 			// uiToolsNSummons.listOfButtonToolsNSummons[i].image.sprite = uiInfo.selectedToolSprite;
+	// 			ChangeUnSelectedButtonSprite(i);
+	// 			CheckContainerImage (i);
+	// 		} else {
+	// 			uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+	// 			// uiToolsNSummons.listOfButtonToolsNSummons[i].image.sprite = uiInfo.initToolSprite;
+	// 			// ChangeSelectedButtonSprite(i);
+	// 		}
+	// 	}
+	// }
+
 	void CheckActiveTool () {
 		for (int i=0; i<listOfToolsNSummons.Count; i++) {
 			if (toolSystem.tool.currentTool == listOfToolsNSummons[i].buttonToolNSummonType) {
@@ -122,9 +138,34 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				// EventSystem.current.SetSelectedGameObject(null);
 				// uiToolsNSummons.listOfButtonToolsNSummons[i].Select();
 				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+				ChangeSelectedButtonSprite(i);
+				
 			} else {
-				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+				if (CheckIfToolHasBeenUnlocked(i)) {
+					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+					ChangeUnSelectedButtonSprite(i);
+					Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
+				} else {
+					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+					ChangeUnSelectedButtonSprite(i);
+				}
 			}
+		}
+	}
+
+	void ChangeSelectedButtonSprite (int idx) {
+		ToolType buttonType = uiToolsNSummons.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
+		if (buttonType != ToolType.Container1 && buttonType != ToolType.Container2 && buttonType != ToolType.Container3 && buttonType != ToolType.Container4) {
+			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.selectedToolSprite;
+		}
+	}
+
+	void ChangeUnSelectedButtonSprite (int idx) {
+		ToolType buttonType = uiToolsNSummons.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
+		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
+			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initContainerSprite;
+		} else {
+			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initToolSprite;
 		}
 	}
 
@@ -133,12 +174,17 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (i == selectedToolNSummonIdx) {
 				usedToolNSummonIdx = i;
 				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+
+				ChangeSelectedButtonSprite(i);
+
 				toolSystem.tool.currentTool = listOfToolsNSummons[i].buttonToolNSummonType;
 
 				// PRINT TOOL ON TOOLSSELECTIONSYSTEM
 				uiToolsSelectionSystem.InitImages(true);
 			} else {
 				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+
+				ChangeUnSelectedButtonSprite(i);
 			}
 		}
 	}
@@ -211,6 +257,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			uiInfo.isPlayingAnimation = true;
 			animator.Play(Constants.AnimationName.FADE_IN);
 			// isInitShowShop = false;
+
+			
+
 			isActivatingInfo = true;
 		} else {
 			if (!isPlayingAnimation) {
@@ -237,6 +286,33 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				uiInfo.panelUIInfo.SetActive(false);
 				Time.timeScale = 1;
 			}
+		}
+	}
+
+	void CheckContainerImage(int idx) {
+		if (idx == (int) ToolType.Container1) {
+			// Debug.Log(uiToolsSelection.playerContainer.lootableTypes[0].ToString());
+			SetContainerImage(uiToolsSelectionSystem.uiToolsSelection.playerContainer.lootableTypes[0], idx);
+		} else if (idx == (int) ToolType.Container2) {
+			SetContainerImage(uiToolsSelectionSystem.uiToolsSelection.playerContainer.lootableTypes[1], idx);
+		} else if (idx == (int) ToolType.Container3) {
+			SetContainerImage(uiToolsSelectionSystem.uiToolsSelection.playerContainer.lootableTypes[2], idx);
+		} else if (idx == (int) ToolType.Container4) {
+			SetContainerImage(uiToolsSelectionSystem.uiToolsSelection.playerContainer.lootableTypes[3], idx);
+		}
+	}
+
+	void SetContainerImage (LootableType type, int toolSpriteIdx) {
+		switch (type) {
+			case LootableType.HP_POTION:
+				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.hpPotSprite;
+				break;
+			case LootableType.MANA_POTION:
+				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.mpPotSprite;
+				break;
+			case LootableType.NONE:
+				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.initContainerSprite;
+				break;
 		}
 	}
 

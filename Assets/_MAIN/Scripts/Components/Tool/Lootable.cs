@@ -4,7 +4,8 @@ public enum TreasureType {
 	NONE,
 	FISH,
 	POWERARROW,
-	KEY
+	KEY,
+	FISHINGROD
 }
 
 public enum LootableType {

@@ -379,6 +379,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.GET_HURT) {
 			// 
+		} else if (state == PlayerState.POWER_BRACELET) {
+			rb.velocity = Vector3.zero;
 		} else {
 			input.moveDir = Vector3.zero;
 			rb.velocity = Vector3.zero;
@@ -407,7 +409,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			state == PlayerState.GET_TREASURE || 
 			state == PlayerState.DIE || 
 			// state == PlayerState.OPEN_CHEST || 
-			state == PlayerState.GET_HURT
+			state == PlayerState.GET_HURT || 
+			state == PlayerState.POWER_BRACELET
 			) {
 			return false;
 		} else {
