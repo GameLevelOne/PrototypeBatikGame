@@ -64,6 +64,13 @@ public class GainTreasureSystem : ComponentSystem {
 				lootable.mainSprite.SetActive(true);
 				break;
 			case TreasureType.POWERARROW: 
+				if (gainTreasure.questTrigger != null) {
+					//SEND QUEST TRIGGER
+					gainTreasure.questTrigger.isDoQuest = true;
+				} else {
+					Debug.Log("No Quest Triggered");
+				}
+
 				toolSystem.tool.Bow = 1;
 				toolSystem.tool.isInitCurrentTool = false;
 				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
