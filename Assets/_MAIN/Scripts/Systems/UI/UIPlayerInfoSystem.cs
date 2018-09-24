@@ -14,6 +14,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
 	[InjectAttribute] ToolSystem toolSystem;
+	[InjectAttribute] UIQuestSystem uiQuestSystem;
 
 	UIInfo uiInfo;
 	UIPlayerStatus uiPlayerStatus;
@@ -258,7 +259,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			animator.Play(Constants.AnimationName.FADE_IN);
 			// isInitShowShop = false;
 
-			
+			//CHECK QUEST
+			uiQuestSystem.CheckIfUIQuestIsComplete();
 
 			isActivatingInfo = true;
 		} else {
