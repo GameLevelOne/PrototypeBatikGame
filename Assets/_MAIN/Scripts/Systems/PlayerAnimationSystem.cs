@@ -333,7 +333,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						} else if (input.liftingMode == 1) {
 							PlayLoopAnimation(Constants.BlendTreeName.IDLE_PUSH);
 						} else if (input.liftingMode == -2) {
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
+							// PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
 						} else if (input.liftingMode == 2) {
 							PlayLoopAnimation(Constants.BlendTreeName.MOVE_PUSH);
 						} else if (input.liftingMode == -3) {
