@@ -39,7 +39,7 @@ public class QuestTriggerSystem : ComponentSystem {
 
 	void CheckQuestTrigger () {
 		if (questTrigger.isDoQuest) {
-			Debug.Log("Do Quest : "+questTrigger.questIndex);
+			Debug.Log("QuestTriggerSystem Do Quest : "+questTrigger.questIndex);
 
 			for (int i=0; i<questData.Length; i++) {
 				Quest quest = questData.Quest[i];
