@@ -2,6 +2,7 @@
 using Unity.Entities;
 using UnityEngine.SceneManagement;
 
+
 public class UIMainMenuSystem : ComponentSystem {
 	public struct UIMainMenuData {
 		public readonly int Length;
@@ -12,27 +13,32 @@ public class UIMainMenuSystem : ComponentSystem {
 
 	[InjectAttribute] GameStorageSystem gameStorageSystem;
 	[InjectAttribute] SystemManagerSystem systemManagerSystem;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	protected override void OnUpdate () {
 
 		for (int i=0; i<uiMainMenuData.Length; i++) {
+			uiMainmenu = uiMainMenuData.UIMainMenu[i];
 			Init();
 
+			if (uiMainmenu.titleState == UITitleState.NEWGAME) {
+				// uiMainmenu.btnStartGame.interactable = false;
 
-			uiMainmenu = uiMainMenuData.UIMainMenu[i];
+				// OpenScene(Constants.SceneName.SCENE_LEVEL_1);
+				uiMainmenu.fader.state = FaderState.FadeOut;
+			} else if(uiMainmenu.titleState == UITitleState.CONTINUE){
+				// uiMainmenu.isContinue = false;
+				// uiMainmenu.btnContinue.enabled = false;
 
-			if (uiMainmenu.isStartGame) {
-				uiMainmenu.btnStartGame.interactable = false;
-				uiMainmenu.isStartGame = false;
-
-				OpenScene(Constants.SceneName.GAME_MAP_01);
-			}
-
-			if(uiMainmenu.isContinue){
-				uiMainmenu.isContinue = false;
-				uiMainmenu.btnContinue.enabled = false;
-
+				
 				OpenScene(GameStorage.Instance.CurrentScene);
+			}
+			uiMainmenu.titleState = UITitleState.NONE;
+
+			if(uiMainmenu.fader.state == FaderState.Black){
+				uiMainmenu.fader.state = FaderState.FadeIn;
+				playerInputSystem.Enabled = true;
+				uiMainmenu.canvas.SetActive(false);
 			}
 		}
 	}
@@ -40,13 +46,17 @@ public class UIMainMenuSystem : ComponentSystem {
 
 
 	void OpenScene (string sceneName) {
-		SceneManager.LoadScene(sceneName);
+		Debug.Log("Trying to load scene: "+sceneName);
+		SceneManager.LoadSceneAsync(sceneName);
 	}
 
 	void Init()
 	{
 		if(!uiMainmenu.init){
+			PlayerPrefs.DeleteAll();
+			playerInputSystem.Enabled = false;
 			uiMainmenu.init = true;
+			uiMainmenu.btnStartGame.Select();
 			if(PlayerPrefs.HasKey(Constants.PlayerPrefKey.LEVEL_CURRENT)){
 				uiMainmenu.btnContinue.gameObject.SetActive(true);
 			}else{

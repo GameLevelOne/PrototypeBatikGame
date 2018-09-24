@@ -1,21 +1,35 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+public enum UITitleState {
+	NONE,
+	NEWGAME,
+	CONTINUE
+}
+
 public class UIMainMenu : MonoBehaviour {
+	public GameObject canvas;
+	public UIFader fader;
 	public Button btnStartGame;
 	public Button btnContinue;
 
 	public bool init = false;
-	public bool isStartGame = false;
-	public bool isContinue = true;
+	public UITitleState titleState = UITitleState.NONE;
 
 	public void OnClickStartGame ()
 	{
-		isStartGame = true;
+		titleState = UITitleState.NEWGAME;
+		DisableButtons();
 	}
 
 	public void OnClickContinue()
 	{
-		isContinue = true;
+		titleState = UITitleState.CONTINUE;
+		DisableButtons();
+	}
+
+	void DisableButtons() {
+		btnStartGame.interactable = false;
+		btnContinue.interactable = false;
 	}
 }
