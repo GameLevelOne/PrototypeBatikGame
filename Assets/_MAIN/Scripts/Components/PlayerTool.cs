@@ -159,7 +159,7 @@ public class PlayerTool : MonoBehaviour {
             case 18:
                 return Boots;
 			default:
-				Debug.Log("Tools NONE");
+				// Debug.Log("Tools NONE");
 				return 0;
         }
 	}

@@ -21,7 +21,6 @@ public class QuestSystem : ComponentSystem {
 	protected override void OnUpdate () {
 		for (int i=0; i<questData.Length; i++) {
 			quest = questData.Quest[i];
-
 			if (!quest.isInitQuest) {
 				InitQuest();
 			} else {
@@ -35,6 +34,7 @@ public class QuestSystem : ComponentSystem {
 		// 	SaveQuest(quest.currentQuestIndex, 0);
 		// }
 
+		Debug.Log("Init Quest");
 		LoadQuest();
 
 		quest.isInitQuest = true;
@@ -87,6 +87,8 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	public bool CheckIfQuestIsComplete (int questIdx) {
+		Debug.Log("IsQuest "+questIdx+"Complete");
+		Debug.Log("Quest: "+quest);
 		if (quest.questCurrentPoint[questIdx] >= quest.questPointRequired[questIdx]) {
 			return true;
 		} else {

@@ -11,9 +11,9 @@ public class UIMainMenuSystem : ComponentSystem {
 	[InjectAttribute] UIMainMenuData uiMainMenuData;
 	UIMainMenu uiMainmenu;
 
-	[InjectAttribute] GameStorageSystem gameStorageSystem;
-	[InjectAttribute] SystemManagerSystem systemManagerSystem;
-	[InjectAttribute] PlayerInputSystem playerInputSystem;
+	// [InjectAttribute] GameStorageSystem gameStorageSystem;
+	// [InjectAttribute] SystemManagerSystem systemManagerSystem;
+	// [InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	protected override void OnUpdate () {
 
@@ -21,25 +21,25 @@ public class UIMainMenuSystem : ComponentSystem {
 			uiMainmenu = uiMainMenuData.UIMainMenu[i];
 			Init();
 
-			if (uiMainmenu.titleState == UITitleState.NEWGAME) {
-				// uiMainmenu.btnStartGame.interactable = false;
+			// if (uiMainmenu.titleState == UITitleState.NEWGAME) {
+			// 	// uiMainmenu.btnStartGame.interactable = false;
 
-				// OpenScene(Constants.SceneName.SCENE_LEVEL_1);
-				uiMainmenu.fader.state = FaderState.FadeOut;
-			} else if(uiMainmenu.titleState == UITitleState.CONTINUE){
-				// uiMainmenu.isContinue = false;
-				// uiMainmenu.btnContinue.enabled = false;
+			// 	OpenScene(Constants.SceneName.SCENE_LEVEL_1);
+			// 	// uiMainmenu.fader.state = FaderState.FadeOut;
+			// } else if(uiMainmenu.titleState == UITitleState.CONTINUE){
+			// 	// uiMainmenu.isContinue = false;
+			// 	// uiMainmenu.btnContinue.enabled = false;
 
 				
-				OpenScene(GameStorage.Instance.CurrentScene);
-			}
-			uiMainmenu.titleState = UITitleState.NONE;
+			// 	OpenScene(GameStorage.Instance.CurrentScene);
+			// }
+			// uiMainmenu.titleState = UITitleState.NONE;
 
-			if(uiMainmenu.fader.state == FaderState.Black){
-				uiMainmenu.fader.state = FaderState.FadeIn;
-				playerInputSystem.Enabled = true;
-				uiMainmenu.canvas.SetActive(false);
-			}
+			// if(uiMainmenu.fader.state == FaderState.Black){
+			// 	uiMainmenu.fader.state = FaderState.FadeIn;
+			// 	playerInputSystem.Enabled = true;
+			// 	uiMainmenu.canvas.SetActive(false);
+			// }
 		}
 	}
 

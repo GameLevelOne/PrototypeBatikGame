@@ -67,7 +67,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (tool == null || attack == null) {
 			tool = standAnimationSystem.tool;
 			attack = playerAttackSystem.attack;
-			Debug.Log("Player animation won't running");
+			// Debug.Log("Player animation won't running");
 			return;
 		}
 
