@@ -19,6 +19,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 
 	// Entrance Boss Area
 	public event TimelineEvent OnEntranceBossArea;
+	public event TimelineEvent OnBossFightFinish;
 	public event TimelineEvent OnEndBossArea;
 
 	public EventType type;	
@@ -83,5 +84,10 @@ public class TimelineEventTrigger : MonoBehaviour {
 		// } else {
 			Debug.Log("End Call "+type);
 		// }
+	}
+
+	public void JatayuDie()
+	{
+		if(OnBossFightFinish != null) OnBossFightFinish();
 	}
 }

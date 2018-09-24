@@ -7,6 +7,7 @@ public class CutsceneTriggerSystem : ComponentSystem {
 		public ComponentArray<CutsceneTrigger> CutsceneTrigger;
 	}
 	[InjectAttribute] CutsceneTriggerData cutsceneTriggerData;
+	[InjectAttribute] PlayerInputSystem playerInputSystem;
 
 	CutsceneTrigger cutsceneTrigger;
 
@@ -18,7 +19,15 @@ public class CutsceneTriggerSystem : ComponentSystem {
 				InitCutScene();
 			} else if (cutsceneTrigger.isTriggered) {
 				//PLAY CUTSCENE
+				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Animation2D>().animator.Play(Constants.BlendTreeName.IDLE_STAND);
+				// playerInputSystem.SetDir(0f, 0f, 0f);
+				playerInputSystem.ChangeDir(0f, 1f);
+				playerInputSystem.CheckLockDir(2, 1, 3);
+				cutsceneTrigger.timelineManager.playerEntity.GetComponent<PlayerInput>().moveDir = Vector3.zero;
+				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Player>().SetPlayerIdle();
 				cutsceneTrigger.timelineManager.playerEntity.enabled = false;
+				
 
 				//SET TRACK & PLAY
 				cutsceneTrigger.timelineManager.playableDirector.playableAsset = cutsceneTrigger.playableCutscene;

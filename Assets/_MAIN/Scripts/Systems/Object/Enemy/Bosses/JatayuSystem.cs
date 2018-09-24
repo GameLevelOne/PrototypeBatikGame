@@ -390,6 +390,9 @@ public class JatayuSystem : ComponentSystem {
 				jatayu.particleDie.Stop(true,ParticleSystemStopBehavior.StopEmitting);
 				GameObject.Destroy(jatayu.gameObject);
 				UpdateInjectedComponentGroups();
+
+				//resume timeline
+			 	jatayu.timelineEventTrigger.JatayuDie();
 			}
 		}
 	}
