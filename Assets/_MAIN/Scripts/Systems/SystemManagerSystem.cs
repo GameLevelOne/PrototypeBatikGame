@@ -48,7 +48,7 @@ public class SystemManagerSystem : ComponentSystem {
 			currLevelData.hasSetPlayerPos = true;
 
 			int startPosIndex = PlayerPrefs.GetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
-			if(startPosIndex > currLevelData.playerStartPos.Length) startPosIndex = 0;
+			if(startPosIndex >= currLevelData.playerStartPos.Length) startPosIndex = 0;
 			currLevelData.playerObj.transform.position = currLevelData.playerStartPos[startPosIndex];
 		}
 	}
