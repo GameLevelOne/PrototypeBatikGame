@@ -31,7 +31,7 @@ public class TimelineManager : MonoBehaviour {
 		// if (isTesting) {
 		// 	SetPlayableAsset(initPlayableAssetIndex);
 		// }
-
+		PlayerPrefs.DeleteAll();
 		// if (!IsAlreadyPlayedTimeline()) {
 		// 	playerEntity.enabled = false;
 		// 	playableDirector.Play();
@@ -47,6 +47,8 @@ public class TimelineManager : MonoBehaviour {
 		
 		beforeBossFightTrigger.OnEntranceBossArea += OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea += OnEndBossArea;
+
+		afterBossFightTrigger.OnBossFightFinish += ResumeBossFightTimeline;
 	}
 
 	void OnDisable () {
@@ -58,6 +60,8 @@ public class TimelineManager : MonoBehaviour {
 		
 		beforeBossFightTrigger.OnEntranceBossArea -= OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea -= OnEndBossArea;
+
+		afterBossFightTrigger.OnBossFightFinish -= ResumeBossFightTimeline;
 	}
 
 #region Opening Mada Kari Forest
@@ -109,6 +113,12 @@ public class TimelineManager : MonoBehaviour {
 		playerEntity.enabled = true;
 		Debug.Log("OnEndBossArea TIMELINE");
 		SavePlayedTimeline ();
+	}
+
+	void ResumeBossFightTimeline()
+	{
+		playableDirector.enabled = true;
+		playerEntity.enabled = true;
 	}
 #endregion
 
