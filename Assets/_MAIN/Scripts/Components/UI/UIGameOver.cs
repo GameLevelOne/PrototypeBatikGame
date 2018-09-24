@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class UIGameOver : MonoBehaviour {
 	public CanvasGroup gameOverPanel;
 	public Animator gameOverAnim;
-	public Image buttonRestart;
-	public Image buttonReturnToTitle;
-	public GameObject black;
+	public Button buttonRestart;
+	public Button buttonBackToMainMenu;
+	public GameObject panel;
 
 	[HeaderAttribute("Current")]
 	public int selected = 0;
@@ -28,6 +28,7 @@ public class UIGameOver : MonoBehaviour {
 	#region animation event
 	void EndShowing()
 	{
+		Debug.Log("ENDHOWING CALLED");
 		endShow = true;
 	}
 	void EndHiding()

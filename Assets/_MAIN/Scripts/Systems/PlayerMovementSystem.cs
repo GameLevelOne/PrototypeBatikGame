@@ -21,7 +21,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	[InjectAttribute] SwimSystem SwimSystem;
 	[InjectAttribute] ManaSystem manaSystem;
 	[InjectAttribute] GameStorageSystem gameStorageSystem;
-
+	
 	public PlayerInput input;
 	public Facing2D facing;
 	public Player player;
@@ -74,12 +74,14 @@ public class PlayerMovementSystem : ComponentSystem {
 				rb.velocity = Vector3.zero;
 				input.moveDir = Vector3.zero;
 
-				if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
-					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-					gameStorageSystem.LoadState(50);
+				// if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 0")){
+				// 	SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+				// 	gameStorageSystem.LoadState(50);
 					// PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
 					// SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
-				}	
+				// }	
+
+				player.uiGameOver.call = true;
 
 				continue;
 			}

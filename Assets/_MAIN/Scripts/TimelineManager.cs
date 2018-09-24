@@ -31,7 +31,7 @@ public class TimelineManager : MonoBehaviour {
 		// if (isTesting) {
 		// 	SetPlayableAsset(initPlayableAssetIndex);
 		// }
-		PlayerPrefs.DeleteAll();
+		// PlayerPrefs.DeleteAll();
 		// if (!IsAlreadyPlayedTimeline()) {
 		// 	playerEntity.enabled = false;
 		// 	playableDirector.Play();

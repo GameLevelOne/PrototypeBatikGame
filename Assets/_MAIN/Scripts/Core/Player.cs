@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
 	public PlayerState state;
 	// public Transform playerWeaponPos;
 	public Collider playerCol;
+	public UIGameOver uiGameOver;
 	public float shieldPower;
 	
 	[HeaderAttribute("Current")]
