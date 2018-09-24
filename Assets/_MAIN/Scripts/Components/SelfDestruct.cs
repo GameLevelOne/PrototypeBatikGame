@@ -8,9 +8,12 @@ public class SelfDestruct : MonoBehaviour {
 		projectile.isSelfDestroying = true;
 	}
 
+	public void EndBigSummonFX () {
+		Time.timeScale = 1;
+	}
+
 	public void DestroyBigSummonFX () {
 		// Destroy(gameObject);
-		Time.timeScale = 1;
 		projectile.isSelfDestroying = true;
 	}
 }

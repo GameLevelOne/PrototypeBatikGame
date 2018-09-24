@@ -94,11 +94,11 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	public bool CheckIfQuestIsComplete (int questIdx) {
-		Debug.Log("IsQuest "+questIdx+"Complete");
-		Debug.Log("Quest: "+quest);
 		if (quest.questCurrentPoint[questIdx] >= quest.questPointRequired[questIdx]) {
+			Debug.Log("IsQuest "+questIdx+" Complete "+true);
 			return true;
 		} else {
+			Debug.Log("IsQuest "+questIdx+" Complete "+false);
 			return false;
 		}
 	}
