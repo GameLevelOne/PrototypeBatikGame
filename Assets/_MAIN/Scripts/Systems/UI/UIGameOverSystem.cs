@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// to show UIGameOver: set uiGameOver.Call = true;
@@ -24,7 +25,6 @@ public class UIGameOverSystem : ComponentSystem {
 
 			CheckCall();
 			CheckInput();
-			CheckSelected();
 			CheckButtonFunction();
 		}
 	}
@@ -33,8 +33,8 @@ public class UIGameOverSystem : ComponentSystem {
 	{
 		if(uiGameOver.call){
 			uiGameOver.call = false;
-			uiGameOver.black.SetActive(true);
 			uiGameOver.gameOverAnim.SetBool("Show",true);
+			uiGameOver.buttonRestart.Select();
 		}
 	}
 
@@ -42,35 +42,29 @@ public class UIGameOverSystem : ComponentSystem {
 	{
 		if(uiGameOver.endShow){
 			if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.DownArrow)){
-				if(uiGameOver.selected != 1){
-					uiGameOver.selected = 1;
-				}
+				// uiGameOver.buttonBackToMainMenu.Select();
+				Debug.Log("BACK TO MAIN MENU SELECTED");
+				EventSystem.current.SetSelectedGameObject(null);
+				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonBackToMainMenu.gameObject);	
+				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);			
 			}
 
 			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)){
-				if(uiGameOver.selected != 0){
-					uiGameOver.selected = 0;
-				}
+				// uiGameOver.buttonRestart.Select();
+				Debug.Log("RESTART SELECTED");
+				EventSystem.current.SetSelectedGameObject(null);
+				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonRestart.gameObject);		
+				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);
+						
 			}
 
 			if(Input.GetKeyDown(KeyCode.Return)){
-				if(uiGameOver.endShow){
-					uiGameOver.endShow = false;
-					uiGameOver.gameOverAnim.SetBool("Show",false);
-				}
+				uiGameOver.endShow = false;
+				// uiGameOver.gameOverAnim.SetBool("Show",false);
+				uiGameOver.panel.SetActive(false);
+				uiGameOver.endHide = true;
 			}
 		}		
-	}
-
-	void CheckSelected()
-	{
-		if(uiGameOver.selected == 0){
-			uiGameOver.buttonRestart.color = Color.red;
-			uiGameOver.buttonReturnToTitle.color = Color.white;
-		}else if (uiGameOver.selected == 1){
-			uiGameOver.buttonRestart.color = Color.white;
-			uiGameOver.buttonReturnToTitle.color = Color.red;
-		}
 	}
 
 	void CheckButtonFunction()
