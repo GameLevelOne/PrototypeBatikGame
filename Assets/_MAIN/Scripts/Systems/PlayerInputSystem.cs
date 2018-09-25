@@ -308,6 +308,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 				
 				if (inputY > 0f) {
+				Debug.Log("Halooooooo");
 					SetJoystickAndKeyboardInput(true, 2);
 				}
 				
@@ -352,6 +353,7 @@ public class PlayerInputSystem : ComponentSystem {
 			} 
 
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+				Debug.Log("Halooooooo");
 				SetJoystickAndKeyboardInput(true, 2);
 			} 
 			
@@ -488,7 +490,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckAttackInput () {
 		#region Arrow
-		if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.JoystickButton9)) {
+		if (GameInput.IsBowPressed) {
 			toolType = tool.currentTool;
 			input.interactValue = 0;
 
@@ -505,7 +507,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			player.SetPlayerState(PlayerState.BOW);
 			isButtonToolHold = true;
-		} else if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
+		} else if (GameInput.IsBowReleased) {
 			isButtonToolHold = false;
 		} else {
 			if (!isButtonToolHold && input.interactValue == 1) {
@@ -516,7 +518,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Open Chest
 		if (player.isCanOpenChest) {
-			if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && playerAnimationSystem.facing.DirID == 3) {
+			if (GameInput.IsAttackPressed && playerAnimationSystem.facing.DirID == 3) {
 				input.interactValue = 0;
 				input.interactMode = -4;
 				player.SetPlayerState(PlayerState.OPEN_CHEST);
@@ -529,7 +531,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Open Gate
 		if (player.isCanOpenGate) {
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+			if (GameInput.IsAttackPressed) {
 				gateOpenerSystem.CheckAvailabilityGateKey();
 			}
 
@@ -545,7 +547,7 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 
 		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+			if (GameInput.IsAttackPressed) {
 				input.interactValue = 0;
 				input.interactMode = 3;
 				
@@ -569,7 +571,7 @@ public class PlayerInputSystem : ComponentSystem {
 		float attackAwayDelay = input.attackAwayDelay;
 		int attackMode = input.attackMode;
 
-		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+		if (GameInput.IsAttackPressed) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
 #region Dennis
 				// if (input.attackMode <= 2) {
@@ -608,7 +610,7 @@ public class PlayerInputSystem : ComponentSystem {
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
 			}
-		} else if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+		} else if (GameInput.IsAttackHeld) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if (!input.isInitChargeAttack) {
 				if (startChargeAttackTimer >= 0.3f) {
 					input.isInitChargeAttack = true;
@@ -624,7 +626,7 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			}
-		} else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+		} else if (GameInput.IsAttackReleased) {
 			if (input.moveMode == 1 && isChargingAttack) {
 				input.attackMode = -1; //CHARGE
 				isChargingAttack = false;
@@ -692,12 +694,12 @@ public class PlayerInputSystem : ComponentSystem {
 		float guardParryDelay = input.guardParryDelay;
 
 		#region Button Guard
-		if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+		if (GameInput.IsGuardPressed) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 			SetMovement(2); //START GUARD
 			
 			player.isGuarding = true;	
 			isParryPeriod = true;
-		} else if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
+		} else if (GameInput.IsGuardHeld) {
 			
 			if (state == PlayerState.BLOCK_ATTACK) {
 				input.interactMode = -1;
@@ -710,7 +712,7 @@ public class PlayerInputSystem : ComponentSystem {
 				player.isCanParry = false;
 				// player.isPlayerHit = false;	
 			}
-		} else if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
+		} else if (GameInput.IsGuardReleased) {
 			SetMovement(0);
 			
 			player.isGuarding = false;
@@ -737,7 +739,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckDodgeInput () {
 		#region Button Dodge
-		if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
+		if (GameInput.IsDodgePressed) {
 			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 				// gameFXSystem.ToggleDodgeFlag(true);
 				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
@@ -803,17 +805,17 @@ public class PlayerInputSystem : ComponentSystem {
 	void CheckToolInput () {
 		#region Button Tools
 		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING) && state != PlayerState.BOW) {
-			if(Input.GetKeyDown(KeyCode.X) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
+			if(GameInput.IsQuickRPressed){
 				// player.isUsingStand = false;
 				toolSystem.NextTool();
 			}
 			
-			if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyUp(KeyCode.Joystick1Button6)){
+			if(GameInput.IsQuickLPressed){
 				// player.isUsingStand = false;
 				toolSystem.PrevTool();
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)) {
+			if (GameInput.IsToolsPressed) {
 				toolType = tool.currentTool;
 
 				if (toolType != ToolType.None && toolType != ToolType.Bow) {
@@ -914,7 +916,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (slowDownTimer < bulletTimeDuration) {
 				slowDownTimer += deltaTime;
 
-				if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+				if (GameInput.IsAttackPressed) {
 					input.bulletTimeAttackQty++;
 				}
 			} else {
@@ -933,7 +935,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (input.interactValue == 0) {
 				currentDir = Vector3.zero;
 
-				if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+				if (GameInput.IsAttackReleased) {
 					// isButtonToolHold = false;
 					CheckEndMove();
 					input.interactValue = 2;
@@ -942,12 +944,12 @@ public class PlayerInputSystem : ComponentSystem {
 				return true;
 			} else if (input.interactValue == 1) { 	
 				if (input.liftingMode < 0) { //LIFTING
-					if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)){
+					if (GameInput.IsAttackPressed){
 						CheckEndMove();
 						input.interactValue = 2;
 					}
 				} else { //PUSHING / SWEATING
-					if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
+					if (GameInput.IsAttackReleased) {
 						CheckEndMove();
 						// isButtonToolHold = false;
 						input.interactValue = 2;
@@ -972,7 +974,7 @@ public class PlayerInputSystem : ComponentSystem {
 		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector3.zero;
 						
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
+			if (GameInput.IsToolsPressed || GameInput.IsAttackPressed){
 				input.interactValue = 2;
 				toolSystem.UseTool();
 			}
@@ -981,7 +983,7 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.GET_TREASURE) { 
 			currentDir = Vector3.zero;
 
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)){ //ANY BUTTON
+			if (GameInput.AnyButtonPressed){ //ANY BUTTON
 				gainTreasureSystem.UseTreasure();
 				input.interactValue = 2;
 			}
@@ -1000,7 +1002,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 			return true;
 		} else if (state == PlayerState.DASH) {
-			if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button3))){
+			if (GameInput.IsToolsReleased){
 				if (input.interactValue == 1) {
 					input.interactValue = 2;
 					player.isUsingStand = false;				

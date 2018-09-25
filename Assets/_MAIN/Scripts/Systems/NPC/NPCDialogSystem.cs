@@ -153,12 +153,12 @@ public class NPCDialogSystem : ComponentSystem {
 		} else if (!isFinishShowingDialog) {
 			PrintLetterOneByOne ();
 
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+			if (GameInput.IsAttackPressed) {
 				currentDialog.textDialog.text = currentNPC.npcType == NPCType.SHOP ? currentDialog.interactDialogs[interactIndex] : currentDialog.openingDialogs[interactIndex];
 				currentDialog.isFinishShowingDialog = true;
 			}
 		} else {
-			if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+			if (GameInput.IsAttackPressed) {
 				
 				if (interactIndex == dialogLength-1) {
 					if (currentType == NPCType.SHOP) {

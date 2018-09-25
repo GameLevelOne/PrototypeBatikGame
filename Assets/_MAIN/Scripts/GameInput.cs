@@ -8,9 +8,15 @@ public static class GameInput {
 public static bool IsUpDirectionHeld {
 	get {
 		if (Input.GetAxis("Vertical Javatale")>0f)
+		{
+			Debug.Log("Up Pressed");
 			return true;
+		}
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+		{
+			Debug.Log("Up Pressed");
 			return true;		
+		}
 		return false;
 	}
 }
@@ -107,9 +113,9 @@ public static bool IsDodgeHeld {
 }
 public static bool IsToolsPressed {
 	get {
-		if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+		if (Input.GetKeyDown(KeyCode.Joystick1Button2)) 
 			return true;
-		if (Input.GetKeyDown(KeyCode.KeypadPlus))
+		if (Input.GetKeyDown(KeyCode.KeypadPlus)) 
 			return true;		
 		return false;
 	}
@@ -273,6 +279,30 @@ public static bool IsQuickRHeld {
 		if (Input.GetKey(KeyCode.Joystick1Button5))
 			return true;
 		if (Input.GetKey(KeyCode.E))
+			return true;		
+		return false;
+	}
+}
+#endregion
+
+#region CONVINIENCES
+public static bool AnyButtonPressed {
+	get {
+		if (IsAttackPressed || IsDodgePressed || IsGuardPressed || IsToolsPressed || IsBowPressed || IsInventoryPressed || IsQuickLPressed || IsQuickRPressed)
+			return true;
+		return false;
+	}
+}
+public static bool AnyButtonReleased {
+	get {
+		if (IsAttackReleased || IsDodgeReleased || IsGuardReleased || IsToolsReleased || IsBowReleased || IsInventoryReleased || IsQuickLReleased || IsQuickRReleased)
+			return true;		
+		return false;
+	}
+}
+public static bool AnyButtonHeld {
+	get {
+		if (IsAttackHeld || IsDodgeHeld || IsGuardHeld || IsToolsHeld || IsBowHeld || IsInventoryHeld || IsQuickLHeld || IsQuickRHeld)
 			return true;		
 		return false;
 	}
