@@ -10,7 +10,6 @@ public class BushSystem : ComponentSystem {
 	}
 
 	[InjectAttribute] BushComponent bushComponent;
-
 	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
 
 	Bush currBush;
@@ -36,6 +35,7 @@ public class BushSystem : ComponentSystem {
 		GameObject.Instantiate(currBush.bushCutFX,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
 		
 		//SPAWN ITEM
+		if(currBush.rootObj != null) GameObject.Instantiate(currBush.rootObj,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
 		lootableSpawnerSystem.CheckPlayerLuck(currBush.spawnItemProbability, currBush.transform.position);
 
 		GameObject.Destroy(currBush.gameObject);
