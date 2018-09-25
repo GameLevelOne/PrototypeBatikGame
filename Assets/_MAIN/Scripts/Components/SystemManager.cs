@@ -5,6 +5,8 @@ public class SystemManager : MonoBehaviour {
 	public bool isChangeScene;
 	// public bool isDoneInitDisabledSystem;	
 	public int currentMapIdx;
+	
+	public string menuSceneName;
 
 	void OnEnable () {
 		SceneManager.sceneLoaded += OnSceneLoaded;
@@ -20,7 +22,7 @@ public class SystemManager : MonoBehaviour {
 			isChangeScene = true;
 			currentMapIdx = SceneManager.GetActiveScene().buildIndex - 1;
 			if (currentMapIdx<0) currentMapIdx = 0;
-			if (SceneManager.GetActiveScene().name!="SceneMenu")
+			if (SceneManager.GetActiveScene().name!=menuSceneName)
 				GameStorage.Instance.CurrentScene = SceneManager.GetActiveScene().name;
 
 		}

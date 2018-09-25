@@ -79,22 +79,22 @@ public class UIQuestSystem : ComponentSystem {
 	void CheckQuestIndex (int idx) {
 		switch (idx) {
 			case 0: 
-				uiQuest.questTexts[0].text = "Kill ("+questSystem.quest.questCurrentPoint[0]+"/"+questSystem.quest.questPointRequired[0]+") Bee on Forest Entrance";
+				uiQuest.questTexts[0].text = "KILL ("+questSystem.quest.questCurrentPoint[0]+"/"+questSystem.quest.questPointRequired[0]+") BEE ON FOREST ENTRANCE";
 				break;
 			case 1:
 				//
 				break;
 			case 2: 
-				uiQuest.questTexts[2].text = "Kill ("+questSystem.quest.questCurrentPoint[2]+"/"+questSystem.quest.questPointRequired[2]+") Wandering Spirit on Abandoned Clearing";
+				uiQuest.questTexts[2].text = "KILL ("+questSystem.quest.questCurrentPoint[2]+"/"+questSystem.quest.questPointRequired[2]+") WANDERING SPRIRIT ON ABANDONED CLEARING";
 				break;
 			case 3: 
-				uiQuest.questTexts[3].text = "Kill ("+questSystem.quest.questCurrentPoint[3]+"/"+questSystem.quest.questPointRequired[3]+") Enemy in Hidden Clearing";
+				uiQuest.questTexts[3].text = "KILL ("+questSystem.quest.questCurrentPoint[3]+"/"+questSystem.quest.questPointRequired[3]+") ENEMY IN HIDDEN CLEARING";
 				break;
 			case 4:
 				//
 				break;
 			case 5: 
-				uiQuest.questTexts[5].text = "Kill ("+questSystem.quest.questCurrentPoint[5]+"/"+questSystem.quest.questPointRequired[5]+") Enemy in Hidden Cave";
+				uiQuest.questTexts[5].text = "KILL ("+questSystem.quest.questCurrentPoint[5]+"/"+questSystem.quest.questPointRequired[5]+") ENEMY IN HIDDEN CAVE";
 				break;
 			case 6: 
 				//

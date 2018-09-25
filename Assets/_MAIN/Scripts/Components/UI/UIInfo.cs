@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UIInfo : MonoBehaviour {
 	public AnimationControl animationControl;
@@ -12,6 +14,16 @@ public class UIInfo : MonoBehaviour {
 	// public CanvasGroup canvasInfoGroup;
 	// public float showMultiplier;
 	// public float hideMultiplier;
+	[HeaderAttribute("Button Tools")]
+	public List<Button> listOfButtonToolsNSummons;
+
+	[HeaderAttribute("Area Info")]
+	public Text areaName;
+	public Transform playerIndicator;
+	public string[] areaNames;
+	public Transform[] areaCoordinates;
+
+	[HeaderAttribute("Current")]
 	public bool isInitUIInfo = false;
 	public bool isPlayingAnimation;
 

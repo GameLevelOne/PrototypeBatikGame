@@ -23,6 +23,8 @@ public class Lootable : MonoBehaviour {
 	public float initPosY;
 	// public Collider mainCol;
 
+	[HeaderAttribute("Non Treasure Only")]
+	public float destroyDuration = 0f;
 
 	[HeaderAttribute("Treasure Only")]
 	public TreasureType treasureType;
@@ -32,7 +34,10 @@ public class Lootable : MonoBehaviour {
 	public int keyID;
 
 	[HeaderAttribute("Current")]
+	public bool isInitLootable = false;
 	public bool isLooted = false;
+	public bool isDestroyed = false;
+	public float destroyTimer = 0f;
 
 	// void OnCollisionEnter (Collision col)
 	// {
