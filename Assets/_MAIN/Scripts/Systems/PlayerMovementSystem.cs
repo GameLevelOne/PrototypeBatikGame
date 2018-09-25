@@ -278,7 +278,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 					// input.moveDir = -moveDir; //REVERSE
 					input.moveDir = Vector3.zero;
-					input.dirButtons =  new List<int>(4){0,0,0,0};
+					// input.dirButtons =  new List<int>(4){0,0,0,0};
 				} else {
 					// input.dirButtons =  new List<int>(4){0,0,0,0};
 					// moveDir = Vector3.zero;

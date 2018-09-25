@@ -8,15 +8,9 @@ public static class GameInput {
 public static bool IsUpDirectionHeld {
 	get {
 		if (Input.GetAxis("Vertical Javatale")>0f)
-		{
-			Debug.Log("Up Pressed");
 			return true;
-		}
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-		{
-			Debug.Log("Up Pressed");
 			return true;		
-		}
 		return false;
 	}
 }

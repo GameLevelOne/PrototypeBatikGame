@@ -27,6 +27,8 @@ public class UIShopSystem : ComponentSystem {
 	// float deltaTime;
 	int buttonIndex;
 	int buttonItemLength;
+	bool curDownPressed;
+	bool curUpPressed;
 
 	protected override void OnUpdate () {
 		if (uiShopData.Length == 0) return;
@@ -62,6 +64,9 @@ public class UIShopSystem : ComponentSystem {
 		isOpeningShop = false;
 		buttonIndex = 0;
 		buttonItemLength = uiShop.itemShops.Length;
+		curDownPressed = false;
+		curUpPressed = false;
+
 		// isInitShowShop = false;
 		// timeSwitch = 1;
 		// alphaValue = 0f;
@@ -78,13 +83,23 @@ public class UIShopSystem : ComponentSystem {
 
 	void CheckInput () {
 		if (isOpeningShop) {
-			if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) {
+			if (GameInput.IsDodgePressed) {
 				uiShop.isOpeningShop = false;
-			} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+			}
+			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
+				curUpPressed = true;
 				PrevButtonTool ();
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+			} else if (!GameInput.IsUpDirectionHeld) {
+				curUpPressed = false;
+			}
+
+			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
+				curDownPressed = true;
 				NextButtonTool ();
-			} else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+			} else if (!GameInput.IsDownDirectionHeld) {
+				curDownPressed = false;
+			} 
+			if (GameInput.IsAttackPressed) {
 				BuyItemShop ();
 			}
 		}
