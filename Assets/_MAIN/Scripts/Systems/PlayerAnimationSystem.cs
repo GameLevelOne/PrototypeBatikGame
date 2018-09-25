@@ -324,7 +324,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.GRABBING);
+						PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+
+						if (powerBraceletState == PowerBraceletState.GRAB) {
+							// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+							powerBraceletSystem.SetTargetRigidbodyType(1);
+						} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
+							// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+							powerBraceletSystem.SetTargetRigidbodyType(2);
+							// powerBraceletSystem.SetLiftObjectParent();
+						}
+
+						input.interactValue = 1;
+						isFinishAnyAnimation = true;
 					} else if (input.interactValue == 1) {
 						if (input.liftingMode == 0) {
 							PlayLoopAnimation(Constants.BlendTreeName.SWEATING_GRAB);
@@ -333,8 +345,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						} else if (input.liftingMode == 1) {
 							PlayLoopAnimation(Constants.BlendTreeName.IDLE_PUSH);
 						} else if (input.liftingMode == -2) {
-							// PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
+							// PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
 						} else if (input.liftingMode == 2) {
 							PlayLoopAnimation(Constants.BlendTreeName.MOVE_PUSH);
 						} else if (input.liftingMode == -3) {
@@ -736,22 +748,24 @@ public class PlayerAnimationSystem : ComponentSystem {
 				StopAnyAnimation();
 				break;
 			case PlayerState.POWER_BRACELET:
-				if (input.interactValue == 0) {
-					input.interactValue = 1;
+				// if (input.interactValue == 0) {
+				// 	input.interactValue = 1;
 
-					PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+				// 	PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 
-					if (powerBraceletState == PowerBraceletState.GRAB) {
-						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
-						powerBraceletSystem.SetTargetRigidbodyType(1);
-					} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
-						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
-						powerBraceletSystem.SetTargetRigidbodyType(2);
-						// powerBraceletSystem.SetLiftObjectParent();
-					}
+				// 	if (powerBraceletState == PowerBraceletState.GRAB) {
+				// 		// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+				// 		powerBraceletSystem.SetTargetRigidbodyType(1);
+				// 	} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
+				// 		// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+				// 		powerBraceletSystem.SetTargetRigidbodyType(2);
+				// 		// powerBraceletSystem.SetLiftObjectParent();
+				// 	}
 
-					isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) {
+				// 	isFinishAnyAnimation = true;
+				// } else 
+				
+				if (input.interactValue == 1) {
 					if (input.liftingMode == -3) {
 						input.liftingMode = -1;
 						powerBraceletSystem.SetLiftObjectParent();
