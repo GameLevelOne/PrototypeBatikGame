@@ -21,7 +21,6 @@ public class TreeSystem : ComponentSystem {
 
 			CheckHit();
 		}
-
 	}
 
 	void CheckHit()
@@ -31,5 +30,4 @@ public class TreeSystem : ComponentSystem {
 			treeAnim.SetTrigger(Constants.AnimatorParameter.Trigger.HIT);
 		}
 	}
-
 }
