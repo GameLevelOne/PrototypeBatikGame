@@ -6,20 +6,41 @@ public class TriggerDetection : MonoBehaviour {
 
 	public string tagName;
 
+	public string[] tagNames;
+
 	void OnTriggerEnter (Collider other)
 	{
-		// Debug.Log("Trigger Detection : "+other.tag);
-		// Debug.Log("Tag target : "+tagName);
+		if (tagNames.Length == 0) {
+			if(other.tag == tagName && OnTriggerEnterObj != null) OnTriggerEnterObj(other.gameObject);
+			
+		} else {
+			GameObject hitObj = null;
+			for(int i = 0;i<tagNames.Length;i++){
+				if(other.tag == tagNames[i]){
+					hitObj = other.gameObject;
+					break;
+				}
+			}
 
-		if(other.tag == tagName){
-			if(OnTriggerEnterObj != null) OnTriggerEnterObj(other.gameObject);
+			if(hitObj != null && OnTriggerEnterObj != null) OnTriggerEnterObj(other.gameObject);
 		}
 	}
 
 	void OnTriggerExit (Collider other)
 	{
-		if(other.tag == tagName){
-			if(OnTriggerEnterObj != null) OnTriggerEnterObj(null);
+		if(tagName.Length == 0){
+			if(other.tag == tagName && OnTriggerEnterObj != null) OnTriggerEnterObj(null);
+			
+		}else{
+			GameObject hitObj = null;
+			for(int i = 0;i<tagNames.Length;i++){
+				if(other.tag == tagNames[i]){
+					hitObj = other.gameObject;
+					break;
+				}
+			}
+
+			if(hitObj != null && OnTriggerEnterObj != null) OnTriggerEnterObj(null);
 		}
 	}
 }
