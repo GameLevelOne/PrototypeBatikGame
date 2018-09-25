@@ -1082,6 +1082,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114618009719712070, guid: 08355f4618f96e54996e3f1db1d9612a,
+        type: 2}
+      propertyPath: questCurrentPoint.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114618009719712070, guid: 08355f4618f96e54996e3f1db1d9612a,
+        type: 2}
+      propertyPath: questPointRequired.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4721248757488196, guid: 08355f4618f96e54996e3f1db1d9612a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1113,6 +1123,11 @@ Prefab:
     - target: {fileID: 4721248757488196, guid: 08355f4618f96e54996e3f1db1d9612a, type: 2}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114618009719712070, guid: 08355f4618f96e54996e3f1db1d9612a,
+        type: 2}
+      propertyPath: questPointRequired.Array.data[6]
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08355f4618f96e54996e3f1db1d9612a, type: 2}

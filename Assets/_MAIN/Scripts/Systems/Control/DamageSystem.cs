@@ -192,7 +192,7 @@ public class DamageSystem : ComponentSystem {
 			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
-			Debug.Log(damageTag);
+			Debug.Log(damageTag + " " + damage);
 
 			if(damageTag == Constants.Tag.HAMMER){
 				if(currEnemy.hasArmor){
