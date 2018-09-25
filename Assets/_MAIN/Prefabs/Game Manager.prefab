@@ -57,6 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isChangeScene: 0
   currentMapIdx: 0
+  menuSceneName: SceneMenu
 --- !u!114 &114618009719712070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,11 +69,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdb1a15ec94b5f4690f383536eb0add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questPointRequired: 050000000100000001000000050000000100000004000000
-  questCurrentPoint: 000000000000000000000000000000000000000000000000
+  questPointRequired: 0500000001000000010000000100000001000000040000000100000001000000
+  questCurrentPoint: 0000000000000000000000000000000000000000000000000000000000000000
   isInitQuest: 0
-  currentQuestIndex: 0
+  currentQuestIndex: 7
   isQuestProcess: 0
+  isQuestProcessForUI: 0
+  isQuestDoneForUI: 0
 --- !u!114 &114673422435175790
 MonoBehaviour:
   m_ObjectHideFlags: 1
