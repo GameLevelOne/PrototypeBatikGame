@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4732767881485360}
   - component: {fileID: 114338611473698398}
   - component: {fileID: 114560571059576912}
-  - component: {fileID: 135659231235040626}
-  - component: {fileID: 54243463245139794}
-  - component: {fileID: 114519462834418472}
+  - component: {fileID: 136504336242251366}
   m_Layer: 0
   m_Name: Sample Lootable GOLD 5
   m_TagString: Lootable
@@ -42,7 +40,7 @@ GameObject:
   - component: {fileID: 212551060249908254}
   - component: {fileID: 95436846768113946}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Lootable Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1777614115023952}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.2}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 4732767881485360}
@@ -68,28 +66,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366440290248536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.57328, y: 0.5, z: 0.56}
+  m_LocalPosition: {x: 16.716927, y: 0.4, z: 0.19877124}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4393360331821886}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &54243463245139794
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1366440290248536}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!95 &95436846768113946
 Animator:
   serializedVersion: 3
@@ -99,7 +82,7 @@ Animator:
   m_GameObject: {fileID: 1777614115023952}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3443216ddb50a2f439d1f732d3ba59d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,27 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114519462834418472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1366440290248536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 2
-  isDestroyOnTriggering: 0
-  speed: 20
-  isStartLaunching: 1
-  isDestroyOnColliding: 0
-  elevationAngle: 90
-  isLaunching: 0
-  isCollideSomething: 0
-  isSelfDestroying: 0
-  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114560571059576912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,12 +116,17 @@ MonoBehaviour:
   lootableType: 1
   mainSprite: {fileID: 0}
   lootQuantity: 5
-  initPosY: 0.6
+  initPosY: 0.4
+  destroyDuration: 3
   treasureType: 0
   initSprite: {fileID: 0}
+  keyID: 0
+  isInitLootable: 0
   isLooted: 0
---- !u!135 &135659231235040626
-SphereCollider:
+  isDestroyed: 0
+  destroyTimer: 0
+--- !u!136 &136504336242251366
+CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -167,8 +134,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212551060249908254
 SpriteRenderer:

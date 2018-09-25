@@ -45,6 +45,34 @@ public class GameStorage : MonoBehaviour {
 		set{PlayerPrefs.SetString(Constants.PlayerPrefKey.LEVEL_CURRENT,value);}
 	}
 
+	void Start () {
+		if (isTesting) {
+			PlayerCoin = initCoin;
+		}
+	}
+
+#region SINGLETON
+	private static GameStorage _instance;
+	public static GameStorage Instance {
+		get {
+			if (_instance == null) {
+				_instance = GameObject.FindObjectOfType<GameStorage>();
+			} 
+
+			return _instance;
+		}
+	}
+
+	void Awake () {
+		DontDestroyOnLoad(gameObject);
+		if (_instance != null && _instance != this) {
+			GameObject.Destroy(gameObject);			
+			// gameObject.GetComponent<GameObjectEntity>().enabled = false;
+			// gameObject.SetActive(false);
+		}
+	}
+#endregion
+
 #region  QUEST KEY / MAP
 	// public int IsCompletedLevel_1 {
 	// 	get {return PlayerPrefs.GetInt(Constants.LevelPrefKey.LEVEL_1, 0);}
@@ -129,33 +157,5 @@ public class GameStorage : MonoBehaviour {
 	// 	set {PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_LEVEL_3_3, value);
 	// 	}
 	// }
-#endregion
-
-	void Start () {
-		if (isTesting) {
-			PlayerCoin = initCoin;
-		}
-	}
-
-#region SINGLETON
-	private static GameStorage _instance;
-	public static GameStorage Instance {
-		get {
-			if (_instance == null) {
-				_instance = GameObject.FindObjectOfType<GameStorage>();
-			} 
-
-			return _instance;
-		}
-	}
-
-	void Awake () {
-		DontDestroyOnLoad(gameObject);
-		if (_instance != null && _instance != this) {
-			GameObject.Destroy(gameObject);			
-			// gameObject.GetComponent<GameObjectEntity>().enabled = false;
-			// gameObject.SetActive(false);
-		}
-	}
 #endregion
 }

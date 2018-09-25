@@ -52,6 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4267584218378434}
   - component: {fileID: 136528950449992956}
+  - component: {fileID: 114254323686938848}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -254,7 +255,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536921299500522}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 8.54, y: 0.17999995, z: 12.7300005}
+  m_LocalPosition: {x: 0, y: 0.17999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4267584218378434}
@@ -880,6 +881,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114254323686938848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198604655887824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f513bb184c2f694eae005029c6fccac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagName: 
+  tagNames:
+  - Player Slash
+  - Player Dash Attack
+  - Hammer
 --- !u!114 &114299885202916564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -940,6 +957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d4c306a4ffa16498fc5b22e591eef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animSpeedRandom: {fileID: 114299885202916564}
+  playerAttackTriggerDetection: {fileID: 114254323686938848}
+  hit: 0
 --- !u!136 &136528950449992956
 CapsuleCollider:
   m_ObjectHideFlags: 1

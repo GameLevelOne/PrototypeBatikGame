@@ -31,6 +31,7 @@ public static class Constants {
 			public const string GRASS_WAVElEFT = "WaveLeft";
 			public const string GRASS_WAVERIGHT = "WaveRight";
 			public const string FIREFLY_FLY = "Fly";
+			public const string HIT = "Hit";
 		}
 
 		public static class Bool

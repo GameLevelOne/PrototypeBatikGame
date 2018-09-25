@@ -22,6 +22,7 @@ public class SystemManagerSystem : ComponentSystem {
 	[InjectAttribute] GameStorageSystem gameStorageSystem;
 	[InjectAttribute] QuestSystem questSystem;
 	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
+	[InjectAttribute] UIPlayerInfoSystem uiPlayerInfoSystem;
 
 	SystemManager systemManager;
 
@@ -56,20 +57,29 @@ public class SystemManagerSystem : ComponentSystem {
 	void CheckSystemManager() {
 		if (systemManager.isChangeScene) {
 			try {
-				Debug.Log("Try CheckSystemManager \n isChangeScene :"+systemManager.isChangeScene);
+				Debug.Log("=====START CHECK SYSTEM MANAGER=====");
+				Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
+				int currentMapIdx = systemManager.currentMapIdx;
 
+				if (GameStorage.Instance.CurrentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS
-				gameStorageSystem.SaveState();
+					Debug.Log("Save State by gameStorageSystem");
+					gameStorageSystem.SaveState();
 
-				//LOAD MAP STATS
-				CheckCurrentMap(systemManager.currentMapIdx);
-				Debug.Log("CheckCurrentMap : "+systemManager.currentMapIdx);
+					//LOAD MAP STATS
+					Debug.Log("CheckCurrentMap : Completed Quest & Dissolver");
+					CheckCurrentMap(currentMapIdx);
+				
+					//SET MAP NAME 
+					Debug.Log("Check Map name by uiPlayerInfoSystem");
+					uiPlayerInfoSystem.SetMapName(currentMapIdx);
+				}
 			} catch (System.Exception e) {
 				Debug.Log("ERROR : "+e);
 				return;
 			}
 
-			Debug.Log("Finish CheckSystemManager \n isChangeScene :"+systemManager.isChangeScene);
+			Debug.Log("=====FINISH CHECK SYSTEM MANAGER=====");
 			SetSystems (true);
 			systemManager.isChangeScene = false;
 		}
@@ -85,8 +95,8 @@ public class SystemManagerSystem : ComponentSystem {
 	void CheckCurrentMap (int mapIdx) {
 		// switch (mapIdx) {
 		// 	case 4:
-				Debug.Log("CheckIfQuestIsComplete "+mapIdx+" : "+questSystem.CheckIfQuestIsComplete(mapIdx));
-				Debug.Log("CheckCurrentLevelbyQuest "+mapIdx+" : "+areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx));
+				// Debug.Log("CheckIfQuestIsComplete "+mapIdx+" : "+questSystem.CheckIfQuestIsComplete(mapIdx));
+				// Debug.Log("CheckCurrentLevelbyQuest "+mapIdx+" : "+areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx));
 
 				if (questSystem.CheckIfQuestIsComplete(mapIdx)) {
 					if (areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx)) {

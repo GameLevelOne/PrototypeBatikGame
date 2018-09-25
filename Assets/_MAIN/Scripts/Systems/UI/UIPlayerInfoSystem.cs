@@ -7,8 +7,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	public struct UIPlayerInfoData {
 		public readonly int Length;
 		public ComponentArray<UIInfo> UIInfo;
-		public ComponentArray<UIPlayerStatus> UIPlayerStatus;
-		public ComponentArray<UIToolsNSummons> UIToolsNSummons;
+		// public ComponentArray<UIPlayerStatus> UIPlayerStatus;
+		// public ComponentArray<UIToolsNSummons> UIToolsNSummons;
 	}
 	[InjectAttribute] UIPlayerInfoData uiPlayerInfoData;
 	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
@@ -17,8 +17,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	[InjectAttribute] UIQuestSystem uiQuestSystem;
 
 	UIInfo uiInfo;
-	UIPlayerStatus uiPlayerStatus;
-	UIToolsNSummons uiToolsNSummons;
+	// UIPlayerStatus uiPlayerStatus;
+	// UIToolsNSummons uiToolsNSummons;
 
 	Animator animator;
 
@@ -45,8 +45,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 		for (int i=0; i<uiPlayerInfoData.Length; i++) {
 			uiInfo = uiPlayerInfoData.UIInfo[i];
-			uiPlayerStatus = uiPlayerInfoData.UIPlayerStatus[i];
-			uiToolsNSummons = uiPlayerInfoData.UIToolsNSummons[i];
+			// uiPlayerStatus = uiPlayerInfoData.UIPlayerStatus[i];
+			// uiToolsNSummons = uiPlayerInfoData.UIToolsNSummons[i];
 			
 			animator = uiInfo.animator;
 			// showMultiplier = uiInfo.showMultiplier;
@@ -88,8 +88,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	void InitTool () {
 		listOfToolsNSummons = new List<ButtonToolNSummon>();
 
-		for (int i=0; i<uiToolsNSummons.listOfButtonToolsNSummons.Count; i++) {
-			listOfToolsNSummons.Add(uiToolsNSummons.listOfButtonToolsNSummons[i].GetComponent<ButtonToolNSummon>());
+		for (int i=0; i<uiInfo.listOfButtonToolsNSummons.Count; i++) {
+			listOfToolsNSummons.Add(uiInfo.listOfButtonToolsNSummons[i].GetComponent<ButtonToolNSummon>());
 		}
 
 		// CheckUnlockedButton ();
@@ -138,16 +138,16 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				selectedToolNSummonIdx = i;
 				// EventSystem.current.SetSelectedGameObject(null);
 				// uiToolsNSummons.listOfButtonToolsNSummons[i].Select();
-				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+				uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 				ChangeSelectedButtonSprite(i);
 				
 			} else {
 				if (CheckIfToolHasBeenUnlocked(i)) {
-					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+					uiInfo.listOfButtonToolsNSummons[i].interactable = true;
 					ChangeUnSelectedButtonSprite(i);
 					// Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
 				} else {
-					uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+					uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 					ChangeUnSelectedButtonSprite(i);
 				}
 			}
@@ -155,18 +155,18 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void ChangeSelectedButtonSprite (int idx) {
-		ToolType buttonType = uiToolsNSummons.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
+		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType != ToolType.Container1 && buttonType != ToolType.Container2 && buttonType != ToolType.Container3 && buttonType != ToolType.Container4) {
-			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.selectedToolSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.selectedToolSprite;
 		}
 	}
 
 	void ChangeUnSelectedButtonSprite (int idx) {
-		ToolType buttonType = uiToolsNSummons.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
+		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
-			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initContainerSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initContainerSprite;
 		} else {
-			uiToolsNSummons.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initToolSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initToolSprite;
 		}
 	}
 
@@ -174,7 +174,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		for (int i=0; i<listOfToolsNSummons.Count; i++) {
 			if (i == selectedToolNSummonIdx) {
 				usedToolNSummonIdx = i;
-				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
+				uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 
 				ChangeSelectedButtonSprite(i);
 
@@ -183,7 +183,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				// PRINT TOOL ON TOOLSSELECTIONSYSTEM
 				uiToolsSelectionSystem.InitImages(true);
 			} else {
-				uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
+				uiInfo.listOfButtonToolsNSummons[i].interactable = true;
 
 				ChangeUnSelectedButtonSprite(i);
 			}
@@ -228,20 +228,20 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void SelectTool (int idx) {
-		uiToolsNSummons.listOfButtonToolsNSummons[idx].Select();
+		uiInfo.listOfButtonToolsNSummons[idx].Select();
 	}
 
-	public void PrintHP (string value) {
-		uiPlayerStatus.textHP.text = value;
-	}
+	// public void PrintHP (string value) {
+	// 	uiPlayerStatus.textHP.text = value;
+	// }
 
-	public void PrintMP (string value) {
-		uiPlayerStatus.textMP.text = value;
-	}
+	// public void PrintMP (string value) {
+	// 	uiPlayerStatus.textMP.text = value;
+	// }
 
-	public void PrintTool (string value) {
-		uiPlayerStatus.textTool.text = value;
-	}
+	// public void PrintTool (string value) {
+	// 	uiPlayerStatus.textTool.text = value;
+	// }
 
 	void CheckShowingInfo () {
 		if (isShowingInfo) {
@@ -307,15 +307,27 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	void SetContainerImage (LootableType type, int toolSpriteIdx) {
 		switch (type) {
 			case LootableType.HP_POTION:
-				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.hpPotSprite;
+				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.hpPotSprite;
 				break;
 			case LootableType.MANA_POTION:
-				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.mpPotSprite;
+				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.mpPotSprite;
 				break;
 			case LootableType.NONE:
-				uiToolsNSummons.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.initContainerSprite;
+				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].image.sprite = uiInfo.initContainerSprite;
 				break;
 		}
+	}
+
+	//CHECK PLAYER LOCATION
+	public void SetMapName (int mapIdx) {
+#region DEVELOP
+		if (GameStorage.Instance.CurrentScene == "ECS Movement 3D") {
+			mapIdx = 0;
+		}
+#endregion
+
+		uiInfo.areaName.text = uiInfo.areaNames[mapIdx];
+		uiInfo.playerIndicator.localPosition = uiInfo.areaCoordinates[mapIdx].localPosition;
 	}
 
 #region OLD Show & Hide

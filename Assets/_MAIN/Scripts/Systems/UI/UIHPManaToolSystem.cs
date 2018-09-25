@@ -95,12 +95,12 @@ public class UIHPManaToolSystem : ComponentSystem {
 		currentClothWidth = (playerHP/maxHP) * maxClothWidth;
 		isReducingCloth = true;
 		uiHPManaTool.isHPChange = false;
-		PrintHP ();
+		// PrintHP ();
 	}
 
-	void PrintHP () {
-		uiPlayerInfoSystem.PrintHP(playerHP.ToString()+" / "+maxHP);
-	}
+	// void PrintHP () {
+	// 	uiPlayerInfoSystem.PrintHP(playerHP.ToString()+" / "+maxHP);
+	// }
 
 	public void PrintMana () {
 		playerMP = uiHPManaTool.playerMana.PlayerMP;
@@ -108,13 +108,13 @@ public class UIHPManaToolSystem : ComponentSystem {
 		// Debug.Log("playerMP "+playerMP);
 		uiHPManaTool.imageMana.fillAmount = playerMP/maxMP;
 		uiHPManaTool.isMPChange = false;
-		uiPlayerInfoSystem.PrintMP(playerMP.ToString()+" / "+maxMP);
+		// uiPlayerInfoSystem.PrintMP(playerMP.ToString()+" / "+maxMP);
 	}
 
 	public void PrintTool (Sprite toolSprite, string toolName) {
 		uiHPManaTool.imageTool.sprite = toolSprite;
 		// Debug.Log(toolSprite.name);
-		uiPlayerInfoSystem.PrintTool(toolName);
+		// uiPlayerInfoSystem.PrintTool(toolName);
 	}
 
 	void DrawClothHP () {

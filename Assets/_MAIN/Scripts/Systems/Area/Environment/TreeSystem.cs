@@ -10,23 +10,24 @@ public class TreeSystem : ComponentSystem {
 	}
 
 	[InjectAttribute] public TreeComponent treeComponent;
-	public Tree currTree;
-	public Animator currTreeAnim;
+	public Tree tree;
+	public Animator treeAnim;
 
 	protected override void OnUpdate()
 	{
-		// for(int i = 0;i<treeComponent.Length;i++){
-		// 	currTree = treeComponent.tree[i];
-		// 	currTreeAnim = treeComponent.treeAnim[i];
+		for(int i = 0;i<treeComponent.Length;i++){
+			tree = treeComponent.tree[i];
+			treeAnim = treeComponent.treeAnim[i];
 
-		// 	InitTree();
-		// }
-
+			CheckHit();
+		}
 	}
 
-	void InitTree()
+	void CheckHit()
 	{
-		
+		if(tree.hit){
+			tree.hit = false;
+			treeAnim.SetTrigger(Constants.AnimatorParameter.Trigger.HIT);
+		}
 	}
-
 }

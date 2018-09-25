@@ -15,7 +15,6 @@ public class GainTreasureSystem : ComponentSystem {
 	PlayerInput input;
 	PlayerState state;
 	Player player;
-	Lootable lootable;
 
 	protected override void OnUpdate () {
 		if (gainTreasureData.Length == 0) return;
@@ -28,27 +27,36 @@ public class GainTreasureSystem : ComponentSystem {
 
 		for (int i=0; i<gainTreasureData.Length; i++) {
 			gainTreasure = gainTreasureData.GainTreasure[i];
-			player = gainTreasure.player;
-			state = player.state;
+			
+			if (!gainTreasure.isInitGainTreasure) {
+				InitGainTreasureSystem();
+			} else {
+				player = gainTreasure.player;
+				state = player.state;
 
-			if (gainTreasure.isLooting && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-				lootable = gainTreasure.lootable;
-
-				switch (lootable.treasureType) {
-					case TreasureType.NONE: 
-						UseAndDestroyTreasure();
-						break;
-					default: //TEMP
-						SetLiftObjectParent (gainTreasure.lootableTransform);
-						// input.interactValue = 0;
-						input.interactValue = 1; //NO LIFTING TREASURE
-						input.interactMode = 6;
-						player.SetPlayerState(PlayerState.GET_TREASURE);
-						break;
-				}
-
-				gainTreasure.isLooting = false;
+				CheckLootedItem();
 			}
+		}
+	}
+
+	void InitGainTreasureSystem () {
+		//
+		gainTreasure.isInitGainTreasure = true;
+	}
+
+	void CheckLootedItem () {
+		if (gainTreasure.isLootingStandard) {
+			UseAndDestroyTreasure();
+			
+			gainTreasure.isLootingStandard = false;
+		} else if (gainTreasure.isLootingTreasure) {
+			SetLiftObjectParent (gainTreasure.lootableTransform);
+			// input.interactValue = 0;
+			input.interactValue = 1; //NO LIFTING TREASURE
+			input.interactMode = 6;
+			player.SetPlayerState(PlayerState.GET_TREASURE);
+			
+			gainTreasure.isLootingTreasure = false;
 		}
 	}
 
@@ -58,6 +66,8 @@ public class GainTreasureSystem : ComponentSystem {
 	}
 
 	public void UseTreasure () {
+		Lootable lootable = gainTreasure.lootable;
+		
 		switch (lootable.treasureType) { //TEMP
 			case TreasureType.FISH: 
 				lootable.initSprite.SetActive(false);
@@ -68,26 +78,24 @@ public class GainTreasureSystem : ComponentSystem {
 					//SEND QUEST TRIGGER
 					gainTreasure.questTrigger.isDoQuest = true;
 				} else {
-					Debug.Log("No Quest Triggered");
+					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure POWERARROW");
 				}
 
 				toolSystem.tool.Bow = 1;
-				toolSystem.tool.isInitCurrentTool = false;
-				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
-				Debug.Log("RESET TOOL"); 
+				ResetTool();
+				Debug.Log("RESET TOOL after got FIREARROW"); 
 				break;
 			case TreasureType.FISHINGROD: 
 				if (gainTreasure.questTrigger != null) {
 					//SEND QUEST TRIGGER
 					gainTreasure.questTrigger.isDoQuest = true;
 				} else {
-					Debug.Log("No Quest Triggered");
+					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure FISHINGROD");
 				}
 
 				toolSystem.tool.FishingRod = 1;
-				toolSystem.tool.isInitCurrentTool = false;
-				uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
-				Debug.Log("RESET TOOL"); 
+				ResetTool();
+				Debug.Log("RESET TOOL after got FISHINGROD");
 				break;
 			case TreasureType.KEY: 
 				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + lootable.keyID, 1);
@@ -99,31 +107,11 @@ public class GainTreasureSystem : ComponentSystem {
 	}
 
 	public void UseAndDestroyTreasure () {
-		//PROCESS LOOTABLE ITEM
-		int lootQTY = 0;
-		LootableType lootableType = lootable.lootableType;
+		gainTreasure.lootable.isLooted = true;
+	}
 
-		if (lootableType != LootableType.NONE) {
-			lootQTY = lootable.lootQuantity;
-			Debug.Log("You got "+lootQTY+" "+lootableType);
-			switch (lootableType) { //TEMP
-				case LootableType.GOLD: 
-					GameStorage.Instance.PlayerCoin += lootQTY;
-					break;
-				case LootableType.HP_POTION: 
-					player.health.PlayerHP += lootQTY;
-					break;
-				case LootableType.MANA_POTION: 
-					player.mana.PlayerMP += lootQTY;
-					break;
-				default:
-					Debug.Log("Unknown LootableType : "+lootableType);
-					break;
-			}
-		}
-
-		//DESTROY LOOTABLE ITEM
-		GameObject.Destroy(gainTreasure.lootableTransform.gameObject);
-		UpdateInjectedComponentGroups();
+	void ResetTool () {
+		toolSystem.tool.isInitCurrentTool = false;
+		uiToolsSelectionSystem.uiToolsSelection.isInitToolImage = false;
 	}
 }

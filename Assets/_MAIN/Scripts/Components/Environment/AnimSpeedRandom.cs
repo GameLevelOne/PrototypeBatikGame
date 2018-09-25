@@ -6,7 +6,6 @@ public class AnimSpeedRandom : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public float animSpeed;
 	public bool initRandomSpeed = false;
-
 	
 	void OnIdleEnd()
 	{
