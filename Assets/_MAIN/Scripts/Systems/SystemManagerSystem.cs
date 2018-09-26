@@ -88,6 +88,7 @@ public class SystemManagerSystem : ComponentSystem {
 	}
 
 	public void SetSystems (bool value) {
+		// Debug.Log("Set system to "+value);
 		playerInputSystem.Enabled = value;
 		damageSystem.Enabled = value;
 	}
