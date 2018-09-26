@@ -17,6 +17,8 @@ public class UIGameOverSystem : ComponentSystem {
 
 	[InjectAttribute]UIGameOverComponent uiGameOverComponent;
 	UIGameOver uiGameOver;
+	bool curDownPressed = false;
+	bool curUpPressed = false;
 
 	protected override void OnUpdate()
 	{
@@ -41,24 +43,29 @@ public class UIGameOverSystem : ComponentSystem {
 	void CheckInput()
 	{
 		if(uiGameOver.endShow){
-			if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.DownArrow)){
+			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
+				curDownPressed = true;
 				// uiGameOver.buttonBackToMainMenu.Select();
 				Debug.Log("BACK TO MAIN MENU SELECTED");
 				EventSystem.current.SetSelectedGameObject(null);
 				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonBackToMainMenu.gameObject);	
 				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);			
+			} else if (!GameInput.IsDownDirectionHeld) {
+				curDownPressed = false;
 			}
 
-			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)){
+			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
+				curUpPressed = true;
 				// uiGameOver.buttonRestart.Select();
 				Debug.Log("RESTART SELECTED");
 				EventSystem.current.SetSelectedGameObject(null);
 				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonRestart.gameObject);		
 				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);
-						
+			} else if (!GameInput.IsUpDirectionHeld) {
+				curUpPressed = false;						
 			}
 
-			if(Input.GetKeyDown(KeyCode.Return)){
+			if(GameInput.IsAttackPressed){
 				uiGameOver.endShow = false;
 				// uiGameOver.gameOverAnim.SetBool("Show",false);
 				uiGameOver.panel.SetActive(false);

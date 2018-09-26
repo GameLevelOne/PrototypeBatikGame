@@ -37,6 +37,8 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	// float hideMultiplier;
 	// float alphaValue;
 	// float deltaTime;
+	bool curDownPressed;
+	bool curUpPressed;
 
 	protected override void OnUpdate () {
 		if (uiPlayerInfoData.Length == 0) return;
@@ -75,6 +77,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		// timeSwitch = 1;
 		// alphaValue = 0f;
 
+		curDownPressed = false;
+		curUpPressed = false;
+
 		if (Time.timeScale == 0) {
 			Time.timeScale = 1;
 		}
@@ -98,19 +103,30 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	void CheckInput () {
 		if (!isShowingInfo) {
-			if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.JoystickButton8)) { //ESCAPE / START (Gamepad)
+			if (GameInput.IsInventoryPressed) { //ESCAPE / START (Gamepad)
 				// isInitShowInfo = false;
 				CheckActiveTool ();
 				isShowingInfo = true;
 			}
 		} else {
-			if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton11)) { //ESCAPE / START (Gamepad)
+			if (GameInput.IsInventoryPressed || GameInput.IsDodgePressed) { //ESCAPE / START (Gamepad)
 				isShowingInfo = false;
-			} else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+			}
+			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
+				curUpPressed = true;
 				PrevButtonTool ();
-			} else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+			} else if (!GameInput.IsUpDirectionHeld) {
+				curUpPressed = false;
+			}
+			
+			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
+				curDownPressed = true;
 				NextButtonTool ();
-			} else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.JoystickButton1)) {
+			} else if (!GameInput.IsDownDirectionHeld) {
+				curDownPressed = false;
+			}
+			
+			if (GameInput.IsAttackPressed) {
 				SetSelectedTool ();
 			}
 		}

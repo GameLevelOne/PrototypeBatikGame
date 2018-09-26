@@ -78,15 +78,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 			facing = animationData.Facing[i];
 			playerTransform = animationData.Transform[i];
 			
+			state = player.state;
+			animator = anim.animator; 
+			moveDir = input.moveDir;
+
 			if (!anim.isInitAnimation) {
 				InitAnimation();
 
 				continue;
 			}
-
-			state = player.state;
-			animator = anim.animator; 
-			moveDir = input.moveDir;
 			
 			CheckPlayerState ();
 			CheckAnimation ();
@@ -284,7 +284,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.CHARGE:
-					// player.isMoveAttack = true;
 					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK);
 					break;
 				case PlayerState.DASH: 
@@ -454,9 +453,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (state == PlayerState.DODGE) {
 					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, currentMoveDir.x);
 					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, currentMoveDir.z);
-					SetFacingDirID (currentMoveDir.x, currentMoveDir.z);
+					// SetFacingDirID (currentMoveDir.x, currentMoveDir.z);
+					SetFacingDirID(CheckDirID(currentMoveDir.x, currentMoveDir.z));
 				} else {
-					SetFacingDirection ();
+					SetFacingDirID(input.direction);
+					// SetFacingDirection ();
 				}
 
 				// SetFaceDir (Constants.AnimatorParameter.Float.FACE_X, currentMove.x, false);
@@ -474,6 +475,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
 			CheckStartAnimation ();
+			Debug.Log("CheckStartAnimation");	
 		} else if (!anim.isCheckAfterAnimation) {
 			CheckEndAnimation ();
 		}
@@ -483,12 +485,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (!anim.isSpawnSomethingOnAnimation) {
 			switch(state) {
 				case PlayerState.ATTACK: 
-					player.isMoveAttack = false;
+					// player.isMoveAttack = false;
 					attack.isAttacking = true;	
 					isFinishAttackAnimation	= true;	
 					break;
 				case PlayerState.CHARGE: 
-					player.isMoveAttack = false;
+					// player.isMoveAttack = false;
 					attack.isAttacking = true;
 					break;
 				case PlayerState.RAPID_SLASH:
@@ -531,7 +533,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		switch(state) {
 			case PlayerState.ATTACK: 
 				player.isMoveAttack = true;
-				// attack.isAttacking = true;				
+				// attack.isAttacking = true;	
+				Debug.Log("player.isMoveAttack = true");			
 				break;
 			case PlayerState.CHARGE: 
 				player.isMoveAttack = true;
@@ -888,33 +891,33 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetFacingDirection () {
-		if (input.isLockDir) {
-			int dirID = input.direction + 1;
+	// void SetFacingDirection () {
+	// 	if (input.isLockDir) {
+	// 		int dirID = input.direction + 1;
 			
-			switch (dirID) {
-				case 1:
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
-					break;
-				case 2:
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
-					break;
-				case 3:
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
-					break;
-				case 4:
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
-					animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
-					break;
-			}
+	// 		switch (dirID) {
+	// 			case 1:
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
+	// 				break;
+	// 			case 2:
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+	// 				break;
+	// 			case 3:
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
+	// 				break;
+	// 			case 4:
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
+	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+	// 				break;
+	// 		}
 
-			SetFacingDirID(dirID);
-			input.isLockDir = false;
-		}
-	}
+	// 		SetFacingDirID(dirID);
+	// 		input.isLockDir = false;
+	// 	}
+	// }
 
 	// void SetFaceDir (string animName, float animValue, bool isVertical) {
 	// 	// Vector2 movement = input.moveDir;
@@ -932,16 +935,35 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 	// }
 	// }
 
-	void SetFacingDirID (float x, float z) {
-		currentDirID = CheckDirID(x, z);
-		facing.DirID = currentDirID;
+	// void SetFacingDirID (float x, float z) {
+	// 	currentDirID = CheckDirID(x, z);
+	// 	facing.DirID = currentDirID;
 
-		// uvAnimationSystem.SetMaterial(currentDirID-1);
-	}
+	// 	// uvAnimationSystem.SetMaterial(currentDirID-1);
+	// }
 
 	void SetFacingDirID (int dirID) {
 		currentDirID = dirID;
 		facing.DirID = currentDirID;
+	
+		switch (dirID) {
+			case 1:
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
+				break;
+			case 2:
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+				break;
+			case 3:
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
+				break;
+			case 4:
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
+				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+				break;
+		}
 	}
 
 	void ReverseDir () {

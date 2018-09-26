@@ -21,7 +21,7 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 Up<br /></para>
 	/// <para>3 Right<br /></para>
 	/// </summary>
-	public List<int> dirButtons	= new List<int>(4);
+	// public List<int> dirButtons	= new List<int>(4);  
 
 	// public List<int> slashComboVal;
 
@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 Up<br /></para>
 	/// <para>3 Right<br /></para>
 	/// </summary>
-	public int direction = 0;
+	public int direction = 1;
 	
 	/// <summary>
     /// <para>Values: <br /></para>

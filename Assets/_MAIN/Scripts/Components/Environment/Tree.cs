@@ -15,7 +15,8 @@ public class Tree : MonoBehaviour {
 
     void OnDisable()
     {
-         playerAttackTriggerDetection.OnTriggerEnterObj -= OnTriggerEnterObj;
+        if (playerAttackTriggerDetection!=null)
+            playerAttackTriggerDetection.OnTriggerEnterObj -= OnTriggerEnterObj;
     }
 #endregion
 

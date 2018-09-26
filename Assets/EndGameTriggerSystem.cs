@@ -20,9 +20,9 @@ public class EndGameTriggerSystem : ComponentSystem {
 			} else if (endGameTrigger.isTriggered) {
 				//PLAY END GAME
 				endGameTrigger.UIEndGame.call = true;
-				// playerInputSystem.SetDir(0f, 0f, 0f);
-				playerInputSystem.ChangeDir(0f, 1f);
-				playerInputSystem.CheckLockDir(2, 1, 3);
+				playerInputSystem.SetDir(0f,1f);
+				// playerInputSystem.ChangeDir(0f, 1f);
+				// playerInputSystem.CheckLockDir(2, 1, 3);
 		
 				endGameTrigger.triggerCol.enabled = false;
 

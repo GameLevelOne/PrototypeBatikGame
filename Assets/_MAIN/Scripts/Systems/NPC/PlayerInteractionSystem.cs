@@ -31,7 +31,7 @@ public class PlayerInteractionSystem : ComponentSystem {
 	void CheckIfPlayerIsCanInteract () {
 		if (!player.isCanInteractWithNPC) return;
 
-		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
+		if (GameInput.IsAttackPressed) {
 			if (!player.isInteractingWithNPC) {
 				player.isInteractingWithNPC = true;
 				currentNPC.player = playerInteract.player;

@@ -1776,7 +1776,6 @@ MonoBehaviour:
   isLockDir: 0
   isInitPlayerInput: 0
   isInitChargeAttack: 0
-  dirButtons: 00000000000000000000000000000000
   currMoveDir: {x: 0, y: 0, z: 0}
   direction: 0
   moveMode: 0
@@ -1837,6 +1836,7 @@ MonoBehaviour:
   mana: {fileID: 114901627235131250}
   state: 0
   playerCol: {fileID: 136916452541748184}
+  uiGameOver: {fileID: 0}
   shieldPower: 5
   somethingThatHitsPlayer: {fileID: 0}
   isInitPlayer: 0
@@ -1929,7 +1929,6 @@ MonoBehaviour:
   enemy: {fileID: 0}
   jatayu: {fileID: 0}
   healthPower: 100
-  isTestHealth: 1
 --- !u!114 &114270379899339828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2492,8 +2491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mana: 100
   manaRegenPerSecond: 0.5
-  isTestMana: 1
-  isInitMana: 0
+  isInitMana: 1
 --- !u!114 &114915294150666794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2552,10 +2550,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 114208348427726864}
+  questTrigger: {fileID: 0}
   liftingTreasureParent: {fileID: 4193628469184114}
   lootable: {fileID: 0}
   lootableTransform: {fileID: 0}
-  isLooting: 0
+  isInitGainTreasure: 0
+  isLootingStandard: 0
+  isLootingTreasure: 0
 --- !u!114 &114971732195158082
 MonoBehaviour:
   m_ObjectHideFlags: 1
