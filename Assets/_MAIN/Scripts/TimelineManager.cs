@@ -31,7 +31,7 @@ public class TimelineManager : MonoBehaviour {
 		// if (isTesting) {
 		// 	SetPlayableAsset(initPlayableAssetIndex);
 		// }
-		// PlayerPrefs.DeleteAll();
+		PlayerPrefs.DeleteAll();
 		// if (!IsAlreadyPlayedTimeline()) {
 		// 	playerEntity.enabled = false;
 		// 	playableDirector.Play();
@@ -112,7 +112,7 @@ public class TimelineManager : MonoBehaviour {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
 		Debug.Log("OnEndBossArea TIMELINE");
-		SavePlayedTimeline ();
+		//SavePlayedTimeline ();
 	}
 
 	void ResumeBossFightTimeline()
