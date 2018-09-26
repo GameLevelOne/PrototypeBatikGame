@@ -111,7 +111,6 @@ public class DamageSystem : ComponentSystem {
 			} else if (damageTag == Constants.Tag.VINES || damageTag == Constants.Tag.EXPLOSION) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
 					player.isPlayerKnockedBack = true;
-
 					player.SetPlayerState(PlayerState.GET_HURT);
 					
 					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
