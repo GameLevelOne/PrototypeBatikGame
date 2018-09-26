@@ -28,6 +28,7 @@ public class TreeSystem : ComponentSystem {
 		if(tree.hit){
 			tree.hit = false;
 			treeAnim.SetTrigger(Constants.AnimatorParameter.Trigger.HIT);
+			tree.particle.Play();
 		}
 	}
 }

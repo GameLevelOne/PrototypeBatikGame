@@ -169,7 +169,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 114206728802923788}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
@@ -178,9 +178,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 48e12a7c39aa4504d82c250d5675d4f6,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 956a77cb360b33b42bc4294bd9c71514, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 956a77cb360b33b42bc4294bd9c71514, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -237,7 +238,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6c73c2102e211a24db1bd0afd23b0e6c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67bb2598aee163b40b328e46b541ae83, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -374,7 +375,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 879367667
-  m_SortingOrder: 10
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &224038833897502416
 RectTransform:
@@ -441,7 +442,7 @@ RectTransform:
   m_GameObject: {fileID: 1858555546706760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.3279307, y: 2.327931, z: 2.327931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224816092804151492}
   m_RootOrder: 2
@@ -449,7 +450,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.7}
   m_AnchorMax: {x: 0.5, y: 0.7}
   m_AnchoredPosition: {x: 0, y: -564.5685}
-  m_SizeDelta: {x: 344.47, y: 110.400024}
+  m_SizeDelta: {x: 621, y: 216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224933375637674898
 RectTransform:
