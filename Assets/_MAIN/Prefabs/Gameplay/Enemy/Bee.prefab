@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 114192858536650812}
   - component: {fileID: 54376920006224740}
   - component: {fileID: 135595323353586452}
+  - component: {fileID: 114300505047210380}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Enemy
@@ -743,6 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Player
+  tagNames: []
 --- !u!114 &114192858536650812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -820,6 +822,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114300505047210380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951058270258266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageChar: 0
+  damage: 1
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114419766482999080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -852,7 +870,6 @@ MonoBehaviour:
   enemy: {fileID: 114259807309887138}
   jatayu: {fileID: 0}
   healthPower: 10
-  isTestHealth: 0
 --- !u!114 &114887913359553144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -877,9 +894,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 114259807309887138}
   questTrigger: {fileID: 0}
+  chestSpawner: {fileID: 0}
   playerTriggerDetection: {fileID: 114094072571811210}
   attackRangeTrigger: {fileID: 114887913359553144}
   attackCodeFX: {fileID: 198721295839033352}
+  beeHive: {fileID: 0}
   startledRange: 5
   beeHiveTransform: {fileID: 0}
   initStartled: 0

@@ -33,6 +33,8 @@ public class Player : MonoBehaviour {
 	// public Transform playerWeaponPos;
 	public Collider playerCol;
 	public UIGameOver uiGameOver;
+	public GameObject playerAttackAreaObj;
+	public Transform liftingParent;
 	public float shieldPower;
 	
 	[HeaderAttribute("Current")]
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour {
 	public bool isCanFishing = false;
 	public bool isCanInteractWithNPC = false;
 	public bool isInteractingWithNPC = false;
+	public bool isInitAttackAreaObj = false;
 	
 	//JATAYU
 	public bool isHitJatayuAttack2 = false;
@@ -139,6 +142,10 @@ public class Player : MonoBehaviour {
 		if (col.gameObject.tag == Constants.Tag.GATE) {
 			isHitGateObject = true;
 		}
+
+		if (col.gameObject.tag == Constants.Tag.ENEMY || col.gameObject.tag == Constants.Tag.BOSS) {
+			somethingThatHitsPlayer = col.transform;
+		}
 	}
 
 	void OnCollisionExit (Collision col) {
@@ -187,7 +194,7 @@ public class Player : MonoBehaviour {
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState playerState) {
 		// if (playerState == PlayerState.MOVE) Debug.Log("Move");
-		if (playerState == PlayerState.RAPID_SLASH) Debug.Log("RAPID_SLASH");
+		// if (playerState == PlayerState.RAPID_SLASH) Debug.Log("RAPID_SLASH");
 		state = playerState;
 	}
 

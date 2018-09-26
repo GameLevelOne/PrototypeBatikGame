@@ -299,7 +299,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (GameInput.IsLeftDirectionHeld)
 			dirX -= 1f;
 
-		Debug.Log("Input Dir: "+dirX+","+dirZ);
+		// Debug.Log("Input Dir: "+dirX+","+dirZ);
 
 		SetDir(dirX,dirZ);
 
@@ -809,7 +809,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// Debug.Log("isPlayerHit : "+player.isPlayerHit+"\n isCanBulletTime : "+player.isCanBulletTime);
 
 		if (isBulletTimePeriod) {
-			if (player.isPlayerHit && player.isCanBulletTime) {	
+			if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
 				isBulletTimePeriod = false;
 				player.isCanBulletTime = false;
 				// ChangeDir(0f, 0f);

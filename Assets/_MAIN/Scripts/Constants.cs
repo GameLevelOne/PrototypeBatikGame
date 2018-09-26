@@ -54,6 +54,7 @@ public static class Constants {
 	{
 		public const string PLAYER = "Player"; 
 		public const string ENEMY = "Enemy"; 
+		public const string BOSS = "Boss"; 
 		public const string PLAYER_SLASH = "Player Slash";
 		public const string PLAYER_DASH_ATTACK = "Player Dash Attack"; 
 		public const string PLAYER_COUNTER = "Player Counter"; 

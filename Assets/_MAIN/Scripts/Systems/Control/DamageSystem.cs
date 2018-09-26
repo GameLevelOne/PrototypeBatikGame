@@ -85,7 +85,7 @@ public class DamageSystem : ComponentSystem {
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
 
-			if (damageTag == Constants.Tag.ENEMY_ATTACK) {
+			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.ENEMY || damageTag == Constants.Tag.BOSS) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
 					player.isPlayerKnockedBack = true;
 					

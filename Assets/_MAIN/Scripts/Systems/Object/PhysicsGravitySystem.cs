@@ -8,13 +8,15 @@ public class PhysicsGravitySystem : ComponentSystem {
 	}
 	[InjectAttribute] RigidbodyData rigidbodyData;
 
-	Rigidbody rigidbody;
+	// public struct PlayerRigidbodyData {
+	// 	public readonly int Length;
+	// 	public ComponentArray<Player> Player;
+	// }
+	// [InjectAttribute] PlayerRigidbodyData playerRigidbodyData;
 
 	protected override void OnUpdate () {
-		if (rigidbodyData.Length == 0) return;
-
 		for (int i=0; i<rigidbodyData.Length; i++) {
-			rigidbody = rigidbodyData.Rigidbody[i];
+			Rigidbody rigidbody = rigidbodyData.Rigidbody[i];
 
 			if (rigidbody.useGravity) {
 				float mass = rigidbody.mass;
@@ -23,5 +25,13 @@ public class PhysicsGravitySystem : ComponentSystem {
 				// rigidbody.useGravity = false;
 			}
 		}
+
+		// for (int i=0; i<playerRigidbodyData.Length; i++) {
+		// 	Player player = playerRigidbodyData.Player[i];
+
+		// 	if (player.playerInteractionRB.IsSleeping()) {
+		// 		player.playerInteractionRB.WakeUp();
+		// 	}
+		// }
 	}
 }
