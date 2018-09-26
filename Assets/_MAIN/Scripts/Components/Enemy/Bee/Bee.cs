@@ -67,5 +67,10 @@ public class Bee : MonoBehaviour {
 	{
 		enemy.initAttack = false;
 	}
+
+	void OnEndDamaged()
+	{
+		enemy.isFinishDamaged = true;
+	}
 	#endregion
 }

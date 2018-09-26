@@ -9,9 +9,17 @@ public class Ghost : MonoBehaviour {
 	public SpriteRenderer sprite;
 	public ParticleSystem particle;
 	public ParticleSystem attackCodeFX;
+	public ParticleSystem hitParticle;
 	public Vector3 origin;
 
 	public bool isAttacking = false;
+	public float damagedDuration;
+
+	protected float tDamaged;
+	public float TDamaged{
+		get{return tDamaged;}
+		set{tDamaged = value;}
+	}
 
 	void OnEnable()
 	{
@@ -55,5 +63,9 @@ public class Ghost : MonoBehaviour {
 	{
 		enemy.initAttack = false;
 	}
-	
+
+	// void OnEndDamaged()
+	// {
+	// 	enemy.isFinishDamaged = true;
+	// }	
 }

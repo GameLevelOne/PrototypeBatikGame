@@ -783,11 +783,12 @@ MonoBehaviour:
   chaseRange: 10
   patrolSpeed: 1.5
   chaseSpeed: 2.5
+  knockBackSpeed: 3
   idleDuration: 3
-  damagedDuration: 0
   dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
+  damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
@@ -797,6 +798,7 @@ MonoBehaviour:
   initDie: 0
   attackHit: 0
   hasArmor: 0
+  isFinishDamaged: 0
   isHit: 0
   damageReceive: {fileID: 0}
 --- !u!114 &114272828399055306
@@ -834,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageChar: 0
-  damage: 1
+  damage: 3
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0

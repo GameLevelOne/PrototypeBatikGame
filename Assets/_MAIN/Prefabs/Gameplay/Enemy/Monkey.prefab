@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 54843693115904574}
   - component: {fileID: 136116033484910172}
   - component: {fileID: 114937294274383336}
+  - component: {fileID: 212553822536638816}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Enemy
@@ -735,28 +736,22 @@ MonoBehaviour:
   chaseSpeed: 3
   knockBackSpeed: 3
   idleDuration: 4
-  damagedDuration: 0.6
   dieDuration: 0
-  knockBackDuration: 0.2
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
-  damageSourceTransform: {fileID: 0}
   damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
   initAttack: 0
-  initKnockback: 0
   isAttack: 0
   initDamaged: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
-  isEnemyKnockedBack: 0
+  isFinishDamaged: 0
   isHit: 0
   damageReceive: {fileID: 0}
-  knockBackTimer: 0
-  tDamaged: 0
 --- !u!114 &114172360375277942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -864,7 +859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageChar: 0
-  damage: 1
+  damage: 3
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -24092,6 +24087,52 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!212 &212553822536638816
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996236088468888}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212885012285924116

@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
+[UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class GhostSystem : ComponentSystem {
 
 	public struct GhostComponent{
@@ -167,38 +168,40 @@ public class GhostSystem : ComponentSystem {
 	void Damaged()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initDamaged = true;
-
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
 			currEnemy.initAttack = false;
 			currGhost.isAttacking = false;
 			currEnemy.attackObject.SetActive(false);
+			currGhost.hitParticle.Play();
 
-			currEnemy.TDamaged = currEnemy.damagedDuration;
-			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			currGhost.TDamaged = currGhost.damagedDuration;
+			currEnemy.initDamaged = true;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 
 			KnockBack();
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
 		}else{
-			if(currEnemy.TDamaged <= 0f){
+			if(currGhost.TDamaged <= 0f){
+			// if (currEnemy.isFinishDamaged) {
 				currGhostRigidbody.velocity = Vector3.zero;
-				currEnemy.damageSourceTransform = null;
+				// currEnemy.damageSourceTransform = null;
 				currGhostRigidbody.isKinematic = true;
 				
-				currEnemy.initDamaged = false;
+				// currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Chase;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 				currEnemy.chaseIndicator.Play(true);
+			// }
 			} else {
-				currEnemy.TDamaged -= deltaTime;
+				currGhost.TDamaged -= deltaTime;
 			}
 		}
 	}
 
 	void KnockBack () {
 		// Debug.Log("Set KnockBack");
-		Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		Vector3 damageSourcePos = currEnemy.damageSourcePos;
 		
 		Vector3 resultPos = new Vector3 (currGhostTransform.position.x-damageSourcePos.x, 0f, currGhostTransform.position.z-damageSourcePos.z);
 
