@@ -22,7 +22,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -52,7 +52,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -162,7 +162,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 54623861319813702}
   - component: {fileID: 136064191644069192}
   - component: {fileID: 212752194376637884}
+  - component: {fileID: 114727787112085630}
   m_Layer: 0
   m_Name: WaterShooterEnemy
   m_TagString: Enemy
@@ -202,7 +203,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Player
+  tagNames: []
 --- !u!114 &114682836058618086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,8 +554,8 @@ MonoBehaviour:
   role: {fileID: 114898142034348532}
   player: {fileID: 0}
   enemy: {fileID: 114154115132259796}
+  jatayu: {fileID: 0}
   healthPower: 20
-  isTestHealth: 0
 --- !u!114 &114720286946393610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -566,9 +568,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114154115132259796}
+  questTrigger: {fileID: 0}
+  chestSpawner: {fileID: 0}
   playerTriggerDetection: {fileID: 114275487877872750}
   bullet: {fileID: 1117501483965226, guid: 331ee2f86d51df74e8871bd2367ab9da, type: 2}
   shootInterval: 1.5
+--- !u!114 &114727787112085630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869986882389580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageChar: 0
+  damage: 1
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114861949612554890
 MonoBehaviour:
   m_ObjectHideFlags: 1

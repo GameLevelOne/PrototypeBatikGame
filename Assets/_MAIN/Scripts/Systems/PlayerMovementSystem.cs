@@ -14,7 +14,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<Sprite2D> Sprite;
 		public ComponentArray<Rigidbody> Rigidbody;
 		public ComponentArray<Facing2D> Facing;
-		public ComponentArray<TeleportBulletTime> TeleportBulletTime;
+		// public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
 	[InjectAttribute] MovementData movementData;
 	[InjectAttribute] ToolSystem toolSystem;
@@ -29,7 +29,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	Movement movement;
 	PlayerTool tool;
 	PlayerState state;
-	TeleportBulletTime teleportBulletTime;
+	// TeleportBulletTime teleportBulletTime;
 
 	Transform tr;
 	Rigidbody rb;
@@ -59,7 +59,7 @@ public class PlayerMovementSystem : ComponentSystem {
 			rb = movementData.Rigidbody[i];
 			movement = movementData.Movement[i];
 			facing = movementData.Facing[i];
-			teleportBulletTime = movementData.TeleportBulletTime[i];
+			// teleportBulletTime = movementData.TeleportBulletTime[i];
 
 			if (!movement.isInitMovement) {
 				InitMovement();
@@ -103,22 +103,6 @@ public class PlayerMovementSystem : ComponentSystem {
             // //     moveSpeed = movement.slowSpeed; //CHARGING
             // //     break;
 			// }
-
-			
-			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer!=null) {
-				Vector3 enemyPos = player.somethingThatHitsPlayer.transform.position;
-			
-				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
-
-				if (player.isGuarding) {
-					rb.AddForce(resultPos * movement.knockBackSpeedGuard, ForceMode.Impulse);
-				} else {
-					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
-				}
-			}
-
-			player.isPlayerKnockedBack = false;
-
 
 			if (!CheckIfAllowedToMove()) {
 				SetPlayerSpecificMove ();
@@ -383,7 +367,23 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else if (state == PlayerState.OPEN_CHEST) {
 			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.GET_HURT) {
-			// 
+			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
+				Vector3 enemyPos = player.somethingThatHitsPlayer.position;
+			
+				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
+				// Debug.Log("PlayerKnockedBack dir : "+resultPos);
+
+				rb.velocity = Vector3.zero;
+
+				if (player.isGuarding) {
+					rb.AddForce(resultPos * movement.knockBackSpeedGuard, ForceMode.Impulse);
+				} else {
+					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
+				}
+
+				player.isPlayerKnockedBack = false;
+				player.somethingThatHitsPlayer = null;
+			} 
 		// } else if (state == PlayerState.POWER_BRACELET) {
 		// 	rb.velocity = Vector3.zero;
 		} else {
@@ -395,7 +395,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	bool CheckIfAllowedToMove () {
 		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
 			if (attackMode == 0) {
-				Vector3 teleportPos = teleportBulletTime.Teleport();
+				Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
 				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 				Time.timeScale = 0.1f;
 				input.attackMode = -3; //Set counterslash first
@@ -417,6 +417,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			state == PlayerState.GET_HURT
 			// state == PlayerState.POWER_BRACELET
 			) {
+			return false;
+		} else if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
 			return false;
 		} else {
 			return true;
