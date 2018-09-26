@@ -30,7 +30,7 @@ public class VaseSystem : ComponentSystem {
 			vase.vaseIdle.SetActive(false);
 			if(vase.vaseGreyIdle.activeSelf) vase.vaseGreyIdle.SetActive(false);
 			vase.vaseBroken.SetActive(true);
-			vase.particle.SetActive(true);
+			// vase.particle.SetActive(true);
 			lootableSpawnerSystem.CheckPlayerLuck(vase.lootDropProbability,vaseTransform.position);
 		}
 	}

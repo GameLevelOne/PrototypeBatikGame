@@ -36,12 +36,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
-    aniso: -1
+    filterMode: -1
+    aniso: 1
     mipBias: -100
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -103,8 +103,48 @@ TextureImporter:
       name: BrokenVaseParticle_1_0
       rect:
         serializedVersion: 2
+        x: 68
+        y: 97
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c2a26622e4c6b9489fc2cdf96c34937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BrokenVaseParticle_1_1
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 50
+        width: 50
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 564e0829ba2611541b663d80b6b6378f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BrokenVaseParticle_1_2
+      rect:
+        serializedVersion: 2
         x: 0
-        y: 16
+        y: 17
         width: 55
         height: 80
       alignment: 0
@@ -114,16 +154,16 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 578a4a30d7d729942b1a10c6d89e2d75
+      spriteID: 3bae6770fbac8814e9e684ecaa78269b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BrokenVaseParticle_1_1
+      name: BrokenVaseParticle_1_3
       rect:
         serializedVersion: 2
-        x: 33
+        x: 55
         y: 39
         width: 53
         height: 48
@@ -134,47 +174,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80645a7efa6a8d240803943b135b731c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BrokenVaseParticle_1_2
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 18
-        width: 50
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92548aa6986e3814183ac7c890071c3b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BrokenVaseParticle_1_3
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 83
-        width: 20
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 494ad555f36a6ed4eaa5c3ffcc03eba1
+      spriteID: 192b9ab99faedd34da5e101f6d1c28c2
       vertices: []
       indices: 
       edges: []
@@ -183,7 +183,7 @@ TextureImporter:
       name: BrokenVaseParticle_1_4
       rect:
         serializedVersion: 2
-        x: 48
+        x: 70
         y: 0
         width: 17
         height: 23
@@ -194,7 +194,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce1f0ebac9c0b8643a01dc60f9478b3b
+      spriteID: cb3cd5b1046bac44a933136f79100aeb
       vertices: []
       indices: 
       edges: []
@@ -202,7 +202,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e1bc3dbd091db5c48b97360e4cea581f
+    spriteID: b493e30fe5cc18c4da0f1b47ef2ac82d
     vertices: []
     indices: 
     edges: []
