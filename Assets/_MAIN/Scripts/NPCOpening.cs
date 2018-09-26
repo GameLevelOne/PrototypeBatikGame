@@ -30,6 +30,11 @@ public class NPCOpening : MonoBehaviour {
 		npc.state = NPCState.IDLE;
 		npc.IsInteracting = false;
 		npc.npcType = NPCType.SHOP;
+		npc.dialog.dialogIndex = 0;
+		npc.dialog.letterIndex = 0;
+		npc.dialog.dialogDeltaTime = 0f;
+		npc.dialog.dialogState = DialogState.IDLE;
+
 		npc.InteractIndex = 0;
 		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1);
 		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0);

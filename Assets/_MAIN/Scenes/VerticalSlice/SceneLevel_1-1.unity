@@ -8553,19 +8553,9 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1061711008}
     m_Modifications:
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogs.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: interactDialogs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4207674682854390, guid: 5e41838886b894b4aad64bee138f4ef9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15
+      value: 13.77
       objectReference: {fileID: 0}
     - target: {fileID: 4207674682854390, guid: 5e41838886b894b4aad64bee138f4ef9, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8573,7 +8563,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4207674682854390, guid: 5e41838886b894b4aad64bee138f4ef9, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.57
       objectReference: {fileID: 0}
     - target: {fileID: 4207674682854390, guid: 5e41838886b894b4aad64bee138f4ef9, type: 2}
       propertyPath: m_LocalRotation.x
@@ -8595,21 +8585,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114127273413388698, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogueTrigger
-      value: 
-      objectReference: {fileID: 2077106376}
-    - target: {fileID: 114127273413388698, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 746347805}
     - target: {fileID: 114568732604299744, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: uiShop
       value: 
       objectReference: {fileID: 1641089815}
+    - target: {fileID: 114127273413388698, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogueTrigger
+      value: 
+      objectReference: {fileID: 2077106376}
     - target: {fileID: 114568732604299744, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: npcType
@@ -8617,49 +8602,58 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
-      propertyPath: openingDialogs.Array.data[1]
-      value: REMEMBER...
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogs.Array.data[0]
-      value: LOOKS LIKE WE'RE HERE.
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogs.Array.data[2]
-      value: YOUR TARGET IS A POWERFUL CREATURE.
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogs.Array.data[3]
-      value: YOU NEED TO FIND A WAY TO DEFEAT IT
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: openingDialogs.Array.data[4]
-      value: GOOD LUCK!
-      objectReference: {fileID: 0}
-    - target: {fileID: 114327400387023052, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: 1cdda30742dccde47b9ce1d556de7b40,
-        type: 3}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: interactDialogs.Array.data[2]
-      value: WHAT DO YOU NEED ?
-      objectReference: {fileID: 0}
-    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
       propertyPath: interactDialogs.Array.data[0]
-      value: I HAVE SOMETHING FOR YOU
+      value: I HAVE SOMETHING*FOR YOU*
+      objectReference: {fileID: 0}
+    - target: {fileID: 114568732604299744, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: isTestNPC
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: interactDialogs.Array.data[1]
-      value: BUT I CANNOT GIVE IT TO YOU FOR FREE.
+      value: BUT I CANNOT GIVE IT*TO YOU FOR FREE. *
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: interactDialogs.Array.data[2]
+      value: WHAT DO YOU*NEED?*
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: showTextDuration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: delayDialogDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogs.Array.data[0]
+      value: LOOKS LIKE WE'RE*HERE.*
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogs.Array.data[1]
+      value: REMEMBER...      *
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogs.Array.data[2]
+      value: YOUR TARGET IS*A POWERFUL*CREATURE.*
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogs.Array.data[3]
+      value: YOU NEED TO FIND*A WAY TO DEFEAT IT.   *
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753014549413848, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: openingDialogs.Array.data[4]
+      value: GOOD LUCK!      *
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e41838886b894b4aad64bee138f4ef9, type: 2}
@@ -12207,7 +12201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1082343565
 Transform:
   m_ObjectHideFlags: 0

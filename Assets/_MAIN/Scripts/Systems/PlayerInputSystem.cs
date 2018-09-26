@@ -299,7 +299,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (GameInput.IsLeftDirectionHeld)
 			dirX -= 1f;
 
-		Debug.Log("Input Dir: "+dirX+","+dirZ);
+		// Debug.Log("Input Dir: "+dirX+","+dirZ);
 
 		SetDir(dirX,dirZ);
 

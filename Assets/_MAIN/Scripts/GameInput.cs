@@ -49,7 +49,7 @@ public static bool IsAttackPressed {
 	get {
 		if (Input.GetKeyDown(KeyCode.Joystick1Button1))
 			return true;
-		if (Input.GetKeyDown(KeyCode.KeypadEnter))
+		if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
 			return true;		
 		if (Input.GetButtonDown("Fire1"))
 			return true;
@@ -60,7 +60,7 @@ public static bool IsAttackReleased {
 	get {
 		if (Input.GetKeyUp(KeyCode.Joystick1Button1))
 			return true;
-		if (Input.GetKeyUp(KeyCode.KeypadEnter))
+		if (Input.GetKeyUp(KeyCode.KeypadEnter) || Input.GetKeyUp(KeyCode.Return))
 			return true;		
 		if (Input.GetButtonUp("Fire1"))
 			return true;
@@ -71,7 +71,7 @@ public static bool IsAttackHeld {
 	get {
 		if (Input.GetKey(KeyCode.Joystick1Button1))
 			return true;
-		if (Input.GetKey(KeyCode.KeypadEnter))
+		if (Input.GetKey(KeyCode.KeypadEnter) || Input.GetKey(KeyCode.Return))
 			return true;		
 		if (Input.GetButton("Fire1"))
 			return true;
@@ -82,7 +82,7 @@ public static bool IsDodgePressed {
 	get {
 		if (Input.GetKeyDown(KeyCode.Joystick1Button0))
 			return true;
-		if (Input.GetKeyDown(KeyCode.Keypad0))
+		if (Input.GetKeyDown(KeyCode.Space))
 			return true;		
 		return false;
 	}
@@ -91,7 +91,7 @@ public static bool IsDodgeReleased {
 	get {
 		if (Input.GetKeyUp(KeyCode.Joystick1Button0))
 			return true;
-		if (Input.GetKeyUp(KeyCode.Keypad0))
+		if (Input.GetKeyUp(KeyCode.Space))
 			return true;		
 		return false;
 	}
@@ -100,7 +100,7 @@ public static bool IsDodgeHeld {
 	get {
 		if (Input.GetKey(KeyCode.Joystick1Button0))
 			return true;
-		if (Input.GetKey(KeyCode.Keypad0))
+		if (Input.GetKey(KeyCode.Space))
 			return true;		
 		return false;
 	}
@@ -109,7 +109,7 @@ public static bool IsToolsPressed {
 	get {
 		if (Input.GetKeyDown(KeyCode.Joystick1Button2)) 
 			return true;
-		if (Input.GetKeyDown(KeyCode.KeypadPlus)) 
+		if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) 
 			return true;		
 		return false;
 	}
@@ -118,7 +118,7 @@ public static bool IsToolsReleased {
 	get {
 		if (Input.GetKeyUp(KeyCode.Joystick1Button2))
 			return true;
-		if (Input.GetKeyUp(KeyCode.KeypadPlus))
+		if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl)) 
 			return true;		
 		return false;
 	}
@@ -127,7 +127,7 @@ public static bool IsToolsHeld {
 	get {
 		if (Input.GetKey(KeyCode.Joystick1Button2))
 			return true;
-		if (Input.GetKey(KeyCode.KeypadPlus))
+		if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) 
 			return true;		
 		return false;
 	}
@@ -136,7 +136,7 @@ public static bool IsGuardPressed {
 	get {
 		if (Input.GetKeyDown(KeyCode.Joystick1Button3))
 			return true;
-		if (Input.GetKeyDown(KeyCode.KeypadPeriod))
+		if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
 			return true;		
 		if (Input.GetButtonDown("Fire2"))
 			return true;
@@ -147,7 +147,7 @@ public static bool IsGuardReleased {
 	get {
 		if (Input.GetKeyUp(KeyCode.Joystick1Button3))
 			return true;
-		if (Input.GetKeyUp(KeyCode.KeypadPeriod))
+		if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
 			return true;		
 		if (Input.GetButtonUp("Fire2"))
 			return true;
@@ -158,7 +158,7 @@ public static bool IsGuardHeld {
 	get {
 		if (Input.GetKey(KeyCode.Joystick1Button3))
 			return true;
-		if (Input.GetKey(KeyCode.KeypadPeriod))
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			return true;		
 		if (Input.GetButton("Fire2"))
 			return true;
@@ -173,7 +173,7 @@ public static bool IsBowPressed {
 	get {
 		if (Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.Joystick1Button8))
 			return true;
-		if (Input.GetKeyDown(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
 			return true;		
 		return false;
 	}
@@ -182,7 +182,7 @@ public static bool IsBowReleased {
 	get {
 		if (Input.GetKeyUp(KeyCode.Joystick1Button6) || Input.GetKeyUp(KeyCode.Joystick1Button8))
 			return true;
-		if (Input.GetKeyUp(KeyCode.Keypad5) || Input.GetKeyUp(KeyCode.Space))
+		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt))
 			return true;		
 		return false;
 	}
@@ -191,7 +191,7 @@ public static bool IsBowHeld {
 	get {
 		if (Input.GetKey(KeyCode.Joystick1Button6) || Input.GetKey(KeyCode.Joystick1Button8))
 			return true;
-		if (Input.GetKey(KeyCode.Keypad5) || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt))
 			return true;		
 		return false;
 	}
