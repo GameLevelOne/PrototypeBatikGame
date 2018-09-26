@@ -1,12 +1,24 @@
 fileFormatVersion: 2
 guid: 37fee73d4122c6e4591bd295cfd99294
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Anim_Hero_Lift_Move_Front_0
+    21300002: Anim_Hero_Lift_Move_Front_1
+    21300004: Anim_Hero_Lift_Move_Front_2
+    21300006: Anim_Hero_Lift_Move_Front_3
+    21300008: Anim_Hero_Lift_Move_Front_4
+    21300010: Anim_Hero_Lift_Move_Front_5
+    21300012: Anim_Hero_Lift_Move_Front_6
+    21300014: Anim_Hero_Lift_Move_Front_7
+    21300016: Anim_Hero_Lift_Move_Front_8
+    21300018: Anim_Hero_Lift_Move_Front_9
+    21300020: Anim_Hero_Lift_Move_Front_10
+    21300022: Anim_Hero_Lift_Move_Front_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,24 +46,24 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -100
-    wrapU: -1
-    wrapV: -1
+    wrapU: 1
+    wrapV: 1
     wrapW: -1
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -69,13 +81,264 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1606
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 342bf59e8444e1c4ead8ee745ab898b4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_1
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 1606
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e649a68853d804ca14232adb4c0b7d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_2
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 1606
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 851127cdd96f03447951d41afbfd2e70
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_3
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 1606
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0c1796e6d7b5d84f9702112a9bfd05e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_4
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 1606
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d262b81c47d669f4db4088a8e9587ec7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 803
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8244709398ac32540ac643121b3cf3a2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_6
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 803
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 390f3d66a9c7e9b44a924d4e28a36995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_7
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 803
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ddf53a0511a0b74592634636fe1ff3d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_8
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 803
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b17b861cd83f928418d9841a1a515ada
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_9
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 803
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bef0c700fe5d2847b1206a5414eea04
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b8aa7d13546eeb46a3f8662c71495be
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Anim_Hero_Lift_Move_Front_11
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 0
+        width: 413
+        height: 803
+      alignment: 9
+      pivot: {x: 0.45, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2526eb4622cea8478cdc9d4192c9133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a1dae4c924ff6cb4eb5171adceacc0fb
     vertices: []
     indices: 
     edges: []

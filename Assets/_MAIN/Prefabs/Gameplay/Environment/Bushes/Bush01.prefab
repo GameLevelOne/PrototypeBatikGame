@@ -122,6 +122,9 @@ GameObject:
   - component: {fileID: 114149508929397662}
   - component: {fileID: 114409305896905546}
   - component: {fileID: 95062845054902500}
+  - component: {fileID: 114860451605126430}
+  - component: {fileID: 114144774764201326}
+  - component: {fileID: 54989330274948026}
   m_Layer: 0
   m_Name: Bush01
   m_TagString: Untagged
@@ -258,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1395012598192236}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 3.51, y: 0, z: 6.57}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4673776501294052}
@@ -571,6 +574,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998895865717792}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54989330274948026
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395012598192236}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!95 &95062845054902500
 Animator:
   serializedVersion: 3
@@ -589,6 +607,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114144774764201326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395012598192236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  isDestroyOnTriggering: 0
+  speed: 0
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 10
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114149508929397662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -650,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bushCutFX: {fileID: 1947960493747900, guid: 0c0a92ff2a58ce84e8286516fa556f5c, type: 2}
   spawnItemProbability: 0
+  rootObj: {fileID: 1688872429341962, guid: caf78e615649cb1459b60b2213a0f770, type: 2}
   init: 0
   animateEnd: 0
   destroy: 0
@@ -664,6 +704,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114860451605126430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395012598192236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8af523af4c2c446adf445623413ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 114144774764201326}
+  liftableType: 0
+  state: 0
+  mainTransform: {fileID: 4436678690009370}
+  mainRigidbody: {fileID: 54989330274948026}
+  mainCollider: {fileID: 136096318302194048}
+  weight: 0
+  initDrag: 0
+  initGravityAwakeTime: 0
+  gravityAwakeTimer: 0
+  isLanding: 0
+  throwByAccident: 0
 --- !u!136 &136096318302194048
 CapsuleCollider:
   m_ObjectHideFlags: 1

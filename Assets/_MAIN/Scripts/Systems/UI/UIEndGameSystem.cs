@@ -32,17 +32,25 @@ public class UIEndGameSystem : ComponentSystem {
 		if(uiEndGame.call){
 			uiEndGame.call = false;
 			anim.SetBool("Show",true);
-			uiEndGame.buttonBackToMainMenu.Select();
 			systemManager.SetSystems(false);
 		}
 	}
 
 	void CheckInput()
 	{
+		if(uiEndGame.endShow){
+			if(GameInput.AnyButtonPressed){
+				uiEndGame.endShow = false;
+				uiEndGame.backToMainMenu = true;
+				uiEndGame.uiFader.state = FaderState.FadeOut;
+			}
+		}
+
 		if(uiEndGame.backToMainMenu){
-			Debug.Log("BACK TO MAIN MENU");
-			uiEndGame.backToMainMenu = false;
-			SceneManager.LoadScene(Constants.SceneName.MAIN_MENU);
+			if(uiEndGame.uiFader.initBlack){
+				uiEndGame.backToMainMenu = false;
+				SceneManager.LoadScene(Constants.SceneName.MAIN_MENU);
+			}
 		}
 	}
 }

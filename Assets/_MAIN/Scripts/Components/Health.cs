@@ -62,13 +62,16 @@ public class Health : MonoBehaviour {
 		if(other.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.GetComponent<Damage>());
 
-		if (role.gameRole == GameRole.Player) {
-
-		} else if (role.gameRole == GameRole.Enemy) {
-			// if (other.tag == Constants.Tag.PLAYER_SLASH) {
-			// 	player.isHitAnEnemy = true;
-			// }
-		}
+		// if (role.gameRole == GameRole.Player) {
+		// } else if (role.gameRole == GameRole.Enemy) {
+		// }
+	}
+	
+	void OnCollisionEnter(Collision other)
+	{
+		if(other.gameObject.GetComponent<Damage>() == null) return;
+		if(OnDamageCheck != null) OnDamageCheck(other.gameObject.GetComponent<Damage>());
+		// Debug.Log(other.gameObject.name +" Have DAMAGE");
 	}
 
 #region OLD

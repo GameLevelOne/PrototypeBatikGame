@@ -95,6 +95,8 @@ public class BeeSystem : ComponentSystem {
 			Startled();
 		}else if(currEnemy.state == EnemyState.Attack){
 			Attack();
+		}else if(currEnemy.state == EnemyState.Damaged){
+			Damaged();
 		}
 	}
 
@@ -111,6 +113,50 @@ public class BeeSystem : ComponentSystem {
 		}
 	}
 	#endregion
+
+	void Damaged()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initDamaged = true;
+
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			currEnemy.isAttack = false;
+			currEnemy.attackObject.SetActive(false);
+
+			currEnemy.TDamaged = currEnemy.damagedDuration;
+			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+
+			KnockBack();
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+		}else{
+			if(currEnemy.TDamaged <= 0f){
+				currBeeRigidbody.velocity = Vector3.zero;
+				currEnemy.damageSourceTransform = null;
+				currBeeRigidbody.isKinematic = true;
+				
+				currEnemy.initDamaged = false;
+				currEnemy.state = EnemyState.Chase;
+				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+				currEnemy.chaseIndicator.Play(true);
+			} else {
+				currEnemy.TDamaged -= deltaTime;
+			}
+		}
+	}
+
+	void KnockBack () {
+		// Debug.Log("Set KnockBack");
+		Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		
+		Vector3 resultPos = new Vector3 (currBeeTransform.position.x-damageSourcePos.x, 0f, currBeeTransform.position.z-damageSourcePos.z);
+
+		currBeeRigidbody.isKinematic = false;
+		currBeeRigidbody.velocity = Vector3.zero;
+
+		currBeeRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);
+	}
 
 	void Idle()
 	{

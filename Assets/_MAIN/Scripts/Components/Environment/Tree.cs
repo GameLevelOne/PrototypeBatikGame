@@ -3,7 +3,7 @@
 public class Tree : MonoBehaviour {
 	public AnimSpeedRandom animSpeedRandom;
     public TriggerDetection playerAttackTriggerDetection;
-
+    public ParticleSystem particle;
     [HeaderAttribute("Current")]
     public bool hit = false;
 

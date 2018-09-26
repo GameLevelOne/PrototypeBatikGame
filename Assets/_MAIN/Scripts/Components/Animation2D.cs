@@ -73,6 +73,7 @@ public class Animation2D : MonoBehaviour {
 	#region Player and Enemy Animation
 	void StartAnimation () {
 		isCheckBeforeAnimation = false;
+		// Debug.Log("isCheckBeforeAnimation = false");
 	}
 
 	void ExitAnimation () {

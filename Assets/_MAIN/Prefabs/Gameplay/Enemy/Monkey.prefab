@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 114363170574834406}
   - component: {fileID: 54843693115904574}
   - component: {fileID: 136116033484910172}
+  - component: {fileID: 114937294274383336}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Enemy
@@ -457,7 +458,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996236088468888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.37, y: 7.06, z: 2.01}
+  m_LocalPosition: {x: 21.41, y: 0.7, z: 6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4513978079428178}
@@ -732,22 +733,30 @@ MonoBehaviour:
   chaseRange: 10
   patrolSpeed: 2
   chaseSpeed: 3
+  knockBackSpeed: 3
   idleDuration: 4
-  damagedDuration: 0
+  damagedDuration: 0.6
   dieDuration: 0
+  knockBackDuration: 0.2
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
+  damageSourceTransform: {fileID: 0}
+  damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
   initAttack: 0
+  initKnockback: 0
   isAttack: 0
   initDamaged: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
+  isEnemyKnockedBack: 0
   isHit: 0
   damageReceive: {fileID: 0}
+  knockBackTimer: 0
+  tDamaged: 0
 --- !u!114 &114172360375277942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -763,8 +772,7 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 114134985016821300}
   jatayu: {fileID: 0}
-  healthPower: 15
-  isTestHealth: 0
+  healthPower: 100
 --- !u!114 &114280355567613682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -844,6 +852,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7fff0b5f9be8c4aa9d0e04c6123305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114937294274383336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996236088468888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageChar: 0
+  damage: 1
+  isAffectGrass: 0
+  isAffectBush: 0
+  isAffectTree: 0
 --- !u!114 &114977243238074196
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -60,6 +60,8 @@ public class MonkeySystem : ComponentSystem {
 			Chase();
 		}else if(currEnemy.state == EnemyState.Attack){
 			Attack();
+		}else if(currEnemy.state == EnemyState.Damaged){
+			Damaged();
 		}
 	}
 
@@ -67,7 +69,7 @@ public class MonkeySystem : ComponentSystem {
 	{
 		if(!currMonkey.isHitByPlayer){
 			if(currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
-				Debug.Log("Hit By Player");
+				// Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
 					m.enemy.playerTransform = currEnemy.playerTransform;
@@ -97,6 +99,50 @@ public class MonkeySystem : ComponentSystem {
 		}
 	}
 
+	void Damaged()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initDamaged = true;
+
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			currEnemy.isAttack = false;
+			currEnemy.attackObject.SetActive(false);
+
+			currEnemy.TDamaged = currEnemy.damagedDuration;
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+
+			KnockBack();
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+		}else{
+			if(currEnemy.TDamaged <= 0f){
+				currMonkeyRigidbody.velocity = Vector3.zero;
+				currEnemy.damageSourceTransform = null;
+				currMonkeyRigidbody.isKinematic = true;
+				
+				currEnemy.initDamaged = false;
+				currEnemy.state = EnemyState.Chase;
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				currEnemy.chaseIndicator.Play(true);
+			} else {
+				currEnemy.TDamaged -= deltaTime;
+			}
+		}
+	}
+
+	void KnockBack () {
+		// Debug.Log("Set KnockBack");
+		Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		
+		Vector3 resultPos = new Vector3 (currMonkeyTransform.position.x-damageSourcePos.x, 0f, currMonkeyTransform.position.z-damageSourcePos.z);
+
+		currMonkeyRigidbody.isKinematic = false;
+		currMonkeyRigidbody.velocity = Vector3.zero;
+
+		currMonkeyRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);
+	}
+
 	void CheckHealth()
 	{
 		if(currMonkeyHealth.EnemyHP <= 0f){
@@ -121,6 +167,29 @@ public class MonkeySystem : ComponentSystem {
 			UpdateInjectedComponentGroups();
 		}
 	}
+
+	// void KnockBack () {
+		// currEnemy.attackObject.SetActive(false);
+		// Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		
+		// Vector3 resultPos = new Vector3 (currMonkeyTransform.position.x-damageSourcePos.x, 0f, currMonkeyTransform.position.z-damageSourcePos.z);
+
+		// currMonkeyRigidbody.isKinematic = false;
+		// currMonkeyRigidbody.velocity = Vector3.zero;
+
+		// currMonkeyRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);
+
+		// if (currEnemy.knockBackTimer < currEnemy.knockBackDuration) {
+		// 	currEnemy.knockBackTimer += deltaTime;
+		// } else {
+		// 	currMonkeyRigidbody.velocity = Vector3.zero;
+		// 	// currEnemy.damageSourcePos = Vector3.zero;
+		// 	currEnemy.damageSourceTransform = null;
+		// 	currEnemy.knockBackTimer = 0f;
+		// 	currMonkeyRigidbody.isKinematic = true;
+		// 	currEnemy.isEnemyKnockedBack = false;
+		// }
+	// }
 
 	void Idle()
 	{

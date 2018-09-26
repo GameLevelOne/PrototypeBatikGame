@@ -25,15 +25,17 @@ public class LootableSystem : ComponentSystem {
 			} else {
 				TreasureType treasureType = lootable.treasureType;
 				
-				if (lootable.isLooted) {
-					CheckLootable();
-				} else if (treasureType == TreasureType.NONE && !lootable.isDestroyed) {
-					if (lootable.destroyTimer < lootable.destroyDuration) {
-						lootable.destroyTimer += deltaTime;
-					} else {
-						lootable.isDestroyed = true;
+				if (!lootable.isDestroyed) {
+					if (lootable.isLooted) {
+						CheckLootable();
+					} else if (treasureType == TreasureType.NONE) {
+						if (lootable.destroyTimer < lootable.destroyDuration) {
+							lootable.destroyTimer += deltaTime;
+						} else {
+							lootable.isDestroyed = true;
+						}
 					}
-				} else if (lootable.isDestroyed) {
+				} else {
 					DestroyLootable();
 				}
 			}

@@ -28,7 +28,7 @@ public class TriggerDetection : MonoBehaviour {
 
 	void OnTriggerExit (Collider other)
 	{
-		if(tagName.Length == 0){
+		if(tagNames.Length == 0){
 			if(other.tag == tagName && OnTriggerEnterObj != null) OnTriggerEnterObj(null);
 			
 		}else{

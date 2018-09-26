@@ -2,14 +2,13 @@
 using UnityEngine;
 
 public class UIEndGame : MonoBehaviour {
-	public Button buttonBackToMainMenu;
+	public UIFader uiFader;
 	public bool call = false;
 	public bool endShow = false;
 	public bool backToMainMenu = false;
 
-	public void ButtonBackToMainMenuOnClick()
+	void OnEndShowing()
 	{
-		backToMainMenu = true;
-	}
-	
+		endShow = true;
+	}	
 }
