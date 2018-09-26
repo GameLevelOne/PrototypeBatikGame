@@ -296,7 +296,6 @@ public class PlayerMovementSystem : ComponentSystem {
 				// Transform target = facing.attackArea.transform;
 				rb.velocity = Vector3.zero;
 				rb.AddForce(moveDir * movement.attackMoveForce);
-				Debug.Log("After addforce : "+rb.velocity);
 				player.isMoveAttack = false;
 			} else {
 				rb.velocity = Vector3.zero;
@@ -313,7 +312,6 @@ public class PlayerMovementSystem : ComponentSystem {
 	void SetPlayerSpecificMove () {
 		// Transform target = facing.attackArea.transform;
 		// Vector3 dir = target.position - tr.position;
-		float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
 		// if (state == PlayerState.HOOK) {
 		// 	rb.velocity = Vector2.zero;
 		// }
@@ -335,6 +333,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					input.interactValue = 2;
 				} else {
 					if (isHaveEnoughMana((int) ToolType.Boots, false, false)) {
+						float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
 						rb.velocity = moveDir * dashSpeed * deltaTime;
 
 						if (dashTime <= 0.2f) {

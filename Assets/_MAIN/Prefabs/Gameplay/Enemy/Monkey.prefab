@@ -733,22 +733,30 @@ MonoBehaviour:
   chaseRange: 10
   patrolSpeed: 2
   chaseSpeed: 3
+  knockBackSpeed: 3
   idleDuration: 4
-  damagedDuration: 0
+  damagedDuration: 0.6
   dieDuration: 0
+  knockBackDuration: 0.2
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
+  damageSourceTransform: {fileID: 0}
+  damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
   initAttack: 0
+  initKnockback: 0
   isAttack: 0
   initDamaged: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
+  isEnemyKnockedBack: 0
   isHit: 0
   damageReceive: {fileID: 0}
+  knockBackTimer: 0
+  tDamaged: 0
 --- !u!114 &114172360375277942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -764,7 +772,7 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 114134985016821300}
   jatayu: {fileID: 0}
-  healthPower: 15
+  healthPower: 100
 --- !u!114 &114280355567613682
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -69,8 +69,6 @@ public class Health : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision other)
 	{
-		Debug.Log(other.gameObject.name);
-
 		if(other.gameObject.GetComponent<Damage>() == null) return;
 		if(OnDamageCheck != null) OnDamageCheck(other.gameObject.GetComponent<Damage>());
 		// Debug.Log(other.gameObject.name +" Have DAMAGE");

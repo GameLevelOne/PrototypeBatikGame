@@ -24,28 +24,36 @@ public class Enemy : MonoBehaviour {
 
 	public float patrolSpeed;
 	public float chaseSpeed;
+	public float knockBackSpeed;
 
 	public float idleDuration;
 	public float damagedDuration;
 	public float dieDuration;
+	// public float knockBackDuration;
 
 	[HeaderAttribute("Current")]
 	public Player playerThatHitsEnemy;
 	public Transform playerTransform;
+	public Transform damageSourceTransform;
+	// public Vector3 damageSourcePos;
 	public Vector3 patrolDestination;
 
 	[SpaceAttribute(10f)]
 	public bool initIdle = false;
 	public bool initPatrol = false;
 	public bool initAttack = false;
+	// public bool initKnockback = false;
 	public bool isAttack = false;
 	public bool initDamaged = false;
 	public bool initDie = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
+	public bool isEnemyKnockedBack = false;
 	
 	public bool isHit = false;
 	public Damage damageReceive;
+
+	// public float knockBackTimer;
 
 	protected float tIdle;
 	public float TIdle{
@@ -53,7 +61,7 @@ public class Enemy : MonoBehaviour {
 		set{tIdle = value;}
 	}
 
-	protected float tDamaged;
+	[SerializeField] protected float tDamaged;
 	public float TDamaged{
 		get{return tDamaged;}
 		set{tDamaged = value;}
@@ -85,9 +93,9 @@ public class Enemy : MonoBehaviour {
 	#endregion
 
 #region ENEMY STATE 
-	// public void SetEnemyState (EnemyState enemyState) {
-	// 	state = enemyState;
-	// }
+	public void SetEnemyState (EnemyState enemyState) {
+		state = enemyState;
+	}
 
 	// public void SetEnemyIdle () {
 	// 	state = EnemyState.Idle;

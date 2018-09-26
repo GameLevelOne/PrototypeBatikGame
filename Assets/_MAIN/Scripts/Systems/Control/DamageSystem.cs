@@ -192,9 +192,12 @@ public class DamageSystem : ComponentSystem {
 			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
-			Debug.Log(damageTag + " " + damage);
+			currEnemy.damageSourceTransform = currEnemy.damageReceive.transform;
+			// Debug.Log(damageTag + " " + damage);
 
 			if(damageTag == Constants.Tag.HAMMER){
+				currEnemy.SetEnemyState(EnemyState.Damaged);
+
 				if(currEnemy.hasArmor){
 					currEnemy.hasArmor = false;
 				}else{
@@ -205,13 +208,16 @@ public class DamageSystem : ComponentSystem {
 			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
 			damageTag == Constants.Tag.MAGIC_MEDALLION ||
 			damageTag == Constants.Tag.ARROW) {
+				currEnemy.SetEnemyState(EnemyState.Damaged);
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 			} else if (damageTag == Constants.Tag.FIRE_ARROW ||
 			damageTag == Constants.Tag.EXPLOSION) {
+				currEnemy.SetEnemyState(EnemyState.Damaged);
 				//BURN
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 			} else {
 				if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
+					currEnemy.SetEnemyState(EnemyState.Damaged);
 					playerInputSystem.player.isHitAnEnemy = true;
 					
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
@@ -219,6 +225,7 @@ public class DamageSystem : ComponentSystem {
 			}
 			// currEnemy.isEnemyGetHurt = false;
 			currEnemy.playerThatHitsEnemy = playerInputSystem.player;
+			// currEnemy.damageSourcePos = damageTransform.position;
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}

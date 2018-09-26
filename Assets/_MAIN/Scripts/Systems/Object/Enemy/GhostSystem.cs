@@ -48,7 +48,7 @@ public class GhostSystem : ComponentSystem {
 	{
 		if(currGhostHealth.EnemyHP <= 0f){
 			currEnemy.state = EnemyState.Die;
-		}
+		} 
 	}
 
 	void CheckState()
@@ -128,34 +128,38 @@ public class GhostSystem : ComponentSystem {
 	
 	void Chase()
 	{
-		currGhostRigidbody.position = 
-			MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
-			// Vector3.MoveTowards(
-			// 	currGhostRigidbody.position,
-			// 	currEnemy.playerTransform.position,
-			// 	currEnemy.chaseSpeed * deltaTime
-			// );
-
 		if(currGhost.isAttacking){
 			currEnemy.state = EnemyState.Attack;
+		} else {
+			currGhostRigidbody.position = 
+				MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
+				// Vector3.MoveTowards(
+				// 	currGhostRigidbody.position,
+				// 	currEnemy.playerTransform.position,
+				// 	currEnemy.chaseSpeed * deltaTime
+				// );
 		}
 	}
 	
 	void Attack()
 	{
 		if(!currEnemy.initAttack){
+			// Debug.Log("!currEnemy initAttack");
 			if(!currGhost.isAttacking){
-				currEnemy.initAttack = false;
+				// currEnemy.initAttack = false;
 				currEnemy.state = EnemyState.Chase;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				// Debug.Log("!currGhost isAttacking");
 			}else{
 				currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 
 				currGhost.attackCodeFX.Play(true);
 				currEnemy.initAttack = true;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
+				// Debug.Log("currGhost isAttacking");
 			}
 		}else{
+			// Debug.Log("currEnemy initAttack");
 			currEnemy.attackObject.SetActive(currEnemy.attackHit);
 		}
 	}
@@ -164,18 +168,44 @@ public class GhostSystem : ComponentSystem {
 	{
 		if(!currEnemy.initDamaged){
 			currEnemy.initDamaged = true;
-			currEnemy.TDamaged = currEnemy.damagedDuration;
-			// deltaTime = Time.deltaTime;
-			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
-			currEnemy.TDamaged = currEnemy.damagedDuration;
-		}else{
-			currEnemy.TDamaged -= deltaTime;
 
-			if(currEnemy.TIdle <= 0f){
-				currEnemy.state = EnemyState.Chase;
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			currGhost.isAttacking = false;
+			currEnemy.attackObject.SetActive(false);
+
+			currEnemy.TDamaged = currEnemy.damagedDuration;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+
+			KnockBack();
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+		}else{
+			if(currEnemy.TDamaged <= 0f){
+				currGhostRigidbody.velocity = Vector3.zero;
+				currEnemy.damageSourceTransform = null;
+				currGhostRigidbody.isKinematic = true;
+				
 				currEnemy.initDamaged = false;
+				currEnemy.state = EnemyState.Chase;
+				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				currEnemy.chaseIndicator.Play(true);
+			} else {
+				currEnemy.TDamaged -= deltaTime;
 			}
 		}
+	}
+
+	void KnockBack () {
+		// Debug.Log("Set KnockBack");
+		Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		
+		Vector3 resultPos = new Vector3 (currGhostTransform.position.x-damageSourcePos.x, 0f, currGhostTransform.position.z-damageSourcePos.z);
+
+		currGhostRigidbody.isKinematic = false;
+		currGhostRigidbody.velocity = Vector3.zero;
+
+		currGhostRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);
 	}
 
 	void Die()

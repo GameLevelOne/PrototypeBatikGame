@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 4220890060945014}
   - component: {fileID: 135007669360071822}
   - component: {fileID: 114929276168982640}
-  - component: {fileID: 114807546849615086}
+  - component: {fileID: 54526697350297202}
   m_Layer: 0
   m_Name: PlayerTriggerDetection
   m_TagString: Untagged
@@ -693,7 +693,22 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!54 &54526697350297202
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775898717227796}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &95025984312541878
 Animator:
@@ -762,11 +777,13 @@ MonoBehaviour:
   chaseRange: 0
   patrolSpeed: 2
   chaseSpeed: 4.5
+  knockBackSpeed: 3
   idleDuration: 5
-  damagedDuration: 1
+  damagedDuration: 0.6
   dieDuration: 2
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
+  damageSourceTransform: {fileID: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
@@ -776,8 +793,10 @@ MonoBehaviour:
   initDie: 0
   attackHit: 0
   hasArmor: 0
+  isEnemyKnockedBack: 0
   isHit: 0
   damageReceive: {fileID: 0}
+  tDamaged: 0
 --- !u!114 &114195584301234916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -851,17 +870,6 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528927234539092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114807546849615086
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1775898717227796}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}

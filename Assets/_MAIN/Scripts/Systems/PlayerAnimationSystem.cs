@@ -475,7 +475,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
 			CheckStartAnimation ();
-			Debug.Log("CheckStartAnimation");	
+			// Debug.Log("CheckStartAnimation");	
 		} else if (!anim.isCheckAfterAnimation) {
 			CheckEndAnimation ();
 		}
@@ -534,7 +534,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.ATTACK: 
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;	
-				Debug.Log("player.isMoveAttack = true");			
+				// Debug.Log("player.isMoveAttack = true");			
 				break;
 			case PlayerState.CHARGE: 
 				player.isMoveAttack = true;
