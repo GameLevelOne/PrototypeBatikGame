@@ -65,10 +65,7 @@ public class NPC : MonoBehaviour {
 			else isInteracting = value;
 
 			if (isInteracting) {
-				dialog.isInitShowingDialog = false;
-				dialog.isShowingDialog = false;
-				dialog.dialogTime = dialog.showDialogDelay;
-				dialog.showDialogTime = 0f;
+				dialog.dialogState = DialogState.SHOW;
 				// Debug.Log("OK");
 			}
 		}

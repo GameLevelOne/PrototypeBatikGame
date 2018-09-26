@@ -44,16 +44,16 @@ public class PlayerDialogSystem : ComponentSystem {
 			currentPlayer = dialogData.Player[i];
 			currentDialog = dialogData.Dialog[i];
 
-			currentState = currentPlayer.state;
-			showDialogDuration = currentDialog.showDialogDuration;
-			showDialogDelay = currentDialog.showDialogDelay;
-			isFinishShowingDialog = currentDialog.isFinishShowingDialog;
-			isInitShowingDialog = currentDialog.isInitShowingDialog;
-			isShowingDialog = currentDialog.isShowingDialog;
-			letterIndex = currentDialog.letterIndex;
-			// dialogIndex = currentDialog.dialogIndex;
-			showDialogTime = currentDialog.showDialogTime;
-			timer = currentDialog.dialogTime;
+			// currentState = currentPlayer.state;
+			// showDialogDuration = currentDialog.showDialogDuration;
+			// showDialogDelay = currentDialog.showDialogDelay;
+			// isFinishShowingDialog = currentDialog.isFinishShowingDialog;
+			// isInitShowingDialog = currentDialog.isInitShowingDialog;
+			// isShowingDialog = currentDialog.isShowingDialog;
+			// letterIndex = currentDialog.letterIndex;
+			// // dialogIndex = currentDialog.dialogIndex;
+			// showDialogTime = currentDialog.showDialogTime;
+			// timer = currentDialog.dialogTime;
 
 			if (!isInitShowingDialog) {
 				InitDialog ();
@@ -67,7 +67,7 @@ public class PlayerDialogSystem : ComponentSystem {
 		currentDialog.panelDialog.SetActive(false);
 
 		currentDialog.letterIndex = 0;
-		currentDialog.isInitShowingDialog = true;
+		// currentDialog.isInitShowingDialog = true;
 	}
 
 	//
@@ -87,25 +87,25 @@ public class PlayerDialogSystem : ComponentSystem {
 		currentDialog.letterList.Add(tag[2]);
 	}
 
-	void ShowDialog () {
-		currentDialog.panelDialog.SetActive (true);
-		currentDialog.isFinishShowingDialog = false;
+	// void ShowDialog () {
+	// 	currentDialog.panelDialog.SetActive (true);
+	// 	currentDialog.isFinishShowingDialog = false;
 
-		currentDialog.isShowingDialog = true;
-	}
+	// 	currentDialog.isShowingDialog = true;
+	// }
 
-	void HideDialog () {
-		currentDialog.panelDialog.SetActive (false);
-		currentDialog.isShowingDialog = false;
-		currentDialog.isFinishShowingDialog = false;
-		currentDialog.letterIndex = 0;
-		currentDialog.showDialogTime = 0f;
-		currentDialog.dialogTime = 0f;
-	}
+	// void HideDialog () {
+	// 	currentDialog.panelDialog.SetActive (false);
+	// 	currentDialog.isShowingDialog = false;
+	// 	currentDialog.isFinishShowingDialog = false;
+	// 	currentDialog.letterIndex = 0;
+	// 	currentDialog.showDialogTime = 0f;
+	// 	currentDialog.dialogTime = 0f;
+	// }
 
 	void PrintLetterOneByOne () {
 		if (letterIndex == currentDialog.letterList.Count-2) {
-			currentDialog.isFinishShowingDialog = true;
+			// currentDialog.isFinishShowingDialog = true;
 			return;
 		}
 		

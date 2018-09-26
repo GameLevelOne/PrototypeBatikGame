@@ -2,6 +2,14 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+public enum DialogState {
+	INIT,
+	SHOW,
+	WAITINPUT,
+	WAITDELAY,
+	IDLE
+}
+
 public class Dialog : MonoBehaviour {
 	
 	[HeaderAttribute("Player Only")]
@@ -13,26 +21,16 @@ public class Dialog : MonoBehaviour {
 	[SpaceAttribute(10f)]
 	public GameObject panelDialog;
 	public Text textDialog;
+	public GameObject dialogButton;
 
-	public float showDialogDuration;
-	public float showDialogDelay;
+	public float showTextDuration;
+	public float delayDialogDuration;
 
 	[HeaderAttribute("Current")]
-	public bool isInitShowingDialog;
+	public DialogState dialogState;
 	public int dialogIndex;
 	public int letterIndex;
-	public bool isStartDialog;
-	public bool isShowingDialog;
-	public bool isFinishShowingDialog;
-	public float showDialogTime;
-	public float dialogTime;
-	// public string stringDialog;
-
-	public string[] idleDialogs = new string[] {
-		"Hi !",
-		"Have fun !",
-		"Nice to meet you !"
-	};
+	public float dialogDeltaTime;
 	
 	public string[] interactDialogs = new string[] {
 		"1. Welcome to JavaTale",
