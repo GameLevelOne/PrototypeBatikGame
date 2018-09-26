@@ -6,4 +6,10 @@ public class TriggerEndGame : MonoBehaviour {
 	public Player player;
 
 	public bool triggered = false;
+
+	void OnTriggerEnter (Collider col) {
+		if (col.tag == Constants.Tag.PLAYER) {
+			triggered = true;
+		}
+	}
 }
