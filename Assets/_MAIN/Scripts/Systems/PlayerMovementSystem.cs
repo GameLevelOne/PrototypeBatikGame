@@ -306,11 +306,14 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {
 			// currentMoveDir = moveDir;
+			moveDir = input.moveDir;
 
 			if (player.isMoveAttack) {
 				// Transform target = facing.attackArea.transform;
+				rb.velocity = Vector3.zero;
 				rb.AddForce(moveDir * movement.attackMoveForce);
-				// player.isMoveAttack = false;
+				Debug.Log("After addforce : "+rb.velocity);
+				player.isMoveAttack = false;
 			} else {
 				rb.velocity = Vector3.zero;
 			}

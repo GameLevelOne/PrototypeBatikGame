@@ -17,6 +17,7 @@ public enum JatayuState{
 }
 
 public class Jatayu : MonoBehaviour {
+	public Player playerObject;
 	public GameObject attack1Object;
 	public GameObject attack2Object;
 	public GameObject attack3Object;
@@ -135,6 +136,7 @@ public class Jatayu : MonoBehaviour {
 	void OnEndAttack2Anim()
 	{
 		attack2Object.SetActive(false);
+		playerObject.isHitJatayuAttack2 = false;
 		endAttack2 = true;
 	}
 	void OnEndAttack3Anim()

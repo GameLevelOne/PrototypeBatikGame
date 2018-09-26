@@ -305,53 +305,53 @@ public class PlayerInputSystem : ComponentSystem {
 
 
 #region JOYSTICK
-// 		if (Input.GetJoystickNames().Length >= 1) {
-// 			if (Input.GetJoystickNames()[0] != "") {
-// 				float inputX = Input.GetAxis("Horizontal Javatale");
-// 				float inputY = Input.GetAxis("Vertical Javatale");
-// 				// ChangeDir (inputX, inputY);
+		// if (Input.GetJoystickNames().Length >= 1) {
+		// 	if (Input.GetJoystickNames()[0] != "") {
+		// 		float inputX = Input.GetAxis("Horizontal Javatale");
+		// 		float inputY = Input.GetAxis("Vertical Javatale");
+		// 		// ChangeDir (inputX, inputY);
 
-// 				// if (inputX == 0 || inputY == 0) {
-// 				// 	CheckEndMove();
-// 				// }
+		// 		// if (inputX == 0 || inputY == 0) {
+		// 		// 	CheckEndMove();
+		// 		// }
 
-// 				//KEY DOWN
+		// 		//KEY DOWN
 			
-// 				if (inputY < 0f) {
-// 					SetJoystickAndKeyboardInput(true, 0);
-// 				} 
+		// 		if (inputY < 0f) {
+		// 			SetJoystickAndKeyboardInput(true, 0);
+		// 		} 
 				
-// 				if (inputX < 0f) {
-// 					SetJoystickAndKeyboardInput(true, 1);
-// 				}
+		// 		if (inputX < 0f) {
+		// 			SetJoystickAndKeyboardInput(true, 1);
+		// 		}
 				
-// 				if (inputY > 0f) {
-// 				Debug.Log("Halooooooo");
-// 					SetJoystickAndKeyboardInput(true, 2);
-// 				}
+		// 		if (inputY > 0f) {
+		// 		Debug.Log("Halooooooo");
+		// 			SetJoystickAndKeyboardInput(true, 2);
+		// 		}
 				
-// 				if (inputX > 0f) {
-// 					SetJoystickAndKeyboardInput(true, 3);
-// 				}
+		// 		if (inputX > 0f) {
+		// 			SetJoystickAndKeyboardInput(true, 3);
+		// 		}
 				
-// 				if (inputY == 0f) {
-// 					if (input.dirButtons[0] == 1) {
-// 						SetJoystickAndKeyboardInput(false, 0);						
-// 					} else if (input.dirButtons[2] == 1) {
-// 						SetJoystickAndKeyboardInput(false, 2);
-// 					}
-// 				}
+		// 		if (inputY == 0f) {
+		// 			if (input.dirButtons[0] == 1) {
+		// 				SetJoystickAndKeyboardInput(false, 0);						
+		// 			} else if (input.dirButtons[2] == 1) {
+		// 				SetJoystickAndKeyboardInput(false, 2);
+		// 			}
+		// 		}
 				
 
-// 				if (inputX == 0f) {
-// 					if (input.dirButtons[1] == 1) {
-// 						SetJoystickAndKeyboardInput(false, 1);						
-// 					} else if (input.dirButtons[3] == 1) {
-// 						SetJoystickAndKeyboardInput(false, 3);
-// 					}
-// 				}
-// 			}
-// 		} 
+		// 		if (inputX == 0f) {
+		// 			if (input.dirButtons[1] == 1) {
+		// 				SetJoystickAndKeyboardInput(false, 1);						
+		// 			} else if (input.dirButtons[3] == 1) {
+		// 				SetJoystickAndKeyboardInput(false, 3);
+		// 			}
+		// 		}
+		// 	}
+		// } 
 #endregion
 		
 #region MOUSE & KEYBOARD
@@ -400,6 +400,7 @@ public class PlayerInputSystem : ComponentSystem {
 #endregion
 	}
 
+#region SET JOYSTICK & KEYBOARD
 	/// <summary>
     /// <para>Direction Index : <br /></para>
 	/// <para>0 Down<br /></para>
@@ -505,6 +506,7 @@ public class PlayerInputSystem : ComponentSystem {
 	// 		input.isLockDir = true;
 	// 	}
 	// } 
+#endregion
 
 	void CheckAttackInput () {
 		#region Arrow
@@ -1074,87 +1076,89 @@ public class PlayerInputSystem : ComponentSystem {
 		// }
 	}
 
-// 	public void ChangeDir (float dirX, float dirZ) {
-// 		Vector3 newDir = new Vector3(dirX, 0f, dirZ);
-// 		// Debug.Log(newDir);
+#region OLD ChangeDir
+	// public void ChangeDir (float dirX, float dirZ) {
+	// 	Vector3 newDir = new Vector3(dirX, 0f, dirZ);
+	// 	// Debug.Log(newDir);
 
-// 		#region RUN EFFECT
-// 		if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-// 			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
-// 		} else {
-// 			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
-// 		}
-// 		#endregion
+	// 	#region RUN EFFECT
+	// 	if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+	// 		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+	// 	} else {
+	// 		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+	// 	}
+	// 	#endregion
 
-// 		if (state == PlayerState.POWER_BRACELET) {
-// 			if (input.liftingMode == 1 || input.liftingMode == 2) {
-// 				Facing2D facing = playerAnimationSystem.facing;
-// 				// Debug.Log(facing.DirID);
-// 				// Debug.Log("==========Grabbing==========");
-// 				// Debug.Log("Before " + facing.DirID);
-// 				switch (facing.DirID) {
-// 					case 1: 
-// 						if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
-// 						// Debug.Log("Bottom");
-// 						break;
-// 					case 2: 
-// 						if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-// 						// Debug.Log("Left");
-// 						break;
-// 					case 3: 
-// 						if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
-// 						// Debug.Log("Top");
-// 						break;
-// 					case 4: 
-// 						if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-// 						// Debug.Log("right");
-// 						break;
+	// 	if (state == PlayerState.POWER_BRACELET) {
+	// 		if (input.liftingMode == 1 || input.liftingMode == 2) {
+	// 			Facing2D facing = playerAnimationSystem.facing;
+	// 			// Debug.Log(facing.DirID);
+	// 			// Debug.Log("==========Grabbing==========");
+	// 			// Debug.Log("Before " + facing.DirID);
+	// 			switch (facing.DirID) {
+	// 				case 1: 
+	// 					if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
+	// 					// Debug.Log("Bottom");
+	// 					break;
+	// 				case 2: 
+	// 					if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+	// 					// Debug.Log("Left");
+	// 					break;
+	// 				case 3: 
+	// 					if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
+	// 					// Debug.Log("Top");
+	// 					break;
+	// 				case 4: 
+	// 					if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+	// 					// Debug.Log("right");
+	// 					break;
 
-// #region OLD 8 Direction
-// 					// case 1: 
-// 					// 	if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
-// 					// 	// Debug.Log("Bottom");
-// 					// 	break;
-// 					// case 2: 
-// 					// 	if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
-// 					// 	// Debug.Log("Bottom left");
-// 					// 	break;
-// 					// case 3: 
-// 					// 	if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-// 					// 	// Debug.Log("Left");
-// 					// 	break;
-// 					// case 4: 
-// 					// 	if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
-// 					// 	// Debug.Log("Top left");
-// 					// 	break;
-// 					// case 5: 
-// 					// 	if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
-// 					// 	// Debug.Log("Top");
-// 					// 	break;
-// 					// case 6: 
-// 					// 	if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
-// 					// 	// Debug.Log("Top right");
-// 					// 	break;
-// 					// case 7: 
-// 					// 	if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-// 					// 	// Debug.Log("right");
-// 					// 	break;
-// 					// case 8: 
-// 					// 	if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
-// 					// 	// Debug.Log("Bottom right");
-// 					// 	break;
-// #endregion
-// 				}
-// 				// Debug.Log("After " + facing.DirID);
-// 				// Debug.Log("==========End Grabbing==========");
-// 			} else if (input.liftingMode == -1 || input.liftingMode == -2){
-// 				SetDir (newDir.x, 0f, newDir.z);
-// 			} 
-// 		} else {
-// 			// player.SetPlayerState(PlayerState.MOVE);
-// 			SetDir (newDir.x, 0f, newDir.z);
-// 		}
-// 	}
+	// #region OLD 8 Direction
+	// 				// case 1: 
+	// 				// 	if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
+	// 				// 	// Debug.Log("Bottom");
+	// 				// 	break;
+	// 				// case 2: 
+	// 				// 	if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
+	// 				// 	// Debug.Log("Bottom left");
+	// 				// 	break;
+	// 				// case 3: 
+	// 				// 	if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+	// 				// 	// Debug.Log("Left");
+	// 				// 	break;
+	// 				// case 4: 
+	// 				// 	if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
+	// 				// 	// Debug.Log("Top left");
+	// 				// 	break;
+	// 				// case 5: 
+	// 				// 	if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
+	// 				// 	// Debug.Log("Top");
+	// 				// 	break;
+	// 				// case 6: 
+	// 				// 	if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
+	// 				// 	// Debug.Log("Top right");
+	// 				// 	break;
+	// 				// case 7: 
+	// 				// 	if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
+	// 				// 	// Debug.Log("right");
+	// 				// 	break;
+	// 				// case 8: 
+	// 				// 	if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
+	// 				// 	// Debug.Log("Bottom right");
+	// 				// 	break;
+	// #endregion
+	// 			}
+	// 			// Debug.Log("After " + facing.DirID);
+	// 			// Debug.Log("==========End Grabbing==========");
+	// 		} else if (input.liftingMode == -1 || input.liftingMode == -2){
+	// 			SetDir (newDir.x, 0f, newDir.z);
+	// 		} 
+	// 	} else {
+	// 		// player.SetPlayerState(PlayerState.MOVE);
+	// 		SetDir (newDir.x, 0f, newDir.z);
+	// 	}
+	// }
+#endregion
 
 	public void SetDir (float dirX, float dirZ) {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);

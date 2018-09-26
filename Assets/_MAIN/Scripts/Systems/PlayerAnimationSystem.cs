@@ -284,7 +284,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.CHARGE:
-					// player.isMoveAttack = true;
 					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK);
 					break;
 				case PlayerState.DASH: 
@@ -476,6 +475,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void CheckAnimation () {
 		if (!anim.isCheckBeforeAnimation) {
 			CheckStartAnimation ();
+			Debug.Log("CheckStartAnimation");	
 		} else if (!anim.isCheckAfterAnimation) {
 			CheckEndAnimation ();
 		}
@@ -485,12 +485,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (!anim.isSpawnSomethingOnAnimation) {
 			switch(state) {
 				case PlayerState.ATTACK: 
-					player.isMoveAttack = false;
+					// player.isMoveAttack = false;
 					attack.isAttacking = true;	
 					isFinishAttackAnimation	= true;	
 					break;
 				case PlayerState.CHARGE: 
-					player.isMoveAttack = false;
+					// player.isMoveAttack = false;
 					attack.isAttacking = true;
 					break;
 				case PlayerState.RAPID_SLASH:
@@ -533,7 +533,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		switch(state) {
 			case PlayerState.ATTACK: 
 				player.isMoveAttack = true;
-				// attack.isAttacking = true;				
+				// attack.isAttacking = true;	
+				Debug.Log("player.isMoveAttack = true");			
 				break;
 			case PlayerState.CHARGE: 
 				player.isMoveAttack = true;
