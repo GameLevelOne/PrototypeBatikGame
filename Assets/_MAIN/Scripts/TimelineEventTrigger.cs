@@ -5,6 +5,7 @@ using UnityEngine;
 public enum EventType {
 	NPC_OPENING_DIALOGUE,
 	END_OPENING_ENTRANCE,
+	AFTER_SHOW_GHOSTS,
 	BEFORE_BOSS_FIGHT,
 	AFTER_BOSS_FIGHT
 }
@@ -16,6 +17,10 @@ public class TimelineEventTrigger : MonoBehaviour {
 	public event TimelineEvent OnNPCStartDialogue;
 	public event TimelineEvent OnWaitingDialogue;
 	public event TimelineEvent OnEndOpeningMKF;
+
+	// Show Ghosts
+	// public event TimelineEvent OnStartShowGhosts;
+	public event TimelineEvent OnEndShowGhosts;
 
 	// Entrance Boss Area
 	public event TimelineEvent OnEntranceBossArea;
@@ -56,6 +61,14 @@ public class TimelineEventTrigger : MonoBehaviour {
 					if (OnWaitingDialogue != null) {
 						OnWaitingDialogue();
 					}
+				}
+			}else if (type == EventType.AFTER_SHOW_GHOSTS) {
+				if (!isInitEvent) {
+					if (OnEndShowGhosts != null) {
+						OnEndShowGhosts();
+					}
+
+					isInitEvent = true;
 				}
 			} else if (type == EventType.BEFORE_BOSS_FIGHT) {
 				if (!isInitEvent) {
