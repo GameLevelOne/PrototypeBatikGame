@@ -39,7 +39,7 @@ public class JatayuSystem : ComponentSystem {
 
 			CheckHit();
 			CheckBurned();
-			
+
 			FacePlayer();
 		}
 	}
@@ -113,13 +113,14 @@ public class JatayuSystem : ComponentSystem {
 	void CheckBurned()
 	{
 		if(jatayu.isBurned){
+			if(jatayu.state != JatayuState.Burned){
+				if(jatayu.state == JatayuState.Move){
+					SetJatayuState(JatayuState.Burned);
+					jatayu.isCBurnedCooldown = true;
+					jatayu.tBurnedCooldown = jatayu.burnedCooldown;
+				}	
+			}
 			jatayu.isBurned = false;
-
-			if(jatayu.state == JatayuState.Move){
-				SetJatayuState(JatayuState.Burned);
-				jatayu.isCBurnedCooldown = true;
-				jatayu.tBurnedCooldown = jatayu.burnedCooldown;
-			}			
 		}
 
 		if(jatayu.isCBurnedCooldown){
@@ -128,6 +129,8 @@ public class JatayuSystem : ComponentSystem {
 				jatayu.isCBurnedCooldown = false;
 			}
 		}
+	
+		
 	}
 
 	void CheckHealth()
