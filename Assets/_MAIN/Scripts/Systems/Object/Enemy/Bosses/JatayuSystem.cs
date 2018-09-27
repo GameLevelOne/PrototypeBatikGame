@@ -33,10 +33,13 @@ public class JatayuSystem : ComponentSystem {
 			jatayuHealth = jatayuComponent.jatayuHealth[i];
 
 			CheckInit();
-			CheckState();
-			CheckHit();
+
 			CheckHealth();
-			// CheckBurned();
+			CheckState();
+
+			CheckHit();
+			CheckBurned();
+			
 			FacePlayer();
 		}
 	}
@@ -111,9 +114,12 @@ public class JatayuSystem : ComponentSystem {
 	{
 		if(jatayu.isBurned){
 			jatayu.isBurned = false;
-			SetJatayuState(JatayuState.Burned);
-			jatayu.isCBurnedCooldown = true;
-			jatayu.tBurnedCooldown = jatayu.burnedCooldown;
+
+			if(jatayu.state == JatayuState.Move){
+				SetJatayuState(JatayuState.Burned);
+				jatayu.isCBurnedCooldown = true;
+				jatayu.tBurnedCooldown = jatayu.burnedCooldown;
+			}			
 		}
 
 		if(jatayu.isCBurnedCooldown){
