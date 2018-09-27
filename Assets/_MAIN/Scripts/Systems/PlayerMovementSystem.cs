@@ -367,24 +367,14 @@ public class PlayerMovementSystem : ComponentSystem {
 			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.GET_HURT) {
 			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
-				Vector3 enemyPos = player.somethingThatHitsPlayer.position;
-			
-				Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
-				// Debug.Log("PlayerKnockedBack dir : "+resultPos);
-
-				rb.velocity = Vector3.zero;
-
-				if (player.isGuarding) {
-					rb.AddForce(resultPos * movement.knockBackSpeedGuard, ForceMode.Impulse);
-				} else {
-					rb.AddForce(resultPos * movement.knockBackSpeedNormal, ForceMode.Impulse);
-				}
-
-				player.isPlayerKnockedBack = false;
-				player.somethingThatHitsPlayer = null;
+				KnockBack(movement.knockBackSpeedNormal);
 			} 
 		// } else if (state == PlayerState.POWER_BRACELET) {
 		// 	rb.velocity = Vector3.zero;
+		} else if (state == PlayerState.BLOCK_ATTACK) {
+			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
+				KnockBack(movement.knockBackSpeedGuard);
+			}
 		} else {
 			input.moveDir = Vector3.zero;
 			rb.velocity = Vector3.zero;
@@ -413,12 +403,13 @@ public class PlayerMovementSystem : ComponentSystem {
 			state == PlayerState.GET_TREASURE || 
 			state == PlayerState.DIE || 
 			// state == PlayerState.OPEN_CHEST || 
-			state == PlayerState.GET_HURT
+			state == PlayerState.GET_HURT || 
+			state == PlayerState.BLOCK_ATTACK
 			// state == PlayerState.POWER_BRACELET
 			) {
 			return false;
-		} else if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
-			return false;
+		// } else if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
+		// 	return false;
 		} else {
 			return true;
 		}
@@ -435,5 +426,16 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	void UseMana (int toolIdx, bool isUsingStand) {
 		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
+	}
+
+	void KnockBack (float knockbackSpeed) {
+		Vector3 enemyPos = player.somethingThatHitsPlayer.position;
+		Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
+
+		rb.velocity = Vector3.zero;
+		rb.AddForce(resultPos.normalized * knockbackSpeed, ForceMode.Impulse);
+
+		player.isPlayerKnockedBack = false;
+		player.somethingThatHitsPlayer = null;
 	}
 }

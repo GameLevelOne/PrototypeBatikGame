@@ -9,6 +9,7 @@ public class Monkey : MonoBehaviour {
 	public MonkeyTriggerDetection monkeyTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
+	public ParticleSystem burnedFX;
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;
@@ -73,6 +74,11 @@ public class Monkey : MonoBehaviour {
 	void OnEndAttack()
 	{
 		enemy.initAttack = false;
+	}
+
+	void OnEndDamaged()
+	{
+		enemy.isFinishDamaged = true;
 	}
 	#endregion
 }

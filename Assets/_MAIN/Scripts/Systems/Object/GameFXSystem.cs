@@ -5,11 +5,13 @@ public class GameFXSystem : ComponentSystem {
 	public struct GameFXData {
 		public readonly int Length;
 		public ComponentArray<GameFX> GameFX;
+		public ComponentArray<Player> Player;
 		public ComponentArray<Transform> Transform;
 	}
 	[InjectAttribute] GameFXData gameFXData;
 
 	public GameFX gameFX;
+    Player player;
 
 	// Transform gameFXTransform;
 
@@ -18,6 +20,7 @@ public class GameFXSystem : ComponentSystem {
 
 		for (int i=0; i<gameFXData.Length; i++) {
 			gameFX = gameFXData.GameFX[i];
+            player = gameFXData.Player[i];
 			// playerFXTransform = gameFXData.Transform[i];
 
             // if (gameFX.isEnableDodgeEffect) {
@@ -60,6 +63,22 @@ public class GameFXSystem : ComponentSystem {
             particleFX.Stop(true);
         }
     }
+
+	public void ToggleRunFX (bool isON) {
+        if (isON) {
+            if (player.terrainType == TerrainType.DIRT) {
+                ToggleParticleEffect(gameFX.runOnDirtEffect, true);
+            } else if (player.terrainType == TerrainType.GRASS) {
+                ToggleParticleEffect(gameFX.runOnGrassEffect, true);
+            } else if (player.terrainType == TerrainType.WATERY) {
+                ToggleParticleEffect(gameFX.runOnWaterEffect, true);
+            }
+        } else {
+            ToggleParticleEffect(gameFX.runOnDirtEffect, false);
+            ToggleParticleEffect(gameFX.runOnGrassEffect, false);
+            ToggleParticleEffect(gameFX.runOnWaterEffect, false);
+        }
+	}
 
     // public void ToggleDodgeFlag (bool value) {
     //     gameFX.isEnableDodgeEffect = value;

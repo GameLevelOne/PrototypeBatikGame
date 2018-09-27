@@ -27,15 +27,15 @@ public class Enemy : MonoBehaviour {
 	public float knockBackSpeed;
 
 	public float idleDuration;
-	public float damagedDuration;
+	// public float damagedDuration;
 	public float dieDuration;
 	// public float knockBackDuration;
 
 	[HeaderAttribute("Current")]
 	public Player playerThatHitsEnemy;
 	public Transform playerTransform;
-	public Transform damageSourceTransform;
-	// public Vector3 damageSourcePos;
+	// public Transform damageSourceTransform;
+	public Vector3 damageSourcePos;
 	public Vector3 patrolDestination;
 
 	[SpaceAttribute(10f)]
@@ -48,7 +48,8 @@ public class Enemy : MonoBehaviour {
 	public bool initDie = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
-	public bool isEnemyKnockedBack = false;
+	public bool isBurned = false;
+	public bool isFinishDamaged = false;
 	
 	public bool isHit = false;
 	public Damage damageReceive;
@@ -61,11 +62,11 @@ public class Enemy : MonoBehaviour {
 		set{tIdle = value;}
 	}
 
-	[SerializeField] protected float tDamaged;
-	public float TDamaged{
-		get{return tDamaged;}
-		set{tDamaged = value;}
-	}
+ 	// protected float tDamaged;
+	// public float TDamaged{
+	// 	get{return tDamaged;}
+	// 	set{tDamaged = value;}
+	// }
 
 	protected float tDie;
 	public float TDie{

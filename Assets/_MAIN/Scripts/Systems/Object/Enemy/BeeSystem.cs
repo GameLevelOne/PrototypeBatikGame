@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 
+[UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class BeeSystem : ComponentSystem {
 	public struct BeeComponent
 	{
@@ -80,6 +81,12 @@ public class BeeSystem : ComponentSystem {
 
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();
+		} else {
+			if (currEnemy.isBurned) {
+				currBee.burnedFX.Play(true);
+
+				currEnemy.isBurned = false;
+			}
 		}
 	}
 
@@ -117,38 +124,39 @@ public class BeeSystem : ComponentSystem {
 	void Damaged()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initDamaged = true;
-
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
 			currEnemy.initAttack = false;
 			currEnemy.isAttack = false;
 			currEnemy.attackObject.SetActive(false);
 
-			currEnemy.TDamaged = currEnemy.damagedDuration;
-			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+			currEnemy.initDamaged = true;
+			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 
 			KnockBack();
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
 		}else{
-			if(currEnemy.TDamaged <= 0f){
+			// if(currEnemy.TDamaged <= 0f){
+			if (currEnemy.isFinishDamaged) {
 				currBeeRigidbody.velocity = Vector3.zero;
-				currEnemy.damageSourceTransform = null;
+				// currEnemy.damageSourceTransform = null;
 				currBeeRigidbody.isKinematic = true;
 				
-				currEnemy.initDamaged = false;
+				currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Chase;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 				currEnemy.chaseIndicator.Play(true);
-			} else {
-				currEnemy.TDamaged -= deltaTime;
 			}
+			// } else {
+			// 	currEnemy.TDamaged -= deltaTime;
+			// }
 		}
 	}
 
 	void KnockBack () {
 		// Debug.Log("Set KnockBack");
-		Vector3 damageSourcePos = currEnemy.damageSourceTransform.position;
+		Vector3 damageSourcePos = currEnemy.damageSourcePos;
 		
 		Vector3 resultPos = new Vector3 (currBeeTransform.position.x-damageSourcePos.x, 0f, currBeeTransform.position.z-damageSourcePos.z);
 

@@ -5,6 +5,8 @@ public class WaterShooterEnemy : MonoBehaviour {
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
 	public ChestSpawner chestSpawner;
+	public ParticleSystem attackCodeFX;
+	public ParticleSystem burnedFX;
 	public TriggerDetection playerTriggerDetection;
 	public GameObject bullet;
 

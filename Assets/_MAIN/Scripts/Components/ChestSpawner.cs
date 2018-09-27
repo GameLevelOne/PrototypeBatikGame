@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 
+public enum ChestSpawnerType {
+	CHEST,
+	POWERARROW
+}
+
 public class ChestSpawner : MonoBehaviour {
+	public ChestSpawnerType chestSpawnerType;
 	public GameObject chestObj;
 	// public GameObjectEntity chestEntity;
 	// public Collider chestCol;

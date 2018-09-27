@@ -5,7 +5,7 @@ public class Vase : MonoBehaviour {
 	public GameObject vaseIdle;
 	public GameObject vaseGreyIdle;
 	public GameObject vaseBroken;
-	public GameObject particle;
+	public ParticleSystem particle;
 	[SpaceAttribute(10f)]
 	public float lootDropProbability;
 	[HeaderAttribute("Current")]

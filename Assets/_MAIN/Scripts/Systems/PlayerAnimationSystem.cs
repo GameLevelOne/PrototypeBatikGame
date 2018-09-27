@@ -521,7 +521,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 			}
 			
-			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+			gameFXSystem.ToggleRunFX(false);
 			anim.isSpawnSomethingOnAnimation = true;
 		}
 	}
@@ -669,14 +669,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 				}
 
 				if (moveDir != Vector3.zero) {
-					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+					gameFXSystem.ToggleRunFX(true);
 				}
 
 				StopAttackAnimation();
 				break;
 			case PlayerState.CHARGE: 
 				if (moveDir != Vector3.zero) {
-					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+					gameFXSystem.ToggleRunFX(true);
 				}
 
 				StopAttackAnimation();
@@ -687,7 +687,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 								
 				StopAnyAnimation();
 				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
-				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+				gameFXSystem.ToggleRunFX(false);
 				break;
 			case PlayerState.SLOW_MOTION:
 				isFinishAnyAnimation = true;
@@ -725,7 +725,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				if (input.interactValue == 0) { 
 					input.interactValue = 1;
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, true);
-					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+					gameFXSystem.ToggleRunFX(true);
 					
 					isFinishAnyAnimation = true;
 				} else if (input.interactValue == 1) { 
