@@ -56,7 +56,7 @@ public class NPCDialogSystem : ComponentSystem {
 		currentDialog.panelDialog.SetActive(true);//SHOW DIALOG BOX
 
 		currentDialog.dialogDeltaTime += deltaTime;
-		Debug.Log("Dialog Delta Time: "+currentDialog.dialogDeltaTime);
+		// Debug.Log("Dialog Delta Time: "+currentDialog.dialogDeltaTime);
 
 		if (currentDialog.dialogDeltaTime>=currentDialog.showTextDuration) {//SHOW NEXT LETTER AFTER DELAY
 			currentDialog.dialogDeltaTime = 0f;

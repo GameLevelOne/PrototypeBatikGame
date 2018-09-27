@@ -27,10 +27,10 @@ public class Quest : MonoBehaviour {
 			isQuestProcess = true;
 			isQuestProcessForUI = true;
 
-			Debug.Log("Quest OnQuestProcess : "+questIdx);
+			// Debug.Log("Quest OnQuestProcess : "+questIdx);
 		} else {
 			isQuestDoneForUI = true;
-			Debug.Log("Quest "+questIdx+" already completed");
+			// Debug.Log("Quest "+questIdx+" already completed");
 		}
 	}
 

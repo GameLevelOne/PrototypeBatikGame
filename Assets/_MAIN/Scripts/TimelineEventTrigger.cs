@@ -82,7 +82,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 		// if (!isInitDisableTrigger) {
 		// 	isInitDisableTrigger = true;
 		// } else {
-			Debug.Log("End Call "+type);
+			// Debug.Log("End Call "+type);
 		// }
 	}
 
