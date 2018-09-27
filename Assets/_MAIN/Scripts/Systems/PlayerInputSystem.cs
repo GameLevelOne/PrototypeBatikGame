@@ -84,179 +84,6 @@ public class PlayerInputSystem : ComponentSystem {
 			CheckAttackInput ();
 			CheckGuardInput ();
 			CheckDodgeInput ();
-			continue; //TEMP
-
-#region OLD
-			// if (state == PlayerState.SLOW_MOTION) {
-			// 	if (slowDownTimer < bulletTimeDuration) {
-			// 		slowDownTimer += deltaTime;
-
-			// 		if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) {
-			// 			input.attackMode = 1;
-			// 			input.bulletTimeAttackQty++;
-			// 		}
-			// 	} else {
-			// 		slowDownTimer = 0f;
-			// 		Time.timeScale = 1f;
-			// 		input.moveMode = 0;
-			// 		player.SetPlayerState(PlayerState.RAPID_SLASH);
-			// 	}
-
-			// 	continue;
-			// } else if (state == PlayerState.RAPID_SLASH) {
-			// 	continue;
-			// } else if (state == PlayerState.POWER_BRACELET && input.interactValue == 0) {
-			// 	currentDir = Vector2.zero;
-
-			// 	if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Joystick1Button4)) {
-			// 		isButtonToolHold = false;
-			// 	}
-
-			// 	continue;
-			// } else if (state == PlayerState.FISHING) { 				
-			// 	if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button3)){
-			// 		input.interactValue = 2;
-			// 		toolSystem.UseTool();
-			// 	}
-				
-			// 	continue;
-			// } 
-
-			#region Button Movement
-			// CheckMovementInput ();
-			#endregion
-
-			#region Button Tools
-			//
-			#endregion
-
-			#region Button Attack
-			// if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			// 	chargeAttackTimer += deltaTime;
-				
-			// 	if (chargeAttackTimer >= beforeChargeDelay) {
-			// 		Debug.Log("Start charging");
-			// 		SetMovement(1, false); //START CHARGE
-			// 	}
-			// } else {
-			// 	if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-			// 		attackAwayTimer += deltaTime;
-			// 	} else {
-			// 		// input.slashComboVal.Clear();
-			// 		attackAwayTimer = 0f;
-			// 		isAttackAway = true;
-			// 	}
-			// }
-			
-			// if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-			// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-			// 		input.attackMode = -1; //CHARGE
-			// 		player.SetPlayerState(PlayerState.CHARGE);
-			// 	} else {
-			// 		if (input.attackMode <= 2) {
-			// 			if (!player.isHitAnEnemy){
-			// 				input.attackMode = 1; //SLASH							
-			// 			} else {
-			// 				input.attackMode += 1; //SLASH
-			// 			}
-			// 		}
-			// 		if (state != PlayerState.ATTACK) {
-			// 			player.SetPlayerState(PlayerState.ATTACK);
-			// 		}	
-			// 	}
-				
-			//	SetMovement(0, false);
-			// 	chargeAttackTimer = 0f;
-			// 	isAttackAway = false;			
-			// }
-			#endregion
-
-			#region Button Guard
-			// if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.KeypadEnter)) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
-			// 	// SetMovement(2, false); //START GUARD
-				
-			// 	// player.isGuarding = true;
-			// }
-			
-			// if (Input.GetButton("Fire2") || Input.GetKey(KeyCode.KeypadEnter)) {
-
-			// 	if (state == PlayerState.BLOCK_ATTACK) {
-			// 		input.interactMode = -1;
-			// 	}
-
-			// 	if (parryTimer < guardParryDelay) {
-			// 		parryTimer += deltaTime;	
-			// 		player.isParrying = true;
-			// 	} else {
-			// 		player.isParrying = false;
-			// 		player.isPlayerHit = false;	
-			// 	}
-			// }
-
-			// if (Input.GetButtonUp("Fire2") || Input.GetKeyUp(KeyCode.KeypadEnter)) {
-			// 	// SetMovement(0, false);
-				
-			// 	// player.isGuarding = false;
-			// 	parryTimer = 0f;
-			// 	player.isParrying = false;
-			// }
-			#endregion
-
-			#region Button Dodge			
-			// if (Input.GetKeyDown(KeyCode.KeypadPeriod) || Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-			// 	if (!isDodging && isReadyForDodging && (currentDir != Vector2.zero)) {
-			// 		player.SetPlayerState(PlayerState.DODGE);
-			// 		bulletTimeTimer = 0f;	
-			// 		dodgeCooldownTimer = 0f;
-			// 		isDodging = true;
-			// 		isReadyForDodging = false;
-			// 		input.interactMode = 0;
-			// 	}
-			// }	
-
-			// if (isDodging) {
-			// 	if (dodgeCooldownTimer < dodgeCooldown) {
-			// 		dodgeCooldownTimer += deltaTime;
-			// 	} else {
-			// 		isDodging = false;
-			// 		isReadyForDodging = true;
-			// 	}
-
-			// 	if (state == PlayerState.DODGE) {
-			// 		if (bulletTimeTimer < bulletTimeDelay) {
-			// 			bulletTimeTimer += deltaTime;
-			// 			player.isBulletTiming = true;
-			// 		} else {
-			// 			player.isBulletTiming = false;
-			// 			player.isPlayerHit = false;
-			// 		}
-			// 	}
-			// }
-
-			// if (player.isBulletTiming) {
-			// 	if (player.isPlayerHit) {	
-			// 		player.isBulletTiming = false;
-			// 		ChangeDir(0f, 0f);
-			// 		input.moveMode = 3; //STEADY FOR RAPID SLASH
-			// 		input.attackMode = -3;
-			// 		Debug.Log("Start BulletTime");
-			// 		player.SetPlayerState(PlayerState.SLOW_MOTION);
-			// 	}
-			// }
-			#endregion
-			
-			// if (player.isParrying) {
-			// 	if (player.isPlayerHit) {
-			// 		input.attackMode = -2;
-			// 		player.isParrying = false;
-			// 		player.isPlayerHit = false;
-			// 		Debug.Log("Start Counter");
-			// 		player.SetPlayerState(PlayerState.COUNTER);
-			// 	}
-			// } else {
-			// 	player.isPlayerHit = false;
-			// }
-#endregion OLD
 		}
 	}
 
@@ -304,7 +131,7 @@ public class PlayerInputSystem : ComponentSystem {
 		SetDir(dirX,dirZ);
 
 
-#region JOYSTICK
+#region JOYSTICK OLD
 		// if (Input.GetJoystickNames().Length >= 1) {
 		// 	if (Input.GetJoystickNames()[0] != "") {
 		// 		float inputX = Input.GetAxis("Horizontal Javatale");
@@ -354,7 +181,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// } 
 #endregion
 		
-#region MOUSE & KEYBOARD
+#region MOUSE & KEYBOARD OLD
 		// else {
 		// 	// int maxValue = input.moveAnimValue[2];
 		// 	// int midValue = input.moveAnimValue[1];
@@ -852,7 +679,7 @@ public class PlayerInputSystem : ComponentSystem {
 								input.interactValue = 0;
 								player.isUsingStand = false;
 								player.SetPlayerState(PlayerState.DASH);
-								gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+								gameFXSystem.ToggleRunFX(false);
 							}
 						}
 					} else if (toolType == ToolType.FishingRod) {
@@ -1165,9 +992,9 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region RUN EFFECT
 		if (fixDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
+			gameFXSystem.ToggleRunFX(true);
 		} else {
-			gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
+			gameFXSystem.ToggleRunFX(false);
 		}
 		#endregion
 

@@ -38,6 +38,7 @@ public class Player : MonoBehaviour {
 	public float shieldPower;
 	
 	[HeaderAttribute("Current")]
+	public TerrainType terrainType; 
 	public Transform somethingThatHitsPlayer;
 	// public PlayerTool playerTool;
     public bool isInitPlayer = false; 

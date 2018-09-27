@@ -7,7 +7,9 @@ public class GameFX : MonoBehaviour {
 	[HeaderAttribute("Player Effect")]
 	public ParticleSystem dodgeEffect;
 	public ParticleSystem counterChargeEffect;
-	public ParticleSystem runEffect;
+	public ParticleSystem runOnDirtEffect;
+	public ParticleSystem runOnGrassEffect;
+	public ParticleSystem runOnWaterEffect;
 	public ParticleSystem dashEffect;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
