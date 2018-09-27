@@ -9,6 +9,7 @@ public class Ghost : MonoBehaviour {
 	public SpriteRenderer sprite;
 	public ParticleSystem particle;
 	public ParticleSystem attackCodeFX;
+	public ParticleSystem burnedFX;
 	public ParticleSystem hitParticle;
 	public Vector3 origin;
 

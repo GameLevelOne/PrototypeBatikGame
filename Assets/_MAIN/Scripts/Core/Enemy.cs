@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour {
 	public bool initDie = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
+	public bool isBurned = false;
 	public bool isFinishDamaged = false;
 	
 	public bool isHit = false;

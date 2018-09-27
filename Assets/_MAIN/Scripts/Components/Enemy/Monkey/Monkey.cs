@@ -9,6 +9,7 @@ public class Monkey : MonoBehaviour {
 	public MonkeyTriggerDetection monkeyTriggerDetection;
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
+	public ParticleSystem burnedFX;
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;

@@ -214,6 +214,7 @@ public class DamageSystem : ComponentSystem {
 			} else if (damageTag == Constants.Tag.FIRE_ARROW ||
 			damageTag == Constants.Tag.EXPLOSION) {
 				currEnemy.initDamaged = false;
+				currEnemy.isBurned = true;
 				currEnemy.SetEnemyState(EnemyState.Damaged);
 				//BURN
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);

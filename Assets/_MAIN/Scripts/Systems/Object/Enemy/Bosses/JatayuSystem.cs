@@ -36,7 +36,7 @@ public class JatayuSystem : ComponentSystem {
 			CheckState();
 			CheckHit();
 			CheckHealth();
-			CheckBurned();
+			// CheckBurned();
 			FacePlayer();
 		}
 	}
