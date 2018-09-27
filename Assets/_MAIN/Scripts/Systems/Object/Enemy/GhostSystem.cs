@@ -49,7 +49,13 @@ public class GhostSystem : ComponentSystem {
 	{
 		if(currGhostHealth.EnemyHP <= 0f){
 			currEnemy.state = EnemyState.Die;
-		} 
+		} else {
+			if (currEnemy.isBurned) {
+				currGhost.burnedFX.Play(true);
+
+				currEnemy.isBurned = false;
+			}
+		}
 	}
 
 	void CheckState()

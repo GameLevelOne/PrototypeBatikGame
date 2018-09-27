@@ -81,6 +81,12 @@ public class BeeSystem : ComponentSystem {
 
 			GameObject.Destroy(currBee.gameObject);
 			UpdateInjectedComponentGroups();
+		} else {
+			if (currEnemy.isBurned) {
+				currBee.burnedFX.Play(true);
+
+				currEnemy.isBurned = false;
+			}
 		}
 	}
 

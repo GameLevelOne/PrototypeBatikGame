@@ -167,6 +167,12 @@ public class MonkeySystem : ComponentSystem {
 
 			GameObject.Destroy(currMonkey.gameObject);
 			UpdateInjectedComponentGroups();
+		} else {
+			if (currEnemy.isBurned) {
+				currMonkey.burnedFX.Play(true);
+
+				currEnemy.isBurned = false;
+			}
 		}
 	}
 

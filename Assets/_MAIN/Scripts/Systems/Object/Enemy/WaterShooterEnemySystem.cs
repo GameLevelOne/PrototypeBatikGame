@@ -5,6 +5,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	
 	public struct WaterShooterEnemyComponent{
 		public readonly int Length;
+		public ComponentArray<Enemy> enemy;
 		public ComponentArray<WaterShooterEnemy> waterShooterEnemy;
 		public ComponentArray<Rigidbody> waterShooterEnemyRigidbody;
 		public ComponentArray<Animator> waterShooterEnemyAnim;
@@ -13,6 +14,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 	#region injected component
 	[InjectAttribute] public WaterShooterEnemyComponent waterShooterEnemyComponent;
+	Enemy currEnemy;
 	WaterShooterEnemy currWaterShooterEnemy;
 	Rigidbody currWaterShooterEnemyRidigbody;
 	Animator currWaterShooterEnemyAnim;
@@ -23,6 +25,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	{
 		for(int i = 0;i<waterShooterEnemyComponent.Length;i++){
 			currWaterShooterEnemy = waterShooterEnemyComponent.waterShooterEnemy[i];
+			currEnemy = waterShooterEnemyComponent.enemy[i];
 			currWaterShooterEnemyRidigbody = waterShooterEnemyComponent.waterShooterEnemyRigidbody[i];
 			currWaterShooterEnemyAnim = waterShooterEnemyComponent.waterShooterEnemyAnim[i];
 			currWaterShooterEnemyHealth = waterShooterEnemyComponent.waterShooterEnemyHealth[i];
@@ -63,6 +66,12 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 			GameObject.Destroy(currWaterShooterEnemy.gameObject);
 			UpdateInjectedComponentGroups();
+		} else {
+			if (currEnemy.isBurned) {
+				currWaterShooterEnemy.burnedFX.Play(true);
+
+				currEnemy.isBurned = false;
+			}
 		}
 	}
 
@@ -71,6 +80,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		if(currWaterShooterEnemy.enemy.playerTransform != null){
 			currWaterShooterEnemy.enemy.state = EnemyState.Attack;
 			currWaterShooterEnemy.enemy.initIdle = false;
+			currEnemy.chaseIndicator.Play(true);
 		}else{
 			if(!currWaterShooterEnemy.enemy.initIdle){
 				currWaterShooterEnemy.enemy.initIdle = true;

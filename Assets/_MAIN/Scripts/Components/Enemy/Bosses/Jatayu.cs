@@ -28,6 +28,7 @@ public class Jatayu : MonoBehaviour {
 	public Animator movementAnim;
 	public Health health;
 	public ParticleSystem particleDie;
+	public ParticleSystem burnedFX;
 	public TimelineEventTrigger timelineEventTrigger;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
