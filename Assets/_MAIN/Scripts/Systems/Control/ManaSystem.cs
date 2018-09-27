@@ -13,12 +13,8 @@ public class ManaSystem : ComponentSystem {
 	Player player;
 
 	float deltaTime;
-	float regenTime;
-	float currMana;
+	float regenRate;
 	float maxMana;
-
-	bool isManaFull;
-	bool isCheckingMana;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -30,15 +26,18 @@ public class ManaSystem : ComponentSystem {
 			player = manaData.Player[i];
 
 			if (!mana.isInitMana) {
-				InitMana();
+				try {
+					Debug.Log("Start init Mana");
+					InitMana ();
+				} catch (System.Exception e) {
+					Debug.Log("Something wrong Mana \n ERROR : "+e);
+					return;
+				}
 
-				continue;
-			}
-
-			if (player.state != PlayerState.DIE) {
-				currMana = mana.PlayerMP;
-
-				if (!isManaFull && !isCheckingMana) {
+				Debug.Log("Finish init Mana");
+				mana.isInitMana = true;
+			} else if (player.state != PlayerState.DIE) {
+				if (!mana.isManaFull && mana.isCheckingMana) {
 					RegenMana();
 				}
 			}
@@ -47,15 +46,12 @@ public class ManaSystem : ComponentSystem {
 
 	void InitMana () {
 		maxMana = player.MaxMP;
-
-		isManaFull = false;
-		isCheckingMana = false;
-
-		mana.isInitMana = true;
+		regenRate = mana.manaRegenPerSecond;
+		mana.isCheckingMana = true;
 	}
 
 	public bool isHaveEnoughMana (float manaCost, bool isUseMana, bool isUsingStand) { //WHEN USING STAND	
-		if (currMana >= manaCost) {
+		if (mana.PlayerMP >= manaCost) {
 			if (isUseMana) {
 				UseMana(manaCost, isUsingStand);
 			}
@@ -68,10 +64,9 @@ public class ManaSystem : ComponentSystem {
 	}
 
 	public void UseMana (float manaCost, bool isUsingStand) {
-		isCheckingMana = true;
+		mana.isCheckingMana = true;
 		mana.PlayerMP -= manaCost;
-		isManaFull = false;
-		isCheckingMana = false;
+		mana.isManaFull = false;
 
 		if (isUsingStand) {
 			player.isUsingStand = true;
@@ -79,19 +74,20 @@ public class ManaSystem : ComponentSystem {
 	}
 
 	void RegenMana () {
-		if (currMana < maxMana) {
-			if (regenTime <= 1f) {
-				regenTime += deltaTime;
+		if (mana.PlayerMP < maxMana) {
+			if (mana.manaRegenTimer <= 1f) {
+				mana.manaRegenTimer += deltaTime;
 			} else {
-				mana.PlayerMP += mana.manaRegenPerSecond;
-				regenTime = 0f;
+				mana.manaRegenTimer = 0f;
+				mana.PlayerMP += regenRate;
 		
 				if (mana.PlayerMP > maxMana) {
 					mana.PlayerMP = maxMana;
+					mana.isCheckingMana = false;
 				}
 			}
 		} else {
-			isManaFull = true;
+			mana.isManaFull = true;
 		}
 	}
 }

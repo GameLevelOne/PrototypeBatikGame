@@ -38,7 +38,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	// float alphaValue;
 	// float deltaTime;
 	bool curDownPressed;
+	bool curLeftPressed;
 	bool curUpPressed;
+	bool curRightPressed;
 
 	protected override void OnUpdate () {
 		if (uiPlayerInfoData.Length == 0) return;
@@ -78,7 +80,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		// alphaValue = 0f;
 
 		curDownPressed = false;
+		curLeftPressed = false;
 		curUpPressed = false;
+		curRightPressed = false;
 
 		if (Time.timeScale == 0) {
 			Time.timeScale = 1;
@@ -112,18 +116,33 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (GameInput.IsInventoryPressed || GameInput.IsDodgePressed) { //ESCAPE / START (Gamepad)
 				isShowingInfo = false;
 			}
-			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
+			
+			if (!curUpPressed && GameInput.IsUpDirectionHeld) { //UP
 				curUpPressed = true;
-				PrevButtonTool ();
+				UpButtonTool();
 			} else if (!GameInput.IsUpDirectionHeld) {
 				curUpPressed = false;
 			}
 			
-			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
+			if (!curDownPressed && GameInput.IsDownDirectionHeld) { //DOWN
 				curDownPressed = true;
-				NextButtonTool ();
+				DownButtonTool();
 			} else if (!GameInput.IsDownDirectionHeld) {
 				curDownPressed = false;
+			}
+			
+			if (!curRightPressed && GameInput.IsRightDirectionHeld) { //RIGHT
+				curRightPressed = true;
+				RightButtonTool();
+			} else if (!GameInput.IsRightDirectionHeld) {
+				curRightPressed = false;
+			}
+			
+			if (!curLeftPressed && GameInput.IsLeftDirectionHeld) { //LEFT
+				curLeftPressed = true;
+				LeftButtonTool();
+			} else if (!GameInput.IsLeftDirectionHeld) {
+				curLeftPressed = false;
 			}
 			
 			if (GameInput.IsAttackPressed) {
@@ -131,21 +150,6 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			}
 		}
 	}
-
-	// void CheckUnlockedButton () {
-	// 	for (int i=0; i<uiToolsNSummons.listOfButtonToolsNSummons.Count; i++) {
-	// 		if (CheckIfToolHasBeenUnlocked(i)) {
-	// 			uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = true;
-	// 			// uiToolsNSummons.listOfButtonToolsNSummons[i].image.sprite = uiInfo.selectedToolSprite;
-	// 			ChangeUnSelectedButtonSprite(i);
-	// 			CheckContainerImage (i);
-	// 		} else {
-	// 			uiToolsNSummons.listOfButtonToolsNSummons[i].interactable = false;
-	// 			// uiToolsNSummons.listOfButtonToolsNSummons[i].image.sprite = uiInfo.initToolSprite;
-	// 			// ChangeSelectedButtonSprite(i);
-	// 		}
-	// 	}
-	// }
 
 	void CheckActiveTool () {
 		for (int i=0; i<listOfToolsNSummons.Count; i++) {
@@ -206,33 +210,105 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		}
 	}
 
-	void NextButtonTool () {
-		if (selectedToolNSummonIdx >= listOfToolsNSummons.Count-1){
-			selectedToolNSummonIdx = 0;
+	void RightButtonTool () {
+		if (selectedToolNSummonIdx == 2 || selectedToolNSummonIdx == 5) {
+			selectedToolNSummonIdx = 9;
+		} else if (selectedToolNSummonIdx == 12){
+			selectedToolNSummonIdx = 6;
 		} else {
 			selectedToolNSummonIdx++;
 		}
 
 		if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
-			NextButtonTool ();
+			RightButtonTool ();
 		}
 
 		SelectTool(selectedToolNSummonIdx);
 	}
 
-	void PrevButtonTool () {
-		if (selectedToolNSummonIdx <= 0){
-			selectedToolNSummonIdx = listOfToolsNSummons.Count-1;
+	void LeftButtonTool () {
+		if (selectedToolNSummonIdx == 0 || selectedToolNSummonIdx == 3 || selectedToolNSummonIdx == 6) {
+			selectedToolNSummonIdx = 12;
 		} else {
 			selectedToolNSummonIdx--;
 		}
 
 		if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
-			PrevButtonTool ();
+			LeftButtonTool ();
 		}
 
 		SelectTool(selectedToolNSummonIdx);
 	}
+
+	void UpButtonTool () {
+		if (selectedToolNSummonIdx == 0) {
+			selectedToolNSummonIdx = 6;
+		} else if (selectedToolNSummonIdx == 1) {
+			selectedToolNSummonIdx = 7;
+		} else if (selectedToolNSummonIdx == 2) {
+			selectedToolNSummonIdx = 8;
+		} else if (selectedToolNSummonIdx >= 9 && selectedToolNSummonIdx <= 12) {
+			selectedToolNSummonIdx = 5;
+			// return;
+		} else {
+			selectedToolNSummonIdx-=3;
+		}
+
+		if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
+			UpButtonTool ();
+		}
+
+		SelectTool(selectedToolNSummonIdx);
+	}
+
+	void DownButtonTool () {
+		if (selectedToolNSummonIdx == 6) {
+			selectedToolNSummonIdx = 0;
+		} else if (selectedToolNSummonIdx == 7) {
+			selectedToolNSummonIdx = 1;
+		} else if (selectedToolNSummonIdx == 8) {
+			selectedToolNSummonIdx = 2;
+		} else if (selectedToolNSummonIdx >= 9 && selectedToolNSummonIdx <= 12) {
+			selectedToolNSummonIdx = 2;
+			// return;
+		} else {
+			selectedToolNSummonIdx+=3;
+		}
+
+		if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
+			DownButtonTool ();
+		}
+
+		SelectTool(selectedToolNSummonIdx);
+	}
+
+	// void NextButtonTool () {
+	// 	if (selectedToolNSummonIdx >= listOfToolsNSummons.Count-1){
+	// 		selectedToolNSummonIdx = 0;
+	// 	} else {
+	// 		selectedToolNSummonIdx++;
+	// 	}
+
+	// 	if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
+	// 		NextButtonTool ();
+	// 	}
+
+	// 	SelectTool(selectedToolNSummonIdx);
+	// }
+
+	// void PrevButtonTool () {
+	// 	if (selectedToolNSummonIdx <= 0){
+	// 		selectedToolNSummonIdx = listOfToolsNSummons.Count-1;
+	// 	} else {
+	// 		selectedToolNSummonIdx--;
+	// 	}
+
+	// 	if (selectedToolNSummonIdx == usedToolNSummonIdx || !CheckIfToolHasBeenUnlocked (selectedToolNSummonIdx)) {
+	// 		PrevButtonTool ();
+	// 	}
+
+	// 	SelectTool(selectedToolNSummonIdx);
+	// }
 
 	bool CheckIfToolHasBeenUnlocked (int type) {
 		if (toolSystem.tool.CheckIfToolHasBeenUnlocked((int) listOfToolsNSummons[type].buttonToolNSummonType) > 0) {

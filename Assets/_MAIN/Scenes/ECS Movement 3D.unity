@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &97417079
 Transform:
   m_ObjectHideFlags: 0
@@ -1324,26 +1324,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 267917369}
-    - target: {fileID: 224489475687451458, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 224720306707746498, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 224326442835508686, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 224499988589119162, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303525bfb6dc1594f9f1664e7301c3dc, type: 2}
   m_IsPrefabAsset: 0
@@ -1460,6 +1440,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114977243238074196, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
+        type: 2}
+      propertyPath: questTrigger
+      value: 
+      objectReference: {fileID: 1203433336}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced7e47e6e4d97049aa1db2db05c9f8e, type: 2}
   m_IsPrefabAsset: 0
@@ -1571,11 +1556,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
+    - target: {fileID: 23002422272050820, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
-      propertyPath: m_Camera
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 267917369}
+      objectReference: {fileID: 218489917}
+    - target: {fileID: 33107598215902358, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 284969908}
     - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
       propertyPath: player
@@ -1591,20 +1581,11 @@ Prefab:
       propertyPath: playerMana
       value: 
       objectReference: {fileID: 1044666965}
-    - target: {fileID: 33107598215902358, guid: fd8c80b125465a947912a75c8118fed4,
+    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
-      propertyPath: m_Mesh
+      propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 284969908}
-    - target: {fileID: 23002422272050820, guid: fd8c80b125465a947912a75c8118fed4,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 218489917}
-    - target: {fileID: 1945007987741056, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 267917369}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
   m_IsPrefabAsset: 0
@@ -2736,9 +2717,10 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[30].value
       value: 
       objectReference: {fileID: 1851676949}
-    - target: {fileID: 1019638878109940, guid: ded1b61004e356a46b86b4e1aefdd3dc, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 114472267795444824, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: isInitEnableTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ded1b61004e356a46b86b4e1aefdd3dc, type: 2}
@@ -2932,6 +2914,10 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 267917369}
+    - target: {fileID: 1335873306701842, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
   m_IsPrefabAsset: 0
@@ -3184,18 +3170,6 @@ Prefab:
       propertyPath: uiShop
       value: 
       objectReference: {fileID: 1483447616}
-    - target: {fileID: 114431920646943880, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: slash
-      value: 
-      objectReference: {fileID: 1789372909216884, guid: 1ed54386c0db1e24bbaac58707c2d3d5,
-        type: 2}
-    - target: {fileID: 114142693087832688, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: magicMedallionAreaEffectObj
-      value: 
-      objectReference: {fileID: 1028507337033762, guid: 6a541dd3c50a37d4c8f36d40cbda8c77,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
