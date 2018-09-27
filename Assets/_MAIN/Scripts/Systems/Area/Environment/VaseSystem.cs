@@ -20,6 +20,8 @@ public class VaseSystem : ComponentSystem {
 		for(int i = 0;i<vaseComponent.Length;i++){
 			vase = vaseComponent.vase[i];
 			vaseTransform = vaseComponent.vaseTransform[i];
+
+			CheckVase();
 		}
 	}
 
@@ -27,10 +29,11 @@ public class VaseSystem : ComponentSystem {
 	{
 		if(vase.destroy){
 			vase.destroy = false;
+			vase.vaseCollider.enabled = false;
 			vase.vaseIdle.SetActive(false);
 			if(vase.vaseGreyIdle.activeSelf) vase.vaseGreyIdle.SetActive(false);
 			vase.vaseBroken.SetActive(true);
-			// vase.particle.SetActive(true);
+			vase.particle.Play();
 			lootableSpawnerSystem.CheckPlayerLuck(vase.lootDropProbability,vaseTransform.position);
 		}
 	}
