@@ -7,8 +7,6 @@ public class GameStorage : MonoBehaviour {
 	public int initSavedHP;
 	public int initSavedMP;
 
-	public bool isTesting;
-
 	public bool isInitGameStorage = false;
 
 	// public bool IsPlayerAlreadyEnterForest {
@@ -46,9 +44,7 @@ public class GameStorage : MonoBehaviour {
 	}
 
 	void Start () {
-		if (isTesting) {
-			PlayerCoin = initCoin;
-		}
+
 	}
 
 #region SINGLETON

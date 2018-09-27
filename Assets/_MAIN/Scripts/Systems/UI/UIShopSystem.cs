@@ -8,174 +8,199 @@ public class UIShopSystem : ComponentSystem {
 		public ComponentArray<UIShop> UIShop;
 	}
 	[InjectAttribute] UIShopData uiShopData;
-	
+	public struct ContainerData {
+		public readonly int Length;
+		public ComponentArray<Container> container;
+	}
+	[InjectAttribute] ContainerData containerData;
 	UIShop uiShop;
-
-	Animator animator;
-
-	bool isInitShop = false;
-	bool isOpeningShop = false;
-	bool isPlayingAnimation = false;
-	// bool isAfterPressPause = false;
-	bool isActivatingShop = false;
-	// bool isInitShowShop = false;
-	// int timeSwitch = 1;
-	// float showTime;
-	// float showMultiplier;
-	// float hideMultiplier;
-	// float alphaValue;
-	// float deltaTime;
-	int buttonIndex;
-	int buttonItemLength;
-	bool curDownPressed;
-	bool curUpPressed;
+	LootableType[] playerContainer;
 
 	protected override void OnUpdate () {
-		if (uiShopData.Length == 0) return;
-
-		// deltaTime = Time.deltaTime;
-
 		for (int i=0; i<uiShopData.Length; i++) {
 			uiShop = uiShopData.UIShop[i];
 			
-			animator = uiShop.animator;
-			// showMultiplier = uiShop.showMultiplier;
-			// hideMultiplier = uiShop.hideMultiplier;
+			if (!uiShop.isInitShop) {
+				InitShop ();
 
-			if (!isInitShop) {
-				try {
-					InitShop ();
-				} catch {
-					Debug.Log("Error init UIShopSystem");
-					return;
-				}
-
-				isInitShop = true;
 			} else {
-				isOpeningShop = uiShop.isOpeningShop;
-				isPlayingAnimation = uiShop.isPlayingAnimation;
-				CheckInput ();
 				CheckShowingShop ();	
+				CheckInput ();
 			}
 		}
 	}
 
 	void InitShop () {
-		isOpeningShop = false;
-		buttonIndex = 0;
-		buttonItemLength = uiShop.itemShops.Length;
-		curDownPressed = false;
-		curUpPressed = false;
+		uiShop.isInitShop = true;
+		uiShop.isOpeningShop = false;
+		uiShop.isShopFade = false;
 
-		// isInitShowShop = false;
-		// timeSwitch = 1;
-		// alphaValue = 0f;
+		uiShop.healthPriceLabel.text = ""+uiShop.healthPrice;
+		uiShop.manaPriceLabel.text = ""+uiShop.manaPrice;
+		uiShop.curType = LootableType.NONE;
 
 		if (Time.timeScale == 0) {
 			Time.timeScale = 1;
 		}
 
 		// uiShop.canvasShopGroup.alpha = 0f;
-		animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
-		uiShop.itemShops[buttonIndex].buttonItem.Select();
+		// uiShop.animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
 		uiShop.panelUIShop.SetActive(false);
 	}
 
 	void CheckInput () {
-		if (isOpeningShop) {
+		if (uiShop.isOpeningShop) {
+			//EXIT SHOP
 			if (GameInput.IsDodgePressed) {
 				uiShop.isOpeningShop = false;
 			}
-			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
-				curUpPressed = true;
-				PrevButtonTool ();
-			} else if (!GameInput.IsUpDirectionHeld) {
-				curUpPressed = false;
+
+			//SELECT LEFT
+			if (!uiShop.leftPressed && GameInput.IsLeftDirectionHeld) {
+				uiShop.leftPressed = true;
+
+				uiShop.curType = LootableType.HP_POTION;
+				ShowCurrentlySelected();
+			} else if (!GameInput.IsLeftDirectionHeld) {
+				uiShop.leftPressed = false;
 			}
 
-			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
-				curDownPressed = true;
-				NextButtonTool ();
-			} else if (!GameInput.IsDownDirectionHeld) {
-				curDownPressed = false;
-			} 
-			if (GameInput.IsAttackPressed) {
+			//SELECT RIGHT
+			if (!uiShop.rightPressed && GameInput.IsRightDirectionHeld) {
+				uiShop.rightPressed = true;
+
+				uiShop.curType = LootableType.MANA_POTION;
+				ShowCurrentlySelected();
+			} else if (!GameInput.IsRightDirectionHeld) {
+				uiShop.rightPressed = false;
+			}
+
+			//BUY ITEM
+			if (IsReadyToBuy() && GameInput.IsAttackPressed) {
 				BuyItemShop ();
 			}
 		}
 	}
 
-	void NextButtonTool () {
-		if (buttonIndex >= buttonItemLength-1){
-			buttonIndex = 0;
-		} else {
-			buttonIndex++;
-		}
-
-		SelectItemShop();
+	bool IsReadyToBuy() {
+		if (uiShop.curType==LootableType.HP_POTION && uiShop.handL.GetCurrentAnimatorStateInfo(0).IsName("Select")) 
+			return true;
+		if (uiShop.curType==LootableType.MANA_POTION && uiShop.handR.GetCurrentAnimatorStateInfo(0).IsName("Select")) 
+			return true;
+		return false;
 	}
-
-	void PrevButtonTool () {
-		if (buttonIndex <= 0){
-			buttonIndex = buttonItemLength-1;
+	void ShowCurrentlySelected() {
+		if (uiShop.curType==LootableType.HP_POTION) {
+			uiShop.handL.SetBool("Select",true);
+			uiShop.handR.SetBool("Select",false);
+		} else if (uiShop.curType==LootableType.MANA_POTION) {
+			uiShop.handL.SetBool("Select",false);
+			uiShop.handR.SetBool("Select",true);
 		} else {
-			buttonIndex--;
+			uiShop.handL.SetBool("Select",false);
+			uiShop.handR.SetBool("Select",false);
 		}
-
-		SelectItemShop();
-	}
-
-	void SelectItemShop () {
-		uiShop.itemShops[buttonIndex].buttonItem.Select();
 	}
 
 	void BuyItemShop () {
-		uiShop.BuyItem(uiShop.itemShops[buttonIndex].lootableType, uiShop.itemShops[buttonIndex].itemPrice);
+		int containerIdx = getNextEmptyContainer();
+		if (uiShop.curType==LootableType.HP_POTION) {
+			if (GameStorage.Instance.PlayerCoin >= uiShop.healthPrice && containerIdx>=0) {
+				uiShop.BuyItem(LootableType.HP_POTION, uiShop.healthPrice);
+				uiShop.handL.SetTrigger("Buy");
+
+				GameStorage.Instance.PlayerCoin-= uiShop.healthPrice;
+				playerContainer[containerIdx] = LootableType.HP_POTION;
+
+				GetPlayerData();
+				uiShop.healthContainer[containerIdx].Play("Appear",0,0f);				
+			} else {
+				uiShop.handL.SetTrigger("Fail");
+			}
+		} else {
+			if (GameStorage.Instance.PlayerCoin >= uiShop.manaPrice && containerIdx>=0) {
+				uiShop.BuyItem(LootableType.MANA_POTION, uiShop.manaPrice);
+				uiShop.handR.SetTrigger("Buy");
+
+				GameStorage.Instance.PlayerCoin-= uiShop.manaPrice;
+				playerContainer[containerIdx] = LootableType.MANA_POTION;
+
+				GetPlayerData();
+				uiShop.manaContainer[containerIdx].Play("Appear",0,0f);				
+			} else {
+				uiShop.handR.SetTrigger("Fail");
+			}
+		}
+
 	}
 
 	void CheckShowingShop () {
-		if (isOpeningShop) {
+		if (uiShop.isOpeningShop) {
 			ShowShop ();
 		} else {
 			HideShop ();
 		}
 	}
 
+	void GetPlayerData(){
+		uiShop.playerMoneyLabel.text = ""+GameStorage.Instance.PlayerCoin;
+		for(int i=0;i<containerData.Length;i++) {
+			playerContainer = containerData.container[i].lootableTypes;
+		}
+		for (int i=0;i<playerContainer.Length;i++) {
+			showPlayerContainer(i);
+		}
+	}
+
+	void showPlayerContainer(int idx){
+		if (playerContainer[idx] == LootableType.NONE) {
+			uiShop.healthContainer[idx].gameObject.SetActive(false);
+			uiShop.manaContainer[idx].gameObject.SetActive(false);
+		} else if (playerContainer[idx] == LootableType.HP_POTION) {
+			uiShop.healthContainer[idx].gameObject.SetActive(true);
+			uiShop.manaContainer[idx].gameObject.SetActive(false);
+		} else if (playerContainer[idx] == LootableType.MANA_POTION) {
+			uiShop.healthContainer[idx].gameObject.SetActive(false);
+			uiShop.manaContainer[idx].gameObject.SetActive(true);
+		}
+	}
+
+	int getNextEmptyContainer() {
+		int curIdx = -1;
+		for (int i=0;i<playerContainer.Length;i++){
+			if (playerContainer[i] == LootableType.NONE) {
+				curIdx = i;
+				break;
+			}
+		}
+
+		return curIdx;
+	}
+
 	void ShowShop () {
-		if (!isActivatingShop) {
+		if (!uiShop.isShopFade) {
 			Time.timeScale = 0;
 			uiShop.panelUIShop.SetActive(true);
-			uiShop.isPlayingAnimation = true;
-			animator.Play(Constants.AnimationName.FADE_IN);
-			// isInitShowShop = false;
-			EventSystem.current.SetSelectedGameObject(null);
-			uiShop.itemShops[buttonIndex].buttonItem.Select();
-			isActivatingShop = true;
+			uiShop.isShopFade = true;
+			uiShop.curType = LootableType.NONE;
+			uiShop.leftPressed = false;
+			uiShop.rightPressed = false;			
+			GetPlayerData();
+			ShowCurrentlySelected();
+			uiShop.animator.Play(Constants.AnimationName.FADE_IN);
 		} else {
-			if (!isPlayingAnimation) {
-				animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
-				uiShop.isPlayingAnimation = true;
-				// isInitShowShop = true;
-			} else {
-				//
-			}
+			uiShop.animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
 		}
 	}
 
 	void HideShop () {
-		if (isActivatingShop) {
-			// isInitShowShop = false;
-			uiShop.isPlayingAnimation = true;
-			animator.Play(Constants.AnimationName.FADE_OUT);
-			isActivatingShop = false;
+		if (uiShop.isShopFade) {
+			uiShop.animator.Play(Constants.AnimationName.FADE_OUT);
+			uiShop.isShopFade = false;
+			Time.timeScale = 1;
 		} else {
-			if (!isPlayingAnimation) {
-				// isInitShowShop = false;
-				animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
-				uiShop.isPlayingAnimation = true;
-				uiShop.panelUIShop.SetActive(false);
-				Time.timeScale = 1;
-			}
+			// uiShop.animator.Play(Constants.AnimationName.CANVAS_INVISIBLE);
+			uiShop.panelUIShop.SetActive(false);
 		}
 	}
 }
