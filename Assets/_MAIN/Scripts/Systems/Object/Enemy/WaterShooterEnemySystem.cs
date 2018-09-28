@@ -145,7 +145,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
     Quaternion SetFacingChild (Vector3 resultPos) {
         float angle = Mathf.Atan2 (resultPos.z, resultPos.x) * Mathf.Rad2Deg;
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle - 180f));
 
         return targetRot;
     }

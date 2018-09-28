@@ -11,7 +11,7 @@ public class ContainerSystem : ComponentSystem {
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
-	Container container;
+	public Container container;
 
 	LootableType[] lootableTypes;
 
@@ -20,13 +20,38 @@ public class ContainerSystem : ComponentSystem {
 
 		for (int i=0; i<containerData.Length; i++) {
 			container = containerData.Container[i];
-
-			lootableTypes = container.lootableTypes;
+			
+			if (!container.isInitContainer) {
+				InitContainer();
+			}
 
 			// if (container.isProcessingBuyItem) {
 			// 	ProcessCoin (container.boughtItemLootabelType, container.boughtItemPrice);		
 			// }
 		}
+	}
+
+	void InitContainer () {
+		lootableTypes = container.lootableTypes;
+
+		//LOAD CONTAINER : 0 NONE, 1 HP, 2 MP
+		for (int i=0; i<lootableTypes.Length; i++) {
+			int containerAvailability = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 0);
+
+			switch (containerAvailability) {
+				case 1:
+					container.lootableTypes[i] = LootableType.HP_POTION;
+					break;
+				case 2:
+					container.lootableTypes[i] = LootableType.MANA_POTION;
+					break;
+				default:
+					container.lootableTypes[i] = LootableType.NONE;
+					break;
+			}
+		}
+
+		container.isInitContainer = true;
 	}
 
 	// void ProcessCoin (LootableType type, int price) {
@@ -50,6 +75,19 @@ public class ContainerSystem : ComponentSystem {
 		for (int i=0; i<lootableTypes.Length; i++) {
 			if (container.CheckIfContainerIsEmpty(i)) {
 				lootableTypes[i] = currentLootableType;
+
+				//SAVE CONTAINER
+				// switch (currentLootableType) {
+				// 	case LootableType.HP_POTION:
+				// 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 1);
+				// 		break;
+				// 	case LootableType.MANA_POTION:
+				// 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 2);
+				// 		break;
+				// 	default:
+				// 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 0);
+				// 		break;
+				// }
 
 				Debug.Log(lootableTypes[i] + " is contained in container "+i);
 				ResetTool();
@@ -108,13 +146,15 @@ public class ContainerSystem : ComponentSystem {
 		container.player.health.PlayerHP += container.player.MaxHP;
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
+		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
 	}
 
 	void UseManaPotion (int lootableTypeIdx) {
 		Debug.Log("Use Mana Potion");
-		container.player.health.PlayerHP += container.player.MaxMP;
+		container.player.mana.PlayerMP += container.player.MaxMP;
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
+		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
 	}
 
 	void ResetTool() {

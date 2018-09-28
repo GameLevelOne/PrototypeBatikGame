@@ -126,6 +126,7 @@ public static class Constants {
 
 		public const string LEVEL_PLAYER_START_POS = "Level/PlayerStartPos";
 		public const string LEVEL_CURRENT = "Level/CurrentLevel";
+		public const string PLAYER_SAVED_CONTAINER = "Player/Itam/Container/";
 	}
 	
 	public static class NPCPrefKey {

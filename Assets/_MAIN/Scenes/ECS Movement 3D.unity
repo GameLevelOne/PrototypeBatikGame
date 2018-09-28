@@ -1431,6 +1431,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 114977243238074196, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
+        type: 2}
+      propertyPath: questTrigger
+      value: 
+      objectReference: {fileID: 1203433336}
     - target: {fileID: 198279889073345726, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
         type: 2}
       propertyPath: moveWithCustomTransform
@@ -1440,11 +1445,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114977243238074196, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
-        type: 2}
-      propertyPath: questTrigger
-      value: 
-      objectReference: {fileID: 1203433336}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ced7e47e6e4d97049aa1db2db05c9f8e, type: 2}
   m_IsPrefabAsset: 0
@@ -2377,7 +2377,19 @@ Prefab:
         type: 2}
       propertyPath: initContainerSprite
       value: 
-      objectReference: {fileID: 21300000, guid: bbdf93519a547cb40a6d9a72eeb8b42e,
+      objectReference: {fileID: 21300000, guid: 388e83931ae72c649a3cc8dc8c29a71e,
+        type: 3}
+    - target: {fileID: 114691031554342336, guid: 9a9c3e2231b908a4a8d150ae64baef21,
+        type: 2}
+      propertyPath: mpPotSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6263c9cbf73a77944bf58313c3f087ca,
+        type: 3}
+    - target: {fileID: 114691031554342336, guid: 9a9c3e2231b908a4a8d150ae64baef21,
+        type: 2}
+      propertyPath: hpPotSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1e208037d4e27894f83db1b1e336b59f,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a9c3e2231b908a4a8d150ae64baef21, type: 2}
@@ -3165,11 +3177,6 @@ Prefab:
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
-    - target: {fileID: 114082368463013134, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: uiShop
-      value: 
-      objectReference: {fileID: 1483447616}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0

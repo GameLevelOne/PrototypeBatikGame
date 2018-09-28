@@ -81,6 +81,7 @@ public class DamageSystem : ComponentSystem {
 
 		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
+			Debug.Log(player.damageReceive.damage);
 			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
@@ -122,6 +123,10 @@ public class DamageSystem : ComponentSystem {
 				if (health.PlayerHP <= 0f) {
 					player.SetPlayerState(PlayerState.DIE);
 				}
+			}
+
+			if (player.damageReceive.GetComponent<WaterShooterBullet>() != null) {
+				player.damageReceive.GetComponent<WaterShooterBullet>().projectile.isSelfDestroying = true;
 			}
 		}
 	}
