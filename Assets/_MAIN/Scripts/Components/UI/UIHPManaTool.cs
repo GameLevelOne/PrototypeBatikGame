@@ -6,17 +6,21 @@ public class UIHPManaTool : MonoBehaviour {
 
 	[HeaderAttribute("UI HP Attributes")]
 	public Health playerHealth;
-	public Image clothHP;
+	// public Image clothHP;
+	public Image clothHPMask;
+	public ParticleSystem reducedHPFX;
 	// public float initClothPosX;
-
 	// public float maxClothWidth;
-	public float healthReduceValue;
+	// public float healthReduceValue;
 	public bool isHPChange = false;
 	
 	[HeaderAttribute("UI Mana Attributes")]
 	public Mana playerMana;
-	public Image imageMana;
+	public Image imageMP;
+	public Image imageShadowMP;
+	public float manaReduceValue;
 	public bool isMPChange = false;
+	public bool isReducingShadowMP = false;
 	
 	[SpaceAttribute(10f)]
 	// public Wavy wavy;

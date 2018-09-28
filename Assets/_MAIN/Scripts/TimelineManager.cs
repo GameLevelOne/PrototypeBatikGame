@@ -16,11 +16,17 @@ public class TimelineManager : MonoBehaviour {
 	public double startDialogueInitTime;
 	public double endDialogueInitTime;
 
+	[HeaderAttribute("Show Ghosts")]
+	public TimelineEventTrigger endShowGhosts;
+
 	[HeaderAttribute("Boss Area")]
 	public TimelineEventTrigger beforeBossFightTrigger;
 	public TimelineEventTrigger afterBossFightTrigger;
 	public double AfterBossFightInitTime;
+	public Transform playerSpriteTransform;
+	public Transform playerTransform;
 	public GameObject jatayuObj;
+
 
 	[SpaceAttribute(10f)]
 	public bool isTesting = true;
@@ -45,6 +51,8 @@ public class TimelineManager : MonoBehaviour {
 
 		if(npcOpening != null) npcOpening.OnNPCEndDialogue += OnNPCEndDialogue;
 		
+		endShowGhosts.OnEndShowGhosts += OnEndShowGhosts;
+		
 		beforeBossFightTrigger.OnEntranceBossArea += OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea += OnEndBossArea;
 
@@ -57,6 +65,8 @@ public class TimelineManager : MonoBehaviour {
 		endOpeningEntranceTrigger.OnEndOpeningMKF -= OnEndOpeningMKF;
 
 		if(npcOpening != null) npcOpening.OnNPCEndDialogue -= OnNPCEndDialogue;
+		
+		endShowGhosts.OnEndShowGhosts -= OnEndShowGhosts;
 		
 		beforeBossFightTrigger.OnEntranceBossArea -= OnEntranceBossArea;
 		afterBossFightTrigger.OnEndBossArea -= OnEndBossArea;
@@ -95,6 +105,19 @@ public class TimelineManager : MonoBehaviour {
 		SavePlayedTimeline ();
 		//
 		// Debug.Log("STOP TIMELINE");
+	}
+#endregion
+
+#region Show Ghosts
+	void OnEndShowGhosts () {
+		playableDirector.enabled = false;
+		playerEntity.enabled = true;
+		npcEntity.enabled = true;
+
+		playerTransform.position = new Vector3(21f,0.9f,25f);
+		playerSpriteTransform.localPosition = new Vector3(0f,-0.9f,0f);
+
+		SavePlayedTimeline ();
 	}
 #endregion
 

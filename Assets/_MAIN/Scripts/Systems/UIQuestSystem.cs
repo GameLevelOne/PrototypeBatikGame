@@ -66,7 +66,7 @@ public class UIQuestSystem : ComponentSystem {
 				uiQuest.questTexts[i].GetComponent<Outline>().enabled = true;
 				uiQuest.questImages[i].sprite = uiQuest.completeSprite;
 				// uiQuest.completeTexts[i].enabled = true;
-				Debug.LogWarning("UIQuestSystem Quest "+i+" is Complete");
+				// Debug.LogWarning("UIQuestSystem Quest "+i+" is Complete");
 			} else {
 				uiQuest.questTexts[i].color = uiQuest.initTextColor;
 				uiQuest.questTexts[i].GetComponent<Outline>().enabled = false;

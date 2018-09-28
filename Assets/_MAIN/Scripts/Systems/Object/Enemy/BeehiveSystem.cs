@@ -61,6 +61,7 @@ public class BeehiveSystem : ComponentSystem{
 				GameObject.Destroy(currBeehive.gameObject);
 				UpdateInjectedComponentGroups();
 			}
+		} else {
 		}
 	}
 

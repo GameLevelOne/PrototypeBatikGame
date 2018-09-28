@@ -6,6 +6,7 @@ public class ChestSpawnerSystem : ComponentSystem {
 		public ComponentArray<ChestSpawner> ChestSpawner;
 	}
 	[InjectAttribute] ChestSpawnerData chestSpawnerData;
+	[InjectAttribute] ToolSystem toolSystem;
 	ChestSpawner chestSpawner;
 
 	// public struct ChestSpawnerTriggerData {
@@ -77,6 +78,15 @@ public class ChestSpawnerSystem : ComponentSystem {
 		// chestSpawner.chestCol.enabled = activeState;
 		// chestSpawner.chestSpriteRen.enabled = activeState;
 		// chestSpawner.chestEntity.enabled = activeState;
-		chestSpawner.chestObj.SetActive(activeState);
+
+		if (chestSpawner.chestSpawnerType == ChestSpawnerType.POWERARROW) {
+			if (toolSystem.tool.Bow == 1){
+				chestSpawner.chestObj.SetActive(false);
+			} else {
+				chestSpawner.chestObj.SetActive(true);
+			}
+		} else {
+			chestSpawner.chestObj.SetActive(activeState);
+		}
 	}
 }

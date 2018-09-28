@@ -23,28 +23,28 @@ public class ContainerSystem : ComponentSystem {
 
 			lootableTypes = container.lootableTypes;
 
-			if (container.isProcessingBuyItem) {
-				ProcessCoin (container.boughtItemLootabelType, container.boughtItemPrice);		
-			}
+			// if (container.isProcessingBuyItem) {
+			// 	ProcessCoin (container.boughtItemLootabelType, container.boughtItemPrice);		
+			// }
 		}
 	}
 
-	void ProcessCoin (LootableType type, int price) {
-		Debug.Log("Your have "+GameStorage.Instance.PlayerCoin+" coins");
-		if (price <= GameStorage.Instance.PlayerCoin) {
-			if (SaveToContainer (type)) {
-				Debug.Log("You have buy item "+type+" for "+price+" coins");
-				GameStorage.Instance.PlayerCoin -= price;
-				Debug.Log("Your remaining coins "+GameStorage.Instance.PlayerCoin);
-			} else {
-				//No Empty Container
-			}
-		} else {
-			Debug.Log("You have not enough coins");
-		}
+	// void ProcessCoin (LootableType type, int price) {
+	// 	Debug.Log("Your have "+GameStorage.Instance.PlayerCoin+" coins");
+	// 	if (price <= GameStorage.Instance.PlayerCoin) {
+	// 		if (SaveToContainer (type)) {
+	// 			Debug.Log("You have buy item "+type+" for "+price+" coins");
+	// 			GameStorage.Instance.PlayerCoin -= price;
+	// 			Debug.Log("Your remaining coins "+GameStorage.Instance.PlayerCoin);
+	// 		} else {
+	// 			//No Empty Container
+	// 		}
+	// 	} else {
+	// 		Debug.Log("You have not enough coins");
+	// 	}
 
-		container.isProcessingBuyItem = false;
-	}
+	// 	container.isProcessingBuyItem = false;
+	// }
 
 	public bool SaveToContainer (LootableType currentLootableType) {
 		for (int i=0; i<lootableTypes.Length; i++) {

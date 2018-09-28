@@ -12,9 +12,23 @@ public class QuestSystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<AreaDissolver> AreaDissolver;
 	}
+
+	public struct UIQuestData {
+		public readonly int Length;
+		public ComponentArray<UIQuest> uiQuest;
+
+	}
+	public struct UINotifData {
+		public readonly int Length;
+		public ComponentArray<UINotif> uiNotif;
+
+	}
 	[InjectAttribute] AreaDissolverData areaDissolverData;
 
 	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
+	[InjectAttribute] UIQuestData uiQuestData;
+	[InjectAttribute] UIQuestSystem uiQuestSystem;
+	[InjectAttribute] UINotifData uiNotifData;
 
 	public Quest quest;
 
@@ -61,7 +75,7 @@ public class QuestSystem : ComponentSystem {
 
 		PlayerPrefs.SetInt(questCurrentPointStr, value);
 
-		Debug.Log(questCurrentPointStr);
+		// Debug.Log(questCurrentPointStr);
 	}
 
 	void CheckQuest () {
@@ -73,7 +87,7 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	void ProcessQuest (int questIdx) {
-		Debug.Log("QuestSystem ProcessQuest : "+questIdx);
+		// Debug.Log("QuestSystem ProcessQuest : "+questIdx);
 		quest.questCurrentPoint[questIdx]++;
 
 		if (CheckIfQuestIsComplete(questIdx)) {
@@ -86,6 +100,23 @@ public class QuestSystem : ComponentSystem {
 					areaDissolver.isDissolveArea = true;
 					Debug.Log("QuestSystem Dissolving Area Quest "+questIdx);
 				}
+			}
+
+			string textToShow="";
+			for (int i=0;i<uiQuestData.Length; i++) {
+				UIQuest uiQuest = uiQuestData.uiQuest[i];
+
+				uiQuestSystem.CheckIfUIQuestIsComplete();
+
+				textToShow = uiQuest.questTexts[questIdx].text;
+				textToShow += " <color=#00ff00ff>(COMPLETED!)</color>";				
+			}
+			Debug.Log("QuestSystem text to show: "+textToShow);
+			for (int i=0;i<uiNotifData.Length;i++)
+			{
+				UINotif uiNotif = uiNotifData.uiNotif[i];
+				uiNotif.TextToShow = textToShow;
+				uiNotif.call = true;
 			}
 			
 			Debug.Log("QuestSystem Quest "+questIdx+" is Complete");

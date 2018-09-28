@@ -6,10 +6,13 @@ public class Mana : MonoBehaviour {
 
 	public float mana = 0;
 	public float manaRegenPerSecond = 0;
+	public float manaRegenTimer = 0;
 
 	// public bool isCheckingMana = false;
 	// public bool isTestMana = false;
 
+	public bool isManaFull;
+	public bool isCheckingMana;
 	public bool isInitMana = false;
 
 	void Awake () { //TEMP
