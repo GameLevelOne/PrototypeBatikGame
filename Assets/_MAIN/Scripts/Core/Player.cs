@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 	public PlayerState state;
 	// public Transform playerWeaponPos;
 	public Collider playerCol;
-	public UIGameOver uiGameOver;
+	// public UIGameOver uiGameOver;   <---- CHANGE TO INJECTATTRIBUTE IN PLAYERMOVEMENTSYSTEM
 	public GameObject playerAttackAreaObj;
 	public Transform liftingParent;
 	public float shieldPower;

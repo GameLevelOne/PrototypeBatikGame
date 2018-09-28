@@ -16,6 +16,12 @@ public class PlayerMovementSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 		// public ComponentArray<TeleportBulletTime> TeleportBulletTime;
 	}
+	public struct UIGameOverData
+	{
+		public readonly int Length;
+		public ComponentArray<UIGameOver> uiGameOver;
+	}
+	[InjectAttribute]UIGameOverData uiGameOverData;
 	[InjectAttribute] MovementData movementData;
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] SwimSystem SwimSystem;
@@ -81,7 +87,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					// SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
 				// }	
 
-				player.uiGameOver.call = true;
+				for (int j=0;j<uiGameOverData.Length;j++) {
+					uiGameOverData.uiGameOver[j].call = true;
+				}
 
 				continue;
 			}
