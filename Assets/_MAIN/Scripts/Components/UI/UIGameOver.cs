@@ -4,31 +4,29 @@ using UnityEngine.UI;
 public class UIGameOver : MonoBehaviour {
 	public CanvasGroup gameOverPanel;
 	public Animator gameOverAnim;
-	public Button buttonRestart;
-	public Button buttonBackToMainMenu;
+	public Image[] menuButtons;
+	public Sprite[] spriteNormal;
+	public Sprite[] spritePressed;
+	public Sprite[] spriteSelect;
 	public GameObject panel;
 
 	[HeaderAttribute("Current")]
-	public int selected = 0;
+	public int btnIndex;
+	public bool isInitialized = false;
+	public bool isDoingStuff = false;
+	public bool isActionPressed = false;
 	public bool call = false;
 	public bool endShow = false;
 	public bool endHide = false;
 	public bool doRestart = false;
 	public bool doReturnToTitle = false;
-
-	public void ButtonRestartOnClick()
-	{
-		doRestart = true;
-	}
-	public void ButtonReturnToTitleOnClick()
-	{
-		doReturnToTitle = true;
-	}
+	public bool isUpPressed = false;
+	public bool isDownPressed = false;
 
 	#region animation event
 	void EndShowing()
 	{
-		Debug.Log("ENDHOWING CALLED");
+		// Debug.Log("ENDHOWING CALLED");
 		endShow = true;
 	}
 	void EndHiding()

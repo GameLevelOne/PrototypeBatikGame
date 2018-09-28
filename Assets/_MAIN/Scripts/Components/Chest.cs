@@ -14,6 +14,7 @@ public class Chest : MonoBehaviour {
 	public GameObject treasurePrize;
 	public GameObject[] normalPrizes;
 	public QuestTrigger questTrigger;
+	public CutsceneTrigger cutsceneTrigger;
 
 	[HeaderAttribute("Saved ID")]
 	public int chestID;

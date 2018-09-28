@@ -23,7 +23,10 @@ public class TimelineManager : MonoBehaviour {
 	public TimelineEventTrigger beforeBossFightTrigger;
 	public TimelineEventTrigger afterBossFightTrigger;
 	public double AfterBossFightInitTime;
+	public Transform playerSpriteTransform;
+	public Transform playerTransform;
 	public GameObject jatayuObj;
+
 
 	[SpaceAttribute(10f)]
 	public bool isTesting = true;
@@ -109,7 +112,11 @@ public class TimelineManager : MonoBehaviour {
 	void OnEndShowGhosts () {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
-		npcEntity.enabled = true;
+
+		playerTransform.position = new Vector3(21f,0.9f,25f);
+		Debug.Log(playerTransform.position);
+		Debug.Log(playerTransform.localPosition);
+		playerSpriteTransform.localPosition = new Vector3(0f,-0.9f,0f);
 
 		SavePlayedTimeline ();
 	}
