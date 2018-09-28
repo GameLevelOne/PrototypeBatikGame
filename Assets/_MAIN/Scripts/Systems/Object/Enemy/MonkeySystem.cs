@@ -254,12 +254,12 @@ public class MonkeySystem : ComponentSystem {
 				// 	currEnemy.chaseSpeed * deltaTime
 				// );
 			
-			if(Vector3.Distance(currMonkeyRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
-				currMonkey.isHitByPlayer = false;
-				currEnemy.state = EnemyState.Idle;
-				currEnemy.playerTransform = null;
-				// currEnemy.chaseIndicator.SetActive(false);
-			}
+			// if(Vector3.Distance(currMonkeyRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
+			// 	currMonkey.isHitByPlayer = false;
+			// 	currEnemy.state = EnemyState.Idle;
+			// 	currEnemy.playerTransform = null;
+			// 	// currEnemy.chaseIndicator.SetActive(false);
+			// }
 		}
 	}
 	

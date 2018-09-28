@@ -42,6 +42,11 @@ public class Animation2D : MonoBehaviour {
 
 	public bool isInitAnimation = false;
 
+	[HeaderAttribute("Current")]
+	public bool isFinishAttackAnimation = true;
+	public bool isFinishAnyAnimation = true;
+
+
 	[HeaderAttribute("For Player & Enemy")]
 	public bool isCheckAfterAnimation = false;
 	public bool isCheckBeforeAnimation = false;
@@ -72,12 +77,13 @@ public class Animation2D : MonoBehaviour {
 
 	#region Player and Enemy Animation
 	void StartAnimation () {
-		isCheckBeforeAnimation = false;
+		// isCheckBeforeAnimation = false;
 		// Debug.Log("isCheckBeforeAnimation = false");
 	}
 
 	void ExitAnimation () {
 		isCheckAfterAnimation = false;
+		// Debug.Log("Check after animation FALSE");
 	}
 
 	void SpawnSomethingOnAnimation () {
