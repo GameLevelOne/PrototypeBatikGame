@@ -2,6 +2,7 @@
 
 public class Stone : MonoBehaviour {
 	public Collider stoneCollider;
+	public Collider parentCollider;
 	public TriggerDetection hammerTrigger;
 	public GameObject stoneColorObj;
 	public GameObject stoneGreyObj;

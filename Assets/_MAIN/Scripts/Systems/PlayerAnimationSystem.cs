@@ -300,6 +300,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						if (input.liftingMode == 0) {
 							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
 						} else if (input.liftingMode == -1) {
+							// Debug.Log("input.interactValue 2 Throw");
 							PlayOneShotAnimation(Constants.BlendTreeName.THROWING_LIFT);
 						} else if (input.liftingMode == 1) {
 							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
@@ -496,7 +497,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case PlayerState.ATTACK: 
 				player.isMoveAttack = true;
 				// attack.isAttacking = true;	
-				Debug.Log("player.isMoveAttack = true");			
+				// Debug.Log("player.isMoveAttack = true");			
 				break;
 			case PlayerState.CHARGE: 
 				player.isMoveAttack = true;
@@ -529,8 +530,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 				
 				if (input.liftingMode == -1 || input.liftingMode == -2) {
-					powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
-					powerBraceletSystem.powerBracelet.liftable.throwByAccident = true;
+					if (powerBraceletSystem.powerBracelet.liftable != null) {
+						powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+					} else {
+						// input.interactValue = 0;
+					}
 					powerBraceletSystem.ResetPowerBracelet();
 				}
 				break;
@@ -542,6 +546,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
 					powerBraceletSystem.AddForceRigidbody();
 					powerBraceletSystem.ResetPowerBracelet();
+
+					Debug.Log("Reset PB)");
 				} else if (input.liftingMode == 1) {
 					// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 					powerBraceletSystem.SetTargetRigidbodyType(0);
@@ -608,7 +614,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// }
 
 	void CheckEndAnimation () {
-		Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
+		// Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
 		switch(state) {
 			case PlayerState.ATTACK: 
 				// if (input.AttackMode > 0 && input.AttackMode <= 3) {

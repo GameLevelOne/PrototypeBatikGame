@@ -4,7 +4,7 @@ public enum TerrainType {
 	NONE,
 	DIRT,
 	GRASS,
-	WATERY
+	WATER
 }
 
 public class TerrainTrigger : MonoBehaviour {

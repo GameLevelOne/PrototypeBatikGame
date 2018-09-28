@@ -40,7 +40,7 @@ public class Liftable : MonoBehaviour {
 	// public float throwRange;
 	public float gravityAwakeTimer;
 	public bool isLanding;
-	public bool throwByAccident = false;
+	// public bool throwByAccident = false;
 	// public GameObject attachedObject;
 
 	void OnCollisionEnter (Collision col)
@@ -54,6 +54,12 @@ public class Liftable : MonoBehaviour {
 
 		if(col.gameObject.tag == Constants.Tag.GROUND){
 			isLanding = true;
+
+			if (GetComponent<Bush>() != null) {
+				GetComponent<Bush>().destroy = true;
+			} else if (GetComponent<Stone>() != null) {
+				GetComponent<Stone>().hit = true;
+			}
 		}
 	}
 
@@ -75,19 +81,19 @@ public class Liftable : MonoBehaviour {
 	// 	}
 	// }
 
-	void OnTriggerExit (Collider col) {
-		if (state == LiftableState.IDLE && throwByAccident) {
-			// Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
-			if (col.tag == Constants.Tag.PLAYER) {
-				mainCollider.isTrigger = true;
-				throwByAccident = false;
-			}
-		} else if (state == LiftableState.IDLE && !throwByAccident) {
-			if (col.tag == Constants.Tag.PLAYER) {
-				mainCollider.isTrigger = false;
-			}
-		}
-	}
+	// void OnTriggerExit (Collider col) {
+	// 	if (state == LiftableState.IDLE && throwByAccident) {
+	// 		// Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
+	// 		if (col.tag == Constants.Tag.PLAYER) {
+	// 			mainCollider.isTrigger = true;
+	// 			throwByAccident = false;
+	// 		}
+	// 	} else if (state == LiftableState.IDLE && !throwByAccident) {
+	// 		if (col.tag == Constants.Tag.PLAYER) {
+	// 			mainCollider.isTrigger = false;
+	// 		}
+	// 	}
+	// }
 
 	// void OnCollisionEnter (Collision col)
 	// {

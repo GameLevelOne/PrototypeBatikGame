@@ -31,6 +31,7 @@ public class StoneSystem : ComponentSystem {
 			stone.stoneColorObj.SetActive(false);
 			stone.stoneBrokenObj.SetActive(true);
 			stone.stoneCollider.enabled = false;
+			stone.parentCollider.enabled = false;
 			stone.stoneParticle.gameObject.SetActive(true);
 			stone.stoneParticle.Play();
 		}

@@ -124,7 +124,8 @@ GameObject:
   - component: {fileID: 95062845054902500}
   - component: {fileID: 114860451605126430}
   - component: {fileID: 114144774764201326}
-  - component: {fileID: 54989330274948026}
+  - component: {fileID: 54094892752420742}
+  - component: {fileID: 136247838774434584}
   m_Layer: 0
   m_Name: Bush01
   m_TagString: Untagged
@@ -261,7 +262,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1395012598192236}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 11.83, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4673776501294052}
@@ -574,20 +575,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1998895865717792}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54989330274948026
+--- !u!54 &54094892752420742
 Rigidbody:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1395012598192236}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 5
+  m_Drag: 20
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &95062845054902500
 Animator:
@@ -618,9 +619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   isDestroyOnTriggering: 0
-  speed: 0
+  speed: 50
   isStartLaunching: 0
   isDestroyOnColliding: 0
   elevationAngle: 10
@@ -719,20 +720,32 @@ MonoBehaviour:
   liftableType: 0
   state: 0
   mainTransform: {fileID: 4436678690009370}
-  mainRigidbody: {fileID: 54989330274948026}
-  mainCollider: {fileID: 136096318302194048}
-  weight: 0
-  initDrag: 0
-  initGravityAwakeTime: 0
+  mainRigidbody: {fileID: 54094892752420742}
+  mainCollider: {fileID: 136247838774434584}
+  weight: 10
+  initDrag: 20
+  initGravityAwakeTime: 0.2
   gravityAwakeTimer: 0
   isLanding: 0
-  throwByAccident: 0
 --- !u!136 &136096318302194048
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1011204042332392}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 0
+  m_Center: {x: 0, y: 0.7, z: 0.119999975}
+--- !u!136 &136247838774434584
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395012598192236}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

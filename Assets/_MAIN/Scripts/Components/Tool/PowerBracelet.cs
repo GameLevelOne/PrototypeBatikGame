@@ -26,7 +26,7 @@ public class PowerBracelet : MonoBehaviour {
 	// public bool isColliderOn = false;
 
 	void OnTriggerEnter (Collider col) {
-		if (col.GetComponent<Liftable>() != null && !isInteracting && liftable == null) {
+		if (col.GetComponent<Liftable>() != null && !isInteracting && liftable == null && col.GetComponent<Liftable>().state == LiftableState.IDLE) {
 			liftable = col.GetComponent<Liftable>();
 			isInteracting = true;
 		}

@@ -87,6 +87,11 @@ public static class Constants {
 		public const string JATAYU_ATTACK_1 = "Jatayu Attack 1";
 		public const string JATAYU_ATTACK_2 = "Jatayu Attack 2";
 		public const string JATAYU_ATTACK_3 = "Jatayu Attack 3";
+
+		//TERRAIN
+		public const string TERRAIN_GRASS = "Terrain Grass";
+		public const string TERRAIN_WATER = "Terrain Water";
+		public const string TERRAIN_DIRT = "Terrain Dirt";
 		
 	}
 

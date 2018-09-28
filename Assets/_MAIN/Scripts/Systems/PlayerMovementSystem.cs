@@ -119,6 +119,11 @@ public class PlayerMovementSystem : ComponentSystem {
 				if (input.interactValue == 2 || input.interactValue == 0) {
 					moveDir = Vector3.zero;
 				} else {
+					if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
+						// Debug.Log("KNOCKEDBACK");
+						KnockBack(movement.knockBackSpeedNormal * 10f);
+					}
+
 					moveDir = input.moveDir;
 				}
 			} else if (state == PlayerState.SWIM) {
@@ -151,6 +156,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				// Debug.Log(moveDir +"\n"+ moveDir.normalized);
 			}
 
+			// Debug.Log(player.isPlayerKnockedBack);
 			// rb.drag = movement.initRigidBodyDrag;
 			SetPlayerStandardMove();
 			// Debug.Log(currentMoveDir);
@@ -281,6 +287,8 @@ public class PlayerMovementSystem : ComponentSystem {
 				//SET VELOCITY
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir * moveSpeed * deltaTime;
+
+				// if (player.isPlayerKnockedBack) Debug.Log("HERE");
 				// Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
 				// Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
