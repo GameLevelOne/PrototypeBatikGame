@@ -68,7 +68,7 @@ public class ToolSystem : ComponentSystem {
 	}
 
 	void InitTool () {
-		CheckSavedTool ();
+		// CheckSavedTool ();
 		// Debug.Log("InitTool");
 		for (int i=1; i<=(int)ToolType.Boots; i++) {
 			if (CheckIfToolHasBeenUnlocked(i)) {

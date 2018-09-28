@@ -52,7 +52,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -253,7 +253,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -301,7 +301,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -450,7 +450,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1042,7 +1042,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101447509058732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4834055824091674}
@@ -1302,7 +1302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1548108763317266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4834055824091674}
@@ -1508,12 +1508,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d847400cd8229a04a82ac80fc8669da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootableTypes: 00000000000000000000000000000000
+  lootableTypes: 02000000030000000000000000000000
+  isInitContainer: 0
   player: {fileID: 114208348427726864}
-  uiShop: {fileID: 0}
   boughtItemLootabelType: 0
-  isProcessingBuyItem: 0
-  boughtItemPrice: 0
 --- !u!114 &114088299516064772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1652,6 +1650,8 @@ MonoBehaviour:
   animationControl: {fileID: 114088299516064772}
   animator: {fileID: 95931057526906244}
   isInitAnimation: 0
+  isFinishAttackAnimation: 1
+  isFinishAnyAnimation: 1
   isCheckAfterAnimation: 0
   isCheckBeforeAnimation: 0
   isSpawnSomethingOnAnimation: 0
@@ -1672,7 +1672,6 @@ MonoBehaviour:
   mana: {fileID: 114901627235131250}
   state: 0
   playerCol: {fileID: 136916452541748184}
-  uiGameOver: {fileID: 0}
   playerAttackAreaObj: {fileID: 1740946614798330, guid: beb51af3ee09320499a02d2f840aca28,
     type: 2}
   liftingParent: {fileID: 4661674578168208}
@@ -1682,7 +1681,6 @@ MonoBehaviour:
   isInitPlayer: 0
   damageReceive: {fileID: 0}
   isPlayerHit: 0
-  isHitAnEnemy: 0
   isPlayerKnockedBack: 0
   isGuarding: 0
   isCanParry: 0
@@ -2009,8 +2007,10 @@ MonoBehaviour:
   animationControl: {fileID: 114456323651409390}
   animator: {fileID: 95687041734106846}
   isInitAnimation: 0
-  isCheckAfterAnimation: 1
-  isCheckBeforeAnimation: 1
+  isFinishAttackAnimation: 1
+  isFinishAnyAnimation: 1
+  isCheckAfterAnimation: 0
+  isCheckBeforeAnimation: 0
   isSpawnSomethingOnAnimation: 0
   isCheckAfterStandAnimation: 0
   isCheckBeforeStandAnimation: 0

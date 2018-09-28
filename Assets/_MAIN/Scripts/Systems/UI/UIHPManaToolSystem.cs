@@ -49,6 +49,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 			} else {	
 				if (uiHPManaTool.isHPChange) {
 					CheckHP ();
+					uiHPManaTool.reducedHPFX.Play();
 				}
 
 				if (uiHPManaTool.isMPChange) {
@@ -91,7 +92,6 @@ public class UIHPManaToolSystem : ComponentSystem {
 		
 		uiHPManaTool.clothHPMask.rectTransform.sizeDelta = new Vector2( maxClothWidth * resultHP, clothRect.y);
 		uiHPManaTool.reducedHPFX.transform.localPosition = new Vector3 (clothRect.x, 0f, 0f);
-		uiHPManaTool.reducedHPFX.Play();
 
 		uiHPManaTool.isHPChange = false;
 	}

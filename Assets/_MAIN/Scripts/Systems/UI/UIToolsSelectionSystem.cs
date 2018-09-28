@@ -26,10 +26,10 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	Image[] toolImages;
 	Sprite[] toolSprites;
 
-	int changeIndex = 0;
-	bool isShowingTools = false;
-	bool isPlayingAnimation = false;
-	bool isActivatingTools = false;
+	int changeIndex;
+	bool isShowingTools;
+	bool isPlayingAnimation;
+	bool isActivatingTools;
 	// bool isInitShowInfo = false;
 	float deltaTime;
 	float showTime;
@@ -92,6 +92,9 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	void InitToolsSelection () {
 		InitImages (false);
 		showTime = 0f;
+		isShowingTools = false;
+		isPlayingAnimation = false;
+		isActivatingTools = false;
 		// alphaValue = 0f;
 		// uiToolsSelection.canvasToolsGroup.alpha = 0f;
 		panelAnimator.Play(Constants.AnimationName.CANVAS_INVISIBLE);

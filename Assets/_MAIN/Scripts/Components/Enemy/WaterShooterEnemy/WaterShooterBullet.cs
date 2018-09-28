@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class WaterShooterBullet : MonoBehaviour {
-	public Projectile Projectile;
+	public Projectile projectile;
 	// public Vector3 direction;
 	// public float speed;
 	// public bool init = false;
@@ -13,9 +13,9 @@ public class WaterShooterBullet : MonoBehaviour {
 	// }
 
 	void OnTriggerEnter (Collider col) {
-		if(col.tag == Constants.Tag.PLAYER || col.tag == Constants.Tag.BOUNDARIES) {
+		if(col.tag == Constants.Tag.BOUNDARIES) {
 			// Debug.Log("null "+col.name);
-			Projectile.isSelfDestroying = true;
+			projectile.isSelfDestroying = true;
 		}
 	}
 }

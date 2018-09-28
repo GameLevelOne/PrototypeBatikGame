@@ -228,13 +228,13 @@ public class BeeSystem : ComponentSystem {
 				// 	)
 				// );
 
-			if(Vector3.Distance(currBeeRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
-				currEnemy.state = EnemyState.Idle;
-				currEnemy.playerTransform = null;
-				// currEnemy.chaseIndicator.SetActive(false);
+			// if(Vector3.Distance(currBeeRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
+			// 	currEnemy.state = EnemyState.Idle;
+			// 	currEnemy.playerTransform = null;
+			// 	// currEnemy.chaseIndicator.SetActive(false);
 
-				if(currBee.beeHiveTransform == null) currBee.isStartled = true;
-			}
+			// 	if(currBee.beeHiveTransform == null) currBee.isStartled = true;
+			// }
 		}
 	}
 

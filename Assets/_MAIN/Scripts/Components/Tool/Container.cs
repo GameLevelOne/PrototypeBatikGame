@@ -4,6 +4,8 @@ public class Container : MonoBehaviour {
 	[HeaderAttribute("4 Container types")]
 	public LootableType[] lootableTypes = new LootableType[4];
 
+	public bool isInitContainer = false;
+
 	[SpaceAttribute(10f)]
 	public Player player;
 	public LootableType boughtItemLootabelType;

@@ -15,6 +15,7 @@ public class PortalSystem : ComponentSystem {
 	// [InjectAttribute] PlayerMovementSystem playerMovementSystem;
 	[InjectAttribute] UIFaderSystem uiFaderSystem;
 	[InjectAttribute] SystemManagerSystem systemManagerSystem;
+	[InjectAttribute] ContainerSystem containerSystem;
 	// [InjectAttribute] DamageSystem damageSystem;
 
 	Portal currPortal;
@@ -39,6 +40,9 @@ public class PortalSystem : ComponentSystem {
 			
 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,currPortal.startPosIndex);
 
+			//Save container
+			SaveContainer();
+
 			//disble control systems
 			DisableSystems();
 			portalToLoad = currPortal;
@@ -52,6 +56,24 @@ public class PortalSystem : ComponentSystem {
 					SceneManager.LoadScene(portalToLoad.sceneDestination);
 					portalToLoad = null;
 				}
+			}
+		}
+	}
+
+	void SaveContainer () {
+		LootableType[] lootableTypes = containerSystem.container.lootableTypes;
+
+		for (int i=0; i<lootableTypes.Length; i++) {
+			switch (lootableTypes[i]) {
+				case LootableType.HP_POTION:
+					PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 1);
+					break;
+				case LootableType.MANA_POTION:
+					PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 2);
+					break;
+				default:
+					PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 0);
+					break;
 			}
 		}
 	}
