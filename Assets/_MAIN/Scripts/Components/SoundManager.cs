@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public enum BGM{
-
+	BossFight
 }
 
 public enum SFX{
@@ -29,6 +29,7 @@ public enum SFX{
 	JatayuAttack2,
 	JattayuCloseWings,
 	JatayuDropDown,
+	JatayuFlying,
 	JatayuFlyUp,
 	JatayuHitWhileFlying,
 	LootDrop,
