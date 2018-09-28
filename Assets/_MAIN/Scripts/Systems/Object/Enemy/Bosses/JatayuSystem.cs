@@ -77,6 +77,7 @@ public class JatayuSystem : ComponentSystem {
 					SetJatayuAnim(JatayuState.Hit);
 				}
 				
+				jatayu.hitParticle.Play();
 				//at anytime, turn the color to red
 				jatayu.headSprite.material.color = Color.red;
 				jatayu.bodySprite.material.color = Color.red;

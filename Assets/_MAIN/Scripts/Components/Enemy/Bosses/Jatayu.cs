@@ -32,6 +32,7 @@ public class Jatayu : MonoBehaviour {
 	public TimelineEventTrigger timelineEventTrigger;
 	public CameraShaker cameraShaker;
 	public ParticleSystem landingParticle1, landingParticle2;
+	public ParticleSystem hitParticle;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
 	public float xMinMove = 5f, xMaxMove = 17f;
