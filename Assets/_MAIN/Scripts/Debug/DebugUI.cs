@@ -38,6 +38,7 @@ public class DebugUI : MonoBehaviour {
 	[HeaderAttribute("PLAYER DATA")]
 	public InputField healthCtr;
 	public InputField manaCtr;
+	public InputField goldCtr;
 	public Toggle gateKey;
 	public Toggle fireArrow;
 	public Toggle fishingRod;
@@ -83,8 +84,9 @@ public class DebugUI : MonoBehaviour {
 		area33VinesBurn.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "2", 0) == 1 ? true : false;
 
 		//PLAYER DATA
-		healthCtr.text = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, 0f).ToString("N0");
-		manaCtr.text = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, 0f).ToString("N0");
+		healthCtr.text = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, 100f).ToString("N0");
+		manaCtr.text = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, 100f).ToString("N0");
+		goldCtr.text = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_STATS_COIN, 0).ToString("N0");
 		gateKey.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", 0) == 1 ? true : false;
 		fireArrow.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, 0) == 1 ? true : false;
 		fishingRod.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, 0) == 1 ? true : false;
@@ -121,6 +123,7 @@ public class DebugUI : MonoBehaviour {
 		//PLAYER DATA
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, float.Parse(healthCtr.text));
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, float.Parse(manaCtr.text));
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_COIN, int.Parse(goldCtr.text));
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", gateKey.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, fireArrow.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, fishingRod.isOn ? 1 : 0);

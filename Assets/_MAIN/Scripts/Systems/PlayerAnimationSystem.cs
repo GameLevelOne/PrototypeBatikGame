@@ -159,7 +159,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 	void CheckPlayerState () {
 		if (!isFinishAnyAnimation && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-			Debug.Log("TEST");
+			// Debug.Log("TEST");
 			StopAnyAnimation ();
 			return;
 		}

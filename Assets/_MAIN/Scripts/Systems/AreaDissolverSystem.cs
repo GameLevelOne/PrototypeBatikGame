@@ -97,8 +97,7 @@ public class AreaDissolverSystem : ComponentSystem {
 
 			PlayerPrefs.SetInt(areaDissolverStr, value);
 
-			Debug.Log(areaDissolverStr);
-			Debug.Log(areaDissolver.isAreaAlreadyDissolved);
+			Debug.Log("Saving AreaDissolver: "+areaDissolverStr+" with state: "+areaDissolver.isAreaAlreadyDissolved);
 		}
 	}
 

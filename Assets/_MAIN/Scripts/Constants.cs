@@ -229,6 +229,8 @@ public static class Constants {
 		#region Another Object
 		public const string CHEST_OPEN = "ChestOpen"; //CHEST
 		public const string DESTROY = "Destroy"; //CHEST
+		public const string HIT = "Hit"; //CHEST
+		public const string Idle = "Idle"; //CHEST
 		#endregion
 
 		#region UI
