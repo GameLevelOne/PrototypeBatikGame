@@ -30,7 +30,7 @@ public class PlayerInteractionSystem : ComponentSystem {
 
 	void CheckIfPlayerIsCanInteract () {
 		if (!player.isCanInteractWithNPC) return;
-
+		
 		if (GameInput.IsAttackPressed) {
 			if (!player.isInteractingWithNPC) {
 				player.isInteractingWithNPC = true;
