@@ -70,6 +70,12 @@ public class ChestOpenerSystem : ComponentSystem {
 			Debug.Log("No Quest Triggered");
 		}
 
+		if(chestOpener.chest.cutsceneTrigger != null){
+			chestOpener.chest.cutsceneTrigger.triggerCol.enabled = true;
+		}else{
+			Debug.Log("No CutScene");
+		}
+
 	}
 
 	public void SpawnTreasure (Vector3 playerPos) {
