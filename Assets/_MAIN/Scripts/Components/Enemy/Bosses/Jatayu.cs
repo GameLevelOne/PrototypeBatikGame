@@ -30,6 +30,8 @@ public class Jatayu : MonoBehaviour {
 	public ParticleSystem particleDie;
 	public ParticleSystem burnedFX;
 	public TimelineEventTrigger timelineEventTrigger;
+	public CameraShaker cameraShaker;
+	public ParticleSystem landingParticle1, landingParticle2;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
 	public float xMinMove = 5f, xMaxMove = 17f;
@@ -109,6 +111,22 @@ public class Jatayu : MonoBehaviour {
 	#endregion
 
 #region animation event
+	void Landing()
+	{
+		landingParticle1.Play();
+		landingParticle2.Play();
+	}
+
+	void StartShakeCamera()
+	{
+		cameraShaker.shake = true;
+	}
+
+	void StopShakeCamera()
+	{
+		cameraShaker.shake = false;
+	}
+
 	void OnEndEntranceAnim()
 	{
 		endEntrance = true;
