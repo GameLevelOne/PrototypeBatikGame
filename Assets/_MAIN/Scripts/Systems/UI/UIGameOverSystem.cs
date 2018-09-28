@@ -22,13 +22,34 @@ public class UIGameOverSystem : ComponentSystem {
 
 	protected override void OnUpdate()
 	{
-		for(int i = 0;i<uiGameOverComponent.Length;i++){
+		for (int i=0; i<uiGameOverComponent.Length; i++) {
 			uiGameOver = uiGameOverComponent.uiGameOver[i];
 
-			CheckCall();
-			CheckInput();
-			CheckButtonFunction();
+			if (!uiGameOver.isInitialized) {
+				Init();
+			} else if (!uiGameOver.isDoingStuff){
+				CheckCall();
+				CheckInput();
+				ButtonAction();
+			}
 		}
+	}
+	void Init()
+	{
+		uiGameOver.isInitialized = true;
+		uiGameOver.btnIndex = 0;
+
+		ShowCurrentSelected();
+		uiGameOver.isDoingStuff = false;
+		uiGameOver.isActionPressed = false;
+		uiGameOver.isUpPressed = false;
+		uiGameOver.isDownPressed = false;
+	}
+	void ShowCurrentSelected() {
+		for (int i=0;i<uiGameOver.menuButtons.Length;i++) {
+			uiGameOver.menuButtons[i].sprite = uiGameOver.spriteNormal[i];
+		}
+		uiGameOver.menuButtons[uiGameOver.btnIndex].sprite = uiGameOver.spriteSelect[uiGameOver.btnIndex];
 	}
 
 	void CheckCall()
@@ -36,7 +57,7 @@ public class UIGameOverSystem : ComponentSystem {
 		if(uiGameOver.call){
 			uiGameOver.call = false;
 			uiGameOver.gameOverAnim.SetBool("Show",true);
-			uiGameOver.buttonRestart.Select();
+			ShowCurrentSelected();
 		}
 	}
 
@@ -46,10 +67,7 @@ public class UIGameOverSystem : ComponentSystem {
 			if (!curDownPressed && GameInput.IsDownDirectionHeld) {
 				curDownPressed = true;
 				// uiGameOver.buttonBackToMainMenu.Select();
-				Debug.Log("BACK TO MAIN MENU SELECTED");
-				EventSystem.current.SetSelectedGameObject(null);
-				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonBackToMainMenu.gameObject);	
-				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);			
+				uiGameOver.btnIndex = 1;	
 			} else if (!GameInput.IsDownDirectionHeld) {
 				curDownPressed = false;
 			}
@@ -57,10 +75,7 @@ public class UIGameOverSystem : ComponentSystem {
 			if (!curUpPressed && GameInput.IsUpDirectionHeld) {
 				curUpPressed = true;
 				// uiGameOver.buttonRestart.Select();
-				Debug.Log("RESTART SELECTED");
-				EventSystem.current.SetSelectedGameObject(null);
-				EventSystem.current.SetSelectedGameObject(uiGameOver.buttonRestart.gameObject);		
-				Debug.Log("SELECTED = "+EventSystem.current.currentSelectedGameObject.name);
+				uiGameOver.btnIndex = 0;	
 			} else if (!GameInput.IsUpDirectionHeld) {
 				curUpPressed = false;						
 			}
@@ -74,17 +89,15 @@ public class UIGameOverSystem : ComponentSystem {
 		}		
 	}
 
-	void CheckButtonFunction()
+	void ButtonAction()
 	{
 		if(uiGameOver.endHide){
+			// Debug.Log("Game Over menu select");
 			uiGameOver.endHide = false;
-			if(uiGameOver.doRestart){
-				uiGameOver.doRestart = false;
+			uiGameOver.isDoingStuff = true;
+			if(uiGameOver.btnIndex==0){
 				Restart();
-			}
-
-			if(uiGameOver.doReturnToTitle){
-				uiGameOver.doReturnToTitle = false;
+			} else {
 				ReturnToTitle();
 			}
 		}
