@@ -71,7 +71,7 @@ public class ChestOpenerSystem : ComponentSystem {
 		}
 
 		if(chestOpener.chest.cutsceneTrigger != null){
-			chestOpener.chest.cutsceneTrigger.triggerCol.enabled = true;
+			chestOpener.chest.cutsceneTrigger.gameObject.SetActive(true);
 		}else{
 			Debug.Log("No CutScene");
 		}
