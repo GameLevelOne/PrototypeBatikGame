@@ -90,13 +90,17 @@ GameObject:
   - component: {fileID: 114058681244741972}
   - component: {fileID: 114062804807725170}
   - component: {fileID: 114116467129802890}
+  - component: {fileID: 114453259306585586}
+  - component: {fileID: 114026079294952768}
+  - component: {fileID: 54042916298160286}
+  - component: {fileID: 136244181147497650}
   m_Layer: 0
   m_Name: Stone01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1650076947235238
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1434224483832832}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 11.3, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4838709917864610}
@@ -323,6 +327,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144078149522596}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54042916298160286
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434224483832832}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 20
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!114 &114012899197949580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,6 +356,27 @@ MonoBehaviour:
   tagName: 
   tagNames:
   - Hammer
+--- !u!114 &114026079294952768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434224483832832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  isDestroyOnTriggering: 0
+  speed: 50
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 10
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114058681244741972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneCollider: {fileID: 136590457940668600}
+  parentCollider: {fileID: 136244181147497650}
   hammerTrigger: {fileID: 114012899197949580}
   stoneColorObj: {fileID: 1144078149522596}
   stoneGreyObj: {fileID: 1650076947235238}
@@ -385,6 +426,41 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114453259306585586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434224483832832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8af523af4c2c446adf445623413ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 114026079294952768}
+  liftableType: 0
+  state: 0
+  mainTransform: {fileID: 4037927051640234}
+  mainRigidbody: {fileID: 54042916298160286}
+  mainCollider: {fileID: 136244181147497650}
+  weight: 10
+  initDrag: 20
+  initGravityAwakeTime: 0.2
+  gravityAwakeTimer: 0
+  isLanding: 0
+--- !u!136 &136244181147497650
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434224483832832}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.443722
+  m_Height: 1.251562
+  m_Direction: 0
+  m_Center: {x: -0.07049781, y: -0.05627799, z: 0}
 --- !u!136 &136590457940668600
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -392,7 +468,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332091970244898}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.443722
   m_Height: 1.251562

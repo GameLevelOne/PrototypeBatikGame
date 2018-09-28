@@ -40,6 +40,11 @@ GameObject:
   - component: {fileID: 114576222054864836}
   - component: {fileID: 114263330174972800}
   - component: {fileID: 114684132992906132}
+  - component: {fileID: 114200564811050092}
+  - component: {fileID: 114868339847693266}
+  - component: {fileID: 54623731140485838}
+  - component: {fileID: 136883101893874354}
+  - component: {fileID: 136233877101837304}
   m_Layer: 0
   m_Name: Stone03
   m_TagString: Untagged
@@ -325,6 +330,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1112271631237730}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54623731140485838
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215202520030416}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 20
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!64 &64243208252014172
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -353,6 +373,28 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114200564811050092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215202520030416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c8af523af4c2c446adf445623413ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 114868339847693266}
+  liftableType: 0
+  state: 0
+  mainTransform: {fileID: 4956399301988200}
+  mainRigidbody: {fileID: 54623731140485838}
+  mainCollider: {fileID: 136883101893874354}
+  weight: 10
+  initDrag: 20
+  initGravityAwakeTime: 0.2
+  gravityAwakeTimer: 0
+  isLanding: 0
 --- !u!114 &114259573164677656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -379,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneCollider: {fileID: 136081856083948528}
+  parentCollider: {fileID: 136883101893874354}
   hammerTrigger: {fileID: 114259573164677656}
   stoneColorObj: {fileID: 1112271631237730}
   stoneGreyObj: {fileID: 1961853811195110}
@@ -415,12 +458,59 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114868339847693266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215202520030416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5b9c1d409759f4ebdd85e0754705c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  isDestroyOnTriggering: 0
+  speed: 50
+  isStartLaunching: 0
+  isDestroyOnColliding: 0
+  elevationAngle: 10
+  isLaunching: 0
+  isCollideSomething: 0
+  isSelfDestroying: 0
+  direction: {x: 0, y: 0, z: 0}
 --- !u!136 &136081856083948528
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1874740882655074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.40617126
+  m_Height: 1.0190091
+  m_Direction: 0
+  m_Center: {x: 0.012103796, y: -0.000000004682452, z: 0.09382873}
+--- !u!136 &136233877101837304
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215202520030416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.40617126
+  m_Height: 1.0190091
+  m_Direction: 0
+  m_Center: {x: 0.012103796, y: -0.000000004682452, z: 0.09382873}
+--- !u!136 &136883101893874354
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1215202520030416}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

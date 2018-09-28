@@ -194,7 +194,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
 		powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
 		// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
-		powerBracelet.liftable.mainTransform.localPosition = Vector2.zero;
+		powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
 	}
 
 	public void UnSetLiftObjectParent (int dirID) {

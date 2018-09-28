@@ -10,6 +10,7 @@ public class DamageSystem : ComponentSystem {
 	[InjectAttribute] DamageData damageData;
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] GameFXSystem gameFXSystem;
+	[InjectAttribute] PowerBraceletSystem powerBraceletSystem;
 
 	Health health;
 	Role role;
@@ -28,44 +29,8 @@ public class DamageSystem : ComponentSystem {
 	void CheckRole()
 	{
 		if (role.gameRole == GameRole.Player) {
-			// Player player = health.player;
-			// playerState = player.state;
-
-			// if (playerState == PlayerState.DIE) return;
-
-			// if (player.isPlayerGetHurt) {
-			// 	health.HealthPower -= health.damage;
-			// 	player.isPlayerGetHurt = false;
-
-			// 	//Set Player Get Hurt Animation
-			// 	if (player.isGuarding) {
-			// 		player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-			// 	} else {
-			// 		player.SetPlayerState(PlayerState.GET_HURT);
-			// 	}
-
-			// 	if (health.HealthPower <= 0f) {
-			// 		player.SetPlayerState(PlayerState.DIE);
-			// 		col.enabled = false;
-			// 	}
-			// }
-
 			CalculateDamageToPlayer();
 		} else if (role.gameRole == GameRole.Enemy) {
-			// enemy = health.GetComponent<Enemy>();
-			// enemyState = enemy.state;
-
-			// if (enemyState == EnemyState.Die) return;
-
-			// if (enemy.isHit) {
-			// 	if(!enemy.hasArmor){
-			// 		health.HealthPower -= health.damage;
-				
-			// 		//Set Enemy Get Hurt Animation;
-			// 	}
-			// 	enemy.isEnemyGetHurt = false;
-			// }
-
 			CalculateDamageToEnemy();
 		} else if (role.gameRole == GameRole.Boss) {
 			CalculateDamageToBoss();
@@ -78,28 +43,29 @@ public class DamageSystem : ComponentSystem {
 	{	
 		Player player = health.player;
 		PlayerState playerState = player.state;
-		// Damage damage = 
 
 		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
-			// Debug.Log(player.damageReceive.damage);
 			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
 
 			if (damageTag == Constants.Tag.ENEMY_ATTACK || damageTag == Constants.Tag.ENEMY || damageTag == Constants.Tag.BOSS) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
-					player.isPlayerKnockedBack = true;
+					if (!CheckIfPlayerIsCannotKnockedback(player, playerState)) {
+						player.isPlayerKnockedBack = true;
+					}
 					
 					if (player.isGuarding) {
 						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
-						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.guardHitEffect, playerTransform.position);
 						damage -= player.shieldPower;
 						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 					} else {
-						player.SetPlayerState(PlayerState.GET_HURT);
-						// health.PlayerHP -= damage;
-						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, playerTransform.position);
+						if (!CheckIfPlayerIsOnSpecialAction(player, playerState)) {
+							Debug.Log(playerState+" NOT SPECIAL ACTION");
+							player.SetPlayerState(PlayerState.GET_HURT);
+						}
+						
 						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 					}
 				}
@@ -112,8 +78,13 @@ public class DamageSystem : ComponentSystem {
 				}
 			} else if (damageTag == Constants.Tag.VINES || damageTag == Constants.Tag.EXPLOSION) {
 				if (!CheckIfPlayerIsInvulnerable(player, playerState)) {
-					player.isPlayerKnockedBack = true;
-					player.SetPlayerState(PlayerState.GET_HURT);
+					if (!CheckIfPlayerIsCannotKnockedback(player, playerState)) {
+						player.isPlayerKnockedBack = true;
+					}
+					
+					if (!CheckIfPlayerIsOnSpecialAction(player, playerState) || (playerState == PlayerState.POWER_BRACELET && damageTag == Constants.Tag.EXPLOSION && powerBraceletSystem.powerBracelet.liftable == null)) {
+						player.SetPlayerState(PlayerState.GET_HURT);
+					}
 					
 					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 				}
@@ -185,7 +156,33 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			//
 			default: 
-				Debug.Log("State "+playerState+" detected at DamageSystem is out of invulnerable list");
+				Debug.Log("State "+playerState+" detected at DamageSystem is out of INVULNERABLE list");
+				return false;
+		}
+	}
+
+	bool CheckIfPlayerIsOnSpecialAction (Player player, PlayerState playerState) {
+		switch (playerState) {
+			case PlayerState.POWER_BRACELET:
+				return true;
+			// case PlayerState.GET_HURT:
+			// 	return true;
+			//
+			default: 
+				Debug.Log("State "+playerState+" detected at DamageSystem is out of SPECIAL_ACTION list");
+				return false;
+		}
+	}
+
+	bool CheckIfPlayerIsCannotKnockedback (Player player, PlayerState playerState) {
+		switch (playerState) {
+			case PlayerState.FISHING:
+				return true;
+			// case PlayerState.GET_HURT:
+			// 	return true;
+			//
+			default: 
+				Debug.Log("State "+playerState+" detected at DamageSystem is out of CANNOT_KNOCKEDBACK list");
 				return false;
 		}
 	}

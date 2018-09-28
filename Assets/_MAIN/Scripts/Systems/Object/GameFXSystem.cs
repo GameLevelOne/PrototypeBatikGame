@@ -70,7 +70,7 @@ public class GameFXSystem : ComponentSystem {
                 ToggleParticleEffect(gameFX.runOnDirtEffect, true);
             } else if (player.terrainType == TerrainType.GRASS) {
                 ToggleParticleEffect(gameFX.runOnGrassEffect, true);
-            } else if (player.terrainType == TerrainType.WATERY) {
+            } else if (player.terrainType == TerrainType.WATER) {
                 ToggleParticleEffect(gameFX.runOnWaterEffect, true);
             }
         } else {

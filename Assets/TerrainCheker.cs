@@ -3,7 +3,7 @@
 public class TerrainCheker : MonoBehaviour {
 	public Player player;
 
-	void OnTriggerEnter (Collider other) {
+	void OnTriggerStay (Collider other) {
 		if (other.GetComponent<TerrainTrigger>() != null) {
 			TerrainTrigger terrainTrigger = other.GetComponent<TerrainTrigger>();
 			
@@ -11,8 +11,8 @@ public class TerrainCheker : MonoBehaviour {
 				player.terrainType = TerrainType.DIRT;
 			} else if (terrainTrigger.terrainType == TerrainType.GRASS) {
 				player.terrainType = TerrainType.GRASS;
-			} else if (terrainTrigger.terrainType == TerrainType.WATERY) {
-				player.terrainType = TerrainType.WATERY;
+			} else if (terrainTrigger.terrainType == TerrainType.WATER) {
+				player.terrainType = TerrainType.WATER;
 			}
 		}
 	}

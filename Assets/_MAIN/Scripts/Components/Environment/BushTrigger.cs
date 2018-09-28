@@ -7,7 +7,7 @@ public class BushTrigger : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.GetComponent<Damage>() != null){
 			if(other.GetComponent<Damage>().isAffectBush){
-				Debug.Log("AFFECT GRASS");
+				// Debug.Log("AFFECT GRASS");
 				bush.destroy = true;
 			}
 			
