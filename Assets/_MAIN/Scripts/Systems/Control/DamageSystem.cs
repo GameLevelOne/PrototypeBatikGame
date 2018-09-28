@@ -78,10 +78,11 @@ public class DamageSystem : ComponentSystem {
 	{	
 		Player player = health.player;
 		PlayerState playerState = player.state;
+		// Damage damage = 
 
 		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
 		else {
-			Debug.Log(player.damageReceive.damage);
+			// Debug.Log(player.damageReceive.damage);
 			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;
 			float damage = player.damageReceive.damage;
@@ -124,9 +125,11 @@ public class DamageSystem : ComponentSystem {
 					player.SetPlayerState(PlayerState.DIE);
 				}
 			}
-
-			if (player.damageReceive.GetComponent<WaterShooterBullet>() != null) {
-				player.damageReceive.GetComponent<WaterShooterBullet>().projectile.isSelfDestroying = true;
+			
+			if (player.damageReceive != null) {
+				if (player.damageReceive.GetComponent<WaterShooterBullet>() != null) {
+					player.damageReceive.GetComponent<WaterShooterBullet>().projectile.isSelfDestroying = true;
+				}
 			}
 		}
 	}
@@ -227,7 +230,7 @@ public class DamageSystem : ComponentSystem {
 				if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
 					currEnemy.initDamaged = false;
 					currEnemy.SetEnemyState(EnemyState.Damaged);
-					playerInputSystem.player.isHitAnEnemy = true;
+					// playerInputSystem.player.isHitAnEnemy = true;
 					
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
 				}

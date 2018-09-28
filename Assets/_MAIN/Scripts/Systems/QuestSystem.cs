@@ -60,7 +60,7 @@ public class QuestSystem : ComponentSystem {
 
 			quest.questCurrentPoint[i] = PlayerPrefs.GetInt(questCurrentPointStr, 0);
 
-			Debug.Log(questCurrentPointStr);
+			// Debug.Log(questCurrentPointStr);
 			// if (CheckIfQuestIsComplete(i)) {
 			// 	quest.isQuestDoneForUI = true;
 			// 	Debug.Log("Quest "+i+" is Complete");

@@ -101,14 +101,14 @@ public class SystemManagerSystem : ComponentSystem {
 
 				if (questSystem.CheckIfQuestIsComplete(mapIdx)) {
 					if (areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx)) {
-						Debug.Log("THIS MAP IS NOT DISSOLVED");
+						// Debug.Log("THIS MAP IS NOT DISSOLVED");
 						areaDissolverSystem.DissolvedArea(mapIdx);
 					} else {
-						Debug.Log("THIS MAP ALREADY DISSOLVED");
+						// Debug.Log("THIS MAP ALREADY DISSOLVED");
 						areaDissolverSystem.DissableGreyDissolver(mapIdx);
 					}
 				} else {
-					Debug.Log("THIS MAP IS NOT COMPLETE");
+					// Debug.Log("THIS MAP IS NOT COMPLETE");
 				}
 		// 		break;
 		// }

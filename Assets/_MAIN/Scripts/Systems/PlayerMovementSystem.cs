@@ -296,15 +296,17 @@ public class PlayerMovementSystem : ComponentSystem {
 					}
 				}
 			}
-		} else if (attackMode >= -1 && attackMode <= 3 && input.moveDir != Vector3.zero) {
+		} else if (attackMode >= -1 && attackMode <= 3) {
 			// currentMoveDir = moveDir;
 			moveDir = input.moveDir;
 
 			if (player.isMoveAttack) {
-				// Transform target = facing.attackArea.transform;
-				rb.velocity = Vector3.zero;
-				rb.AddForce(moveDir * movement.attackMoveForce);
 				player.isMoveAttack = false;
+				// Transform target = facing.attackArea.transform;
+				// rb.velocity = Vector3.zero;
+				// rb.AddForce(moveDir * movement.attackMoveForce);
+				// rb.velocity = Vector3.zero;
+				rb.velocity = moveDir * movement.attackMoveForce * deltaTime;
 			} else {
 				rb.velocity = Vector3.zero;
 			}

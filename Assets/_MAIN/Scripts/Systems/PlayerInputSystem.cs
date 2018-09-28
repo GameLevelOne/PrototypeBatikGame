@@ -438,7 +438,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// 	//player.isHitAnEnemy = false;
 				// }
 #endregion
-				if (playerAnimationSystem.isFinishAttackAnimation) {
+				if (playerAnimationSystem.anim.isFinishAttackAnimation) {
 					// Debug.Log("NEXT ATTACK");
 					if (attackMode <= 0 || attackMode >= 3) {
 						input.attackMode = 1;	
@@ -448,7 +448,7 @@ public class PlayerInputSystem : ComponentSystem {
 						// Debug.Log("Set attackMode++");
 					}
 					
-					playerAnimationSystem.isFinishAttackAnimation = false;
+					playerAnimationSystem.anim.isFinishAttackAnimation = false;
 					player.SetPlayerState(PlayerState.ATTACK);
 				}
 				
@@ -888,6 +888,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	public void SetMovement (int value) {
+		Debug.Log("SetMovement : "+value);
 		input.moveMode = value;
 		
 		#region CHARGE ATTACK EFFECT

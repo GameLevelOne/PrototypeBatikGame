@@ -28,6 +28,10 @@ public class NPC : MonoBehaviour {
 	[HeaderAttribute("NPC Shop Only")]
 	// public bool isShopNPC;
 	public UIShop uiShop;
+	
+	[HeaderAttribute("NPC Guide Only")]
+	// public bool isShopNPC;
+	public UISignPost uiSignPost;
 
 	[HeaderAttribute("Current")]
 	public Player player;
@@ -64,9 +68,11 @@ public class NPC : MonoBehaviour {
 			if (isInteracting == value) return;
 			else isInteracting = value;
 
-			if (isInteracting) {
+			if (isInteracting && dialog!=null) {
 				dialog.dialogState = DialogState.SHOW;
 				// Debug.Log("OK");
+			} else if (isInteracting && uiSignPost!=null) {
+				uiSignPost.call = true;
 			}
 		}
 	}

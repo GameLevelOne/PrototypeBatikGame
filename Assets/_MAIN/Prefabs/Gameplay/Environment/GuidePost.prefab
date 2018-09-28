@@ -20,25 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4439439408997156}
   - component: {fileID: 114674146003794274}
+  - component: {fileID: 114422918608354246}
+  - component: {fileID: 136922962251868710}
   m_Layer: 0
   m_Name: GuidePost
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1511644114163486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4861825200869486}
-  - component: {fileID: 136546734340929260}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67,11 +53,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955731282652810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.66, y: -0.12, z: -0.84}
+  m_LocalPosition: {x: 0, y: -0.09, z: -0.86}
   m_LocalScale: {x: 1.558333, y: 1.9327, z: 1}
   m_Children: []
   m_Father: {fileID: 4439439408997156}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4439439408997156
 Transform:
@@ -80,27 +66,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1488468110258118}
   m_LocalRotation: {x: 0.3420201, y: -0, z: -0, w: 0.9396927}
-  m_LocalPosition: {x: 20.2, y: 0.3, z: 6.16}
+  m_LocalPosition: {x: 19.87, y: 0.3, z: 6.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4861825200869486}
   - {fileID: 4216372707931676}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
---- !u!4 &4861825200869486
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1511644114163486}
-  m_LocalRotation: {x: -0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4439439408997156}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -40, y: 0, z: 0}
 --- !u!23 &23048220636373364
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -143,6 +115,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955731282652810}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114422918608354246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488468110258118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a83dbc90e38e8438d4c7faad522d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcName: GuidePost
+  npcChar: 1
+  npcType: 2
+  state: 0
+  dialog: {fileID: 0}
+  uiShop: {fileID: 0}
+  uiSignPost: {fileID: 0}
+  player: {fileID: 0}
+  isDoneInitNPC: 0
+  isInteracting: 0
+  isTestNPC: 0
 --- !u!114 &114674146003794274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,16 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &136546734340929260
+--- !u!136 &136922962251868710
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1511644114163486}
+  m_GameObject: {fileID: 1488468110258118}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.9350511
-  m_Height: 1.8701022
+  m_Radius: 1.1231922
+  m_Height: 2.2463844
   m_Direction: 0
-  m_Center: {x: -0.07049784, y: -0.05627799, z: 0.49132907}
+  m_Center: {x: -0.025606513, y: -0.2894286, z: 0.07003736}
