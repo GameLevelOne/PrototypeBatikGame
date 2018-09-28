@@ -27,7 +27,7 @@ public enum SFX{
 	JatayuAppear,
 	JatayuAttack1,
 	JatayuAttack2,
-	JattayuCloseWings,
+	JatayuCloseWings,
 	JatayuDropDown,
 	JatayuFlying,
 	JatayuFlyUp,
