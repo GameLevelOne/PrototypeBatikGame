@@ -113,10 +113,16 @@ public class Jatayu : MonoBehaviour {
 	#endregion
 
 #region animation event
+	void StartEntrance()
+	{
+		SoundManager.Instance.PlaySFX(SFX.JatayuAppear);
+	}
+
 	void Landing()
 	{
 		landingParticle1.Play();
 		landingParticle2.Play();
+		SoundManager.Instance.PlaySFX(SFX.JatayuDropDown);
 	}
 
 	void Scream()
@@ -138,18 +144,32 @@ public class Jatayu : MonoBehaviour {
 	{
 		endEntrance = true;
 	}
+
+	void MoveSound()
+	{
+		SoundManager.Instance.PlaySFX(SFX.JatayuFlying);
+	}
+
+	void StartCloseWings()
+	{
+		SoundManager.Instance.PlaySFX(SFX.JatayuCloseWings);
+	}
+
 	void EnableAttack1Object()
 	{
 		attack1Object.SetActive(true);
+		SoundManager.Instance.PlaySFX(SFX.JatayuAttack1);
 	}
 	void EnableAttack2Object()
 	{
 		attack2Object.SetActive(true);
+		SoundManager.Instance.PlaySFX(SFX.JatayuAttack2);
 	}
 	void EnableAttack3Object()
 	{
 		attack3Object.SetActive(true);
 		attack3SetPos = true;
+		SoundManager.Instance.PlaySFX(SFX.JatayuFlyUp);
 	}
 	void Attack3Drop()
 	{

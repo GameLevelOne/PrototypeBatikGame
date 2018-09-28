@@ -1,11 +1,64 @@
 ﻿using UnityEngine;
 
 public enum BGM{
-
+	BossFight
 }
 
 public enum SFX{
-
+	ArrowHit,
+	BeeAttack,
+	BeeFlying,
+	BombDrop,
+	BombExplode,
+	Bounce,
+	BowPull,
+	BowRelease,
+	Burn,
+	BurningTorch,
+	BusheesCut,
+	FishingGet,
+	FishingStart,
+	GhostAttack,
+	GhostDie,
+	GrassCut,
+	HammerHitRocks,
+	HammerSwing,
+	HoeHit,
+	JatayuAppear,
+	JatayuAttack1,
+	JatayuAttack2,
+	JatayuCloseWings,
+	JatayuDropDown,
+	JatayuFlying,
+	JatayuFlyUp,
+	JatayuHitWhileFlying,
+	LootDrop,
+	LootPickUp,
+	MoneyDrop,
+	MonkeyDie,
+	MonkeyMoving,
+	MonkeyYell,
+	PlayerAttack1,
+	PlayerAttack2,
+	PlayerAttack3,
+	PlayerAttackHit1,
+	PlayerAttackHit2,
+	PlayerAttackHit3,
+	PlayerPickUp,
+	PrepareToAttack,
+	TreeRustling,
+	UnlockGate,
+	WalkOnGrass1,
+	WalkOnGrass2,
+	WalkOnGround1,
+	WalkOnGround2,
+	WalkOnStone1,
+	WalkOnStone2,
+	WalkOnWater1,
+	WalkOnWater2,
+	WalkOnWater3,
+	WaterfallInHiddenCave,
+	Waterfalls
 }
 
 public class SoundManager : MonoBehaviour {
