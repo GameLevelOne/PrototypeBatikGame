@@ -33,6 +33,7 @@ public class Jatayu : MonoBehaviour {
 	public CameraShaker cameraShaker;
 	public ParticleSystem landingParticle1, landingParticle2;
 	public ParticleSystem hitParticle;
+	public ParticleSystem screamParticle;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
 	public float xMinMove = 5f, xMaxMove = 17f;
@@ -116,6 +117,11 @@ public class Jatayu : MonoBehaviour {
 	{
 		landingParticle1.Play();
 		landingParticle2.Play();
+	}
+
+	void Scream()
+	{
+		screamParticle.Play();
 	}
 
 	void StartShakeCamera()
