@@ -36,4 +36,16 @@ public class SoundManager : MonoBehaviour {
 	public AudioClip[] SFXs;
 	[HeaderAttribute("Current")]
 	public bool init = false;
+
+	public void PlaySFX(SFX sfx)
+	{
+		sfxSource.PlayOneShot(SFXs[(int)sfx]);
+	}
+
+	public void PlayBGM(BGM bgm)
+	{
+		bgmSource.Stop();
+		bgmSource.clip = BGMs[(int)bgm];
+		bgmSource.Play();
+	}	
 }
