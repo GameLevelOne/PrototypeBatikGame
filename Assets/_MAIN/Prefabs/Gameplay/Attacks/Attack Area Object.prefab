@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114382512782723712}
   - component: {fileID: 114216538020320450}
   - component: {fileID: 136441241868455792}
+  - component: {fileID: 54408627689836150}
   m_Layer: 0
   m_Name: Player Interaction
   m_TagString: Player Interaction
@@ -267,6 +268,21 @@ Transform:
   m_Father: {fileID: 4574057079922528}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54408627689836150
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232540544876548}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
 --- !u!95 &95924283511620838
 Animator:
   serializedVersion: 3
