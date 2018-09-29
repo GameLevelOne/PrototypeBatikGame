@@ -30,10 +30,35 @@ public class WaterShooterEnemy : MonoBehaviour {
 		playerTriggerDetection.OnTriggerEnterObj -= SetPlayerTransform;
 	}
 
-
 	void SetPlayerTransform(GameObject player)
 	{
 		if(player == null) enemy.playerTransform = null;
 		else enemy.playerTransform = player.transform;
 	}
+
+	#region animation event
+	void EnableAttackHit()
+	{
+		enemy.attackHit = true;
+	}
+	void OnEndAttack()
+	{
+		enemy.initAttack = false;
+	}
+
+	void OnStartDamaged()
+	{
+		enemy.initDamaged = false;
+	}
+
+	void OnEndDamaged()
+	{
+		enemy.isFinishDamaged = true;
+	}
+
+	void OnEndAggro()
+	{
+		enemy.isFinishAggro = true;
+	}
+	#endregion
 }

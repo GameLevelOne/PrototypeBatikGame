@@ -888,7 +888,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	public void SetMovement (int value) {
-		Debug.Log("SetMovement : "+value);
+		// Debug.Log("SetMovement : "+value);
 		input.moveMode = value;
 		
 		#region CHARGE ATTACK EFFECT

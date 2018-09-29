@@ -10,12 +10,14 @@ public class Monkey : MonoBehaviour {
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
 	public ParticleSystem burnedFX;
+	public GameObject monkeyClawFX;
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;
 	public Vector3 patrolArea;
 	public bool isCollidingWithPlayer = false;
 	public bool isHitByPlayer = false;
+	public bool isInitSpawnAttackFX = false;
 	
 	void Start()
 	{
@@ -66,6 +68,7 @@ public class Monkey : MonoBehaviour {
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
+		isInitSpawnAttackFX = true;
 	}
 	void DisableAttackHit()
 	{
@@ -76,9 +79,19 @@ public class Monkey : MonoBehaviour {
 		enemy.initAttack = false;
 	}
 
+	void OnStartDamaged()
+	{
+		enemy.initDamaged = false;
+	}
+
 	void OnEndDamaged()
 	{
 		enemy.isFinishDamaged = true;
+	}
+
+	void OnEndAggro()
+	{
+		enemy.isFinishAggro = true;
 	}
 	#endregion
 }

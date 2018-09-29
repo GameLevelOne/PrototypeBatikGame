@@ -117,11 +117,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void PlayOneShotAnimation (string animName) {
+	bool PlayOneShotAnimation (string animName) {
 		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
 			anim.isCheckBeforeAnimation = false;
 			animator.Play(animName);
-		}
+
+			return true;
+		} else return false;
 	}
 
 	void CheckPlayerState () {
@@ -208,24 +210,38 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.RAPID_SLASH: 
 					if (attackMode == 1) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }
 					} else if (attackMode == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2);	
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }
 					} else if (attackMode == 3) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }
 					} else if (attackMode == -3) {
-						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME);	
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }
 					}
 
 					anim.isFinishAnyAnimation = false;
 					break;
 				case PlayerState.ATTACK:
 					if (attackMode == 1) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1);
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }
 					} else if (attackMode == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2);	
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }	
 					} else if (attackMode == 3) {
-						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3);	
+						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3)) {
+							 anim.isSpawnSomethingOnAnimation = false;
+						 }	
 					} 
 					
 					anim.isFinishAnyAnimation = true;

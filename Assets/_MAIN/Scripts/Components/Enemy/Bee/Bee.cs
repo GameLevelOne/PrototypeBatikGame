@@ -10,6 +10,7 @@ public class Bee : MonoBehaviour {
 	public ParticleSystem attackCodeFX;
 	public ParticleSystem burnedFX;
 	public Beehive beeHive;
+	public GameObject beeCutFX;
 	
 	[SpaceAttribute(10f)]
 	public float startledRange;
@@ -69,9 +70,19 @@ public class Bee : MonoBehaviour {
 		enemy.initAttack = false;
 	}
 
+	void OnStartDamaged()
+	{
+		enemy.initDamaged = false;
+	}
+
 	void OnEndDamaged()
 	{
 		enemy.isFinishDamaged = true;
+	}
+
+	void OnEndAggro()
+	{
+		enemy.isFinishAggro = true;
 	}
 	#endregion
 }

@@ -73,8 +73,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 		maxMP = uiHPManaTool.player.MaxMP;
 		maxClothWidth = uiHPManaTool.clothHPMask.rectTransform.sizeDelta.x;
 		manaReduceValue = uiHPManaTool.manaReduceValue;
-		Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
-		Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
+		// Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
+		// Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
 		CheckHP();
 		CheckMP ();
 		// initClothPos = maxClothWidth;
