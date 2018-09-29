@@ -55,12 +55,30 @@ public class GameFXSystem : ComponentSystem {
         if (value) {
             if (!particleFX.isPlaying) {
                 particleFX.Play(true);
+                PlayFXAudio(particleFX);
             } else {
                 particleFX.Stop(true);
                 particleFX.Play(true);
+                PlayFXAudio(particleFX);
             }
         } else {
             particleFX.Stop(true);
+        }
+    }
+
+    void PlayFXAudio(ParticleSystem particleFX) {
+        if (!gameFX.audioSource.isPlaying) {
+            if (particleFX==gameFX.runOnDirtEffect) {
+                gameFX.audioSource.clip = gameFX.dirtAudio[gameFX.runVariantIdx];
+                gameFX.audioSource.Play();
+            } else if (particleFX==gameFX.runOnGrassEffect) {
+                gameFX.audioSource.clip = gameFX.grassAudio[gameFX.runVariantIdx];
+                gameFX.audioSource.Play();
+            } else if (particleFX==gameFX.runOnWaterEffect) {
+                gameFX.audioSource.clip = gameFX.waterAudio[gameFX.runVariantIdx];
+                gameFX.audioSource.Play();
+            }
+            gameFX.runVariantIdx = gameFX.runVariantIdx==0 ? 1 : 0;
         }
     }
 
@@ -68,7 +86,7 @@ public class GameFXSystem : ComponentSystem {
         if (isON) {
             if (player.terrainType == TerrainType.DIRT) {
                 ToggleParticleEffect(gameFX.runOnDirtEffect, true);
-            } else if (player.terrainType == TerrainType.GRASS) {
+            } else if (player.terrainType == TerrainType.GRASS || (player.terrainType == TerrainType.NONE)) {
                 ToggleParticleEffect(gameFX.runOnGrassEffect, true);
             } else if (player.terrainType == TerrainType.WATER) {
                 ToggleParticleEffect(gameFX.runOnWaterEffect, true);

@@ -129,212 +129,8 @@ public class PlayerInputSystem : ComponentSystem {
 		// Debug.Log("Input Dir: "+dirX+","+dirZ);
 
 		SetDir(dirX,dirZ);
-
-
-#region JOYSTICK OLD
-		// if (Input.GetJoystickNames().Length >= 1) {
-		// 	if (Input.GetJoystickNames()[0] != "") {
-		// 		float inputX = Input.GetAxis("Horizontal Javatale");
-		// 		float inputY = Input.GetAxis("Vertical Javatale");
-		// 		// ChangeDir (inputX, inputY);
-
-		// 		// if (inputX == 0 || inputY == 0) {
-		// 		// 	CheckEndMove();
-		// 		// }
-
-		// 		//KEY DOWN
-			
-		// 		if (inputY < 0f) {
-		// 			SetJoystickAndKeyboardInput(true, 0);
-		// 		} 
-				
-		// 		if (inputX < 0f) {
-		// 			SetJoystickAndKeyboardInput(true, 1);
-		// 		}
-				
-		// 		if (inputY > 0f) {
-		// 		Debug.Log("Halooooooo");
-		// 			SetJoystickAndKeyboardInput(true, 2);
-		// 		}
-				
-		// 		if (inputX > 0f) {
-		// 			SetJoystickAndKeyboardInput(true, 3);
-		// 		}
-				
-		// 		if (inputY == 0f) {
-		// 			if (input.dirButtons[0] == 1) {
-		// 				SetJoystickAndKeyboardInput(false, 0);						
-		// 			} else if (input.dirButtons[2] == 1) {
-		// 				SetJoystickAndKeyboardInput(false, 2);
-		// 			}
-		// 		}
-				
-
-		// 		if (inputX == 0f) {
-		// 			if (input.dirButtons[1] == 1) {
-		// 				SetJoystickAndKeyboardInput(false, 1);						
-		// 			} else if (input.dirButtons[3] == 1) {
-		// 				SetJoystickAndKeyboardInput(false, 3);
-		// 			}
-		// 		}
-		// 	}
-		// } 
-#endregion
 		
-#region MOUSE & KEYBOARD OLD
-		// else {
-		// 	// int maxValue = input.moveAnimValue[2];
-		// 	// int midValue = input.moveAnimValue[1];
-		// 	// int minValue = input.moveAnimValue[0];
-
-		// 	//KEY DOWN
-			
-		// 	if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
-		// 		SetJoystickAndKeyboardInput(true, 0);
-		// 	}  
-			
-		// 	if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
-		// 		SetJoystickAndKeyboardInput(true, 1);
-		// 	} 
-
-		// 	if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
-		// 		Debug.Log("Halooooooo");
-		// 		SetJoystickAndKeyboardInput(true, 2);
-		// 	} 
-			
-		// 	if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
-		// 		SetJoystickAndKeyboardInput(true, 3);
-		// 	}
-
-		// 	//KEY UP
-
-		// 	if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) {
-		// 		SetJoystickAndKeyboardInput(false, 0);
-		// 	}
-			
-		// 	if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.A)) {
-		// 		SetJoystickAndKeyboardInput(false, 1);
-		// 	}
-			
-		// 	if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W)) {
-		// 		SetJoystickAndKeyboardInput(false, 2);
-		// 	}
-			
-		// 	if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D)) {
-		// 		SetJoystickAndKeyboardInput(false, 3);
-		// 	}
-		// }
-#endregion
 	}
-
-#region SET JOYSTICK & KEYBOARD
-	/// <summary>
-    /// <para>Direction Index : <br /></para>
-	/// <para>0 Down<br /></para>
-	/// <para>1 Left<br /></para>
-	/// <para>2 Up<br /></para>
-	/// <para>3 Right<br /></para>
-	/// </summary>
-	// void SetJoystickAndKeyboardInput (bool isButtonDown, int dirIdx) {
-	// 	if (isButtonDown) { //Key Down
-	// 		input.dirButtons[dirIdx] = 1;
-
-	// 		switch (dirIdx) {
-	// 			case 0:
-	// 				// Debug.Log("DOWN");
-	// 				if (input.dirButtons[2] == 0) {
-	// 					ChangeDir(currentDir.x, -1f);
-	// 					CheckLockDir(0, 1, 3);
-	// 				}
-	// 				break;
-	// 			case 1:
-	// 				// Debug.Log("LEFT");
-	// 				if (input.dirButtons[3] == 0) {
-	// 					ChangeDir(-1f, currentDir.z);
-	// 					CheckLockDir(1, 0, 2);
-	// 				}
-	// 				break;
-	// 			case 2:
-	// 				// Debug.Log("UP");
-	// 				if (input.dirButtons[0] == 0) {
-	// 					ChangeDir(currentDir.x, 1f);
-	// 					CheckLockDir(2, 1, 3);
-	// 				}
-	// 				break;
-	// 			case 3:
-	// 				// Debug.Log("RIGHT");
-	// 				if (input.dirButtons[1] == 0) {
-	// 					ChangeDir(1f, currentDir.z);
-	// 					CheckLockDir(3, 0, 2);
-	// 				}
-	// 				break;
-	// 		}
-	// 	} else { //Key Up
-	// 		input.dirButtons[dirIdx] = 0;
-
-	// 		switch (dirIdx) {
-	// 			case 0:
-	// 				if (input.dirButtons[2] == 0) {
-	// 					ChangeDir(currentDir.x, 0f);
-	// 					CheckEndMove();
-	// 					CheckRareCaseLockDir(1, 3);
-	// 				} else {
-	// 					ChangeDir(currentDir.x, 1f);
-	// 					CheckLockDir(2, 1, 3);
-	// 				}
-	// 				break;
-	// 			case 1:
-	// 				if (input.dirButtons[3] == 0) {
-	// 					ChangeDir(0f, currentDir.z);
-	// 					CheckEndMove();
-	// 					CheckRareCaseLockDir(0, 2);
-	// 				} else {
-	// 					ChangeDir(1f, currentDir.z);
-	// 					CheckLockDir(3, 0, 2);
-	// 				}
-	// 				break;
-	// 			case 2:
-	// 				if (input.dirButtons[0] == 0) {
-	// 					ChangeDir(currentDir.x, 0f);
-	// 					CheckEndMove();
-	// 					CheckRareCaseLockDir(1, 3);
-	// 				} else {
-	// 					ChangeDir(currentDir.x, 0f);
-	// 					CheckLockDir(0, 1, 3);
-	// 				}
-	// 				break;
-	// 			case 3:
-	// 				if (input.dirButtons[1] == 0) {
-	// 					ChangeDir(0f, currentDir.z);
-	// 					CheckEndMove();
-	// 					CheckRareCaseLockDir(0, 2);
-	// 				} else {
-	// 					ChangeDir(0f, currentDir.z);
-	// 					CheckLockDir(1, 0, 2);
-	// 				}
-	// 				break;
-	// 		}
-	// 	}
-	// }
-
-	// public void CheckLockDir (int dirIndex, int positiveDir, int negativeDir) {
-	// 	if (input.dirButtons[positiveDir] == 0 && input.dirButtons[negativeDir] == 0) {
-	// 		input.direction = dirIndex;
-	// 		input.isLockDir = true;
-	// 	}
-	// } 
-
-	// void CheckRareCaseLockDir (int positiveDir, int negativeDir) {
-	// 	if (input.dirButtons[positiveDir] == 1) {
-	// 		input.direction = positiveDir;
-	// 		input.isLockDir = true;
-	// 	} else if (input.dirButtons[negativeDir] == 1) {
-	// 		input.direction = negativeDir;
-	// 		input.isLockDir = true;
-	// 	}
-	// } 
-#endregion
-
 	void CheckAttackInput () {
 		#region Arrow
 		if (GameInput.IsBowPressed) {
@@ -344,11 +140,14 @@ public class PlayerInputSystem : ComponentSystem {
 			if (toolType == ToolType.Bow) {
 
 				if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
+					PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 					input.interactMode = 5;
 				} else {
+					PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 					input.attackMode = -4;
 				}
 			} else {
+				PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 				input.attackMode = -4;
 			}
 
@@ -420,24 +219,6 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (GameInput.IsAttackPressed) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
-#region Dennis
-				// if (input.attackMode <= 2) {
-				// 	if (!player.isHitAnEnemy){
-				// 		input.attackMode = 1; //SLASH	
-				// 		player.SetPlayerState(PlayerState.ATTACK);
-				// 		Debug.Log("First Hit, AM = "+ input.attackMode);
-				// 	} else {
-				// 		Debug.Log("Next Hit Before increment, AM = "+input.attackMode);
-				// 		input.attackMode += 1; //SLASH COMBO
-				// 		// player.isHitAnEnemy = false;
-				// 		player.SetPlayerState(PlayerState.ATTACK);
-				// 		// player.isHitAnEnemy = false;
-				// 		Debug.Log("Next Hit After Increment, AM = "+input.attackMode);
-				// 	}
-				// }else{
-				// 	//player.isHitAnEnemy = false;
-				// }
-#endregion
 				if (playerAnimationSystem.anim.isFinishAttackAnimation) {
 					// Debug.Log("NEXT ATTACK");
 					if (attackMode <= 0 || attackMode >= 3) {
@@ -487,53 +268,7 @@ public class PlayerInputSystem : ComponentSystem {
 			startChargeAttackTimer = 0f;
 			input.isInitChargeAttack = false;
 		} 
-		
-		// if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-		// 	attackAwayTimer += deltaTime;
-		// } else {
-		// 	// input.slashComboVal.Clear();
-		// 	// Debug.Log("CHECK ATTACK INPUT AttackList CLEAR");
-		// 	// attackAwayTimer = 0f;
-		// 	isAttackAway = true;
-		// }
-
-#region OLD
-		// if (Input.GetButton("Fire1") || Input.GetKey(KeyCode.Keypad0)) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-		// 	chargeAttackTimer += deltaTime;
-			
-		// 	if (chargeAttackTimer >= beforeChargeDelay) {
-		// 		SetMovement(1); //START CHARGE
-		// 	}
-		// } else if (Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) {
-		// 	if ((chargeAttackTimer >= chargeAttackThreshold) && input.moveMode == 1) {
-		// 		input.attackMode = -1; //CHARGE
-		// 		player.SetPlayerState(PlayerState.CHARGE);
-		// 	} else {
-		// 		if (input.attackMode <= 2) {
-		// 			if (!player.isHitAnEnemy){
-		// 				input.attackMode = 1; //SLASH							
-		// 			} else {
-		// 				input.attackMode += 1; //SLASH
-		// 			}
-		// 		}
-
-		// 		player.SetPlayerState(PlayerState.ATTACK);	
-		// 	}
-			
-		// 	SetMovement(0); //RUN / STAND
-		// 	chargeAttackTimer = 0f;
-		// 	isAttackAway = false;			
-		// } else {
-		// 	if ((attackAwayTimer <= attackAwayDelay) && !isAttackAway) {
-		// 		attackAwayTimer += deltaTime;
-		// 	} else {
-		// 		input.slashComboVal.Clear();
-		// 		attackAwayTimer = 0f;
-		// 		isAttackAway = true;
-		// 	}
-		// }
-#endregion
-		
+				
 		#endregion
 	}
 
@@ -621,16 +356,6 @@ public class PlayerInputSystem : ComponentSystem {
 				isReadyForDodging = true;
 			}
 
-			// if (state == PlayerState.DODGE) {
-			// 	if (bulletTimeTimer < bulletTimeDelay) {
-			// 		bulletTimeTimer += deltaTime;
-			// 		isBulletTimePeriod = true;
-			// 	} else {
-			// 		isBulletTimePeriod = false;
-			// 		player.isCanBulletTime = false;
-			// 		// player.isPlayerHit = false;
-			// 	}
-			// }
 		}
 		// Debug.Log("isBulletTimePeriod : "+isBulletTimePeriod+"\n bulletTimeTimer : "+bulletTimeTimer);
 		// Debug.Log("isPlayerHit : "+player.isPlayerHit+"\n isCanBulletTime : "+player.isCanBulletTime);
@@ -700,44 +425,11 @@ public class PlayerInputSystem : ComponentSystem {
 							tool.currentTool == ToolType.Container4) {
 								tool.isActToolReady = true;
 							}
-							// else if (toolType == ToolType.MagicMedallion) {
-							// 	if (!isHaveEnoughMana((int) ToolType.MagicMedallion, true, true)) {
-							// 		player.SetPlayerIdle();
-							// 	}
-							// }
 						}
 					}
 				}
 			} 
 		} 
-		// else if (state == PlayerState.POWER_BRACELET) { 				
-		// 	if ((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Keypad0)) && input.liftingMode < 0){ //THROW
-		// 		input.interactValue = 2;
-		// 	}
-
-		// 	if ((Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.Keypad0)) && input.liftingMode >= 0){
-		// 		isButtonToolHold = false;
-		// 	}
-			
-		// 	if (!isButtonToolHold) {
-		// 		input.interactValue = 2;
-		// 	} 
-		// } 
-		// else if (state == PlayerState.BOW) { 				
-		// 	// if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Joystick1Button9)){ //SHOT
-		// 	// 	input.interactValue = 2;
-		// 	// }
-
-		// 	if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
-		// 		isButtonToolHold = false;
-		// 	}
-			
-		// 	if (!isButtonToolHold && input.interactValue == 1) {
-		// 		input.interactValue = 2;
-		// 	} else {
-		// 		input.interactValue = 1;
-		// 	}
-		// } 		
 		#endregion
 	}
 
@@ -810,15 +502,6 @@ public class PlayerInputSystem : ComponentSystem {
 				return true;
 			}
 		}
-		// else if (state == PlayerState.BOW && input.interactValue == 0 && input.interactValue == 1) {
-		// 	currentDir = Vector2.zero;
-
-		// 	if (Input.GetKeyUp(KeyCode.Keypad1) || Input.GetKeyUp(KeyCode.Joystick1Button9)) {
-		// 		isButtonToolHold = false;
-		// 	}
-
-		// 	return true;
-		// } 
 		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector3.zero;
 						
@@ -903,91 +586,6 @@ public class PlayerInputSystem : ComponentSystem {
 		// 	input.steadyMode = value;
 		// }
 	}
-
-#region OLD ChangeDir
-	// public void ChangeDir (float dirX, float dirZ) {
-	// 	Vector3 newDir = new Vector3(dirX, 0f, dirZ);
-	// 	// Debug.Log(newDir);
-
-	// 	#region RUN EFFECT
-	// 	if (newDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-	// 		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, true);
-	// 	} else {
-	// 		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.runEffect, false);
-	// 	}
-	// 	#endregion
-
-	// 	if (state == PlayerState.POWER_BRACELET) {
-	// 		if (input.liftingMode == 1 || input.liftingMode == 2) {
-	// 			Facing2D facing = playerAnimationSystem.facing;
-	// 			// Debug.Log(facing.DirID);
-	// 			// Debug.Log("==========Grabbing==========");
-	// 			// Debug.Log("Before " + facing.DirID);
-	// 			switch (facing.DirID) {
-	// 				case 1: 
-	// 					if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
-	// 					// Debug.Log("Bottom");
-	// 					break;
-	// 				case 2: 
-	// 					if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-	// 					// Debug.Log("Left");
-	// 					break;
-	// 				case 3: 
-	// 					if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
-	// 					// Debug.Log("Top");
-	// 					break;
-	// 				case 4: 
-	// 					if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-	// 					// Debug.Log("right");
-	// 					break;
-
-	// #region OLD 8 Direction
-	// 				// case 1: 
-	// 				// 	if (newDir.x == 0 && newDir.z <= 0) SetDir (0f, 0f, newDir.z);
-	// 				// 	// Debug.Log("Bottom");
-	// 				// 	break;
-	// 				// case 2: 
-	// 				// 	if (newDir.x <= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
-	// 				// 	// Debug.Log("Bottom left");
-	// 				// 	break;
-	// 				// case 3: 
-	// 				// 	if (newDir.x <= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-	// 				// 	// Debug.Log("Left");
-	// 				// 	break;
-	// 				// case 4: 
-	// 				// 	if (newDir.x <= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
-	// 				// 	// Debug.Log("Top left");
-	// 				// 	break;
-	// 				// case 5: 
-	// 				// 	if (newDir.x == 0 && newDir.z >= 0) SetDir (0f, 0f, newDir.z);
-	// 				// 	// Debug.Log("Top");
-	// 				// 	break;
-	// 				// case 6: 
-	// 				// 	if (newDir.x >= 0 && newDir.z >= 0) SetDir (newDir.x, 0f, newDir.z);
-	// 				// 	// Debug.Log("Top right");
-	// 				// 	break;
-	// 				// case 7: 
-	// 				// 	if (newDir.x >= 0 && newDir.z == 0) SetDir (newDir.x, 0f, 0f);
-	// 				// 	// Debug.Log("right");
-	// 				// 	break;
-	// 				// case 8: 
-	// 				// 	if (newDir.x >= 0 && newDir.z <= 0) SetDir (newDir.x, 0f, newDir.z);
-	// 				// 	// Debug.Log("Bottom right");
-	// 				// 	break;
-	// #endregion
-	// 			}
-	// 			// Debug.Log("After " + facing.DirID);
-	// 			// Debug.Log("==========End Grabbing==========");
-	// 		} else if (input.liftingMode == -1 || input.liftingMode == -2){
-	// 			SetDir (newDir.x, 0f, newDir.z);
-	// 		} 
-	// 	} else {
-	// 		// player.SetPlayerState(PlayerState.MOVE);
-	// 		SetDir (newDir.x, 0f, newDir.z);
-	// 	}
-	// }
-#endregion
-
 	public void SetDir (float dirX, float dirZ) {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
@@ -1051,5 +649,9 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void UseMana (int toolIdx, bool isUsingStand) {
 		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
+	}
+
+	void PlaySFXOneShot(PlayerInputAudio audioType)	{
+		input.audioSource.PlayOneShot(input.audioClip[(int) audioType]);
 	}
 }

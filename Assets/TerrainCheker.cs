@@ -16,4 +16,10 @@ public class TerrainCheker : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnTriggerExit(Collider other) {
+		if (other.GetComponent<TerrainTrigger>() != null) {
+			player.terrainType = TerrainType.NONE;
+		}
+	}
 }

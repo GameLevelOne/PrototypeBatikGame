@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerInputAudio {
+	BOW_AIM
+}
+
 public class PlayerInput : MonoBehaviour {
 	public int[] idleAnimValue = new int[2]{0, 1};
 	public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
+	public AudioSource audioSource;
+	public AudioClip[] audioClip;
 
 	public bool isLockDir = false;
 	// public Vector3 initMoveDir = -Vector3.forward;

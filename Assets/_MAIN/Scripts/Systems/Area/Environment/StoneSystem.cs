@@ -25,7 +25,7 @@ public class StoneSystem : ComponentSystem {
 
 	void CheckStone()
 	{
-		if(stone.hit){
+		if(stone.hit && !stone.stoneBrokenObj.activeSelf){
 			stone.hit = false;
 			if(stone.stoneGreyObj.activeSelf) stone.stoneGreyObj.SetActive(false);
 			stone.stoneColorObj.SetActive(false);
@@ -34,6 +34,7 @@ public class StoneSystem : ComponentSystem {
 			stone.parentCollider.enabled = false;
 			stone.stoneParticle.gameObject.SetActive(true);
 			stone.stoneParticle.Play();
+			stone.audioSource.Play();
 		}
 	}
 

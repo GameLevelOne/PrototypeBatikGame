@@ -4,12 +4,13 @@ public class JoystickTest : MonoBehaviour {
 	public Transform dummy;
 
 	void Awake () {
-		if (Input.GetJoystickNames()[0] != "") {
-			Debug.Log(Input.GetJoystickNames()[0]);
-			Debug.Log(Input.GetJoystickNames()[0].Length);
-		} else {
-			Debug.Log("No Joystick");
+		Debug.Log("Start Init Joystick");
+		for (int i=0;i<Input.GetJoystickNames().Length;i++) {
+			if (Input.GetJoystickNames()[i] != "") {
+				Debug.Log("Joystick "+i+" with name: " + Input.GetJoystickNames()[i]);
+			} 
 		}
+		Debug.Log("Finish Init Joystick");
 	}
 
 	void Update () {
@@ -49,7 +50,7 @@ public class JoystickTest : MonoBehaviour {
 
 	void CheckButton () {
 		// for (int i=0; i<20; i++) {
-		// 	if (Input.GetKeyDown("joystick 1 button " + i.ToString())) {
+		// 	if (Input.GetKeyDown("joystick 3 button " + i.ToString())) {
 		// 		Debug.Log("joystick 1 button " + i);
 		// 	}
 		// }
