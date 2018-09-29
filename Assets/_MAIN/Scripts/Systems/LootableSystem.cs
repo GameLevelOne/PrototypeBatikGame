@@ -59,12 +59,15 @@ public class LootableSystem : ComponentSystem {
 		switch (lootableType) { //TEMP
 			case LootableType.GOLD: 
 				GameStorage.Instance.PlayerCoin += lootQTY;
+				GameObject.Instantiate(lootable.lootableFX, lootable.transform.position, Quaternion.identity);
 				break;
 			case LootableType.HP_POTION: 
 				playerInputSystem.player.health.PlayerHP += lootQTY;
+				GameObject.Instantiate(lootable.lootableFX, lootable.transform.position, Quaternion.identity);
 				break;
 			case LootableType.MANA_POTION: 
 				playerInputSystem.player.mana.PlayerMP += lootQTY;
+				GameObject.Instantiate(lootable.lootableFX, lootable.transform.position, Quaternion.identity);
 				break;
 			default:
 				Debug.Log("Unknown LootableType : "+lootableType);

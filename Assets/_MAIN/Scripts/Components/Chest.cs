@@ -8,6 +8,7 @@ public enum ChestType {
 public class Chest : MonoBehaviour {
 	public ChestType chestType;
 	public SpriteRenderer chestSpriteRen;
+	public Animator animator;
 	
 	public Sprite closedChestSprite;
 	public Sprite openedChestSprite;

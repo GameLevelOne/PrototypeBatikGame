@@ -3,9 +3,11 @@
 public class Gate : MonoBehaviour {
 	public Collider gateCol;
 	public SpriteRenderer gateSpriteRen;
+	public Animator animator;
 	
 	public Sprite closedGateSprite;
 	public Sprite openedGateSprite;
+	public string textLockedInfo = "THIS GATE IS LOCKED";
 
 	[HeaderAttribute("Saved ID")]
 	public int gateID;

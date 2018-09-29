@@ -7,7 +7,6 @@ public class GateOpenerSystem : ComponentSystem {
 		public ComponentArray<GateOpener> GateOpener;
 	}
 	[InjectAttribute] GateOpenerData gateOpenerData;
-
 	GateOpener gateOpener;
 
 	public struct GateData {
@@ -15,8 +14,15 @@ public class GateOpenerSystem : ComponentSystem {
 		public ComponentArray<Gate> Gate;
 	}
 	[InjectAttribute] GateData gateData;
-
 	Gate gate;
+
+	public struct UINotifData {
+		public readonly int Length;
+		public ComponentArray<UINotif> uiNotif;
+
+	}
+	[InjectAttribute] UINotifData uiNotifData;
+	UINotif uiNotif;
 
 	protected override void OnUpdate () {
 		// if (GateOpenerData.Length == 0) return;
@@ -37,6 +43,8 @@ public class GateOpenerSystem : ComponentSystem {
 				} else {
 					gateOpener.player.isCanOpenGate = false;
 				}
+			} else {
+				gateOpener.player.isCanOpenGate = false;
 			}
 		}
 	}
@@ -62,6 +70,16 @@ public class GateOpenerSystem : ComponentSystem {
 			OpenGate();
 		} else {
 			Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
+			
+			gateOpener.gate.animator.enabled = true;
+			gateOpener.gate.animator.Play(Constants.AnimationName.GATE_LOCKED);
+
+			for (int i=0;i<uiNotifData.Length;i++)
+			{
+				UINotif uiNotif = uiNotifData.uiNotif[i];
+				uiNotif.TextToShow = gateOpener.gate.textLockedInfo;
+				uiNotif.call = true;
+			}
 		}
 	}
 

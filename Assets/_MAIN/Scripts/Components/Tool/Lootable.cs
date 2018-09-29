@@ -19,6 +19,7 @@ public enum LootableType {
 public class Lootable : MonoBehaviour {
 	public LootableType lootableType;
 	public GameObject mainSprite;
+	public GameObject lootableFX;
 	public int lootQuantity;
 	public float initPosY;
 	// public Collider mainCol;
