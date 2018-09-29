@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerInputAudio {
-	BOW_AIM
+	BOW_AIM,
+	NO_MANA,
+	PICK_UP,
+	LOOT
 }
 
 public class PlayerInput : MonoBehaviour {

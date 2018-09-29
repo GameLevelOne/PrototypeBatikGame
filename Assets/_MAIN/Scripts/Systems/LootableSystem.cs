@@ -53,6 +53,7 @@ public class LootableSystem : ComponentSystem {
 		LootableType lootableType = lootable.lootableType;
 
 		lootQTY = lootable.lootQuantity;
+		playerInputSystem.PlaySFXOneShot(PlayerInputAudio.LOOT);
 		Debug.Log("You got "+lootQTY+" "+lootableType);
 
 		switch (lootableType) { //TEMP

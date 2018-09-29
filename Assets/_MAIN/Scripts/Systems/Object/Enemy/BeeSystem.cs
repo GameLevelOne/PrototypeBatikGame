@@ -59,6 +59,7 @@ public class BeeSystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currBeeHealth.EnemyHP <= 0f){
+			// currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.DIE]);
 			//SPAWN ITEM
 			lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
 
@@ -119,6 +120,7 @@ public class BeeSystem : ComponentSystem {
 		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
 			if(currEnemy.playerTransform != null){ 
 				// currEnemy.state = EnemyState.Chase;
+				currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.PREPARE]);
 				currEnemy.state = EnemyState.Aggro;
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
@@ -245,6 +247,8 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(currEnemy.isAttack){
 			currEnemy.state = EnemyState.Attack;
+			currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.ATTACK]);
+
 			// currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 		}else{
 			currBeeRigidbody.position = 

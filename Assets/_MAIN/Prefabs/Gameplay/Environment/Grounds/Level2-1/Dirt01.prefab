@@ -21,6 +21,9 @@ GameObject:
   - component: {fileID: 4281660242842582}
   - component: {fileID: 33260459177755464}
   - component: {fileID: 23949984046394562}
+  - component: {fileID: 65469556419065916}
+  - component: {fileID: 65083165352651612}
+  - component: {fileID: 65735118202328014}
   m_Layer: 0
   m_Name: Dirt01
   m_TagString: Untagged
@@ -35,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012164706071808}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 19.67, y: 0.01, z: 9.05}
+  m_LocalPosition: {x: 11.27, y: 0.01, z: 20.32}
   m_LocalScale: {x: 0.6622192, y: 0.68802, z: 0.8443295}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,3 +86,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012164706071808}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65083165352651612
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012164706071808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.6238315, y: 2.2204463e-16, z: 5.5060787}
+  m_Center: {x: -1.4730463, y: 0, z: -1.6140507}
+--- !u!65 &65469556419065916
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012164706071808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.081243, y: 2.2204463e-16, z: 3.579003}
+  m_Center: {x: -2.2405388, y: 0, z: 2.9460068}
+--- !u!65 &65735118202328014
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012164706071808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.5620384, y: 2.2204463e-16, z: 2.3908396}
+  m_Center: {x: 2.1148093, y: 0, z: -3.1465628}

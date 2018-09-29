@@ -37,7 +37,8 @@
 // }
 
 public enum AnimationAudio {
-	HAMMER
+	HAMMER,
+	SHOVEL
 }
 
 public class Animation2D : MonoBehaviour {

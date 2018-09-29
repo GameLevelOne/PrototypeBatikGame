@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+public enum BeeAudio {
+	PREPARE,
+	ATTACK,
+	DIE
+}
+
 public class Bee : MonoBehaviour {
 	[HeaderAttribute("Bee Attributes")]
 	public Enemy enemy;
@@ -11,7 +17,8 @@ public class Bee : MonoBehaviour {
 	public ParticleSystem burnedFX;
 	public Beehive beeHive;
 	public GameObject beeCutFX;
-	
+	public AudioSource audioSource;
+	public AudioClip[] audioClip;
 	[SpaceAttribute(10f)]
 	public float startledRange;
 

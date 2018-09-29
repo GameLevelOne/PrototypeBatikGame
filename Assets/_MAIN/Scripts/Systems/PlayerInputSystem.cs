@@ -194,6 +194,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
 			if (GameInput.IsAttackPressed) {
+				PlaySFX(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
 				input.interactMode = 3;
 				
@@ -405,6 +406,8 @@ public class PlayerInputSystem : ComponentSystem {
 								player.isUsingStand = false;
 								player.SetPlayerState(PlayerState.DASH);
 								gameFXSystem.ToggleRunFX(false);
+							} else {
+								PlaySFX(PlayerInputAudio.NO_MANA);
 							}
 						}
 					} else if (toolType == ToolType.FishingRod) {
@@ -416,6 +419,7 @@ public class PlayerInputSystem : ComponentSystem {
 						player.SetPlayerState(PlayerState.USING_TOOL);
 						
 						if (!isHaveEnoughMana((int) toolType, true, true)) {
+							PlaySFX(PlayerInputAudio.NO_MANA);							
 							player.SetPlayerIdle();
 						} else {
 							if (toolType == ToolType.Bomb || 
@@ -651,7 +655,14 @@ public class PlayerInputSystem : ComponentSystem {
 		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
 	}
 
-	void PlaySFXOneShot(PlayerInputAudio audioType)	{
+	public void PlaySFXOneShot(PlayerInputAudio audioType)	{
 		input.audioSource.PlayOneShot(input.audioClip[(int) audioType]);
+	}
+
+	public void PlaySFX(PlayerInputAudio audioType)	{
+		if (!input.audioSource.isPlaying) {
+			input.audioSource.clip = input.audioClip[(int) audioType];
+			input.audioSource.Play();
+		}
 	}
 }

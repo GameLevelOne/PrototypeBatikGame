@@ -21,6 +21,10 @@ GameObject:
   - component: {fileID: 4489125963971990}
   - component: {fileID: 33663903330435640}
   - component: {fileID: 23719094847746816}
+  - component: {fileID: 65010463979958166}
+  - component: {fileID: 65729904568159244}
+  - component: {fileID: 65025532866818604}
+  - component: {fileID: 114874833417367256}
   m_Layer: 0
   m_Name: Dirt04
   m_TagString: Untagged
@@ -35,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363657399191024}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 26.3, y: 0.01, z: 32.3}
-  m_LocalScale: {x: 1.0974513, y: 0.40025, z: 0.7713662}
+  m_LocalPosition: {x: 24.21, y: 0.01, z: 4.55}
+  m_LocalScale: {x: 0.89554226, y: 0.326612, z: 0.62945026}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,3 +87,51 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363657399191024}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65010463979958166
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363657399191024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9079485, y: 2.220446e-16, z: 4.415173}
+  m_Center: {x: -2.662024, y: 0, z: -1.9258403}
+--- !u!65 &65025532866818604
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363657399191024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.796786, y: 2.220446e-16, z: 2.4707787}
+  m_Center: {x: 0.8163035, y: 0, z: 1.5114025}
+--- !u!65 &65729904568159244
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363657399191024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0204203, y: 2.220446e-16, z: 1.6644363}
+  m_Center: {x: -0.512502, y: 0, z: 3.6123796}
+--- !u!114 &114874833417367256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363657399191024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 1

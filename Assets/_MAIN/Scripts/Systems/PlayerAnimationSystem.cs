@@ -121,6 +121,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
 			if (animName==Constants.BlendTreeName.USE_HAMMER)
 				anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+			else if (animName==Constants.BlendTreeName.USE_SHOVEL)
+				anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
 			anim.isCheckBeforeAnimation = false;
 			animator.Play(animName);
 

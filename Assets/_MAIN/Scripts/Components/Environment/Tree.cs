@@ -4,6 +4,8 @@ public class Tree : MonoBehaviour {
 	public AnimSpeedRandom animSpeedRandom;
     public TriggerDetection playerAttackTriggerDetection;
     public ParticleSystem particle;
+
+    public AudioSource audioSource;
     [HeaderAttribute("Current")]
     public bool hit = false;
 

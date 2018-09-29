@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdb1a15ec94b5f4690f383536eb0add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questPointRequired: 0500000001000000010000000100000001000000040000000100000001000000
-  questCurrentPoint: 0000000000000000000000000000000000000000000000000000000000000000
+  questPointRequired: 05000000010000000100000001000000010000000400000004000000
+  questCurrentPoint: 00000000000000000000000000000000000000000000000000000000
   isInitQuest: 0
   currentQuestIndex: 7
   isQuestProcess: 0
@@ -89,8 +89,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootables:
   - {fileID: 114350629933089148, guid: ef6df6f90e1fe2d44b02cbd2099d8cf5, type: 2}
-  - {fileID: 114736316838444236, guid: b63d57b9eb6249b489dcd0daa8112290, type: 2}
+  - {fileID: 114373587945465856, guid: 47de5b8843e47ea478af2ad7e657b89d, type: 2}
+  - {fileID: 114064721142876332, guid: 3ef3765c50904db4594b242ff77e31ee, type: 2}
   - {fileID: 114904456338008224, guid: 3ffa8aefb1968e04d85bf12f30bd36d6, type: 2}
+  - {fileID: 114560571059576912, guid: aa30310c7fb139048abf0ad2a6e2041d, type: 2}
+  - {fileID: 114189428534976724, guid: 88eb0fc746f25aa4dbb74783f7ecd5c7, type: 2}
+  - {fileID: 114736316838444236, guid: b63d57b9eb6249b489dcd0daa8112290, type: 2}
   isInitLootableSpawner: 0
 --- !u!114 &114876268718149606
 MonoBehaviour:
@@ -107,7 +111,6 @@ MonoBehaviour:
   initCoin: 5
   initSavedHP: 50
   initSavedMP: 50
-  isTesting: 1
   isInitGameStorage: 0
 --- !u!114 &114930772874159278
 MonoBehaviour:
