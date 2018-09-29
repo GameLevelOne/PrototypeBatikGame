@@ -53,8 +53,6 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void ShowDialogWithIndex() {
-		currentDialog.panelDialog.SetActive(true);//SHOW DIALOG BOX
-
 		currentDialog.dialogDeltaTime += deltaTime;
 		// Debug.Log("Dialog Delta Time: "+currentDialog.dialogDeltaTime);
 
@@ -76,6 +74,7 @@ public class NPCDialogSystem : ComponentSystem {
 				ShowDialogLastLetter(currentNPC.state == NPCState.INTERACT);
 			}
 		}
+		currentDialog.panelDialog.SetActive(true);//SHOW DIALOG BOX
 	}
 
 	void ShowDialogLastLetter(bool waitForInput) {

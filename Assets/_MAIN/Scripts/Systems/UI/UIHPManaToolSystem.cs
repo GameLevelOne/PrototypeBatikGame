@@ -37,14 +37,14 @@ public class UIHPManaToolSystem : ComponentSystem {
 			
 			if (!uiHPManaTool.isInitHPManaImage) {
 				try {
-					Debug.Log("Start init UI HP MP Tool");
+					// Debug.Log("Start init UI HP MP Tool");
 					CheckInit ();
 				} catch (System.Exception e) {
-					Debug.Log("Something wrong UI HP MP Tool \n ERROR : "+e);
+					// Debug.Log("Something wrong UI HP MP Tool \n ERROR : "+e);
 					return;
 				}
 
-				Debug.Log("Finish init UI HP MP Tool");
+				// Debug.Log("Finish init UI HP MP Tool");
 				uiHPManaTool.isInitHPManaImage = true;
 			} else {	
 				if (uiHPManaTool.isHPChange) {
@@ -73,8 +73,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 		maxMP = uiHPManaTool.player.MaxMP;
 		maxClothWidth = uiHPManaTool.clothHPMask.rectTransform.sizeDelta.x;
 		manaReduceValue = uiHPManaTool.manaReduceValue;
-		Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
-		Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
+		// Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
+		// Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
 		CheckHP();
 		CheckMP ();
 		// initClothPos = maxClothWidth;

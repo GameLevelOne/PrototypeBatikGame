@@ -27,14 +27,14 @@ public class ManaSystem : ComponentSystem {
 
 			if (!mana.isInitMana) {
 				try {
-					Debug.Log("Start init Mana");
+					// Debug.Log("Start init Mana");
 					InitMana ();
 				} catch (System.Exception e) {
 					Debug.Log("Something wrong Mana \n ERROR : "+e);
 					return;
 				}
 
-				Debug.Log("Finish init Mana");
+				// Debug.Log("Finish init Mana");
 				mana.isInitMana = true;
 			} else if (player.state != PlayerState.DIE) {
 				if (!mana.isManaFull && mana.isCheckingMana) {

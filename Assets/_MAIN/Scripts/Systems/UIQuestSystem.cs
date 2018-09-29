@@ -22,7 +22,7 @@ public class UIQuestSystem : ComponentSystem {
 				try {
 					InitUIQuest();
 				} catch {
-					Debug.Log("Error on init quest");
+					// Debug.Log("Error on init quest");
 					return;
 				}
 			} else {
