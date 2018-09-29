@@ -8,7 +8,9 @@ public class PlayerInteract : MonoBehaviour {
 	public NPC currentNPC;
 
 	void OnTriggerStay (Collider col) {
+
 		// Debug.Log("Currently Colliding: "+col.tag+", Object: "+col.gameObject.name);
+
 		if (col.tag == Constants.Tag.NPC && currentNPC == null) {
 			currentNPC = col.GetComponent<NPC>();
 

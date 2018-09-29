@@ -12,10 +12,11 @@ public enum EventType {
 
 public class TimelineEventTrigger : MonoBehaviour {
 	public delegate void TimelineEvent();
+	public delegate void TimelineDialogEvent(string[] dialogList,double startTime,double endTime);
 
 	// Entrance Mada Kari Forest
-	public event TimelineEvent OnNPCStartDialogue;
-	public event TimelineEvent OnWaitingDialogue;
+	public event TimelineDialogEvent OnNPCStartDialogue;
+	public event TimelineDialogEvent OnWaitingDialogue;
 	public event TimelineEvent OnEndOpeningMKF;
 
 	// Show Ghosts
@@ -33,6 +34,11 @@ public class TimelineEventTrigger : MonoBehaviour {
 	// public bool isInitDisableTrigger = false;
 	public bool isInitEvent = false;
 
+	[HeaderAttribute("Data")]
+	public string[] dialogs;
+	public double dialogStartTime;
+	public double dialogEndTime;
+
 	void OnEnable () {
 		if (!isInitEnableTrigger) {
 			isInitEnableTrigger = true;
@@ -41,13 +47,13 @@ public class TimelineEventTrigger : MonoBehaviour {
 			if (type == EventType.NPC_OPENING_DIALOGUE) {
 				if (!isInitEvent) {	
 					if (OnNPCStartDialogue != null) {
-						OnNPCStartDialogue();
+						OnNPCStartDialogue(dialogs, dialogStartTime, dialogEndTime);
 					}
 
 					isInitEvent = true;
 				} else {
 					if (OnWaitingDialogue != null) {
-						OnWaitingDialogue();
+						OnWaitingDialogue(dialogs, dialogStartTime, dialogEndTime);
 					}
 				}
 			} else if (type == EventType.END_OPENING_ENTRANCE) {
@@ -59,7 +65,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 					isInitEvent = true;
 				} else {
 					if (OnWaitingDialogue != null) {
-						OnWaitingDialogue();
+						OnWaitingDialogue(dialogs, dialogStartTime, dialogEndTime);
 					}
 				}
 			}else if (type == EventType.AFTER_SHOW_GHOSTS) {

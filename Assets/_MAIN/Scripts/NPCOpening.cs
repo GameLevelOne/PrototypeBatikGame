@@ -5,21 +5,29 @@ public class NPCOpening : MonoBehaviour {
 	public delegate void NPCOpeningEvent();
 	public event NPCOpeningEvent OnNPCEndDialogue;
 
-	public TimelineEventTrigger openingDialogueTrigger;
+	public TimelineEventTrigger[] openingDialogueTrigger;
+	public TimelineEventTrigger endOpeningCutscene;
 	public GameObjectEntity entity;
 	public NPC npc;
 	public Animator animator;
 
 	void OnEnable () {
-		openingDialogueTrigger.OnNPCStartDialogue += OnNPCStartDialogue;
+		for (int i=0;i<openingDialogueTrigger.Length;i++) {
+			openingDialogueTrigger[i].OnNPCStartDialogue += OnNPCStartDialogue;
+		}
+		endOpeningCutscene.OnEndOpeningMKF += EndOpeningScene;
 	}
 
 	void OnDisable () {
-		openingDialogueTrigger.OnNPCStartDialogue -= OnNPCStartDialogue;
+		for (int i=0;i<openingDialogueTrigger.Length;i++) {
+			openingDialogueTrigger[i].OnNPCStartDialogue -= OnNPCStartDialogue;
+		}
+		endOpeningCutscene.OnEndOpeningMKF -= EndOpeningScene;
 	}
 
-	void OnNPCStartDialogue () {
+	void OnNPCStartDialogue (string[] dialogList,double startTime,double endTime) {
 		entity.enabled = true;
+		npc.dialog.openingDialogs = dialogList;
 		npc.state = NPCState.INTERACT;
 		npc.IsInteracting = true;
 
@@ -29,18 +37,21 @@ public class NPCOpening : MonoBehaviour {
 	public void EndOpeningDialogue () {
 		npc.state = NPCState.IDLE;
 		npc.IsInteracting = false;
-		npc.npcType = NPCType.SHOP;
 		npc.dialog.dialogIndex = 0;
 		npc.dialog.letterIndex = 0;
 		npc.dialog.dialogDeltaTime = 0f;
 		npc.dialog.dialogState = DialogState.IDLE;
 
 		npc.InteractIndex = 0;
-		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1);
-		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0);
 
 		if (OnNPCEndDialogue != null) {
 			OnNPCEndDialogue ();
 		}
+	}
+
+	public void EndOpeningScene() {
+		npc.npcType = NPCType.SHOP;
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1);
+		animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0);
 	}
 }

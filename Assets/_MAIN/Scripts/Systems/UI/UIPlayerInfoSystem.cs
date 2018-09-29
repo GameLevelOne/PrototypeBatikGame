@@ -59,14 +59,14 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 			if (!uiInfo.isInitUIInfo) {
 				try {
-					Debug.Log("Start init UIPlayerInfoSystem");
+					// Debug.Log("Start init UIPlayerInfoSystem");
 					InitPlayerInfo ();
 				} catch (System.Exception e) {
-					Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
+					// Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
 					return;
 				}
 
-				Debug.Log("Success init UIPlayerInfoSystem");
+				// Debug.Log("Success init UIPlayerInfoSystem");
 				uiInfo.isInitUIInfo = true;
 			} else {
 				isPlayingAnimation = uiInfo.isPlayingAnimation;

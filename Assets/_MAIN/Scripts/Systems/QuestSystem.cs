@@ -48,7 +48,7 @@ public class QuestSystem : ComponentSystem {
 		// 	SaveQuest(quest.currentQuestIndex, 0);
 		// }
 
-		Debug.Log("Init Quest");
+		// Debug.Log("Init Quest");
 		LoadQuest();
 
 		quest.isInitQuest = true;

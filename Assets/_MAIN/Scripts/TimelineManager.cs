@@ -11,7 +11,7 @@ public class TimelineManager : MonoBehaviour {
 	[HeaderAttribute("Opening Mada Kari Forest")]
 	public NPCOpening npcOpening;	
 	public GameObjectEntity npcEntity;
-	public TimelineEventTrigger npcOpeningDialogueTrigger;
+	public TimelineEventTrigger[] npcOpeningDialogueTrigger;
 	public TimelineEventTrigger endOpeningEntranceTrigger;
 	public double startDialogueInitTime;
 	public double endDialogueInitTime;
@@ -45,8 +45,10 @@ public class TimelineManager : MonoBehaviour {
 	}
 
 	void OnEnable () {
-		npcOpeningDialogueTrigger.OnNPCStartDialogue += OnNPCStartDialogue;
-		npcOpeningDialogueTrigger.OnWaitingDialogue += OnWaitingDialogue;
+		for (int i=0;i<npcOpeningDialogueTrigger.Length;i++) {
+			npcOpeningDialogueTrigger[i].OnNPCStartDialogue += OnNPCStartDialogue;
+			npcOpeningDialogueTrigger[i].OnWaitingDialogue += OnWaitingDialogue;
+		}
 		endOpeningEntranceTrigger.OnEndOpeningMKF += OnEndOpeningMKF;
 
 		if(npcOpening != null) npcOpening.OnNPCEndDialogue += OnNPCEndDialogue;
@@ -60,8 +62,10 @@ public class TimelineManager : MonoBehaviour {
 	}
 
 	void OnDisable () {
-		npcOpeningDialogueTrigger.OnNPCStartDialogue -= OnNPCStartDialogue;
-		npcOpeningDialogueTrigger.OnWaitingDialogue -= OnWaitingDialogue;
+		for (int i=0;i<npcOpeningDialogueTrigger.Length;i++) {
+			npcOpeningDialogueTrigger[i].OnNPCStartDialogue -= OnNPCStartDialogue;
+			npcOpeningDialogueTrigger[i].OnWaitingDialogue -= OnWaitingDialogue;
+		}
 		endOpeningEntranceTrigger.OnEndOpeningMKF -= OnEndOpeningMKF;
 
 		if(npcOpening != null) npcOpening.OnNPCEndDialogue -= OnNPCEndDialogue;
@@ -75,24 +79,28 @@ public class TimelineManager : MonoBehaviour {
 	}
 
 #region Opening Mada Kari Forest
-	void OnNPCStartDialogue () {
+	void OnNPCStartDialogue (string[] dialogList,double startTime,double endTime) {
 		// playableDirector.initialTime = startDialogueInitTime;
+
+		startDialogueInitTime = startTime;
+		endDialogueInitTime = endTime;
+
 		SetPlayableInitTime(startDialogueInitTime);
-		OnWaitingDialogue();
+		OnWaitingDialogue(dialogList,startTime,endTime);
 		// Debug.Log("START DIALOGUE SESSION");
 	}
 
-	void OnWaitingDialogue () {
+	void OnWaitingDialogue (string[] dialogList,double startTime,double endTime) {
+		Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
 		playableDirector.Stop();
 		playableDirector.DeferredEvaluate(); //IMPORTANT
 		playableDirector.Play();
-		// Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
 	}
 
 	void OnNPCEndDialogue () {
 		// playableDirector.initialTime = endDialogueInitTime;
 		SetPlayableInitTime(endDialogueInitTime);
-		OnWaitingDialogue();
+		OnWaitingDialogue(null,startDialogueInitTime,endDialogueInitTime);
 		// Debug.Log("END DIALOGUE SESSION");
 	}
 
