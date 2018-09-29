@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 
+[UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class PlayerClothSystem : ComponentSystem {
 	public struct PlayerClothData {
 		public readonly int Length;
@@ -10,21 +11,24 @@ public class PlayerClothSystem : ComponentSystem {
 	[InjectAttribute] PlayerClothData playerClothData;
 
 	PlayerCloth playerCloth;
+	PlayerInput playerInput;
 	Facing2D facing;
-
 	Transform clothTransform;
+	Rigidbody playerRigidbody;
 
-	bool isReducingCloth = false;
-
-	float playerHP;
 	float maxHP;
 	float clothReduceValue;
 	float currentDissolveValue;
 	float healthThreshold;
+	float randomMultiplierMin;
+	float randomMultiplierMax;
+	float clothRandomCountdownTime;
+	float randomAddAccelY;
+	float deltaTime;
 
 	protected override void OnUpdate () {
-		if (playerClothData.Length == 0) return;
-
+		deltaTime = Time.deltaTime;
+		
 		for (int i=0; i<playerClothData.Length; i++) {
 			playerCloth = playerClothData.PlayerCloth[i];
 			clothTransform = playerClothData.Transform[i];
@@ -41,39 +45,42 @@ public class PlayerClothSystem : ComponentSystem {
 	void InitCloth () {
 		maxHP = playerCloth.player.MaxHP;
 		clothReduceValue = playerCloth.clothReduceValue;
-		
-		// healthThreshold = currentDissolveValue; //OLD
 		healthThreshold = playerCloth.clothRenderer.material.GetFloat("_Level");
 
-		clothReduceValue = playerCloth.clothReduceValue;
-
 		// playerCloth.cloth.ClearTransformMotion();
+		playerInput = playerCloth.playerInput;
+		facing = playerCloth.facing;
+		playerRigidbody = playerCloth.player.GetComponent<Rigidbody>();
+		randomMultiplierMin = playerCloth.randomMultiplierMin;
+		randomMultiplierMax = playerCloth.randomMultiplierMax;
+		clothRandomCountdownTime = playerCloth.randomCountdownTime;
+		playerCloth.randomCountdownTimer = clothRandomCountdownTime;
 
 		DissolveCloth();
-		DrawClothHP ();
-		
+		DrawClothHP();		
 		SetClothRotation(0f, Vector3.forward);
+		
 		playerCloth.isInitCLoth = true; 
 	}
 
 	void CheckHP () {
 		if (playerCloth.isHPChange) {
 			DissolveCloth();
-		} else if (isReducingCloth) {
+		} else if (playerCloth.isReducingCloth) {
 			if (healthThreshold < currentDissolveValue) {
-				healthThreshold += clothReduceValue * Time.deltaTime;
+				healthThreshold += clothReduceValue * deltaTime;
 				DrawClothHP();
 			} else {
-				isReducingCloth = false;
+				playerCloth.isReducingCloth = false;
 			}
 		}
 	}
 
 	void DissolveCloth () {
-		playerHP = playerCloth.playerHealth.PlayerHP;
+		float playerHP = playerCloth.playerHealth.PlayerHP;
 		currentDissolveValue = 1 - playerHP / maxHP;
 		// currentDissolveValue = playerCloth.clothRenderer.material.GetFloat("_Level");
-		isReducingCloth = true;
+		playerCloth.isReducingCloth = true;
 		playerCloth.isHPChange = false;
 	}
 
@@ -83,7 +90,6 @@ public class PlayerClothSystem : ComponentSystem {
 	}
 
 	void CheckDirection () {
-		facing = playerCloth.facing;
 		// Debug.Log(playerCloth.currentDirID+" : "+facing.DirID);
 		if (playerCloth.currentDirID != facing.DirID) {
 			playerCloth.currentDirID = facing.DirID;
@@ -91,29 +97,51 @@ public class PlayerClothSystem : ComponentSystem {
 
 			switch (currentDirID) {
 				case 1: //DOWN
-					SetClothRotation(0f, new Vector3(2f, -1f, 2f)); 
+					SetClothRotation(0f, new Vector3(1f, 0.5f, 1f)); 
 					break;
 				case 2: //LEFT
-					SetClothRotation(90f, new Vector3(1f, -0.5f, -1f)); 
+					SetClothRotation(90f, new Vector3(1f, 0.5f, -1f)); 
 					break;
 				case 3: //UP
-					SetClothRotation(180f, new Vector3(-1f, -0.5f, -1f)); 
+					SetClothRotation(180f, new Vector3(-1f, 0.5f, -1f)); 
 					break;
 				case 4: //RIGHT
-					SetClothRotation(-90f, new Vector3(-2f, -1f, 2f)); 
+					SetClothRotation(-90f, new Vector3(-1f, 0.5f, 1f)); 
 					break;
 			}
+		} else {
+			RandomClothAccelY();
 		}
 	}
 
 	void SetClothRotation (float rotY, Vector3 accel) {
-		// accel.y = -1;
-
-		// Debug.Log("InverseTransformDirection "+playerCloth.cloth.transform.InverseTransformDirection(accel));
-		// Debug.Log("InverseTransformPoint "+playerCloth.cloth.transform.InverseTransformPoint(accel));
-		// Debug.Log("InverseTransformVector "+playerCloth.cloth.transform.InverseTransformVector(accel));
-		// playerCloth.cloth.ClearTransformMotion();
-		// clothTransform.localEulerAngles = new Vector3(0f, rotY, 0f);	
 		playerCloth.cloth.externalAcceleration = accel * playerCloth.addOnAccel;	
+	}
+
+	void RandomClothAccelY () {
+		if (playerInput.moveDir == Vector3.zero && playerRigidbody.velocity == Vector3.zero) {
+			if (playerCloth.randomCountdownTimer > 0f) {
+				Vector3 newAccel = playerCloth.cloth.externalAcceleration;
+
+				if (playerCloth.randomMultiplierToggle) {
+					newAccel.y += deltaTime * playerCloth.addRandomAccel;
+					// Debug.Log("True : "+newAccel.y);
+				} else {
+					newAccel.y -= deltaTime * playerCloth.addRandomAccel;
+					// Debug.Log("false : "+newAccel.y);
+				}
+
+				playerCloth.cloth.externalAcceleration = newAccel;
+				playerCloth.randomCountdownTimer -= deltaTime;
+			} else {
+				bool toggle = playerCloth.randomMultiplierToggle;
+				toggle = !toggle;
+				playerCloth.randomMultiplierToggle = toggle;
+				playerCloth.randomCountdownTimer = clothRandomCountdownTime;
+			}
+		} else {
+			playerCloth.randomMultiplierToggle = false;
+			playerCloth.randomCountdownTimer = clothRandomCountdownTime;
+		}
 	}
 }

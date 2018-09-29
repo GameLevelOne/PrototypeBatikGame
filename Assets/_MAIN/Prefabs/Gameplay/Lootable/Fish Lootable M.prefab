@@ -112,7 +112,7 @@ Animator:
   m_GameObject: {fileID: 1735157422153686}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2ef004c4a057aa34794a0947f2e0e28c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9682f55d4ca786f43aeebf37f3b6abfc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -136,10 +136,14 @@ MonoBehaviour:
   mainSprite: {fileID: 1681516494624488}
   lootQuantity: 5
   initPosY: 0
+  destroyDuration: 0
   treasureType: 1
   initSprite: {fileID: 1735157422153686}
   keyID: 0
+  isInitLootable: 0
   isLooted: 0
+  isDestroyed: 0
+  destroyTimer: 0
 --- !u!114 &114576164405415012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,7 +248,7 @@ SpriteRenderer:
   m_SortingLayerID: 1829551841
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2d351c3b006928e49954cd4d29531be3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6e78723239b6324dbdb601a7ac8a12b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
