@@ -4,6 +4,7 @@ public class Stone : MonoBehaviour {
 	public Collider stoneCollider;
 	public Collider parentCollider;
 	public TriggerDetection hammerTrigger;
+	public AudioSource audioSource;
 	public GameObject stoneColorObj;
 	public GameObject stoneGreyObj;
 	public GameObject stoneBrokenObj;

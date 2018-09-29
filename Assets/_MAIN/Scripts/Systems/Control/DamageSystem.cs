@@ -194,47 +194,52 @@ public class DamageSystem : ComponentSystem {
 		if(!currEnemy.isHit) return;
 		else{
 			Transform enemyTransform = currEnemy.transform;
-			string damageTag = currEnemy.damageReceive.tag;
-			float damage = currEnemy.damageReceive.damage;
-			currEnemy.damageSourcePos = currEnemy.damageReceive.transform.position;
-			// Debug.Log(damageTag + " " + damage);
+			if (currEnemy.damageReceive!=null) {
+				string damageTag = currEnemy.damageReceive.tag;
+				float damage = currEnemy.damageReceive.damage;
+				currEnemy.damageSourcePos = currEnemy.damageReceive.transform.position;
+				// Debug.Log(damageTag + " " + damage);
 
-			if(damageTag == Constants.Tag.HAMMER){
-				currEnemy.initDamaged = false;
-				currEnemy.SetEnemyState(EnemyState.Damaged);
-
-				if(currEnemy.hasArmor){
-					currEnemy.hasArmor = false;
-				}else{
-					// health.EnemyHP -= damage;
-					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
-					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-				}
-			} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
-			damageTag == Constants.Tag.MAGIC_MEDALLION ||
-			damageTag == Constants.Tag.ARROW) {
-				currEnemy.initDamaged = false;
-				currEnemy.SetEnemyState(EnemyState.Damaged);
-				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-			} else if (damageTag == Constants.Tag.FIRE_ARROW ||
-			damageTag == Constants.Tag.EXPLOSION) {
-				currEnemy.initDamaged = false;
-				currEnemy.isBurned = true;
-				currEnemy.SetEnemyState(EnemyState.Damaged);
-				//BURN
-				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
-			} else {
-				if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
+				if(damageTag == Constants.Tag.HAMMER){
 					currEnemy.initDamaged = false;
 					currEnemy.SetEnemyState(EnemyState.Damaged);
-					// playerInputSystem.player.isHitAnEnemy = true;
-					
+
+					if(currEnemy.hasArmor){
+						currEnemy.hasArmor = false;
+					}else{
+						// health.EnemyHP -= damage;
+						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
+						health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+					}
+				} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
+				damageTag == Constants.Tag.MAGIC_MEDALLION ||
+				damageTag == Constants.Tag.ARROW) {
+					currEnemy.initDamaged = false;
+					currEnemy.SetEnemyState(EnemyState.Damaged);
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+				} else if (damageTag == Constants.Tag.FIRE_ARROW ||
+				damageTag == Constants.Tag.EXPLOSION) {
+					currEnemy.initDamaged = false;
+					currEnemy.isBurned = true;
+					currEnemy.SetEnemyState(EnemyState.Damaged);
+					//BURN
+					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+				} else {
+					if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
+						currEnemy.initDamaged = false;						
+						currEnemy.SetEnemyState(EnemyState.Damaged);
+						// playerInputSystem.player.isHitAnEnemy = true;
+						if (currEnemy.damageReceive.audioSource!=null)
+							currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
+						health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+					}
 				}
+				// currEnemy.isEnemyGetHurt = false;
+				currEnemy.playerThatHitsEnemy = playerInputSystem.player;
+				// currEnemy.damageSourcePos = damageTransform.position;
+			} else {
+				Debug.Log("Damage Received Object Already Destroyed");
 			}
-			// currEnemy.isEnemyGetHurt = false;
-			currEnemy.playerThatHitsEnemy = playerInputSystem.player;
-			// currEnemy.damageSourcePos = damageTransform.position;
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
 		}

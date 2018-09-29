@@ -2065,7 +2065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1235093757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2401,6 +2401,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.size
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 114947111125356162, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: npcOpeningDialogueTrigger.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4714917742078832, guid: ded1b61004e356a46b86b4e1aefdd3dc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2498,6 +2508,48 @@ Prefab:
       propertyPath: isInitEnableTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[42].key
+      value: 
+      objectReference: {fileID: 114261203688842122, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[43].key
+      value: 
+      objectReference: {fileID: 114851738323240230, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[44].key
+      value: 
+      objectReference: {fileID: 114333075263708142, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[45].key
+      value: 
+      objectReference: {fileID: 114502947564253434, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[46].key
+      value: 
+      objectReference: {fileID: 114425342092824454, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[47].key
+      value: 
+      objectReference: {fileID: 114076922385936006, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[48].key
+      value: 
+      objectReference: {fileID: 114326440641350070, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ded1b61004e356a46b86b4e1aefdd3dc, type: 2}
   m_IsPrefabAsset: 0
@@ -2834,6 +2886,21 @@ Prefab:
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
+    - target: {fileID: 137651258906997094, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.000000059604645
+      objectReference: {fileID: 0}
+    - target: {fileID: 137651258906997094, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0000016093254
+      objectReference: {fileID: 0}
+    - target: {fileID: 137651258906997094, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00000014901164
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
@@ -2866,7 +2933,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1851676949}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &1851676951
 Transform:
   m_ObjectHideFlags: 0

@@ -36,9 +36,15 @@
 // 	AFTER_USING_TOOL
 // }
 
+public enum AnimationAudio {
+	HAMMER
+}
+
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
+	public AudioSource audioSource;
+	public AudioClip[] audioClip;
 
 	public bool isInitAnimation = false;
 

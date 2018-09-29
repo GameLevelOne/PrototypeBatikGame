@@ -463,6 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4663221437161056}
   - component: {fileID: 114731853931648524}
+  - component: {fileID: 81696682655163958}
   - component: {fileID: 54918470649024868}
   - component: {fileID: 136916452541748184}
   - component: {fileID: 114299327109917812}
@@ -1160,8 +1161,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.06, y: 0.9, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 17.9, y: 0.9, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -1443,6 +1444,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!81 &81696682655163958
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552680715280630}
+  m_Enabled: 1
 --- !u!95 &95527639298465496
 Animator:
   serializedVersion: 3
@@ -2228,8 +2236,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0.000000059604645, z: 0.0000016093254}
-    m_Extent: {x: 5.000019, y: 0.00000014901164, z: 5.0000033}
+    m_Center: {x: 0, y: 0, z: 0.0000016540289}
+    m_Extent: {x: 5.000019, y: 0.00000026822096, z: 5.0000033}
   m_DirtyAABB: 0
 --- !u!183 &183409921190244292
 Cloth:

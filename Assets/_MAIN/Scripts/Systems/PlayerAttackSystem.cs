@@ -56,27 +56,28 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
 	public void SpawnSlashEffect (int mode) {
+		int facing = attack.playerFacing.DirID-1;
 		switch (mode) {
             case 1:
-                SpawnNormalAttackObj (attack.slash1);
+                SpawnNormalAttackObj (attack.slash1[facing]);
                 break;
             case 2:
-                SpawnNormalAttackObj (attack.slash2);
+                SpawnNormalAttackObj (attack.slash2[facing]);
                 break;
             case 3:
-                SpawnNormalAttackObj (attack.slash3);
+                SpawnNormalAttackObj (attack.slash3[facing]);
                 break;
             case -1:
                 SpawnChargeAttackObj (attack.chargeSlash);
                 break;
             case -2:
-                SpawnNormalAttackObj (attack.counterSlash);
+                SpawnNormalAttackObj (attack.counterSlash[facing]);
                 break;
             // case -3:
             //     SpawnObj (attack.counterSlash); //RAPIDSLASH
             //     break;
             case -4:
-                SpawnNormalAttackObj (attack.regularArrow);
+                SpawnArrowAttackObj (attack.regularArrow[facing]);
                 break;
         }
 		// Debug.Log("SpawnSlashEffect "+mode);
@@ -84,6 +85,11 @@ public class PlayerAttackSystem : ComponentSystem {
     }
 
     void SpawnNormalAttackObj (GameObject obj) {
+        Vector3 initPos = attack.transform.position;
+        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position,Quaternion.identity);
+        spawnedObj.SetActive(true);
+    }
+    void SpawnArrowAttackObj (GameObject obj) {
 		Vector3 targetPos = attack.normalAttackSpawnPos.position;
         Vector3 initPos = attack.transform.position;
 
@@ -95,8 +101,9 @@ public class PlayerAttackSystem : ComponentSystem {
 		} else {
 			deltaPos = targetPos - initPos;
 		}
-		
-        GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position, SetFacingParent(deltaPos));
+		if (attack.playerFacing.DirID==2 || attack.playerFacing.DirID == 4)
+			targetPos += new Vector3(0f,0f,0.8444f);
+        GameObject spawnedObj = GameObject.Instantiate(obj, targetPos, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
 		// Debug.Log(spawnedObj.transform.GetChild(0).name);
@@ -120,9 +127,9 @@ public class PlayerAttackSystem : ComponentSystem {
 
     Quaternion SetFacingChild (Vector3 resultPos) {
         float angle = Mathf.Atan2 (resultPos.z, resultPos.x) * Mathf.Rad2Deg;
-        // Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
+        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle));
         // Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle - 90f));
-        Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle - 90f));
+        // Quaternion targetRot = Quaternion.Euler (new Vector3 (40f, 0f, angle - 90f));
 
         return targetRot;
     }

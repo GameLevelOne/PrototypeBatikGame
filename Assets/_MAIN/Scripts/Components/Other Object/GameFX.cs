@@ -9,12 +9,18 @@ public class GameFX : MonoBehaviour {
 	public ParticleSystem counterChargeEffect;
 	public ParticleSystem runOnDirtEffect;
 	public ParticleSystem runOnGrassEffect;
-	public ParticleSystem runOnWaterEffect;
+	public ParticleSystem runOnWaterEffect;	
 	public ParticleSystem dashEffect;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
 	public GameObject hitEffect;
 	public GameObject chargingEffect;
+
+	public AudioClip[] dirtAudio;
+	public AudioClip[] grassAudio;
+	public AudioClip[] waterAudio;
+	public int runVariantIdx;
+	public AudioSource audioSource;
 	// public GameObject chargingRunEffect;
 
 	[HeaderAttribute("Tool Effect")]
