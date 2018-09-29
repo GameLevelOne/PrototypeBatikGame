@@ -1,6 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
+[UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class WaterShooterEnemySystem : ComponentSystem {
 	
 	public struct WaterShooterEnemyComponent{
@@ -37,10 +38,16 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	
 	void CheckState()
 	{
-		if(currWaterShooterEnemy.enemy.state == EnemyState.Idle){
-			Idle();
-		}else if(currWaterShooterEnemy.enemy.state == EnemyState.Attack){
-			Attack();
+		if(currEnemy.state == EnemyState.Damaged){
+			Damaged();
+		} else {
+			if(currWaterShooterEnemy.enemy.state == EnemyState.Idle){
+				Idle();
+			} else if (currEnemy.state == EnemyState.Aggro){
+				Aggro();
+			}else if(currWaterShooterEnemy.enemy.state == EnemyState.Attack){
+				Attack();
+			}
 		}
 	}
 
@@ -78,9 +85,10 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void Idle()
 	{
 		if(currWaterShooterEnemy.enemy.playerTransform != null){
-			currWaterShooterEnemy.enemy.state = EnemyState.Attack;
+			currEnemy.state = EnemyState.Aggro;
 			currWaterShooterEnemy.enemy.initIdle = false;
 			currEnemy.chaseIndicator.Play(true);
+			currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
 		}else{
 			if(!currWaterShooterEnemy.enemy.initIdle){
 				currWaterShooterEnemy.enemy.initIdle = true;
@@ -89,26 +97,68 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		}
 	}
 
+	void Aggro () {
+		if (currEnemy.isFinishAggro) {
+			currWaterShooterEnemy.enemy.state = EnemyState.Attack;
+			currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
+
+			currEnemy.initAttack = false; //
+			currEnemy.isFinishAggro = false;
+		}
+	}
+
+	void Damaged()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			currEnemy.isAttack = false;
+			
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+			currEnemy.initDamaged = true;
+			currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+
+			// currEnemy.TDamaged = currEnemy.damagedDuration;
+		}else{
+			// if(currEnemy.TDamaged <= 0f){
+			if (currEnemy.isFinishDamaged) {				
+				currEnemy.isFinishDamaged = false;
+				currEnemy.state = EnemyState.Aggro;
+				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+				currEnemy.chaseIndicator.Play(true);
+			}
+			// } else {
+			// 	currEnemy.TDamaged -= deltaTime;
+			// }
+		}
+	}
+
 	void Attack()
 	{
-		if(currWaterShooterEnemy.enemy.playerTransform == null){
+		if (currWaterShooterEnemy.enemy.playerTransform == null){
 			currWaterShooterEnemy.enemy.state = EnemyState.Idle;
 			currWaterShooterEnemy.enemy.initAttack = false;
-		}else{
-			if(!currWaterShooterEnemy.enemy.initAttack){
+		} else {
+			if (!currWaterShooterEnemy.enemy.initAttack){
 				currWaterShooterEnemy.enemy.initAttack = true;
-				currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
-			}else{
-				currWaterShooterEnemy.TShootInterval -= Time.deltaTime;
-				if(currWaterShooterEnemy.TShootInterval <= 0f){
-					//shoot
-					// GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet, currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
-					// bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
-
+				// currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
+				if (currEnemy.attackHit) {
 					SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
-					
-					currWaterShooterEnemy.enemy.initAttack = false;
+
+					currEnemy.attackHit = false;
 				}
+			} else {
+				// currWaterShooterEnemy.TShootInterval -= Time.deltaTime;
+				// if(currWaterShooterEnemy.TShootInterval <= 0f){
+				// 	//shoot
+				// 	// GameObject bullet = GameObject.Instantiate(currWaterShooterEnemy.bullet, currWaterShooterEnemyRidigbody.position,Quaternion.identity) as GameObject;
+				// 	// bullet.GetComponent<WaterShooterBullet>().direction = GetProjectileDirection(bullet.transform.position,currWaterShooterEnemy.enemy.playerTransform.position);
+
+				// 	SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
+					
+				// 	currWaterShooterEnemy.enemy.initAttack = false;
+				// }
 			}
 		}
 	}

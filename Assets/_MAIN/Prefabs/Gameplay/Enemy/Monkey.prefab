@@ -870,11 +870,13 @@ MonoBehaviour:
   initAttack: 0
   isAttack: 0
   initDamaged: 0
+  initAggro: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
   isBurned: 0
   isFinishDamaged: 0
+  isFinishAggro: 0
   isHit: 0
   damageReceive: {fileID: 0}
 --- !u!114 &114172360375277942
@@ -1006,10 +1008,13 @@ MonoBehaviour:
   attackRangeTrigger: {fileID: 114900510518298574}
   attackCodeFX: {fileID: 198095632589966310}
   burnedFX: {fileID: 198002312411186038}
+  monkeyClawFX: {fileID: 1040676030784362, guid: dc342107fc2130e439ceb80dfa298932,
+    type: 2}
   nearbyMonkeys: []
   patrolArea: {x: 1, y: 0, z: 1}
   isCollidingWithPlayer: 0
   isHitByPlayer: 0
+  isInitSpawnAttackFX: 0
 --- !u!135 &135412467082744406
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -42498,7 +42503,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017072127329316}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -42665,7 +42670,7 @@ SpriteRenderer:
   m_SortingLayerID: 1829551841
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9e491be0fd2326747a120778803dbe26, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 092ad3aadae35c64298644eb7202bd43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

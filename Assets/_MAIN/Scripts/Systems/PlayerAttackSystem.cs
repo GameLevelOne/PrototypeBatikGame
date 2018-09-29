@@ -58,13 +58,13 @@ public class PlayerAttackSystem : ComponentSystem {
 	public void SpawnSlashEffect (int mode) {
 		switch (mode) {
             case 1:
-                SpawnNormalAttackObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash1);
                 break;
             case 2:
-                SpawnNormalAttackObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash2);
                 break;
             case 3:
-                SpawnNormalAttackObj (attack.slash);
+                SpawnNormalAttackObj (attack.slash3);
                 break;
             case -1:
                 SpawnChargeAttackObj (attack.chargeSlash);

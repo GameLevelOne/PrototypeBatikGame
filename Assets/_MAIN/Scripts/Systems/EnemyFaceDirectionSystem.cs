@@ -38,7 +38,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		if(currEnemy.state == EnemyState.Patrol){
 			Vector3 dir = GetDirection(currEnemyRigidbody.position,currEnemy.patrolDestination);
 			SetEnemyFacing(dir);
-		}else if((currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack) && currEnemy.playerTransform != null){
+		}else if((currEnemy.state == EnemyState.Chase || currEnemy.state == EnemyState.Attack || currEnemy.state == EnemyState.Aggro) && currEnemy.playerTransform != null){
 			Vector3 dir = GetDirection(currEnemyRigidbody.position,currEnemy.playerTransform.position);
 			SetEnemyFacing(dir);
 		}
@@ -60,7 +60,7 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		float x = Mathf.RoundToInt(direction.x);
 		float z = Mathf.RoundToInt(direction.z);
 		
-		currEnemyFacing.DirID = CheckDirID(x,z);
+		// currEnemyFacing.DirID = CheckDirID(x,z);
 
 		if(x < 0f) x = -1f;
 		else x = 1f;
@@ -89,49 +89,49 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		}
 	}
 
-	int CheckDirID (float dirX, float dirZ) {
-		int dirIdx = 0;
+// 	int CheckDirID (float dirX, float dirZ) {
+// 		int dirIdx = 0;
 
-		#region 4 Direction
-		if (dirX == 0f) {
-			if (dirZ > 0f) {
-				dirIdx = 3;
-			} else {
-				dirIdx = 1;
-			}
-		} else if (dirX < 0f) {
-			dirIdx = 2;
-		} else if (dirX > 0f) {
-			dirIdx = 4;
-		}
-		#endregion
+// 		#region 4 Direction
+// 		if (dirX == 0f) {
+// 			if (dirZ > 0f) {
+// 				dirIdx = 3;
+// 			} else {
+// 				dirIdx = 1;
+// 			}
+// 		} else if (dirX < 0f) {
+// 			dirIdx = 2;
+// 		} else if (dirX > 0f) {
+// 			dirIdx = 4;
+// 		}
+// 		#endregion
 
-#region 8 Direction
-		// if (dirX == 0) {
-		// 	if (dirY > 0) {
-		// 		dirIdx = 5;
-		// 	} else {
-		// 		dirIdx = 1;
-		// 	}
-		// } else if (dirX < 0) {
-		// 	if (dirY < 0) {
-		// 		dirIdx = 2;
-		// 	} else if (dirY > 0) {
-		// 		dirIdx = 4;
-		// 	} else {
-		// 		dirIdx = 3;
-		// 	}
-		// } else if (dirX > 0) {
-		// 	if (dirY < 0) {
-		// 		dirIdx = 8;
-		// 	} else if (dirY > 0) {
-		// 		dirIdx = 6;
-		// 	} else {
-		// 		dirIdx = 7;
-		// 	}
-		// }
-#endregion
+// #region 8 Direction
+// 		// if (dirX == 0) {
+// 		// 	if (dirY > 0) {
+// 		// 		dirIdx = 5;
+// 		// 	} else {
+// 		// 		dirIdx = 1;
+// 		// 	}
+// 		// } else if (dirX < 0) {
+// 		// 	if (dirY < 0) {
+// 		// 		dirIdx = 2;
+// 		// 	} else if (dirY > 0) {
+// 		// 		dirIdx = 4;
+// 		// 	} else {
+// 		// 		dirIdx = 3;
+// 		// 	}
+// 		// } else if (dirX > 0) {
+// 		// 	if (dirY < 0) {
+// 		// 		dirIdx = 8;
+// 		// 	} else if (dirY > 0) {
+// 		// 		dirIdx = 6;
+// 		// 	} else {
+// 		// 		dirIdx = 7;
+// 		// 	}
+// 		// }
+// #endregion
 
-		return dirIdx;
-	}
+// 		return dirIdx;
+// 	}
 }

@@ -3,6 +3,7 @@
 public enum EnemyState{
 	Idle,
 	Patrol,
+	Aggro, //NEW
 	Chase,
 	Startled,
 	Attack,
@@ -45,11 +46,13 @@ public class Enemy : MonoBehaviour {
 	// public bool initKnockback = false;
 	public bool isAttack = false;
 	public bool initDamaged = false;
+	public bool initAggro = false;
 	public bool initDie = false;
 	public bool attackHit = false;
 	public bool hasArmor = false;
 	public bool isBurned = false;
 	public bool isFinishDamaged = false;
+	public bool isFinishAggro = false;
 	
 	public bool isHit = false;
 	public Damage damageReceive;

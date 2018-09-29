@@ -223,8 +223,11 @@ public static class Constants {
 		#region Enemy
 		public const string ENEMY_IDLE = "Idle";
 		public const string ENEMY_ATTACK = "Attack";
+		public const string ENEMY_AGGRO = "Aggro";
+		public const string ENEMY_CHASE = "Chase";
 		public const string ENEMY_DAMAGED = "Damaged";
 		public const string ENEMY_PATROL = "Patrol";
+		public const string ENEMY_DIE = "Die";
 		public const string ENEMY_IDLE_BARE = "IdleBare";
 		public const string ENEMY_PATROL_BARE = "PatrolBare";
 		#endregion

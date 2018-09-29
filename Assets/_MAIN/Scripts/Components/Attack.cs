@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
 public class Attack : MonoBehaviour {
-    public GameObject slash;
+    public GameObject slash1;
+    public GameObject slash2;
+    public GameObject slash3;
     public GameObject chargeSlash;
     public GameObject counterSlash;
     public GameObject regularArrow;

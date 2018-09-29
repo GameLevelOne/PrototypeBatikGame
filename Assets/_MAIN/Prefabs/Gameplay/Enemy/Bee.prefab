@@ -514,7 +514,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951058270258266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.51, y: 1, z: 5}
+  m_LocalPosition: {x: 7.73, y: 1, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541998587350718}
@@ -919,11 +919,13 @@ MonoBehaviour:
   initAttack: 0
   isAttack: 0
   initDamaged: 0
+  initAggro: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
   isBurned: 0
   isFinishDamaged: 0
+  isFinishAggro: 0
   isHit: 0
   damageReceive: {fileID: 0}
 --- !u!114 &114272828399055306
@@ -1027,6 +1029,7 @@ MonoBehaviour:
   attackCodeFX: {fileID: 198721295839033352}
   burnedFX: {fileID: 198114603286567132}
   beeHive: {fileID: 0}
+  beeCutFX: {fileID: 1682419898080922, guid: 473728e4a6256494292ab0979400caa1, type: 2}
   startledRange: 5
   beeHiveTransform: {fileID: 0}
   initStartled: 0

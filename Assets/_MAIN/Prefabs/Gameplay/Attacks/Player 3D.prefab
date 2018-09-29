@@ -52,7 +52,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -253,7 +253,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -301,7 +301,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -450,7 +450,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1161,7 +1161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0.9, z: 0}
+  m_LocalPosition: {x: 17.06, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -1452,7 +1452,7 @@ Animator:
   m_GameObject: {fileID: 1552680715280630}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 21b86802599216842b2ca7ffd8aaca43, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1813,7 +1813,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b24b74f1df584d82804d2188aaf44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slash: {fileID: 1789372909216884, guid: 1ed54386c0db1e24bbaac58707c2d3d5, type: 2}
+  slash1: {fileID: 1881894693323942, guid: 4b90c2dba26211c40b19efc9cb1e7c28, type: 2}
+  slash2: {fileID: 1089351300078858, guid: 4979206e6affee8478afa9813981205f, type: 2}
+  slash3: {fileID: 1455619934554538, guid: bf21f03eaa84c7a44a0a5817ec81327a, type: 2}
   chargeSlash: {fileID: 1847233393451708, guid: c0e700c659fb183418def06e664f1af7,
     type: 2}
   counterSlash: {fileID: 1981715543440124, guid: 4a38ea7deea53304fa6e349f265c0394,
