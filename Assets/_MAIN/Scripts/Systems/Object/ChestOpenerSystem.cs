@@ -5,10 +5,12 @@ public class ChestOpenerSystem : ComponentSystem {
 	public struct ChestOpenerData {
 		public readonly int Length;
 		public ComponentArray<ChestOpener> ChestOpener;
+		// public ComponentArray<UINotif> UINotif;
 	}
 	[InjectAttribute] ChestOpenerData chestOpenerData;
 
 	ChestOpener chestOpener;
+	// UINotif uiNotif;
 
 	public struct ChestData {
 		public readonly int Length;
@@ -30,6 +32,7 @@ public class ChestOpenerSystem : ComponentSystem {
 
 		for (int i=0; i<chestOpenerData.Length; i++) {
 			chestOpener = chestOpenerData.ChestOpener[i];
+			// uiNotif = chestOpenerData.UINotif[i];
 
 			if (chestOpener.isInteracting) {
 				if (chestOpener.chest.isInitChest && !chestOpener.chest.isOpened) {
@@ -49,6 +52,18 @@ public class ChestOpenerSystem : ComponentSystem {
 		chest.chestSpriteRen.sprite = chest.isOpened ? chest.openedChestSprite : chest.closedChestSprite;
 
 		chest.isInitChest = true;
+	}
+
+	public void CheckAvailabilityGateKey () {
+		// if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + chestOpener.chest.chestID, 0) == 1) {
+		// 	OpenChest();
+		// } else {
+		// 	Debug.Log("You do not have key for this chest with ID : "+chestOpener.chest.chestID);
+		// 	string textToShow = "You do not have key for this gate";
+		// 	chestOpener.chest.animator.Play(Constants.AnimationName.CHEST_LOCKED);
+		// 	uiNotif.TextToShow = textToShow;
+		// 	uiNotif.call = true;
+		// }
 	}
 
 	public void OpenChest () {

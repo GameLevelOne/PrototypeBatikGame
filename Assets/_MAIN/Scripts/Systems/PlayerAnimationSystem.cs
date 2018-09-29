@@ -288,13 +288,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactValue == 0) {
 						PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
 
-						if (powerBraceletState == PowerBraceletState.GRAB) {
-							// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
-							powerBraceletSystem.SetTargetRigidbodyType(1);
-						} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
-							// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
-							powerBraceletSystem.SetTargetRigidbodyType(2);
-							// powerBraceletSystem.SetLiftObjectParent();
+						if (powerBraceletSystem.powerBracelet.liftable != null) {
+							if (powerBraceletState == PowerBraceletState.GRAB) {
+								// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
+								powerBraceletSystem.SetTargetRigidbodyType(1);
+							} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
+								// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
+								powerBraceletSystem.SetTargetRigidbodyType(2);
+								// powerBraceletSystem.SetLiftObjectParent();
+							}
+						} else {
+							powerBraceletSystem.ResetPowerBracelet();
 						}
 
 						input.interactValue = 1;
@@ -547,14 +551,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 				// Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 				
-				if (input.liftingMode == -1 || input.liftingMode == -2) {
-					if (powerBraceletSystem.powerBracelet.liftable != null) {
-						powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
-					} else {
-						// input.interactValue = 0;
-					}
-					powerBraceletSystem.ResetPowerBracelet();
-				}
+				//POWER_BRACELET STATE CANNOT GET_HURT
+				// if (input.liftingMode == -1 || input.liftingMode == -2) {
+				// 	if (powerBraceletSystem.powerBracelet.liftable != null) {
+				// 		powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
+				// 	} else {
+				// 		// input.interactValue = 0;
+				// 	}
+				// 	powerBraceletSystem.ResetPowerBracelet();
+				// }
 				break;
 			case PlayerState.DASH:
 				//

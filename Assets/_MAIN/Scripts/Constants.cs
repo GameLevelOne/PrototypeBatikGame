@@ -237,9 +237,12 @@ public static class Constants {
 	{
 		#region Another Object
 		public const string CHEST_OPEN = "ChestOpen"; //CHEST
-		public const string DESTROY = "Destroy"; //CHEST
-		public const string HIT = "Hit"; //CHEST
-		public const string Idle = "Idle"; //CHEST
+		public const string CHEST_LOCKED = "ChestLocked"; //CHEST
+		public const string GATE_IDLE = "GateIdle"; //GATE
+		public const string GATE_LOCKED = "GateLocked"; //GATE
+		public const string DESTROY = "Destroy"; //BEEHIVE
+		public const string HIT = "Hit"; //BEEHIVE
+		public const string Idle = "Idle"; //
 		#endregion
 
 		#region UI

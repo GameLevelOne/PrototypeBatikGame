@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4036089177134772}
   - component: {fileID: 212921777634425568}
+  - component: {fileID: 95575221112167990}
   m_Layer: 0
   m_Name: Gate Sprite
   m_TagString: Untagged
@@ -65,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1632684769094140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 37.87, y: 0.5, z: 8.21}
+  m_LocalPosition: {x: 11.961243, y: 0, z: -0.27885866}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4036089177134772}
@@ -84,6 +85,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.757782, y: 2.2744136, z: 2.9801912}
   m_Center: {x: 0.025318146, y: 0.6372068, z: -0.5099044}
+--- !u!95 &95575221112167990
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1110542924805714}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2fc183d307101464aa12cfc004f53b43, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114304082532424796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,9 +116,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gateCol: {fileID: 65491276106643288}
   gateSpriteRen: {fileID: 212921777634425568}
+  animator: {fileID: 95575221112167990}
   closedGateSprite: {fileID: 21300000, guid: 1079d95db120110409d289aa6bfe7062, type: 3}
   openedGateSprite: {fileID: 0}
-  gateID: 0
+  gateID: 3
   isInitGate: 0
   isOpened: 0
   isSelected: 0

@@ -10,10 +10,8 @@ public class PlayerCloth : MonoBehaviour {
 	public float addOnAccel;
 	public float clothReduceValue;
 	public float randomCountdownTime;
+	public float addRandomAccel = 0f;
 
-	[HeaderAttribute("0 to 2")]
-	public float randomMultiplierMin;
-	public float randomMultiplierMax;
 
 	[HeaderAttribute("Current")]
 	public bool isInitCLoth = false;
@@ -22,7 +20,6 @@ public class PlayerCloth : MonoBehaviour {
 	public bool isReducingCloth = false;
 	public float randomCountdownTimer;
 	public bool randomMultiplierToggle = false;
-	public float addRandomAccel = 0f;
 
 	void OnEnable () {
 		playerHealth.OnHPChange += OnHPChange;

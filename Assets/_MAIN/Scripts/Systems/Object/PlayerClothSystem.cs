@@ -20,10 +20,7 @@ public class PlayerClothSystem : ComponentSystem {
 	float clothReduceValue;
 	float currentDissolveValue;
 	float healthThreshold;
-	float randomMultiplierMin;
-	float randomMultiplierMax;
 	float clothRandomCountdownTime;
-	float randomAddAccelY;
 	float deltaTime;
 
 	protected override void OnUpdate () {
@@ -51,8 +48,6 @@ public class PlayerClothSystem : ComponentSystem {
 		playerInput = playerCloth.playerInput;
 		facing = playerCloth.facing;
 		playerRigidbody = playerCloth.player.GetComponent<Rigidbody>();
-		randomMultiplierMin = playerCloth.randomMultiplierMin;
-		randomMultiplierMax = playerCloth.randomMultiplierMax;
 		clothRandomCountdownTime = playerCloth.randomCountdownTime;
 		playerCloth.randomCountdownTimer = clothRandomCountdownTime;
 
