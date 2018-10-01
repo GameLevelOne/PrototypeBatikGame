@@ -54,9 +54,11 @@ public class GameFXSystem : ComponentSystem {
     public void ToggleParticleEffect (ParticleSystem particleFX, bool value) {
         if (value) {
             if (!particleFX.isPlaying) {
+                Debug.Log("A Playing Particle "+particleFX);
                 particleFX.Play(true);
                 PlayFXAudio(particleFX);
             } else {
+                Debug.Log("B Playing Particle "+particleFX);
                 particleFX.Stop(true);
                 particleFX.Play(true);
                 PlayFXAudio(particleFX);
@@ -102,7 +104,7 @@ public class GameFXSystem : ComponentSystem {
                 ToggleParticleEffect(gameFX.runOnWaterEffect, false);
             // }
         }
-            // Debug.Log("DIRT is Playing : "+gameFX.runOnDirtEffect.isPlaying);
+            Debug.Log("DIRT is Playing : "+gameFX.runOnDirtEffect.isPlaying);
 	}
 
     // public void ToggleDodgeFlag (bool value) {
