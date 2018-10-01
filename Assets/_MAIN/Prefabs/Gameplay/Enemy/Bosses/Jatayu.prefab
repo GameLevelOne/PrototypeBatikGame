@@ -1247,6 +1247,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 3
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1288,7 +1290,7 @@ MonoBehaviour:
   maxAttackCounter: 6
   attack3ReturnSpeed: 5
   hitColorFadeSpeed: 2
-  burnedDuration: 3
+  burnedDuration: 6
   burnedCooldown: 10
   damageReceive: {fileID: 0}
   initJatayu: 0
@@ -1348,6 +1350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 0
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1420,6 +1424,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 0
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1452,6 +1458,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 0
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1468,6 +1476,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 0
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1484,6 +1494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 0
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -1518,7 +1530,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020586745092398}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.8
   m_Height: 2
