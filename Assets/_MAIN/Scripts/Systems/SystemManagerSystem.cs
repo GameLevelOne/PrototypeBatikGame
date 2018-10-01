@@ -65,7 +65,7 @@ public class SystemManagerSystem : ComponentSystem {
 				if (currentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS
 					Debug.Log("Save State by gameStorageSystem");
-					gameStorageSystem.SaveState();
+					gameStorageSystem.SaveOrLoadState();
 
 					//LOAD MAP STATS
 					Debug.Log("CheckCurrentMap : Completed Quest & Dissolver");

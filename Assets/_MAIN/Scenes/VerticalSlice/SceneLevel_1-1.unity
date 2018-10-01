@@ -2406,6 +2406,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1625110155518464, guid: b76a4010863347a4d849af026c8dc924, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 225537231459364072, guid: b76a4010863347a4d849af026c8dc924, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b76a4010863347a4d849af026c8dc924, type: 2}
@@ -7114,10 +7118,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1071277412041270, guid: 4c9885ea644558d46ba5bd8c4d02032a, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c9885ea644558d46ba5bd8c4d02032a, type: 2}
   m_IsPrefabAsset: 0
@@ -7552,21 +7552,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95983139262716988, guid: 7890581663b07fe49874a993b63ae6d3,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95019401642158750, guid: 7890581663b07fe49874a993b63ae6d3,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95298715472560490, guid: 7890581663b07fe49874a993b63ae6d3,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1426329823918532, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
       propertyPath: m_IsActive
@@ -8613,50 +8598,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2023482397}
-    - target: {fileID: 1258271986851712, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 95199438656836554, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95552694590456796, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95425140816425790, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95174887586016356, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95706708667699180, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95484294746800660, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95292163993405790, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 95016783288300748, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
-        type: 2}
-      propertyPath: m_UpdateMode
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1335873306701842, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -19303,25 +19244,10 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2023482397}
-    - target: {fileID: 224326442835508686, guid: 303525bfb6dc1594f9f1664e7301c3dc,
+    - target: {fileID: 224534956446215858, guid: 303525bfb6dc1594f9f1664e7301c3dc,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -29.999996
-      objectReference: {fileID: 0}
-    - target: {fileID: 224720306707746498, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -29.999996
-      objectReference: {fileID: 0}
-    - target: {fileID: 224499988589119162, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -29.999996
-      objectReference: {fileID: 0}
-    - target: {fileID: 224489475687451458, guid: 303525bfb6dc1594f9f1664e7301c3dc,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -29.999996
+      propertyPath: m_AnchoredPosition.y
+      value: 55.53589
       objectReference: {fileID: 0}
     - target: {fileID: 1412254001702594, guid: 303525bfb6dc1594f9f1664e7301c3dc, type: 2}
       propertyPath: m_IsActive

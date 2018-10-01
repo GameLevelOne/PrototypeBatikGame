@@ -9,6 +9,13 @@ public class UIMainMenuSystem : ComponentSystem {
 		public ComponentArray<UIMainMenu> UIMainMenu;
 	}
 	[InjectAttribute] UIMainMenuData uiMainMenuData;
+
+	public struct PlayerData {
+		public readonly int Length;
+		public ComponentArray<Player> Player;
+	}
+	[InjectAttribute] PlayerData playerData;
+
 	UIMainMenu uiMainmenu;
 
 	// [InjectAttribute] GameStorageSystem gameStorageSystem;
@@ -45,6 +52,11 @@ public class UIMainMenuSystem : ComponentSystem {
 		uiMainmenu.isActionPressed = false;
 		uiMainmenu.isUpPressed = false;
 		uiMainmenu.isDownPressed = false;
+
+		//FORCE PLAYER STATS HP TO 0
+		for (int i=0;i< playerData.Length;i++) {
+			playerData.Player[i].health.PlayerHP = 0f;
+		}
 	}
 
 	void ShowCurrentSelected() {
@@ -91,7 +103,7 @@ public class UIMainMenuSystem : ComponentSystem {
 			if (uiMainmenu.btnIndex==0) {//NEW GAME
 				PlayerPrefs.DeleteAll();	
 				uiMainmenu.portal11.enabled = true;
-			} else if (uiMainmenu.btnIndex==0) {//CONTINUE
+			} else if (uiMainmenu.btnIndex==1) {//CONTINUE
 				uiMainmenu.nextPortal.sceneDestination = PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT);
 				uiMainmenu.nextPortal.GetComponent<BoxCollider>().enabled = true;
 			} else {//EXIT

@@ -48,31 +48,32 @@ public class GameStorageSystem : ComponentSystem {
 		player.isInitPlayer = true;
 	}
 
-	public void SaveState () {
+	public void SaveOrLoadState() {
+		if (player.health.PlayerHP>0f) {
+			SaveState();
+		} else {
+			LoadState(0f);
+		}
+	}
+
+	void SaveState () {
 		gameStorage.SavedHP = player.health.PlayerHP;
 		gameStorage.SavedMP = player.mana.PlayerMP;
-
-		// if (SceneManager.GetActiveScene().name=="SceneMenu") 
-		// 	GameStorage.Instance.PlayBGM(BGMType.TITLE);
-		// else if (SceneManager.GetActiveScene().name=="SceneLevel_Jatayu") 
-		// 	GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
-		// else 
-		// 	GameStorage.Instance.PlayBGM(BGMType.MAIN);
-		Debug.Log("Save State");
+		Debug.Log("Save State to player Prefs HP: "+player.health.PlayerHP+ " MP: "+player.mana.PlayerMP);
 	}
 
     // Values : n
 	// n<=0 LoadLastSaved
 	// n>0 Load n% of Player Stats
 	public void LoadState (float value) {
-		if (value <= 0) {
+		if (value <= 0f) {
 			LoadPlayerStats(gameStorage.SavedHP, gameStorage.SavedMP);
 			//
 		} else {
 			CalculatePlayerStats(value);
 			//
 		}
-		Debug.Log("Load State");
+		Debug.Log("Load State from playerPrefs");
 	}
 
 	void CalculatePlayerStats (float precentage) {

@@ -55,6 +55,7 @@ public class UIGameOverSystem : ComponentSystem {
 	void CheckCall()
 	{
 		if(uiGameOver.call){
+			Debug.Log("GAME OVER SCREEN LOADED!");
 			uiGameOver.call = false;
 			uiGameOver.gameOverAnim.SetBool("Show",true);
 			ShowCurrentSelected();
@@ -86,6 +87,7 @@ public class UIGameOverSystem : ComponentSystem {
 				uiGameOver.panel.SetActive(false);
 				uiGameOver.endHide = true;
 			}
+			ShowCurrentSelected();
 		}		
 	}
 
@@ -105,11 +107,13 @@ public class UIGameOverSystem : ComponentSystem {
 
 	void Restart()
 	{
+		Debug.Log("GAME OVER LOAD SCENE: "+SceneManager.GetActiveScene().name);
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	void ReturnToTitle()
 	{
+		Debug.Log("GAME OVER LOAD SCENE: "+Constants.SceneName.MAIN_MENU);
 		SceneManager.LoadScene(Constants.SceneName.MAIN_MENU);
 	}
 }

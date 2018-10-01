@@ -31,13 +31,14 @@ public class UISignPostSystem : ComponentSystem {
 	}
 
 	void Init() {
-		if (Input.GetJoystickNames().Length>0 && Input.GetJoystickNames()[0] != "") {
-			uiSignPost.joyStickPanel.SetActive(true);
-			uiSignPost.keyboardPanel.SetActive(false);
-		} else {
-			uiSignPost.joyStickPanel.SetActive(false);
-			uiSignPost.keyboardPanel.SetActive(true);
-		}
+		// if (Input.GetJoystickNames().Length>0 && Input.GetJoystickNames()[0] != "") {
+		// 	uiSignPost.joyStickPanel.SetActive(true);
+		// 	uiSignPost.keyboardPanel.SetActive(false);
+		// } else {
+		// 	uiSignPost.joyStickPanel.SetActive(false);
+		// 	uiSignPost.keyboardPanel.SetActive(true);
+		// }
+		uiSignPost.keyboardPanel.SetActive(true);
 		uiSignPost.isInitSignPost = true;
 		uiSignPost.isCloseSignPost = false;
 		uiSignPost.curLeftPressed = false;
@@ -66,14 +67,14 @@ public class UISignPostSystem : ComponentSystem {
 		if(uiSignPost.anim.GetCurrentAnimatorStateInfo(0).IsName("Show")){
 			if (!uiSignPost.curLeftPressed && GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = true;
-				SwitchPanel();
+				// SwitchPanel();
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = false;
 			}
 
 			if (!uiSignPost.curRightPressed && GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = true;
-				SwitchPanel();
+				// SwitchPanel();
 			} else if (!GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = false;						
 			}

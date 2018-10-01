@@ -53,6 +53,8 @@ public class PlayerMovementSystem : ComponentSystem {
 	Vector3 moveDir;
 	// Vector3 currentMoveDir;
 
+	bool gameOverCalled = false;
+
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
 		// if (movementData.Length == 0) return;
@@ -86,9 +88,11 @@ public class PlayerMovementSystem : ComponentSystem {
 					// PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
 					// SceneManager.LoadScene(Constants.SceneName.SCENE_LEVEL_1);
 				// }	
-
-				for (int j=0;j<uiGameOverData.Length;j++) {
-					uiGameOverData.uiGameOver[j].call = true;
+				if (!gameOverCalled) {
+					for (int j=0;j<uiGameOverData.Length;j++) {
+						uiGameOverData.uiGameOver[j].call = true;
+					}
+					gameOverCalled = true;
 				}
 
 				continue;
@@ -254,6 +258,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		moveDir = Vector3.zero;
 
 		movement.isInitMovement = true;
+		gameOverCalled = false;
 	}
 
 	void SetPlayerStandardMove () {
