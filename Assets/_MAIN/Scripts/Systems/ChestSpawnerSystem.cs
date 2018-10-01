@@ -83,7 +83,7 @@ public class ChestSpawnerSystem : ComponentSystem {
 			if (toolSystem.tool.Bow == 1){
 				chestSpawner.chestObj.SetActive(false);
 			} else {
-				chestSpawner.chestObj.SetActive(true);
+				chestSpawner.chestObj.SetActive(activeState);
 			}
 		} else {
 			chestSpawner.chestObj.SetActive(activeState);

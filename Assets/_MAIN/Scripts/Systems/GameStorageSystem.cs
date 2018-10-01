@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class GameStorageSystem : ComponentSystem {
 	public struct GameStorageData {
@@ -50,6 +51,13 @@ public class GameStorageSystem : ComponentSystem {
 	public void SaveState () {
 		gameStorage.SavedHP = player.health.PlayerHP;
 		gameStorage.SavedMP = player.mana.PlayerMP;
+
+		// if (SceneManager.GetActiveScene().name=="SceneMenu") 
+		// 	GameStorage.Instance.PlayBGM(BGMType.TITLE);
+		// else if (SceneManager.GetActiveScene().name=="SceneLevel_Jatayu") 
+		// 	GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
+		// else 
+		// 	GameStorage.Instance.PlayBGM(BGMType.MAIN);
 		Debug.Log("Save State");
 	}
 

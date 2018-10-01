@@ -102,7 +102,7 @@ public class GameFXSystem : ComponentSystem {
                 ToggleParticleEffect(gameFX.runOnWaterEffect, false);
             // }
         }
-            Debug.Log("DIRT is Playing : "+gameFX.runOnDirtEffect.isPlaying);
+            // Debug.Log("DIRT is Playing : "+gameFX.runOnDirtEffect.isPlaying);
 	}
 
     // public void ToggleDodgeFlag (bool value) {

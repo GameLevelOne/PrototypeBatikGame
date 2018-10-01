@@ -60,8 +60,9 @@ public class SystemManagerSystem : ComponentSystem {
 				Debug.Log("=====START CHECK SYSTEM MANAGER=====");
 				Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
 				int currentMapIdx = systemManager.currentMapIdx;
-
-				if (GameStorage.Instance.CurrentScene != systemManager.menuSceneName) {
+				string currentScene = GameStorage.Instance.CurrentScene;
+				Debug.Log(currentScene);
+				if (currentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS
 					Debug.Log("Save State by gameStorageSystem");
 					gameStorageSystem.SaveState();
@@ -73,6 +74,14 @@ public class SystemManagerSystem : ComponentSystem {
 					//SET MAP NAME 
 					Debug.Log("Check Map name by uiPlayerInfoSystem");
 					uiPlayerInfoSystem.SetMapName(currentMapIdx);
+
+					//SET BGM
+					if (currentScene=="SceneLevel_Jatayu") 
+						GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
+					else 
+						GameStorage.Instance.PlayBGM(BGMType.MAIN);
+				} else {
+					GameStorage.Instance.PlayBGM(BGMType.TITLE);
 				}
 			} catch (System.Exception e) {
 				Debug.Log("ERROR : "+e);

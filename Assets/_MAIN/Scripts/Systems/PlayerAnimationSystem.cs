@@ -251,7 +251,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.CHARGE:
-					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK);
+					if (PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK)) {
+						anim.isSpawnSomethingOnAnimation = false;
+					}
 					
 					anim.isFinishAnyAnimation = true;
 					break;
@@ -549,7 +551,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				break;
 			case PlayerState.GET_HURT:
 				// isFinishAnyAnimation = true;
-				input.attackMode = 0;
+				// input.attackMode = 0;
 				// Debug.Log("Reset AttackMode - GET HURT - CheckStartAnimation");
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 				
@@ -621,7 +623,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// Debug.Log("StopAnyAnimation");
 		player.SetPlayerIdle();
 		anim.isFinishAnyAnimation = true;
-		anim.isFinishAttackAnimation	= true;	
+		anim.isFinishAttackAnimation = true;	
 		input.attackMode = 0;
 		// input.moveMode = 0;
 		input.interactValue = 0;

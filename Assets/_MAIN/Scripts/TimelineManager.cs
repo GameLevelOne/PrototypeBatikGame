@@ -109,7 +109,7 @@ public class TimelineManager : MonoBehaviour {
 		playerEntity.enabled = true;
 		npcEntity.enabled = true;
 		// GameStorage.Instance.IsPlayerAlreadyEnterForest = true;
-		
+		GameStorage.Instance.PlayBGM(BGMType.MAIN);
 		SavePlayedTimeline ();
 		//
 		// Debug.Log("STOP TIMELINE");
@@ -138,6 +138,7 @@ public class TimelineManager : MonoBehaviour {
 		playerEntity.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		playerEntity.GetComponent<Player>().SetPlayerIdle();
 		playerEntity.enabled = true;
+		GameStorage.Instance.PlayBGM(BGMType.FIGHT_JATAYU);
 	}
 
 	void OnEndBossArea () {
@@ -149,6 +150,7 @@ public class TimelineManager : MonoBehaviour {
 
 	void ResumeBossFightTimeline()
 	{
+		GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
 		playableDirector.enabled = true;
 		playerEntity.enabled = true;
 	}

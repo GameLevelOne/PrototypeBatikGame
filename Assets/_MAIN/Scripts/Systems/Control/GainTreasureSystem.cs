@@ -58,6 +58,8 @@ public class GainTreasureSystem : ComponentSystem {
 		} else if (gainTreasure.isLootingTreasure) {
 			SetLiftObjectParent (gainTreasure.lootableTransform);
 			// input.interactValue = 0;
+			GameStorage.Instance.PlayBGM(BGMType.GAIN_TREASURE);
+
 			input.interactValue = 1; //NO LIFTING TREASURE
 			input.interactMode = 6;
 			player.SetPlayerState(PlayerState.GET_TREASURE);
@@ -81,6 +83,8 @@ public class GainTreasureSystem : ComponentSystem {
 			Debug.LogWarning("Missing Notification Window");
 		}
 		
+		GameStorage.Instance.PlayBGM(BGMType.MAIN,false);
+
 		switch (lootable.treasureType) { //TEMP
 			case TreasureType.FISH: 
 				lootable.initSprite.SetActive(false);

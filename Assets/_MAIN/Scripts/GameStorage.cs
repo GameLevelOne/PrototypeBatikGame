@@ -1,11 +1,22 @@
 ﻿using UnityEngine;
 using Unity.Entities;
 
+public enum BGMType {
+	TITLE,
+	CUTSCENE11,
+	MAIN,
+	BEFORE_JATAYU,
+	FIGHT_JATAYU,
+	GAIN_TREASURE
+}
+
 public class GameStorage : MonoBehaviour {
 	public GlobalSettingsSO settings;
 	public int initCoin;
 	public int initSavedHP;
 	public int initSavedMP;
+	public AudioSource bgmSource;
+	public AudioClip[] bgmClip;
 
 	public bool isInitGameStorage = false;
 
@@ -45,6 +56,12 @@ public class GameStorage : MonoBehaviour {
 
 	void Start () {
 
+	}
+
+	public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
+		bgmSource.loop = loopBGM;
+		bgmSource.clip = bgmClip[(int)bgmType];
+		bgmSource.Play();
 	}
 
 #region SINGLETON
