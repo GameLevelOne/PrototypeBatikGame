@@ -110,8 +110,7 @@ public class PlayerAttackSystem : ComponentSystem {
 		// Debug.Log(spawnedObj.transform.GetChild(0).name);
 		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
-		spawnedObj.GetComponent<Arrow>().playerTransform = attack.transform.parent;
-		Debug.Log(attack.transform.parent);
+		spawnedObj.GetComponent<Arrow>().playerTransform = attack.transform;
 
         spawnedObj.SetActive(true);
     }

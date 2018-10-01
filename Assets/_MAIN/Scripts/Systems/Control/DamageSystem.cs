@@ -272,6 +272,14 @@ public class DamageSystem : ComponentSystem {
 
 			if (!currEnemy.invulnerable) {
 				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+				
+				//ARROW
+				if (damageTag == Constants.Tag.ARROW) {
+					Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
+
+					currEnemy.playerTransform = arrow.playerTransform;
+					arrow.projectile.isSelfDestroying = true;
+				}
 			}
 
 			// currEnemy.isEnemyGetHurt = false;

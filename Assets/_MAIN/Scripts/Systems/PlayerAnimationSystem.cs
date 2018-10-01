@@ -755,7 +755,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 				
 				if (input.interactValue == 1) {
 					if (input.liftingMode == -3) {
-						input.liftingMode = -1;
+						if (moveDir == Vector3.zero) {
+							input.liftingMode = -1;
+						} else {
+							input.liftingMode = -2;
+						}
 						anim.isFinishAnyAnimation = true;
 					} else {
 						//
