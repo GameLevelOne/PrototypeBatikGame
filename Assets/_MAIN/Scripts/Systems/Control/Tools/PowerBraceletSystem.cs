@@ -63,6 +63,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		standLiftPower = powerBracelet.standLiftPower;
 		throwRange = powerBracelet.throwRange;
 		speed = powerBracelet.speed;
+		powerBracelet.isInitLiftToParent = false;
 		
 		isDoneInitPowerBracelet = true;
 	}
@@ -190,11 +191,15 @@ public class PowerBraceletSystem : ComponentSystem {
 	}
 
 	public void SetLiftObjectParent () {
-		powerBracelet.liftable.mainCollider.isTrigger = true;
-		// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
-		powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
-		// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
-		powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
+		if (!powerBracelet.isInitLiftToParent) {
+			powerBracelet.liftable.mainCollider.isTrigger = true;
+			// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
+			powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
+			// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
+			powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
+
+			powerBracelet.isInitLiftToParent = true;
+		}
 	}
 
 	public void UnSetLiftObjectParent (int dirID) {
@@ -203,6 +208,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		powerBracelet.liftable.mainCollider.isTrigger = false;
 		// powerBracelet.liftable.shadowTransform.parent = null;
 		powerBracelet.liftable.mainTransform.parent = null;
+		powerBracelet.isInitLiftToParent = false;
 	}
 
 	public void ResetPowerBracelet () {	

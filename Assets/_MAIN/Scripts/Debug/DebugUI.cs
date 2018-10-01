@@ -27,6 +27,7 @@ public class DebugUI : MonoBehaviour {
 	public Toggle area21VinesBurn;
 	public Toggle area21GateUnlocked;
 	public Toggle area22ChestUnlocked;
+	public Toggle area22CutSceneUnlocked;
 	public Toggle area23ChestSpawned;
 	public Toggle area23ChestUnlocked;
 	public Toggle area31VinesBurn;
@@ -75,6 +76,7 @@ public class DebugUI : MonoBehaviour {
 		area22ChestUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", 0) == 1 ? true : false;
 		area21GateUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.GATES_STATE + "0", 0) == 1 ? true : false;
 		area22ChestUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", 0) == 1 ? true : false;
+		area22CutSceneUnlocked.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", 0) == 1 ? true : false;
 		area23ChestSpawned.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.CHEST_SPAWNER_STATE + "0", 0) == 1 ? true : false;
 		area23ChestUnlocked.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "2", 0) == 1 ? true : false;
 		area31VinesBurn.isOn = PlayerPrefs.GetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "1", 0) == 1 ? true : false;
@@ -112,6 +114,7 @@ public class DebugUI : MonoBehaviour {
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "0", area21VinesBurn.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.GATES_STATE + "0", area21GateUnlocked.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", area22ChestUnlocked.isOn ? 1 : 0);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", area22CutSceneUnlocked.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_SPAWNER_STATE + "0", area23ChestSpawned.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "2", area23ChestUnlocked.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "1", area31VinesBurn.isOn ? 1 : 0);

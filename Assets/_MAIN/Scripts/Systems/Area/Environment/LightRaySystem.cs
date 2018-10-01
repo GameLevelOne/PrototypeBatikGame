@@ -37,11 +37,12 @@ public class LightRaySystem : ComponentSystem {
 		float cameraZ = currLightRay.cameraTransform.position.z;
 		float lightrayZ = currLightRayTransform.position.z;
 		
-		float delta = lightrayZ - cameraZ + 6f;
+		//faktor = 8. klo lightRayZ - cameraZ + 8, maks delta 1
+		float delta = lightrayZ - cameraZ;
 
 		if(delta < 0f) delta = 0f;
-		else if(delta > currLightRay.distanceFactor) delta = currLightRay.distanceFactor;
+		else if(delta > 9f) delta = 9f;
 
-		return delta / currLightRay.distanceFactor;
+		return delta / 9f;
 	}
 }

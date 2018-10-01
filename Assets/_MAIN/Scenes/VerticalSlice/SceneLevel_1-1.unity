@@ -3232,7 +3232,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114874833417367256, guid: 21132007befd7b44fbead7fd8d041ad5, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 21132007befd7b44fbead7fd8d041ad5, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &233642464 stripped
@@ -12839,6 +12840,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1652926126343088, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09ff99956520f56468f340ae23d4c276, type: 2}
   m_IsPrefabAsset: 0
@@ -20336,6 +20341,16 @@ Prefab:
     - target: {fileID: 4663221437161056, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.000014066696
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}

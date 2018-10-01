@@ -1002,6 +1002,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8ea54dcc0a6c1840b5a9271de50d96a, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &119005081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1012164706071808, guid: a8ea54dcc0a6c1840b5a9271de50d96a,
+    type: 2}
+  m_PrefabInternal: {fileID: 119005080}
+--- !u!114 &119005082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 119005081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 1
 --- !u!1001 &120055026
 Prefab:
   m_ObjectHideFlags: 0
@@ -2046,6 +2063,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21132007befd7b44fbead7fd8d041ad5, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &215352959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1363657399191024, guid: 21132007befd7b44fbead7fd8d041ad5,
+    type: 2}
+  m_PrefabInternal: {fileID: 215352958}
+--- !u!114 &215352960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 215352959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 0
 --- !u!1001 &218947705
 Prefab:
   m_ObjectHideFlags: 0
@@ -4864,9 +4898,10 @@ GameObject:
   - component: {fileID: 2080132662}
   - component: {fileID: 387429594}
   - component: {fileID: 387429593}
+  - component: {fileID: 387429595}
   m_Layer: 0
   m_Name: Main
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4915,6 +4950,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 387429592}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &387429595
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 387429592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 0, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &387760639
 GameObject:
   m_ObjectHideFlags: 0
@@ -8626,6 +8673,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e678941704b5b8345854b74e877bf14b, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &730640115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1028217235157560, guid: e678941704b5b8345854b74e877bf14b,
+    type: 2}
+  m_PrefabInternal: {fileID: 730640114}
+--- !u!114 &730640116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 730640115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 1
 --- !u!1001 &738665072
 Prefab:
   m_ObjectHideFlags: 0
@@ -15536,6 +15600,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3e7cdcc23008b547850370ea0fcfe2f, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1410146435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1145751501287072, guid: e3e7cdcc23008b547850370ea0fcfe2f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1410146434}
+--- !u!114 &1410146436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1410146435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 1
 --- !u!1001 &1412392598
 Prefab:
   m_ObjectHideFlags: 0
@@ -22452,6 +22533,16 @@ Prefab:
         type: 2}
       propertyPath: m_AABB.m_Center.y
       value: -0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.000017166138
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.000000029804497
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}

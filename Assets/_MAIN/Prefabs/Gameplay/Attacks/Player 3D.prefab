@@ -1208,8 +1208,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.9, y: 0.9, z: 1.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.06, y: 0.9, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -2096,7 +2096,7 @@ MonoBehaviour:
   - {fileID: 1881894693323942, guid: d36e22cd6ea85bd4a85d03a24bfed9f0, type: 2}
   - {fileID: 1881894693323942, guid: be2172ffaf7cc1241a72a314a63ae696, type: 2}
   - {fileID: 1881894693323942, guid: 01f2e21d757edcb45b25d9e34b7da692, type: 2}
-  chargeSlash: {fileID: 1881894693323942, guid: 383477d5421576c4cbb5c95c35eb944d,
+  chargeSlash: {fileID: 1847233393451708, guid: c0e700c659fb183418def06e664f1af7,
     type: 2}
   counterSlash:
   - {fileID: 1881894693323942, guid: 4b90c2dba26211c40b19efc9cb1e7c28, type: 2}
@@ -2536,7 +2536,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.000014066696}
+    m_Center: {x: 0, y: 0.00000023841858, z: 0.000017166138}
     m_Extent: {x: 16.024399, y: 0.00000026822312, z: 81.30675}
   m_DirtyAABB: 0
 --- !u!137 &137651258906997094
@@ -20935,9 +20935,9 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 0
+  looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

@@ -79,6 +79,7 @@ public static class Constants {
 		public const string GROUND = "Ground";
 		public const string VINES = "Vines";
 		public const string GATE = "Gate";
+		// public const string CRACKED_WALL = "Cracked Wall";
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";
@@ -89,9 +90,9 @@ public static class Constants {
 		public const string JATAYU_ATTACK_3 = "Jatayu Attack 3";
 
 		//TERRAIN
-		public const string TERRAIN_GRASS = "Terrain Grass";
-		public const string TERRAIN_WATER = "Terrain Water";
-		public const string TERRAIN_DIRT = "Terrain Dirt";
+		// public const string TERRAIN_GRASS = "Terrain Grass";
+		// public const string TERRAIN_WATER = "Terrain Water";
+		// public const string TERRAIN_DIRT = "Terrain Dirt";
 		
 	}
 
