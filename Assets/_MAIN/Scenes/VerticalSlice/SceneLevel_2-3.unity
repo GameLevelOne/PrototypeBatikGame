@@ -960,6 +960,11 @@ Prefab:
       propertyPath: m_AABB.m_Center.z
       value: 0.0000150203705
       objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.000000029804497
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
@@ -7584,6 +7589,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4684473922671366, guid: 09ff99956520f56468f340ae23d4c276,
     type: 2}
   m_PrefabInternal: {fileID: 1223807368}
+--- !u!1 &1223807370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1652926126343088, guid: 09ff99956520f56468f340ae23d4c276,
+    type: 2}
+  m_PrefabInternal: {fileID: 1223807368}
+--- !u!65 &1223807371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1223807370}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 0, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1232809799
 Prefab:
   m_ObjectHideFlags: 0

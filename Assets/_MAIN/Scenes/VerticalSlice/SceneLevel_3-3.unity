@@ -2795,6 +2795,11 @@ Prefab:
       propertyPath: m_AABB.m_Center.z
       value: 0.000013828278
       objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.000000029804497
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
@@ -3992,6 +3997,7 @@ GameObject:
   - component: {fileID: 1498601796}
   - component: {fileID: 1498601798}
   - component: {fileID: 1498601797}
+  - component: {fileID: 1498601799}
   m_Layer: 0
   m_Name: Ground01
   m_TagString: Untagged
@@ -4054,6 +4060,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1498601795}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1498601799
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1498601795}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 0, z: 10.000001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1518647485
 Prefab:
   m_ObjectHideFlags: 0
