@@ -68,7 +68,7 @@ public class NPCDialogSystem : ComponentSystem {
 
 			currentDialog.letterIndex ++;//NEXT LETTER
 			if (currentDialog.letterIndex<curDialogText.Length-2) {
-				if (currentDialog.letterIndex>1 && GameInput.IsAttackPressed)
+				if (currentDialog.letterIndex>1 && GameInput.IsActionPressed)
 					ShowDialogLastLetter(currentNPC.state == NPCState.INTERACT);
 			} else {
 				ShowDialogLastLetter(currentNPC.state == NPCState.INTERACT);
@@ -91,7 +91,7 @@ public class NPCDialogSystem : ComponentSystem {
 	}
 
 	void CheckInputForNextDialog() {
-		if (GameInput.IsAttackPressed) {
+		if (GameInput.IsActionPressed) {
 			currentDialog.dialogState = DialogState.SHOW;
 			int indexToCheck = currentNPC.npcType == NPCType.OPENING ? currentDialog.openingDialogs.Length-1 : currentDialog.interactDialogs.Length-1;
 			if (currentDialog.dialogIndex < indexToCheck) {

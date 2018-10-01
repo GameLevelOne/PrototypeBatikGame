@@ -119,6 +119,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 			if (animName == Constants.BlendTreeName.IDLE_LIFT || animName == Constants.BlendTreeName.MOVE_LIFT) {
 				powerBraceletSystem.SetLiftObjectParent();
 			}
+
+			//CHARGE BUG FIX
+			if (animName == Constants.BlendTreeName.IDLE_STAND || animName == Constants.BlendTreeName.MOVE_LIFT) {
+				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+			}
 		}
 	}
 

@@ -133,55 +133,61 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 	void CheckAttackInput () {
 		#region Arrow
-		if (GameInput.IsBowPressed) {
-			toolType = tool.currentTool;
-			input.interactValue = 0;
+		if (input.moveMode == 0) {
+			if (GameInput.IsBowPressed) {
+				toolType = tool.currentTool;
+				input.interactValue = 0;
 
-			if (toolType == ToolType.Bow) {
+				if (toolType == ToolType.Bow) {
 
-				if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
-					PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
-					input.interactMode = 5;
+					if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
+						PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
+						input.interactMode = 5;
+					} else {
+						PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
+						input.attackMode = -4;
+					}
 				} else {
 					PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 					input.attackMode = -4;
 				}
-			} else {
-				PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
-				input.attackMode = -4;
-			}
 
-			player.SetPlayerState(PlayerState.BOW);
-			isButtonToolHold = true;
-		} else if (GameInput.IsBowReleased) {
-			isButtonToolHold = false;
-		} else {
-			if (!isButtonToolHold && input.interactValue == 1) {
-				input.interactValue = 2;
+				player.SetPlayerState(PlayerState.BOW);
+				isButtonToolHold = true;
+			} else if (GameInput.IsBowReleased) {
+				isButtonToolHold = false;
+			} else {
+				if (!isButtonToolHold && input.interactValue == 1) {
+					input.interactValue = 2;
+				}
 			}
 		}
 		#endregion
 
 		#region Open Chest
-		if (player.isCanOpenChest) {
-			if (GameInput.IsAttackPressed && playerAnimationSystem.facing.DirID == 3) {
-				input.interactValue = 0;
-				input.interactMode = -4;
-				player.SetPlayerState(PlayerState.OPEN_CHEST);
-				isButtonToolHold = true;
-			}
+		if (input.moveMode == 0) {
+			if (player.isCanOpenChest) {
+				if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3) {
+					input.interactValue = 0;
+					input.interactMode = -4;
+					player.SetPlayerState(PlayerState.OPEN_CHEST);
+					isButtonToolHold = true;
+				}
 
-			return;
+				return;
+			}
 		}
 		#endregion
 
 		#region Open Gate
-		if (player.isCanOpenGate) {
-			if (GameInput.IsAttackPressed) {
-				gateOpenerSystem.CheckAvailabilityGateKey();
-			}
+		if (input.moveMode == 0) {
+			if (player.isCanOpenGate) {
+				if (GameInput.IsActionPressed) {
+					gateOpenerSystem.CheckAvailabilityGateKey();
+				}
 
-			return;
+				return;
+			}
 		}
 		#endregion
 
@@ -193,7 +199,7 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 
 		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject && !CheckIfPlayerIsAttacking()) {
-			if (GameInput.IsAttackPressed) {
+			if (GameInput.IsActionPressed) {
 				PlaySFX(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
 				input.interactMode = 3;
@@ -377,7 +383,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckToolInput () {
 		#region Button Tools
-		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING) && state != PlayerState.BOW) {
+		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING) && state != PlayerState.BOW && input.moveMode == 0) {
 			if(GameInput.IsQuickRPressed){
 				// player.isUsingStand = false;
 				toolSystem.NextTool();
@@ -440,7 +446,7 @@ public class PlayerInputSystem : ComponentSystem {
 	void SetButtonUp () {
 		SetMovement(0); //RUN / STAND
 		chargeAttackTimer = 0f;
-		isAttackAway = false;
+		// isAttackAway = false;
 		
 		// input.slashComboVal.Clear();
 		// Debug.Log("SET BUTTON UP AttackList CLEAR");
@@ -480,7 +486,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (input.interactValue == 0) {
 					currentDir = Vector3.zero;
 
-					if (GameInput.IsAttackReleased) {
+					if (GameInput.IsActionReleased) {
 						// isButtonToolHold = false;
 						CheckEndMove();
 						input.interactValue = 2;
@@ -489,12 +495,12 @@ public class PlayerInputSystem : ComponentSystem {
 					return true;
 				} else if (input.interactValue == 1) { 	
 					if (input.liftingMode < 0) { //LIFTING
-						if (GameInput.IsAttackPressed){
+						if (GameInput.IsActionPressed){
 							CheckEndMove();
 							input.interactValue = 2;
 						}
 					} else { //PUSHING / SWEATING
-						if (GameInput.IsAttackReleased) {
+						if (GameInput.IsActionReleased) {
 							CheckEndMove();
 							// isButtonToolHold = false;
 							input.interactValue = 2;
@@ -509,7 +515,7 @@ public class PlayerInputSystem : ComponentSystem {
 		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector3.zero;
 						
-			if (GameInput.IsToolsPressed || GameInput.IsAttackPressed){
+			if (GameInput.IsToolsPressed || GameInput.IsActionPressed){
 				input.interactValue = 2;
 				toolSystem.UseTool();
 			}
@@ -567,7 +573,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfPlayerIsAttacking () {
-		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH || state == PlayerState.DASH || 
+		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH || state == PlayerState.DASH || state == PlayerState.BOW ||
 		player.isHitChestObject || player.isBouncing || player.isHitGateObject ||  
 		input.moveMode != 0) {
 			return true;
@@ -598,8 +604,10 @@ public class PlayerInputSystem : ComponentSystem {
 		#region RUN EFFECT
 		if (fixDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			gameFXSystem.ToggleRunFX(true);
+			// Debug.Log("TRUE");
 		} else {
 			gameFXSystem.ToggleRunFX(false);
+			// Debug.Log("FALSE");
 		}
 		#endregion
 
