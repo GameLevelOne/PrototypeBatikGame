@@ -12,6 +12,7 @@ public class GhostSystem : ComponentSystem {
 		public ComponentArray<Ghost> ghost;
 		public ComponentArray<Animator> ghostAnim;
 		public ComponentArray<Rigidbody> ghostRigidbody;
+		public ComponentArray<CapsuleCollider> ghostCollider;
 		public ComponentArray<Health> ghostHealth;
 	}
 
@@ -23,6 +24,7 @@ public class GhostSystem : ComponentSystem {
 	Ghost currGhost;
 	Animator currGhostAnim;
 	Rigidbody currGhostRigidbody;
+	CapsuleCollider ghostCollider;
 	Health currGhostHealth;
 
 	float deltaTime;
@@ -37,6 +39,7 @@ public class GhostSystem : ComponentSystem {
 			currGhost = ghostComponent.ghost[i];
 			currGhostAnim = ghostComponent.ghostAnim[i];
 			currGhostRigidbody = ghostComponent.ghostRigidbody[i];
+			ghostCollider = ghostComponent.ghostCollider[i];
 			currGhostHealth = ghostComponent.ghostHealth[i];
 
 			CheckHealth();
@@ -224,6 +227,7 @@ public class GhostSystem : ComponentSystem {
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			// deltaTime = Time.deltaTime;
 			currEnemy.TDie = currEnemy.dieDuration;
+			ghostCollider.enabled = false;
 			currGhost.particle.Play();
 		}else{
 			currEnemy.TDie -= deltaTime;
