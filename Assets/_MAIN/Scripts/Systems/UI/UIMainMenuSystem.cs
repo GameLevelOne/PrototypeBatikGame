@@ -92,7 +92,7 @@ public class UIMainMenuSystem : ComponentSystem {
 			uiMainmenu.isUpPressed = false;
 		}
 
-		if (GameInput.IsAttackPressed) {
+		if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
 			uiMainmenu.isActionPressed = true;
 		}
 	}

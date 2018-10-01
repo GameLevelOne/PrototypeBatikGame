@@ -303,21 +303,21 @@ public static bool IsQuickRHeld {
 #region CONVINIENCES
 public static bool AnyButtonPressed {
 	get {
-		if (IsAttackPressed || IsDodgePressed || IsGuardPressed || IsToolsPressed || IsBowPressed || IsInventoryPressed || IsQuickLPressed || IsQuickRPressed)
+		if (IsAttackPressed || IsDodgePressed || IsGuardPressed || IsToolsPressed || IsBowPressed || IsInventoryPressed || IsQuickLPressed || IsQuickRPressed || IsActionPressed)
 			return true;
 		return false;
 	}
 }
 public static bool AnyButtonReleased {
 	get {
-		if (IsAttackReleased || IsDodgeReleased || IsGuardReleased || IsToolsReleased || IsBowReleased || IsInventoryReleased || IsQuickLReleased || IsQuickRReleased)
+		if (IsAttackReleased || IsDodgeReleased || IsGuardReleased || IsToolsReleased || IsBowReleased || IsInventoryReleased || IsQuickLReleased || IsQuickRReleased || IsActionReleased)
 			return true;		
 		return false;
 	}
 }
 public static bool AnyButtonHeld {
 	get {
-		if (IsAttackHeld || IsDodgeHeld || IsGuardHeld || IsToolsHeld || IsBowHeld || IsInventoryHeld || IsQuickLHeld || IsQuickRHeld)
+		if (IsAttackHeld || IsDodgeHeld || IsGuardHeld || IsToolsHeld || IsBowHeld || IsInventoryHeld || IsQuickLHeld || IsQuickRHeld || IsActionHeld)
 			return true;		
 		return false;
 	}

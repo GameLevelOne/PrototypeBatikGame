@@ -7,6 +7,7 @@ public class TimelineManager : MonoBehaviour {
 	public PlayableDirector playableDirector;
 	public PlayableAsset[] playableAssets;
 	public GameObjectEntity playerEntity;
+	public GameObjectEntity[] enemyEntity;
 
 	[HeaderAttribute("Opening Mada Kari Forest")]
 	public NPCOpening npcOpening;	
@@ -92,7 +93,7 @@ public class TimelineManager : MonoBehaviour {
 	}
 
 	void OnWaitingDialogue (string[] dialogList,double startTime,double endTime) {
-		Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
+		// Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
 		playableDirector.Stop();
 		playableDirector.DeferredEvaluate(); //IMPORTANT
 		playableDirector.Play();
@@ -108,6 +109,10 @@ public class TimelineManager : MonoBehaviour {
 	void OnEndOpeningMKF () {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
+		for (int i=0;i<enemyEntity.Length;i++) {
+			if (enemyEntity[i]!=null)
+				enemyEntity[i].enabled = true;
+		}
 		npcEntity.enabled = true;
 		// GameStorage.Instance.IsPlayerAlreadyEnterForest = true;
 		GameStorage.Instance.PlayBGM(BGMType.MAIN);
@@ -121,6 +126,11 @@ public class TimelineManager : MonoBehaviour {
 	void OnEndShowGhosts () {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
+
+		for (int i=0;i<enemyEntity.Length;i++) {
+			if (enemyEntity[i]!=null)
+				enemyEntity[i].enabled = true;
+		}
 
 		playerTransform.position = new Vector3(21f,0.9f,25f);
 		Debug.Log(playerTransform.position);

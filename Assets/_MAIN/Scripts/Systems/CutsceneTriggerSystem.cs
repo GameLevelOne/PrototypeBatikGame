@@ -27,6 +27,10 @@ public class CutsceneTriggerSystem : ComponentSystem {
 				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Rigidbody>().velocity = Vector3.zero;
 				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Player>().SetPlayerIdle();
 				cutsceneTrigger.timelineManager.playerEntity.enabled = false;
+				for (int j=0;j<cutsceneTrigger.timelineManager.enemyEntity.Length;j++) {
+					if (cutsceneTrigger.timelineManager.enemyEntity[j]!=null)
+						cutsceneTrigger.timelineManager.enemyEntity[j].enabled = false;
+				}
 				
 
 				//SET TRACK & PLAY

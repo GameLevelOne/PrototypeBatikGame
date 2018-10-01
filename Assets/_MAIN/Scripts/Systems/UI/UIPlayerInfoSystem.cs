@@ -4,6 +4,11 @@ using Unity.Entities;
 using System.Collections.Generic;
 
 public class UIPlayerInfoSystem : ComponentSystem {
+	public struct InputData {
+		public readonly int Length;
+		public ComponentArray<PlayerInput> PlayerInput;
+	}
+	[InjectAttribute] InputData inputData;
 	public struct UIPlayerInfoData {
 		public readonly int Length;
 		public ComponentArray<UIInfo> UIInfo;
@@ -42,6 +47,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	bool curLeftPressed;
 	bool curUpPressed;
 	bool curRightPressed;
+	PlayerInput playerInput;
 
 	protected override void OnUpdate () {
 		if (uiPlayerInfoData.Length == 0) return;
@@ -56,6 +62,10 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			animator = uiInfo.animator;
 			// showMultiplier = uiInfo.showMultiplier;
 			// hideMultiplier = uiInfo.hideMultiplier;
+
+			for (int j=0;j<inputData.Length;j++) {
+				playerInput = inputData.PlayerInput[j];
+			}
 
 			if (!uiInfo.isInitUIInfo) {
 				try {
@@ -110,14 +120,16 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	void CheckInput () {
 		if (!isShowingInfo) {
-			if (GameInput.IsInventoryPressed) { //ESCAPE / START (Gamepad)
+			if (GameInput.IsInventoryPressed && !playerInput.isUIOpen && playerInput.GetComponent<GameObjectEntity>().enabled) { //ESCAPE / START (Gamepad)
 				// isInitShowInfo = false;
 				CheckActiveTool ();
 				isShowingInfo = true;
+				playerInput.isUIOpen = true;
 			}
 		} else {
 			if (GameInput.IsInventoryPressed || GameInput.IsDodgePressed) { //ESCAPE / START (Gamepad)
 				isShowingInfo = false;
+				playerInput.isUIOpen = false;
 			}
 			
 			if (!curUpPressed && GameInput.IsUpDirectionHeld) { //UP
@@ -148,7 +160,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				curLeftPressed = false;
 			}
 			
-			if (GameInput.IsAttackPressed) {
+			if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
 				SetSelectedTool ();
 			}
 		}

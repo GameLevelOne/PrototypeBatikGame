@@ -105,6 +105,7 @@ public class PlayerInputSystem : ComponentSystem {
 		isParryPeriod = false;
 		isButtonToolHold = false;
 		isChargingAttack = false;
+		input.isUIOpen = false;
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
 		bulletTimeDelay = input.bulletTimeDelay;
@@ -117,13 +118,13 @@ public class PlayerInputSystem : ComponentSystem {
 		float dirX = 0f;
 		float dirZ = 0f;
 
-		if (GameInput.IsUpDirectionHeld)
+		if (GameInput.IsUpDirectionHeld && !input.isUIOpen)
 			dirZ += 1f;
-		if (GameInput.IsDownDirectionHeld)
+		if (GameInput.IsDownDirectionHeld && !input.isUIOpen)
 			dirZ -= 1f;
-		if (GameInput.IsRightDirectionHeld)
+		if (GameInput.IsRightDirectionHeld && !input.isUIOpen)
 			dirX += 1f;
-		if (GameInput.IsLeftDirectionHeld)
+		if (GameInput.IsLeftDirectionHeld && !input.isUIOpen)
 			dirX -= 1f;
 
 		// Debug.Log("Input Dir: "+dirX+","+dirZ);
@@ -134,7 +135,7 @@ public class PlayerInputSystem : ComponentSystem {
 	void CheckAttackInput () {
 		#region Arrow
 		if (input.moveMode == 0) {
-			if (GameInput.IsBowPressed) {
+			if (GameInput.IsBowPressed && !input.isUIOpen) {
 				toolType = tool.currentTool;
 				input.interactValue = 0;
 
@@ -167,7 +168,7 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Open Chest
 		if (input.moveMode == 0) {
 			if (player.isCanOpenChest) {
-				if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3) {
+				if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3 && !input.isUIOpen) {
 					input.interactValue = 0;
 					input.interactMode = -4;
 					player.SetPlayerState(PlayerState.OPEN_CHEST);
@@ -182,7 +183,7 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Open Gate
 		if (input.moveMode == 0) {
 			if (player.isCanOpenGate) {
-				if (GameInput.IsActionPressed) {
+				if (GameInput.IsActionPressed && !input.isUIOpen) {
 					gateOpenerSystem.CheckAvailabilityGateKey();
 				}
 
@@ -199,7 +200,7 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 
 		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject && !CheckIfPlayerIsAttacking()) {
-			if (GameInput.IsActionPressed) {
+			if (GameInput.IsActionPressed && !input.isUIOpen) {
 				PlaySFX(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
 				input.interactMode = 3;
@@ -224,7 +225,7 @@ public class PlayerInputSystem : ComponentSystem {
 		float attackAwayDelay = input.attackAwayDelay;
 		int attackMode = input.attackMode;
 
-		if (GameInput.IsAttackPressed) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+		if (GameInput.IsAttackPressed && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
 				if (playerAnimationSystem.anim.isFinishAttackAnimation) {
 					// Debug.Log("NEXT ATTACK");
@@ -245,7 +246,7 @@ public class PlayerInputSystem : ComponentSystem {
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
 			}
-		} else if (GameInput.IsAttackHeld) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+		} else if (GameInput.IsAttackHeld && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 			if (!input.isInitChargeAttack) {
 				if (startChargeAttackTimer >= 0.3f) {
 					input.isInitChargeAttack = true;
@@ -283,12 +284,12 @@ public class PlayerInputSystem : ComponentSystem {
 		float guardParryDelay = input.guardParryDelay;
 
 		#region Button Guard
-		if (GameInput.IsGuardPressed) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+		if (GameInput.IsGuardPressed && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 			SetMovement(2); //START GUARD
 			
 			player.isGuarding = true;	
 			isParryPeriod = true;
-		} else if (GameInput.IsGuardHeld) {
+		} else if (GameInput.IsGuardHeld && !input.isUIOpen) {
 			
 			if (state == PlayerState.BLOCK_ATTACK) {
 				input.interactMode = -1;
@@ -328,7 +329,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckDodgeInput () {
 		#region Button Dodge
-		if (GameInput.IsDodgePressed) {
+		if (GameInput.IsDodgePressed && !input.isUIOpen) {
 			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 				// gameFXSystem.ToggleDodgeFlag(true);
 				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
@@ -384,17 +385,17 @@ public class PlayerInputSystem : ComponentSystem {
 	void CheckToolInput () {
 		#region Button Tools
 		if ((state != PlayerState.USING_TOOL) && (state != PlayerState.HOOK) && (state != PlayerState.DASH)  && (state != PlayerState.POWER_BRACELET) && (state != PlayerState.SWIM) && (state != PlayerState.FISHING) && state != PlayerState.BOW && input.moveMode == 0) {
-			if(GameInput.IsQuickRPressed){
+			if(GameInput.IsQuickRPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.NextTool();
 			}
 			
-			if(GameInput.IsQuickLPressed){
+			if(GameInput.IsQuickLPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.PrevTool();
 			}
 
-			if (GameInput.IsToolsPressed) {
+			if (GameInput.IsToolsPressed && !input.isUIOpen) {
 				toolType = tool.currentTool;
 
 				if (toolType != ToolType.None && toolType != ToolType.Bow) {

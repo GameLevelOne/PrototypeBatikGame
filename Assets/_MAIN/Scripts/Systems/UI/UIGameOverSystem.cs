@@ -81,7 +81,7 @@ public class UIGameOverSystem : ComponentSystem {
 				curUpPressed = false;						
 			}
 
-			if(GameInput.IsAttackPressed){
+			if(GameInput.IsAttackPressed || GameInput.IsActionPressed){
 				uiGameOver.endShow = false;
 				// uiGameOver.gameOverAnim.SetBool("Show",false);
 				uiGameOver.panel.SetActive(false);

@@ -3,6 +3,11 @@ using UnityEngine.EventSystems;
 using Unity.Entities;
 
 public class UIShopSystem : ComponentSystem {
+	public struct InputData {
+		public readonly int Length;
+		public ComponentArray<PlayerInput> PlayerInput;
+	}
+	[InjectAttribute] InputData inputData;
 	public struct UIShopData {
 		public readonly int Length;
 		public ComponentArray<UIShop> UIShop;
@@ -15,10 +20,14 @@ public class UIShopSystem : ComponentSystem {
 	[InjectAttribute] ContainerData containerData;
 	UIShop uiShop;
 	LootableType[] playerContainer;
+	PlayerInput playerInput;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<uiShopData.Length; i++) {
 			uiShop = uiShopData.UIShop[i];
+			for (int j=0;j<inputData.Length;j++) {
+				playerInput = inputData.PlayerInput[j];
+			}
 			
 			if (!uiShop.isInitShop) {
 				InitShop ();
@@ -50,9 +59,12 @@ public class UIShopSystem : ComponentSystem {
 
 	void CheckInput () {
 		if (uiShop.isOpeningShop) {
+			playerInput.isUIOpen = true;
+			
 			//EXIT SHOP
-			if (GameInput.IsDodgePressed) {
+			if (GameInput.IsDodgePressed || GameInput.IsInventoryPressed) {
 				uiShop.isOpeningShop = false;
+				playerInput.isUIOpen = false;
 			}
 
 			//SELECT LEFT
@@ -76,7 +88,7 @@ public class UIShopSystem : ComponentSystem {
 			}
 
 			//BUY ITEM
-			if (IsReadyToBuy() && GameInput.IsAttackPressed) {
+			if (IsReadyToBuy() && (GameInput.IsAttackPressed || GameInput.IsActionPressed)) {
 				BuyItemShop ();
 			}
 		}

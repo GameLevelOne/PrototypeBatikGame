@@ -367,7 +367,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114820100346323880}
   animator: {fileID: 95299086917496510}
+  audioSource: {fileID: 0}
+  audioClip: []
   isInitAnimation: 0
+  isFinishAttackAnimation: 1
+  isFinishAnyAnimation: 1
   isCheckAfterAnimation: 1
   isCheckBeforeAnimation: 1
   isSpawnSomethingOnAnimation: 0
@@ -634,10 +638,10 @@ MonoBehaviour:
   - {fileID: 114143323782983318}
   - {fileID: 114683111110960224}
   - {fileID: 114683992481223146}
-  initContainerSprite: {fileID: 21300000, guid: 1a0aa70c372df7f44b5ff8dd385c0fd8,
+  initContainerSprite: {fileID: 21300000, guid: bbdf93519a547cb40a6d9a72eeb8b42e,
     type: 3}
-  hpPotSprite: {fileID: 21300000, guid: eb1570d1b6c132142b12af75f6f0fdef, type: 3}
-  mpPotSprite: {fileID: 21300000, guid: 5f5968d57ccd8a946bb7f3aebd907c10, type: 3}
+  hpPotSprite: {fileID: 21300000, guid: 59ac1e7002484ae49b9b199c3f160a60, type: 3}
+  mpPotSprite: {fileID: 21300000, guid: 0d25d16e688a39f4a9f298566688b78b, type: 3}
   isToolChange: 0
   showDuration: 2
   changeIndex: 0

@@ -21,6 +21,8 @@ public class PlayerInput : MonoBehaviour {
 	public bool isInitPlayerInput = false;
 	public bool isInitChargeAttack = false;
 
+	public bool isUIOpen = false;
+
 	/// <summary>
     /// <para>Values: <br /></para>
 	/// <para>0 or 1<br /></para>
