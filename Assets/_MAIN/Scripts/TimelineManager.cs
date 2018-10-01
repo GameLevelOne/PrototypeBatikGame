@@ -24,6 +24,7 @@ public class TimelineManager : MonoBehaviour {
 	public TimelineEventTrigger afterBossFightTrigger;
 	public double AfterBossFightInitTime;
 	public Transform playerSpriteTransform;
+	public Transform camera22Transform;
 	public Transform playerTransform;
 	public GameObject jatayuObj;
 
@@ -125,7 +126,7 @@ public class TimelineManager : MonoBehaviour {
 		Debug.Log(playerTransform.position);
 		Debug.Log(playerTransform.localPosition);
 		playerSpriteTransform.localPosition = new Vector3(0f,-0.9f,0f);
-
+		camera22Transform.position = new Vector3(17f,10f,13f);
 		SavePlayedTimeline ();
 	}
 #endregion
