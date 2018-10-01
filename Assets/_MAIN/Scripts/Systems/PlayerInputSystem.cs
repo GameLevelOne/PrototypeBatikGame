@@ -192,7 +192,7 @@ public class PlayerInputSystem : ComponentSystem {
 			return;
 		}
 
-		if (powerBracelet.state != PowerBraceletState.NONE && !CheckIfPlayerIsAttacking()) {
+		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject && !CheckIfPlayerIsAttacking()) {
 			if (GameInput.IsAttackPressed) {
 				PlaySFX(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
@@ -205,7 +205,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
-				isButtonToolHold = true;
+				// isButtonToolHold = true;
 			} 
 
 			return;
@@ -476,35 +476,35 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.RAPID_SLASH) {
 			return true;
 		} else  if (state == PlayerState.POWER_BRACELET) {
-			if (input.interactValue == 0) {
-				currentDir = Vector3.zero;
+			if (playerAnimationSystem.anim.isFinishAnyAnimation) {
+				if (input.interactValue == 0) {
+					currentDir = Vector3.zero;
 
-				if (GameInput.IsAttackReleased) {
-					// isButtonToolHold = false;
-					CheckEndMove();
-					input.interactValue = 2;
-				}
-
-				return true;
-			} else if (input.interactValue == 1) { 	
-				if (input.liftingMode < 0) { //LIFTING
-					if (GameInput.IsAttackPressed){
-						CheckEndMove();
-						input.interactValue = 2;
-					}
-				} else { //PUSHING / SWEATING
 					if (GameInput.IsAttackReleased) {
-						CheckEndMove();
 						// isButtonToolHold = false;
+						CheckEndMove();
 						input.interactValue = 2;
 					}
-				}
 
-				return false; 
-			} else { 	
-				CheckMovementInput ();
-				return true;
-			}
+					return true;
+				} else if (input.interactValue == 1) { 	
+					if (input.liftingMode < 0) { //LIFTING
+						if (GameInput.IsAttackPressed){
+							CheckEndMove();
+							input.interactValue = 2;
+						}
+					} else { //PUSHING / SWEATING
+						if (GameInput.IsAttackReleased) {
+							CheckEndMove();
+							// isButtonToolHold = false;
+							input.interactValue = 2;
+						}
+					}
+
+					CheckMovementInput ();
+					return false; 
+				} else return true;
+			} else return true;
 		}
 		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector3.zero;
@@ -543,7 +543,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isUsingStand = false;				
 				} else {
 					if (!player.isBouncing) {
-						player.SetPlayerIdle();
+						player.SetPlayerIdle(); //
 					}
 				}
 			}
@@ -567,7 +567,9 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfPlayerIsAttacking () {
-		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH) {
+		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH || state == PlayerState.DASH || 
+		player.isHitChestObject || player.isBouncing || player.isHitGateObject ||  
+		input.moveMode != 0) {
 			return true;
 		} else {
 			return false;

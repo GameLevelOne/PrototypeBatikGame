@@ -16,6 +16,7 @@ public class ToolSystem : ComponentSystem {
 	[InjectAttribute] PlayerInputSystem playerInputSystem;
 	[InjectAttribute] ContainerSystem containerSystem;
 	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
+	[InjectAttribute] PlayerAttackSystem playerAttackSystem;
 	
 	// public struct ToolComponent
 	// {
@@ -430,7 +431,7 @@ public class ToolSystem : ComponentSystem {
 	void SpawnSlashEffect (int toolType) {
         switch (toolType) {
             case 1: //BOW
-				SpawnNormalToolObj (toolType);
+				playerAttackSystem.SpawnArrowAttackObj (tool.arrowObj);
                 break;
             case 3: //BOMB
                 SpawnSpecialToolObj (toolType);

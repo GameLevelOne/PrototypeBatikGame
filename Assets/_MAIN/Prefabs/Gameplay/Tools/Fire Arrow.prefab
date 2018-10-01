@@ -156,6 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 20
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -170,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f04fb20cdf3624ab0250f1765d3c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 114378567598690986}
+  projectile: {fileID: 114378567598690986}
   manaCost: 20
 --- !u!114 &114612600545870728
 MonoBehaviour:

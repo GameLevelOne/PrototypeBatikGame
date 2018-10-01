@@ -79,6 +79,7 @@ public static class Constants {
 		public const string GROUND = "Ground";
 		public const string VINES = "Vines";
 		public const string GATE = "Gate";
+		// public const string CRACKED_WALL = "Cracked Wall";
 
 		public const string NPC = "NPC";
 		public const string PLAYER_INTERACT = "Player Interact";

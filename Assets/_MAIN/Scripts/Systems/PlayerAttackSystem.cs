@@ -89,7 +89,8 @@ public class PlayerAttackSystem : ComponentSystem {
         GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position,Quaternion.identity);
         spawnedObj.SetActive(true);
     }
-    void SpawnArrowAttackObj (GameObject obj) {
+
+    public void SpawnArrowAttackObj (GameObject obj) {
 		Vector3 targetPos = attack.normalAttackSpawnPos.position;
         Vector3 initPos = attack.transform.position;
 
@@ -108,6 +109,9 @@ public class PlayerAttackSystem : ComponentSystem {
 		
 		// Debug.Log(spawnedObj.transform.GetChild(0).name);
 		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
+
+		spawnedObj.GetComponent<Arrow>().playerTransform = attack.transform.parent;
+		Debug.Log(attack.transform.parent);
 
         spawnedObj.SetActive(true);
     }

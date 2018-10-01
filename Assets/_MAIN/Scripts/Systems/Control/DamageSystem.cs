@@ -217,6 +217,14 @@ public class DamageSystem : ComponentSystem {
 					currEnemy.initDamaged = false;
 					currEnemy.SetEnemyState(EnemyState.Damaged);
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+
+					//ARROW
+					if (damageTag == Constants.Tag.ARROW) {
+						Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
+
+						currEnemy.playerTransform = arrow.playerTransform;
+						arrow.projectile.isSelfDestroying = true;
+					}
 				} else if (damageTag == Constants.Tag.FIRE_ARROW ||
 				damageTag == Constants.Tag.EXPLOSION) {
 					currEnemy.initDamaged = false;
@@ -224,6 +232,12 @@ public class DamageSystem : ComponentSystem {
 					currEnemy.SetEnemyState(EnemyState.Damaged);
 					//BURN
 					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+					
+					//ARROW
+					Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
+
+					currEnemy.playerTransform = arrow.playerTransform;
+					arrow.projectile.isSelfDestroying = true;
 				} else {
 					if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
 						currEnemy.initDamaged = false;						
