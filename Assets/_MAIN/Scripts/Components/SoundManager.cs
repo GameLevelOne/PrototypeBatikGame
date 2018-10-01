@@ -78,6 +78,8 @@ public class SoundManager : MonoBehaviour {
 	void Awake () {
 		if (instance != null && instance != this) {
 			GameObject.Destroy(gameObject);
+		}else{
+			instance = this;
 		}
 		DontDestroyOnLoad(gameObject);
 	}
