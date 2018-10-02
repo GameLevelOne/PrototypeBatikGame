@@ -21,7 +21,7 @@ public class Jatayu : MonoBehaviour {
 	public GameObject attack1Object;
 	public GameObject attack2Object;
 	public GameObject attack3Object;
-	public Collider jatayuCollider;
+	public CapsuleCollider jatayuCollider;
 	public SpriteRenderer headSprite;
 	public SpriteRenderer bodySprite;
 	public Transform playerTransform;
@@ -43,7 +43,7 @@ public class Jatayu : MonoBehaviour {
 	public float hitColorFadeSpeed = 1f;
 	public float burnedDuration = 3f;
 	public float burnedCooldown = 10f;
-
+	public float burnedYDrop;
 	[HeaderAttribute("Current")]
 	public Damage damageReceive;
 	public bool initJatayu = false;
