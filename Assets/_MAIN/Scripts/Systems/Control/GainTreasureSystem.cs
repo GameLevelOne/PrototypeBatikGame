@@ -58,7 +58,7 @@ public class GainTreasureSystem : ComponentSystem {
 		} else if (gainTreasure.isLootingTreasure) {
 			SetLiftObjectParent (gainTreasure.lootableTransform);
 			// input.interactValue = 0;
-			GameStorage.Instance.PlayBGM(BGMType.GAIN_TREASURE);
+			GameStorage.Instance.PlayBGM(BGMType.GAIN_TREASURE,false);
 
 			input.interactValue = 1; //NO LIFTING TREASURE
 			input.interactMode = 6;
