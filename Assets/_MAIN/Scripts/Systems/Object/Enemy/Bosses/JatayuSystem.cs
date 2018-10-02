@@ -330,7 +330,8 @@ public class JatayuSystem : ComponentSystem {
 			}
 		}
 	}
-
+	Vector3 jatayuCurrPosBeforeBurned;
+	Vector3 jatayuDropPosition;
 	void Burned()
 	{
 		if(!jatayu.initBurned){
@@ -351,12 +352,29 @@ public class JatayuSystem : ComponentSystem {
 
 			jatayu.movementAnim.speed = 0f;
 			jatayu.tBurned = jatayu.burnedDuration;
+
+			jatayuCurrPosBeforeBurned = jatayuTransform.position;
+			jatayuDropPosition = new Vector3(jatayuTransform.position.x, jatayu.burnedYDrop,jatayuTransform.position.z);
+
 			SetJatayuAnim(JatayuState.Burned);
 		}else{
 			jatayu.tBurned -= deltaTime;
+			if(jatayu.tBurned <= jatayu.burnedDuration && jatayu.tBurned >= jatayu.burnedDuration-0.5f){
+				//0.5 sec at start of burn state
+				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,Mathf.Abs(jatayu.tBurned - jatayu.burnedDuration)/0.5f);
+			}else if(jatayu.tBurned <= 0.5f && jatayu.tBurned >= 0f){
+				//0.5 sec before end of burn state
+				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,jatayu.tBurned/0.5f);
+			}else{
+				//during burned
+				jatayuTransform.position = jatayuDropPosition;
+				// jatayu.jatayuCollider.center = new Vector3(0f,1f,1f);
+			}
+
 			if(jatayu.tBurned <= 0f){
 				jatayu.initBurned = false;
-				
+				jatayuTransform.position = jatayuCurrPosBeforeBurned;
+				// jatayu.jatayuCollider.center = new Vector3(0f,-1f,1f);
 				SetJatayuState(JatayuState.Move);
 			}
 		}
@@ -370,6 +388,12 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.jatayuCollider.enabled = false;
 			jatayu.headSprite.material.color = Color.white;
 			jatayu.bodySprite.material.color = Color.white;
+
+			jatayu.attack1Object.SetActive(false);
+			jatayu.attack2Object.SetActive(false);
+			jatayu.attack3Object.SetActive(false);
+			jatayu.cameraShaker.shake = false;
+
 			SetJatayuAnim(JatayuState.Die);
 		}else{
 

@@ -1290,8 +1290,9 @@ MonoBehaviour:
   maxAttackCounter: 6
   attack3ReturnSpeed: 5
   hitColorFadeSpeed: 2
-  burnedDuration: 6
+  burnedDuration: 4
   burnedCooldown: 10
+  burnedYDrop: -0.5
   damageReceive: {fileID: 0}
   initJatayu: 0
   initJatayuHP50: 0
@@ -1532,10 +1533,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 2
+  m_Radius: 1.0603889
+  m_Height: 5.1929183
   m_Direction: 1
-  m_Center: {x: 0, y: -1, z: 1}
+  m_Center: {x: 0, y: 0.4807288, z: 1.2603891}
 --- !u!136 &136751803596484600
 CapsuleCollider:
   m_ObjectHideFlags: 1
