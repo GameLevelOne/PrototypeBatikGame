@@ -114,22 +114,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	bool PlayOneShotAnimation (string animName, bool finishAnimValue) {
+	void PlayOneShotAnimation (string animName, bool finishAnimValue) {
 		if (anim.currentAnimName != animName) {
 			SetAnimation(animName, finishAnimValue);
 
 			//Check Start Animation
 			anim.isCheckBeforeAnimation = false;
-
-			//Check Sound
-			// if (animName == Constants.BlendTreeName.USE_HAMMER) {
-			// 	anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
-			// } else if (animName == Constants.BlendTreeName.USE_SHOVEL) {
-			// 	anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
-			// }
-
-			return true;
-		} else return false;
+		} 
 	}
 
 	void CheckPlayerState () {
@@ -149,6 +140,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD, true);
 							break;
 					}
+
 					break;
 				case PlayerState.MOVE:
 					switch (input.moveMode) {
@@ -185,65 +177,40 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
 						// ReverseDir();
 
-						if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME, false)) {
-							gameFXSystem.PlayCounterChargeEffect();
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME, false);
 					}
 					break;
 				case PlayerState.RAPID_SLASH: 
 					if (attackMode == 1) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, false)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, false);
 					} else if (attackMode == 2) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, false)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, false);
 					} else if (attackMode == 3) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, false)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, false);
 					} else if (attackMode == -3) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME, false)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME, false);
 					}
 					break;
 				case PlayerState.ATTACK:
 					if (attackMode == 1) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, true)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, true);
 					} else if (attackMode == 2) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, true)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}	
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, true);
 					} else if (attackMode == 3) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, true)) {
-							anim.isSpawnSomethingOnAnimation = true;
-						}	
+						PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, true);
 					} 
 					break;
 				case PlayerState.CHARGE:
-					if (PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK, false)) {
-						anim.isSpawnSomethingOnAnimation = true;
-					}
+					PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK, false);
 					break;
 				case PlayerState.DASH: 
 					if (input.interactValue == 0) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DASH, true)) {
-							attack.isDashing = false;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DASH, true);
 					} else if (input.interactValue == 1) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH, true)) {
-							attack.isDashing = true;
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH, true);
 					} else if (input.interactValue == 2) {
 						if (player.isBouncing) {
-							if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE, true)) {
-								gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
-								attack.isDashing = false;
-							}
+							PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE, true);
 						} else {
 							gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
 							attack.isDashing = false;
@@ -253,16 +220,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.USING_TOOL: 
 					if (tool.currentTool == ToolType.Hammer) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.USE_HAMMER, false)) {
-							anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_HAMMER, false);
 					} else if (tool.currentTool == ToolType.Shovel) {
-						if (PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL, false)) {
-							anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
-						}
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL, false);
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
 						PlayOneShotAnimation(Constants.BlendTreeName.USE_MAGIC_MEDALLION, false);
 					} 
+
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.interactValue == 0) {
@@ -322,10 +286,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DIE, false);
 					break;
 				case PlayerState.GET_HURT: 
-					if (PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT, true)) {
-						input.attackMode = 0;
-						anim.isFinishAttackAnimation = true;
-					}
+					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT, true);
 
 					break;
 				case PlayerState.BLOCK_ATTACK:
@@ -422,7 +383,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// player.isMoveAttack = false;
 					attack.isAttacking = true;	
 					// playerRigidbody.velocity = Vector3.zero;
-					
+					anim.isSpawnSomethingOnAnimation = true;
 					anim.isFinishAttackAnimation = true;
 					break;
 				case PlayerState.CHARGE: 
@@ -433,13 +394,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 					attack.isAttacking  = true;
 					// isFinishAnyAnimation = true;
 					break;
-				case PlayerState.BLOCK_ATTACK:
-					// attack.isAttacking  = true;
-					break;
-				// case PlayerState.COUNTER:
-				// 	attack.isAttacking  = true;
-				// 	break;
 				case PlayerState.USING_TOOL:
+					if (tool.currentTool == ToolType.Hammer) {
+						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+					} else if (tool.currentTool == ToolType.Shovel) {
+						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+					} else if (tool.currentTool == ToolType.MagicMedallion) {
+						// anim.audioSource.PlayOneShot();
+					}
+
 					tool.isActToolReady = true;
 					break;
 				case PlayerState.BOW:
@@ -451,6 +414,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						}
 					}
 
+					anim.isFinishAttackAnimation = true;
 					break;
 				default:
 					Debug.LogWarning ("Unknown Animation played");
@@ -468,35 +432,45 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// isFinishAnyAnimation = false;
 			
 			switch(state) {
-				case PlayerState.ATTACK: 
-					player.isMoveAttack = true;		
-					break;
-				case PlayerState.CHARGE: 
-					player.isMoveAttack = true;
-					break;
 				case PlayerState.DODGE:
-					// 
-					break;
-				case PlayerState.SLOW_MOTION:
-					//
-					break;
-				case PlayerState.RAPID_SLASH:
-					// attack.isAttacking  = true;
-					break;
-				case PlayerState.BLOCK_ATTACK:
+					anim.isFinishAnyAnimation = true;
+					anim.isFinishAttackAnimation = true;
 					break;
 				// case PlayerState.COUNTER:
 					// attack.isAttacking  = true;
 					// break;
+				case PlayerState.SWIM:
+					//
+					break;
 				case PlayerState.PARRY:
 					//
 					break;
-				case PlayerState.GET_HURT:
-					// gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
-					
+				case PlayerState.SLOW_MOTION:
+					gameFXSystem.PlayCounterChargeEffect();
+					break;
+				case PlayerState.RAPID_SLASH:
+					anim.isSpawnSomethingOnAnimation = true;
+					break;
+				case PlayerState.ATTACK: 
+					player.isMoveAttack = true;		
+					anim.isSpawnSomethingOnAnimation = true;
+					break;
+				case PlayerState.CHARGE: 
+					player.isMoveAttack = true;
+					anim.isSpawnSomethingOnAnimation = true;
 					break;
 				case PlayerState.DASH:
-					//
+					if (input.interactValue == 0) {
+						attack.isDashing = false;
+					} else if (input.interactValue == 1) {
+						attack.isDashing = true;
+					} else if (input.interactValue == 2) {
+						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
+						attack.isDashing = false;
+					}
+					break;
+				case PlayerState.USING_TOOL:
+					// tool.isActToolReady = true;
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.liftingMode == -1 || input.liftingMode == -2) {
@@ -509,20 +483,37 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 						powerBraceletSystem.SetTargetRigidbodyType(0);
 					}
-					break;
-				case PlayerState.USING_TOOL:
-					// tool.isActToolReady = true;
-					break;
-				case PlayerState.FISHING:
-					//
+
 					break;
 				case PlayerState.BOW:
+					if (input.interactValue == 0) {
+						anim.isFinishAttackAnimation = true;
+					} else if (input.interactValue == 1) {
+						// anim.isFinishAttackAnimation = true;
+					} else if (input.interactValue == 2) {
+						anim.isSpawnSomethingOnAnimation = true;
+					}
 
 					break;
 				case PlayerState.DIE: 
 					//
 					break;
+				case PlayerState.GET_HURT:
+					input.attackMode = 0;
+					anim.isFinishAnyAnimation = true;
+					anim.isFinishAttackAnimation = true;
+					
+					break;
+				case PlayerState.BLOCK_ATTACK:
+					//
+					break;
+				case PlayerState.FISHING:
+					//
+					break;
 				case PlayerState.GET_TREASURE: 
+					//
+					break;
+				case PlayerState.OPEN_CHEST: 
 					//
 					break;
 				default:

@@ -2688,7 +2688,7 @@ Prefab:
     - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
         type: 2}
       propertyPath: m_SceneBindings.Array.size
-      value: 49
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114947111125356162, guid: ded1b61004e356a46b86b4e1aefdd3dc,
         type: 2}
@@ -2833,6 +2833,12 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[48].key
       value: 
       objectReference: {fileID: 114326440641350070, guid: 080c5db7d433c164e8602d41aed0c60d,
+        type: 2}
+    - target: {fileID: 320299671000100240, guid: ded1b61004e356a46b86b4e1aefdd3dc,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[49].key
+      value: 
+      objectReference: {fileID: 114644443748258614, guid: 080c5db7d433c164e8602d41aed0c60d,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ded1b61004e356a46b86b4e1aefdd3dc, type: 2}
@@ -3178,11 +3184,6 @@ Prefab:
       objectReference: {fileID: 2074789677}
     - target: {fileID: 1528927234539092, guid: cff11cf9892475849abb29989626af4b, type: 2}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 54287731157607198, guid: cff11cf9892475849abb29989626af4b,
-        type: 2}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

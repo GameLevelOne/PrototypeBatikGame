@@ -16,7 +16,7 @@ public class Ghost : MonoBehaviour {
 	public bool isAttacking = false;
 	public float damagedDuration;
 
-	protected float tDamaged;
+	[SerializeField] protected float tDamaged;
 	public float TDamaged{
 		get{return tDamaged;}
 		set{tDamaged = value;}

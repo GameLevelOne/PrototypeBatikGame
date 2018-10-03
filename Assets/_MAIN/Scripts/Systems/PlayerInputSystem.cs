@@ -80,10 +80,18 @@ public class PlayerInputSystem : ComponentSystem {
 			if (CheckIfInSpecificState ()) {
 				continue;
 			}
+			 
+			// if (playerAnimationSystem.anim.isFinishAttackAnimation) {
+				CheckAttackInput();
+				CheckArrowInput();
+				CheckDodgeInput();
 
-			CheckAttackInput ();
+				if ((state == PlayerState.IDLE || state == PlayerState.MOVE) && !CheckIfPlayerIsAttacking()) {
+					CheckActionInput();
+				}
+			// }
+			
 			CheckGuardInput ();
-			CheckDodgeInput ();
 		}
 	}
 
@@ -132,10 +140,11 @@ public class PlayerInputSystem : ComponentSystem {
 		SetDir(dirX,dirZ);
 		
 	}
-	void CheckAttackInput () {
+
+	void CheckArrowInput () {
 		#region Arrow
-		if (input.moveMode == 0) {
-			if (GameInput.IsBowPressed && !input.isUIOpen) {
+		if ((state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BOW) && input.moveMode == 0) {
+			if (GameInput.IsBowPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) {
 				toolType = tool.currentTool;
 				input.interactValue = 0;
 
@@ -153,6 +162,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.attackMode = -4;
 				}
 
+				playerAnimationSystem.anim.isFinishAttackAnimation = false;
 				player.SetPlayerState(PlayerState.BOW);
 				isButtonToolHold = true;
 			} else if (GameInput.IsBowReleased) {
@@ -164,31 +174,31 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 		}
 		#endregion
+	}
 
+	void CheckActionInput () {
+		
 		#region Open Chest
-		if (input.moveMode == 0) {
-			if (player.isCanOpenChest) {
-				if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3 && !input.isUIOpen) {
-					input.interactValue = 0;
-					input.interactMode = -4;
-					player.SetPlayerState(PlayerState.OPEN_CHEST);
-					// isButtonToolHold = true;
-				}
+		if (player.isCanOpenChest) {
+			if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3 && !input.isUIOpen) {
+				input.interactValue = 0;
+				input.interactMode = -4;
 
-				return;
+				player.SetPlayerState(PlayerState.OPEN_CHEST);
+				// isButtonToolHold = true;
 			}
+
+			return;
 		}
 		#endregion
 
 		#region Open Gate
-		if (input.moveMode == 0) {
-			if (player.isCanOpenGate) {
-				if (GameInput.IsActionPressed && !input.isUIOpen) {
-					gateOpenerSystem.CheckAvailabilityGateKey();
-				}
-
-				return;
+		if (player.isCanOpenGate) {
+			if (GameInput.IsActionPressed && !input.isUIOpen) {
+				gateOpenerSystem.CheckAvailabilityGateKey();
 			}
+
+			return;
 		}
 		#endregion
 
@@ -199,7 +209,7 @@ public class PlayerInputSystem : ComponentSystem {
 			return;
 		}
 
-		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject && !CheckIfPlayerIsAttacking()) {
+		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject) {
 			if (GameInput.IsActionPressed && !input.isUIOpen) {
 				PlaySFX(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
@@ -216,64 +226,62 @@ public class PlayerInputSystem : ComponentSystem {
 			} 
 		}
 		#endregion
+	}
 
+	void CheckAttackInput () {
 		#region Attack
 		float chargeAttackThreshold = input.chargeAttackThreshold;
 		// float beforeChargeDelay = input.beforeChargeDelay;
 		float attackAwayDelay = input.attackAwayDelay;
 		int attackMode = input.attackMode;
 
-		if (GameInput.IsAttackPressed && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
-				if (playerAnimationSystem.anim.isFinishAttackAnimation) {
-					// Debug.Log("NEXT ATTACK");
-					if (attackMode <= 0 || attackMode >= 3) {
-						input.attackMode = 1;	
-						// Debug.Log("Set attackMode 1");
-					} else {
-						input.attackMode++;
-						// Debug.Log("Set attackMode++");
-					}
-					
-					playerAnimationSystem.anim.isFinishAttackAnimation = false;
-					player.SetPlayerState(PlayerState.ATTACK);
+		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
+			if (GameInput.IsAttackPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+				// Debug.Log("NEXT ATTACK");
+				if (attackMode <= 0 || attackMode >= 3) {
+					input.attackMode = 1;	
+				} else {
+					input.attackMode++;
 				}
+				
+				playerAnimationSystem.anim.isFinishAttackAnimation = false;
+				player.SetPlayerState(PlayerState.ATTACK);
 				
 				attackAwayTimer = 0f;
 				isAttackAway = false;	
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
-			}
-		} else if (GameInput.IsAttackHeld && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-			if (!input.isInitChargeAttack) {
-				if (startChargeAttackTimer >= 0.3f) {
-					input.isInitChargeAttack = true;
-				} else {
-					startChargeAttackTimer += deltaTime;
-				}
-			} else {
-				if (!isChargingAttack) {
-					if (chargeAttackTimer >= chargeAttackThreshold) {
-						isChargingAttack = true;
+			} else if (GameInput.IsAttackHeld && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+				if (!input.isInitChargeAttack) {
+					if (startChargeAttackTimer >= 0.3f) {
+						input.isInitChargeAttack = true;
 					} else {
-						chargeAttackTimer += deltaTime;
+						startChargeAttackTimer += deltaTime;
+					}
+				} else {
+					if (!isChargingAttack) {
+						if (chargeAttackTimer >= chargeAttackThreshold) {
+							isChargingAttack = true;
+						} else {
+							chargeAttackTimer += deltaTime;
+						}
 					}
 				}
-			}
-		} else if (GameInput.IsAttackReleased) {
-			if (input.moveMode == 1 && isChargingAttack) {
-				input.attackMode = -1; //CHARGE
-				isChargingAttack = false;
-				player.SetPlayerState(PlayerState.CHARGE);
-			} else {
-				SetMovement(0);
-			}
-			
-			SetMovement(0); //RUN / STAND
-			chargeAttackTimer = 0f;
-			startChargeAttackTimer = 0f;
-			input.isInitChargeAttack = false;
-		} 	
+			} else if (GameInput.IsAttackReleased) {
+				if (input.moveMode == 1 && isChargingAttack) {
+					input.attackMode = -1; //CHARGE
+					isChargingAttack = false;
+					player.SetPlayerState(PlayerState.CHARGE);
+				} else {
+					SetMovement(0);
+				}
+				
+				SetMovement(0); //RUN / STAND
+				chargeAttackTimer = 0f;
+				startChargeAttackTimer = 0f;
+				input.isInitChargeAttack = false;
+			} 	
+		} 
 		#endregion
 	}
 
@@ -281,99 +289,99 @@ public class PlayerInputSystem : ComponentSystem {
 		float guardParryDelay = input.guardParryDelay;
 
 		#region Button Guard
-		if (GameInput.IsGuardPressed && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
-			SetMovement(2); //START GUARD
-			
-			player.isGuarding = true;	
-			isParryPeriod = true;
-		} else if (GameInput.IsGuardHeld && !input.isUIOpen) {
-			
-			if (state == PlayerState.BLOCK_ATTACK) {
-				input.interactMode = -1;
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK) {
+			if (GameInput.IsGuardPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+				SetMovement(2); //START GUARD
+				
+				player.isGuarding = true;	
+				isParryPeriod = true;
+			} else if (GameInput.IsGuardHeld && !input.isUIOpen) {
+				
+				if (state == PlayerState.BLOCK_ATTACK) {
+					input.interactMode = -1;
+				}
+
+				if (parryTimer < guardParryDelay) {
+					parryTimer += deltaTime;
+				} else {
+					isParryPeriod = false;
+					player.isCanParry = false;
+					// player.isPlayerHit = false;	
+				}
+			} else if (GameInput.IsGuardReleased) {
+				SetMovement(0);
+				
+				player.isGuarding = false;
+				parryTimer = 0f;
+				isParryPeriod = false;
+				player.isCanParry = false;
 			}
 
-			if (parryTimer < guardParryDelay) {
-				parryTimer += deltaTime;
+			if (isParryPeriod) {
+				if (player.isPlayerHit && player.isCanParry) {
+					// input.attackMode = -2;
+					isParryPeriod = false;
+					player.isCanParry = false;
+					// player.isPlayerHit = false;
+					Debug.Log("Start Counter");
+					player.SetPlayerState(PlayerState.PARRY);
+					gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
+				}
 			} else {
-				isParryPeriod = false;
-				player.isCanParry = false;
-				// player.isPlayerHit = false;	
-			}
-		} else if (GameInput.IsGuardReleased) {
-			SetMovement(0);
-			
-			player.isGuarding = false;
-			parryTimer = 0f;
-			isParryPeriod = false;
-			player.isCanParry = false;
-		}
-
-		if (isParryPeriod) {
-			if (player.isPlayerHit && player.isCanParry) {
-				// input.attackMode = -2;
-				isParryPeriod = false;
-				player.isCanParry = false;
 				// player.isPlayerHit = false;
-				Debug.Log("Start Counter");
-				player.SetPlayerState(PlayerState.PARRY);
-				gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
 			}
-		} else {
-			// player.isPlayerHit = false;
 		}
+		
 		#endregion
 	}
 
 	void CheckDodgeInput () {
 		#region Button Dodge
-		if (GameInput.IsDodgePressed && !input.isUIOpen) {
-			if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
-				// gameFXSystem.ToggleDodgeFlag(true);
-				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
-				player.SetPlayerState(PlayerState.DODGE);
-				input.moveDir = -currentDir; //REVERSE
-				currentDir = Vector3.zero;
-				bulletTimeTimer = 0f;	
-				dodgeCooldownTimer = 0f;
-				isDodging = true;
-				isReadyForDodging = false;
-				input.interactMode = 0;
-			}
-		}	
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.DODGE) {
+			if (GameInput.IsDodgePressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) {
+				if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
+					// gameFXSystem.ToggleDodgeFlag(true);
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
+					player.SetPlayerState(PlayerState.DODGE);
+					input.moveDir = -currentDir; //REVERSE
+					currentDir = Vector3.zero;
+					bulletTimeTimer = 0f;	
+					dodgeCooldownTimer = 0f;
+					isDodging = true;
+					isReadyForDodging = false;
+					input.interactMode = 0;
+				}
+			}	
 
-		// Debug.Log("isDodging : "+isDodging);
+			if (isDodging) {
+				if (dodgeCooldownTimer < dodgeCooldown) {
+					dodgeCooldownTimer += deltaTime;
 
-		if (isDodging) {
-			// Debug.Log("dodgeCooldownTimer : "+dodgeCooldownTimer);
-			if (dodgeCooldownTimer < dodgeCooldown) {
-				dodgeCooldownTimer += deltaTime;
-
-				if (bulletTimeTimer < bulletTimeDelay) {
-					bulletTimeTimer += deltaTime;
-					isBulletTimePeriod = true;
+					if (bulletTimeTimer < bulletTimeDelay) {
+						bulletTimeTimer += deltaTime;
+						isBulletTimePeriod = true;
+					} else {
+						isBulletTimePeriod = false;
+						player.isCanBulletTime = false;
+						// player.isPlayerHit = false;
+					}
 				} else {
+					isDodging = false;
+					isReadyForDodging = true;
+				}
+
+			}
+
+			if (isBulletTimePeriod) {
+				if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
 					isBulletTimePeriod = false;
 					player.isCanBulletTime = false;
-					// player.isPlayerHit = false;
+					// ChangeDir(0f, 0f);
+					// ChangeDir(-currentDir.x, -currentDir.y);
+					input.moveMode = 3; //STEADY FOR RAPID SLASH
+					input.attackMode = 0;
+					player.SetPlayerState(PlayerState.SLOW_MOTION);
 				}
-			} else {
-				isDodging = false;
-				isReadyForDodging = true;
-			}
-
-		}
-		// Debug.Log("isBulletTimePeriod : "+isBulletTimePeriod+"\n bulletTimeTimer : "+bulletTimeTimer);
-		// Debug.Log("isPlayerHit : "+player.isPlayerHit+"\n isCanBulletTime : "+player.isCanBulletTime);
-
-		if (isBulletTimePeriod) {
-			if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
-				isBulletTimePeriod = false;
-				player.isCanBulletTime = false;
-				// ChangeDir(0f, 0f);
-				// ChangeDir(-currentDir.x, -currentDir.y);
-				input.moveMode = 3; //STEADY FOR RAPID SLASH
-				input.attackMode = 0;
-				player.SetPlayerState(PlayerState.SLOW_MOTION);
 			}
 		}
 		#endregion
@@ -531,13 +539,15 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.DODGE) {
 			CheckDodgeInput ();
 			return true;
+		} else if (state == PlayerState.OPEN_CHEST) {
+			return true;
 		} else {
 			return false;
 		}
 	}
 
 	bool CheckIfInSpecificState () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.POWER_BRACELET || player.isCanInteractWithNPC) {	
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || player.isCanInteractWithNPC) {	
 
 			return true;
 		} else if (state == PlayerState.DASH) {
@@ -572,8 +582,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	bool CheckIfPlayerIsAttacking () {
 		if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.PARRY || state == PlayerState.DODGE || state == PlayerState.SLOW_MOTION || state == PlayerState.RAPID_SLASH || state == PlayerState.DASH || state == PlayerState.BOW ||
-		player.isHitChestObject || player.isBouncing || player.isHitGateObject ||  
-		input.moveMode != 0) {
+		player.isBouncing || input.moveMode != 0) {
 			return true;
 		} else {
 			return false;

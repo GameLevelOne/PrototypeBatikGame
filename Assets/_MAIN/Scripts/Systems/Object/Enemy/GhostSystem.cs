@@ -227,6 +227,7 @@ public class GhostSystem : ComponentSystem {
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			// deltaTime = Time.deltaTime;
 			currEnemy.TDie = currEnemy.dieDuration;
+			currGhostRigidbody.velocity = Vector3.zero;
 			ghostCollider.enabled = false;
 			currGhost.particle.Play();
 		}else{
