@@ -120,7 +120,7 @@ public class GhostSystem : ComponentSystem {
 			
 		}else{
 			currGhostRigidbody.position = 
-				currGhostRigidbody.position = 
+				// currGhostRigidbody.position = 
 					MoveToPos(currEnemy.patrolDestination, currEnemy.patrolSpeed);
 				// Vector3.MoveTowards(
 				// 		currGhostRigidbody.position,

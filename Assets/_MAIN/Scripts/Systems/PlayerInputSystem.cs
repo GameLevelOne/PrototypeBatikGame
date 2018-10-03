@@ -172,7 +172,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.interactValue = 0;
 					input.interactMode = -4;
 					player.SetPlayerState(PlayerState.OPEN_CHEST);
-					isButtonToolHold = true;
+					// isButtonToolHold = true;
 				}
 
 				return;
@@ -214,8 +214,6 @@ public class PlayerInputSystem : ComponentSystem {
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
 				// isButtonToolHold = true;
 			} 
-
-			return;
 		}
 		#endregion
 
@@ -275,8 +273,7 @@ public class PlayerInputSystem : ComponentSystem {
 			chargeAttackTimer = 0f;
 			startChargeAttackTimer = 0f;
 			input.isInitChargeAttack = false;
-		} 
-				
+		} 	
 		#endregion
 	}
 

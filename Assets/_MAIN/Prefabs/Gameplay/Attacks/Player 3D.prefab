@@ -1876,6 +1876,7 @@ MonoBehaviour:
   isLockDir: 0
   isInitPlayerInput: 0
   isInitChargeAttack: 0
+  isUIOpen: 0
   currMoveDir: {x: 0, y: 0, z: 0}
   direction: 0
   moveMode: 0
@@ -1918,8 +1919,9 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   audioClip: []
   isInitAnimation: 0
+  currentAnimName: 
   isFinishAttackAnimation: 1
-  isFinishAnyAnimation: 1
+  isFinishAnyAnim: 1
   isCheckAfterAnimation: 0
   isCheckBeforeAnimation: 0
   isSpawnSomethingOnAnimation: 0
@@ -2311,8 +2313,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 772ec863e4cdf634ba5690893caf723e, type: 3}
   - {fileID: 8300000, guid: f3d7641e609ef924fa25617916a0ddbd, type: 3}
   isInitAnimation: 0
+  currentAnimName: 
   isFinishAttackAnimation: 1
-  isFinishAnyAnimation: 1
+  isFinishAnyAnim: 1
   isCheckAfterAnimation: 0
   isCheckBeforeAnimation: 0
   isSpawnSomethingOnAnimation: 0

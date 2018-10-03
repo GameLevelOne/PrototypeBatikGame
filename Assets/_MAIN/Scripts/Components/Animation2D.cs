@@ -50,8 +50,19 @@ public class Animation2D : MonoBehaviour {
 	public bool isInitAnimation = false;
 
 	[HeaderAttribute("Current")]
+	public string currentAnimName;
 	public bool isFinishAttackAnimation = true;
-	public bool isFinishAnyAnimation = true;
+	[SerializeField] bool isFinishAnyAnim = true;
+	public bool isFinishAnyAnimation {
+		get {return isFinishAnyAnim;}
+		set {
+			isFinishAnyAnim = value;
+
+			if (value) {
+				Debug.Log("Set isFinishAnyAnim TRUE");
+			}
+		}
+	}
 
 
 	[HeaderAttribute("For Player & Enemy")]

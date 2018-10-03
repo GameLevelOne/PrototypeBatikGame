@@ -20,7 +20,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 	[InjectAttribute] FishingRodSystem fishingRodSystem;
 	[InjectAttribute] GainTreasureSystem gainTreasureSystem;
 	[InjectAttribute] ChestOpenerSystem chestOpenerSystem;
-	// [InjectAttribute] UVAnimationSystem uvAnimationSystem;
 	[InjectAttribute] GameFXSystem gameFXSystem;
 	
 	public Facing2D facing;
@@ -40,25 +39,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	Vector3 currentMoveDir;
 	// Vector3 currentDir;
 	
-	// int attackCombo = 0;
 	int currentDirID;
-	// int currentAnimMatIndex = 0;
-
-	// bool isFinishAnyAnim = true;
-	// bool isEnableChargeEffect = false;
-
-	// public bool isFinishAnyAnimation {
-	// 	get {return isFinishAnyAnim;}
-	// 	set {
-	// 		if (!value && state == PlayerState.IDLE) {
-	// 			isFinishAnyAnim = true;
-	// 		} else {
-	// 			isFinishAnyAnim = value;
-	// 		}
-			
-	// 		// Debug.Log(isFinishAnyAnim + " on state " + state);
-	// 	}
-	// }
 
 	protected override void OnUpdate () {
 		if (animationData.Length == 0) return;
@@ -84,18 +65,16 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			if (!anim.isInitAnimation) {
 				InitAnimation();
+			} else {
+				CheckPlayerState ();
+				CheckStartAnimation ();
+				CheckSpawnOnAnimation ();
+				CheckEndAnimation ();
 
-				continue;
+				if (CheckIfAllowedToChangeDir()) {
+					SetAnimationFaceDirection ();
+				} 
 			}
-			
-			CheckPlayerState ();
-			CheckStartAnimation ();
-			CheckAnimation ();
-			CheckSpawnOnAnimation ();
-
-			if (CheckIfAllowedToChangeDir()) {
-				SetAnimationFaceDirection ();
-			} 
 		}
 	}
 
@@ -106,207 +85,194 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// isEnableChargeEffect = false;
 		currentDirID = facing.initFacingDirID;
 		SetFacingDirID (currentDirID);
+		gameFXSystem.ToggleRunFX(false);
+		anim.isFinishAnyAnimation = true;
+		anim.isFinishAttackAnimation = true;
 
 		anim.isInitAnimation = true;
 	}
 
-	void PlayLoopAnimation (string animName) {
-		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
-			// anim.isCheckBeforeAnimation = false;
-			animator.Play(animName);
+	void SetAnimation (string animName, bool finishAnimValue) {
+		animator.Play(animName);
+		anim.currentAnimName = animName;
+		anim.isFinishAnyAnimation = finishAnimValue;
+	}
+
+	void PlayLoopAnimation (string animName, bool finishAnimValue) {
+		if (anim.currentAnimName != animName) {
+			SetAnimation(animName, finishAnimValue);
 
 			//POWER BRACELET BUG FIX
 			if (animName == Constants.BlendTreeName.IDLE_LIFT || animName == Constants.BlendTreeName.MOVE_LIFT) {
 				powerBraceletSystem.SetLiftObjectParent();
 			}
 
-			//CHARGE BUG FIX
-			if (animName == Constants.BlendTreeName.IDLE_STAND || animName == Constants.BlendTreeName.MOVE_LIFT) {
+			//CHARGE BUG FIX (&)
+			if (animName != Constants.BlendTreeName.IDLE_CHARGE & animName != Constants.BlendTreeName.MOVE_CHARGE) {
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 			}
 		}
 	}
 
-	bool PlayOneShotAnimation (string animName) {
-		if (!animator.GetCurrentAnimatorStateInfo(0).IsName(animName)) {
-			if (animName==Constants.BlendTreeName.USE_HAMMER)
-				anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
-			else if (animName==Constants.BlendTreeName.USE_SHOVEL)
-				anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+	bool PlayOneShotAnimation (string animName, bool finishAnimValue) {
+		if (anim.currentAnimName != animName) {
+			SetAnimation(animName, finishAnimValue);
+
+			//Check Start Animation
 			anim.isCheckBeforeAnimation = false;
-			animator.Play(animName);
+
+			//Check Sound
+			// if (animName == Constants.BlendTreeName.USE_HAMMER) {
+			// 	anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+			// } else if (animName == Constants.BlendTreeName.USE_SHOVEL) {
+			// 	anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+			// }
 
 			return true;
 		} else return false;
 	}
 
 	void CheckPlayerState () {
-		if (!anim.isFinishAnyAnimation && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
-			// Debug.Log("TEST");
-			StopAnyAnimation ();
-			return;
-		}
-		
-		if (state == PlayerState.DODGE) {
-			PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DODGE);
-
-			anim.isFinishAnyAnimation = true;
-		} else {
-			// gameFXSystem.ToggleDodgeFlag(false);
+		if (anim.isFinishAnyAnimation) {
 			int attackMode = input.attackMode;
 
 			switch (state) {
 				case PlayerState.IDLE:
 					switch (input.moveMode) {
 						case 0: 
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_STAND);
-							// AnimationMaterialIndex = 0;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_STAND, true);
 							break;
 						case 1: 
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_CHARGE);
-							// AnimationMaterialIndex = 1;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_CHARGE, true);
 							break;
 						case 2: 
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD);
-							// AnimationMaterialIndex = 2;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_GUARD, true);
 							break;
 					}
-					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.MOVE:
 					switch (input.moveMode) {
 						case 0: 
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_RUN);
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_RUN, true);
 							break;
 						case 1: 
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_CHARGE);
-							break;
-						case 2: 
-							// PlayLoopAnimation(Constants.BlendTreeName.MOVE_GUARD);
-							StopAnyAnimation();
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_CHARGE, true);
 							break;
 					}
-
-					anim.isFinishAnyAnimation = true;
+					break;
+				case PlayerState.DODGE:
+					PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DODGE, true);
 					break;
 				case PlayerState.SWIM: 
-					anim.isFinishAnyAnimation = true;
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.GRABBING); //TEMP
+						PlayOneShotAnimation(Constants.BlendTreeName.GRABBING, true); //TEMP
 					} else if (input.interactValue == 1) {
 						if (moveDir != Vector3.zero) {
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_SWIM);						
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_SWIM, true);						
 						} else {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_SWIM);						
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_SWIM, true);						
 						}	
 					} else if (input.interactValue == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING); //TEMP
+						PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING, true); //TEMP
 					}
 					
 					break;
-				
 				case PlayerState.PARRY: 
-					PlayOneShotAnimation(Constants.BlendTreeName.PARRY);
-
-					anim.isFinishAnyAnimation = true;
+					PlayOneShotAnimation(Constants.BlendTreeName.PARRY, true);
 					break;
 				case PlayerState.SLOW_MOTION: 
 					if (input.attackMode == -3) {
 						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
 						// ReverseDir();
 
-						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME);
-						gameFXSystem.PlayCounterChargeEffect();
+						if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME, false)) {
+							gameFXSystem.PlayCounterChargeEffect();
+						}
 					}
-
-					anim.isFinishAnyAnimation = false;
 					break;
 				case PlayerState.RAPID_SLASH: 
 					if (attackMode == 1) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, false)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}
 					} else if (attackMode == 2) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, false)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}
 					} else if (attackMode == 3) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, false)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}
 					} else if (attackMode == -3) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }
+						if (PlayOneShotAnimation(Constants.BlendTreeName.RAPID_SLASH_BULLET_TIME, false)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}
 					}
-
-					anim.isFinishAnyAnimation = false;
 					break;
 				case PlayerState.ATTACK:
 					if (attackMode == 1) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_1, true)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}
 					} else if (attackMode == 2) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }	
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_2, true)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}	
 					} else if (attackMode == 3) {
-						 if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3)) {
-							 anim.isSpawnSomethingOnAnimation = false;
-						 }	
+						if (PlayOneShotAnimation(Constants.BlendTreeName.NORMAL_ATTACK_3, true)) {
+							anim.isSpawnSomethingOnAnimation = true;
+						}	
 					} 
-					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.CHARGE:
-					if (PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK)) {
-						anim.isSpawnSomethingOnAnimation = false;
+					if (PlayOneShotAnimation(Constants.BlendTreeName.CHARGE_ATTACK, false)) {
+						anim.isSpawnSomethingOnAnimation = true;
 					}
-					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.DASH: 
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DASH);
-						attack.isDashing = false;
+						if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DASH, true)) {
+							attack.isDashing = false;
+						}
 					} else if (input.interactValue == 1) {
-						PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH);
-						attack.isDashing = true;
+						if (PlayOneShotAnimation(Constants.BlendTreeName.MOVE_DASH, true)) {
+							attack.isDashing = true;
+						}
 					} else if (input.interactValue == 2) {
-						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
-
 						if (player.isBouncing) {
-							PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE);
+							if (PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BRAKE, true)) {
+								gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
+								attack.isDashing = false;
+							}
 						} else {
+							gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
+							attack.isDashing = false;
 							StopAnyAnimation();
 						}
-						attack.isDashing = false;
 					}
-					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.USING_TOOL: 
 					if (tool.currentTool == ToolType.Hammer) {
-						PlayOneShotAnimation(Constants.BlendTreeName.USE_HAMMER);
+						if (PlayOneShotAnimation(Constants.BlendTreeName.USE_HAMMER, false)) {
+							anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+						}
 					} else if (tool.currentTool == ToolType.Shovel) {
-						PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL);
+						if (PlayOneShotAnimation(Constants.BlendTreeName.USE_SHOVEL, false)) {
+							anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+						}
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
-						PlayOneShotAnimation(Constants.BlendTreeName.USE_MAGIC_MEDALLION);
+						PlayOneShotAnimation(Constants.BlendTreeName.USE_MAGIC_MEDALLION, false);
 					} 
-					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.interactValue == 0) {
-						PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
+						PowerBracelet powerBracelet = powerBraceletSystem.powerBracelet;
 
-						if (powerBraceletSystem.powerBracelet.liftable != null) {
-							if (powerBraceletState == PowerBraceletState.GRAB) {
+						if (powerBracelet.liftable != null) {
+							if (powerBracelet.state == PowerBraceletState.GRAB) {
 								// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
 								powerBraceletSystem.SetTargetRigidbodyType(1);
-							} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
+							} else if (powerBracelet.state == PowerBraceletState.CAN_LIFT) {
 								// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
 								powerBraceletSystem.SetTargetRigidbodyType(2);
 								// powerBraceletSystem.SetLiftObjectParent();
@@ -316,96 +282,78 @@ public class PlayerAnimationSystem : ComponentSystem {
 						}
 
 						input.interactValue = 1;
+						anim.isFinishAnyAnimation = true; //
 					} else if (input.interactValue == 1) {
 						if (input.liftingMode == 0) {
-							PlayLoopAnimation(Constants.BlendTreeName.SWEATING_GRAB);
-							anim.isFinishAnyAnimation = true;
+							PlayLoopAnimation(Constants.BlendTreeName.SWEATING_GRAB, true);
 						} else if (input.liftingMode == -1) {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
-							anim.isFinishAnyAnimation = true;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT, true);
 						} else if (input.liftingMode == 1) {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_PUSH);
-							anim.isFinishAnyAnimation = true;
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_PUSH, true);
 						} else if (input.liftingMode == -2) {
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT);
-							anim.isFinishAnyAnimation = true;
-							// PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT);
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_LIFT, true);
 						} else if (input.liftingMode == 2) {
-							PlayLoopAnimation(Constants.BlendTreeName.MOVE_PUSH);
-							anim.isFinishAnyAnimation = true;
+							PlayLoopAnimation(Constants.BlendTreeName.MOVE_PUSH, true);
 						} else if (input.liftingMode == -3) {
-							PlayOneShotAnimation(Constants.BlendTreeName.LIFTING);
-							anim.isFinishAnyAnimation = false;
+							PlayOneShotAnimation(Constants.BlendTreeName.LIFTING, false);
 						}
 					} else if (input.interactValue == 2) {
-						// Debug.Log("Throw anim");
 						if (input.liftingMode == 0) {
-							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
+							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING, false);
 						} else if (input.liftingMode == -1) {
-							PlayOneShotAnimation(Constants.BlendTreeName.THROWING_LIFT);
+							PlayOneShotAnimation(Constants.BlendTreeName.THROWING_LIFT, false);
 						} else if (input.liftingMode == 1) {
-							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING);
+							PlayOneShotAnimation(Constants.BlendTreeName.UNGRABBING, false);
 						}
-						anim.isFinishAnyAnimation = false;
 					}
 					
 					break;
 				case PlayerState.BOW:
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.TAKE_AIM_BOW);
+						PlayOneShotAnimation(Constants.BlendTreeName.TAKE_AIM_BOW, true);
 					} else if (input.interactValue == 1) {
-						PlayLoopAnimation(Constants.BlendTreeName.AIMING_BOW);
+						PlayLoopAnimation(Constants.BlendTreeName.AIMING_BOW, true);
 					} else if (input.interactValue == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.SHOT_BOW);
+						PlayOneShotAnimation(Constants.BlendTreeName.SHOT_BOW, true);
 					}
-					
-					anim.isFinishAnyAnimation = true;
+
 					break;
 				case PlayerState.DIE: 
-					PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DIE);
-					
-					anim.isFinishAnyAnimation = false;
+					PlayOneShotAnimation(Constants.BlendTreeName.IDLE_DIE, false);
 					break;
 				case PlayerState.GET_HURT: 
-					input.attackMode = 0;
-					// Debug.Log("Reset AttackMode - GET HURT  - CheckPlayerState");
-					PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT);
-					
-					anim.isFinishAnyAnimation = false;
-					anim.isFinishAttackAnimation = false;
+					if (PlayOneShotAnimation(Constants.BlendTreeName.GET_HURT, true)) {
+						input.attackMode = 0;
+						anim.isFinishAttackAnimation = true;
+					}
+
 					break;
 				case PlayerState.BLOCK_ATTACK:
-					PlayOneShotAnimation(Constants.BlendTreeName.BLOCK_ATTACK);
+					PlayOneShotAnimation(Constants.BlendTreeName.BLOCK_ATTACK, true);
 					
-					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.FISHING:
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.THROW_FISH_BAIT);
+						PlayOneShotAnimation(Constants.BlendTreeName.THROW_FISH_BAIT, false);
 					} else if (input.interactValue == 1) {
 						if (fishingRodSystem.fishingRod.isCatchSomething) {
-							PlayLoopAnimation(Constants.BlendTreeName.FISHING_CAUGHT);
+							PlayLoopAnimation(Constants.BlendTreeName.FISHING_CAUGHT, true);
 						} else {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_FISHING);
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_FISHING, true);
 						}
 					} else if (input.interactValue == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.RETURN_FISH_BAIT);
+						PlayOneShotAnimation(Constants.BlendTreeName.RETURN_FISH_BAIT, false);
 					} else if (input.interactValue == 3) {
-						PlayOneShotAnimation(Constants.BlendTreeName.FISHING_FAIL);
+						PlayOneShotAnimation(Constants.BlendTreeName.FISHING_FAIL, false);
 					}
-					
-					anim.isFinishAnyAnimation = false;
+
 					break;
 				case PlayerState.GET_TREASURE:
 					if (input.interactMode == 6) { //GET TREASURE
-						if (input.interactValue == 0) { 
-							// PlayOneShotAnimation(Constants.BlendTreeName.LIFTING_TREASURE);
-						} else if (input.interactValue == 1) {
-							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE);
+						if (input.interactValue == 1) {
+							PlayLoopAnimation(Constants.BlendTreeName.IDLE_LIFT_TREASURE, true);
 						} else if (input.interactValue == 2) {
-							PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE);
-							// StopAnyAnimation();
-							// gainTreasureSystem.UseAndDestroyTreasure();
+							PlayOneShotAnimation(Constants.BlendTreeName.END_LIFT_TREASURE, false);
 						}
 					} 
 					// else if (input.interactMode == 7) { //GET BIG TREASURE
@@ -417,19 +365,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// 		Debug.Log("LIFT DOWN TREASURE ANIMATION");
 					// 	}
 					// }
-					
-					anim.isFinishAnyAnimation = false;
+
 					break;
 				case PlayerState.OPEN_CHEST:
 					if (input.interactValue == 0) {
-						PlayOneShotAnimation(Constants.BlendTreeName.OPENING_CHEST);
+						PlayOneShotAnimation(Constants.BlendTreeName.OPENING_CHEST, false);
 					} else if (input.interactValue == 1) {
 						//
 					} else if (input.interactValue == 2) {
-						PlayOneShotAnimation(Constants.BlendTreeName.AFTER_OPEN_CHEST);
+						PlayOneShotAnimation(Constants.BlendTreeName.AFTER_OPEN_CHEST, false);
 					}
-					
-					anim.isFinishAnyAnimation = false;
+
 					break;
 			}
 		}
@@ -469,21 +415,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void CheckAnimation () {
-		// if (!anim.isCheckBeforeAnimation) {
-		// 	CheckStartAnimation ();
-		// 	// Debug.Log("CheckStartAnimation");	
-		// } else if (!anim.isCheckAfterAnimation) {
-		// 	CheckEndAnimation ();
-		// }
-		
-		if (!anim.isCheckAfterAnimation) {
-			CheckEndAnimation ();
-		}
-	}
-
 	void CheckSpawnOnAnimation () {
-		if (!anim.isSpawnSomethingOnAnimation) {
+		if (anim.isSpawnSomethingOnAnimation) {
 			switch(state) {
 				case PlayerState.ATTACK: 
 					// player.isMoveAttack = false;
@@ -525,7 +458,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 			
 			gameFXSystem.ToggleRunFX(false);
-			anim.isSpawnSomethingOnAnimation = true;
+			anim.isSpawnSomethingOnAnimation = false;
 		}
 	}
 
@@ -559,7 +492,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 					break;
 				case PlayerState.GET_HURT:
-					gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+					// gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 					
 					break;
 				case PlayerState.DASH:
@@ -633,249 +566,208 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// }
 
 	void CheckEndAnimation () {
-		// Debug.Log("CheckEndAnimation, State : "+state+"\n interactValue : "+input.interactValue);
-		switch(state) {
-			case PlayerState.ATTACK: 
-				// if (input.AttackMode > 0 && input.AttackMode <= 3) {
-				// 	if (input.slashComboVal.Count > 0) {			
-				// 		if (attackCombo == 3) {					
-				// 			input.slashComboVal.Clear();
-				// 			// Debug.Log("CheckEndAnimation AttackList CLEAR");
-				// 		} else {
-				// 			//input.slashComboVal.RemoveAt(0);
-				// 		}
-				// 		Debug.Log("CheckEndAnimation "+ input.slashComboVal.Count);
+		if (!anim.isCheckAfterAnimation) {
+			switch(state) {
+				case PlayerState.ATTACK: 
+					// if (input.AttackMode > 0 && input.AttackMode <= 3) {
+					// 	if (input.slashComboVal.Count > 0) {			
+					// 		if (attackCombo == 3) {					
+					// 			input.slashComboVal.Clear();
+					// 			// Debug.Log("CheckEndAnimation AttackList CLEAR");
+					// 		} else {
+					// 			//input.slashComboVal.RemoveAt(0);
+					// 		}
+					// 		Debug.Log("CheckEndAnimation "+ input.slashComboVal.Count);
 
-				// 		StopAttackAnimation ();
-				// 		// CheckAttackCombo ();
-				// 	} else {
-				// 		StopAttackAnimation ();
-				// 	}
-				// }
-				//player.isHitAnEnemy = false;
-				// isFinishAttackAnimation	= true;	
-				if (input.isInitChargeAttack) {
-					playerInputSystem.SetMovement(1);
-				}
-
-				if (moveDir != Vector3.zero) {
-					gameFXSystem.ToggleRunFX(true);
-				}
-
-				StopAttackAnimation();
-				break;
-			case PlayerState.CHARGE: 
-				if (moveDir != Vector3.zero) {
-					gameFXSystem.ToggleRunFX(true);
-				}
-
-				StopAttackAnimation();
-				break;
-			case PlayerState.DODGE:
-				// gameFXSystem.gameFX.isEnableDodgeEffect = false;
-				// ReverseDir ();
-								
-				StopAnyAnimation();
-				gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
-				gameFXSystem.ToggleRunFX(false);
-				break;
-			case PlayerState.SLOW_MOTION:
-				anim.isFinishAnyAnimation = true;
-				break;
-			case PlayerState.RAPID_SLASH:
-				if (input.attackMode == -3) {
-					input.attackMode = 1;
-					animator.speed = 3f;
-				} else {
-					if (input.attackMode < 3) {
-						input.attackMode++;
-					} else {
-						input.attackMode = 1;
-					}
-
-					input.bulletTimeAttackQty--;
-				}
-
-				if (input.bulletTimeAttackQty <= 0) {
-					// player.isHitAnEnemy = false;
-					player.somethingThatHitsPlayer = null;
-					StopAttackAnimation();
-					// input.attackMode = 0;
-					
-					animator.speed = 1f;
-				} else {
-					anim.isFinishAnyAnimation = true;
-				}
-
-				break;
-			case PlayerState.GET_HURT:
-				StopAnyAnimation();
-				break;
-			case PlayerState.DASH:
-				if (input.interactValue == 0) { 
-					input.interactValue = 1;
-					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, true);
-					gameFXSystem.ToggleRunFX(true);
-					
-					anim.isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
-					StopAnyAnimation();
-				}
-
-				break;
-			case PlayerState.USING_TOOL:
-				StopAnyAnimation();
-				break;
-			case PlayerState.BLOCK_ATTACK:
-				// player.isPlayerHit = false;
-				StopAnyAnimation();
-				break;
-			// case PlayerState.COUNTER:
-			// 	// player.isPlayerHit = false;
-			// 	StopAttackAnimation();
-			// 	break;
-			case PlayerState.PARRY:
-				// player.isPlayerHit = false;
-				StopAnyAnimation();
-				break;
-			case PlayerState.POWER_BRACELET:
-				// if (input.interactValue == 0) {
-				// 	input.interactValue = 1;
-
-				// 	PowerBraceletState powerBraceletState = powerBraceletSystem.powerBracelet.state;
-
-				// 	if (powerBraceletState == PowerBraceletState.GRAB) {
-				// 		// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Dynamic);
-				// 		powerBraceletSystem.SetTargetRigidbodyType(1);
-				// 	} else if (powerBraceletState == PowerBraceletState.CAN_LIFT) {
-				// 		// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Kinematic);
-				// 		powerBraceletSystem.SetTargetRigidbodyType(2);
-				// 		// powerBraceletSystem.SetLiftObjectParent();
-				// 	}
-
-				// 	isFinishAnyAnimation = true;
-				// } else 
-				
-				if (input.interactValue == 1) {
-					if (input.liftingMode == -3) {
-						if (moveDir == Vector3.zero) {
-							input.liftingMode = -1;
-						} else {
-							input.liftingMode = -2;
-						}
-						anim.isFinishAnyAnimation = true;
-					} else {
-						//
-					}
-				} else if (input.interactValue == 2) {
-					// if (input.liftingMode == -1 || input.liftingMode == -2) {
-					// 	powerBraceletSystem.UnSetLiftObjectParent(currentDirID);
-					// 	powerBraceletSystem.AddForceRigidbody();
-					// 	powerBraceletSystem.ResetPowerBracelet();
-					// } else if (input.liftingMode == 1) {
-					// 	// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
-					// 	powerBraceletSystem.SetTargetRigidbodyType(0);
+					// 		StopAttackAnimation ();
+					// 		// CheckAttackCombo ();
+					// 	} else {
+					// 		StopAttackAnimation ();
+					// 	}
 					// }
-					
-					// player.isUsingStand = false;
-					StopAnyAnimation();
-				}
+					//player.isHitAnEnemy = false;
+					// isFinishAttackAnimation	= true;	
+					if (input.isInitChargeAttack) {
+						playerInputSystem.SetMovement(1);
+					}
 
-				break;
-			case PlayerState.BOW:
-				if (input.interactValue == 0) { 
-					input.interactValue = 1;
-					
+					if (moveDir != Vector3.zero) {
+						gameFXSystem.ToggleRunFX(true);
+					}
+
+					StopAttackAnimation();
+					break;
+				case PlayerState.CHARGE: 
+					if (moveDir != Vector3.zero) {
+						gameFXSystem.ToggleRunFX(true);
+					}
+
+					StopAttackAnimation();
+					break;
+				case PlayerState.DODGE:
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
+					gameFXSystem.ToggleRunFX(false);
+
+					StopAnyAnimation();
+					break;
+				case PlayerState.SLOW_MOTION:
 					anim.isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
-					if (!player.isUsingStand) {
-						StopAttackAnimation();
+					break;
+				case PlayerState.RAPID_SLASH:
+					if (input.attackMode == -3) {
+						input.attackMode = 1;
+						animator.speed = 3f;
 					} else {
+						if (input.attackMode < 3) {
+							input.attackMode++;
+						} else {
+							input.attackMode = 1;
+						}
+
+						input.bulletTimeAttackQty--;
+					}
+
+					if (input.bulletTimeAttackQty <= 0) {
+						// player.isHitAnEnemy = false;
+						player.somethingThatHitsPlayer = null;
+						StopAttackAnimation();
+						// input.attackMode = 0;
+						
+						animator.speed = 1f;
+					} else {
+						anim.isFinishAnyAnimation = true;
+					}
+
+					break;
+				case PlayerState.GET_HURT:
+					//
+					StopAnyAnimation();
+					break;
+				case PlayerState.DASH:
+					if (input.interactValue == 0) { 
+						input.interactValue = 1;
+						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, true);
+						gameFXSystem.ToggleRunFX(true);
+						
+						anim.isFinishAnyAnimation = true;
+					} else if (input.interactValue == 1) { 
+						//
+					} else if (input.interactValue == 2) { 
 						StopAnyAnimation();
 					}
-				}
 
-				break;
-			case PlayerState.SWIM:
-				if (input.interactValue == 0) { 
-					input.interactValue = 1;
-					
-					anim.isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
+					break;
+				case PlayerState.USING_TOOL:
 					StopAnyAnimation();
-				}
-
-				break;
-			case PlayerState.DIE: 
-					//
-				break;
-			case PlayerState.FISHING:
-				if (input.interactValue == 0) { 
-					input.interactValue = 1;
-					tool.isActToolReady = true;
-					
-					anim.isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) {
-					if (input.interactMode == -3) { //AFTER FISHING FAIL
-						input.interactValue = 3;
-					} else {
-						StopAnyAnimation ();
-						
-						if (fishingRodSystem.fishingRod.isCatchSomething) {
-							fishingRodSystem.ProcessFish();
+					break;
+				case PlayerState.BLOCK_ATTACK:
+					// player.isPlayerHit = false;
+					StopAnyAnimation();
+					break;
+				case PlayerState.PARRY:
+					// player.isPlayerHit = false;
+					StopAnyAnimation();
+					break;
+				case PlayerState.POWER_BRACELET:
+					if (input.interactValue == 1) {
+						if (input.liftingMode == -3) {
+							if (moveDir == Vector3.zero) {
+								input.liftingMode = -1;
+							} else {
+								input.liftingMode = -2;
+							}
+							anim.isFinishAnyAnimation = true;
+						} else {
+							//
 						}
+					} else if (input.interactValue == 2) {
+						StopAnyAnimation();
+					}
+
+					break;
+				case PlayerState.BOW:
+					if (input.interactValue == 0) { 
+						input.interactValue = 1;
 						
+						anim.isFinishAnyAnimation = true;
+					} else if (input.interactValue == 1) { 
+						//
+					} else if (input.interactValue == 2) { 
+						if (!player.isUsingStand) {
+							StopAttackAnimation();
+						} else {
+							StopAnyAnimation();
+						}
+					}
+
+					break;
+				case PlayerState.SWIM:
+					if (input.interactValue == 0) { 
+						input.interactValue = 1;
+						
+						anim.isFinishAnyAnimation = true;
+					} else if (input.interactValue == 1) { 
+						//
+					} else if (input.interactValue == 2) { 
+						StopAnyAnimation();
+					}
+
+					break;
+				case PlayerState.DIE: 
+						//
+					break;
+				case PlayerState.FISHING:
+					if (input.interactValue == 0) { 
+						input.interactValue = 1;
+						tool.isActToolReady = true;
+						
+						anim.isFinishAnyAnimation = true;
+					} else if (input.interactValue == 1) { 
+						//
+					} else if (input.interactValue == 2) {
+						if (input.interactMode == -3) { //AFTER FISHING FAIL
+							input.interactValue = 3;
+						} else {
+							StopAnyAnimation ();
+							
+							if (fishingRodSystem.fishingRod.isCatchSomething) {
+								fishingRodSystem.ProcessFish();
+							}
+							
+							fishingRodSystem.ResetFishingRod();
+						}
+					} else if (input.interactValue == 3) {
+						StopAnyAnimation ();
 						fishingRodSystem.ResetFishingRod();
 					}
-				} else if (input.interactValue == 3) {
-					StopAnyAnimation ();
-					fishingRodSystem.ResetFishingRod();
-				}
 
-				break;
-			case PlayerState.GET_TREASURE: 
-				if (input.interactValue == 0) { 
-					// input.interactValue = 1;
-					
-					// isFinishAnyAnimation = true;
-				} else if (input.interactValue == 1) { 
-					//
-				} else if (input.interactValue == 2) { 
-					StopAnyAnimation();
-					gainTreasureSystem.UseAndDestroyTreasure();
-				}
+					break;
+				case PlayerState.GET_TREASURE: 
+					if (input.interactValue == 2) { 
+						gainTreasureSystem.UseAndDestroyTreasure();
+						StopAnyAnimation();
+					}
 
-				break;
-			case PlayerState.OPEN_CHEST: 
-				if (input.interactValue == 0) { 
-					input.interactValue = 2;
-					chestOpenerSystem.OpenChest();
-					
-					anim.isFinishAnyAnimation = true;
-				} 
-				// else if (input.interactValue == 1) { 
-				// 	//
-				// } 
-				else if (input.interactValue == 2) { 
-					chestOpenerSystem.SpawnTreasure(player.transform.position);
-					StopAnyAnimation();
-				}
+					break;
+				case PlayerState.OPEN_CHEST: 
+					if (input.interactValue == 0) { 
+						input.interactValue = 2;
+						chestOpenerSystem.OpenChest();
+						
+						anim.isFinishAnyAnimation = true;
+					} else if (input.interactValue == 2) { 
+						chestOpenerSystem.SpawnTreasure(player.transform.position);
+						StopAnyAnimation();
+					}
 
-				break;
-			default:
-				Debug.LogWarning ("Unknown Animation played");
-				break;
+					break;
+				default:
+					Debug.LogWarning ("Unknown Animation played for Player State : "+state);
+					break;
+			}
+
+			anim.isCheckAfterAnimation = true;
 		}
-
-		anim.isCheckAfterAnimation = true;
 	}
 
 	bool CheckIfAllowedToChangeDir () {
