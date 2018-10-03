@@ -59,9 +59,11 @@ public class GameStorage : MonoBehaviour {
 	}
 
 	public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
-		bgmSource.loop = loopBGM;
-		bgmSource.clip = bgmClip[(int)bgmType];
-		bgmSource.Play();
+		if (!bgmSource.isPlaying || bgmSource.clip!=bgmClip[(int)bgmType]) {
+			bgmSource.loop = loopBGM;
+			bgmSource.clip = bgmClip[(int)bgmType];
+			bgmSource.Play();
+		}
 	}
 
 #region SINGLETON

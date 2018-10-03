@@ -76,10 +76,14 @@ public class SystemManagerSystem : ComponentSystem {
 					uiPlayerInfoSystem.SetMapName(currentMapIdx);
 
 					//SET BGM
-					if (currentScene=="SceneLevel_Jatayu") 
+					if (currentScene=="SceneLevel_Jatayu") {
 						GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
-					else 
-						GameStorage.Instance.PlayBGM(BGMType.MAIN);
+					} else {
+						if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", 0) == 1)
+							GameStorage.Instance.PlayBGM(BGMType.MAIN);
+						else 
+							GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
+					}
 				} else {
 					GameStorage.Instance.PlayBGM(BGMType.TITLE);
 				}
