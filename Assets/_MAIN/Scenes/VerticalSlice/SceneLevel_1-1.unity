@@ -6019,10 +6019,10 @@ MonoBehaviour:
   isInitEnableTrigger: 1
   isInitEvent: 0
   dialogs:
-  - Still going there?      *
-  - FINE!!!     *
+  - Still want to    *go there?         *
+  - So be it!!      *
   - I can only guide you*so far*
-  - Only crazyest people would*go to the temple*
+  - Only craziest people *would go to  *the temple*
   - And they told me*I'M crazy*
   dialogStartTime: 29.1
   dialogEndTime: 31
@@ -9571,41 +9571,37 @@ Prefab:
     - target: {fileID: 114327400387023052, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: m_Text
-      value: 'So do you need
-
-        some help?
-
-'
+      value: "Only craziest people \nwould go to \nthe temple\n"
       objectReference: {fileID: 0}
     - target: {fileID: 224477822428406344, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 100.5
+      value: 132
       objectReference: {fileID: 0}
     - target: {fileID: 224477822428406344, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -95
+      value: -125
       objectReference: {fileID: 0}
     - target: {fileID: 224477822428406344, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 171
+      value: 234
       objectReference: {fileID: 0}
     - target: {fileID: 224477822428406344, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029022771817332, guid: 5e41838886b894b4aad64bee138f4ef9,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -99
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029022771817332, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 224029022771817332, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -36
+      objectReference: {fileID: 0}
+    - target: {fileID: 224029022771817332, guid: 5e41838886b894b4aad64bee138f4ef9,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 114127273413388698, guid: 5e41838886b894b4aad64bee138f4ef9,
         type: 2}
@@ -20404,6 +20400,16 @@ Prefab:
         type: 2}
       propertyPath: m_AABB.m_Center.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.00000026822312
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 81.30675
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
