@@ -145,12 +145,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootableType: 1
   mainSprite: {fileID: 1710735386823504}
+  lootableFX: {fileID: 1322135862800130, guid: c4923208185a704498c1f8f37082bb49, type: 2}
   lootQuantity: 25
   initPosY: 0
+  destroyDuration: 0
   treasureType: 1
   initSprite: {fileID: 1872719081907388}
   keyID: 0
+  isInitLootable: 0
   isLooted: 0
+  isDestroyed: 0
+  destroyTimer: 0
 --- !u!135 &135145355382611072
 SphereCollider:
   m_ObjectHideFlags: 1

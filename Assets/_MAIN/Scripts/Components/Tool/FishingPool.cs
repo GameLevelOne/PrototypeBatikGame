@@ -10,6 +10,11 @@ public class FishingPool : MonoBehaviour {
 	public bool isFinishSpawning;
 	public List<Fish> fishList;
 
+	[HeaderAttribute("Current")]
+	public bool isInitFishingPool = false;
+	public float poolRadiusX;
+	public float poolRadiusZ;
+	public Vector3 poolPos;
 	[SerializeField] float timeSpawn;
 
 	public float TimeSpawn {

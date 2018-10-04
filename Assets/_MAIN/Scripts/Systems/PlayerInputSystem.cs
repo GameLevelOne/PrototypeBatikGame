@@ -531,7 +531,7 @@ public class PlayerInputSystem : ComponentSystem {
 			currentDir = Vector3.zero;
 
 			if (GameInput.AnyButtonPressed){ //ANY BUTTON
-				gainTreasureSystem.UseTreasure();
+				gainTreasureSystem.ChangeLootableSprite();
 				input.interactValue = 2;
 			}
 			

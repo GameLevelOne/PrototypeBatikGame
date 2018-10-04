@@ -11,8 +11,6 @@ public class FishingPoolSystem : ComponentSystem {
 	FishingPool fishingPool;
 
 	float deltaTime;
-	float poolRadius;
-	Vector3 poolPos;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
@@ -21,13 +19,22 @@ public class FishingPoolSystem : ComponentSystem {
 		for (int i=0; i<fishingPoolData.Length; i++) {
 			fishingPool = fishingPoolData.FishingPool[i];
 
-			poolRadius = fishingPool.fishingPoolCol.bounds.size.x / 2; //CIRCLE
-			poolPos = fishingPool.transform.position;
-
-			if (!fishingPool.isFinishSpawning) {
-				SpawnFish();
+			if (!fishingPool.isInitFishingPool) {
+				InitFishingPool();
+			} else {
+				if (!fishingPool.isFinishSpawning) {
+					SpawnFish();
+				}
 			}
 		}
+	}
+
+	void InitFishingPool () {
+		fishingPool.poolRadiusX = fishingPool.fishingPoolCol.bounds.size.x / 2;
+		fishingPool.poolRadiusZ = fishingPool.fishingPoolCol.bounds.size.z / 2;
+		fishingPool.poolPos = fishingPool.transform.position;
+
+		fishingPool.isInitFishingPool = true;
 	}
 
 	void SpawnFish() {
@@ -49,7 +56,8 @@ public class FishingPoolSystem : ComponentSystem {
 			Fish fish = newFish.GetComponent<Fish>();
 			fishingPool.fishList.Add(fish);
 			fish.parentPoolCol = fishingPool.fishingPoolCol.GetComponent<Transform>();
-			fish.parentPoolRadius = fishingPool.fishingPoolCol.bounds.size.x / 2; //CIRCLE
+			fish.poolRadiusX = fishingPool.poolRadiusX; 
+			fish.poolRadiusZ = fishingPool.poolRadiusZ;//CIRCLE
 			// fish.fishChar = (FishCharacteristic)Random.Range(0, System.Enum.GetValues(typeof(FishCharacteristic)).Length);
 			fish.fishChar = FishCharacteristic.WILD; //TEMP
 			// Debug.Log(fish.fishChar);
@@ -66,8 +74,11 @@ public class FishingPoolSystem : ComponentSystem {
 	}
 
 	Vector3 RandomPosition () {
-		float randomX = poolPos.x + Random.Range(-poolRadius, poolRadius);
-		float randomZ = poolPos.z + Random.Range(-poolRadius, poolRadius);
+		Vector3 poolPos = fishingPool.poolPos;
+		float poolRadiusX = fishingPool.poolRadiusX;
+		float poolRadiusZ = fishingPool.poolRadiusZ;
+		float randomX = poolPos.x + Random.Range(-poolRadiusX, poolRadiusX);
+		float randomZ = poolPos.z + Random.Range(-poolRadiusZ, poolRadiusZ);
 		
 		return new Vector3 (randomX, 0f, randomZ);
 	}

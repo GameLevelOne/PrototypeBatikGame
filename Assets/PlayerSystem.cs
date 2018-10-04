@@ -8,6 +8,7 @@ public class PlayerSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] PlayerData playerData;
+	[InjectAttribute] ToolSystem toolSystem;
 	
 	Player player;
 	Facing2D facing;
@@ -20,7 +21,15 @@ public class PlayerSystem : ComponentSystem {
 			facing = playerData.Facing[i];
 
 			if (!player.isInitAttackAreaObj) {
-				InitAttackAreaObj();
+				try {
+					InitAttackAreaObj();
+					Debug.Log("Finish Init Player AttackAreaObj");
+				} catch (System.Exception e) {
+					Debug.Log("PlayerSystem ERROR : "+e);
+
+					GameObject.Destroy(playerAttackAreaObj);
+					UpdateInjectedComponentGroups();
+				}
 			} else {
 				// this.Enabled = false;
 				playerAttackAreaObj.transform.position = facing.attackArea.transform.position;
@@ -41,9 +50,9 @@ public class PlayerSystem : ComponentSystem {
 		playerAttackArea.gateOpener.player = player;
 
 		player.GetComponent<Attack>().dashAttackArea = playerAttackArea.dashAttackObj;
+		toolSystem.tool.fishingBaitObj = playerAttackArea.fishingRod.gameObject;
 
 		playerAttackAreaObj.SetActive(true);
-
 		player.isInitAttackAreaObj = true;
 	}
 }

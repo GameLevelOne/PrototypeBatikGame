@@ -56,8 +56,9 @@ public class GainTreasureSystem : ComponentSystem {
 			
 			gainTreasure.isLootingStandard = false;
 		} else if (gainTreasure.isLootingTreasure) {
-			SetLiftObjectParent (gainTreasure.lootableTransform);
+			SetLiftObjectParent(gainTreasure.lootableTransform);
 			// input.interactValue = 0;
+			UseTreasure();
 			GameStorage.Instance.PlayBGM(BGMType.GAIN_TREASURE,false);
 
 			input.interactValue = 1; //NO LIFTING TREASURE
@@ -73,7 +74,7 @@ public class GainTreasureSystem : ComponentSystem {
 		treasureTransform.localPosition = Vector2.zero;
 	}
 
-	public void UseTreasure () {
+	void UseTreasure () {
 		Lootable lootable = gainTreasure.lootable;
 		UINotif uiNotif = null;
 		for (int i=0;i<uiNotifData.Length;i++) {
@@ -87,8 +88,8 @@ public class GainTreasureSystem : ComponentSystem {
 
 		switch (lootable.treasureType) { //TEMP
 			case TreasureType.FISH: 
-				lootable.initSprite.SetActive(false);
-				lootable.mainSprite.SetActive(true);
+				// lootable.initSprite.SetActive(false);
+				// lootable.mainSprite.SetActive(true);
 				string fishSize = "SMALL";
 				if (lootable.lootQuantity==5) 
 					fishSize = "MEDIUM";
@@ -142,6 +143,15 @@ public class GainTreasureSystem : ComponentSystem {
 			default:
 				//
 				break;
+		}
+	}
+
+	public void ChangeLootableSprite () {
+		Lootable lootable = gainTreasure.lootable;
+
+		if (lootable.treasureType == TreasureType.FISH) {
+			lootable.initSprite.SetActive(false);
+			lootable.mainSprite.SetActive(true);
 		}
 	}
 

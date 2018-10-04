@@ -858,7 +858,7 @@ MonoBehaviour:
   chaseRange: 10
   patrolSpeed: 2
   chaseSpeed: 3
-  knockBackSpeed: 3
+  knockBackSpeed: 1.5
   idleDuration: 4
   dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
@@ -937,6 +937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 1
   damage: 5
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -987,6 +989,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 3
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0

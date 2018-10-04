@@ -42,7 +42,8 @@ public class Fish : MonoBehaviour {
 	public Transform parentPoolCol;
 	public FishingRod fishingRod;
 	public Vector3 targetPos;
-	public float parentPoolRadius;
+	public float poolRadiusX;
+	public float poolRadiusZ;
 	
 	[SerializeField] float timeIdle;
 

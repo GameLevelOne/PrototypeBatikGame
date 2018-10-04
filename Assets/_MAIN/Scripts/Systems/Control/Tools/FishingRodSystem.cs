@@ -26,14 +26,30 @@ public class FishingRodSystem : ComponentSystem {
 			fishingRod = fishingData.FishingRod[i];
 			state = fishingRod.state;
 
-			if (fishingRod.state == FishingRodState.THROW && !fishingRod.isBaitLaunched) {
-				fishingRod.isBaitLaunched = true;
-				Throw ();
-			} else if (state == FishingRodState.STAY) {
-				Stay ();
-			} else if (state == FishingRodState.RETURN) {
-				Return ();
+			if (!fishingRod.isInitFishingRod) {
+				InitFishingRod();
+			} else {
+				CheckFishingRodState();
 			}
+		}
+	}
+
+	void InitFishingRod () {
+		ResetFishingRod();
+		fishingRod.fishingBuoyObj.SetActive(false);
+		fishingRod.fishingBuoySplashObj.SetActive(false);
+
+		fishingRod.isInitFishingRod = true;
+	}
+
+	void CheckFishingRodState () {
+		if (fishingRod.state == FishingRodState.THROW && !fishingRod.isBaitLaunched) {
+			fishingRod.isBaitLaunched = true;
+			Throw ();
+		} else if (state == FishingRodState.STAY) {
+			Stay ();
+		} else if (state == FishingRodState.RETURN) {
+			Return ();
 		}
 	}
 
@@ -59,6 +75,7 @@ public class FishingRodSystem : ComponentSystem {
 
 	void Return () {
 		fishingRod.fishingBuoyObj.SetActive(false);
+		fishingRod.fishingBuoySplashObj.SetActive(false);
 
 		//CHECK ITEM
 		if (fishingRod.isCatchSomething) {

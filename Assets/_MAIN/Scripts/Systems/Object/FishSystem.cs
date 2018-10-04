@@ -10,6 +10,12 @@ public class FishSystem : ComponentSystem {
 	}
 	[InjectAttribute] FishCollectibleData fishCollectibleData;
 
+	public struct UINotifData {
+		public readonly int Length;
+		public ComponentArray<UINotif> uiNotif;
+	}
+	[InjectAttribute] UINotifData uiNotifData;
+
 	Fish fish;
 	
 	FishCharacteristic fishChar;
@@ -209,10 +215,11 @@ public class FishSystem : ComponentSystem {
 	}
 
 	Vector3 RandomPosition () {
-		float poolRadius = fish.parentPoolRadius;
+		float poolRadiusX = fish.poolRadiusX;
+		float poolRadiusZ = fish.poolRadiusZ;
 		Vector3 poolPos = fish.parentPoolCol.position;
-		float randomX = poolPos.x + Random.Range(-poolRadius, poolRadius);
-		float randomZ = poolPos.z + Random.Range(-poolRadius, poolRadius);
+		float randomX = poolPos.x + Random.Range(-poolRadiusX, poolRadiusX);
+		float randomZ = poolPos.z + Random.Range(-poolRadiusZ, poolRadiusZ);
 		
 		return new Vector3 (randomX, 0f, randomZ);
 	}

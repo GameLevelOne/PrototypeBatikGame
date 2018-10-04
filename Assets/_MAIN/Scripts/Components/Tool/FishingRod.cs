@@ -19,6 +19,7 @@ public class FishingRod : MonoBehaviour {
 
 	
 	[HeaderAttribute("Current")]
+	public bool isInitFishingRod = false;
 	public Fish fish;
 	public GameObject fishObj;
 	public bool isBaitLaunched = false;
