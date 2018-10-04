@@ -13,7 +13,10 @@ public class WaterShooterEnemy : MonoBehaviour {
 	[SpaceAttribute(10f)]
 	public float shootInterval;
 
-	float tShootInterval;
+	[SerializeField] float tShootInterval;
+
+	[HeaderAttribute("Current")]
+	public  bool startAttack = false;
 
 	public float TShootInterval{
 		get{return tShootInterval;}

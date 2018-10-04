@@ -454,7 +454,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	void KnockBack (float knockbackSpeed) {
 		Vector3 enemyPos = player.somethingThatHitsPlayer.position;
 		Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
-
+		Debug.Log("enemyPos : "+enemyPos);
 		rb.velocity = Vector3.zero;
 		rb.AddForce(resultPos.normalized * knockbackSpeed, ForceMode.Impulse);
 

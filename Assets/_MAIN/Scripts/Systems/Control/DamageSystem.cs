@@ -69,9 +69,6 @@ public class DamageSystem : ComponentSystem {
 						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 					}
 				}
-				
-				player.damageReceive = null;
-				player.isPlayerHit = false;
 
 				if (health.PlayerHP <= 0f) {
 					player.SetPlayerState(PlayerState.DIE);
@@ -88,9 +85,6 @@ public class DamageSystem : ComponentSystem {
 					
 					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
 				}
-				
-				player.damageReceive = null;
-				player.isPlayerHit = false;
 
 				if (health.PlayerHP <= 0f) {
 					player.SetPlayerState(PlayerState.DIE);
@@ -100,8 +94,12 @@ public class DamageSystem : ComponentSystem {
 			if (player.damageReceive != null) {
 				if (player.damageReceive.GetComponent<WaterShooterBullet>() != null) {
 					player.damageReceive.GetComponent<WaterShooterBullet>().projectile.isSelfDestroying = true;
+				} else {
+					player.damageReceive = null;
 				}
 			}
+			
+			player.isPlayerHit = false;
 		}
 	}
 

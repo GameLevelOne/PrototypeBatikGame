@@ -69,6 +69,7 @@ public class Health : MonoBehaviour {
 		} 
 
 		// if (role.gameRole == GameRole.Player) {
+		// 	Debug.Log(other.name +" Have DAMAGE");
 		// } else if (role.gameRole == GameRole.Enemy) {
 		// }
 	}

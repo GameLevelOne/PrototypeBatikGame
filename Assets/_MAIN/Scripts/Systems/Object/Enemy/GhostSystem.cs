@@ -184,26 +184,26 @@ public class GhostSystem : ComponentSystem {
 			currEnemy.attackObject.SetActive(false);
 			currGhost.hitParticle.Play();
 
-			currGhost.TDamaged = currGhost.damagedDuration;
+			// currGhost.TDamaged = currGhost.damagedDuration;
 			currEnemy.initDamaged = true;
 			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 
 			KnockBack();
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
 		}else{
-			if(currGhost.TDamaged <= 0f){
-			// if (currEnemy.isFinishDamaged) {
+			// if(currGhost.TDamaged <= 0f){
+			if (currEnemy.isFinishDamaged) {
 				currGhostRigidbody.velocity = Vector3.zero;
 				// currEnemy.damageSourceTransform = null;
 				currGhostRigidbody.isKinematic = true;
 				
-				// currEnemy.isFinishDamaged = false;
+				currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Chase;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 				currEnemy.chaseIndicator.Play(true);
 			// }
 			} else {
-				currGhost.TDamaged -= deltaTime;
+				// currGhost.TDamaged -= deltaTime;
 			}
 		}
 	}

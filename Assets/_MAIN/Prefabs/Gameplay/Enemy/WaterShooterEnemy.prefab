@@ -765,7 +765,9 @@ MonoBehaviour:
   burnedFX: {fileID: 198359296926171852}
   playerTriggerDetection: {fileID: 114275487877872750}
   bullet: {fileID: 1117501483965226, guid: 331ee2f86d51df74e8871bd2367ab9da, type: 2}
-  shootInterval: 1.5
+  shootInterval: 3
+  tShootInterval: 0
+  startAttack: 0
 --- !u!114 &114727787112085630
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -779,6 +781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 1
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0

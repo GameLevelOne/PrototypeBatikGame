@@ -171,7 +171,11 @@ public class Player : MonoBehaviour {
 		if (col.tag == Constants.Tag.ENEMY_ATTACK) {
 			// Enemy enemy = col.GetComponentInParent<Enemy>();
 			// enemyThatHitsPlayer = enemy;
-			somethingThatHitsPlayer = col.transform.parent;
+			if (col.GetComponent<WaterShooterBullet>() != null) {
+				somethingThatHitsPlayer = col.transform;
+			} else {
+				somethingThatHitsPlayer = col.transform.parent;
+			}
 		} else if (col.tag == Constants.Tag.VINES || col.tag == Constants.Tag.EXPLOSION) {
 			somethingThatHitsPlayer = col.transform;
 		} else if (col.tag == Constants.Tag.JATAYU_ATTACK_2) {

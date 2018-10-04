@@ -14,13 +14,13 @@ public class Ghost : MonoBehaviour {
 	public Vector3 origin;
 
 	public bool isAttacking = false;
-	public float damagedDuration;
+	// public float damagedDuration;
 
-	[SerializeField] protected float tDamaged;
-	public float TDamaged{
-		get{return tDamaged;}
-		set{tDamaged = value;}
-	}
+	// [SerializeField] protected float tDamaged;
+	// public float TDamaged{
+	// 	get{return tDamaged;}
+	// 	set{tDamaged = value;}
+	// }
 
 	void OnEnable()
 	{
@@ -65,8 +65,13 @@ public class Ghost : MonoBehaviour {
 		enemy.initAttack = false;
 	}
 
-	// void OnEndDamaged()
-	// {
-	// 	enemy.isFinishDamaged = true;
-	// }	
+	void OnStartDamaged()
+	{
+		enemy.initDamaged = false;
+	}
+
+	void OnEndDamaged()
+	{
+		enemy.isFinishDamaged = true;
+	}	
 }
