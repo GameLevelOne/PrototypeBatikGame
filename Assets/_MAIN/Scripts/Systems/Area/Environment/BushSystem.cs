@@ -20,22 +20,44 @@ public class BushSystem : ComponentSystem {
 		for(int i = 0;i<bushComponent.Length;i++){
 			currBush = bushComponent.bush[i];
 			currBushTransform = bushComponent.bushTransform[i];
-			CheckBush();
+
+			if (!currBush.isInitBush) {
+				InitBush();
+			} else {
+				CheckBush();
+			}
 		}
+	}
+
+	void InitBush () {
+		currBush.initBushPos = currBushTransform.position;
+		//
+		currBush.isInitBush = true;
 	}
 
 	void CheckBush()
 	{
-		if(currBush.destroy) Destroy();
+		if (currBush.isLifted) {
+			SpawnBushRoot();
+
+			currBush.isLifted = false;
+		} else if (currBush.destroy) Destroy();
 	}
 
+	void SpawnBushRoot () {
+		GameObject.Instantiate(currBush.rootObj,currBush.initBushPos,Quaternion.Euler(40f,0f,0f));
+		currBush.isRootSpawned = true;
+	}
 
 	void Destroy()
 	{
 		GameObject.Instantiate(currBush.bushCutFX,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
-		
+
+		if (!currBush.isRootSpawned) {
+			SpawnBushRoot();
+		}
+
 		//SPAWN ITEM
-		GameObject.Instantiate(currBush.rootObj,currBushTransform.position,Quaternion.Euler(40f,0f,0f));
 		lootableSpawnerSystem.CheckPlayerLuck(currBush.spawnItemProbability, currBush.transform.position);
 
 		GameObject.Destroy(currBush.gameObject);
