@@ -71,7 +71,6 @@ public class GateOpenerSystem : ComponentSystem {
 		} else {
 			Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
 			
-			gateOpener.gate.animator.enabled = true;
 			gateOpener.gate.animator.Play(Constants.AnimationName.GATE_LOCKED);
 
 			for (int i=0;i<uiNotifData.Length;i++)
