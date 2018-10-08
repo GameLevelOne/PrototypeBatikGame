@@ -55,4 +55,8 @@ public class PlayerSystem : ComponentSystem {
 		playerAttackAreaObj.SetActive(true);
 		player.isInitAttackAreaObj = true;
 	}
+
+	public void ResetPlayerHP () { //BUG FIX
+		player.health.PlayerHP = 0f;
+	}
 }

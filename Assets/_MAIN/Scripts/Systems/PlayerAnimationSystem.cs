@@ -400,6 +400,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (tool.currentTool == ToolType.Shovel) {
 						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
+						tool.isActToolReady = true;
 						// anim.audioSource.PlayOneShot();
 					}
 

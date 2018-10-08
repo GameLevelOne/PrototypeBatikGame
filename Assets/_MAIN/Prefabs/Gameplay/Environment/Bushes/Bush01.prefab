@@ -204,7 +204,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1121495300412266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.309, z: -0.367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4376941827792772}
@@ -219,8 +219,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1376794218424812}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.309, z: -0.377}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4447830176433570}
@@ -262,7 +262,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1395012598192236}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 11.83, y: 0, z: 0}
+  m_LocalPosition: {x: 11.83, y: 0, z: 0.012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4673776501294052}
@@ -691,9 +691,12 @@ MonoBehaviour:
   bushCutFX: {fileID: 1947960493747900, guid: 0c0a92ff2a58ce84e8286516fa556f5c, type: 2}
   spawnItemProbability: 0
   rootObj: {fileID: 1688872429341962, guid: caf78e615649cb1459b60b2213a0f770, type: 2}
-  init: 0
+  isInitBush: 0
   animateEnd: 0
+  isRootSpawned: 0
+  isLifted: 0
   destroy: 0
+  initBushPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114619651520018086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -739,7 +742,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 0
-  m_Center: {x: 0, y: 0.7, z: 0.119999975}
+  m_Center: {x: 0, y: 0.409, z: -0.367}
 --- !u!136 &136247838774434584
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -752,4 +755,4 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 0
-  m_Center: {x: 0, y: 0.7, z: 0.119999975}
+  m_Center: {x: 0, y: 0.409, z: -0.367}

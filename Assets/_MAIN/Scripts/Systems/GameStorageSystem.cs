@@ -24,7 +24,10 @@ public class GameStorageSystem : ComponentSystem {
 
 			if (!gameStorage.isInitGameStorage) {
 				InitGameStorage();
-			}
+			} 
+			// else {
+			// 	Debug.Log("Debug UI gameStorage, HP: "+gameStorage.SavedHP+ " MP: "+gameStorage.SavedMP);
+			// }
 		}
 		
 		for (int i=0; i<playerData.Length; i++) {
@@ -59,7 +62,7 @@ public class GameStorageSystem : ComponentSystem {
 	void SaveState () {
 		gameStorage.SavedHP = player.health.PlayerHP;
 		gameStorage.SavedMP = player.mana.PlayerMP;
-		Debug.Log("Save State to player Prefs HP: "+player.health.PlayerHP+ " MP: "+player.mana.PlayerMP);
+		// Debug.Log("Save State to player Prefs HP: "+gameStorage.SavedHP+ " MP: "+gameStorage.SavedMP);
 	}
 
     // Values : n
@@ -68,12 +71,11 @@ public class GameStorageSystem : ComponentSystem {
 	public void LoadState (float value) {
 		if (value <= 0f) {
 			LoadPlayerStats(gameStorage.SavedHP, gameStorage.SavedMP);
-			//
+			// Debug.Log("Load State value <= 0f, HP: "+gameStorage.SavedHP+ " MP: "+gameStorage.SavedMP);
 		} else {
 			CalculatePlayerStats(value);
-			//
+			// Debug.Log("Load State value > 0f, HP: "+gameStorage.SavedHP+ " MP: "+gameStorage.SavedMP);
 		}
-		Debug.Log("Load State from playerPrefs");
 	}
 
 	void CalculatePlayerStats (float precentage) {

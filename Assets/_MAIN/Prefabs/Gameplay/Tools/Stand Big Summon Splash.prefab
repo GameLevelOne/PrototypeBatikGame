@@ -415,6 +415,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageChar: 0
   damage: 1000
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
   isAffectGrass: 0
   isAffectBush: 0
   isAffectTree: 0
@@ -452,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5247b778770524697d893213a36c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 50
 --- !u!135 &135134130694253476
 SphereCollider:
   m_ObjectHideFlags: 1

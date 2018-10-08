@@ -16,7 +16,9 @@ public class Facing2D : MonoBehaviour {
 	void Awake () {
 		if (isNotPlayerNorEnemy) return;
 
-		attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
+		if (attackDirParent != null) {
+			attackDirections = attackDirParent.GetComponentsInChildren<Transform>();
+		}
 
 // 		#region 4 Direction
 // 		SetAreaPos (attackArea, 1);

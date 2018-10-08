@@ -15,7 +15,8 @@ public class UIGameOverSystem : ComponentSystem {
 	}
 
 
-	[InjectAttribute]UIGameOverComponent uiGameOverComponent;
+	[InjectAttribute] UIGameOverComponent uiGameOverComponent;
+	[InjectAttribute] PlayerSystem playerSystem;
 	UIGameOver uiGameOver;
 	bool curDownPressed = false;
 	bool curUpPressed = false;
@@ -108,12 +109,14 @@ public class UIGameOverSystem : ComponentSystem {
 	void Restart()
 	{
 		Debug.Log("GAME OVER LOAD SCENE: "+SceneManager.GetActiveScene().name);
+		playerSystem.ResetPlayerHP();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	void ReturnToTitle()
 	{
 		Debug.Log("GAME OVER LOAD SCENE: "+Constants.SceneName.MAIN_MENU);
+		playerSystem.ResetPlayerHP();
 		SceneManager.LoadScene(Constants.SceneName.MAIN_MENU);
 	}
 }
