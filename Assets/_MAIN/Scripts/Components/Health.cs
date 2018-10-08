@@ -44,17 +44,19 @@ public class Health : MonoBehaviour {
 
 	public float PlayerHP {
 		get{
-			// Debug.Log("Player Remaining HP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
+			// Debug.Log("get PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
 			return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);}
 		set{
-			if (PlayerHP == value) return;
-			float hpToSet = value;
+			if (healthPower == value) return;
+			// float hpToSet = value;
 
 			//MAX 100 HP
-			if (hpToSet >player.MaxHP)
-				hpToSet = player.MaxHP;
-			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, hpToSet);
+			if (healthPower > player.MaxHP) healthPower = player.MaxHP;
+			else healthPower = value;
+
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
 			
+			// Debug.Log("set PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
 			if (OnHPChange != null) {
 				OnHPChange();
 			}

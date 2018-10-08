@@ -76,7 +76,8 @@ public class JatayuSystem : ComponentSystem {
 					//call hit animation
 					SetJatayuAnim(JatayuState.Hit);
 				}
-				SoundManager.Instance.PlaySFX(SFX.JatayuHitWhileFlying);
+				//SoundManager.Instance.PlaySFX(SFX.JatayuHitWhileFlying);
+				jatayu.PlaySFX(JatayuSFX.JatayuHit);
 				jatayu.hitParticle.Play();
 				//at anytime, turn the color to red
 				jatayu.headSprite.material.color = Color.red;

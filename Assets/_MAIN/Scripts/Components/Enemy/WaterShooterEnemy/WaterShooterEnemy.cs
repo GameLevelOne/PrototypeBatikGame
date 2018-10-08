@@ -9,6 +9,7 @@ public class WaterShooterEnemy : MonoBehaviour {
 	public ParticleSystem burnedFX;
 	public TriggerDetection playerTriggerDetection;
 	public GameObject bullet;
+	public Transform bulletSpawnPoint;
 
 	[SpaceAttribute(10f)]
 	public float shootInterval;

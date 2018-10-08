@@ -116,14 +116,23 @@ public class Player : MonoBehaviour {
 	// 	}
 	// }
 
+	// void Awake () {
+	// 	Debug.Log("Debug MaxHP : "+MaxHP);
+	// 	Debug.Log("Debug MaxMP : "+MaxMP);
+	// }
+
     public float MaxHP{
         get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
-        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);
+			// Debug.Log("Debug MaxHP : "+MaxHP);
+		}
     }
 
     public float MaxMP{
         get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, maxMP);}
-        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, value);}
+        set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, value);
+			// Debug.Log("Debug MaxMP : "+MaxMP);
+		}
     }
 
 	void OnCollisionEnter (Collision col) {

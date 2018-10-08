@@ -1,6 +1,6 @@
-﻿using Unity.Entities;
-using Unity.Jobs;
-using UnityEngine;
+﻿using UnityEngine;
+using Unity.Entities;
+// using Unity.Jobs;
 
 public class ToolSystem : ComponentSystem {
 
@@ -9,7 +9,7 @@ public class ToolSystem : ComponentSystem {
 		// public ComponentArray<PlayerInput> PlayerInput;
 		// public ComponentArray<Player> Player;
 		public ComponentArray<PlayerTool> PlayerTool;
-		public ComponentArray<Animation2D> Animation;
+		// public ComponentArray<Animation2D> Animation;
 	}
 	[InjectAttribute] ToolData toolData;
 
@@ -47,7 +47,7 @@ public class ToolSystem : ComponentSystem {
 		for (int i=0; i<toolData.Length; i++) {
 			state = player.state;
 			tool = toolData.PlayerTool[i];
-			Animation2D anim = toolData.Animation[i];
+			// Animation2D anim = toolData.Animation[i];
 			
 			if (!tool.isInitCurrentTool) {
 				InitTool();

@@ -198,6 +198,10 @@ public class PowerBraceletSystem : ComponentSystem {
 			// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
 			powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
 
+			if (powerBracelet.liftable.GetComponent<Bush>() != null) {
+				powerBracelet.liftable.GetComponent<Bush>().isLifted = true;
+			}
+
 			powerBracelet.isInitLiftToParent = true;
 		}
 	}

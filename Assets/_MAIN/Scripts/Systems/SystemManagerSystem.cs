@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.SceneManagement;
 
 public class SystemManagerSystem : ComponentSystem {
 	public struct SystemManagerComponent{
@@ -74,18 +75,29 @@ public class SystemManagerSystem : ComponentSystem {
 					//SET MAP NAME 
 					Debug.Log("Check Map name by uiPlayerInfoSystem");
 					uiPlayerInfoSystem.SetMapName(currentMapIdx);
-
+					
 					//SET BGM
-					if (currentScene=="SceneLevel_Jatayu") {
-						GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
-					} else {
-						if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", 0) == 1)
-							GameStorage.Instance.PlayBGM(BGMType.MAIN);
-						else 
-							GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
+					// if (currentScene=="SceneLevel_Jatayu") {
+					// 	// GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
+					// 	SoundManager.Instance.PlayBGM(BGM.LevelJatayu);
+					// } else if(currentScene == "SceneMenu"){
+					// 	SoundManager.Instance.PlayBGM(BGM.Title);
+					// } else {
+					// 	int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
+					// 	SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainBeforeCutScene22);
+					// }
+					if(SceneManager.GetActiveScene().name == Constants.SceneName.MAIN_MENU){
+						SoundManager.Instance.PlayBGM(BGM.Title);
+					}else if(SceneManager.GetActiveScene().name == Constants.SceneName.SCENE_JATAYU){
+						SoundManager.Instance.PlayBGM(BGM.LevelJatayu);
+					}else{
+						int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
+						SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainBeforeCutScene22);
 					}
+
 				} else {
-					GameStorage.Instance.PlayBGM(BGMType.TITLE);
+					// GameStorage.Instance.PlayBGM(BGMType.TITLE);
+					SoundManager.Instance.PlayBGM(BGM.Title);
 				}
 			} catch (System.Exception e) {
 				Debug.Log("ERROR : "+e);

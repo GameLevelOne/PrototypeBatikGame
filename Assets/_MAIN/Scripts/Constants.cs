@@ -268,6 +268,7 @@ public static class Constants {
 		public const string SCENE_LEVEL_3_1 = "SceneLevel_3-1";
 		public const string SCENE_LEVEL_3_2 = "SceneLevel_3-2";
 		public const string SCENE_LEVEL_3_3 = "SceneLevel_3-3";
+		public const string SCENE_JATAYU = "SceneLevel_Jatayu";
 	}
 
 	public static class DissolvedLevelPrefKey

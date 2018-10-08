@@ -180,7 +180,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 	void SpawnWaterBulletObj (GameObject obj) {
 		Vector3 targetPos = currEnemy.playerTransform.position;
-        Vector3 initPos = currWaterShooterEnemyRidigbody.position;
+        Vector3 initPos = currWaterShooterEnemy.bulletSpawnPoint.position;
 
 		Vector3 deltaPos = targetPos - initPos;
 		

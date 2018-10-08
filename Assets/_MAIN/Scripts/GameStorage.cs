@@ -15,8 +15,8 @@ public class GameStorage : MonoBehaviour {
 	public int initCoin;
 	public int initSavedHP;
 	public int initSavedMP;
-	public AudioSource bgmSource;
-	public AudioClip[] bgmClip;
+	// public AudioSource bgmSource;
+	// public AudioClip[] bgmClip;
 
 	public bool isInitGameStorage = false;
 
@@ -40,12 +40,14 @@ public class GameStorage : MonoBehaviour {
 	public float SavedHP {
 		get {return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, 0f);}
 		set {PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, value);
+			// Debug.Log("Debug SavedHP : "+value);
 		}
 	}
 
 	public float SavedMP {
 		get {return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, 0f);}
 		set {PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, value);
+			// Debug.Log("Debug SavedMP : "+value);
 		}
 	}
 
@@ -58,13 +60,13 @@ public class GameStorage : MonoBehaviour {
 
 	}
 
-	public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
-		if (!bgmSource.isPlaying || bgmSource.clip!=bgmClip[(int)bgmType]) {
-			bgmSource.loop = loopBGM;
-			bgmSource.clip = bgmClip[(int)bgmType];
-			bgmSource.Play();
-		}
-	}
+	// public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
+	// 	if (!bgmSource.isPlaying || bgmSource.clip!=bgmClip[(int)bgmType]) {
+	// 		bgmSource.loop = loopBGM;
+	// 		bgmSource.clip = bgmClip[(int)bgmType];
+	// 		bgmSource.Play();
+	// 	}
+	// }
 
 #region SINGLETON
 	private static GameStorage _instance;

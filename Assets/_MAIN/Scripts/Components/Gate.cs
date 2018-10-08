@@ -4,6 +4,7 @@ public class Gate : MonoBehaviour {
 	public Collider gateCol;
 	public SpriteRenderer gateSpriteRen;
 	public Animator animator;
+	public AnimationControl animationControl;
 	
 	public Sprite closedGateSprite;
 	public Sprite openedGateSprite;
@@ -20,10 +21,21 @@ public class Gate : MonoBehaviour {
 	// [HeaderAttribute("Testing")]
 	// public bool resetPrefKey;
 
+	void OnEnable () {
+		animationControl.OnExitAnimation += ExitAnimation;
+	}
+
+	void OnDisable () {
+		animationControl.OnExitAnimation -= ExitAnimation;
+	}
 	void Awake () {
 		// if (resetPrefKey) {
 		// 	PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateID, 1);
 		// 	PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.GATES_STATE + gateID, 0);
 		// }
+	}
+
+	void ExitAnimation () {
+		animator.Play(Constants.AnimationName.GATE_IDLE);
 	}
 }

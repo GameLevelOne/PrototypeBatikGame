@@ -1,64 +1,14 @@
 ﻿using UnityEngine;
 
 public enum BGM{
-	BossFight
-}
-
-public enum SFX{
-	ArrowHit,
-	BeeAttack,
-	BeeFlying,
-	BombDrop,
-	BombExplode,
-	Bounce,
-	BowPull,
-	BowRelease,
-	Burn,
-	BurningTorch,
-	BusheesCut,
-	FishingGet,
-	FishingStart,
-	GhostAttack,
-	GhostDie,
-	GrassCut,
-	HammerHitRocks,
-	HammerSwing,
-	HoeHit,
-	JatayuAppear,
-	JatayuAttack1,
-	JatayuAttack2,
-	JatayuCloseWings,
-	JatayuDropDown,
-	JatayuFlying,
-	JatayuFlyUp,
-	JatayuHitWhileFlying,
-	LootDrop,
-	LootPickUp,
-	MoneyDrop,
-	MonkeyDie,
-	MonkeyMoving,
-	MonkeyYell,
-	PlayerAttack1,
-	PlayerAttack2,
-	PlayerAttack3,
-	PlayerAttackHit1,
-	PlayerAttackHit2,
-	PlayerAttackHit3,
-	PlayerPickUp,
-	PrepareToAttack,
-	TreeRustling,
-	UnlockGate,
-	WalkOnGrass1,
-	WalkOnGrass2,
-	WalkOnGround1,
-	WalkOnGround2,
-	WalkOnStone1,
-	WalkOnStone2,
-	WalkOnWater1,
-	WalkOnWater2,
-	WalkOnWater3,
-	WaterfallInHiddenCave,
-	Waterfalls
+	Title,
+	CutScene1,
+	MainBeforeCutScene22,
+	CutScene22,
+	MainAfterCutScene22,
+	LevelJatayu,
+	JatayuFight,
+	GotTreasure
 }
 
 public class SoundManager : MonoBehaviour {
@@ -84,23 +34,23 @@ public class SoundManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 #endregion
+
+
 	public AudioSource bgmSource;
-	public AudioSource sfxSource;
-
 	public AudioClip[] BGMs;
-	public AudioClip[] SFXs;
-	[HeaderAttribute("Current")]
-	public bool init = false;
 
-	public void PlaySFX(SFX sfx)
+	public void PlayBGM(BGM bgm, bool loop = true)
 	{
-		sfxSource.PlayOneShot(SFXs[(int)sfx]);
+		if(!bgmSource.isPlaying || bgmSource.clip != BGMs[(int)bgm]){
+			bgmSource.Stop();
+			bgmSource.clip = BGMs[(int)bgm];
+			bgmSource.loop = loop;
+			bgmSource.Play();
+		}
 	}
 
-	public void PlayBGM(BGM bgm)
+	public void StopBGM()
 	{
-		bgmSource.Stop();
-		bgmSource.clip = BGMs[(int)bgm];
-		bgmSource.Play();
-	}	
+		if(bgmSource.isPlaying) bgmSource.Stop();
+	}
 }

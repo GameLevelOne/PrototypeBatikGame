@@ -20,7 +20,7 @@ public class CutsceneTriggerSystem : ComponentSystem {
 			} else if (cutsceneTrigger.isTriggered) {
 				//PLAY CUTSCENE
 				cutsceneTrigger.timelineManager.playerEntity.GetComponent<Animation2D>().animator.Play(Constants.BlendTreeName.IDLE_STAND);
-				playerInputSystem.SetDir(0f,1f);
+				playerInputSystem.SetDir(0f,0f); //0,1
 				// playerInputSystem.ChangeDir(0f, 1f);
 				// playerInputSystem.CheckLockDir(2, 1, 3);
 				cutsceneTrigger.timelineManager.playerEntity.GetComponent<PlayerInput>().moveDir = Vector3.zero;
@@ -52,7 +52,8 @@ public class CutsceneTriggerSystem : ComponentSystem {
 			cutsceneTrigger.triggerCol.enabled = true;
 			if (cutsceneTrigger.timelineManager.npcOpening!=null) {
 				cutsceneTrigger.timelineManager.npcOpening.npc.npcType = NPCType.OPENING;
-				GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
+				// GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
+				SoundManager.Instance.PlayBGM(BGM.CutScene1);
 			}
 		}
 
