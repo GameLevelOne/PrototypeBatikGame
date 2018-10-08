@@ -94,6 +94,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 		uiHPManaTool.reducedHPFX.transform.localPosition = new Vector3 (clothRect.x, 0f, 0f);
 
 		uiHPManaTool.isHPChange = false;
+		// Debug.Log("Hp Changed");
 	}
 
 	void CheckMP () {
