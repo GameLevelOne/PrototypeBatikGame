@@ -16,6 +16,17 @@ public enum JatayuState{
 	Die
 }
 
+public enum JatayuSFX{
+	JatayuAttack1,
+	JatayuAttack2,
+	JatayuAttack3FlyUp,
+	JatayuCloseWings,
+	JatayuEntrance,
+	JatayuFlying,
+	JatayuHit,
+	JatayuLanding
+}
+
 public class Jatayu : MonoBehaviour {
 	public Player playerObject;
 	public GameObject attack1Object;
@@ -34,6 +45,9 @@ public class Jatayu : MonoBehaviour {
 	public ParticleSystem landingParticle1, landingParticle2;
 	public ParticleSystem hitParticle;
 	public ParticleSystem screamParticle;
+	[SpaceAttribute(10f)]
+	public AudioSource audioSource;
+	public AudioClip[] clips;
 	[SpaceAttribute(10f)]
 	public float movementAnimSpeed = 0.5f;
 	public float xMinMove = 5f, xMaxMove = 17f;
@@ -112,17 +126,22 @@ public class Jatayu : MonoBehaviour {
 	}
 	#endregion
 
+	public void PlaySFX(JatayuSFX sfx)
+	{
+		audioSource.PlayOneShot(clips[(int)sfx]);
+	}
+
 #region animation event
 	void StartEntrance()
 	{
-		//SoundManager.Instance.PlaySFX(SFX.JatayuAppear);
+		PlaySFX(JatayuSFX.JatayuEntrance);
 	}
 
 	void Landing()
 	{
 		landingParticle1.Play();
 		landingParticle2.Play();
-		//SoundManager.Instance.PlaySFX(SFX.JatayuDropDown);
+		PlaySFX(JatayuSFX.JatayuLanding);
 	}
 
 	void Scream()
@@ -147,29 +166,29 @@ public class Jatayu : MonoBehaviour {
 
 	void MoveSound()
 	{
-		// SoundManager.Instance.PlaySFX(SFX.JatayuFlying);
+		PlaySFX(JatayuSFX.JatayuFlying);
 	}
 
 	void StartCloseWings()
 	{
-		// SoundManager.Instance.PlaySFX(SFX.JatayuCloseWings);
+		PlaySFX(JatayuSFX.JatayuCloseWings);
 	}
 
 	void EnableAttack1Object()
 	{
 		attack1Object.SetActive(true);
-		// SoundManager.Instance.PlaySFX(SFX.JatayuAttack1);
+		PlaySFX(JatayuSFX.JatayuAttack1);
 	}
 	void EnableAttack2Object()
 	{
 		attack2Object.SetActive(true);
-		// SoundManager.Instance.PlaySFX(SFX.JatayuAttack2);
+		PlaySFX(JatayuSFX.JatayuAttack2);
 	}
 	void EnableAttack3Object()
 	{
 		attack3Object.SetActive(true);
 		attack3SetPos = true;
-		// SoundManager.Instance.PlaySFX(SFX.JatayuFlyUp);
+		PlaySFX(JatayuSFX.JatayuAttack3FlyUp);
 	}
 	void Attack3Drop()
 	{
