@@ -28,22 +28,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1728779994765554
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4081810852928420}
-  - component: {fileID: 82007747907216918}
-  m_Layer: 0
-  m_Name: SFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1849123678712624
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,19 +44,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4081810852928420
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1728779994765554}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4363933606300092}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4291864874469210
 Transform:
   m_ObjectHideFlags: 1
@@ -97,105 +68,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4291864874469210}
-  - {fileID: 4081810852928420}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82007747907216918
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1728779994765554}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &82823685923505332
 AudioSource:
   m_ObjectHideFlags: 1
@@ -213,7 +88,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 127
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -303,65 +178,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 82823685923505332}
-  sfxSource: {fileID: 82007747907216918}
   BGMs:
-  - {fileID: 8300000, guid: 65b01dba37cd72549ab4c8e2e3f946e2, type: 3}
-  SFXs:
-  - {fileID: 8300000, guid: 2afe14e501c697140bd3f76489bc6961, type: 3}
-  - {fileID: 8300000, guid: d5338b43b23accf4a85905589d17bbcc, type: 3}
-  - {fileID: 8300000, guid: 1f99f6c2a3890fd42b813d21fe264a26, type: 3}
-  - {fileID: 8300000, guid: 86ad19055623f8c479b0f6bf50f62a83, type: 3}
-  - {fileID: 8300000, guid: dc0823b7d03f4a54e8b5fd52f455956d, type: 3}
-  - {fileID: 8300000, guid: 025e81bba8cc8be46bc1eb648105440d, type: 3}
-  - {fileID: 8300000, guid: 482b2c9fd4b60ee45abb6a0f5b6bfce8, type: 3}
-  - {fileID: 8300000, guid: 01fb535ec43a0674bb4572e064d21faf, type: 3}
-  - {fileID: 8300000, guid: c90ad4a6ee7b90f48a4d01b29e54e663, type: 3}
-  - {fileID: 8300000, guid: b40106eada770f547bce244c05975a7c, type: 3}
-  - {fileID: 8300000, guid: 8e2b5dca73aa8fc47848eab7b3528f2f, type: 3}
-  - {fileID: 8300000, guid: 0a47f964d95fdfe4cbc89015702eb12d, type: 3}
-  - {fileID: 8300000, guid: e6d073cf78facae408484aadd7c4d747, type: 3}
-  - {fileID: 8300000, guid: 83a0919c37c695e4497c1ada4829899d, type: 3}
-  - {fileID: 8300000, guid: 08f4279dc8762e54c9cdd2d19c75af29, type: 3}
-  - {fileID: 8300000, guid: cf4a00c25e7099949b3bca8bbb84a3f8, type: 3}
-  - {fileID: 8300000, guid: 82414496d0badd04ca9a23f156a989e1, type: 3}
-  - {fileID: 8300000, guid: 772ec863e4cdf634ba5690893caf723e, type: 3}
-  - {fileID: 8300000, guid: f3d7641e609ef924fa25617916a0ddbd, type: 3}
-  - {fileID: 8300000, guid: 2ebc9e25d11b9a142aefc69249165009, type: 3}
-  - {fileID: 8300000, guid: 0b5600ca56f2a79458ed0dd68d4eab58, type: 3}
-  - {fileID: 8300000, guid: f9512020de40e9942a86401a3976d7c2, type: 3}
-  - {fileID: 8300000, guid: ea018c2cac774f4429758ec9b97e01c9, type: 3}
-  - {fileID: 8300000, guid: 974d044df7e10f04f8999a314999ee9a, type: 3}
-  - {fileID: 8300000, guid: 233dde33ca058cc46ad9a2341c5121fe, type: 3}
-  - {fileID: 8300000, guid: f4005b4ad0092ee46b2d1d08f4a3a072, type: 3}
-  - {fileID: 8300000, guid: 771550975754358488ff73fceb82d585, type: 3}
-  - {fileID: 8300000, guid: e69f64c13f8946a4b85ef8e959a10b74, type: 3}
-  - {fileID: 8300000, guid: 550b7f954e3830247be85c37a05e3bd3, type: 3}
-  - {fileID: 8300000, guid: 8e0ac35047718ab43923b924fce1a83a, type: 3}
-  - {fileID: 8300000, guid: 6310628a34c421346aa27487db7195c5, type: 3}
-  - {fileID: 8300000, guid: e6b866fe446867c40b6a4716e11393a5, type: 3}
-  - {fileID: 8300000, guid: 967f210471c0bb3418d5660ff3ae2b3f, type: 3}
-  - {fileID: 8300000, guid: 2cba1c49ac043534abfc8864016076b3, type: 3}
-  - {fileID: 8300000, guid: 6aa73c5693230e24cbcaccee7a02dadb, type: 3}
-  - {fileID: 8300000, guid: a347fd9f65c23324d9dc2b4fa60d3ce2, type: 3}
-  - {fileID: 8300000, guid: d4b38b0d0dd268e4fb0e01fa4ec4ee91, type: 3}
-  - {fileID: 8300000, guid: 1ea4654ff85c865459d291317a6c2100, type: 3}
-  - {fileID: 8300000, guid: 17d8bb698371a0d41ad1e8fa76883fbe, type: 3}
-  - {fileID: 8300000, guid: 4982886b2d00ae14a93e8e52d85778df, type: 3}
-  - {fileID: 8300000, guid: 7d054d724567f1b4b91264a84cc78e9c, type: 3}
-  - {fileID: 8300000, guid: 24954dd5919249c4095c83f1d6d01f77, type: 3}
-  - {fileID: 8300000, guid: 9fd7362a2566d5349a20c54ef14adb29, type: 3}
-  - {fileID: 8300000, guid: 4e928da470da94948b901b483e2f81ab, type: 3}
-  - {fileID: 8300000, guid: 6d248e8590bf2b54bbd07dddd5582b05, type: 3}
-  - {fileID: 8300000, guid: 2a2effe4f253b5a4fad79ee6e5e77599, type: 3}
-  - {fileID: 8300000, guid: df52de3eb37b37148817d97cb07d5aed, type: 3}
-  - {fileID: 8300000, guid: 370c1229435543b46a1737b9c7402296, type: 3}
-  - {fileID: 8300000, guid: 6207239103795244dab271a02f35c82d, type: 3}
-  - {fileID: 8300000, guid: 8ed15a91d15ad8b43808a3b4059edbd5, type: 3}
-  - {fileID: 8300000, guid: d5233c78bd975de4d88f05b2d0397584, type: 3}
-  - {fileID: 8300000, guid: 1dd0aa998009493419e12f10adc8b8f0, type: 3}
-  - {fileID: 8300000, guid: 4f17ff32bd4d483458c71036daa2c4be, type: 3}
-  - {fileID: 8300000, guid: 2bd200a937164d94cb51b239d002f3c3, type: 3}
-  init: 0
+  - {fileID: 8300000, guid: 51dabf1d72c48f049b5b4475c5ff2c03, type: 3}
+  - {fileID: 8300000, guid: 384ed964736b55b4ba2ddf3622edf299, type: 3}
+  - {fileID: 8300000, guid: 734c5f84308cfa04384f74a0fb01c7d9, type: 3}
+  - {fileID: 8300000, guid: dc3b43a239410ca4a9c29ab08a2e263a, type: 3}
+  - {fileID: 8300000, guid: d8fd1b583eed0954093e15d244f029ed, type: 3}
+  - {fileID: 8300000, guid: e160b817bd2ccfd438361b2fbe5c0eea, type: 3}
+  - {fileID: 8300000, guid: 8938e46641a3ce74cb667d095ff218d2, type: 3}
+  - {fileID: 8300000, guid: b05371e473e9f9d4e95944706d7e8bcd, type: 3}
 --- !u!114 &114945262097839058
 MonoBehaviour:
   m_ObjectHideFlags: 1

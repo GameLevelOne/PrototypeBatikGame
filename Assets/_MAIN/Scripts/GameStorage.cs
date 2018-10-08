@@ -58,13 +58,13 @@ public class GameStorage : MonoBehaviour {
 
 	}
 
-	public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
-		if (!bgmSource.isPlaying || bgmSource.clip!=bgmClip[(int)bgmType]) {
-			bgmSource.loop = loopBGM;
-			bgmSource.clip = bgmClip[(int)bgmType];
-			bgmSource.Play();
-		}
-	}
+	// public void PlayBGM(BGMType bgmType, bool loopBGM = true) {
+	// 	if (!bgmSource.isPlaying || bgmSource.clip!=bgmClip[(int)bgmType]) {
+	// 		bgmSource.loop = loopBGM;
+	// 		bgmSource.clip = bgmClip[(int)bgmType];
+	// 		bgmSource.Play();
+	// 	}
+	// }
 
 #region SINGLETON
 	private static GameStorage _instance;

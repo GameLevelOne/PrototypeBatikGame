@@ -77,15 +77,15 @@ public class SystemManagerSystem : ComponentSystem {
 
 					//SET BGM
 					if (currentScene=="SceneLevel_Jatayu") {
-						GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
+						// GameStorage.Instance.PlayBGM(BGMType.BEFORE_JATAYU);
+						SoundManager.Instance.PlayBGM(BGM.LevelJatayu);
 					} else {
-						if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", 0) == 1)
-							GameStorage.Instance.PlayBGM(BGMType.MAIN);
-						else 
-							GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
+						int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
+						SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainAfterCutScene22);
 					}
 				} else {
-					GameStorage.Instance.PlayBGM(BGMType.TITLE);
+					// GameStorage.Instance.PlayBGM(BGMType.TITLE);
+					SoundManager.Instance.PlayBGM(BGM.Title);
 				}
 			} catch (System.Exception e) {
 				Debug.Log("ERROR : "+e);
