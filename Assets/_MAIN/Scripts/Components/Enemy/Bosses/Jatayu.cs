@@ -128,7 +128,7 @@ public class Jatayu : MonoBehaviour {
 	void Scream()
 	{
 		screamParticle.Play();
-	}
+	} 
 
 	void StartShakeCamera()
 	{
@@ -138,6 +138,17 @@ public class Jatayu : MonoBehaviour {
 	void StopShakeCamera()
 	{
 		cameraShaker.shake = false;
+	}
+	void StartShakeCameraBlur()
+	{
+		cameraShaker.shake = true;
+		cameraShaker.blurBehaviour.enabled = true;
+	}
+
+	void StopShakeCameraBlur()
+	{
+		cameraShaker.shake = false;
+		cameraShaker.blurBehaviour.enabled = false;
 	}
 
 	void OnEndEntranceAnim()

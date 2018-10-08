@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraShaker : MonoBehaviour {
 	public Vector3 originPos;
@@ -8,6 +9,8 @@ public class CameraShaker : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public bool shake;
 	public float tShakeDelay = 0;
+	public PostProcessingBehaviour blurBehaviour;
+
 	
 	
 }
