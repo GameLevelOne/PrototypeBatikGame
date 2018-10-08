@@ -15,8 +15,8 @@ public class GameStorage : MonoBehaviour {
 	public int initCoin;
 	public int initSavedHP;
 	public int initSavedMP;
-	public AudioSource bgmSource;
-	public AudioClip[] bgmClip;
+	// public AudioSource bgmSource;
+	// public AudioClip[] bgmClip;
 
 	public bool isInitGameStorage = false;
 
