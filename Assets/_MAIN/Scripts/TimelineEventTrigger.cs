@@ -2,7 +2,7 @@
 // using System.Collections.Generic;
 using UnityEngine;
 
-public enum EventType {
+public enum TimelineEventType {
 	NPC_OPENING_DIALOGUE,
 	END_OPENING_ENTRANCE,
 	AFTER_SHOW_GHOSTS,
@@ -28,7 +28,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 	public event TimelineEvent OnBossFightFinish;
 	public event TimelineEvent OnEndBossArea;
 
-	public EventType type;	
+	public TimelineEventType type;	
 
 	public bool isInitEnableTrigger = false;
 	// public bool isInitDisableTrigger = false;
@@ -44,7 +44,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 			isInitEnableTrigger = true;
 		} else {
 			// Debug.Log("Call something "+type);
-			if (type == EventType.NPC_OPENING_DIALOGUE) {
+			if (type == TimelineEventType.NPC_OPENING_DIALOGUE) {
 				if (!isInitEvent) {	
 					if (OnNPCStartDialogue != null) {
 						OnNPCStartDialogue(dialogs, dialogStartTime, dialogEndTime);
@@ -56,7 +56,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 						OnWaitingDialogue(dialogs, dialogStartTime, dialogEndTime);
 					}
 				}
-			} else if (type == EventType.END_OPENING_ENTRANCE) {
+			} else if (type == TimelineEventType.END_OPENING_ENTRANCE) {
 				if (!isInitEvent) {
 					if (OnEndOpeningMKF != null) {
 						OnEndOpeningMKF();
@@ -68,7 +68,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 						OnWaitingDialogue(dialogs, dialogStartTime, dialogEndTime);
 					}
 				}
-			}else if (type == EventType.AFTER_SHOW_GHOSTS) {
+			}else if (type == TimelineEventType.AFTER_SHOW_GHOSTS) {
 				if (!isInitEvent) {
 					if (OnEndShowGhosts != null) {
 						OnEndShowGhosts();
@@ -76,7 +76,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 
 					isInitEvent = true;
 				}
-			} else if (type == EventType.BEFORE_BOSS_FIGHT) {
+			} else if (type == TimelineEventType.BEFORE_BOSS_FIGHT) {
 				if (!isInitEvent) {
 					if (OnEntranceBossArea != null) {
 						OnEntranceBossArea();
@@ -84,7 +84,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 
 					isInitEvent = true;
 				}
-			} else if (type == EventType.AFTER_BOSS_FIGHT) {
+			} else if (type == TimelineEventType.AFTER_BOSS_FIGHT) {
 				if (!isInitEvent) {
 					if (OnEndBossArea != null) {
 						OnEndBossArea();

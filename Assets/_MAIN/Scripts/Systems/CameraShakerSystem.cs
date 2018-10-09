@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraShakerSystem : ComponentSystem {
 
