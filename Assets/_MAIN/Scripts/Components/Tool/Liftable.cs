@@ -39,7 +39,7 @@ public class Liftable : MonoBehaviour {
 	// public float speed;
 	// public float throwRange;
 	public float gravityAwakeTimer;
-	public bool isLanding;
+	// public bool isLanding;
 	// public bool throwByAccident = false;
 	// public GameObject attachedObject;
 
@@ -52,8 +52,8 @@ public class Liftable : MonoBehaviour {
 			}
 		}
 
-		if(col.gameObject.tag == Constants.Tag.GROUND){
-			isLanding = true;
+		if(col.gameObject.tag != Constants.Tag.PLAYER){
+			// isLanding = true;
 
 			if (GetComponent<Bush>() != null) {
 				GetComponent<Bush>().destroy = true;
@@ -62,6 +62,10 @@ public class Liftable : MonoBehaviour {
 			}
 		}
 	}
+
+	// bool IsCollidingSomething (string tag) {
+
+	// }
 
 	// void OnCollisionStay (Collision col) {
 	// 	if (state == LiftableState.IDLE && throwByAccident) {

@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 114120998431608178}
   - component: {fileID: 54728606167190120}
   - component: {fileID: 136690107490123494}
+  - component: {fileID: 114746360224905084}
   m_Layer: 0
   m_Name: Bush02
   m_TagString: Untagged
@@ -877,6 +878,24 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114746360224905084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1294306784303512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageChar: 0
+  damage: 2
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
+  isAffectGrass: 1
+  isAffectBush: 1
+  isAffectTree: 1
 --- !u!136 &136690107490123494
 CapsuleCollider:
   m_ObjectHideFlags: 1

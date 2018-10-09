@@ -61,6 +61,10 @@ public class GainTreasureSystem : ComponentSystem {
 			UseTreasure();
 			// GameStorage.Instance.PlayBGM(BGMType.GAIN_TREASURE,false);
 			SoundManager.Instance.PlayBGM(BGM.GotTreasure,false);
+		
+			// GameStorage.Instance.PlayBGM(BGMType.MAIN,false);
+			int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
+			SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22 : BGM.MainBeforeCutScene22);
 
 			input.interactValue = 1; //NO LIFTING TREASURE
 			input.interactMode = 6;
@@ -84,10 +88,6 @@ public class GainTreasureSystem : ComponentSystem {
 		if (uiNotif==null) {
 			Debug.LogWarning("Missing Notification Window");
 		}
-		
-		// GameStorage.Instance.PlayBGM(BGMType.MAIN,false);
-		int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
-		SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22 : BGM.MainBeforeCutScene22);
 
 		switch (lootable.treasureType) { //TEMP
 			case TreasureType.FISH: 

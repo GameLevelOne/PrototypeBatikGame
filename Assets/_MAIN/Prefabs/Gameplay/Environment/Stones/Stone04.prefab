@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 54135292535698764}
   - component: {fileID: 136488314039948820}
   - component: {fileID: 82629241303124178}
+  - component: {fileID: 114655870988257706}
   m_Layer: 0
   m_Name: Stone04
   m_TagString: Untagged
@@ -493,7 +494,6 @@ MonoBehaviour:
   initDrag: 20
   initGravityAwakeTime: 0.2
   gravityAwakeTimer: 0
-  isLanding: 0
 --- !u!114 &114458375012708286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,6 +513,24 @@ MonoBehaviour:
   init: 0
   dissolve: 0
   unDissolve: 0
+--- !u!114 &114655870988257706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1772130712934866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6986cae718c8145922a609b1fe6f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageChar: 0
+  damage: 2
+  audioSource: {fileID: 0}
+  hitClip: {fileID: 0}
+  isAffectGrass: 1
+  isAffectBush: 1
+  isAffectTree: 1
 --- !u!114 &114937481847361836
 MonoBehaviour:
   m_ObjectHideFlags: 1

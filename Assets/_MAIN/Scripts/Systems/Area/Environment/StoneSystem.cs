@@ -25,11 +25,12 @@ public class StoneSystem : ComponentSystem {
 
 	void CheckStone()
 	{
-		if(stone.hit && !stone.stoneBrokenObj.activeSelf){
+		// if(stone.hit && !stone.stoneBrokenObj.activeSelf){
+		if(stone.hit){
 			stone.hit = false;
 			if(stone.stoneGreyObj.activeSelf) stone.stoneGreyObj.SetActive(false);
 			stone.stoneColorObj.SetActive(false);
-			stone.stoneBrokenObj.SetActive(true);
+			// stone.stoneBrokenObj.SetActive(true);
 			stone.stoneCollider.enabled = false;
 			stone.parentCollider.enabled = false;
 			stone.stoneParticle.gameObject.SetActive(true);

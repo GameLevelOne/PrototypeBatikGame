@@ -54,23 +54,23 @@ public class ThrowSystem : ComponentSystem {
 			// 	// Land ();
 			// }
 
-			if (liftable.isLanding) {
-				Landing ();
-			}
+			// if (liftable.isLanding) {
+			// 	Landing ();
+			// }
 		}
 	}
 
-	void Landing () {
-		Vector3 newObjPos = new Vector3 (0f, 0f, -1f);
-		liftable.mainRigidbody.isKinematic = true;
-		liftable.mainRigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		liftable.mainRigidbody.drag = liftable.initDrag;
-		liftable.mainRigidbody.useGravity = false;
-		liftable.projectile.isLaunching = false;
-		liftable.isLanding = false;
+	// void Landing () {
+	// 	Vector3 newObjPos = new Vector3 (0f, 0f, -1f);
+	// 	liftable.mainRigidbody.isKinematic = true;
+	// 	liftable.mainRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+	// 	liftable.mainRigidbody.drag = liftable.initDrag;
+	// 	liftable.mainRigidbody.useGravity = false;
+	// 	liftable.projectile.isLaunching = false;
+	// 	liftable.isLanding = false;
 
-		liftable.state = LiftableState.IDLE;
-	}
+	// 	liftable.state = LiftableState.IDLE;
+	// }
 
 #region OLD
 	// void Throw () {
