@@ -29,6 +29,12 @@ public class UIHPManaTool : MonoBehaviour {
 	public Image imageTool;
 	public bool isInitHPManaImage = false;
 
+	public bool showMoney;
+	public Animator moneyAnim;
+	public Text moneyLabel;
+	public int curMoney;
+	public float showMoneyDelay;
+
 	void OnEnable () {
 		playerHealth.OnHPChange += OnHPChange;
 		playerMana.OnManaChange += OnManaChange;
