@@ -631,7 +631,7 @@ public class PlayerInputSystem : ComponentSystem {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
 		#region RUN EFFECT
-		if (fixDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+		if (fixDir != Vector3.zero && !player.isGuarding && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			gameFXSystem.ToggleRunFX(true);
 			// Debug.Log("TRUE");
 		} else {

@@ -70,69 +70,64 @@ public class GameFXSystem : ComponentSystem {
 
     void PlayFXAudio(ParticleSystem particleFX) {
         if (!gameFX.audioSource.isPlaying) {
-            if (particleFX==gameFX.runOnDirtEffect) {
-                gameFX.audioSource.clip = gameFX.dirtAudio[gameFX.runVariantIdx];
-                gameFX.audioSource.Play();
-            } else if (particleFX==gameFX.runOnGrassEffect) {
+            if (particleFX==gameFX.runOnGrassEffect) {
                 gameFX.audioSource.clip = gameFX.grassAudio[gameFX.runVariantIdx];
+                gameFX.audioSource.Play();
+                gameFX.audioSource.Play();
+            } else if (particleFX==gameFX.runOnDirtEffect) {
+                gameFX.audioSource.clip = gameFX.dirtAudio[gameFX.runVariantIdx];
                 gameFX.audioSource.Play();
             } else if (particleFX==gameFX.runOnWaterEffect) {
                 gameFX.audioSource.clip = gameFX.waterAudio[gameFX.runVariantIdx];
                 gameFX.audioSource.Play();
+            } else if (particleFX==gameFX.runOnStoneSwampEffect) {
+                gameFX.audioSource.clip = gameFX.stoneSwampAudio[gameFX.runVariantIdx];
+                gameFX.audioSource.Play();
             }
+
             gameFX.runVariantIdx = gameFX.runVariantIdx==0 ? 1 : 0;
         }
     }
 
 	public void ToggleRunFX (bool isON) {
         if (isON) {
+            TerrainType currTerrainType = player.terrainType;
             // Debug.Log("Play : "+player.terrainType);
-            if (player.terrainType == TerrainType.DIRT && !gameFX.runOnDirtEffect.isPlaying) {
-                gameFX.runOnDirtEffect.Play(true);
-                gameFX.runOnGrassEffect.Stop(true);
-                gameFX.runOnWaterEffect.Stop(true);
-            } else if (player.terrainType == TerrainType.GRASS || (player.terrainType == TerrainType.NONE) && !gameFX.runOnGrassEffect.isPlaying) {
-                gameFX.runOnGrassEffect.Play(true);
-                gameFX.runOnDirtEffect.Stop(true);
-                gameFX.runOnWaterEffect.Stop(true);
-            } else if (player.terrainType == TerrainType.WATER && !gameFX.runOnWaterEffect.isPlaying) {
-                gameFX.runOnWaterEffect.Play(true);
-                gameFX.runOnGrassEffect.Stop(true);
-                gameFX.runOnDirtEffect.Stop(true);
+            if (currTerrainType == TerrainType.GRASS || currTerrainType == TerrainType.NONE) {
+                SetWalkParticle(true, false, false, false);
+                PlayFXAudio(gameFX.runOnGrassEffect);
+            } else if (currTerrainType == TerrainType.DIRT) {
+                SetWalkParticle(false, true, false, false);
+                PlayFXAudio(gameFX.runOnDirtEffect);
+            } else if (currTerrainType == TerrainType.WATER) {
+                Debug.Log("Water");
+                SetWalkParticle(false, false, true, false);
+                PlayFXAudio(gameFX.runOnWaterEffect);
+            } else if (currTerrainType == TerrainType.STONESWAMP) {
+                SetWalkParticle(false, false, false, true);
+                PlayFXAudio(gameFX.runOnStoneSwampEffect);
             }
-        } else {
-            // Debug.Log("Stop : "+player.terrainType);
-            // if (player.terrainType == TerrainType.DIRT) {
-                ToggleParticleEffect(gameFX.runOnDirtEffect, false);
-            // } else if (player.terrainType == TerrainType.GRASS || (player.terrainType == TerrainType.NONE)) {
-                ToggleParticleEffect(gameFX.runOnGrassEffect, false);
-            // } else if (player.terrainType == TerrainType.WATER) {
-                ToggleParticleEffect(gameFX.runOnWaterEffect, false);
-            // }
-        }
-            // Debug.Log("DIRT is Playing : "+gameFX.runOnDirtEffect.isPlaying);
+        } else SetWalkParticle(false, false, false, false);
 	}
 
-    // public void ToggleDodgeFlag (bool value) {
-    //     gameFX.isEnableDodgeEffect = value;
+    void SetWalkParticle (bool isGrass, bool isDirt, bool isWater, bool isStoneSwamp) {
+        if (isGrass) gameFX.runOnGrassEffect.Play(true);
+        else gameFX.runOnGrassEffect.Stop(true);
 
-        // if (value && !gameFX.dodgeEffect.isPlaying) {
-        //     gameFX.dodgeEffect.Play();
-        // } else {
-        //     gameFX.dodgeEffect.Stop();
-        //     Debug.Log("StopDodgeEffect");
-        // }
-        // Debug.Log(value);
-    // }
+        if (isDirt) gameFX.runOnDirtEffect.Play(true);
+        else gameFX.runOnDirtEffect.Stop(true);
 
-    // public void PlayDodgeEffect () {
-    //     if (!gameFX.dodgeEffect.isPlaying) {
-    //         gameFX.dodgeEffect.Play();
-    //     } else {
-    //         gameFX.dodgeEffect.Stop();
-    //         gameFX.dodgeEffect.Play();
-    //     }
-    // }
+        if (isWater) gameFX.runOnWaterEffect.Play(true);
+        else gameFX.runOnWaterEffect.Stop(true);
+
+        if (isWater) gameFX.runOnStoneSwampEffect.Play(true);
+        else gameFX.runOnStoneSwampEffect.Stop(true);
+        
+        // ToggleParticleEffect(gameFX.runOnGrassEffect, isGrass);
+        // ToggleParticleEffect(gameFX.runOnDirtEffect, isDirt);
+        // ToggleParticleEffect(gameFX.runOnWaterEffect, isWater);
+        // ToggleParticleEffect(gameFX.runOnStoneSwampEffect, isStoneSwamp);
+    }
 
     public void PlayCounterChargeEffect () {
         if (!gameFX.counterChargeEffect.isPlaying) {
