@@ -417,7 +417,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							tool.isActToolReady = true;
 						}
 					}
-
+					Debug.Log("Bow");
 					anim.isFinishAttackAnimation = true;
 					break;
 				default:
