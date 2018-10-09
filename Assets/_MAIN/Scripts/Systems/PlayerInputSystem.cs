@@ -7,7 +7,9 @@ public class PlayerInputSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 		public ComponentArray<Player> Player;
 		// public ComponentArray<PlayerTool> PlayerTool;
-		public ComponentArray<Health> Health;
+		// public ComponentArray<Health> Health;
+		public ComponentArray<Facing2D> Facing;
+		public ComponentArray<Animation2D> Animation;
 	}
 	[InjectAttribute] InputData inputData;
 	[InjectAttribute] ToolSystem toolSystem;
@@ -23,8 +25,9 @@ public class PlayerInputSystem : ComponentSystem {
 	public ToolType toolType;
 
 	PlayerTool tool;
-	// Facing2D facing;
+	Facing2D facing;
 	PowerBracelet powerBracelet;
+	Animation2D animation;
 
 	PlayerState state;
 
@@ -51,15 +54,21 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isParryPeriod = false;
 	bool isButtonToolHold = false;
 	bool isChargingAttack = false;
+	bool isFinishAttackAnimation = true;
+	bool isFinishAnyAnimation = true;
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
 		// if (inputData.Length == 0) return;
+
+		// if (playerAnimationSystem.anim == null) return;
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
 			player = inputData.Player[i];
-			Health health = inputData.Health[i];
+			// Health health = inputData.Health[i];
+			facing = inputData.Facing[i];
+			animation = inputData.Animation[i];
 
 			if (!input.isInitPlayerInput) {
 				InitPlayerInput();
@@ -80,8 +89,10 @@ public class PlayerInputSystem : ComponentSystem {
 			if (CheckIfInSpecificState ()) {
 				continue;
 			}
-			 
+
 			// if (playerAnimationSystem.anim.isFinishAttackAnimation) {
+				isFinishAttackAnimation = animation.isFinishAttackAnimation;
+				isFinishAnyAnimation = animation.isFinishAnyAnimation;
 				CheckAttackInput();
 				CheckArrowInput();
 				CheckDodgeInput();
@@ -113,6 +124,7 @@ public class PlayerInputSystem : ComponentSystem {
 		isParryPeriod = false;
 		isButtonToolHold = false;
 		isChargingAttack = false;
+		isFinishAttackAnimation = true;
 		input.isUIOpen = false;
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
@@ -144,7 +156,7 @@ public class PlayerInputSystem : ComponentSystem {
 	void CheckArrowInput () {
 		#region Arrow
 		if ((state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BOW) && input.moveMode == 0) {
-			if (GameInput.IsBowPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) {
+			if (GameInput.IsBowPressed && !input.isUIOpen && isFinishAttackAnimation) {
 				toolType = tool.currentTool;
 				input.interactValue = 0;
 
@@ -162,7 +174,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.attackMode = -4;
 				}
 
-				playerAnimationSystem.anim.isFinishAttackAnimation = false;
+				animation.isFinishAttackAnimation = false;
 				player.SetPlayerState(PlayerState.BOW);
 				isButtonToolHold = true;
 			} else if (GameInput.IsBowReleased) {
@@ -180,7 +192,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		#region Open Chest
 		if (player.isCanOpenChest) {
-			if (GameInput.IsActionPressed && playerAnimationSystem.facing.DirID == 3 && !input.isUIOpen) {
+			if (GameInput.IsActionPressed && facing.DirID == 3 && !input.isUIOpen) {
 				input.interactValue = 0;
 				input.interactMode = -4;
 
@@ -235,17 +247,27 @@ public class PlayerInputSystem : ComponentSystem {
 		float attackAwayDelay = input.attackAwayDelay;
 		int attackMode = input.attackMode;
 
-		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK){
-			if (GameInput.IsAttackPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
-				// Debug.Log("NEXT ATTACK");
-				if (attackMode <= 0 || attackMode >= 3) {
-					input.attackMode = 1;	
-				} else {
-					input.attackMode++;
+		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK) {
+			if (GameInput.IsAttackPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
+				if (attackMode == 0 && state != PlayerState.ATTACK) {
+					input.attackMode = 1;
+					player.SetPlayerState(PlayerState.ATTACK);
+					animation.isFinishAttackAnimation = false;
+				} else if (attackMode > 0 && state == PlayerState.ATTACK) {
+					if (attackMode >= 3) {
+						input.attackMode = 1;	
+					} else {
+						input.attackMode++;
+					}
+					
+					animation.isFinishAttackAnimation = false;
 				}
-				
-				playerAnimationSystem.anim.isFinishAttackAnimation = false;
-				player.SetPlayerState(PlayerState.ATTACK);
+
+				// if (attackMode <= 0 || attackMode >= 3) {
+				// 	input.attackMode = 1;	
+				// } else {
+				// 	input.attackMode++;
+				// }
 				
 				attackAwayTimer = 0f;
 				isAttackAway = false;	
@@ -290,7 +312,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		#region Button Guard
 		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK) {
-			if (GameInput.IsGuardPressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
+			if (GameInput.IsGuardPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 				SetMovement(2); //START GUARD
 				
 				player.isGuarding = true;	
@@ -338,7 +360,7 @@ public class PlayerInputSystem : ComponentSystem {
 	void CheckDodgeInput () {
 		#region Button Dodge
 		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.DODGE) {
-			if (GameInput.IsDodgePressed && !input.isUIOpen && playerAnimationSystem.anim.isFinishAttackAnimation) {
+			if (GameInput.IsDodgePressed && !input.isUIOpen && isFinishAttackAnimation) {
 				if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 					// gameFXSystem.ToggleDodgeFlag(true);
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
@@ -488,7 +510,7 @@ public class PlayerInputSystem : ComponentSystem {
 		} else if (state == PlayerState.RAPID_SLASH) {
 			return true;
 		} else  if (state == PlayerState.POWER_BRACELET) {
-			if (playerAnimationSystem.anim.isFinishAnyAnimation) {
+			if (animation.isFinishAnyAnimation) {
 				if (input.interactValue == 0) {
 					currentDir = Vector3.zero;
 
@@ -609,7 +631,7 @@ public class PlayerInputSystem : ComponentSystem {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 
 		#region RUN EFFECT
-		if (fixDir != Vector3.zero && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
+		if (fixDir != Vector3.zero && !player.isGuarding && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			gameFXSystem.ToggleRunFX(true);
 			// Debug.Log("TRUE");
 		} else {
