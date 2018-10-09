@@ -64,6 +64,30 @@ public class UIHPManaToolSystem : ComponentSystem {
 						uiHPManaTool.isReducingShadowMP = false;
 					}
 				}
+
+
+				if (uiHPManaTool.curMoney < GameStorage.Instance.PlayerCoin) {
+					if (!uiHPManaTool.showMoney) {
+						uiHPManaTool.showMoney = true;
+						uiHPManaTool.moneyAnim.Play("Show",0,0f);
+						uiHPManaTool.showMoneyDelay = 0f;
+					}
+					if (uiHPManaTool.showMoneyDelay<0.5f) {
+						uiHPManaTool.showMoneyDelay += deltaTime;
+					} else {
+						uiHPManaTool.curMoney++;
+						SetMoney();
+					}
+				} else if (uiHPManaTool.curMoney > GameStorage.Instance.PlayerCoin) {
+					uiHPManaTool.curMoney = GameStorage.Instance.PlayerCoin;
+				} else {
+					if (uiHPManaTool.showMoneyDelay<1.5f) {
+						uiHPManaTool.showMoneyDelay += deltaTime;
+					} else {
+						uiHPManaTool.moneyAnim.Play("Hide");
+						uiHPManaTool.showMoney = false;
+					}
+				}
 			}
 		}
 	}
@@ -84,6 +108,16 @@ public class UIHPManaToolSystem : ComponentSystem {
 		// // PrintHP ();
 		// DrawClothHP ();
 		// PrintMana ();
+
+		uiHPManaTool.curMoney = GameStorage.Instance.PlayerCoin;
+		uiHPManaTool.showMoney = false;
+		uiHPManaTool.moneyAnim.Play("Hide",0,1f);
+		uiHPManaTool.showMoneyDelay = 0f;
+		SetMoney();
+	}
+
+	void SetMoney() {
+		uiHPManaTool.moneyLabel.text = "X " + uiHPManaTool.curMoney.ToString("N0");
 	}
 
 	void CheckHP () {

@@ -13,4 +13,20 @@ public class UISignPost : MonoBehaviour {
 	public bool isCloseSignPost;
 	public bool curLeftPressed = false;
 	public bool curRightPressed = false;
+
+	public TimelineEventTrigger endOpeningEvent;
+
+	void OnEnable () {
+		if (endOpeningEvent!=null)
+			endOpeningEvent.OnEndOpeningMKF += OnEndOpeningEvent;
+	}
+
+	void OnDisable () {
+		if (endOpeningEvent!=null)
+			endOpeningEvent.OnEndOpeningMKF -= OnEndOpeningEvent;
+	}
+
+	void OnEndOpeningEvent() {
+		call = true;
+	}
 }
