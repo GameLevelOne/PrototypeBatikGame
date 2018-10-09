@@ -22,7 +22,7 @@ public class CameraShakerSystem : ComponentSystem {
 
 			CheckShake();	
 		}
-
+	
 	}
 
 	void CheckShake()

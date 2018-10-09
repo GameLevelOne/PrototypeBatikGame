@@ -13,6 +13,7 @@ public enum JatayuState{
 	HP50,
 	Hit,
 	Burned,
+	BurnedFallen,
 	Die
 }
 
@@ -45,6 +46,7 @@ public class Jatayu : MonoBehaviour {
 	public ParticleSystem landingParticle1, landingParticle2;
 	public ParticleSystem hitParticle;
 	public ParticleSystem screamParticle;
+	public ParticleSystem[] burnedParticle;
 	[SpaceAttribute(10f)]
 	public AudioSource audioSource;
 	public AudioClip[] clips;

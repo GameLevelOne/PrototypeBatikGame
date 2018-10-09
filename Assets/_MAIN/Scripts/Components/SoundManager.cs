@@ -37,16 +37,27 @@ public class SoundManager : MonoBehaviour {
 
 
 	public AudioSource bgmSource;
+	public AudioSource gotTreasureSource;
 	public AudioClip[] BGMs;
 
 	public void PlayBGM(BGM bgm, bool loop = true)
 	{
 		if(!bgmSource.isPlaying || bgmSource.clip != BGMs[(int)bgm]){
-			bgmSource.Stop();
-			bgmSource.clip = BGMs[(int)bgm];
-			bgmSource.loop = loop;
-			bgmSource.Play();
+
+			if(bgm == BGM.GotTreasure){
+				PlayGotTreasure();
+			}else{
+				bgmSource.Stop();
+				bgmSource.clip = BGMs[(int)bgm];
+				bgmSource.loop = loop;
+				bgmSource.Play();
+			}
 		}
+	}
+
+	void PlayGotTreasure()
+	{
+		gotTreasureSource.PlayOneShot(BGMs[(int)BGM.GotTreasure]);
 	}
 
 	public void StopBGM()
