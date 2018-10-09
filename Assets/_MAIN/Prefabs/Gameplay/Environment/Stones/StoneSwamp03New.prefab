@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114805297804485418}
   - component: {fileID: 114675122922653762}
   - component: {fileID: 65439419320428320}
+  - component: {fileID: 114629563018385716}
   m_Layer: 0
   m_Name: StoneSwamp03New
   m_TagString: Stone
@@ -198,8 +199,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.93, y: 0, z: 1.33}
+  m_Center: {x: -0.08, y: 0, z: -0.02}
+--- !u!114 &114629563018385716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689687287688790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f1b13ac66c61f1469dd67da5c03e2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: 4
 --- !u!114 &114675122922653762
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,6 +10,7 @@ public class GameFX : MonoBehaviour {
 	public ParticleSystem runOnDirtEffect;
 	public ParticleSystem runOnGrassEffect;
 	public ParticleSystem runOnWaterEffect;	
+	public ParticleSystem runOnStoneSwampEffect;	
 	public ParticleSystem dashEffect;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
@@ -19,6 +20,7 @@ public class GameFX : MonoBehaviour {
 	public AudioClip[] dirtAudio;
 	public AudioClip[] grassAudio;
 	public AudioClip[] waterAudio;
+	public AudioClip[] stoneSwampAudio;
 	public int runVariantIdx;
 	public AudioSource audioSource;
 	// public GameObject chargingRunEffect;

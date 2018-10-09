@@ -7,6 +7,7 @@ public class AnimationControl : MonoBehaviour {
 	public event ControllingAnimation OnStartAnimation;
 	public event ControllingAnimation OnSpawnSomethingOnAnimation;
 	public event ControllingAnimation OnExitAnimation;
+	public event ControllingAnimation OnEndAttackAnimation;
 	
 	public delegate void ControllingStandAnimation();
 	public event ControllingStandAnimation OnStartStandAnimation;
@@ -38,6 +39,12 @@ public class AnimationControl : MonoBehaviour {
 	public void SpawnSomethingAnim () {
 		if (OnSpawnSomethingOnAnimation != null) {
 			OnSpawnSomethingOnAnimation();
+		}
+	}
+
+	public void EndAttackAnim () {
+		if (OnEndAttackAnimation != null) {
+			OnEndAttackAnimation();
 		}
 	}
 
