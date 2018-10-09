@@ -96,6 +96,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 		animator.Play(animName);
 		anim.currentAnimName = animName;
 		anim.isFinishAnyAnimation = finishAnimValue;
+
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE) {
+			anim.isFinishAttackAnimation = true;
+		}
 	}
 
 	void PlayLoopAnimation (string animName, bool finishAnimValue) {
@@ -120,6 +124,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			//Check Start Animation
 			anim.isCheckBeforeAnimation = false;
+			if (animName == Constants.BlendTreeName.NORMAL_ATTACK_1) {
+				// Debug.Log("Play Anim Slash 1");
+			}
 		} 
 	}
 
@@ -380,19 +387,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (anim.isSpawnSomethingOnAnimation) {
 			switch(state) {
 				case PlayerState.ATTACK: 
-					// player.isMoveAttack = false;
 					attack.isAttacking = true;	
-					// playerRigidbody.velocity = Vector3.zero;
 					anim.isSpawnSomethingOnAnimation = true;
-					anim.isFinishAttackAnimation = true;
+					// anim.isFinishAttackAnimation = true;
 					break;
 				case PlayerState.CHARGE: 
-					// player.isMoveAttack = false;
 					attack.isAttacking = true;
 					break;
 				case PlayerState.RAPID_SLASH:
 					attack.isAttacking  = true;
-					// isFinishAnyAnimation = true;
 					break;
 				case PlayerState.USING_TOOL:
 					if (tool.currentTool == ToolType.Hammer) {
@@ -453,6 +456,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isSpawnSomethingOnAnimation = true;
 					break;
 				case PlayerState.ATTACK: 
+					// Debug.Log("Start Attack "+input.attackMode);
 					player.isMoveAttack = true;		
 					anim.isSpawnSomethingOnAnimation = true;
 					break;
@@ -479,7 +483,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						powerBraceletSystem.AddForceRigidbody();
 						powerBraceletSystem.ResetPowerBracelet();
 
-						Debug.Log("Reset PB)");
+						// Debug.Log("Reset PB)");
 					} else if (input.liftingMode == 1) {
 						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 						powerBraceletSystem.SetTargetRigidbodyType(0);
@@ -587,7 +591,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 						gameFXSystem.ToggleRunFX(true);
 					}
 
-					StopAttackAnimation();
+					if (anim.isFinishAttackAnimation) {
+						StopAttackAnimation();
+					}
+
+					// StopAttackAnimation();
 					break;
 				case PlayerState.CHARGE: 
 					if (moveDir != Vector3.zero) {

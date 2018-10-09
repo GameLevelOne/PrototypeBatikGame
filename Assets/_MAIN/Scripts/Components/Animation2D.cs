@@ -52,6 +52,7 @@ public class Animation2D : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public string currentAnimName;
 	public bool isFinishAttackAnimation = true;
+	
 	[SerializeField] bool isFinishAnyAnim = true;
 	public bool isFinishAnyAnimation {
 		get {return isFinishAnyAnim;}
@@ -81,6 +82,7 @@ public class Animation2D : MonoBehaviour {
 		animationControl.OnStartAnimation += StartAnimation;
 		animationControl.OnExitAnimation += ExitAnimation;
 		animationControl.OnSpawnSomethingOnAnimation += SpawnSomethingOnAnimation;
+		animationControl.OnEndAttackAnimation += EndAttackAnimation;
 		animationControl.OnStartStandAnimation += StartStandAnimation;
 		animationControl.OnExitStandAnimation += ExitStandAnimation;
 	}
@@ -89,6 +91,7 @@ public class Animation2D : MonoBehaviour {
 		animationControl.OnStartAnimation -= StartAnimation;
 		animationControl.OnExitAnimation -= ExitAnimation;
 		animationControl.OnSpawnSomethingOnAnimation -= SpawnSomethingOnAnimation;
+		animationControl.OnEndAttackAnimation -= EndAttackAnimation;
 		animationControl.OnStartStandAnimation -= StartStandAnimation;
 		animationControl.OnExitStandAnimation -= ExitStandAnimation;
 	}
@@ -106,6 +109,10 @@ public class Animation2D : MonoBehaviour {
 
 	void SpawnSomethingOnAnimation () {
 		isSpawnSomethingOnAnimation = true;
+	}
+
+	void EndAttackAnimation () {
+		isFinishAttackAnimation = true;
 	}
 	#endregion
 

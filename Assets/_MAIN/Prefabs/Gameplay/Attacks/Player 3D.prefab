@@ -2110,12 +2110,12 @@ MonoBehaviour:
   - {fileID: 1837426780788620, guid: d186118fff67efa428926d2034e12187, type: 2}
   - {fileID: 1837426780788620, guid: d186118fff67efa428926d2034e12187, type: 2}
   - {fileID: 1837426780788620, guid: d186118fff67efa428926d2034e12187, type: 2}
-  dashAttackArea: {fileID: 0}
   normalAttackSpawnPos: {fileID: 4923353572618164}
   chargeAttackSpawnPos: {fileID: 4834055824091674}
   isAttacking: 0
   isDashing: 0
-  playerFacing: {fileID: 114466013308383888}
+  isInitAttack: 0
+  dashAttackArea: {fileID: 0}
 --- !u!114 &114456323651409390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17663,7 +17663,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   UVModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     frameOverTime:
       serializedVersion: 2
@@ -20938,7 +20938,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0

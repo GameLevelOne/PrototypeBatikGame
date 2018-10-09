@@ -86,7 +86,7 @@ public class GameFXSystem : ComponentSystem {
 
 	public void ToggleRunFX (bool isON) {
         if (isON) {
-            Debug.Log("Play : "+player.terrainType);
+            // Debug.Log("Play : "+player.terrainType);
             if (player.terrainType == TerrainType.DIRT && !gameFX.runOnDirtEffect.isPlaying) {
                 gameFX.runOnDirtEffect.Play(true);
                 gameFX.runOnGrassEffect.Stop(true);

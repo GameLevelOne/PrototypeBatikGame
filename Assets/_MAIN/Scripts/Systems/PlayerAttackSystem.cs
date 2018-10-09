@@ -14,6 +14,7 @@ public class PlayerAttackSystem : ComponentSystem {
 
 	Player player;
 	PlayerInput input;
+	Facing2D facing;
 
 	PlayerState state;
 
@@ -28,9 +29,19 @@ public class PlayerAttackSystem : ComponentSystem {
 			player = attackData.Player[i];
 			state = player.state;
 
-			CheckIfPlayerDash ();
-			CheckIfPlayerAttack ();
+			if (!attack.isInitAttack) {
+				InitAttack();
+			} else {
+				CheckIfPlayerDash ();
+				CheckIfPlayerAttack ();
+			}
 		}
+	}
+
+	void InitAttack () {
+		facing = attack.GetComponent<Facing2D>();
+
+		attack.isInitAttack = true;
 	}
 
 	void CheckIfPlayerDash () {
@@ -56,28 +67,28 @@ public class PlayerAttackSystem : ComponentSystem {
 	}
 
 	public void SpawnSlashEffect (int mode) {
-		int facing = attack.playerFacing.DirID-1;
+		int facingID = facing.DirID-1;
 		switch (mode) {
             case 1:
-                SpawnNormalAttackObj (attack.slash1[facing]);
+                SpawnNormalAttackObj (attack.slash1[facingID]);
                 break;
             case 2:
-                SpawnNormalAttackObj (attack.slash2[facing]);
+                SpawnNormalAttackObj (attack.slash2[facingID]);
                 break;
             case 3:
-                SpawnNormalAttackObj (attack.slash3[facing]);
+                SpawnNormalAttackObj (attack.slash3[facingID]);
                 break;
             case -1:
                 SpawnChargeAttackObj (attack.chargeSlash);
                 break;
             case -2:
-                SpawnNormalAttackObj (attack.counterSlash[facing]);
+                SpawnNormalAttackObj (attack.counterSlash[facingID]);
                 break;
             // case -3:
             //     SpawnObj (attack.counterSlash); //RAPIDSLASH
             //     break;
             case -4:
-                SpawnArrowAttackObj (attack.regularArrow[facing]);
+                SpawnArrowAttackObj (attack.regularArrow[facingID]);
                 break;
         }
 		// Debug.Log("SpawnSlashEffect "+mode);
@@ -102,7 +113,7 @@ public class PlayerAttackSystem : ComponentSystem {
 		} else {
 			deltaPos = targetPos - initPos;
 		}
-		if (attack.playerFacing.DirID==2 || attack.playerFacing.DirID == 4)
+		if (facing.DirID==2 || facing.DirID == 4)
 			targetPos += new Vector3(0f,0f,0.8444f);
         GameObject spawnedObj = GameObject.Instantiate(obj, targetPos, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
