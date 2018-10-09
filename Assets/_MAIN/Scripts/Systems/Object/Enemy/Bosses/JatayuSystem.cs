@@ -320,7 +320,8 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.endCloseWings = false;
 			jatayu.initMove = false;
 			jatayu.endMove = false;
-
+			jatayu.initBurned = false;
+			
 			jatayu.movementAnim.speed = 0f;
 			SetJatayuAnim(JatayuState.HP50);
 		}else{
@@ -333,6 +334,7 @@ public class JatayuSystem : ComponentSystem {
 	}
 	Vector3 jatayuCurrPosBeforeBurned;
 	Vector3 jatayuDropPosition;
+	bool hasChangeAnimBurnedFallen = false;
 	void Burned()
 	{
 		if(!jatayu.initBurned){
@@ -348,32 +350,45 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.endCloseWings = false;
 			jatayu.initMove = false;
 			jatayu.endMove = false;
+			jatayu.endBurned = false;
 
 			jatayu.initBurned = true;
 
 			jatayu.movementAnim.speed = 0f;
 			jatayu.tBurned = jatayu.burnedDuration;
 
-			jatayuCurrPosBeforeBurned = jatayuTransform.position;
+			jatayuCurrPosBeforeBurned = jatayuTransform.position+new Vector3(0f,2f,0f);
 			jatayuDropPosition = new Vector3(jatayuTransform.position.x, jatayu.burnedYDrop,jatayuTransform.position.z);
+
+			foreach(ParticleSystem p in jatayu.burnedParticle)	p.Play(true);
 
 			SetJatayuAnim(JatayuState.Burned);
 		}else{
 			jatayu.tBurned -= deltaTime;
-			if(jatayu.tBurned <= jatayu.burnedDuration && jatayu.tBurned >= jatayu.burnedDuration-0.5f){
+			if(jatayu.tBurned <= jatayu.burnedDuration && jatayu.tBurned >= jatayu.burnedDuration-1f){
 				//0.5 sec at start of burn state
-				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,Mathf.Abs(jatayu.tBurned - jatayu.burnedDuration)/0.5f);
-			}else if(jatayu.tBurned <= 0.5f && jatayu.tBurned >= 0f){
+				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,Mathf.Abs(jatayu.tBurned - jatayu.burnedDuration));
+			}else if(jatayu.tBurned <= 1f && jatayu.tBurned >= 0f){
 				//0.5 sec before end of burn state
-				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,jatayu.tBurned/0.5f);
+				jatayuTransform.position = Vector3.Lerp(jatayuCurrPosBeforeBurned,jatayuDropPosition,jatayu.tBurned);
+				if(hasChangeAnimBurnedFallen){
+					hasChangeAnimBurnedFallen = false;
+					SetJatayuAnim(JatayuState.Move);
+				}
 			}else{
 				//during burned
 				jatayuTransform.position = jatayuDropPosition;
+				if(!hasChangeAnimBurnedFallen){
+					hasChangeAnimBurnedFallen = true;
+					SetJatayuAnim(JatayuState.BurnedFallen);
+					foreach(ParticleSystem p in jatayu.burnedParticle)	p.Stop(true);
+				}
 				// jatayu.jatayuCollider.center = new Vector3(0f,1f,1f);
 			}
 
 			if(jatayu.tBurned <= 0f){
 				jatayu.initBurned = false;
+				hasChangeAnimBurnedFallen = false;
 				jatayuTransform.position = jatayuCurrPosBeforeBurned;
 				// jatayu.jatayuCollider.center = new Vector3(0f,-1f,1f);
 				SetJatayuState(JatayuState.Move);
