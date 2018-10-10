@@ -1,5 +1,12 @@
 ﻿using UnityEngine;
 
+public enum GhostSFX{
+	GhostWalk1,
+	GhostWalk2,
+	GhostAttack,
+	GhostDie
+}
+
 public class Ghost : MonoBehaviour {
 	public Enemy enemy;
 	public QuestTrigger questTrigger;
@@ -12,7 +19,8 @@ public class Ghost : MonoBehaviour {
 	public ParticleSystem burnedFX;
 	public ParticleSystem hitParticle;
 	public Vector3 origin;
-
+	public AudioSource audioSource;
+	public AudioClip[] clips;
 	public bool isAttacking = false;
 	// public float damagedDuration;
 
@@ -21,6 +29,11 @@ public class Ghost : MonoBehaviour {
 	// 	get{return tDamaged;}
 	// 	set{tDamaged = value;}
 	// }
+
+	public void PlaySFX(GhostSFX sfx)
+	{
+		audioSource.PlayOneShot(clips[(int)sfx]);
+	}
 
 	void OnEnable()
 	{
@@ -74,4 +87,19 @@ public class Ghost : MonoBehaviour {
 	{
 		enemy.isFinishDamaged = true;
 	}	
+
+	#region animation event
+	void PlaySFXWalkLeftFoot()
+	{
+		PlaySFX(GhostSFX.GhostWalk1);
+	}
+	void PlaySFXWalkRightFoot()
+	{
+		PlaySFX(GhostSFX.GhostWalk2);
+	}
+	void PlaySFXAttack()
+	{
+		PlaySFX(GhostSFX.GhostAttack);
+	}
+	#endregion
 }
