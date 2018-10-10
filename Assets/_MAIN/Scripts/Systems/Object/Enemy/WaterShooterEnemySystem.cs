@@ -93,6 +93,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			currEnemy.initIdle = false;
 			currEnemy.chaseIndicator.Play(true);
 			currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+			currEnemy.isFinishAggro = false;
 		}else{
 			if(!currEnemy.initIdle){
 				currEnemy.initIdle = true;

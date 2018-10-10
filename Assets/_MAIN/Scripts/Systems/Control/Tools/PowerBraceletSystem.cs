@@ -162,7 +162,7 @@ public class PowerBraceletSystem : ComponentSystem {
 	public void SetTargetRigidbodyType (int typeID) {
 		switch (typeID) {
 			case 0: 
-				SetTargetRigidbodyKinematic(true);
+				// SetTargetRigidbodyKinematic(true); //NOT NECESSARY
 				SetTargetRigidbodyPositionConstraints(true);
 				break;
 			case 1: 
@@ -182,8 +182,6 @@ public class PowerBraceletSystem : ComponentSystem {
 		// powerBracelet.liftable.dirID = dirID;
 		// powerBracelet.liftable.throwRange = powerBracelet.throwRange;
 		// powerBracelet.liftable.speed = powerBracelet.speed;
-		powerBracelet.liftable.mainRigidbody.drag = 0f;
-		powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
 		powerBracelet.liftable.projectile.isStartLaunching = true;
 		// powerBracelet.liftable.mainRigidbody.useGravity = true;
 
@@ -193,10 +191,13 @@ public class PowerBraceletSystem : ComponentSystem {
 	public void SetLiftObjectParent () {
 		if (!powerBracelet.isInitLiftToParent) {
 			powerBracelet.liftable.mainCollider.isTrigger = true;
-			// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
 			powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
-			// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
 			powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
+			// powerBracelet.liftable.mainRigidbody.mass = powerBracelet.liftable.throwMass;
+			powerBracelet.liftable.mainRigidbody.drag = 0f;
+			powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
+			// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
+			// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
 
 			if (powerBracelet.liftable.GetComponent<Bush>() != null) {
 				powerBracelet.liftable.GetComponent<Bush>().isLifted = true;

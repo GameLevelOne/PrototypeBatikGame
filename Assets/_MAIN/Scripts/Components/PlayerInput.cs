@@ -16,7 +16,8 @@ public class PlayerInput : MonoBehaviour {
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
 
-	public bool isLockDir = false;
+	// public bool isLockDir = false;
+	// public bool isButtonHold = false;
 	// public Vector3 initMoveDir = -Vector3.forward;
 	public bool isInitPlayerInput = false;
 	public bool isInitChargeAttack = false;
@@ -130,6 +131,7 @@ public class PlayerInput : MonoBehaviour {
 	
 	/// <summary>
     /// <para>Values: <br /></para>
+	/// <para>-1 CANCEL / STOP / FAIL<br /></para>
 	/// <para>0 GRABBING / TAKEAIM / DASHCHARGE<br /></para>
 	/// <para>1 LIFT / SWEATING / GRAB / AIMING / DASH<br /></para>
 	/// <para>2 THROW / RELEASE / RETURN / SHOTBOW / BRAKE<br /></para>

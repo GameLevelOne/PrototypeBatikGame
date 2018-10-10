@@ -286,6 +286,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						PlayLoopAnimation(Constants.BlendTreeName.AIMING_BOW, true);
 					} else if (input.interactValue == 2) {
 						PlayOneShotAnimation(Constants.BlendTreeName.SHOT_BOW, true);
+					} else if (input.interactValue == -1) {
+						StopAnyAnimation();
 					}
 
 					break;
@@ -311,7 +313,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						}
 					} else if (input.interactValue == 2) {
 						PlayOneShotAnimation(Constants.BlendTreeName.RETURN_FISH_BAIT, false);
-					} else if (input.interactValue == 3) {
+					} else if (input.interactValue == -1) {
 						PlayOneShotAnimation(Constants.BlendTreeName.FISHING_FAIL, false);
 					}
 
@@ -507,6 +509,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.attackMode = 0;
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
+
+					if (powerBraceletSystem.powerBracelet.liftable == null) {
+						powerBraceletSystem.ResetPowerBracelet();
+					}
 					
 					break;
 				case PlayerState.BLOCK_ATTACK:
@@ -530,13 +536,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void StopAttackAnimation () {
-		// attack.isAttacking = false;
-		StopAnyAnimation();
-		// input.attackMode = 0;
-		// Debug.Log("Reset AttackMode - StopAttacAnimation");
-		// player.isHitAnEnemy = false;
-	}
+	// void StopAttackAnimation () {
+	// 	// attack.isAttacking = false;
+	// 	StopAnyAnimation();
+	// 	// input.attackMode = 0;
+	// 	// Debug.Log("Reset AttackMode - StopAttacAnimation");
+	// 	// player.isHitAnEnemy = false;
+	// }
 
 	void StopAnyAnimation () {
 		// Debug.Log("StopAnyAnimation");
@@ -592,7 +598,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					}
 
 					if (anim.isFinishAttackAnimation) {
-						StopAttackAnimation();
+						// StopAttackAnimation();
+						StopAnyAnimation();
 					}
 
 					// StopAttackAnimation();
@@ -602,7 +609,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						gameFXSystem.ToggleRunFX(true);
 					}
 
-					StopAttackAnimation();
+					// StopAttackAnimation();
+					StopAnyAnimation();
 					break;
 				case PlayerState.DODGE:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
@@ -630,7 +638,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.bulletTimeAttackQty <= 0) {
 						// player.isHitAnEnemy = false;
 						player.somethingThatHitsPlayer = null;
-						StopAttackAnimation();
+						// StopAttackAnimation();
+						StopAnyAnimation();
 						// input.attackMode = 0;
 						
 						animator.speed = 1f;
@@ -694,7 +703,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 						//
 					} else if (input.interactValue == 2) { 
 						if (!player.isUsingStand) {
-							StopAttackAnimation();
+							// StopAttackAnimation();
+							StopAnyAnimation();
 						} else {
 							StopAnyAnimation();
 						}
@@ -726,7 +736,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						//
 					} else if (input.interactValue == 2) {
 						if (input.interactMode == -3) { //AFTER FISHING FAIL
-							input.interactValue = 3;
+							input.interactValue = -1;
 						} else {
 							StopAnyAnimation ();
 							
@@ -736,7 +746,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							
 							fishingRodSystem.ResetFishingRod();
 						}
-					} else if (input.interactValue == 3) {
+					} else if (input.interactValue == -1) {
 						StopAnyAnimation ();
 						fishingRodSystem.ResetFishingRod();
 					}

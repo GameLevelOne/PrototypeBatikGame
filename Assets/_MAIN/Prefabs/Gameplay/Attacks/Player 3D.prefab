@@ -52,7 +52,7 @@ GameObject:
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -270,7 +270,7 @@ GameObject:
   m_Layer: 0
   m_Name: Down
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -352,7 +352,7 @@ GameObject:
   m_Layer: 0
   m_Name: Up
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -501,7 +501,7 @@ GameObject:
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1935,7 +1935,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 549e9a26e2b3d1b4eb5d52d1e5c47577, type: 3}
   - {fileID: 8300000, guid: 4982886b2d00ae14a93e8e52d85778df, type: 3}
   - {fileID: 8300000, guid: 550b7f954e3830247be85c37a05e3bd3, type: 3}
-  isLockDir: 0
   isInitPlayerInput: 0
   isInitChargeAttack: 0
   isUIOpen: 0
@@ -2008,6 +2007,7 @@ MonoBehaviour:
     type: 2}
   liftingParent: {fileID: 4661674578168208}
   shieldPower: 5
+  requiredBowMana: 5
   terrainType: 0
   somethingThatHitsPlayer: {fileID: 0}
   isInitPlayer: 0

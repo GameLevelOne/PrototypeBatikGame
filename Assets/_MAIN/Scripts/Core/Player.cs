@@ -36,6 +36,7 @@ public class Player : MonoBehaviour {
 	public GameObject playerAttackAreaObj;
 	public Transform liftingParent;
 	public float shieldPower;
+    public int requiredBowMana;
 	
 	[HeaderAttribute("Current")]
 	public TerrainType terrainType; 

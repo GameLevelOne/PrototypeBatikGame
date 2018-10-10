@@ -52,7 +52,6 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isDodging = false;
 	bool isBulletTimePeriod = false;
 	bool isParryPeriod = false;
-	bool isButtonToolHold = false;
 	bool isChargingAttack = false;
 	bool isFinishAttackAnimation = true;
 	bool isFinishAnyAnimation = true;
@@ -122,13 +121,13 @@ public class PlayerInputSystem : ComponentSystem {
 		isDodging = false;
 		isBulletTimePeriod = false;
 		isParryPeriod = false;
-		isButtonToolHold = false;
 		isChargingAttack = false;
 		isFinishAttackAnimation = true;
 		input.isUIOpen = false;
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
 		bulletTimeDelay = input.bulletTimeDelay;
+		// input.isButtonHold = false;
 
 		input.isInitPlayerInput = true;
 	}
@@ -157,32 +156,50 @@ public class PlayerInputSystem : ComponentSystem {
 		#region Arrow
 		if ((state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BOW) && input.moveMode == 0) {
 			if (GameInput.IsBowPressed && !input.isUIOpen && isFinishAttackAnimation) {
+				// if (IsHaveEnoughMana(requiredBowMana, false, false)) {
 				toolType = tool.currentTool;
 				input.interactValue = 0;
 
 				if (toolType == ToolType.Bow) {
-
-					if (isHaveEnoughMana((int) ToolType.Bow, true, true)) {
+					// if (IsHaveEnoughManaForTool((int) ToolType.Bow, true, true)) {
 						PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 						input.interactMode = 5;
-					} else {
-						PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
-						input.attackMode = -4;
-					}
+					// } else {
+					// 	PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
+					// 	input.attackMode = -4;
+					// }
 				} else {
 					PlaySFXOneShot(PlayerInputAudio.BOW_AIM);
 					input.attackMode = -4;
 				}
-
+				
 				animation.isFinishAttackAnimation = false;
 				player.SetPlayerState(PlayerState.BOW);
-				isButtonToolHold = true;
+				// input.isButtonHold = true;
+				// }
 			} else if (GameInput.IsBowReleased) {
-				isButtonToolHold = false;
-			} else {
-				if (!isButtonToolHold && input.interactValue == 1) {
-					input.interactValue = 2;
+				// input.isButtonHold = false;
+				if (input.interactValue == 1) {
+					if (input.interactMode == 5 && IsHaveEnoughManaForTool((int) ToolType.Bow, true, true)) {
+						input.interactValue = 2;
+					} else if (input.attackMode == -4 && IsHaveEnoughMana(player.requiredBowMana, true, false)) {
+						input.interactValue = 2;
+					} else {
+						input.interactValue = -1;
+					}
+				} else {
+					input.interactValue = -1;
 				}
+			} else {
+				// if (!input.isButtonHold && input.interactValue == 1) {
+				// 	if (input.interactMode == 5 && IsHaveEnoughManaForTool((int) ToolType.Bow, true, true)) {
+				// 		input.interactValue = 2;
+				// 	} else if (input.attackMode == -4 && IsHaveEnoughMana(player.requiredBowMana, true, false)) {
+				// 		input.interactValue = 2;
+				// 	} else {
+				// 		input.interactValue = -1;
+				// 	}
+				// }
 			}
 		}
 		#endregion
@@ -230,7 +247,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (powerBraceletSystem.withStand) {
 					player.isUsingStand = true;
 					powerBraceletSystem.withStand = false;
-					UseMana((int) ToolType.PowerBracelet, true);
+					UseMana(tool.GetToolManaCost((int) ToolType.PowerBracelet), true);
 				}
 
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
@@ -311,7 +328,7 @@ public class PlayerInputSystem : ComponentSystem {
 		float guardParryDelay = input.guardParryDelay;
 
 		#region Button Guard
-		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK) {
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY) {
 			if (GameInput.IsGuardPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 				SetMovement(2); //START GUARD
 				
@@ -434,7 +451,7 @@ public class PlayerInputSystem : ComponentSystem {
 					// } else 
 					if (toolType == ToolType.Boots) {
 						if (currentDir != Vector3.zero) {
-							if (isHaveEnoughMana((int) ToolType.Boots, true, false)) {
+							if (IsHaveEnoughManaForTool((int) ToolType.Boots, true, false)) {
 								input.interactMode = 1;
 								input.interactValue = 0;
 								player.isUsingStand = false;
@@ -452,7 +469,7 @@ public class PlayerInputSystem : ComponentSystem {
 					} else {
 						player.SetPlayerState(PlayerState.USING_TOOL);
 						
-						if (!isHaveEnoughMana((int) toolType, true, true)) {
+						if (!IsHaveEnoughManaForTool((int) toolType, true, true)) {
 							PlaySFX(PlayerInputAudio.NO_MANA);							
 							player.SetPlayerIdle();
 						} else {
@@ -681,17 +698,22 @@ public class PlayerInputSystem : ComponentSystem {
 		}
 	}
 
-	bool isHaveEnoughMana (int toolIdx, bool isUseMana, bool isUsingStand) {
-		Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
-		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand)) {
+	bool IsHaveEnoughManaForTool (int toolIdx, bool isUseMana, bool isUsingStand) {
+		Debug.Log("Mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		return IsHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand);
+	}
+
+	bool IsHaveEnoughMana (float requiredMana, bool isUseMana, bool isUsingStand) {
+		if(manaSystem.isHaveEnoughMana(requiredMana, isUseMana, isUsingStand)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	void UseMana (int toolIdx, bool isUsingStand) {
-		manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
+	void UseMana (float requiredMana, bool isUsingStand) {
+		// manaSystem.UseMana(tool.GetToolManaCost(toolIdx), isUsingStand);
+		manaSystem.UseMana(requiredMana, isUsingStand);
 	}
 
 	public void PlaySFXOneShot(PlayerInputAudio audioType)	{

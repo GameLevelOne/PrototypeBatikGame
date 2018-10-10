@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1235082364625150}
   m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0.1}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 4110321959022632}
@@ -137,7 +137,8 @@ MonoBehaviour:
   parentPoolCol: {fileID: 0}
   fishingRod: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  parentPoolRadius: 0
+  poolRadiusX: 0
+  poolRadiusZ: 0
   timeIdle: 0
 --- !u!114 &114450034635128996
 MonoBehaviour:
@@ -177,7 +178,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: d19e262a2f1851c45a2591a608c5c669, type: 2}
+  - {fileID: 2100000, guid: 1fa14ed405445ef40a062ed0119f91a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

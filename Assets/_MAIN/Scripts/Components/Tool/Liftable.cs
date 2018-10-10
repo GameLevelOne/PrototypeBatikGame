@@ -23,12 +23,13 @@ public class Liftable : MonoBehaviour {
 	// public Rigidbody2D shadowRigidbody;
 	public Rigidbody mainRigidbody;
 	public Collider mainCollider;
-
-	public float weight;
 	// public float initMass;
-	public float initDrag;
-	// public int weight;
+	// public float throwMass;
+	
 	public float initGravityAwakeTime;
+
+	[HeaderAttribute("Lift Power Parameter")]
+	public float weight;
 
 	[HeaderAttribute("Current")]
 	// public Transform shadowTransform;
@@ -49,16 +50,14 @@ public class Liftable : MonoBehaviour {
 			// Debug.Log("IgnoreCollision "+throwByAccident);
 			if (col.gameObject.tag == Constants.Tag.PLAYER) {
 				Physics.IgnoreCollision(mainCollider, col.collider);
-			}
-		}
+			} else {
+				// isLanding = true;
 
-		if(col.gameObject.tag != Constants.Tag.PLAYER){
-			// isLanding = true;
-
-			if (GetComponent<Bush>() != null) {
-				GetComponent<Bush>().destroy = true;
-			} else if (GetComponent<Stone>() != null) {
-				GetComponent<Stone>().hit = true;
+				if (GetComponent<Bush>() != null) {
+					GetComponent<Bush>().destroy = true;
+				} else if (GetComponent<Stone>() != null) {
+					GetComponent<Stone>().hit = true;
+				}
 			}
 		}
 	}

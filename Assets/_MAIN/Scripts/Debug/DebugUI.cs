@@ -131,6 +131,8 @@ public class DebugUI : MonoBehaviour {
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, fireArrow.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, fishingRod.isOn ? 1 : 0);
 
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, float.Parse(healthCtr.text));
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, float.Parse(manaCtr.text));
 
 		debugPanel.SetActive(false);
 	}

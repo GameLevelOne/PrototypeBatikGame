@@ -587,7 +587,7 @@ Rigidbody:
   m_Drag: 20
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -744,11 +744,10 @@ MonoBehaviour:
   mainTransform: {fileID: 4436678690009370}
   mainRigidbody: {fileID: 54094892752420742}
   mainCollider: {fileID: 136247838774434584}
-  weight: 10
-  initDrag: 20
+  throwMass: 0
   initGravityAwakeTime: 0.2
+  weight: 10
   gravityAwakeTimer: 0
-  isLanding: 0
 --- !u!136 &136096318302194048
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -388,6 +388,8 @@ public class PlayerMovementSystem : ComponentSystem {
 			}
 		} else if (state == PlayerState.OPEN_CHEST) {
 			rb.velocity = Vector3.zero;
+		} else if (state == PlayerState.BOW) {
+			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.GET_HURT) {
 			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
 				KnockBack(movement.knockBackSpeedNormal);
