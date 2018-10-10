@@ -400,15 +400,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					attack.isAttacking  = true;
 					break;
 				case PlayerState.USING_TOOL:
-					if (tool.currentTool == ToolType.Hammer) {
-						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
-					} else if (tool.currentTool == ToolType.Shovel) {
-						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
-					} else if (tool.currentTool == ToolType.MagicMedallion) {
-						tool.isActToolReady = true;
-						// anim.audioSource.PlayOneShot();
-					}
-
+					//
 					tool.isActToolReady = true;
 					break;
 				case PlayerState.BOW:
@@ -477,7 +469,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 					}
 					break;
 				case PlayerState.USING_TOOL:
-					// tool.isActToolReady = true;
+					if (tool.currentTool == ToolType.Hammer) {
+						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+					} else if (tool.currentTool == ToolType.Shovel) {
+						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+					} else if (tool.currentTool == ToolType.MagicMedallion) {
+						// anim.audioSource.PlayOneShot();
+					}
 					break;
 				case PlayerState.POWER_BRACELET:
 					if (input.liftingMode == -1 || input.liftingMode == -2) {

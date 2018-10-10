@@ -50,7 +50,7 @@ public class Liftable : MonoBehaviour {
 			// Debug.Log("IgnoreCollision "+throwByAccident);
 			if (col.gameObject.tag == Constants.Tag.PLAYER) {
 				Physics.IgnoreCollision(mainCollider, col.collider);
-			} else {
+			} else if (col.gameObject.tag != Constants.Tag.ENEMY) {
 				// isLanding = true;
 
 				if (GetComponent<Bush>() != null) {

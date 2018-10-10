@@ -44,11 +44,10 @@ GameObject:
   - component: {fileID: 114868339847693266}
   - component: {fileID: 54623731140485838}
   - component: {fileID: 136883101893874354}
-  - component: {fileID: 82903900988135416}
   - component: {fileID: 114582030916538148}
   m_Layer: 0
   m_Name: Stone03
-  m_TagString: Untagged
+  m_TagString: Liftable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,101 +373,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &82903900988135416
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1215202520030416}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 82414496d0badd04ca9a23f156a989e1, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &114200564811050092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -517,11 +421,11 @@ MonoBehaviour:
   stoneCollider: {fileID: 136081856083948528}
   parentCollider: {fileID: 136883101893874354}
   hammerTrigger: {fileID: 114259573164677656}
-  audioSource: {fileID: 82903900988135416}
+  audioSource: {fileID: 0}
   stoneColorObj: {fileID: 1112271631237730}
   stoneGreyObj: {fileID: 1961853811195110}
-  stoneBrokenObj: {fileID: 1359367943554102}
-  stoneParticle: {fileID: 198852424771635848}
+  stoneCrushFX: {fileID: 1663075197219308, guid: 3cba65b394745ec44a06492747be3624,
+    type: 2}
   hit: 0
 --- !u!114 &114576222054864836
 MonoBehaviour:
@@ -604,7 +508,7 @@ CapsuleCollider:
   m_Radius: 0.40617126
   m_Height: 1.0190091
   m_Direction: 0
-  m_Center: {x: 0.012103796, y: 0, z: 0}
+  m_Center: {x: 0.012103796, y: 0.06, z: -0.09}
 --- !u!136 &136883101893874354
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -617,7 +521,7 @@ CapsuleCollider:
   m_Radius: 0.40617126
   m_Height: 1.0190091
   m_Direction: 0
-  m_Center: {x: 0.012103796, y: 0, z: 0}
+  m_Center: {x: 0.012103796, y: 0.06, z: -0.09}
 --- !u!198 &198852424771635848
 ParticleSystem:
   m_ObjectHideFlags: 1

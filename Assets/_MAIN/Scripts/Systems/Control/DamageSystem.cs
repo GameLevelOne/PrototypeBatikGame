@@ -208,42 +208,37 @@ public class DamageSystem : ComponentSystem {
 						// health.EnemyHP -= damage;
 						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
 						health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+
+						if (currEnemy.damageReceive.audioSource!=null)
+							currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
 					}
 				} else if (damageTag == Constants.Tag.PLAYER_DASH_ATTACK||
 				damageTag == Constants.Tag.MAGIC_MEDALLION ||
 				damageTag == Constants.Tag.ARROW) {
-					currEnemy.initDamaged = false;
-					currEnemy.SetEnemyState(EnemyState.Damaged);
-					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+					SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
 
 					//ARROW
-					if (damageTag == Constants.Tag.ARROW) {
-						Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
-
-						currEnemy.playerTransform = arrow.playerTransform;
-						arrow.projectile.isSelfDestroying = true;
-					}
+					CheckIfArrowHitsEnemy(damageTag, currEnemy);
 				} else if (damageTag == Constants.Tag.FIRE_ARROW ||
 				damageTag == Constants.Tag.EXPLOSION) {
-					currEnemy.initDamaged = false;
 					currEnemy.isBurned = true;
-					currEnemy.SetEnemyState(EnemyState.Damaged);
-					//BURN
-					health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+					SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
 					
 					//ARROW
-					Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
-
-					currEnemy.playerTransform = arrow.playerTransform;
-					arrow.projectile.isSelfDestroying = true;
+					CheckIfArrowHitsEnemy(damageTag, currEnemy);
 				} else {
 					if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
-						currEnemy.initDamaged = false;						
-						currEnemy.SetEnemyState(EnemyState.Damaged);
-						// playerInputSystem.player.isHitAnEnemy = true;
-						if (currEnemy.damageReceive.audioSource!=null)
-							currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
-						health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+						SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
+					} else if (damageTag == Constants.Tag.LIFTABLE) {
+						SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
+						
+						if (currEnemy.damageReceive.GetComponent<Bush>() != null) {
+							currEnemy.damageReceive.GetComponent<Bush>().destroy = true;
+						} else if (currEnemy.damageReceive.GetComponent<Stone>() != null) {
+							currEnemy.damageReceive.GetComponent<Stone>().hit = true;
+						}
+
+						currEnemy.playerTransform = playerInputSystem.player.transform;
 					}
 				}
 				// currEnemy.isEnemyGetHurt = false;
@@ -252,8 +247,27 @@ public class DamageSystem : ComponentSystem {
 			} else {
 				Debug.Log("Damage Received Object Already Destroyed");
 			}
+
 			currEnemy.damageReceive = null;
 			currEnemy.isHit = false;
+		}
+	}
+
+	void SetEnemyGotDamaged (Enemy currEnemy, float damage, Transform currEnemyTransform) {
+		currEnemy.initDamaged = false;						
+		currEnemy.SetEnemyState(EnemyState.Damaged);
+		health.EnemyHP = ReduceHP(health.EnemyHP, damage, currEnemyTransform.position);
+
+		if (currEnemy.damageReceive.audioSource!=null)
+			currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
+	}
+
+	void CheckIfArrowHitsEnemy (string damageTag, Enemy currEnemy) {
+		if (damageTag == Constants.Tag.ARROW) {
+			Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
+
+			currEnemy.playerTransform = arrow.playerTransform;
+			arrow.projectile.isSelfDestroying = true;
 		}
 	}
 

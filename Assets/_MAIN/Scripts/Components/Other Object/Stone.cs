@@ -4,11 +4,13 @@ public class Stone : MonoBehaviour {
 	public Collider stoneCollider;
 	public Collider parentCollider;
 	public TriggerDetection hammerTrigger;
-	public AudioSource audioSource;
+	// public AudioSource audioSource;
 	public GameObject stoneColorObj;
 	public GameObject stoneGreyObj;
-	public GameObject stoneBrokenObj;
-	public ParticleSystem stoneParticle;
+	// public GameObject stoneBrokenObj;
+	// public ParticleSystem stoneParticle;
+	public GameObject stoneCrushFX;
+
 	[HeaderAttribute("Current")]
 	public bool hit = false;
 

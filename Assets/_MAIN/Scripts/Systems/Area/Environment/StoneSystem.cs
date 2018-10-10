@@ -27,16 +27,20 @@ public class StoneSystem : ComponentSystem {
 	{
 		// if(stone.hit && !stone.stoneBrokenObj.activeSelf){
 		if(stone.hit){
-			stone.hit = false;
+			// stone.hit = false;
+			GameObject.Instantiate(stone.stoneCrushFX, stoneTransform.position, Quaternion.Euler(40f, 0f, 0f));
+
 			if(stone.stoneGreyObj.activeSelf) stone.stoneGreyObj.SetActive(false);
-			stone.stoneColorObj.SetActive(false);
-			// stone.stoneBrokenObj.SetActive(true);
-			stone.stoneCollider.enabled = false;
-			stone.parentCollider.enabled = false;
-			stone.stoneParticle.gameObject.SetActive(true);
-			stone.stoneParticle.Play();
-			stone.audioSource.Play();
+			// stone.stoneColorObj.SetActive(false);
+			// // stone.stoneBrokenObj.SetActive(true);
+			// stone.stoneCollider.enabled = false;
+			// stone.parentCollider.enabled = false;
+			// // stone.stoneParticle.gameObject.SetActive(true);
+			// // stone.stoneParticle.Play();
+			// stone.audioSource.Play();
+
+			GameObject.Destroy(stone.gameObject);
+			UpdateInjectedComponentGroups();
 		}
 	}
-
 }

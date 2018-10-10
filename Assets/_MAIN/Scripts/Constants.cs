@@ -71,7 +71,7 @@ public static class Constants {
 		public const string FIRE_ARROW = "Fire Arrow"; 
 		public const string MAGIC_MEDALLION = "Magic Medallion";
 		public const string FISH = "Fish"; 
-		// public const string LIFTABLE = "Liftable"; 
+		public const string LIFTABLE = "Liftable"; 
 		public const string LOOTABLE = "Lootable"; 
 		public const string BOUNDARIES = "Boundaries";
 		public const string CHEST = "Chest";
