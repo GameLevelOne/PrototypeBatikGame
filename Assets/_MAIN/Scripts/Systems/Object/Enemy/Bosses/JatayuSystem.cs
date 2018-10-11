@@ -409,7 +409,7 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.attack2Object.SetActive(false);
 			jatayu.attack3Object.SetActive(false);
 			jatayu.cameraShaker.shake = false;
-
+			jatayu.PlaySFX(JatayuSFX.JatayuDie);
 			SetJatayuAnim(JatayuState.Die);
 		}else{
 

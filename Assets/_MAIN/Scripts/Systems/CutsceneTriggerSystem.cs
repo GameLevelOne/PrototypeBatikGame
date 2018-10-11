@@ -35,6 +35,7 @@ public class CutsceneTriggerSystem : ComponentSystem {
 
 				//SET TRACK & PLAY
 				cutsceneTrigger.timelineManager.playableDirector.playableAsset = cutsceneTrigger.playableCutscene;
+				if(cutsceneTrigger.playableCutscene.name == "Level2-2") SoundManager.Instance.PlayBGM(BGM.CutScene22);
 				cutsceneTrigger.timelineManager.playableDirector.Play();
 				cutsceneTrigger.triggerCol.enabled = false;
 

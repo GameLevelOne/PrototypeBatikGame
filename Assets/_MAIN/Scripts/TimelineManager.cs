@@ -140,6 +140,8 @@ public class TimelineManager : MonoBehaviour {
 		playerSpriteTransform.localPosition = new Vector3(0f,-0.9f,0f);
 		camera22Transform.position = new Vector3(17f,10f,13f);
 		SavePlayedTimeline ();
+		int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
+		SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22 : BGM.MainBeforeCutScene22);
 	}
 #endregion
 
