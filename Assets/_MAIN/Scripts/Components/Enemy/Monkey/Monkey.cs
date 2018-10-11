@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+public enum MonkeyAudio {
+	WALK,
+	AGGRO,
+	DIE
+}
+
 public class Monkey : MonoBehaviour {
 	[HeaderAttribute("Monkey Attributes")]
 	public Enemy enemy;
@@ -11,6 +17,10 @@ public class Monkey : MonoBehaviour {
 	public ParticleSystem attackCodeFX;
 	public ParticleSystem burnedFX;
 	public GameObject monkeyClawFX;
+	public AudioSource audioSource;
+
+	[HeaderAttribute("WALK, AGGRO, DIE")]
+	public AudioClip[] audioClip;
 
 	[HeaderAttribute("Current")]
 	public List<Monkey> nearbyMonkeys;

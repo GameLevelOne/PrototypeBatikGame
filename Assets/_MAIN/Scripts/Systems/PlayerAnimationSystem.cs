@@ -441,7 +441,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 					break;
 				case PlayerState.PARRY:
-					//
+					PlaySFXOneShot(AnimationAudio.PARRY);
 					break;
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.PlayCounterChargeEffect();
@@ -511,6 +511,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.attackMode = 0;
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
+					PlaySFXOneShot(AnimationAudio.HURT);
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();
@@ -518,7 +519,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.BLOCK_ATTACK:
-					//
+					PlaySFXOneShot(AnimationAudio.BLOCK);
 					break;
 				case PlayerState.FISHING:
 					//
@@ -815,11 +816,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	public void PlaySFXOneShot(AnimationAudio audioType)	{
+	public void PlaySFXOneShot (AnimationAudio audioType) {
 		anim.audioSource.PlayOneShot(anim.audioClip[(int) audioType]);
 	}
 
-	public void PlaySFX(AnimationAudio audioType)	{
+	public void PlaySFX (AnimationAudio audioType) {
 		if (!anim.audioSource.isPlaying) {
 			anim.audioSource.clip = anim.audioClip[(int) audioType];
 			anim.audioSource.Play();
@@ -892,6 +893,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		return dirIdx;
 	}
 
+#region OLD	
 	// void ReverseDir () {
 	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
 	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
@@ -899,7 +901,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 	input.moveDir = -currentMoveDir;
 	// }
 
-#region OLD	
 	// void SetAnimationMaterials (int animMatIndex) {
 	// 	uvAnimationSystem.SetAnimationMaterials(animMatIndex);
 	// }
