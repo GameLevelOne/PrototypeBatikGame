@@ -6,12 +6,13 @@ public enum PlayerInputAudio {
 	BOW_AIM,
 	NO_MANA,
 	PICK_UP,
-	LOOT
+	LOOT,
+	FISHING_RETURN
 }
 
 public class PlayerInput : MonoBehaviour {
-	public int[] idleAnimValue = new int[2]{0, 1};
-	public int[] moveAnimValue = new int[3]{-1, 0, 1};
+	// public int[] idleAnimValue = new int[2]{0, 1};
+	// public int[] moveAnimValue = new int[3]{-1, 0, 1};
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;

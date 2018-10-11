@@ -397,7 +397,6 @@ MonoBehaviour:
   stoneCollider: {fileID: 136242335299007120}
   parentCollider: {fileID: 136798035227352564}
   hammerTrigger: {fileID: 114970182602261356}
-  audioSource: {fileID: 0}
   stoneColorObj: {fileID: 1650219792862012}
   stoneGreyObj: {fileID: 1163834051144940}
   stoneCrushFX: {fileID: 1663075197219308, guid: 3cba65b394745ec44a06492747be3624,
@@ -466,6 +465,7 @@ MonoBehaviour:
   tagName: 
   tagNames:
   - Hammer
+  - Explosion
 --- !u!136 &136242335299007120
 CapsuleCollider:
   m_ObjectHideFlags: 1
