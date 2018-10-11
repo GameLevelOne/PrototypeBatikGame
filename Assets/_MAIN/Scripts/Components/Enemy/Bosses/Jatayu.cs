@@ -25,7 +25,8 @@ public enum JatayuSFX{
 	JatayuEntrance,
 	JatayuFlying,
 	JatayuHit,
-	JatayuLanding
+	JatayuLanding,
+	JatayuDie
 }
 
 public class Jatayu : MonoBehaviour {
