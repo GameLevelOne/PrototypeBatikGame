@@ -183,6 +183,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		// powerBracelet.liftable.throwRange = powerBracelet.throwRange;
 		// powerBracelet.liftable.speed = powerBracelet.speed;
 		powerBracelet.liftable.projectile.isStartLaunching = true;
+		powerBracelet.liftable.mainRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		// powerBracelet.liftable.mainRigidbody.useGravity = true;
 
 		powerBracelet.liftable.state = LiftableState.THROW;
