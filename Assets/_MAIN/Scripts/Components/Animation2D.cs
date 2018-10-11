@@ -4,10 +4,10 @@ public enum AnimationAudio {
 	HAMMER,
 	SHOVEL,
 	BOUNCE,
-	FISHING_THROW,
-	PARRY,
-	BLOCK,
-	HURT
+	FISHING_THROW
+	// PARRY,
+	// BLOCK,
+	// HURT
 }
 
 public class Animation2D : MonoBehaviour {

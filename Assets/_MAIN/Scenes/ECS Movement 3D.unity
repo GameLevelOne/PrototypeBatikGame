@@ -800,12 +800,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
+    - target: {fileID: 198604156538610386, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
-    - target: {fileID: 198604156538610386, guid: 48c8d0db54edec043ac957c3486b5def,
+    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
@@ -941,12 +941,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1869986882389580, guid: df130f0142426554a9addd84a9119962, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114720286946393610, guid: df130f0142426554a9addd84a9119962,
         type: 2}
       propertyPath: shootInterval
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114720286946393610, guid: df130f0142426554a9addd84a9119962,
+        type: 2}
+      propertyPath: audioClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: bff070e0798ff5c4e9240b162c5ce43d, type: 3}
+    - target: {fileID: 82303075442137088, guid: df130f0142426554a9addd84a9119962,
+        type: 2}
+      propertyPath: MinDistance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df130f0142426554a9addd84a9119962, type: 2}

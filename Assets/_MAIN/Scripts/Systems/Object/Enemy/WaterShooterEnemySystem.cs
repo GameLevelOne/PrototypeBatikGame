@@ -60,7 +60,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		if(currWaterShooterEnemyHealth.EnemyHP <= 0f){
 			//SPAWN ITEM
 			// lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
-			PlaySFXOneShot(LotusAudio.DIE);
+			// PlaySFXOneShot(LotusAudio.DIE);
 
 			if (currWaterShooterEnemy.questTrigger != null) {
 				//SEND QUEST TRIGGER
@@ -104,7 +104,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		currEnemy.state = EnemyState.Aggro;
 		currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
 		currEnemy.chaseIndicator.Play(true);
-		PlaySFXOneShot(LotusAudio.AGGRO);
+		// PlaySFXOneShot(LotusAudio.AGGRO);
 	}
 
 	void Aggro () {
@@ -157,7 +157,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				if (currWaterShooterEnemy.startAttack){
 					if (currEnemy.attackHit) {
 						SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
-						PlaySFXOneShot(LotusAudio.SHOOT);
+						PlaySFX(LotusAudio.SHOOT);
 
 						currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
 						currEnemy.attackHit = false;

@@ -441,7 +441,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 					break;
 				case PlayerState.PARRY:
-					PlaySFXOneShot(AnimationAudio.PARRY);
+					//
 					break;
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.PlayCounterChargeEffect();
@@ -511,7 +511,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.attackMode = 0;
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
-					PlaySFXOneShot(AnimationAudio.HURT);
+					// PlaySFXOneShot(AnimationAudio.HURT);
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();
@@ -519,7 +519,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.BLOCK_ATTACK:
-					PlaySFXOneShot(AnimationAudio.BLOCK);
+					//
 					break;
 				case PlayerState.FISHING:
 					//

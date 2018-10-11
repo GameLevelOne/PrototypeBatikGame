@@ -14,7 +14,8 @@ public class GameFX : MonoBehaviour {
 	public ParticleSystem dashEffect;
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
-	public GameObject hitEffect;
+	public GameObject enemyHitEffect;
+	public GameObject playerHitEffect;
 	public GameObject chargingEffect;
 
 	public AudioClip[] dirtAudio;
