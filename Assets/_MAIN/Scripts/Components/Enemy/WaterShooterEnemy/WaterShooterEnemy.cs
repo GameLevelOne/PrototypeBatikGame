@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+public enum LotusAudio {
+	SHOOT
+}
+
 public class WaterShooterEnemy : MonoBehaviour {
 	[HeaderAttribute("WaterShooterEnemy Attributes")]
 	public Enemy enemy;
@@ -10,6 +14,10 @@ public class WaterShooterEnemy : MonoBehaviour {
 	public TriggerDetection playerTriggerDetection;
 	public GameObject bullet;
 	public Transform bulletSpawnPoint;
+	public AudioSource audioSource;
+
+	[HeaderAttribute("SHOOT")]
+	public AudioClip[] audioClip;
 
 	[SpaceAttribute(10f)]
 	public float shootInterval;

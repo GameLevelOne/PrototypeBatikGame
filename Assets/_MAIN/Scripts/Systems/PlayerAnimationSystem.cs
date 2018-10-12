@@ -464,15 +464,19 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (input.interactValue == 1) {
 						attack.isDashing = true;
 					} else if (input.interactValue == 2) {
+						if (player.isBouncing) {
+							PlaySFXOneShot(AnimationAudio.BOUNCE);
+						}
+						
 						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
 						attack.isDashing = false;
 					}
 					break;
 				case PlayerState.USING_TOOL:
 					if (tool.currentTool == ToolType.Hammer) {
-						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.HAMMER]);
+						PlaySFXOneShot(AnimationAudio.HAMMER);
 					} else if (tool.currentTool == ToolType.Shovel) {
-						anim.audioSource.PlayOneShot(anim.audioClip[(int)AnimationAudio.SHOVEL]);
+						PlaySFXOneShot(AnimationAudio.SHOVEL);
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
 						// anim.audioSource.PlayOneShot();
 					}
@@ -507,6 +511,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					input.attackMode = 0;
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
+					// PlaySFXOneShot(AnimationAudio.HURT);
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();
@@ -728,7 +733,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactValue == 0) { 
 						input.interactValue = 1;
 						tool.isActToolReady = true;
-						
+						PlaySFXOneShot(AnimationAudio.FISHING_THROW);
+
 						anim.isFinishAnyAnimation = true;
 					} else if (input.interactValue == 1) { 
 						//
@@ -786,57 +792,6 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	// void SetFacingDirection () {
-	// 	if (input.isLockDir) {
-	// 		int dirID = input.direction + 1;
-			
-	// 		switch (dirID) {
-	// 			case 1:
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
-	// 				break;
-	// 			case 2:
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
-	// 				break;
-	// 			case 3:
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
-	// 				break;
-	// 			case 4:
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
-	// 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
-	// 				break;
-	// 		}
-
-	// 		SetFacingDirID(dirID);
-	// 		input.isLockDir = false;
-	// 	}
-	// }
-
-	// void SetFaceDir (string animName, float animValue, bool isVertical) {
-	// 	// Vector2 movement = input.moveDir;
-	// 	animator.SetFloat(animName, animValue);
-		
-	// 	if (isVertical) {
-	// 		moveDir.z = Mathf.RoundToInt(animValue);
-	// 	} else {
-	// 		moveDir.x = Mathf.RoundToInt(animValue);
-	// 	}
-
-	// 	// if (currentDir != moveDir) {
-	// 		currentDir = moveDir;
-	// 		SetFacingDirID (currentDir.x, currentDir.z);
-	// 	// }
-	// }
-
-	// void SetFacingDirID (float x, float z) {
-	// 	currentDirID = CheckDirID(x, z);
-	// 	facing.DirID = currentDirID;
-
-	// 	// uvAnimationSystem.SetMaterial(currentDirID-1);
-	// }
-
 	void SetFacingDirID (int dirID) {
 		currentDirID = dirID;
 		facing.DirID = currentDirID;
@@ -861,11 +816,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void ReverseDir () {
-		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
-		// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
-		// SetFacingDirID (-currentDir.x, -currentDir.z);
-		input.moveDir = -currentMoveDir;
+	public void PlaySFXOneShot (AnimationAudio audioType) {
+		anim.audioSource.PlayOneShot(anim.audioClip[(int) audioType]);
+	}
+
+	public void PlaySFX (AnimationAudio audioType) {
+		if (!anim.audioSource.isPlaying) {
+			anim.audioSource.clip = anim.audioClip[(int) audioType];
+			anim.audioSource.Play();
+		}
 	}
 
 	int CheckDirID (float dirX, float dirZ) {
@@ -935,6 +894,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 #region OLD	
+	// void ReverseDir () {
+	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -currentDir.x);
+	// 	// animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -currentDir.z);
+	// 	// SetFacingDirID (-currentDir.x, -currentDir.z);
+	// 	input.moveDir = -currentMoveDir;
+	// }
+
 	// void SetAnimationMaterials (int animMatIndex) {
 	// 	uvAnimationSystem.SetAnimationMaterials(animMatIndex);
 	// }

@@ -59,14 +59,14 @@ public class DamageSystem : ComponentSystem {
 					if (player.isGuarding) {
 						player.SetPlayerState(PlayerState.BLOCK_ATTACK);
 						damage -= player.shieldPower;
-						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+						health.PlayerHP = ReducePlayerHP(health.PlayerHP, damage, playerTransform.position);
 					} else {
 						if (!CheckIfPlayerIsOnSpecialAction(player, playerState)) {
 							Debug.Log(playerState+" NOT SPECIAL ACTION");
 							player.SetPlayerState(PlayerState.GET_HURT);
 						}
 						
-						health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+						health.PlayerHP = ReducePlayerHP(health.PlayerHP, damage, playerTransform.position);
 					}
 				}
 
@@ -83,7 +83,7 @@ public class DamageSystem : ComponentSystem {
 						player.SetPlayerState(PlayerState.GET_HURT);
 					}
 					
-					health.PlayerHP = ReduceHP(health.PlayerHP, damage, playerTransform.position);
+					health.PlayerHP = ReducePlayerHP(health.PlayerHP, damage, playerTransform.position);
 				}
 
 				if (health.PlayerHP <= 0f) {
@@ -207,7 +207,7 @@ public class DamageSystem : ComponentSystem {
 					}else{
 						// health.EnemyHP -= damage;
 						// gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, enemyTransform.position);
-						health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+						health.EnemyHP = ReduceEnemyHP(health.EnemyHP, damage, enemyTransform.position);
 
 						if (currEnemy.damageReceive.audioSource!=null)
 							currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
@@ -256,7 +256,7 @@ public class DamageSystem : ComponentSystem {
 	void SetEnemyGotDamaged (Enemy currEnemy, float damage, Transform currEnemyTransform) {
 		currEnemy.initDamaged = false;						
 		currEnemy.SetEnemyState(EnemyState.Damaged);
-		health.EnemyHP = ReduceHP(health.EnemyHP, damage, currEnemyTransform.position);
+		health.EnemyHP = ReduceEnemyHP(health.EnemyHP, damage, currEnemyTransform.position);
 
 		if (currEnemy.damageReceive.audioSource!=null)
 			currEnemy.damageReceive.audioSource.PlayOneShot(currEnemy.damageReceive.hitClip);
@@ -283,7 +283,7 @@ public class DamageSystem : ComponentSystem {
 			// Debug.Log(damage);
 
 			if (!currEnemy.invulnerable) {
-				health.EnemyHP = ReduceHP(health.EnemyHP, damage, enemyTransform.position);
+				health.EnemyHP = ReduceEnemyHP(health.EnemyHP, damage, enemyTransform.position);
 				
 				//ARROW
 				if (damageTag == Constants.Tag.ARROW) {
@@ -300,8 +300,13 @@ public class DamageSystem : ComponentSystem {
 		}
 	}
 
-	float ReduceHP (float initHP, float damage, Vector3 hitPos) {		
-		gameFXSystem.SpawnObj(gameFXSystem.gameFX.hitEffect, hitPos);
+	float ReducePlayerHP (float initHP, float damage, Vector3 hitPos) {		
+		gameFXSystem.SpawnObj(gameFXSystem.gameFX.playerHitEffect, hitPos);
+		return initHP -= damage;
+	}
+
+	float ReduceEnemyHP (float initHP, float damage, Vector3 hitPos) {		
+		gameFXSystem.SpawnObj(gameFXSystem.gameFX.enemyHitEffect, hitPos);
 		return initHP -= damage;
 	}
 }

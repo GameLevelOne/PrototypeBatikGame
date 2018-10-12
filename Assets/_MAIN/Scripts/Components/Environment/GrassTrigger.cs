@@ -11,7 +11,6 @@ public class GrassTrigger : MonoBehaviour {
 				// Debug.Log("AFFECT GRASS");
 				grass.destroy = true;
 			}
-			
 		}
 	}
 }

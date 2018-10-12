@@ -39,6 +39,7 @@ public class UISignPostSystem : ComponentSystem {
 		// 	uiSignPost.keyboardPanel.SetActive(true);
 		// }
 		uiSignPost.keyboardPanel.SetActive(true);
+		uiSignPost.joyStickPanel.SetActive(false);
 		uiSignPost.isInitSignPost = true;
 		uiSignPost.isCloseSignPost = false;
 		uiSignPost.curLeftPressed = false;
@@ -67,14 +68,14 @@ public class UISignPostSystem : ComponentSystem {
 		if(uiSignPost.anim.GetCurrentAnimatorStateInfo(0).IsName("Show")){
 			if (!uiSignPost.curLeftPressed && GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = true;
-				// SwitchPanel();
+				SwitchPanel();
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = false;
 			}
 
 			if (!uiSignPost.curRightPressed && GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = true;
-				// SwitchPanel();
+				SwitchPanel();
 			} else if (!GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = false;						
 			}

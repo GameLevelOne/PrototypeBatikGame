@@ -1,44 +1,13 @@
 ﻿using UnityEngine;
 
-// public enum AnimationState {
-// 	START_SLASH,
-// 	START_CHARGE,
-// 	START_DODGE,
-// 	AFTER_SLASH,
-// 	AFTER_CHARGE,
-// 	AFTER_DODGE,
-// 	START_COUNTER,
-// 	AFTER_COUNTER,
-// 	START_RAPIDSLASH,
-// 	AFTER_RAPIDSLASH,
-// 	START_BLOCK,
-// 	AFTER_BLOCK,
-// 	START_DASH,
-// 	AFTER_DASH,
-// 	START_BRAKING,
-// 	AFTER_BRAKING,
-// 	START_HURT,
-// 	AFTER_HURT,
-// 	START_GRAB,
-// 	AFTER_GRAB,
-// 	START_UNGRAB,
-// 	AFTER_UNGRAB,
-// 	START_THROW,
-// 	AFTER_THROW,
-// 	START_LIFT,
-// 	AFTER_LIFT,
-// 	START_FISHING,
-// 	AFTER_FISHING
-// }
-
-// public enum StandAnimationState {
-// 	START_USING_TOOL,
-// 	AFTER_USING_TOOL
-// }
-
 public enum AnimationAudio {
 	HAMMER,
-	SHOVEL
+	SHOVEL,
+	BOUNCE,
+	FISHING_THROW
+	// PARRY,
+	// BLOCK,
+	// HURT
 }
 
 public class Animation2D : MonoBehaviour {

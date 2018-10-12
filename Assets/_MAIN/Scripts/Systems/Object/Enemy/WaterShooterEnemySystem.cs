@@ -60,6 +60,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		if(currWaterShooterEnemyHealth.EnemyHP <= 0f){
 			//SPAWN ITEM
 			// lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
+			// PlaySFXOneShot(LotusAudio.DIE);
 
 			if (currWaterShooterEnemy.questTrigger != null) {
 				//SEND QUEST TRIGGER
@@ -89,17 +90,21 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void Idle()
 	{
 		if(currEnemy.playerTransform != null){
-			currEnemy.state = EnemyState.Aggro;
-			currEnemy.initIdle = false;
-			currEnemy.chaseIndicator.Play(true);
-			currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
-			currEnemy.isFinishAggro = false;
+			SetStateAggro();
 		}else{
 			if(!currEnemy.initIdle){
 				currEnemy.initIdle = true;
 				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
 		}
+	}
+
+	void SetStateAggro () {
+		currEnemy.initIdle = false;
+		currEnemy.state = EnemyState.Aggro;
+		currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+		currEnemy.chaseIndicator.Play(true);
+		// PlaySFXOneShot(LotusAudio.AGGRO);
 	}
 
 	void Aggro () {
@@ -130,9 +135,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			// if(currEnemy.TDamaged <= 0f){
 			if (currEnemy.isFinishDamaged) {				
 				currEnemy.isFinishDamaged = false;
-				currEnemy.state = EnemyState.Aggro;
-				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
-				currEnemy.chaseIndicator.Play(true);
+				SetStateAggro();
 			}
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
@@ -154,6 +157,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				if (currWaterShooterEnemy.startAttack){
 					if (currEnemy.attackHit) {
 						SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
+						PlaySFX(LotusAudio.SHOOT);
 
 						currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
 						currEnemy.attackHit = false;
@@ -207,4 +211,15 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
         return targetRot;
     }
+
+	public void PlaySFXOneShot (LotusAudio audioType) {
+		currWaterShooterEnemy.audioSource.PlayOneShot(currWaterShooterEnemy.audioClip[(int) audioType]);
+	}
+
+	public void PlaySFX (LotusAudio audioType) {
+		if (!currWaterShooterEnemy.audioSource.isPlaying) {
+			currWaterShooterEnemy.audioSource.clip = currWaterShooterEnemy.audioClip[(int) audioType];
+			currWaterShooterEnemy.audioSource.Play();
+		}
+	}
 }

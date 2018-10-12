@@ -457,9 +457,10 @@ public class PlayerInputSystem : ComponentSystem {
 								player.isUsingStand = false;
 								player.SetPlayerState(PlayerState.DASH);
 								gameFXSystem.ToggleRunFX(false);
-							} else {
-								PlaySFX(PlayerInputAudio.NO_MANA);
-							}
+							} 
+							// else {
+							// 	PlaySFX(PlayerInputAudio.NO_MANA);
+							// }
 						}
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
@@ -470,7 +471,7 @@ public class PlayerInputSystem : ComponentSystem {
 						player.SetPlayerState(PlayerState.USING_TOOL);
 						
 						if (!IsHaveEnoughManaForTool((int) toolType, true, true)) {
-							PlaySFX(PlayerInputAudio.NO_MANA);							
+							// PlaySFX(PlayerInputAudio.NO_MANA);							
 							player.SetPlayerIdle();
 						} else {
 							if (toolType == ToolType.Bomb || 
@@ -563,6 +564,7 @@ public class PlayerInputSystem : ComponentSystem {
 			if (GameInput.IsToolsPressed || GameInput.IsActionPressed){
 				input.interactValue = 2;
 				toolSystem.UseTool();
+				PlaySFXOneShot(PlayerInputAudio.FISHING_RETURN);
 			}
 			
 			return true;
@@ -707,6 +709,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if(manaSystem.isHaveEnoughMana(requiredMana, isUseMana, isUsingStand)) {
 			return true;
 		} else {
+			PlaySFX(PlayerInputAudio.NO_MANA);
 			return false;
 		}
 	}
