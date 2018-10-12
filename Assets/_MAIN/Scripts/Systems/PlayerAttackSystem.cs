@@ -98,6 +98,12 @@ public class PlayerAttackSystem : ComponentSystem {
     void SpawnNormalAttackObj (GameObject obj) {
         Vector3 initPos = attack.transform.position;
         GameObject spawnedObj = GameObject.Instantiate(obj, attack.normalAttackSpawnPos.position,Quaternion.identity);
+
+		if (state == PlayerState.RAPID_SLASH) {
+			// spawnedObj.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
+			spawnedObj.GetComponent<Animator>().speed = 3f;
+		}
+
         spawnedObj.SetActive(true);
     }
 

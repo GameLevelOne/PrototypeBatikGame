@@ -35,7 +35,7 @@ public class DamageSystem : ComponentSystem {
 		} else if (role.gameRole == GameRole.Boss) {
 			CalculateDamageToBoss();
 		} else {
-			Debug.Log("Unknown Role");
+			// Debug.Log("Unknown Role");
 		}
 	}
 
@@ -44,7 +44,7 @@ public class DamageSystem : ComponentSystem {
 		Player player = health.player;
 		PlayerState playerState = player.state;
 
-		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null) return;
+		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null || player.isOnBulletTimePeriod) return;
 		else {
 			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;
@@ -62,7 +62,7 @@ public class DamageSystem : ComponentSystem {
 						health.PlayerHP = ReducePlayerHP(health.PlayerHP, damage, playerTransform.position);
 					} else {
 						if (!CheckIfPlayerIsOnSpecialAction(player, playerState)) {
-							Debug.Log(playerState+" NOT SPECIAL ACTION");
+							// Debug.Log(playerState+" NOT SPECIAL ACTION");
 							player.SetPlayerState(PlayerState.GET_HURT);
 						}
 						
@@ -144,6 +144,8 @@ public class DamageSystem : ComponentSystem {
 				else return false;
 			case PlayerState.SLOW_MOTION:
 				return true;
+			case PlayerState.ENGAGE:
+				return true;
 			case PlayerState.RAPID_SLASH:
 				return true;
 			case PlayerState.BLOCK_ATTACK:
@@ -154,7 +156,7 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			//
 			default: 
-				Debug.Log("State "+playerState+" detected at DamageSystem is out of INVULNERABLE list");
+				// Debug.Log("State "+playerState+" detected at DamageSystem is out of INVULNERABLE list");
 				return false;
 		}
 	}
@@ -167,7 +169,7 @@ public class DamageSystem : ComponentSystem {
 			// 	return true;
 			//
 			default: 
-				Debug.Log("State "+playerState+" detected at DamageSystem is out of SPECIAL_ACTION list");
+				// Debug.Log("State "+playerState+" detected at DamageSystem is out of SPECIAL_ACTION list");
 				return false;
 		}
 	}
@@ -180,7 +182,7 @@ public class DamageSystem : ComponentSystem {
 			// 	return true;
 			//
 			default: 
-				Debug.Log("State "+playerState+" detected at DamageSystem is out of CANNOT_KNOCKEDBACK list");
+				// Debug.Log("State "+playerState+" detected at DamageSystem is out of CANNOT_KNOCKEDBACK list");
 				return false;
 		}
 	}
@@ -245,7 +247,7 @@ public class DamageSystem : ComponentSystem {
 				currEnemy.playerThatHitsEnemy = playerInputSystem.player;
 				// currEnemy.damageSourcePos = damageTransform.position;
 			} else {
-				Debug.Log("Damage Received Object Already Destroyed");
+				// Debug.Log("Damage Received Object Already Destroyed");
 			}
 
 			currEnemy.damageReceive = null;

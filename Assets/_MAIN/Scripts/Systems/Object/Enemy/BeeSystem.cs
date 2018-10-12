@@ -47,8 +47,12 @@ public class BeeSystem : ComponentSystem {
 			currBeeAnim = beeComponent.beeAnim[i];
 			currBeeHealth = beeComponent.beeHealth[i];
 			currBeeFacing = beeComponent.Facing[i];
-
 			// enemy = currEnemy;
+
+			if (Time.timeScale < 1f) {
+				currBeeRigidbody.velocity = Vector3.zero;
+				continue;
+			}
 			
 			CheckHealth();
 			CheckState();

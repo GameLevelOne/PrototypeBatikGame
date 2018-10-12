@@ -28,9 +28,9 @@ public class Animation2D : MonoBehaviour {
 		set {
 			isFinishAnyAnim = value;
 
-			// if (value) {
-			// 	Debug.Log("Set isFinishAnyAnim TRUE");
-			// }
+			if (value) {
+				Debug.Log("Set isFinishAnyAnim TRUE");
+			}
 		}
 	}
 

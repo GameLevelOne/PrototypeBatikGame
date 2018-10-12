@@ -42,7 +42,9 @@ public class PlayerMovementSystem : ComponentSystem {
 	// SpriteRenderer spriteRen;
 
 	float deltaTime;
+	float unscaledDeltaTime;
 	float moveSpeed;
+	float engageSpeed;
 	bool isDodgeMove = false;
 	// bool isAttackMove = false;
 	// bool isStartDashing = false;
@@ -57,6 +59,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
+		unscaledDeltaTime = Time.unscaledDeltaTime;
 		// if (movementData.Length == 0) return;
 		
 		for (int i=0; i<movementData.Length; i++) {
@@ -165,88 +168,6 @@ public class PlayerMovementSystem : ComponentSystem {
 			SetPlayerStandardMove();
 			// Debug.Log(currentMoveDir);
 			// continue; //TEMP
-			
-#region OLD
-			// if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
-			// 	if (attackMode == -3) {
-			// 		tr.position = teleportBulletTime.Teleport();
-			// 		Time.timeScale = 0.1f;
-			// 		input.AttackMode = 0;
-			// 		rb.velocity = Vector2.zero;
-			// 		spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-			// 	}
-
-			// 	continue;
-			// }
-
-			// if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
-			// 	Transform target = facing.attackArea.transform;
-			// 	Vector2 dir = target.position - tr.position;
-				
-			// 	if (state == PlayerState.HOOK) {
-			// 		rb.velocity = Vector2.zero;
-			// 	} else if (state == PlayerState.DASH) {
-			// 		// isStartDashing = true;
-			// 		// rb.AddForce(dir * tool.dashSpeed);
-			// 		// rb.velocity = dir.normalized * tool.dashSpeed * deltaTime;
-			// 	} else {
-			// 		rb.velocity = Vector2.zero;
-			// 	}
-				
-			// 	continue;
-			// } else if (state == PlayerState.POWER_BRACELET) {
-			// 	// rb.AddForce(-dir * movement.bounceSpeed);
-			// 	if (input.interactValue == 2 || input.interactValue == 0) {
-			// 		// Debug.Log("input.InteractValue : "+input.InteractValue);
-			// 		input.moveDir = Vector2.zero;
-			// 	}
-			// } else if (state == PlayerState.FISHING) {
-			// 	input.moveDir = Vector2.zero;
-			// 	rb.velocity = Vector2.zero;
-			// } else {
-			// 	brakeTime = movement.brakeTime;
-			// 	// player.IsDashing = false;
-			// }
-
-			// if (attackMode == 0) {
-			// 	moveDir = input.moveDir;
-
-			// 	if (state == PlayerState.DODGE) {
-			// 		if (!isDodgeMove) {
-			// 			Transform target = facing.attackArea.transform;
-			// 			isDodgeMove = true;
-			// 			rb.AddForce((target.position - tr.position) * movement.dodgeSpeed);
-			// 		}
-			// 	} else {
-			// 		isDodgeMove = false;
-			// 		moveDir = moveDir.normalized * moveSpeed * deltaTime;
-			// 		rb.velocity = moveDir;	
-					
-			// 		if (moveDir == Vector2.zero) {
-			// 			// player.SetPlayerIdle();
-			// 		} else {
-			// 			if (state != PlayerState.POWER_BRACELET && !SwimSystem.flippers.isPlayerSwimming) {
-			// 				player.SetPlayerState(PlayerState.MOVE);
-			// 			}
-			// 		}
-			// 	}
-			// } else if ((attackMode == 2) || (attackMode == 3)) {
-			// 	// if (!isAttackMove) {
-			// 		Transform target = facing.attackArea.transform;
-			// 		// isAttackMove = true;
-			// 		rb.AddForce((target.position - tr.position) * movement.attackMoveForce);
-			// 	// } else {
-			// 	// 	isAttackMove = false;
-			// 		rb.velocity = Vector2.zero;
-			// 	// }
-			// } else {
-			// 	rb.velocity = Vector2.zero;
-			// }
-
-			// if (rb.velocity.y != 0f) {
-			// 	spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-			// }
-#endregion OLD
 		}
 	}
 
@@ -256,6 +177,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		dashDelay = 0f;
 		isDodgeMove = false;
 		moveDir = Vector3.zero;
+		engageSpeed = movement.engageSpeed;
 
 		movement.isInitMovement = true;
 		gameOverCalled = false;
@@ -277,7 +199,10 @@ public class PlayerMovementSystem : ComponentSystem {
 				//=====SPEED CONSTANT=====//
 				if (!isDodgeMove) { 
 					isDodgeMove = true;
-					rb.velocity = -moveDir * movement.dodgeSpeed * deltaTime;
+					// rb.velocity = -moveDir * movement.dodgeSpeed * deltaTime; //OLD
+					
+					rb.velocity = Vector3.zero;
+					rb.AddForce(-moveDir * movement.dodgeSpeed, ForceMode.Impulse);
 
 					// input.moveDir = -moveDir; //REVERSE
 					input.moveDir = Vector3.zero;
@@ -339,7 +264,13 @@ public class PlayerMovementSystem : ComponentSystem {
 		// 	rb.velocity = Vector2.zero;
 		// }
 
-		if (state == PlayerState.DASH) {
+		if (state == PlayerState.SLOW_MOTION) {
+			if (attackMode == 0) {
+				SetCounterMovement();
+			}
+		} else if (state == PlayerState.ENGAGE) {
+			SetEngageMovement();
+		} else if (state == PlayerState.DASH) {
 			if (input.interactValue == 0) {
 				// player.isUsingStand = false;
 				// if (dashDelay > 0f) {
@@ -407,19 +338,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	bool CheckIfAllowedToMove () {
-		if ((state == PlayerState.SLOW_MOTION) || (state == PlayerState.RAPID_SLASH)) {
-			if (attackMode == 0) {
-				Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
-				rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
-				Time.timeScale = 0.1f;
-				input.attackMode = -3; //Set counterslash first
-				// Debug.Log("Reset AttackMode - CheckIfAllowedToMove");
-				rb.velocity = Vector3.zero;
-				// spriteRen.sortingOrder = Mathf.RoundToInt(tr.position.y * 100f) * -1;
-			}
-
-			return false;
-		} else if (
+		if (
 			state == PlayerState.USING_TOOL || 
 			state == PlayerState.HOOK || 
 			state == PlayerState.DASH || 
@@ -429,7 +348,10 @@ public class PlayerMovementSystem : ComponentSystem {
 			state == PlayerState.DIE || 
 			// state == PlayerState.OPEN_CHEST || 
 			state == PlayerState.GET_HURT || 
-			state == PlayerState.BLOCK_ATTACK
+			state == PlayerState.BLOCK_ATTACK ||
+			state == PlayerState.SLOW_MOTION ||
+			state == PlayerState.ENGAGE ||
+			state == PlayerState.RAPID_SLASH
 			// state == PlayerState.POWER_BRACELET
 			) {
 			return false;
@@ -462,5 +384,37 @@ public class PlayerMovementSystem : ComponentSystem {
 
 		player.isPlayerKnockedBack = false;
 		player.somethingThatHitsPlayer = null;
+	}
+
+	void SetCounterMovement () {
+		// Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
+		// rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
+		// Debug.Log("Slow Motion PlayerMovementSystem");
+		Time.timeScale = 0.3f;
+		input.attackMode = -3; //Set counterslash first
+		rb.velocity = Vector3.zero;
+	}
+
+	void SetEngageMovement () {
+		float distance = Vector3.Distance(rb.position, player.counterPos);
+		if(distance < 0.2f){
+			player.SetPlayerState(PlayerState.RAPID_SLASH);
+		} else {
+			// rb.position = MoveEngageToPos(player.counterPos, engageSpeed);
+			
+			rb.position = Vector3.Lerp(rb.position, player.counterPos,engageSpeed * deltaTime / distance);
+		}
+	}
+
+	Vector3 MoveEngageToPos (Vector3 targetPos, float speed) {
+		Vector3 deltaPos = targetPos-rb.position;
+		// Debug.Log("DeltaPos "+deltaPos);
+		
+		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
+			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
+			return rb.position + vecticalizeVector * speed * deltaTime;
+		} else {
+			return rb.position + deltaPos * speed * deltaTime;
+		}
 	}
 }

@@ -50,7 +50,6 @@ public class PlayerInputSystem : ComponentSystem {
 	bool isReadyForDodging = true;
 
 	bool isDodging = false;
-	bool isBulletTimePeriod = false;
 	bool isParryPeriod = false;
 	bool isChargingAttack = false;
 	bool isFinishAttackAnimation = true;
@@ -119,11 +118,12 @@ public class PlayerInputSystem : ComponentSystem {
 		isReadyForDodging = true;
 
 		isDodging = false;
-		isBulletTimePeriod = false;
 		isParryPeriod = false;
 		isChargingAttack = false;
 		isFinishAttackAnimation = true;
+
 		input.isUIOpen = false;
+		input.textRapidSlash.gameObject.SetActive(false);
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
 		bulletTimeDelay = input.bulletTimeDelay;
@@ -259,12 +259,11 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckAttackInput () {
 		#region Attack
-		float chargeAttackThreshold = input.chargeAttackThreshold;
-		// float beforeChargeDelay = input.beforeChargeDelay;
-		float attackAwayDelay = input.attackAwayDelay;
-		int attackMode = input.attackMode;
-
 		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK) {
+			// float beforeChargeDelay = input.beforeChargeDelay;
+			// float attackAwayDelay = input.attackAwayDelay;
+			int attackMode = input.attackMode;
+
 			if (GameInput.IsAttackPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
 				if (attackMode == 0 && state != PlayerState.ATTACK) {
 					input.attackMode = 1;
@@ -299,7 +298,7 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				} else {
 					if (!isChargingAttack) {
-						if (chargeAttackTimer >= chargeAttackThreshold) {
+						if (chargeAttackTimer >= input.chargeAttackThreshold) {
 							isChargingAttack = true;
 						} else {
 							chargeAttackTimer += deltaTime;
@@ -325,8 +324,6 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	void CheckGuardInput () {
-		float guardParryDelay = input.guardParryDelay;
-
 		#region Button Guard
 		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY) {
 			if (GameInput.IsGuardPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
@@ -340,7 +337,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.interactMode = -1;
 				}
 
-				if (parryTimer < guardParryDelay) {
+				if (parryTimer < input.guardParryDelay) {
 					parryTimer += deltaTime;
 				} else {
 					isParryPeriod = false;
@@ -389,6 +386,12 @@ public class PlayerInputSystem : ComponentSystem {
 					isDodging = true;
 					isReadyForDodging = false;
 					input.interactMode = 0;
+
+					player.counterPos = player.transform.position;
+					player.counterDir = facing.DirID;
+					GameObject counterTrigger = GameObject.Instantiate(player.playerCounterTrigger, player.counterPos, Quaternion.identity);
+					player.currentCounterTrigger = counterTrigger.GetComponent<PlayerCounterTrigger>();
+					player.ReferenceCounterTrigger();
 				}
 			}	
 
@@ -398,29 +401,45 @@ public class PlayerInputSystem : ComponentSystem {
 
 					if (bulletTimeTimer < bulletTimeDelay) {
 						bulletTimeTimer += deltaTime;
-						isBulletTimePeriod = true;
+						// player.isOnBulletTimePeriod = true;
 					} else {
-						isBulletTimePeriod = false;
-						player.isCanBulletTime = false;
+						if (player.currentCounterTrigger != null) {
+							GameObject.Destroy(player.currentCounterTrigger.gameObject);
+							player.currentCounterTrigger = null;
+						}
+
+						player.isOnBulletTimePeriod = false;
+						// player.isCanBulletTime = false;
 						// player.isPlayerHit = false;
 					}
 				} else {
 					isDodging = false;
 					isReadyForDodging = true;
 				}
-
 			}
 
-			if (isBulletTimePeriod) {
-				if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
-					isBulletTimePeriod = false;
-					player.isCanBulletTime = false;
-					// ChangeDir(0f, 0f);
-					// ChangeDir(-currentDir.x, -currentDir.y);
-					input.moveMode = 3; //STEADY FOR RAPID SLASH
-					input.attackMode = 0;
-					player.SetPlayerState(PlayerState.SLOW_MOTION);
+			if (player.isOnBulletTimePeriod) {
+				input.moveMode = 3; //STEADY FOR RAPID SLASH
+				input.attackMode = 0;
+				input.textRapidSlash.gameObject.SetActive(true);
+				player.SetPlayerState(PlayerState.SLOW_MOTION);
+				
+				if (player.currentCounterTrigger != null) {
+					GameObject.Destroy(player.currentCounterTrigger.gameObject);
+					player.currentCounterTrigger = null;
 				}
+				
+				player.isOnBulletTimePeriod = false;
+
+				// if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
+				// 	player.isOnBulletTimePeriod = false;
+				// 	player.isCanBulletTime = false;
+				// 	// ChangeDir(0f, 0f);
+				// 	// ChangeDir(-currentDir.x, -currentDir.y);
+				// 	input.moveMode = 3; //STEADY FOR RAPID SLASH
+				// 	input.attackMode = 0;
+				// 	player.SetPlayerState(PlayerState.SLOW_MOTION);
+				// }
 			}
 		}
 		#endregion
@@ -513,17 +532,21 @@ public class PlayerInputSystem : ComponentSystem {
 
 				if (GameInput.IsAttackPressed) {
 					input.bulletTimeAttackQty++;
+					input.textRapidSlash.text = input.bulletTimeAttackQty + " Hit";
 				}
 			} else {
-				slowDownTimer = 0f;
-				Time.timeScale = 1f;
+				// Time.timeScale = 1f;
 				input.moveMode = 0;
-				// input.attackMode = -3; //Set counterslash first
-				player.SetPlayerState(PlayerState.RAPID_SLASH);
-				// ChangeDir(0f, 0f);
-				SetDir(0f,0f);
+				slowDownTimer = 0f;
+				// SetDir(0f,0f);
+				// playerAnimationSystem.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+				input.textRapidSlash.gameObject.SetActive(false);
+				player.SetPlayerState(PlayerState.ENGAGE);
+				// player.SetPlayerState(PlayerState.RAPID_SLASH);
 			}
 
+			return true;
+		} else if (state == PlayerState.ENGAGE) {
 			return true;
 		} else if (state == PlayerState.RAPID_SLASH) {
 			return true;
@@ -578,7 +601,7 @@ public class PlayerInputSystem : ComponentSystem {
 			
 			return true;
 		} else if (state == PlayerState.DODGE) {
-			CheckDodgeInput ();
+		// 	CheckDodgeInput ();
 			return true;
 		} else if (state == PlayerState.OPEN_CHEST) {
 			return true;
@@ -646,6 +669,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// 	input.steadyMode = value;
 		// }
 	}
+
 	public void SetDir (float dirX, float dirZ) {
 		Vector3 fixDir = new Vector3(dirX, 0f, dirZ);
 

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.PostProcessing;
 
 public class PlayerAnimationSystem : ComponentSystem {
 	public struct AnimationData {
@@ -112,7 +113,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			}
 
 			//CHARGE BUG FIX (&)
-			if (animName != Constants.BlendTreeName.IDLE_CHARGE & animName != Constants.BlendTreeName.MOVE_CHARGE) {
+			if (animName != Constants.BlendTreeName.IDLE_CHARGE && animName != Constants.BlendTreeName.MOVE_CHARGE) {
 				gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 			}
 		}
@@ -124,9 +125,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 			//Check Start Animation
 			anim.isCheckBeforeAnimation = false;
-			if (animName == Constants.BlendTreeName.NORMAL_ATTACK_1) {
-				// Debug.Log("Play Anim Slash 1");
-			}
+			// if (animName == Constants.BlendTreeName.NORMAL_ATTACK_1) {
+			// 	// Debug.Log("Play Anim Slash 1");
+			// }
 		} 
 	}
 
@@ -184,8 +185,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
 						// ReverseDir();
 
-						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME, false);
+						PlayOneShotAnimation(Constants.BlendTreeName.IDLE_BULLET_TIME, true);
 					}
+					break;
+				case PlayerState.ENGAGE: 
+					PlayLoopAnimation(Constants.BlendTreeName.MOVE_DASH, true);
 					break;
 				case PlayerState.RAPID_SLASH: 
 					if (attackMode == 1) {
@@ -444,7 +448,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 					break;
 				case PlayerState.SLOW_MOTION:
-					gameFXSystem.PlayCounterChargeEffect();
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
+					// gameFXSystem.PlayCounterChargeEffect();
+					animator.speed = 5f;
+					Camera.main.GetComponent<PostProcessingBehaviour>().enabled = true;
+					break;
+				case PlayerState.ENGAGE:
+					//
 					break;
 				case PlayerState.RAPID_SLASH:
 					anim.isSpawnSomethingOnAnimation = true;
@@ -622,12 +632,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 					StopAnyAnimation();
 					break;
 				case PlayerState.SLOW_MOTION:
+					animator.speed = 20f;
 					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.RAPID_SLASH:
 					if (input.attackMode == -3) {
 						input.attackMode = 1;
-						animator.speed = 3f;
 					} else {
 						if (input.attackMode < 3) {
 							input.attackMode++;
@@ -642,10 +652,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// player.isHitAnEnemy = false;
 						player.somethingThatHitsPlayer = null;
 						// StopAttackAnimation();
-						StopAnyAnimation();
 						// input.attackMode = 0;
-						
+						// animator.updateMode = AnimatorUpdateMode.Normal;
+						Time.timeScale = 1f;
 						animator.speed = 1f;
+						Camera.main.GetComponent<PostProcessingBehaviour>().enabled = false;
+
+						StopAnyAnimation();
 					} else {
 						anim.isFinishAnyAnimation = true;
 					}

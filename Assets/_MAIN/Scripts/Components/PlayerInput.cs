@@ -1,5 +1,6 @@
 ﻿// using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerInputAudio {
 	BOW_AIM,
@@ -15,6 +16,7 @@ public class PlayerInput : MonoBehaviour {
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
+	public Text textRapidSlash;
 
 	// public bool isLockDir = false;
 	// public bool isButtonHold = false;
@@ -151,7 +153,7 @@ public class PlayerInput : MonoBehaviour {
 	
 	public float chargeAttackThreshold = 1f;
 	public float beforeChargeDelay = 0.3f;
-	public float attackAwayDelay =  0.5f;
+	// public float attackAwayDelay =  0.5f;
 	public float guardParryDelay = 0.5f;
 	public float bulletTimeDelay = 0.3f;
 	public float bulletTimeDuration = 0.3f;

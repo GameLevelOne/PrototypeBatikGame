@@ -22,7 +22,8 @@ public enum PlayerState {
 	FISHING,
 	BOW,
 	GET_TREASURE,
-	OPEN_CHEST
+	OPEN_CHEST,
+	ENGAGE
 }
 
 public class Player : MonoBehaviour {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour {
 	public Collider playerCol;
 	// public UIGameOver uiGameOver;   <---- CHANGE TO INJECTATTRIBUTE IN PLAYERMOVEMENTSYSTEM
 	public GameObject playerAttackAreaObj;
+	public GameObject playerCounterTrigger;
 	public Transform liftingParent;
 	public float shieldPower;
     public int requiredBowMana;
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public TerrainType terrainType; 
 	public Transform somethingThatHitsPlayer;
+	public PlayerCounterTrigger currentCounterTrigger;
 	// public PlayerTool playerTool;
     public bool isInitPlayer = false; 
 
@@ -52,11 +55,14 @@ public class Player : MonoBehaviour {
 	public bool isPlayerKnockedBack = false;
 	public bool isGuarding = false; 
 	public bool isCanParry = false;
-	public bool isCanBulletTime = false;
 	public bool isUsingStand = false; //By Mana  
 	public bool isBouncing = false;
 	public bool isMoveAttack = false;
+	// public bool isCanBulletTime = false;
+	public bool isOnBulletTimePeriod = false;
 	// public bool isInvisible = false;
+	public Vector3 counterPos = Vector3.zero;
+	public int counterDir = 0;
 	
 	[SpaceAttribute(10f)]
 	public bool isHitGateObject = false;
@@ -84,43 +90,44 @@ public class Player : MonoBehaviour {
 
 	void OnDisable () {
 		health.OnDamageCheck -= DamageCheck;
+		
+		if (currentCounterTrigger != null)
+			currentCounterTrigger.OnCounterTrigger -= OnCounterTrigger;
 	}
 
 	void DamageCheck (Damage damage) {
 		damageReceive = damage;
-		isPlayerHit = true;
 
 		switch (damage.damageChar) {
-			case DamageCharacteristic.COUNTERABLE:
-				isCanBulletTime = true;
-				break;
+			// case DamageCharacteristic.COUNTERABLE:
+			// 	isCanBulletTime = true;
+			// 	break;
 			case DamageCharacteristic.PARRYABLE:
 				isCanParry = true;
 				break;
-			case DamageCharacteristic.COUNTER_AND_PARRYABLE:
-				isCanBulletTime = true;
-				isCanParry = true;
-				break;
+			// case DamageCharacteristic.COUNTER_AND_PARRYABLE:
+			// 	isCanBulletTime = true;
+			// 	isCanParry = true;
+			// 	break;
 			default: // DamageCharacteristic.NONE
-				isCanBulletTime = false;
+				// isCanBulletTime = false;
 				isCanParry = false;
+				isPlayerHit = true;
 				break;
 		}
 		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
-	// public bool isUsingStand {
-	// 	get {return isStand;}
-	// 	set {
-	// 		isStand = value;
-	// 		Debug.Log("Stand "+isStand);
-	// 	}
-	// }
+	void OnCounterTrigger () {
+		if (state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
+			isOnBulletTimePeriod = true;
+			// Debug.Log("Set isOnBulletTimePeriod TRUE");
+		}
+	}
 
-	// void Awake () {
-	// 	Debug.Log("Debug MaxHP : "+MaxHP);
-	// 	Debug.Log("Debug MaxMP : "+MaxMP);
-	// }
+	public void ReferenceCounterTrigger () {
+		currentCounterTrigger.OnCounterTrigger += OnCounterTrigger;
+	}
 
     public float MaxHP{
         get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
