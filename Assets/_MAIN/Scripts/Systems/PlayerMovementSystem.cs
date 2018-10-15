@@ -205,7 +205,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					rb.AddForce(-moveDir * movement.dodgeSpeed, ForceMode.Impulse);
 
 					// input.moveDir = -moveDir; //REVERSE
-					input.moveDir = Vector3.zero;
+					// input.moveDir = Vector3.zero;
 					// input.dirButtons =  new List<int>(4){0,0,0,0};
 				} else {
 					// input.dirButtons =  new List<int>(4){0,0,0,0};
@@ -390,7 +390,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		// Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
 		// rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 		// Debug.Log("Slow Motion PlayerMovementSystem");
-		Time.timeScale = 0.3f;
+		Time.timeScale = 0.5f;
 		input.attackMode = -3; //Set counterslash first
 		rb.velocity = Vector3.zero;
 	}

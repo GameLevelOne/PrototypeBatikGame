@@ -607,7 +607,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					}
 
 					if (moveDir != Vector3.zero) {
-						gameFXSystem.ToggleRunFX(true);
+						if (!input.isUIOpen) gameFXSystem.ToggleRunFX(true);
 					}
 
 					if (anim.isFinishAttackAnimation) {
@@ -619,7 +619,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.CHARGE: 
 					if (moveDir != Vector3.zero) {
-						gameFXSystem.ToggleRunFX(true);
+						if (!input.isUIOpen) gameFXSystem.ToggleRunFX(true);
 					}
 
 					// StopAttackAnimation();
@@ -628,6 +628,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.DODGE:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
 					gameFXSystem.ToggleRunFX(false);
+					input.moveDir = Vector3.zero;
 
 					StopAnyAnimation();
 					break;

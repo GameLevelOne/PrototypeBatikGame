@@ -100,7 +100,7 @@ public class GameFXSystem : ComponentSystem {
                 SetWalkParticle(false, true, false, false);
                 PlayFXAudio(gameFX.runOnDirtEffect);
             } else if (currTerrainType == TerrainType.WATER) {
-                Debug.Log("Water");
+                // Debug.Log("Water");
                 SetWalkParticle(false, false, true, false);
                 PlayFXAudio(gameFX.runOnWaterEffect);
             } else if (currTerrainType == TerrainType.STONESWAMP) {

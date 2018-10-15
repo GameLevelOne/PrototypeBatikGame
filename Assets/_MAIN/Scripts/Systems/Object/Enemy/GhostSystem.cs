@@ -63,18 +63,22 @@ public class GhostSystem : ComponentSystem {
 
 	void CheckState()
 	{
-		if(currEnemy.state == EnemyState.Idle){
-			Idle();
-		}else if(currEnemy.state == EnemyState.Patrol){
-			Patrol();
-		}else if(currEnemy.state == EnemyState.Chase){
-			Chase();
-		}else if(currEnemy.state == EnemyState.Attack){
-			Attack();
-		}else if(currEnemy.state == EnemyState.Damaged){
+		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
-		}else if(currEnemy.state == EnemyState.Die){
-			Die();
+		} else {
+			currGhostRigidbody.velocity = Vector3.zero;
+			
+			if(currEnemy.state == EnemyState.Idle){
+				Idle();
+			}else if(currEnemy.state == EnemyState.Patrol){
+				Patrol();
+			}else if(currEnemy.state == EnemyState.Chase){
+				Chase();
+			}else if(currEnemy.state == EnemyState.Attack){
+				Attack();
+			}else if(currEnemy.state == EnemyState.Die){
+				Die();
+			}
 		}
 	}
 
@@ -195,7 +199,7 @@ public class GhostSystem : ComponentSystem {
 			if (currEnemy.isFinishDamaged) {
 				currGhostRigidbody.velocity = Vector3.zero;
 				// currEnemy.damageSourceTransform = null;
-				currGhostRigidbody.isKinematic = true;
+				// currGhostRigidbody.isKinematic = true;
 				
 				currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Chase;
@@ -214,7 +218,7 @@ public class GhostSystem : ComponentSystem {
 		
 		Vector3 resultPos = new Vector3 (currGhostTransform.position.x-damageSourcePos.x, 0f, currGhostTransform.position.z-damageSourcePos.z);
 
-		currGhostRigidbody.isKinematic = false;
+		// currGhostRigidbody.isKinematic = false;
 		currGhostRigidbody.velocity = Vector3.zero;
 
 		currGhostRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);

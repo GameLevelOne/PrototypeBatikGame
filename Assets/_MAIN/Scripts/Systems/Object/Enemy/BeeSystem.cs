@@ -103,6 +103,8 @@ public class BeeSystem : ComponentSystem {
 		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
 		} else {
+			currBeeRigidbody.velocity = Vector3.zero;
+			
 			if (currEnemy.state == EnemyState.Idle){
 				Idle();
 			} else if (currEnemy.state == EnemyState.Patrol){
@@ -166,7 +168,7 @@ public class BeeSystem : ComponentSystem {
 			if (currEnemy.isFinishDamaged) {
 				currBeeRigidbody.velocity = Vector3.zero;
 				// currEnemy.damageSourceTransform = null;
-				currBeeRigidbody.isKinematic = true;
+				// currBeeRigidbody.isKinematic = true;
 				
 				currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Aggro;
@@ -195,7 +197,7 @@ public class BeeSystem : ComponentSystem {
 		
 		Vector3 resultPos = new Vector3 (currBeeTransform.position.x-damageSourcePos.x, 0f, currBeeTransform.position.z-damageSourcePos.z);
 
-		currBeeRigidbody.isKinematic = false;
+		// currBeeRigidbody.isKinematic = false;
 		currBeeRigidbody.velocity = Vector3.zero;
 
 		currBeeRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);

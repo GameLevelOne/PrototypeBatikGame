@@ -56,6 +56,8 @@ public class MonkeySystem : ComponentSystem {
 		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
 		} else {
+			currMonkeyRigidbody.velocity = Vector3.zero;
+			
 			if (currEnemy.state == EnemyState.Idle){
 				Idle();
 			} else if (currEnemy.state == EnemyState.Patrol){
@@ -139,7 +141,7 @@ public class MonkeySystem : ComponentSystem {
 			if (currEnemy.isFinishDamaged) {
 				currMonkeyRigidbody.velocity = Vector3.zero;
 				// currEnemy.damageSourceTransform = null;
-				currMonkeyRigidbody.isKinematic = true;
+				// currMonkeyRigidbody.isKinematic = true;
 				// Debug.Log("Set MonkeyRB Kinematic");
 				
 				currEnemy.isFinishDamaged = false;
@@ -157,7 +159,7 @@ public class MonkeySystem : ComponentSystem {
 		
 		Vector3 resultPos = new Vector3 (currMonkeyTransform.position.x-damageSourcePos.x, 0f, currMonkeyTransform.position.z-damageSourcePos.z);
 
-		currMonkeyRigidbody.isKinematic = false;
+		// currMonkeyRigidbody.isKinematic = false;
 		currMonkeyRigidbody.velocity = Vector3.zero;
 
 		currMonkeyRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);

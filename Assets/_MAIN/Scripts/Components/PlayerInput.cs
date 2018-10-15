@@ -55,7 +55,7 @@ public class PlayerInput : MonoBehaviour {
 					calculatedMoveDir = value;
 				}
 			}
-
+			// Debug.Log(value);
 			currMoveDir = calculatedMoveDir;
 		}
 	}

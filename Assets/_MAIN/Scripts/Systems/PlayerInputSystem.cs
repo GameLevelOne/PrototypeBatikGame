@@ -149,7 +149,6 @@ public class PlayerInputSystem : ComponentSystem {
 		// Debug.Log("Input Dir: "+dirX+","+dirZ);
 
 		SetDir(dirX,dirZ);
-		
 	}
 
 	void CheckArrowInput () {
@@ -376,10 +375,10 @@ public class PlayerInputSystem : ComponentSystem {
 		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.DODGE) {
 			if (GameInput.IsDodgePressed && !input.isUIOpen && isFinishAttackAnimation) {
 				if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
+					input.moveDir = -currentDir; //REVERSE
 					// gameFXSystem.ToggleDodgeFlag(true);
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, true);
 					player.SetPlayerState(PlayerState.DODGE);
-					input.moveDir = -currentDir; //REVERSE
 					currentDir = Vector3.zero;
 					bulletTimeTimer = 0f;	
 					dodgeCooldownTimer = 0f;
@@ -390,8 +389,11 @@ public class PlayerInputSystem : ComponentSystem {
 					player.counterPos = player.transform.position;
 					player.counterDir = facing.DirID;
 					GameObject counterTrigger = GameObject.Instantiate(player.playerCounterTrigger, player.counterPos, Quaternion.identity);
-					player.currentCounterTrigger = counterTrigger.GetComponent<PlayerCounterTrigger>();
+					PlayerCounterTrigger playerCounterTrigger = counterTrigger.GetComponent<PlayerCounterTrigger>();
+					playerCounterTrigger.player = player;
+					player.currentCounterTrigger = playerCounterTrigger;
 					player.ReferenceCounterTrigger();
+					counterTrigger.SetActive(true);
 				}
 			}	
 
