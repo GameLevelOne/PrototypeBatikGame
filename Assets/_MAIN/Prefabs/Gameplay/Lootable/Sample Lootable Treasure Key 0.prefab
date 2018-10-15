@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601332772400390}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -0.3}
+  m_LocalPosition: {x: 0, y: 0.3, z: -0.3}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 4414894396842098}
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootableType: 0
   mainSprite: {fileID: 0}
+  lootableFX: {fileID: 0}
   lootQuantity: 0
   initPosY: 0.5
   destroyDuration: 0

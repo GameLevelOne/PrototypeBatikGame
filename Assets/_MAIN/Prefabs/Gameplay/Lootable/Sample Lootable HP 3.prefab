@@ -21,9 +21,8 @@ GameObject:
   - component: {fileID: 4950479471909900}
   - component: {fileID: 212159193007528648}
   - component: {fileID: 95389927806872904}
-  - component: {fileID: 114674574561793218}
   m_Layer: 0
-  m_Name: Sprite (1)
+  m_Name: Lootable Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,6 +40,7 @@ GameObject:
   - component: {fileID: 114064721142876332}
   - component: {fileID: 135223476274067670}
   - component: {fileID: 82971823167409500}
+  - component: {fileID: 95033034295933030}
   m_Layer: 0
   m_Name: Sample Lootable HP 3
   m_TagString: Lootable
@@ -58,9 +58,8 @@ GameObject:
   - component: {fileID: 4696880262714568}
   - component: {fileID: 212057524450454260}
   - component: {fileID: 95180981056443522}
-  - component: {fileID: 114856028700645460}
   m_Layer: 0
-  m_Name: Sprite (2)
+  m_Name: Lootable Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,9 +75,8 @@ GameObject:
   - component: {fileID: 4101957775885756}
   - component: {fileID: 212640651570996582}
   - component: {fileID: 95545248334419870}
-  - component: {fileID: 114513641318465484}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Lootable Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,6 +232,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95033034295933030
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1937885430140730}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e357a68284272614ab18370ecdb0234d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95180981056443522
 Animator:
   serializedVersion: 3
@@ -300,16 +316,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootableType: 2
-  mainSprite: {fileID: 0}
   lootableFX: {fileID: 1025228528180690, guid: 977c600dce3f8f14980af487f8ce2b42, type: 2}
-  lootQuantity: 30
   initPosY: 0.5
-  destroyDuration: 5
+  parentAnimator: {fileID: 95033034295933030}
+  lootQuantity: 30
+  startDestroyDuration: 6
   treasureType: 0
   initSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   keyID: 0
   isInitLootable: 0
   isLooted: 0
+  isInitDestroy: 0
   isDestroyed: 0
   destroyTimer: 0
 --- !u!114 &114069211346772004
@@ -321,39 +339,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114513641318465484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1998555497923896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114674574561793218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1810409376897940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114856028700645460
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1939843064283952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135223476274067670

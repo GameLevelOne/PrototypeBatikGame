@@ -29,10 +29,19 @@ public class LootableSystem : ComponentSystem {
 					if (lootable.isLooted) {
 						CheckLootable();
 					} else if (treasureType == TreasureType.NONE) {
-						if (lootable.destroyTimer < lootable.destroyDuration) {
-							lootable.destroyTimer += deltaTime;
-						} else {
-							lootable.isDestroyed = true;
+						if (!lootable.isInitDestroy) {
+							if (lootable.destroyTimer < lootable.startDestroyDuration) {
+								lootable.destroyTimer += deltaTime;
+							} else {
+								Animator[] childAnimator = lootable.GetComponentsInChildren<Animator>();
+
+								for (int j=0; j<childAnimator.Length; j++) {
+									childAnimator[j].enabled = false;
+								}
+
+								lootable.parentAnimator.enabled = true;
+								lootable.isInitDestroy = true;
+							}
 						}
 					}
 				} else {
@@ -43,7 +52,8 @@ public class LootableSystem : ComponentSystem {
 	}
 
 	void InitLootable () {
-		//
+		lootable.parentAnimator.enabled = false;
+
 		lootable.isInitLootable = true;
 	}
 

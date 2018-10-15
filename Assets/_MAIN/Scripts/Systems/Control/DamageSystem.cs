@@ -232,15 +232,19 @@ public class DamageSystem : ComponentSystem {
 					if (damageTag == Constants.Tag.PLAYER_SLASH || damageTag == Constants.Tag.PLAYER_COUNTER) {
 						SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
 					} else if (damageTag == Constants.Tag.LIFTABLE) {
-						SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
-						
-						if (currEnemy.damageReceive.GetComponent<Bush>() != null) {
-							currEnemy.damageReceive.GetComponent<Bush>().destroy = true;
-						} else if (currEnemy.damageReceive.GetComponent<Stone>() != null) {
-							currEnemy.damageReceive.GetComponent<Stone>().hit = true;
-						}
+						Liftable liftable = currEnemy.damageReceive.GetComponent<Liftable>();
 
-						currEnemy.playerTransform = playerInputSystem.player.transform;
+						if (liftable.state == LiftableState.THROW || liftable.state == LiftableState.FLY) {
+							SetEnemyGotDamaged(currEnemy, damage, enemyTransform);
+						
+							if (currEnemy.damageReceive.GetComponent<Bush>() != null) {
+								liftable.DestroyBush();
+							} else if (currEnemy.damageReceive.GetComponent<Stone>() != null) {
+								liftable.DestroyStone();
+							}
+
+							currEnemy.playerTransform = playerInputSystem.player.transform;
+						}
 					}
 				}
 				// currEnemy.isEnemyGetHurt = false;

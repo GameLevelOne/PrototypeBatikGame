@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114350629933089148}
   - component: {fileID: 135509946512657100}
   - component: {fileID: 82732777969232728}
+  - component: {fileID: 95720837384516864}
   m_Layer: 0
   m_Name: Sample Lootable HP 1
   m_TagString: Lootable
@@ -40,9 +41,8 @@ GameObject:
   - component: {fileID: 4568547119192782}
   - component: {fileID: 212818265271899584}
   - component: {fileID: 95635610327865692}
-  - component: {fileID: 114560145264479928}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Lootable Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,6 +188,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95720837384516864
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844725775654284}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e357a68284272614ab18370ecdb0234d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114350629933089148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,29 +218,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootableType: 2
-  mainSprite: {fileID: 0}
   lootableFX: {fileID: 1025228528180690, guid: 977c600dce3f8f14980af487f8ce2b42, type: 2}
-  lootQuantity: 10
   initPosY: 0.5
-  destroyDuration: 5
+  parentAnimator: {fileID: 95720837384516864}
+  lootQuantity: 10
+  startDestroyDuration: 6
   treasureType: 0
   initSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   keyID: 0
   isInitLootable: 0
   isLooted: 0
+  isInitDestroy: 0
   isDestroyed: 0
   destroyTimer: 0
---- !u!114 &114560145264479928
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1981539658686558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae6de3a732b73c429475a07863ca3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114806099893336642
 MonoBehaviour:
   m_ObjectHideFlags: 1

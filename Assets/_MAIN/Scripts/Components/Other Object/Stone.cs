@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class Stone : MonoBehaviour {
+	// public Liftable liftable;
 	public Collider stoneCollider;
 	public Collider parentCollider;
 	public TriggerDetection hammerTrigger;
@@ -12,7 +13,15 @@ public class Stone : MonoBehaviour {
 	public GameObject stoneCrushFX;
 
 	[HeaderAttribute("Current")]
-	public bool hit = false;
+	public bool localhit = false;
+
+	public bool hit {
+		get {return localhit;}
+		set {
+			localhit = value;
+			Debug.Log(value);
+		}
+	}
 
 	void OnEnable()
 	{

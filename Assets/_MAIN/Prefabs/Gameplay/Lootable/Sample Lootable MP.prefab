@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212047044958240894}
   - component: {fileID: 95322755614096168}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Lootable Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114736316838444236}
   - component: {fileID: 135219899813843326}
   - component: {fileID: 82299338339426980}
+  - component: {fileID: 95981496969021472}
   m_Layer: 0
   m_Name: Sample Lootable MP
   m_TagString: Lootable
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330448320096520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.9, y: 0.5, z: 4.24}
+  m_LocalPosition: {x: 18.9, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4806528291537932}
@@ -187,6 +188,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95981496969021472
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330448320096520}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e357a68284272614ab18370ecdb0234d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114187443878322736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,16 +229,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootableType: 3
-  mainSprite: {fileID: 0}
   lootableFX: {fileID: 1904850958337656, guid: 382005c93cf7a5347aba656b33310732, type: 2}
-  lootQuantity: 30
   initPosY: 0.5
-  destroyDuration: 5
+  parentAnimator: {fileID: 95981496969021472}
+  childAnimator:
+  - {fileID: 95322755614096168}
+  lootQuantity: 30
+  startDestroyDuration: 6
   treasureType: 0
   initSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   keyID: 0
   isInitLootable: 0
   isLooted: 0
+  isInitDestroy: 0
   isDestroyed: 0
   destroyTimer: 0
 --- !u!135 &135219899813843326

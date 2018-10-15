@@ -54,12 +54,20 @@ public class Liftable : MonoBehaviour {
 				// isLanding = true;
 
 				if (GetComponent<Bush>() != null) {
-					GetComponent<Bush>().destroy = true;
+					DestroyBush();
 				} else if (GetComponent<Stone>() != null) {
-					GetComponent<Stone>().hit = true;
+					DestroyStone();
 				}
 			}
 		}
+	}
+
+	public void DestroyBush () {
+		GetComponent<Bush>().destroy = true;
+	}
+
+	public void DestroyStone () {
+		GetComponent<Stone>().hit = true;
 	}
 
 	// bool IsCollidingSomething (string tag) {

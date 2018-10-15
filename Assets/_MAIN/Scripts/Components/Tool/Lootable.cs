@@ -18,25 +18,29 @@ public enum LootableType {
 
 public class Lootable : MonoBehaviour {
 	public LootableType lootableType;
-	public GameObject mainSprite;
 	public GameObject lootableFX;
-	public int lootQuantity;
 	public float initPosY;
 	// public Collider mainCol;
 
-	[HeaderAttribute("Non Treasure Only")]
-	public float destroyDuration = 0f;
+	[HeaderAttribute("NONE TreasureType Only")]
+	public Animator parentAnimator;
+	public int lootQuantity;
+	public float startDestroyDuration = 0f;
 
 	[HeaderAttribute("Treasure Only")]
 	public TreasureType treasureType;
+
+	[HeaderAttribute("FISH TreasureType Only")]
 	public GameObject initSprite;
+	public GameObject mainSprite;
 	
-	[HeaderAttribute("Treasure KEY Only")]
+	[HeaderAttribute("KEY TreasureType Only")]
 	public int keyID;
 
 	[HeaderAttribute("Current")]
 	public bool isInitLootable = false;
 	public bool isLooted = false;
+	public bool isInitDestroy = false;
 	public bool isDestroyed = false;
 	public float destroyTimer = 0f;
 
@@ -46,4 +50,8 @@ public class Lootable : MonoBehaviour {
 	// 		mainCol.isTrigger = true;
 	// 	}
 	// }
+
+	void DestroyMe () {
+		isDestroyed = true;
+	}
 }
