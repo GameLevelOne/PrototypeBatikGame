@@ -38,7 +38,12 @@ public class SoundManager : MonoBehaviour {
 
 	public AudioSource bgmSource;
 	public AudioSource gotTreasureSource;
+	public float fadeSpeed = 1f;
 	public AudioClip[] BGMs;
+
+	bool isChangingBGM = false;
+	bool loop;
+	BGM bgmToChange;
 
 	public void PlayBGM(BGM bgm, bool loop = true)
 	{
@@ -46,11 +51,14 @@ public class SoundManager : MonoBehaviour {
 
 			if(bgm == BGM.GotTreasure){
 				PlayGotTreasure();
-			}else{
-				bgmSource.Stop();
-				bgmSource.clip = BGMs[(int)bgm];
-				bgmSource.loop = loop;
+			}else if(bgm == BGM.Title){
+				bgmSource.clip = BGMs[(int)BGM.Title];
+				bgmSource.volume = 1f;
 				bgmSource.Play();
+			}else{
+				isChangingBGM = true;
+				bgmToChange = bgm;
+				this.loop = loop;
 			}
 		}
 	}
@@ -63,5 +71,21 @@ public class SoundManager : MonoBehaviour {
 	public void StopBGM()
 	{
 		if(bgmSource.isPlaying) bgmSource.Stop();
+	}
+
+	void Update()
+	{
+		if(isChangingBGM){
+			bgmSource.volume -= Time.unscaledDeltaTime * fadeSpeed;
+		
+			if(bgmSource.volume <= 0f){
+				bgmSource.Stop();
+				bgmSource.clip = BGMs[(int)bgmToChange];
+				bgmSource.loop = this.loop;
+				bgmSource.volume = 1f;
+				bgmSource.Play();
+				isChangingBGM = false;
+			}
+		}
 	}
 }
