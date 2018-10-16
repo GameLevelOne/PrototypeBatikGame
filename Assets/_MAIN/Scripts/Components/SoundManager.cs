@@ -51,14 +51,20 @@ public class SoundManager : MonoBehaviour {
 
 			if(bgm == BGM.GotTreasure){
 				PlayGotTreasure();
-			}else if(bgm == BGM.Title){
-				bgmSource.clip = BGMs[(int)BGM.Title];
+			}else if(bgm == BGM.JatayuFight){
+				bgmSource.clip = BGMs[(int)bgm];
 				bgmSource.volume = 1f;
 				bgmSource.Play();
 			}else{
-				isChangingBGM = true;
-				bgmToChange = bgm;
-				this.loop = loop;
+				if(bgmSource.clip == null){
+					bgmSource.clip = BGMs[(int)bgm];
+					bgmSource.volume = 1f;
+					bgmSource.Play();
+				}else{
+					isChangingBGM = true;
+					bgmToChange = bgm;
+					this.loop = loop;
+				}
 			}
 		}
 	}
