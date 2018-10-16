@@ -46,7 +46,7 @@ public class PlayerInputSystem : ComponentSystem {
 	float dodgeCooldownTimer = 0f;
 	float dodgeCooldown = 0f;
 	float bulletTimeDelay = 0f;
-	bool isAttackAway = true;
+	// bool isAttackAway = true;
 	bool isReadyForDodging = true;
 
 	bool isDodging = false;
@@ -113,7 +113,7 @@ public class PlayerInputSystem : ComponentSystem {
 		startChargeAttackTimer = 0f;
 		attackAwayTimer = 0f;
 		dodgeCooldownTimer = 0f;
-		isAttackAway = true;
+		// isAttackAway = true;
 		isReadyForDodging = true;
 
 		isDodging = false;
@@ -283,7 +283,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// }
 				
 				attackAwayTimer = 0f;
-				isAttackAway = false;	
+				// isAttackAway = false;	
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
 			} else if (GameInput.IsAttackHeld && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
@@ -516,7 +516,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// input.slashComboVal.Clear();
 		// Debug.Log("SET BUTTON UP AttackList CLEAR");
 		attackAwayTimer = 0f;
-		isAttackAway = true;
+		// isAttackAway = true;
 
 		player.isGuarding = false;
 		parryTimer = 0f;

@@ -168,6 +168,9 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currMonkeyHealth.EnemyHP <= 0f){
+			//SPAWN DEATH FX
+			GameObject.Instantiate(currEnemy.deathFX, currMonkeyTransform.position, Quaternion.identity);
+
 			//SPAWN ITEM
 			lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currMonkeyTransform.position);
 			PlaySFXOneShot(MonkeyAudio.DIE);

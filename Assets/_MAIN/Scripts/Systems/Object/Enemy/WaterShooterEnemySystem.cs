@@ -8,6 +8,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		public readonly int Length;
 		public ComponentArray<Enemy> enemy;
 		public ComponentArray<WaterShooterEnemy> waterShooterEnemy;
+		public ComponentArray<Transform> waterShooterEnemyTransform;
 		public ComponentArray<Rigidbody> waterShooterEnemyRigidbody;
 		public ComponentArray<Animator> waterShooterEnemyAnim;
 		public ComponentArray<Health> waterShooterEnemyHealth;
@@ -17,6 +18,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	[InjectAttribute] public WaterShooterEnemyComponent waterShooterEnemyComponent;
 	Enemy currEnemy;
 	WaterShooterEnemy currWaterShooterEnemy;
+	Transform currWaterShooterEnemyTransform;
 	Rigidbody currWaterShooterEnemyRidigbody;
 	Animator currWaterShooterEnemyAnim;
 	Health currWaterShooterEnemyHealth;
@@ -31,6 +33,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		for(int i = 0;i<waterShooterEnemyComponent.Length;i++){
 			currWaterShooterEnemy = waterShooterEnemyComponent.waterShooterEnemy[i];
 			currEnemy = waterShooterEnemyComponent.enemy[i];
+			currWaterShooterEnemyTransform = waterShooterEnemyComponent.waterShooterEnemyTransform[i];
 			currWaterShooterEnemyRidigbody = waterShooterEnemyComponent.waterShooterEnemyRigidbody[i];
 			currWaterShooterEnemyAnim = waterShooterEnemyComponent.waterShooterEnemyAnim[i];
 			currWaterShooterEnemyHealth = waterShooterEnemyComponent.waterShooterEnemyHealth[i];
@@ -58,6 +61,9 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currWaterShooterEnemyHealth.EnemyHP <= 0f){
+			//SPAWN DEATH FX
+			GameObject.Instantiate(currEnemy.deathFX, currWaterShooterEnemyTransform.position, Quaternion.identity);
+
 			//SPAWN ITEM
 			// lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
 			// PlaySFXOneShot(LotusAudio.DIE);

@@ -64,6 +64,9 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(currBeeHealth.EnemyHP <= 0f){
 			// currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.DIE]);
+			//SPAWN DEATH FX
+			GameObject.Instantiate(currEnemy.deathFX, currBeeTransform.position, Quaternion.identity);
+
 			//SPAWN ITEM
 			lootableSpawnerSystem.CheckPlayerLuck(currEnemy.spawnItemProbability, currBeeTransform.position);
 

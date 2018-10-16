@@ -524,6 +524,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// PlaySFXOneShot(AnimationAudio.HURT);
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
 					gameFXSystem.ToggleRunFX(false);
+					
+					//CLOSE CHARGE ATTACK
+					input.moveMode = 0;
+					gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();

@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public Player playerThatHitsEnemy;
 	public Transform playerTransform;
+	public GameObject deathFX;
 	// public Transform damageSourceTransform;
 	public Vector3 damageSourcePos;
 	public Vector3 patrolDestination;
