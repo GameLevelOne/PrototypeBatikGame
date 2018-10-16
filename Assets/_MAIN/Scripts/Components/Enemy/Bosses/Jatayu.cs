@@ -256,6 +256,7 @@ public class Jatayu : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if( other.tag == Constants.Tag.PLAYER_SLASH || 
 			other.tag == Constants.Tag.HAMMER || 
+			other.tag == Constants.Tag.PLAYER_DASH_ATTACK ||
 			other.tag == Constants.Tag.ARROW ){
 				initHit = true;
 				isHit = true;
