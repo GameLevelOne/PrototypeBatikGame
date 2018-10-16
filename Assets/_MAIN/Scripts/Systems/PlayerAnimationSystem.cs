@@ -522,6 +522,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
 					// PlaySFXOneShot(AnimationAudio.HURT);
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
+					gameFXSystem.ToggleRunFX(false);
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();

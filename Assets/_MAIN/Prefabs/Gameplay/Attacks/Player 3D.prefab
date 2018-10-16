@@ -158,7 +158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1223443603101166
 GameObject:
   m_ObjectHideFlags: 1
@@ -2159,7 +2159,8 @@ MonoBehaviour:
   isUsingStand: 0
   isBouncing: 0
   isMoveAttack: 0
-  isOnBulletTimePeriod: 0
+  isCanBulletTime: 0
+  isOnParryPeriod: 0
   counterPos: {x: 0, y: 0, z: 0}
   counterDir: 0
   isHitGateObject: 0

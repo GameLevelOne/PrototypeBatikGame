@@ -194,7 +194,7 @@ public class PowerBraceletSystem : ComponentSystem {
 			powerBracelet.liftable.mainCollider.isTrigger = true;
 			powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
 			powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
-			// powerBracelet.liftable.mainRigidbody.mass = powerBracelet.liftable.throwMass;
+			powerBracelet.liftable.mainRigidbody.mass = powerBracelet.liftable.throwMass;
 			powerBracelet.liftable.mainRigidbody.drag = 0f;
 			powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
 			// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;

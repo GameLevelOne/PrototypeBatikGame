@@ -24,7 +24,7 @@ public class Liftable : MonoBehaviour {
 	public Rigidbody mainRigidbody;
 	public Collider mainCollider;
 	// public float initMass;
-	// public float throwMass;
+	public float throwMass;
 	
 	public float initGravityAwakeTime;
 

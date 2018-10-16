@@ -206,7 +206,7 @@ MonoBehaviour:
   mainRigidbody: {fileID: 54298049704602542}
   mainCollider: {fileID: 135506030136493200, guid: 353850b5c9c48a342a0f2aa7af97b200,
     type: 2}
-  throwMass: 0
+  throwMass: 5
   initGravityAwakeTime: 0.2
   weight: 10
   gravityAwakeTimer: 0
@@ -242,6 +242,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!212 &212679689525290758
 SpriteRenderer:
   m_ObjectHideFlags: 1

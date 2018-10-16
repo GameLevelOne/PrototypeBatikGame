@@ -41,4 +41,8 @@ public class CameraShakerSystem : ComponentSystem {
 			cameraShakerTransform.position = cameraShaker.originPos;
 		}
 	}
+
+	public void ShakeCamera (bool isShake) {
+		cameraShaker.shake = isShake;
+	}
 }

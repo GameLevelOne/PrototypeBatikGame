@@ -115,16 +115,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootableType: 0
-  mainSprite: {fileID: 0}
   lootableFX: {fileID: 0}
-  lootQuantity: 0
   initPosY: 0.5
-  destroyDuration: 0
+  parentAnimator: {fileID: 0}
+  lootQuantity: 0
+  startDestroyDuration: 0
   treasureType: 4
   initSprite: {fileID: 0}
+  mainSprite: {fileID: 0}
   keyID: 0
   isInitLootable: 0
   isLooted: 0
+  isInitDestroy: 0
   isDestroyed: 0
   destroyTimer: 0
 --- !u!114 &114918955782677214

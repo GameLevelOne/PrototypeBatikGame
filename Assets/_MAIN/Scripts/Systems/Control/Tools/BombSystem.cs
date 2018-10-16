@@ -8,6 +8,7 @@ public class BombSystem : ComponentSystem {
 		public ComponentArray<Transform> Transform;
 	}
 	[InjectAttribute] BombData bombData;
+	[InjectAttribute] CameraShakerSystem cameraShakerSystem;
 
 	Bomb bomb;
 
@@ -38,6 +39,7 @@ public class BombSystem : ComponentSystem {
 	{
 		if (bomb.timer <= 0){
 			if(!bomb.explode){
+				cameraShakerSystem.ShakeCamera(true);
 				SpawnExplosion ();
 				// Explode();
 				DestroyBomb ();

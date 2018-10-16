@@ -10,6 +10,7 @@ public class ProjectileSystem : ComponentSystem {
 		public  ComponentArray<Rigidbody> Rigidbody;
 	}
 	[InjectAttribute] ProjectileData projectileData;
+	[InjectAttribute] CameraShakerSystem cameraShakerSystem;
 
 	Projectile projectile;
     Transform tr;
@@ -59,6 +60,11 @@ public class ProjectileSystem : ComponentSystem {
 
                 projectile.isStartLaunching = false;
             } else {
+                if (projectile.isDisableCameraShake) {
+                    cameraShakerSystem.ShakeCamera(false);
+                    projectile.isDisableCameraShake = false;
+                }
+
                 if (projectile.isDestroyOnTriggering) {	
                     if (projectile.isSelfDestroying) {
                         DestroyProjectile();

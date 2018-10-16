@@ -361,7 +361,7 @@ MonoBehaviour:
   stoneGreyObj: {fileID: 1722034994182304}
   stoneCrushFX: {fileID: 1663075197219308, guid: 3cba65b394745ec44a06492747be3624,
     type: 2}
-  hit: 0
+  localhit: 0
 --- !u!114 &114263965707034088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,6 +394,7 @@ MonoBehaviour:
   mainTransform: {fileID: 4050770472593352}
   mainRigidbody: {fileID: 54135292535698764}
   mainCollider: {fileID: 136488314039948820}
+  throwMass: 5
   initGravityAwakeTime: 0.2
   weight: 10
   gravityAwakeTimer: 0
@@ -466,6 +467,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!136 &136483936374868772
 CapsuleCollider:
   m_ObjectHideFlags: 1
