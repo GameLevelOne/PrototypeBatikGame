@@ -26,7 +26,8 @@ public enum JatayuSFX{
 	JatayuFlying,
 	JatayuHit,
 	JatayuLanding,
-	JatayuDie
+	JatayuDie,
+	JatayuScream
 }
 
 public class Jatayu : MonoBehaviour {
@@ -150,6 +151,7 @@ public class Jatayu : MonoBehaviour {
 	void Scream()
 	{
 		screamParticle.Play();
+		PlaySFX(JatayuSFX.JatayuScream);
 	} 
 
 	void StartShakeCamera()
