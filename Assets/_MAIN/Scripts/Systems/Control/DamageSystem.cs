@@ -44,7 +44,7 @@ public class DamageSystem : ComponentSystem {
 		Player player = health.player;
 		PlayerState playerState = player.state;
 
-		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null || player.isOnBulletTimePeriod) return;
+		if (!player.isPlayerHit || playerState == PlayerState.DIE || player.damageReceive == null || player.isCanBulletTime) return;
 		else {
 			Transform playerTransform = player.transform;
 			string damageTag = player.damageReceive.tag;

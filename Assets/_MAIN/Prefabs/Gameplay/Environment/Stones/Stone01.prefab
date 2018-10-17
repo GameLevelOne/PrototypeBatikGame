@@ -379,6 +379,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!114 &114058681244741972
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,9 +407,9 @@ MonoBehaviour:
   hammerTrigger: {fileID: 114012899197949580}
   stoneColorObj: {fileID: 1144078149522596}
   stoneGreyObj: {fileID: 1650076947235238}
-  stoneCrushFX: {fileID: 1663075197219308, guid: 3cba65b394745ec44a06492747be3624,
+  stoneCrushFX: {fileID: 1663075197219308, guid: 73c90465ebfa25b4c86809a33ac0f699,
     type: 2}
-  hit: 0
+  localhit: 0
 --- !u!114 &114116467129802890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,6 +446,7 @@ MonoBehaviour:
   mainTransform: {fileID: 4037927051640234}
   mainRigidbody: {fileID: 54042916298160286}
   mainCollider: {fileID: 136244181147497650}
+  throwMass: 5
   initGravityAwakeTime: 0.2
   weight: 10
   gravityAwakeTimer: 0
@@ -571,7 +573,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -624,7 +626,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -740,7 +742,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.02
       minScalar: 1
       maxCurve:
         serializedVersion: 2

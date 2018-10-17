@@ -8,6 +8,12 @@ public class SelfDestruct : MonoBehaviour {
 		// Destroy(gameObject);
 		projectile.isSelfDestroying = true;
 	}
+
+	public void StopCameraShake () {
+		// Destroy(gameObject);
+		projectile.isDisableCameraShake = true;
+	}
+
 	public void InstaDestroyMe () {
 		Destroy(gameObject);
 	}

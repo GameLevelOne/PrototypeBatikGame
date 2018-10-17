@@ -227,8 +227,11 @@ public class GhostSystem : ComponentSystem {
 	void Die()
 	{
 		if(!currEnemy.initDie){
+			//SPAWN DEATH FX
+			GameObject.Instantiate(currEnemy.deathFX, currGhostTransform.position, Quaternion.identity);
+
 			currEnemy.initDie = true;
-			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 			// deltaTime = Time.deltaTime;
 			currEnemy.TDie = currEnemy.dieDuration;
 			currGhostRigidbody.velocity = Vector3.zero;

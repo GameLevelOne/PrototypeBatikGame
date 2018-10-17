@@ -39,7 +39,7 @@ public class LootableSystem : ComponentSystem {
 									childAnimator[j].enabled = false;
 								}
 
-								lootable.parentAnimator.enabled = true;
+								if (lootable.parentAnimator != null) lootable.parentAnimator.enabled = true;
 								lootable.isInitDestroy = true;
 							}
 						}
@@ -52,7 +52,7 @@ public class LootableSystem : ComponentSystem {
 	}
 
 	void InitLootable () {
-		lootable.parentAnimator.enabled = false;
+		if (lootable.parentAnimator != null) lootable.parentAnimator.enabled = false;
 
 		lootable.isInitLootable = true;
 	}

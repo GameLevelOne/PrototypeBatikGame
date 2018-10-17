@@ -26,6 +26,9 @@ public class Projectile : MonoBehaviour {
 	[HeaderAttribute("Current CATAPULT")]
 	public Vector3 direction;
 
+	[HeaderAttribute("For Specific Object")]
+	public bool isDisableCameraShake = false;
+
 	// void OnCollisionEnter (Collision col) {
 	// 	isCollideSomething = true;
 	// }

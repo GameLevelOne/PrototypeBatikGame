@@ -54,12 +54,13 @@ public class Player : MonoBehaviour {
 	// public bool isPlayerGetHurt = false;
 	public bool isPlayerKnockedBack = false;
 	public bool isGuarding = false; 
+	// public bool isParrying = false; 
 	public bool isCanParry = false;
 	public bool isUsingStand = false; //By Mana  
 	public bool isBouncing = false;
 	public bool isMoveAttack = false;
-	// public bool isCanBulletTime = false;
-	public bool isOnBulletTimePeriod = false;
+	public bool isCanBulletTime = false;
+	public bool isOnParryPeriod = false;
 	// public bool isInvisible = false;
 	public Vector3 counterPos = Vector3.zero;
 	public int counterDir = 0;
@@ -103,7 +104,11 @@ public class Player : MonoBehaviour {
 			// 	isCanBulletTime = true;
 			// 	break;
 			case DamageCharacteristic.PARRYABLE:
-				isCanParry = true;
+				if (isOnParryPeriod) isCanParry = true;
+				else {
+					isPlayerHit = true;
+					isCanParry = false;
+				} 
 				break;
 			// case DamageCharacteristic.COUNTER_AND_PARRYABLE:
 			// 	isCanBulletTime = true;
@@ -111,7 +116,7 @@ public class Player : MonoBehaviour {
 			// 	break;
 			default: // DamageCharacteristic.NONE
 				// isCanBulletTime = false;
-				isCanParry = false;
+				// isCanParry = false;
 				isPlayerHit = true;
 				break;
 		}
@@ -120,7 +125,7 @@ public class Player : MonoBehaviour {
 
 	void OnCounterTrigger () {
 		if (state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
-			isOnBulletTimePeriod = true;
+			isCanBulletTime = true;
 			// Debug.Log("Set isOnBulletTimePeriod TRUE");
 		}
 	}

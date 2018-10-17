@@ -165,7 +165,7 @@ GameObject:
   m_Layer: 0
   m_Name: Bullet Spawn Pos
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -768,6 +768,7 @@ MonoBehaviour:
   dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
+  deathFX: {fileID: 1472572005463088, guid: e92c8cc8db80c96468291aa457e7815b, type: 2}
   damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0

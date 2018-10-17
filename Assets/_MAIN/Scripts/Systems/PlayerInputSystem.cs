@@ -46,11 +46,10 @@ public class PlayerInputSystem : ComponentSystem {
 	float dodgeCooldownTimer = 0f;
 	float dodgeCooldown = 0f;
 	float bulletTimeDelay = 0f;
-	bool isAttackAway = true;
+	// bool isAttackAway = true;
 	bool isReadyForDodging = true;
 
 	bool isDodging = false;
-	bool isParryPeriod = false;
 	bool isChargingAttack = false;
 	bool isFinishAttackAnimation = true;
 	bool isFinishAnyAnimation = true;
@@ -114,11 +113,10 @@ public class PlayerInputSystem : ComponentSystem {
 		startChargeAttackTimer = 0f;
 		attackAwayTimer = 0f;
 		dodgeCooldownTimer = 0f;
-		isAttackAway = true;
+		// isAttackAway = true;
 		isReadyForDodging = true;
 
 		isDodging = false;
-		isParryPeriod = false;
 		isChargingAttack = false;
 		isFinishAttackAnimation = true;
 
@@ -285,7 +283,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// }
 				
 				attackAwayTimer = 0f;
-				isAttackAway = false;	
+				// isAttackAway = false;	
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
 			} else if (GameInput.IsAttackHeld && !input.isUIOpen) { //JOYSTICK AUTOMATIC BUTTON A ("Fire1")
@@ -329,7 +327,7 @@ public class PlayerInputSystem : ComponentSystem {
 				SetMovement(2); //START GUARD
 				
 				player.isGuarding = true;	
-				isParryPeriod = true;
+				player.isOnParryPeriod = true;
 			} else if (GameInput.IsGuardHeld && !input.isUIOpen) {
 				
 				if (state == PlayerState.BLOCK_ATTACK) {
@@ -339,8 +337,8 @@ public class PlayerInputSystem : ComponentSystem {
 				if (parryTimer < input.guardParryDelay) {
 					parryTimer += deltaTime;
 				} else {
-					isParryPeriod = false;
-					player.isCanParry = false;
+					player.isOnParryPeriod = false;
+					// player.isCanParry = false;
 					// player.isPlayerHit = false;	
 				}
 			} else if (GameInput.IsGuardReleased) {
@@ -348,14 +346,14 @@ public class PlayerInputSystem : ComponentSystem {
 				
 				player.isGuarding = false;
 				parryTimer = 0f;
-				isParryPeriod = false;
-				player.isCanParry = false;
+				player.isOnParryPeriod = false;
+				// player.isCanParry = false;
 			}
 
-			if (isParryPeriod) {
-				if (player.isPlayerHit && player.isCanParry) {
+			if (player.isOnParryPeriod) {
+				if (player.isCanParry) {
 					// input.attackMode = -2;
-					isParryPeriod = false;
+					player.isOnParryPeriod = false;
 					player.isCanParry = false;
 					// player.isPlayerHit = false;
 					Debug.Log("Start Counter");
@@ -410,7 +408,7 @@ public class PlayerInputSystem : ComponentSystem {
 							player.currentCounterTrigger = null;
 						}
 
-						player.isOnBulletTimePeriod = false;
+						player.isCanBulletTime = false;
 						// player.isCanBulletTime = false;
 						// player.isPlayerHit = false;
 					}
@@ -420,7 +418,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 			}
 
-			if (player.isOnBulletTimePeriod) {
+			if (player.isCanBulletTime) {
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.attackMode = 0;
 				input.textRapidSlash.gameObject.SetActive(true);
@@ -431,7 +429,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.currentCounterTrigger = null;
 				}
 				
-				player.isOnBulletTimePeriod = false;
+				player.isCanBulletTime = false;
 
 				// if (player.isPlayerHit && player.isCanBulletTime && player.somethingThatHitsPlayer.GetComponent<Enemy>() != null) {	
 				// 	player.isOnBulletTimePeriod = false;
@@ -518,11 +516,11 @@ public class PlayerInputSystem : ComponentSystem {
 		// input.slashComboVal.Clear();
 		// Debug.Log("SET BUTTON UP AttackList CLEAR");
 		attackAwayTimer = 0f;
-		isAttackAway = true;
+		// isAttackAway = true;
 
 		player.isGuarding = false;
 		parryTimer = 0f;
-		isParryPeriod = false;
+		player.isOnParryPeriod = false;
 	}
 
 	bool CheckIfUsingAnyTool () {

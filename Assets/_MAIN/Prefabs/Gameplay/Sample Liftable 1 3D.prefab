@@ -209,6 +209,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!114 &114443013571249194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,7 +227,7 @@ MonoBehaviour:
   mainTransform: {fileID: 4909641859729804}
   mainRigidbody: {fileID: 54818257161432466}
   mainCollider: {fileID: 65547703736530870}
-  throwMass: 0
+  throwMass: 5
   initGravityAwakeTime: 0.2
   weight: 10
   gravityAwakeTimer: 0
