@@ -19,9 +19,9 @@ public class Projectile : MonoBehaviour {
 	public float elevationAngle;
 
 	[HeaderAttribute("Current")]
-	public bool isLaunching;
-	public bool isCollideSomething;
-	public bool isSelfDestroying;
+	public bool isLaunching = false;
+	public bool isCollideSomething = false;
+	public bool isSelfDestroying = false;
 
 	[HeaderAttribute("Current CATAPULT")]
 	public Vector3 direction;

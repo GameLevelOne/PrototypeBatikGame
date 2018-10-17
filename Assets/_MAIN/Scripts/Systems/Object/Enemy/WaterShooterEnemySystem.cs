@@ -48,12 +48,14 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		if(currEnemy.state == EnemyState.Damaged){
 			Damaged();
 		} else {
-			if(currEnemy.state == EnemyState.Idle){
+			if (currEnemy.state == EnemyState.Idle){
 				Idle();
 			} else if (currEnemy.state == EnemyState.Aggro){
 				Aggro();
-			}else if(currEnemy.state == EnemyState.Attack){
+			} else if (currEnemy.state == EnemyState.Attack){
 				Attack();
+			} else if (currEnemy.state == EnemyState.Die){
+				Drown();
 			}
 		}
 	}
@@ -93,7 +95,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		}
 	}
 
-	void Idle()
+	void Idle ()
 	{
 		if(currEnemy.playerTransform != null){
 			SetStateAggro();
@@ -102,6 +104,13 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				currEnemy.initIdle = true;
 				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 			}
+		}
+	}
+
+	void Drown () {
+		if (currWaterShooterEnemy.isFinisDrowning) {
+			currEnemy.state = EnemyState.Idle;
+			currWaterShooterEnemy.isFinisDrowning = false;
 		}
 	}
 
@@ -120,6 +129,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 			currWaterShooterEnemy.startAttack = true;
 			currEnemy.initAttack = true; //
+			currEnemy.attackHit = false;
 			currEnemy.isFinishAggro = false;
 		}
 	}
@@ -141,7 +151,9 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			// if(currEnemy.TDamaged <= 0f){
 			if (currEnemy.isFinishDamaged) {				
 				currEnemy.isFinishDamaged = false;
-				SetStateAggro();
+				// SetStateAggro(); //OLD
+				currEnemy.state = EnemyState.Die;
+				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DIE);
 			}
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
@@ -152,30 +164,45 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void Attack()
 	{
 		if (currEnemy.playerTransform == null){
-			currEnemy.state = EnemyState.Idle;
-			currEnemy.initAttack = false;
 			currWaterShooterEnemy.startAttack = false;
+			
+			if (!currEnemy.initAttack) {
+				currEnemy.state = EnemyState.Die;
+				// currEnemy.initAttack = false;
+				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DIE);
+			}
 		} else {
 			if (!currEnemy.initAttack) {
-				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+				// currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+				currEnemy.state = EnemyState.Die;
+				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DIE);
 				currEnemy.initAttack = true;
 			} else {
 				if (currWaterShooterEnemy.startAttack){
 					if (currEnemy.attackHit) {
-						SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
-						PlaySFX(LotusAudio.SHOOT);
-
+						if (currEnemy.playerTransform != null) {
+							SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
+							PlaySFX(LotusAudio.SHOOT);
+						} else {
+							currWaterShooterEnemy.startAttack = false;
+						}
+							
 						currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
-						currEnemy.attackHit = false;
 						currWaterShooterEnemy.startAttack = false;
+						currEnemy.attackHit = false;
+					} else {
+						if (currEnemy.playerTransform == null) {
+							currWaterShooterEnemy.startAttack = false;
+						}
 					}
 				} else {
-					if (currWaterShooterEnemy.TShootInterval <= 0f) {
-						currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
-						currWaterShooterEnemy.startAttack = true;
-					} else {
-						currWaterShooterEnemy.TShootInterval -= deltaTime;
-					}
+					// if (currWaterShooterEnemy.TShootInterval <= 0f) {
+					// 	currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
+					// 	currWaterShooterEnemy.startAttack = true;
+					// 	currEnemy.attackHit = false;
+					// } else {
+					// 	currWaterShooterEnemy.TShootInterval -= deltaTime;
+					// }
 				}
 			}
 		}

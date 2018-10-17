@@ -810,6 +810,16 @@ Prefab:
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 137033586666136384, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.000017166138
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
@@ -842,8 +852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originPos: {x: 0, y: 0, z: 0}
-  shakeMagnitude: 0.2
-  shakeDelay: 0
+  shakeMagnitude: 0.1
+  shakeDelay: 0.02
   shake: 0
   tShakeDelay: 0
   blurBehaviour: {fileID: 0}
@@ -997,25 +1007,6 @@ Prefab:
     - target: {fileID: 4543282809099746, guid: df130f0142426554a9addd84a9119962, type: 2}
       propertyPath: m_RootOrder
       value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1869986882389580, guid: df130f0142426554a9addd84a9119962, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114720286946393610, guid: df130f0142426554a9addd84a9119962,
-        type: 2}
-      propertyPath: shootInterval
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114720286946393610, guid: df130f0142426554a9addd84a9119962,
-        type: 2}
-      propertyPath: audioClip.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: bff070e0798ff5c4e9240b162c5ce43d, type: 3}
-    - target: {fileID: 82303075442137088, guid: df130f0142426554a9addd84a9119962,
-        type: 2}
-      propertyPath: MinDistance
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df130f0142426554a9addd84a9119962, type: 2}

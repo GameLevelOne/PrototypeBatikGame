@@ -24,6 +24,8 @@ public class WaterShooterEnemy : MonoBehaviour {
 
 	[HeaderAttribute("Current")]
 	public  bool startAttack = false;
+	public  bool startDrown = false;
+	public  bool isFinisDrowning = false;
 	[SerializeField] float tShootInterval;
 
 	public float TShootInterval{
@@ -70,6 +72,11 @@ public class WaterShooterEnemy : MonoBehaviour {
 	void OnEndAggro()
 	{
 		enemy.isFinishAggro = true;
+	}
+
+	void OnEndDrowned()
+	{
+		isFinisDrowning = true;
 	}
 	#endregion
 }

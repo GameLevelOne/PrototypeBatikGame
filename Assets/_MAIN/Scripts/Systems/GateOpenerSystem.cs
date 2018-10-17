@@ -89,6 +89,8 @@ public class GateOpenerSystem : ComponentSystem {
 		//DELETE SAVED KEY
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateOpener.gate.gateID, 0);
 
+		gateOpener.gate.audioSource.clip = gateOpener.gate.unlockedClip;
+		gateOpener.gate.audioSource.Play();
 		gateOpener.gate.isOpened = true;
 		gateOpener.gate.gateSpriteRen.sprite = null;
 		gateOpener.gate.gateCol.enabled = false;

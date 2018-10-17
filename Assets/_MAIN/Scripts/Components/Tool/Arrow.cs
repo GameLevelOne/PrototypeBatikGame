@@ -12,7 +12,7 @@ public class Arrow : MonoBehaviour {
 	public Transform playerTransform;
 
 	void OnTriggerEnter (Collider col) {
-		if (col.tag == Constants.Tag.STONE || col.tag == Constants.Tag.BOUNDARIES) {
+		if (col.tag == Constants.Tag.BOUNDARIES) {
 			projectile.isSelfDestroying = true;
 			// isHit = true;
 		}

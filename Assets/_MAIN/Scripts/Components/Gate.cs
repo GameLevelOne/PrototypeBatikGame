@@ -5,7 +5,9 @@ public class Gate : MonoBehaviour {
 	public SpriteRenderer gateSpriteRen;
 	public Animator animator;
 	public AnimationControl animationControl;
-	
+	// public AudioClip lockedClip;
+	public AudioClip unlockedClip;
+	public AudioSource audioSource;
 	public Sprite closedGateSprite;
 	public Sprite openedGateSprite;
 	public string textLockedInfo = "THIS GATE IS LOCKED";
