@@ -25,16 +25,18 @@ public class SystemManagerSystem : ComponentSystem {
 	[InjectAttribute] AreaDissolverSystem areaDissolverSystem;
 	[InjectAttribute] UIPlayerInfoSystem uiPlayerInfoSystem;
 
-	SystemManager systemManager;
+	public SystemManager systemManager;
 
 	protected override void OnUpdate()
 	{
 		for(int i = 0;i<systemManagerComponent.Length;i++){
 			systemManager = systemManagerComponent.SystemManager[i];
 			
-			// if (!systemManager.isDoneInitDisabledSystem) {
+			if (!systemManager.isDoneInitSystem) {
+				InitSystem();
+			} else {
 				CheckSystemManager();
-			// }
+			}
 		}
 
 		for(int i = 0;i<levelDataComponent.Length;i++){
@@ -42,6 +44,11 @@ public class SystemManagerSystem : ComponentSystem {
 
 			SetPlayerStartPos();
 		}
+	}
+
+	void InitSystem () {
+		SetSystems(false);
+		systemManager.isDoneInitSystem = true;
 	}
 
 	void SetPlayerStartPos()
@@ -58,11 +65,12 @@ public class SystemManagerSystem : ComponentSystem {
 	void CheckSystemManager() {
 		if (systemManager.isChangeScene) {
 			try {
+				Debug.Log("====="+SceneManager.GetActiveScene().name+"=====");
 				Debug.Log("=====START CHECK SYSTEM MANAGER=====");
 				Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
 				int currentMapIdx = systemManager.currentMapIdx;
 				string currentScene = GameStorage.Instance.CurrentScene;
-				Debug.Log(currentScene);
+				Debug.Log("=====Current Scene : "+currentScene+"=====");
 				if (currentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS
 					Debug.Log("Save State by gameStorageSystem");
@@ -86,15 +94,18 @@ public class SystemManagerSystem : ComponentSystem {
 					// 	int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
 					// 	SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainBeforeCutScene22);
 					// }
-					if(SceneManager.GetActiveScene().name == Constants.SceneName.MAIN_MENU){
-						SoundManager.Instance.PlayBGM(BGM.Title);
-					}else if(SceneManager.GetActiveScene().name == Constants.SceneName.SCENE_JATAYU){
+
+					// if(SceneManager.GetActiveScene().name == Constants.SceneName.MAIN_MENU){
+						// SoundManager.Instance.PlayBGM(BGM.Title);
+					// }else 
+					if(SceneManager.GetActiveScene().name == Constants.SceneName.SCENE_JATAYU){
 						SoundManager.Instance.PlayBGM(BGM.LevelJatayu);
 					}else{
 						int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
 						SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainBeforeCutScene22);
 					}
 
+					SetSystems (true);
 				} else {
 					// GameStorage.Instance.PlayBGM(BGMType.TITLE);
 					SoundManager.Instance.PlayBGM(BGM.Title);
@@ -105,15 +116,12 @@ public class SystemManagerSystem : ComponentSystem {
 			}
 
 			Debug.Log("=====FINISH CHECK SYSTEM MANAGER=====");
-			SetSystems (true);
 			systemManager.isChangeScene = false;
 		}
-
-		// systemManager.isDoneInitDisabledSystem = true;
 	}
 
 	public void SetSystems (bool value) {
-		// Debug.Log("Set system to "+value);
+		Debug.Log("Set system to "+value);
 		playerInputSystem.Enabled = value;
 		damageSystem.Enabled = value;
 	}

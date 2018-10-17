@@ -36,18 +36,23 @@ public class PortalSystem : ComponentSystem {
 	{
 		if(currPortal.triggered){
 			currPortal.triggered = false;
-			playerInputSystem.input.moveDir = GetDirection(currPortal.dir);
-			
-			PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,currPortal.startPosIndex);
-
-			//Save container
-			SaveContainer();
-
-			//disble control systems
-			DisableSystems();
 			portalToLoad = currPortal;
 			//fader
 			currPortal.uiFader.state = FaderState.FadeOut;
+
+			string currentScene = SceneManager.GetActiveScene().name;
+			Debug.Log("=====Current Scene : "+currentScene+"=====");
+			if (currentScene != systemManagerSystem.systemManager.menuSceneName) {
+				playerInputSystem.input.moveDir = GetDirection(currPortal.dir);
+			
+				PlayerPrefs.SetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,currPortal.startPosIndex);
+
+				//Save container
+				SaveContainer();
+
+				//disble control systems
+				DisableSystems();
+			}
 		} else {
 			if (currPortal.uiFader.initBlack) {
 				//change scene

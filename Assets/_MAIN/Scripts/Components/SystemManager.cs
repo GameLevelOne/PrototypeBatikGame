@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SystemManager : MonoBehaviour {
 	public bool isChangeScene;
-	// public bool isDoneInitDisabledSystem;	
+	public bool isDoneInitSystem;	
 	public int currentMapIdx;
 	
 	public string menuSceneName;
@@ -23,7 +23,7 @@ public class SystemManager : MonoBehaviour {
 			currentMapIdx = SceneManager.GetActiveScene().buildIndex - 1;
 			if (currentMapIdx<0) 
 				currentMapIdx = 0;
-			if (SceneManager.GetActiveScene().name!=menuSceneName)
+			// if (SceneManager.GetActiveScene().name!=menuSceneName)
 				GameStorage.Instance.CurrentScene = SceneManager.GetActiveScene().name;
 
 		}

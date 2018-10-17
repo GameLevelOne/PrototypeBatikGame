@@ -73,7 +73,6 @@ public class GameFXSystem : ComponentSystem {
             if (particleFX==gameFX.runOnGrassEffect) {
                 gameFX.audioSource.clip = gameFX.grassAudio[gameFX.runVariantIdx];
                 gameFX.audioSource.Play();
-                gameFX.audioSource.Play();
             } else if (particleFX==gameFX.runOnDirtEffect) {
                 gameFX.audioSource.clip = gameFX.dirtAudio[gameFX.runVariantIdx];
                 gameFX.audioSource.Play();
@@ -92,7 +91,7 @@ public class GameFXSystem : ComponentSystem {
 	public void ToggleRunFX (bool isON) {
         if (isON) {
             TerrainType currTerrainType = player.terrainType;
-            // Debug.Log("Play : "+player.terrainType);
+            Debug.Log("Play : "+player.terrainType);
             if (currTerrainType == TerrainType.GRASS || currTerrainType == TerrainType.NONE) {
                 SetWalkParticle(true, false, false, false);
                 PlayFXAudio(gameFX.runOnGrassEffect);
@@ -100,7 +99,6 @@ public class GameFXSystem : ComponentSystem {
                 SetWalkParticle(false, true, false, false);
                 PlayFXAudio(gameFX.runOnDirtEffect);
             } else if (currTerrainType == TerrainType.WATER) {
-                // Debug.Log("Water");
                 SetWalkParticle(false, false, true, false);
                 PlayFXAudio(gameFX.runOnWaterEffect);
             } else if (currTerrainType == TerrainType.STONESWAMP) {
@@ -111,16 +109,24 @@ public class GameFXSystem : ComponentSystem {
 	}
 
     void SetWalkParticle (bool isGrass, bool isDirt, bool isWater, bool isStoneSwamp) {
-        if (isGrass) gameFX.runOnGrassEffect.Play(true);
+        if (isGrass) {
+            if (!gameFX.runOnGrassEffect.isPlaying) gameFX.runOnGrassEffect.Play(true);
+        } 
         else gameFX.runOnGrassEffect.Stop(true);
 
-        if (isDirt) gameFX.runOnDirtEffect.Play(true);
+        if (isDirt) {
+            if (!gameFX.runOnDirtEffect.isPlaying) gameFX.runOnDirtEffect.Play(true);
+        }  
         else gameFX.runOnDirtEffect.Stop(true);
 
-        if (isWater) gameFX.runOnWaterEffect.Play(true);
+        if (isWater) {
+            if (!gameFX.runOnWaterEffect.isPlaying) gameFX.runOnWaterEffect.Play(true);
+        }  
         else gameFX.runOnWaterEffect.Stop(true);
 
-        if (isWater) gameFX.runOnStoneSwampEffect.Play(true);
+        if (isStoneSwamp) {
+            if (!gameFX.runOnStoneSwampEffect.isPlaying) gameFX.runOnStoneSwampEffect.Play(true);
+        }  
         else gameFX.runOnStoneSwampEffect.Stop(true);
         
         // ToggleParticleEffect(gameFX.runOnGrassEffect, isGrass);

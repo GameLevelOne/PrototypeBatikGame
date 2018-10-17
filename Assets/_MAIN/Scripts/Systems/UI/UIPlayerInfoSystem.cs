@@ -9,6 +9,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		public ComponentArray<PlayerInput> PlayerInput;
 	}
 	[InjectAttribute] InputData inputData;
+
 	public struct UIPlayerInfoData {
 		public readonly int Length;
 		public ComponentArray<UIInfo> UIInfo;
@@ -50,9 +51,12 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	PlayerInput playerInput;
 
 	protected override void OnUpdate () {
-		if (uiPlayerInfoData.Length == 0) return;
+		// if (uiPlayerInfoData.Length == 0) return;
 
 		// deltaTime = Time.deltaTime;
+		for (int j=0;j<inputData.Length;j++) {
+			playerInput = inputData.PlayerInput[j];
+		}
 
 		for (int i=0; i<uiPlayerInfoData.Length; i++) {
 			uiInfo = uiPlayerInfoData.UIInfo[i];
@@ -62,10 +66,6 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			animator = uiInfo.animator;
 			// showMultiplier = uiInfo.showMultiplier;
 			// hideMultiplier = uiInfo.hideMultiplier;
-
-			for (int j=0;j<inputData.Length;j++) {
-				playerInput = inputData.PlayerInput[j];
-			}
 
 			if (!uiInfo.isInitUIInfo) {
 				try {

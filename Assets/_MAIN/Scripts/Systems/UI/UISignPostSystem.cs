@@ -15,7 +15,17 @@ public class UISignPostSystem : ComponentSystem {
 	[InjectAttribute]UISignPostData uiSignPostData;
 	UISignPost uiSignPost;
 
+	public struct InputData {
+		public readonly int Length;
+		public ComponentArray<PlayerInput> PlayerInput;
+	}
+	[InjectAttribute] InputData inputData;
+	PlayerInput playerInput;
+
 	protected override void OnUpdate () {
+		for (int j=0;j<inputData.Length;j++) {
+			playerInput = inputData.PlayerInput[j];
+		}
 		for (int i=0;i<uiSignPostData.uiSignPost.Length;i++) {
 			uiSignPost = uiSignPostData.uiSignPost[i];
 
@@ -52,6 +62,7 @@ public class UISignPostSystem : ComponentSystem {
 			uiSignPost.call = false;			
 			Init();
 			uiSignPost.anim.Play("Show",0,0f);
+			playerInput.isUIOpen = true;
 		}
 	}
 
@@ -90,6 +101,7 @@ public class UISignPostSystem : ComponentSystem {
 		if (uiSignPost.isCloseSignPost) {
 			Time.timeScale = 1f;
 			uiSignPost.anim.Play("Hide",0,0f);
+			playerInput.isUIOpen = false;
 			uiSignPost.isCloseSignPost = false;
 		}
 	}
