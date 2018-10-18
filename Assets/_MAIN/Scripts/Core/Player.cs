@@ -185,11 +185,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider col) {		
-		if (col.tag == Constants.Tag.DIG_AREA) {
-			isCanDigging = true;
-		} 
-
+	void OnTriggerEnter (Collider col) {	
 		if (col.tag == Constants.Tag.ENEMY_ATTACK) {
 			// Enemy enemy = col.GetComponentInParent<Enemy>();
 			// enemyThatHitsPlayer = enemy;
@@ -202,19 +198,24 @@ public class Player : MonoBehaviour {
 			somethingThatHitsPlayer = col.transform;
 		} else if (col.tag == Constants.Tag.JATAYU_ATTACK_2) {
 			isHitJatayuAttack2 = true;
-		} else if (col.tag == Constants.Tag.JATAYU_ATTACK_1 || col.tag == Constants.Tag.JATAYU_ATTACK_1) {
-			somethingThatHitsPlayer = col.transform;
-			isHitJatayuAttack2 = true;
-		}
+		} 
+		// else if (col.tag == Constants.Tag.JATAYU_ATTACK_1 || col.tag == Constants.Tag.JATAYU_ATTACK_1) {
+		// 	somethingThatHitsPlayer = col.transform;
+		// 	isHitJatayuAttack2 = true;
+		// }	
+
+		if (col.tag == Constants.Tag.DIG_AREA) {
+			isCanDigging = true;
+		} 
 	}
 
 	void OnTriggerExit (Collider col) {
+		if (col.tag == Constants.Tag.JATAYU_ATTACK_2) {
+			isHitJatayuAttack2 = false;
+		}
+		
 		if (col.tag == Constants.Tag.DIG_AREA) {
 			isCanDigging = false;
-		}
-
-		if (col.gameObject.tag == Constants.Tag.JATAYU_ATTACK_2) {
-			isHitJatayuAttack2 = false;
 		}
 	}
 	

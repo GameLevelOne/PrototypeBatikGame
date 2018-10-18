@@ -22,13 +22,16 @@ public class Lootable : MonoBehaviour {
 	public float initPosY;
 	// public Collider mainCol;
 
-	[HeaderAttribute("NONE TreasureType Only")]
-	public Animator parentAnimator;
-	public int lootQuantity;
-	public float startDestroyDuration = 0f;
-
 	[HeaderAttribute("Treasure Only")]
 	public TreasureType treasureType;
+
+	[HeaderAttribute("NONE TreasureType Only")]
+	public Animator parentAnimator;
+	public float startDestroyDuration = 0f;
+	// public bool isStopChildAnimator = false;
+	
+	[HeaderAttribute("FISH & NONE TreasureType Only")]
+	public int lootQuantity;
 
 	[HeaderAttribute("FISH TreasureType Only")]
 	public GameObject initSprite;
