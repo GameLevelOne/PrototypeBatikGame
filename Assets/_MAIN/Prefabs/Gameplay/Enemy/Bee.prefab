@@ -515,7 +515,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951058270258266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.73, y: 1, z: -2.5}
+  m_LocalPosition: {x: 8, y: 1, z: -3.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541998587350718}
@@ -755,7 +755,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211267259841372}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4732983219545732}
@@ -1023,6 +1023,7 @@ MonoBehaviour:
   isBurned: 0
   isFinishDamaged: 0
   isFinishAggro: 0
+  isInitPlayAttackCodeFX: 0
   isHit: 0
   damageReceive: {fileID: 0}
 --- !u!114 &114272828399055306
@@ -1129,6 +1130,8 @@ MonoBehaviour:
   attackRangeTrigger: {fileID: 114887913359553144}
   attackCodeFX: {fileID: 198721295839033352}
   burnedFX: {fileID: 198114603286567132}
+  beeThrustFX: {fileID: 1040676030784362, guid: dc342107fc2130e439ceb80dfa298932,
+    type: 2}
   beeHive: {fileID: 0}
   beeCutFX: {fileID: 1682419898080922, guid: 473728e4a6256494292ab0979400caa1, type: 2}
   audioSource: {fileID: 82758865465911830}
@@ -1139,6 +1142,7 @@ MonoBehaviour:
   beeHiveTransform: {fileID: 0}
   initStartled: 0
   isStartled: 0
+  isInitSpawnAttackFX: 0
 --- !u!135 &135074921262848462
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -14927,7 +14931,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -15365,7 +15369,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -15750,7 +15754,7 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.45060912
         - serializedVersion: 3
-          time: 0.50000906
+          time: 0.3
           value: 1
           inSlope: 0
           outSlope: 0
@@ -16774,7 +16778,7 @@ ParticleSystem:
     speedModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -17048,7 +17052,7 @@ ParticleSystem:
     enabled: 0
     multiplier: 1
   ClampVelocityModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
       minMaxState: 0
@@ -17269,7 +17273,7 @@ ParticleSystem:
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2

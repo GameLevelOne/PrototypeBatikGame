@@ -41,9 +41,13 @@ public class MonkeySystem : ComponentSystem {
 			currMonkeyRigidbody = monkeyComponent.monkeyRigidbody[i];
 			currMonkeyAnim = monkeyComponent.monkeyAnim[i];
 			currMonkeyHealth = monkeyComponent.monkeyHealth[i];
-
 			// enemy = currEnemy;
 
+			if (Time.timeScale < 1f) {
+				currMonkeyRigidbody.velocity = Vector3.zero;
+				continue;
+			}
+			
 			CheckHealth();
 			CheckState();
 			CheckHit();
@@ -104,6 +108,14 @@ public class MonkeySystem : ComponentSystem {
 	void SetStateAggro () {
 		currEnemy.initIdle = false;
 		currEnemy.initPatrol = false;
+
+		// Player player = currEnemy.playerTransform.GetComponent<Player>();
+
+		// if (player.isCanBulletTime) {
+		// 	currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+		// 	return;
+		// }	
+
 		// currEnemy.state = EnemyState.Chase;
 		currEnemy.state = EnemyState.Aggro;
 		currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);

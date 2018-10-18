@@ -41,6 +41,12 @@ public class GhostSystem : ComponentSystem {
 			currGhostRigidbody = ghostComponent.ghostRigidbody[i];
 			ghostCollider = ghostComponent.ghostCollider[i];
 			currGhostHealth = ghostComponent.ghostHealth[i];
+			// enemy = currEnemy;
+
+			if (Time.timeScale < 1f) {
+				currGhostRigidbody.velocity = Vector3.zero;
+				continue;
+			}
 
 			CheckHealth();
 			CheckState();
@@ -86,9 +92,17 @@ public class GhostSystem : ComponentSystem {
 	{
 		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
 			if(currEnemy.playerTransform != null){ 
-				currEnemy.state = EnemyState.Chase;
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
+
+				Player player = currEnemy.playerTransform.GetComponent<Player>();
+
+				if (player.isCanBulletTime) {
+					currGhostAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+					return;
+				}
+				
+				currEnemy.state = EnemyState.Chase;
 				currEnemy.chaseIndicator.Play(true);
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 			}

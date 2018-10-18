@@ -180,7 +180,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.PARRY: 
 					PlayOneShotAnimation(Constants.BlendTreeName.PARRY, true);
 					break;
-				case PlayerState.SLOW_MOTION: 
+				case PlayerState.SLOW_MOTION:
 					if (input.attackMode == -3) {
 						// facing.DirID = CheckDirID(-currentDir.x, -currentDir.z); //OLD
 						// ReverseDir();
@@ -450,7 +450,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
 					// gameFXSystem.PlayCounterChargeEffect();
-					animator.speed = 5f;
+					// animator.speed = 5f;
 					Camera.main.GetComponent<PostProcessingBehaviour>().enabled = true;
 					break;
 				case PlayerState.ENGAGE:
@@ -639,7 +639,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					StopAnyAnimation();
 					break;
 				case PlayerState.SLOW_MOTION:
-					animator.speed = 20f;
+					player.isInitRapidSlash = true;
+					animator.speed = input.rapidSlashAnimatorSpeed;
 					anim.isFinishAnyAnimation = true;
 					break;
 				case PlayerState.RAPID_SLASH:

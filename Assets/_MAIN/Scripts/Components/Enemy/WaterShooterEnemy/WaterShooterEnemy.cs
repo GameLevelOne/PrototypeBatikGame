@@ -56,29 +56,5 @@ public class WaterShooterEnemy : MonoBehaviour {
 	{
 		enemy.attackHit = true;
 	}
-	void OnEndAttack()
-	{
-		enemy.initAttack = false;
-	}
-
-	void OnStartDamaged()
-	{
-		enemy.initDamaged = false;
-	}
-
-	void OnEndDamaged()
-	{
-		enemy.isFinishDamaged = true;
-	}
-
-	void OnEndAggro()
-	{
-		enemy.isFinishAggro = true;
-	}
-
-	void OnEndDrowned()
-	{
-		isFinisDrowning = true;
-	}
 	#endregion
 }

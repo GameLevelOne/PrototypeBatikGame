@@ -1306,8 +1306,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.9, y: 0.9, z: 1.8}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17, y: 0.9, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -2073,6 +2073,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e6d073cf78facae408484aadd7c4d747, type: 3}
   - {fileID: 8300000, guid: 0a47f964d95fdfe4cbc89015702eb12d, type: 3}
   textRapidSlash: {fileID: 114407837906050836}
+  chargeAttackThreshold: 1
+  guardParryDelay: 0.5
+  dodgeCooldown: 1
+  bulletTimeDelay: 0.3
+  slowTimeScale: 0.4
+  rapidSlashAnimatorSpeed: 20
   isInitPlayerInput: 0
   isInitChargeAttack: 0
   isUIOpen: 0
@@ -2080,16 +2086,10 @@ MonoBehaviour:
   direction: 0
   moveMode: 0
   attackMode: 0
-  bulletTimeAttackQty: 0
   interactMode: 0
   interactValue: 0
   liftingMode: 0
-  chargeAttackThreshold: 1
-  beforeChargeDelay: 0.3
-  guardParryDelay: 0.5
-  bulletTimeDelay: 0.3
-  bulletTimeDuration: 0.3
-  dodgeCooldown: 1
+  bulletTimeAttackQty: 0
 --- !u!114 &114188705090663854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2173,6 +2173,7 @@ MonoBehaviour:
   isCanInteractWithNPC: 0
   isInteractingWithNPC: 0
   isInitAttackAreaObj: 0
+  isInitRapidSlash: 0
   isHitJatayuAttack2: 0
   interactIndex: 0
   maxHP: 100
@@ -2800,7 +2801,7 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.000014066696}
+    m_Center: {x: 0, y: 0.00000023841858, z: 0.000017166138}
     m_Extent: {x: 16.024399, y: 0.00000026822312, z: 81.30675}
   m_DirtyAABB: 0
 --- !u!137 &137651258906997094

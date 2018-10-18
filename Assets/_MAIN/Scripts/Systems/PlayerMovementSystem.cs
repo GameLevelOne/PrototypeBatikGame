@@ -390,14 +390,14 @@ public class PlayerMovementSystem : ComponentSystem {
 		// Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
 		// rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
 		// Debug.Log("Slow Motion PlayerMovementSystem");
-		Time.timeScale = 0.5f;
+		Time.timeScale = input.slowTimeScale;
 		input.attackMode = -3; //Set counterslash first
 		rb.velocity = Vector3.zero;
 	}
 
 	void SetEngageMovement () {
 		float distance = Vector3.Distance(rb.position, player.counterPos);
-		if(distance < 0.2f){
+		if(distance < 0.1f){
 			player.SetPlayerState(PlayerState.RAPID_SLASH);
 		} else {
 			// rb.position = MoveEngageToPos(player.counterPos, engageSpeed);

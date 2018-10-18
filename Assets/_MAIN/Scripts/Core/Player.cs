@@ -76,6 +76,7 @@ public class Player : MonoBehaviour {
 	public bool isCanInteractWithNPC = false;
 	public bool isInteractingWithNPC = false;
 	public bool isInitAttackAreaObj = false;
+	public bool isInitRapidSlash = false;
 	
 	//JATAYU
 	public bool isHitJatayuAttack2 = false;
@@ -98,34 +99,24 @@ public class Player : MonoBehaviour {
 
 	void DamageCheck (Damage damage) {
 		damageReceive = damage;
+		DamageCharacteristic damageChar = damage.damageChar;
 
-		switch (damage.damageChar) {
-			// case DamageCharacteristic.COUNTERABLE:
-			// 	isCanBulletTime = true;
-			// 	break;
-			case DamageCharacteristic.PARRYABLE:
-				if (isOnParryPeriod) isCanParry = true;
-				else {
-					isPlayerHit = true;
-					isCanParry = false;
-				} 
-				break;
-			// case DamageCharacteristic.COUNTER_AND_PARRYABLE:
-			// 	isCanBulletTime = true;
-			// 	isCanParry = true;
-			// 	break;
-			default: // DamageCharacteristic.NONE
-				// isCanBulletTime = false;
-				// isCanParry = false;
+		if (damageChar == DamageCharacteristic.PARRYABLE || damageChar == DamageCharacteristic.COUNTER_AND_PARRYABLE) {
+			if (isOnParryPeriod) {
+				isCanParry = true;
+			} else {
 				isPlayerHit = true;
-				break;
+				isCanParry = false;
+			} 
+		} else {
+			isPlayerHit = true;
 		}
-		// Debug.Log("DamageCheck with damageReceive : "+damageReceive+", and isPlayerHit : "+isPlayerHit);
 	}
 
 	void OnCounterTrigger () {
 		if (state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 			isCanBulletTime = true;
+			Debug.Log("isCanBulletTime");
 			// Debug.Log("Set isOnBulletTimePeriod TRUE");
 		}
 	}
