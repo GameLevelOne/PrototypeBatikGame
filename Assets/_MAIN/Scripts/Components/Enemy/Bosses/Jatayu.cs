@@ -33,6 +33,7 @@ public enum JatayuSFX{
 public class Jatayu : MonoBehaviour {
 	public Player playerObject;
 	public GameObject attack1Object;
+	public GameObject attack1HP50Object;
 	public GameObject attack2Object;
 	public GameObject attack3Object;
 	public CapsuleCollider jatayuCollider;
@@ -48,6 +49,7 @@ public class Jatayu : MonoBehaviour {
 	public ParticleSystem landingParticle1, landingParticle2;
 	public ParticleSystem hitParticle;
 	public ParticleSystem screamParticle;
+	public ParticleSystem closeWingsParticle;
 	public ParticleSystem[] burnedParticle;
 	[SpaceAttribute(10f)]
 	public AudioSource audioSource;
@@ -187,14 +189,21 @@ public class Jatayu : MonoBehaviour {
 
 	void StartCloseWings()
 	{
+		closeWingsParticle.Play(true);
 		PlaySFX(JatayuSFX.JatayuCloseWings);
 	}
 
 	void EnableAttack1Object()
 	{
 		attack1Object.SetActive(true);
-		PlaySFX(JatayuSFX.JatayuAttack1);
 	}
+	void EnableAttack1HP50Object()
+	{
+		if(health.EnemyHP/maxHealth <= 0.5f){
+			attack1HP50Object.SetActive(true);
+		}
+	}
+
 	void EnableAttack2Object()
 	{
 		attack2Object.SetActive(true);
