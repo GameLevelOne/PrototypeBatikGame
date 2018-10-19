@@ -197,24 +197,27 @@ MonoBehaviour:
   chaseSpeed: 0
   knockBackSpeed: 0
   idleDuration: 0
-  damagedDuration: 0
   dieDuration: 0
   playerThatHitsEnemy: {fileID: 0}
   playerTransform: {fileID: 0}
-  damageSourceTransform: {fileID: 0}
+  deathFX: {fileID: 0}
+  damageSourcePos: {x: 0, y: 0, z: 0}
   patrolDestination: {x: 0, y: 0, z: 0}
   initIdle: 0
   initPatrol: 0
   initAttack: 0
   isAttack: 0
   initDamaged: 0
+  initAggro: 0
   initDie: 0
   attackHit: 0
   hasArmor: 0
-  isEnemyKnockedBack: 0
+  isBurned: 0
+  isFinishDamaged: 0
+  isFinishAggro: 0
+  isInitPlayAttackCodeFX: 0
   isHit: 0
   damageReceive: {fileID: 0}
-  tDamaged: 0
 --- !u!114 &114564962875629812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -231,6 +234,9 @@ MonoBehaviour:
   - Player Slash
   - Player Dash Attack
   - Hammer
+  - Explosion
+  - Magic Medallion
+  - Arrow
 --- !u!114 &114794452425987762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,8 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f513bb184c2f694eae005029c6fccac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tagName: Player
-  tagNames: []
+  tagName: 
+  tagNames:
+  - Player
 --- !u!114 &114851473860786154
 MonoBehaviour:
   m_ObjectHideFlags: 1

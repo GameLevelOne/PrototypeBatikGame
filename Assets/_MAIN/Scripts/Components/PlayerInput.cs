@@ -16,7 +16,11 @@ public class PlayerInput : MonoBehaviour {
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
-	public Text textRapidSlash;	
+	public GameObject imagePressAttack;	
+	public GameObject imageRapidSlashHit;
+	public CanvasGroup canvasGroupRapidSlash;		
+	public Text textRapidSlashHit;	
+	public ParticleSystem uiRapidSlashPressedFX;	
 	public float chargeAttackThreshold = 1f;
 	// public float beforeChargeDelay = 0.3f;
 	// public float attackAwayDelay =  0.5f;
@@ -35,6 +39,7 @@ public class PlayerInput : MonoBehaviour {
 	// public bool isButtonHold = false;
 	// public Vector3 initMoveDir = -Vector3.forward;
 	public bool isInitPlayerInput = false;
+	public bool isInitAddRapidSlashQty = false;
 	public bool isInitChargeAttack = false;
 
 	public bool isUIOpen = false;
