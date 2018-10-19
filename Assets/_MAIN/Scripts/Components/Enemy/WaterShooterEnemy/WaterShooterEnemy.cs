@@ -24,7 +24,7 @@ public class WaterShooterEnemy : MonoBehaviour {
 
 	[HeaderAttribute("Current")]
 	public  bool startAttack = false;
-	public  bool startDrown = false;
+	// public  bool startDrown = false;
 	public  bool isFinisDrowning = false;
 	public  Transform currPlayerTransform;
 	// public  Vector3 currPlayerPos = Vector3.zero;
@@ -55,6 +55,10 @@ public class WaterShooterEnemy : MonoBehaviour {
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
+	}
+
+	void OnEndDrowned () {
+		isFinisDrowning = true;
 	}
 	#endregion
 }
