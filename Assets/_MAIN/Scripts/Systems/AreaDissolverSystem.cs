@@ -78,6 +78,7 @@ public class AreaDissolverSystem : ComponentSystem {
 			
 			areaDissolver.isAreaAlreadyDissolved = true;
 			areaDissolver.isDissolveArea = false;
+			areaDissolver.questCompleteParticle.Play(true);
 			SaveAreaDissolver(areaDissolver.levelQuestIndex, 1);
 		}
 	}
@@ -104,6 +105,7 @@ public class AreaDissolverSystem : ComponentSystem {
 	public void DissolvedArea (int questIdx) {
 		if (areaDissolver.levelQuestIndex == questIdx) {
 			areaDissolver.isDissolveArea = true;
+			
 		}
 	}
 

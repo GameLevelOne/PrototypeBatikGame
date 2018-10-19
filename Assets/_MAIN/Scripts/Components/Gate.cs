@@ -6,6 +6,7 @@ public class Gate : MonoBehaviour {
 	public Animator animator;
 	public AnimationControl animationControl;
 	// public AudioClip lockedClip;
+	public AudioClip lockedGateClip;
 	public AudioClip unlockedClip;
 	public AudioSource audioSource;
 	public Sprite closedGateSprite;

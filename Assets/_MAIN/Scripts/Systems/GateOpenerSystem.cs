@@ -70,7 +70,8 @@ public class GateOpenerSystem : ComponentSystem {
 			OpenGate();
 		} else {
 			Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
-			
+			gateOpener.gate.audioSource.clip = gateOpener.gate.lockedGateClip;
+			gateOpener.gate.audioSource.Play();
 			gateOpener.gate.animator.Play(Constants.AnimationName.GATE_LOCKED);
 
 			for (int i=0;i<uiNotifData.Length;i++)

@@ -323,6 +323,11 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.initBurned = false;
 			
 			jatayu.movementAnim.speed = 0f;
+
+			jatayu.attack1Object.SetActive(false);
+			jatayu.attack2Object.SetActive(false);
+			jatayu.attack3Object.SetActive(false);
+
 			SetJatayuAnim(JatayuState.HP50);
 		}else{
 			if(jatayu.endHP50){
@@ -353,6 +358,10 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.endBurned = false;
 
 			jatayu.initBurned = true;
+
+			jatayu.attack1Object.SetActive(false);
+			jatayu.attack2Object.SetActive(false);
+			jatayu.attack3Object.SetActive(false);
 
 			jatayu.movementAnim.speed = 0f;
 			jatayu.tBurned = jatayu.burnedDuration;
@@ -391,7 +400,13 @@ public class JatayuSystem : ComponentSystem {
 				hasChangeAnimBurnedFallen = false;
 				jatayuTransform.position = jatayuCurrPosBeforeBurned;
 				// jatayu.jatayuCollider.center = new Vector3(0f,-1f,1f);
-				SetJatayuState(JatayuState.Move);
+				
+				if(jatayu.initAttack3Return){
+					jatayu.initAttack3Return = false;
+					SetJatayuState(JatayuState.Attack3Return);
+				}else{
+					SetJatayuState(JatayuState.Move);
+				}
 			}
 		}
 	}
