@@ -121,7 +121,9 @@ public class PlayerInputSystem : ComponentSystem {
 		isFinishAttackAnimation = true;
 
 		input.isUIOpen = false;
-		input.textRapidSlash.gameObject.SetActive(false);
+		input.isInitAddRapidSlashQty = false;
+		input.imagePressAttack.SetActive(false);
+		input.imageRapidSlashHit.SetActive(false);
 		// input.moveDir = input.initMoveDir;
 		dodgeCooldown = input.dodgeCooldown;
 		bulletTimeDelay = input.bulletTimeDelay;
@@ -421,7 +423,11 @@ public class PlayerInputSystem : ComponentSystem {
 			if (player.isCanBulletTime) {
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.attackMode = 0;
-				input.textRapidSlash.gameObject.SetActive(true);
+				input.bulletTimeAttackQty = 0;
+				input.isInitAddRapidSlashQty = false;
+				input.imagePressAttack.SetActive(true);
+				input.imageRapidSlashHit.SetActive(false);
+				input.textRapidSlashHit.text = input.bulletTimeAttackQty.ToString();
 				player.SetPlayerState(PlayerState.SLOW_MOTION);
 				
 				if (player.currentCounterTrigger != null) {
@@ -532,8 +538,15 @@ public class PlayerInputSystem : ComponentSystem {
 			if (!player.isInitRapidSlash) {
 
 				if (GameInput.IsAttackPressed) {
+					if (!input.isInitAddRapidSlashQty) {
+						input.isInitAddRapidSlashQty = true;
+						input.imagePressAttack.SetActive(false);
+						input.imageRapidSlashHit.SetActive(true);
+					}
+					
 					input.bulletTimeAttackQty++;
-					input.textRapidSlash.text = input.bulletTimeAttackQty + " Hit";
+					input.uiRapidSlashPressedFX.Play();
+					input.textRapidSlashHit.text = input.bulletTimeAttackQty.ToString();
 				}
 			} else {
 				// Time.timeScale = 1f;
@@ -541,7 +554,6 @@ public class PlayerInputSystem : ComponentSystem {
 				slowDownTimer = 0f;
 				// SetDir(0f,0f);
 				// playerAnimationSystem.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
-				input.textRapidSlash.gameObject.SetActive(false);
 				player.SetPlayerState(PlayerState.ENGAGE);
 				player.isInitRapidSlash = false;
 				// player.SetPlayerState(PlayerState.RAPID_SLASH);

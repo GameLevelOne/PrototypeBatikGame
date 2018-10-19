@@ -654,6 +654,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						}
 
 						input.bulletTimeAttackQty--;
+						// input.textRapidSlashHit.text = input.bulletTimeAttackQty.ToString();
 					}
 
 					if (input.bulletTimeAttackQty <= 0) {
@@ -665,6 +666,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 						Time.timeScale = 1f;
 						animator.speed = 1f;
 						Camera.main.GetComponent<PostProcessingBehaviour>().enabled = false;
+						input.isInitAddRapidSlashQty = false;
+						input.imagePressAttack.SetActive(false);
+						input.imageRapidSlashHit.SetActive(false);
 
 						StopAnyAnimation();
 					} else {
