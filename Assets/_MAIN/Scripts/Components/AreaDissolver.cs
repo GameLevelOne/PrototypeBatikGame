@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AreaDissolver : MonoBehaviour {
 	public List<Dissolver> dissolverObjs;
-
+	public ParticleSystem questCompleteParticle;
 	public int levelQuestIndex;
 
 	public bool initAutoReference = false;

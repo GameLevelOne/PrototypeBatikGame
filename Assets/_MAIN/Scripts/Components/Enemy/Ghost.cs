@@ -4,7 +4,8 @@ public enum GhostSFX{
 	GhostWalk1,
 	GhostWalk2,
 	GhostAttack,
-	GhostDie
+	GhostDie,
+	GhostAppear
 }
 
 public class Ghost : MonoBehaviour {

@@ -102,8 +102,18 @@ public class SystemManagerSystem : ComponentSystem {
 					if(SceneManager.GetActiveScene().name == Constants.SceneName.SCENE_JATAYU){
 						SoundManager.Instance.PlayBGM(BGM.LevelJatayu);
 					}else{
+						int cutScene1Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"OpeningMadaKari",0);
 						int cutScene22Complete = PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2",0);
-						SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22: BGM.MainBeforeCutScene22);
+						
+						if(cutScene1Complete == 1){
+							if(cutScene22Complete == 1){
+								SoundManager.Instance.PlayBGM(BGM.MainAfterCutScene22);
+							}else{
+								SoundManager.Instance.PlayBGM(BGM.MainBeforeCutScene22);
+							}
+						}else{
+							SoundManager.Instance.PlayBGM(BGM.CutScene1);
+						}
 					}
 
 					SetSystems (true);
