@@ -268,7 +268,9 @@ public class Jatayu : MonoBehaviour {
 		if( other.tag == Constants.Tag.PLAYER_SLASH || 
 			other.tag == Constants.Tag.HAMMER || 
 			other.tag == Constants.Tag.PLAYER_DASH_ATTACK ||
-			other.tag == Constants.Tag.ARROW ){
+			other.tag == Constants.Tag.ARROW ||
+			other.tag == Constants.Tag.EXPLOSION ||
+			other.tag == Constants.Tag.MAGIC_MEDALLION) {
 				initHit = true;
 				isHit = true;
 		}
