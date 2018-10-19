@@ -32,6 +32,7 @@ public class SoundManager : MonoBehaviour {
 			instance = this;
 		}
 		DontDestroyOnLoad(gameObject);
+		maxVolume = bgmSource.volume;
 	}
 #endregion
 
@@ -43,6 +44,7 @@ public class SoundManager : MonoBehaviour {
 
 	bool isChangingBGM = false;
 	bool loop;
+	float maxVolume;
 	BGM bgmToChange;
 
 	public void PlayBGM(BGM bgm, bool loop = true)
@@ -53,12 +55,12 @@ public class SoundManager : MonoBehaviour {
 				PlayGotTreasure();
 			}else if(bgm == BGM.JatayuFight){
 				bgmSource.clip = BGMs[(int)bgm];
-				bgmSource.volume = 1f;
+				bgmSource.volume = maxVolume;
 				bgmSource.Play();
 			}else{
 				if(bgmSource.clip == null){
 					bgmSource.clip = BGMs[(int)bgm];
-					bgmSource.volume = 1f;
+					bgmSource.volume = maxVolume;
 					bgmSource.Play();
 				}else{
 					isChangingBGM = true;
@@ -82,13 +84,13 @@ public class SoundManager : MonoBehaviour {
 	void Update()
 	{
 		if(isChangingBGM){
-			bgmSource.volume -= Time.unscaledDeltaTime * fadeSpeed;
+			bgmSource.volume -= Time.unscaledDeltaTime * fadeSpeed * maxVolume;
 		
 			if(bgmSource.volume <= 0f){
 				bgmSource.Stop();
 				bgmSource.clip = BGMs[(int)bgmToChange];
 				bgmSource.loop = this.loop;
-				bgmSource.volume = 1f;
+				bgmSource.volume = maxVolume;
 				bgmSource.Play();
 				isChangingBGM = false;
 			}
