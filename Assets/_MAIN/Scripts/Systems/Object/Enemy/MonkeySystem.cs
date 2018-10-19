@@ -79,7 +79,7 @@ public class MonkeySystem : ComponentSystem {
 	void CheckHit()
 	{
 		if(!currMonkey.isHitByPlayer) {
-			if(currEnemy.playerThatHitsEnemy != null && (currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol || currEnemy.state == EnemyState.Aggro)){ //IsEnemyHit
+			if(currEnemy.playerThatHitsEnemy != null && currEnemy.state == EnemyState.Damaged && currEnemy.state != EnemyState.Chase && currEnemy.state != EnemyState.Attack){ //IsEnemyHit
 				// Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 
@@ -106,7 +106,7 @@ public class MonkeySystem : ComponentSystem {
 				currEnemy.initAggro = false;
 				currEnemy.state = EnemyState.Aggro;
 				currMonkey.isCollidingWithPlayer = false;
-				currEnemy.chaseIndicator.Play(true);
+				// currEnemy.chaseIndicator.Play(true);
 			}
 		}
 	}

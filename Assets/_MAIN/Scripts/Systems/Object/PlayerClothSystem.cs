@@ -65,6 +65,9 @@ public class PlayerClothSystem : ComponentSystem {
 			if (healthThreshold < currentDissolveValue) {
 				healthThreshold += clothReduceValue * deltaTime;
 				DrawClothHP();
+			} else if (healthThreshold >= currentDissolveValue) {
+				healthThreshold -= clothReduceValue * deltaTime;
+				DrawClothHP();
 			} else {
 				playerCloth.isReducingCloth = false;
 			}
