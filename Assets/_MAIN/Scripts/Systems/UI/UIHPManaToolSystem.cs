@@ -92,6 +92,15 @@ public class UIHPManaToolSystem : ComponentSystem {
 		}
 	}
 
+	void CheckKey() {
+		bool hasKey = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", 0) == 1 ? true : false;
+		if (hasKey && !uiHPManaTool.keyIcon.activeSelf) {
+			uiHPManaTool.keyIcon.SetActive(true);
+		} else if (!hasKey && uiHPManaTool.keyIcon.activeSelf) {
+			uiHPManaTool.keyIcon.SetActive(false);
+		}
+	}
+
 	void CheckInit () {
 		maxHP = uiHPManaTool.player.MaxHP;
 		maxMP = uiHPManaTool.player.MaxMP;

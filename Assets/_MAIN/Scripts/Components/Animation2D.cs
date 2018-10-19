@@ -4,9 +4,14 @@ public enum AnimationAudio {
 	HAMMER,
 	SHOVEL,
 	BOUNCE,
-	FISHING_THROW
-	// PARRY,
-	// BLOCK,
+	FISHING_THROW,
+	PARRY,
+	BLOCK,
+	CHARGE_START,
+	CHARGE_LOOP,
+	CHARGE_RELEASE,
+	DODGE,
+	DIE
 	// HURT
 }
 
