@@ -402,6 +402,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!114 &114456070739195728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -431,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1864b810895d854997be85a29f9715c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 0
+  manaCost: 50
 --- !u!114 &114729958941838526
 MonoBehaviour:
   m_ObjectHideFlags: 1

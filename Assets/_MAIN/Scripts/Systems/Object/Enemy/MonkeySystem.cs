@@ -78,17 +78,22 @@ public class MonkeySystem : ComponentSystem {
 
 	void CheckHit()
 	{
-		if(!currMonkey.isHitByPlayer){
-			if(currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
+		if(!currMonkey.isHitByPlayer) {
+			if(currEnemy.playerThatHitsEnemy != null && (currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol || currEnemy.state == EnemyState.Aggro)){ //IsEnemyHit
 				// Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
-					m.enemy.playerTransform = currEnemy.playerTransform;
-					SetStateAggro();
+					if (m.enemy.state == EnemyState.Idle || m.enemy.state == EnemyState.Patrol) {
+						m.enemy.playerTransform = currEnemy.playerTransform;
+						m.enemy.initAggro = false;
+						m.enemy.state = EnemyState.Aggro;
+						// m.isHitByPlayer = true;
+					}
 				}
 
-				SetStateAggro();
+				currEnemy.initAggro = false;
+				currEnemy.state = EnemyState.Aggro;
 				currMonkey.isHitByPlayer = true;
 			}
 		}		
@@ -96,35 +101,33 @@ public class MonkeySystem : ComponentSystem {
 
 	void CheckCollisionWithPlayer()
 	{
-		if(currEnemy.state != EnemyState.Attack){
+		if(currEnemy.state != EnemyState.Aggro){
 			if(currMonkey.isCollidingWithPlayer){
-				currEnemy.state = EnemyState.Attack;
+				currEnemy.initAggro = false;
+				currEnemy.state = EnemyState.Aggro;
 				currMonkey.isCollidingWithPlayer = false;
 				currEnemy.chaseIndicator.Play(true);
 			}
 		}
 	}
 
-	void SetStateAggro () {
-		currEnemy.initIdle = false;
-		currEnemy.initPatrol = false;
-
-		// Player player = currEnemy.playerTransform.GetComponent<Player>();
-
-		// if (player.isCanBulletTime) {
-		// 	currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
-		// 	return;
-		// }	
-
-		// currEnemy.state = EnemyState.Chase;
-		currEnemy.state = EnemyState.Aggro;
-		currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
-		currEnemy.chaseIndicator.Play(true);
-		PlaySFXOneShot(MonkeyAudio.AGGRO);
-	}
-
 	void Aggro () {
-		if (currEnemy.isFinishAggro) {
+		if (!currEnemy.initAggro) {
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAggro = true;
+
+			// Player player = currEnemy.playerTransform.GetComponent<Player>();
+
+			// if (player.isCanBulletTime) {
+			// 	currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+			// 	return;
+			// }	
+
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+			currEnemy.chaseIndicator.Play(true);
+			PlaySFXOneShot(MonkeyAudio.AGGRO);
+		} else if (currEnemy.isFinishAggro) {
 			currEnemy.state = EnemyState.Chase;
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
 
@@ -137,6 +140,7 @@ public class MonkeySystem : ComponentSystem {
 		if(!currEnemy.initDamaged){
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
+			currEnemy.initAggro = false;
 			currEnemy.initAttack = false;
 			currEnemy.isAttack = false;
 			currEnemy.attackObject.SetActive(false);
@@ -157,7 +161,7 @@ public class MonkeySystem : ComponentSystem {
 				// Debug.Log("Set MonkeyRB Kinematic");
 				
 				currEnemy.isFinishDamaged = false;
-				SetStateAggro();
+				currEnemy.state = EnemyState.Aggro;
 			}
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
