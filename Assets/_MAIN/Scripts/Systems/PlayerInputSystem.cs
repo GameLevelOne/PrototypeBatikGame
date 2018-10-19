@@ -268,6 +268,7 @@ public class PlayerInputSystem : ComponentSystem {
 					input.attackMode = 1;
 					player.SetPlayerState(PlayerState.ATTACK);
 					animation.isFinishAttackAnimation = false;
+					playerAnimationSystem.SetAnimationFaceDirection();
 				} else if (attackMode > 0 && state == PlayerState.ATTACK) {
 					if (attackMode >= 3) {
 						input.attackMode = 1;	
@@ -276,6 +277,7 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 					
 					animation.isFinishAttackAnimation = false;
+					playerAnimationSystem.SetAnimationFaceDirection();
 				}
 
 				// if (attackMode <= 0 || attackMode >= 3) {

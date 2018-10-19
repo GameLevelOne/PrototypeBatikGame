@@ -67,14 +67,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 			if (!anim.isInitAnimation) {
 				InitAnimation();
 			} else {
+				if (CheckIfAllowedToChangeDir()) {
+					SetAnimationFaceDirection ();
+				} 
+
 				CheckPlayerState ();
 				CheckStartAnimation ();
 				CheckSpawnOnAnimation ();
 				CheckEndAnimation ();
-
-				if (CheckIfAllowedToChangeDir()) {
-					SetAnimationFaceDirection ();
-				} 
 			}
 		}
 	}
@@ -355,7 +355,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	void SetAnimationFaceDirection () {			
+	public void SetAnimationFaceDirection () {			
 		if (currentMoveDir != moveDir) {
 			currentMoveDir = moveDir;
 			
@@ -461,7 +461,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.ATTACK: 
 					// Debug.Log("Start Attack "+input.attackMode);
-					player.isMoveAttack = true;		
+					player.isMoveAttack = true;	
 					anim.isSpawnSomethingOnAnimation = true;
 					break;
 				case PlayerState.CHARGE: 
@@ -810,8 +810,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 	}
 
 	bool CheckIfAllowedToChangeDir () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH) {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || state == PlayerState.DASH || state == PlayerState.RAPID_SLASH || state == PlayerState.SLOW_MOTION || state == PlayerState.ENGAGE) {
 			return false;
+		} else if (state == PlayerState.ATTACK) {
+			if (anim.isFinishAttackAnimation) {
+				if (GameInput.IsAttackPressed) {
+					return true;	
+				} else return false;
+			} else return false;
 		} else {
 			return true;
 		}

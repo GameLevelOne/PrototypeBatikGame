@@ -129,7 +129,7 @@ public class MonkeySystem : ComponentSystem {
 			PlaySFXOneShot(MonkeyAudio.AGGRO);
 		} else if (currEnemy.isFinishAggro) {
 			currEnemy.state = EnemyState.Chase;
-			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_CHASE);
 
 			currEnemy.isFinishAggro = false;
 		}
@@ -289,7 +289,7 @@ public class MonkeySystem : ComponentSystem {
 			if(!currEnemy.isAttack){
 				currEnemy.initAttack = false;
 				currEnemy.state = EnemyState.Chase;
-				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_CHASE);
 			}else{
 				currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 
