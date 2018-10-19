@@ -104,6 +104,8 @@ public class UIMainMenuSystem : ComponentSystem {
 				PlayerPrefs.DeleteAll();	
 				uiMainmenu.portal11.enabled = true;
 			} else if (uiMainmenu.btnIndex==1) {//CONTINUE
+				PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, 100)); 
+				PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, 100)); 
 				uiMainmenu.nextPortal.sceneDestination = PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT);
 				uiMainmenu.nextPortal.GetComponent<BoxCollider>().enabled = true;
 			} else {//EXIT
