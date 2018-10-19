@@ -14,13 +14,14 @@ public class UIHPManaTool : MonoBehaviour {
 	// public float healthReduceValue;
 	public bool isHPChange = false;
 	
-	[HeaderAttribute("UI Mana Attributes")]
+	[HeaderAttribute("UI Mana Attributes")]	
 	public Mana playerMana;
 	public Image imageMP;
 	public Image imageShadowMP;
 	public float manaReduceValue;
 	public bool isMPChange = false;
 	public bool isReducingShadowMP = false;
+	public GameObject keyIcon;
 	
 	[SpaceAttribute(10f)]
 	// public Wavy wavy;

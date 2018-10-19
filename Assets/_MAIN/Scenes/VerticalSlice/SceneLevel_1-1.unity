@@ -7640,6 +7640,30 @@ Prefab:
       propertyPath: endOpeningEvent
       value: 
       objectReference: {fileID: 1591656592}
+    - target: {fileID: 1416044782011262, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214694305967446, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747564790517408, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453385193286788, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1498235317490746, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426329823918532, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7890581663b07fe49874a993b63ae6d3, type: 2}
   m_IsPrefabAsset: 0
@@ -7649,25 +7673,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 588356414}
   m_Script: {fileID: 11500000, guid: b5b22bd2b40546845bd0a3fef3587db1, type: 3}
---- !u!1 &588799959 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1129690653988800, guid: fd8c80b125465a947912a75c8118fed4,
-    type: 2}
-  m_PrefabInternal: {fileID: 736221500}
---- !u!114 &588799964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 588799959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.23529413, g: 0.74509805, b: 0.69803923, a: 1}
-  m_EffectDistance: {x: 5, y: -5}
-  m_UseGraphicAlpha: 1
 --- !u!114 &589353725 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114776710095994036, guid: f5565433d85ecf34085d297cf84aed9e,
@@ -9587,11 +9592,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2023482397}
     - target: {fileID: 114286924460712858, guid: fd8c80b125465a947912a75c8118fed4,
         type: 2}
       propertyPath: player
@@ -9607,6 +9607,11 @@ Prefab:
       propertyPath: playerMana
       value: 
       objectReference: {fileID: 285666089}
+    - target: {fileID: 223998249949870670, guid: fd8c80b125465a947912a75c8118fed4,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2023482397}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8c80b125465a947912a75c8118fed4, type: 2}
   m_IsPrefabAsset: 0

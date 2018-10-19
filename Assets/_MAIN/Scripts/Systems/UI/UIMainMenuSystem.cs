@@ -108,7 +108,7 @@ public class UIMainMenuSystem : ComponentSystem {
 				uiMainmenu.nextPortal.GetComponent<BoxCollider>().enabled = true;
 			} else {//EXIT
 				Debug.Log("EXIT GAME");
-				Application.Quit();
+				if (!Application.isEditor) System.Diagnostics.Process.GetCurrentProcess().Kill();
 			}
 		}
 	}
