@@ -128,11 +128,19 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
 			if(currEnemy.playerTransform != null){ 
+				currEnemy.initIdle = false;
+				currEnemy.initPatrol = false;	
+
+				Player player = currEnemy.playerTransform.GetComponent<Player>();
+
+				if (player.isCanBulletTime) {
+					currBeeAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
+					return;
+				}
+
 				// currEnemy.state = EnemyState.Chase;
 				currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.PREPARE]);
 				currEnemy.state = EnemyState.Aggro;
-				currEnemy.initIdle = false;
-				currEnemy.initPatrol = false;	
 				currEnemy.chaseIndicator.Play(true);
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
 			}
@@ -296,15 +304,36 @@ public class BeeSystem : ComponentSystem {
 					currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 				// }
 
-				currBee.attackCodeFX.Play(true);
+				// currBee.attackCodeFX.Play(true);
 				currEnemy.initAttack = true;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 			}
 		}else{
-			// Debug.Log("Check initAttack true");
 			currEnemy.attackObject.SetActive(currEnemy.attackHit);
+
+			if (currEnemy.isInitPlayAttackCodeFX) {
+				currBee.attackCodeFX.Play(true);
+				currEnemy.isInitPlayAttackCodeFX = false;
+			}
+
+			if (currBee.isInitSpawnAttackFX) {
+				// SpawnBeeThrustFX();
+				currBee.isInitSpawnAttackFX = false;
+			}
 		}
 	}	
+
+	void SpawnBeeThrustFX () {
+		GameObject thrustFX = GameObject.Instantiate(currBee.beeThrustFX, currEnemy.attackObject.transform.position, Quaternion.Euler(new Vector3(40f, 0f, 0f)));
+		
+		if (currBeeAnim.GetFloat(Constants.AnimatorParameter.Float.FACE_X) > 0f) {
+			Vector3 rotThrustFX = thrustFX.transform.eulerAngles;
+			//MIRROR BY BEE'S FACING DIRECTION
+			thrustFX.transform.rotation = Quaternion.Euler(new Vector3(rotThrustFX.x, rotThrustFX.y + 180f, rotThrustFX.z));
+		}
+
+		thrustFX.SetActive(true);
+	}
 
 	void Startled()
 	{

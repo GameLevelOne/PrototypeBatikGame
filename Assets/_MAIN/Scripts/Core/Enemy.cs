@@ -54,6 +54,7 @@ public class Enemy : MonoBehaviour {
 	public bool isBurned = false;
 	public bool isFinishDamaged = false;
 	public bool isFinishAggro = false;
+	public bool isInitPlayAttackCodeFX = false;
 	
 	public bool isHit = false;
 	public Damage damageReceive;
@@ -105,5 +106,36 @@ public class Enemy : MonoBehaviour {
 	// public void SetEnemyIdle () {
 	// 	state = EnemyState.Idle;
 	// }
+#endregion
+
+#region ENEMY ANIMATION EVENT
+	void PlayAttackCode()
+	{
+		isInitPlayAttackCodeFX = true;
+	}
+	void DisableAttackHit()
+	{
+		attackHit = false;
+	}
+
+	void OnEndAttack()
+	{
+		initAttack = false;
+	}
+
+	void OnStartDamaged()
+	{
+		initDamaged = false;
+	}
+
+	void OnEndDamaged()
+	{
+		isFinishDamaged = true;
+	}
+
+	void OnEndAggro()
+	{
+		isFinishAggro = true;
+	}
 #endregion
 }

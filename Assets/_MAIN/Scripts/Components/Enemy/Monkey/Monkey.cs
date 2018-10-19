@@ -74,34 +74,11 @@ public class Monkey : MonoBehaviour {
 	}
 	#endregion
 
-	#region animation event
+	#region MONKEY ANIMATION EVENT
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
 		isInitSpawnAttackFX = true;
-	}
-	void DisableAttackHit()
-	{
-		enemy.attackHit = false;
-	}
-	void OnEndAttack()
-	{
-		enemy.initAttack = false;
-	}
-
-	void OnStartDamaged()
-	{
-		enemy.initDamaged = false;
-	}
-
-	void OnEndDamaged()
-	{
-		enemy.isFinishDamaged = true;
-	}
-
-	void OnEndAggro()
-	{
-		enemy.isFinishAggro = true;
 	}
 	#endregion
 }

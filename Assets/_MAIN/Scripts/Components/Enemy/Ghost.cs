@@ -62,33 +62,12 @@ public class Ghost : MonoBehaviour {
 		origin = transform.position;
 	}
 
+	#region animation event
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
 	}
 
-	void DisableAttackHit()
-	{
-		enemy.attackHit = false;
-		
-	}
-
-	void OnEndAttack()
-	{
-		enemy.initAttack = false;
-	}
-
-	void OnStartDamaged()
-	{
-		enemy.initDamaged = false;
-	}
-
-	void OnEndDamaged()
-	{
-		enemy.isFinishDamaged = true;
-	}	
-
-	#region animation event
 	void PlaySFXWalkLeftFoot()
 	{
 		PlaySFX(GhostSFX.GhostWalk1);

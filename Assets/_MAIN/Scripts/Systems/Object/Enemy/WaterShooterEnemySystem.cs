@@ -98,6 +98,10 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	void Idle ()
 	{
 		if(currEnemy.playerTransform != null){
+			if (currWaterShooterEnemy.currPlayerTransform == null) {
+				currWaterShooterEnemy.currPlayerTransform = currEnemy.playerTransform;
+			}
+			
 			SetStateAggro();
 		}else{
 			if(!currEnemy.initIdle){
@@ -163,15 +167,15 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 	void Attack()
 	{
-		if (currEnemy.playerTransform == null){
-			currWaterShooterEnemy.startAttack = false;
+		// if (currEnemy.playerTransform == null){
+		// 	currWaterShooterEnemy.startAttack = false;
 			
-			if (!currEnemy.initAttack) {
-				currEnemy.state = EnemyState.Die;
-				// currEnemy.initAttack = false;
-				currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DIE);
-			}
-		} else {
+		// 	if (!currEnemy.initAttack) {
+		// 		currEnemy.state = EnemyState.Die;
+		// 		// currEnemy.initAttack = false;
+		// 		currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_DIE);
+		// 	}
+		// } else {
 			if (!currEnemy.initAttack) {
 				// currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_IDLE);
 				currEnemy.state = EnemyState.Die;
@@ -180,22 +184,25 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			} else {
 				if (currWaterShooterEnemy.startAttack){
 					if (currEnemy.attackHit) {
-						if (currEnemy.playerTransform != null) {
+						// if (currEnemy.playerTransform != null) {
 							SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
 							PlaySFX(LotusAudio.SHOOT);
-						} else {
-							currWaterShooterEnemy.startAttack = false;
-						}
+						// }
 							
-						currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
+						// currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
 						currWaterShooterEnemy.startAttack = false;
 						currEnemy.attackHit = false;
 					} else {
-						if (currEnemy.playerTransform == null) {
-							currWaterShooterEnemy.startAttack = false;
+						if (currEnemy.playerTransform != null) {
+							currWaterShooterEnemy.currPlayerTransform = currEnemy.playerTransform;
+						// } else {
+						// 	currWaterShooterEnemy.currPlayerTransform = null;
 						}
+						// if (currEnemy.playerTransform == null) {
+						// 	currWaterShooterEnemy.startAttack = false;
+						// }
 					}
-				} else {
+				// } else {
 					// if (currWaterShooterEnemy.TShootInterval <= 0f) {
 					// 	currWaterShooterEnemyAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
 					// 	currWaterShooterEnemy.startAttack = true;
@@ -205,7 +212,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 					// }
 				}
 			}
-		}
+		// }
 	}
 
 	// Vector3 GetProjectileDirection(Vector3 origin, Vector3 target)
@@ -217,12 +224,13 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	// }
 
 	void SpawnWaterBulletObj (GameObject obj) {
-		Vector3 targetPos = currEnemy.playerTransform.position;
+		// Vector3 targetPos = currEnemy.playerTransform.position;
+		Vector3 targetPos = currWaterShooterEnemy.currPlayerTransform.position;
         Vector3 initPos = currWaterShooterEnemy.bulletSpawnPoint.position;
 
 		Vector3 deltaPos = targetPos - initPos;
 		
-        GameObject spawnedObj = GameObject.Instantiate(obj, currWaterShooterEnemyRidigbody.position, SetFacingParent(deltaPos));
+        GameObject spawnedObj = GameObject.Instantiate(obj, initPos, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
 		// Debug.Log(spawnedObj.transform.GetChild(0).name);

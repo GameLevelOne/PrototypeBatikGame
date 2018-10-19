@@ -15,6 +15,7 @@ public class Bee : MonoBehaviour {
 	public AttackRangeTrigger attackRangeTrigger;
 	public ParticleSystem attackCodeFX;
 	public ParticleSystem burnedFX;
+	public GameObject beeThrustFX;
 	public Beehive beeHive;
 	public GameObject beeCutFX;
 	public AudioSource audioSource;
@@ -28,7 +29,7 @@ public class Bee : MonoBehaviour {
 	[SpaceAttribute(10f)]
 	public bool initStartled = false;
 	public bool isStartled = false;
-	// public bool initAttackHitPosition = true;
+	public bool isInitSpawnAttackFX = false;
 
 	#region event delegate
 	void OnEnable()
@@ -54,42 +55,15 @@ public class Bee : MonoBehaviour {
 			if (player.GetComponent<Player>().state != PlayerState.DIE) {
 				enemy.playerTransform = player.transform;
 			}			
-		} else {
-			//
 		}
 	}
 	#endregion
 
-	#region animation event
+	#region BEE ANIMATION EVENT
 	void EnableAttackHit()
 	{
 		enemy.attackHit = true;
-		// initAttackHitPosition = false;
-	}
-
-	void DisableAttackHit()
-	{
-		enemy.attackHit = false;
-	}
-
-	void OnEndAttack()
-	{
-		enemy.initAttack = false;
-	}
-
-	void OnStartDamaged()
-	{
-		enemy.initDamaged = false;
-	}
-
-	void OnEndDamaged()
-	{
-		enemy.isFinishDamaged = true;
-	}
-
-	void OnEndAggro()
-	{
-		enemy.isFinishAggro = true;
+		isInitSpawnAttackFX = true;
 	}
 	#endregion
 }

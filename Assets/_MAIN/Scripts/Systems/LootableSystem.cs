@@ -33,13 +33,16 @@ public class LootableSystem : ComponentSystem {
 							if (lootable.destroyTimer < lootable.startDestroyDuration) {
 								lootable.destroyTimer += deltaTime;
 							} else {
-								Animator[] childAnimator = lootable.GetComponentsInChildren<Animator>();
+								// if (lootable.isStopChildAnimator) {
+									Animator[] childAnimator = lootable.GetComponentsInChildren<Animator>();
 
-								for (int j=0; j<childAnimator.Length; j++) {
-									childAnimator[j].enabled = false;
-								}
+									for (int j=0; j<childAnimator.Length; j++) {
+										childAnimator[j].enabled = false;
+									}
+								// }
 
 								if (lootable.parentAnimator != null) lootable.parentAnimator.enabled = true;
+								
 								lootable.isInitDestroy = true;
 							}
 						}

@@ -16,7 +16,20 @@ public class PlayerInput : MonoBehaviour {
 	// public int[] attackAnimValue = new float[3]{-1f, 0f, 1f};
 	public AudioSource audioSource;
 	public AudioClip[] audioClip;
-	public Text textRapidSlash;
+	public Text textRapidSlash;	
+	public float chargeAttackThreshold = 1f;
+	// public float beforeChargeDelay = 0.3f;
+	// public float attackAwayDelay =  0.5f;
+	public float guardParryDelay = 0.5f;
+	public float dodgeCooldown = 1f;
+	public float bulletTimeDelay = 0.3f;
+	// public float bulletTimeDuration = 0.3f;
+	
+	[HeaderAttribute("Slow Motion Counter")]
+	public float slowTimeScale = 0f;
+	public float rapidSlashAnimatorSpeed = 0f;
+
+	[HeaderAttribute("Current")]
 
 	// public bool isLockDir = false;
 	// public bool isButtonHold = false;
@@ -38,11 +51,8 @@ public class PlayerInput : MonoBehaviour {
 	// public List<int> dirButtons	= new List<int>(4);  
 
 	// public List<int> slashComboVal;
-
-	// [SerializeField] int attackMode = 0;
+	
 	[SerializeField] Vector3 currMoveDir = Vector3.zero;
-
-	// public Vector3 moveDir = Vector3.down; //TEMP Set to Down Direction		
 	public Vector3 moveDir {  
 		get {return currMoveDir;}
 		set {
@@ -111,8 +121,6 @@ public class PlayerInput : MonoBehaviour {
 	// 		}
 	// 	}
 	// }
-	
-	public int bulletTimeAttackQty = 0;
 		
 	/// <summary>
     /// <para>Values: <br /></para>
@@ -150,12 +158,6 @@ public class PlayerInput : MonoBehaviour {
 	/// <para>2 MOVEPUSH<br /></para>
     /// </summary>
 	public float liftingMode = 0;
-	
-	public float chargeAttackThreshold = 1f;
-	public float beforeChargeDelay = 0.3f;
-	// public float attackAwayDelay =  0.5f;
-	public float guardParryDelay = 0.5f;
-	public float bulletTimeDelay = 0.3f;
-	public float bulletTimeDuration = 0.3f;
-	public float dodgeCooldown = 1f;
+
+	public int bulletTimeAttackQty = 0;
 }

@@ -69,7 +69,8 @@ public class SystemManagerSystem : ComponentSystem {
 				Debug.Log("=====START CHECK SYSTEM MANAGER=====");
 				Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
 				int currentMapIdx = systemManager.currentMapIdx;
-				string currentScene = GameStorage.Instance.CurrentScene;
+				// string currentScene = GameStorage.Instance.CurrentScene;
+				string currentScene = SceneManager.GetActiveScene().name;
 				Debug.Log("=====Current Scene : "+currentScene+"=====");
 				if (currentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS

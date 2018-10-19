@@ -19,19 +19,21 @@ public class WaterShooterEnemy : MonoBehaviour {
 	[HeaderAttribute("SHOOT")]
 	public AudioClip[] audioClip;
 
-	[SpaceAttribute(10f)]
-	public float shootInterval;
+	// [SpaceAttribute(10f)]
+	// public float shootInterval;
 
 	[HeaderAttribute("Current")]
 	public  bool startAttack = false;
-	public  bool startDrown = false;
+	// public  bool startDrown = false;
 	public  bool isFinisDrowning = false;
-	[SerializeField] float tShootInterval;
+	public  Transform currPlayerTransform;
+	// public  Vector3 currPlayerPos = Vector3.zero;
+	// [SerializeField] float tShootInterval;
 
-	public float TShootInterval{
-		get{return tShootInterval;}
-		set{tShootInterval = value;}
-	}
+	// public float TShootInterval{
+	// 	get{return tShootInterval;}
+	// 	set{tShootInterval = value;}
+	// }
 
 	void OnEnable()
 	{
@@ -54,28 +56,8 @@ public class WaterShooterEnemy : MonoBehaviour {
 	{
 		enemy.attackHit = true;
 	}
-	void OnEndAttack()
-	{
-		enemy.initAttack = false;
-	}
 
-	void OnStartDamaged()
-	{
-		enemy.initDamaged = false;
-	}
-
-	void OnEndDamaged()
-	{
-		enemy.isFinishDamaged = true;
-	}
-
-	void OnEndAggro()
-	{
-		enemy.isFinishAggro = true;
-	}
-
-	void OnEndDrowned()
-	{
+	void OnEndDrowned () {
 		isFinisDrowning = true;
 	}
 	#endregion

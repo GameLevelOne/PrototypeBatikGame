@@ -525,10 +525,11 @@ public class PlayerInputSystem : ComponentSystem {
 
 	bool CheckIfUsingAnyTool () {
 		if (state == PlayerState.SLOW_MOTION) {
-			float bulletTimeDuration = input.bulletTimeDuration;
-
-			if (slowDownTimer < bulletTimeDuration) {
-				slowDownTimer += deltaTime;
+			// float bulletTimeDuration = input.bulletTimeDuration;
+			
+			// if (slowDownTimer < bulletTimeDuration) {
+			// 	slowDownTimer += deltaTime;
+			if (!player.isInitRapidSlash) {
 
 				if (GameInput.IsAttackPressed) {
 					input.bulletTimeAttackQty++;
@@ -542,6 +543,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// playerAnimationSystem.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 				input.textRapidSlash.gameObject.SetActive(false);
 				player.SetPlayerState(PlayerState.ENGAGE);
+				player.isInitRapidSlash = false;
 				// player.SetPlayerState(PlayerState.RAPID_SLASH);
 			}
 

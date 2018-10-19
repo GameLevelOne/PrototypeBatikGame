@@ -62,6 +62,7 @@ public class PlayerCounterTrigger : MonoBehaviour {
 	void SetEnemyIdle (Enemy currEnemy) {
 		currEnemy.initAttack = false;
 		currEnemy.isAttack = false;
+		currEnemy.attackHit = false;
 		currEnemy.SetEnemyState(EnemyState.Idle);
 		currEnemy.attackObject.SetActive(false);
 	}
