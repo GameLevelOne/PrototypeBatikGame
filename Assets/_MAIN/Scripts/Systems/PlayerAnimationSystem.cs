@@ -437,6 +437,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.DODGE:
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
+					PlaySFXOneShot(AnimationAudio.DODGE);
 					break;
 				// case PlayerState.COUNTER:
 					// attack.isAttacking  = true;
@@ -446,6 +447,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.PARRY:
 					//
+					PlaySFXOneShot(AnimationAudio.PARRY);
 					break;
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
@@ -467,6 +469,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.CHARGE: 
 					player.isMoveAttack = true;
 					anim.isSpawnSomethingOnAnimation = true;
+					PlaySFXOneShot(AnimationAudio.CHARGE_RELEASE);
 					break;
 				case PlayerState.DASH:
 					if (input.interactValue == 0) {
@@ -515,7 +518,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 					break;
 				case PlayerState.DIE: 
-					//
+					PlaySFXOneShot(AnimationAudio.DIE);
 					break;
 				case PlayerState.GET_HURT:
 					input.attackMode = 0;
