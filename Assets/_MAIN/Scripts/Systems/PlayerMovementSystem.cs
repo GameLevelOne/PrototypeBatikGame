@@ -131,7 +131,11 @@ public class PlayerMovementSystem : ComponentSystem {
 						KnockBack(movement.knockBackSpeedNormal * 10f);
 					}
 
-					moveDir = input.moveDir;
+					if (player.isHitJatayuAttack2) {
+						moveDir = input.moveDir - Vector3.forward;
+					} else {
+						moveDir = input.moveDir;
+					}
 				}
 			} else if (state == PlayerState.SWIM) {
 				if (input.interactValue == 2 || input.interactValue == 0) {
@@ -246,10 +250,12 @@ public class PlayerMovementSystem : ComponentSystem {
 				// rb.velocity = Vector3.zero;
 				rb.velocity = moveDir * movement.attackMoveForce * deltaTime;
 			} else {
-				rb.velocity = Vector3.zero;
+				if (!IsHitByJatayuAttack2()) rb.velocity = Vector3.zero;
+				else rb.velocity = -Vector3.forward * moveSpeed * deltaTime;
 			}
 		} else {
-			rb.velocity = Vector3.zero;
+			if (!IsHitByJatayuAttack2()) rb.velocity = Vector3.zero;
+			else rb.velocity = moveDir * moveSpeed * deltaTime;
 		}
 
 		// if (rb.velocity.y != 0f) {
@@ -320,7 +326,11 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else if (state == PlayerState.OPEN_CHEST) {
 			rb.velocity = Vector3.zero;
 		} else if (state == PlayerState.BOW) {
-			rb.velocity = Vector3.zero;
+			if (player.isHitJatayuAttack2) {
+				input.interactValue = -1;
+			} else {
+				rb.velocity = Vector3.zero;
+			}
 		} else if (state == PlayerState.GET_HURT) {
 			if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
 				KnockBack(movement.knockBackSpeedNormal);
@@ -332,8 +342,12 @@ public class PlayerMovementSystem : ComponentSystem {
 				KnockBack(movement.knockBackSpeedGuard);
 			}
 		} else {
-			input.moveDir = Vector3.zero;
-			rb.velocity = Vector3.zero;
+			if (!IsHitByJatayuAttack2()) {
+				input.moveDir = Vector3.zero;
+				rb.velocity = Vector3.zero;
+			} else {
+				rb.velocity = moveDir * moveSpeed * deltaTime;
+			} 
 		}
 	}
 
@@ -415,6 +429,15 @@ public class PlayerMovementSystem : ComponentSystem {
 			return rb.position + vecticalizeVector * speed * deltaTime;
 		} else {
 			return rb.position + deltaPos * speed * deltaTime;
+		}
+	}
+
+	bool IsHitByJatayuAttack2 () {
+		if (player.isHitJatayuAttack2) {
+			moveDir = input.moveDir - Vector3.forward;
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
