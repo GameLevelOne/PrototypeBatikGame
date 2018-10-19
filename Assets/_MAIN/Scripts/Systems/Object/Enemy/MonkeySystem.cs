@@ -82,13 +82,16 @@ public class MonkeySystem : ComponentSystem {
 			if(currEnemy.playerThatHitsEnemy != null){ //IsEnemyHit
 				// Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
-
+				SetStateAggro();
+				
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
+				
 					m.enemy.playerTransform = currEnemy.playerTransform;
-					SetStateAggro();
+					SetStateAggro(); // <<< ini ga manggil untuk monyet2 lain
+					
 				}
 
-				SetStateAggro();
+				
 				currMonkey.isHitByPlayer = true;
 			}
 		}		
@@ -108,7 +111,6 @@ public class MonkeySystem : ComponentSystem {
 	void SetStateAggro () {
 		currEnemy.initIdle = false;
 		currEnemy.initPatrol = false;
-
 		// Player player = currEnemy.playerTransform.GetComponent<Player>();
 
 		// if (player.isCanBulletTime) {
@@ -226,6 +228,8 @@ public class MonkeySystem : ComponentSystem {
 				currEnemy.initIdle = false;
 			}
 		}
+
+		
 	}
 	
 	void Patrol()
