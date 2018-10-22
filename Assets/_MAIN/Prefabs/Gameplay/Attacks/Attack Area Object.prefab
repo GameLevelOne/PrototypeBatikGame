@@ -257,6 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4574057079922528}
   - component: {fileID: 114805571625037234}
+  - component: {fileID: 114844064002774026}
   m_Layer: 0
   m_Name: Attack Area Object
   m_TagString: Untagged
@@ -1057,6 +1058,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114844064002774026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740946614798330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e278a87955db48c468b2687e4dc9ccec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugCanvases:
+  - {fileID: 1893255980349562}
+  - {fileID: 1332731545425730}
+  - {fileID: 1193189596562504}
+  showDebugCanvas: 0
 --- !u!114 &114914150965731814
 MonoBehaviour:
   m_ObjectHideFlags: 1

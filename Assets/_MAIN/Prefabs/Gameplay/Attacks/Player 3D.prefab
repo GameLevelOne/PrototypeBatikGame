@@ -1603,7 +1603,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17, y: 0.9, z: -3}
+  m_LocalPosition: {x: 20, y: 0.9, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -2538,12 +2538,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 52a663f1814720e40a1c323f8730c13b, type: 3}
   - {fileID: 8300000, guid: 870c6e180e047eb4ba8eb4553b4a725d, type: 3}
   - {fileID: 8300000, guid: aa9c802ad29b0bf4fbbb10194f7fa904, type: 3}
+  - {fileID: 8300000, guid: d4322e1ef2a4e5942ad512c2d9fa7361, type: 3}
+  - {fileID: 8300000, guid: 6e5f1e2277c7ca64ab2b5ac92ca49307, type: 3}
+  - {fileID: 8300000, guid: 32eda6802f481fe4abec492ceb6db39f, type: 3}
   imagePressAttack: {fileID: 1253069677506432}
   imageRapidSlashHit: {fileID: 1845432994220142}
   canvasGroupRapidSlash: {fileID: 225635529159337830}
   textRapidSlashHit: {fileID: 114510191621241880}
   uiRapidSlashPressedFX: {fileID: 198819643213521698}
-  chargeAttackThreshold: 1
+  chargeAttackThreshold: 1.4
   guardParryDelay: 0.5
   dodgeCooldown: 1
   bulletTimeDelay: 0.3
@@ -3425,8 +3428,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0.00000023841858, z: 0.00002169609}
-    m_Extent: {x: 16.024399, y: 0.00000026822312, z: 81.30675}
+    m_Center: {x: 0, y: 0, z: 0.00002169609}
+    m_Extent: {x: 16.024399, y: 0.000000029804497, z: 81.30675}
   m_DirtyAABB: 0
 --- !u!137 &137651258906997094
 SkinnedMeshRenderer:
@@ -3472,8 +3475,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.000030517578, y: 0, z: 0.0000016391277}
-    m_Extent: {x: 4.999995, y: 0.00000002980234, z: 5.0000033}
+    m_Center: {x: 0, y: -0.00000047683716, z: 0.000001847744}
+    m_Extent: {x: 5.000019, y: 0.00000002980234, z: 5.0000033}
   m_DirtyAABB: 0
 --- !u!183 &183070785246324672
 Cloth:

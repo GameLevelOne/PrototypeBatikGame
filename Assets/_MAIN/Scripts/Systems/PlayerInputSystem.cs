@@ -42,7 +42,7 @@ public class PlayerInputSystem : ComponentSystem {
 	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
 	float startChargeAttackTimer = 0f;
-	float attackAwayTimer = 0f;
+	// float attackAwayTimer = 0f;
 	float dodgeCooldownTimer = 0f;
 	float dodgeCooldown = 0f;
 	float bulletTimeDelay = 0f;
@@ -111,7 +111,7 @@ public class PlayerInputSystem : ComponentSystem {
 		slowDownTimer = 0f;
 		chargeAttackTimer = 0f;
 		startChargeAttackTimer = 0f;
-		attackAwayTimer = 0f;
+		// attackAwayTimer = 0f;
 		dodgeCooldownTimer = 0f;
 		// isAttackAway = true;
 		isReadyForDodging = true;
@@ -289,7 +289,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// 	input.attackMode++;
 				// }
 				
-				attackAwayTimer = 0f;
+				// attackAwayTimer = 0f;
 				// isAttackAway = false;	
 				isChargingAttack = false;
 				input.isInitChargeAttack = false;
@@ -531,7 +531,7 @@ public class PlayerInputSystem : ComponentSystem {
 		
 		// input.slashComboVal.Clear();
 		// Debug.Log("SET BUTTON UP AttackList CLEAR");
-		attackAwayTimer = 0f;
+		// attackAwayTimer = 0f;
 		// isAttackAway = true;
 
 		player.isGuarding = false;
@@ -783,5 +783,13 @@ public class PlayerInputSystem : ComponentSystem {
 			input.audioSource.clip = input.audioClip[(int) audioType];
 			input.audioSource.Play();
 		// }
+	}
+
+	public void ResetAllTimer () {
+		parryTimer = 0f;
+		bulletTimeTimer = 0f;
+		slowDownTimer = 0f;
+		chargeAttackTimer = 0f;
+		startChargeAttackTimer = 0f;
 	}
 }

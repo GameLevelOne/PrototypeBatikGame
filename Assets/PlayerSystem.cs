@@ -14,6 +14,7 @@ public class PlayerSystem : ComponentSystem {
 	Facing2D facing;
 
 	GameObject playerAttackAreaObj;
+	AttackAreaDebug attackAreaDebug;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<playerData.Length; i++) {
@@ -33,6 +34,9 @@ public class PlayerSystem : ComponentSystem {
 			} else {
 				// this.Enabled = false;
 				playerAttackAreaObj.transform.position = facing.attackArea.transform.position;
+
+				//DEBUGGING
+				CheckDebugCanvasAttackArea();
 			}
 		}
 	}
@@ -53,11 +57,31 @@ public class PlayerSystem : ComponentSystem {
 		player.GetComponent<Attack>().dashAttackArea = playerAttackArea.dashAttackObj;
 		toolSystem.tool.fishingBaitObj = playerAttackArea.fishingRod.gameObject;
 
+		attackAreaDebug = playerAttackAreaObj.GetComponent<AttackAreaDebug>();
+
 		playerAttackAreaObj.SetActive(true);
 		player.isInitAttackAreaObj = true;
 	}
 
 	public void ResetPlayerHP () { //BUG FIX
 		player.health.PlayerHP = 0f;
+	}
+
+	void CheckDebugCanvasAttackArea () {
+		int isCheckDebugAttackArea = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_DEBUG_ATTACK_AREA, 0);
+		
+		if (isCheckDebugAttackArea != attackAreaDebug.showDebugCanvas) {
+			if (isCheckDebugAttackArea > 0) {
+				for (int i=0; i<attackAreaDebug.debugCanvases.Length; i++) {
+					attackAreaDebug.debugCanvases[i].SetActive(true);
+				}
+			} else {
+				for (int i=0; i<attackAreaDebug.debugCanvases.Length; i++) {
+					attackAreaDebug.debugCanvases[i].SetActive(false);
+				}
+			}
+
+			attackAreaDebug.showDebugCanvas = isCheckDebugAttackArea;
+		}
 	}
 }

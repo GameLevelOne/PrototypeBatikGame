@@ -23,7 +23,10 @@ public enum PlayerInputAudio {
 	BULLET_TIME,
 	BUTTON_CLICK,
 	DASH_CHARGE,
-	DASH_ATTACK
+	DASH_ATTACK,
+	HURT1,
+	HURT2,
+	HURT3
 	// HURT
 }
 

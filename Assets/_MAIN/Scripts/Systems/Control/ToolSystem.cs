@@ -71,8 +71,8 @@ public class ToolSystem : ComponentSystem {
 	void InitTool () {
 		// CheckSavedTool ();
 		// for (int i=1; i<=(int)ToolType.Boots; i++) {
-		// 	if (CheckIfToolHasBeenUnlocked(i)) {
-		// 		tool.currentTool = (ToolType) i;
+		// 	if (i == (int) tool.currentTool && CheckIfToolHasBeenUnlocked(i)) {
+		// 		// tool.currentTool = (ToolType) i;
 		// 		uiToolsSelectionSystem.SetPrintedTool();
 
 		// 		tool.isInitCurrentTool = true;
@@ -80,7 +80,8 @@ public class ToolSystem : ComponentSystem {
 		// 	}
 		// }
 
-		// Debug.Log("ToolSystem "+tool.currentTool);
+		// Debug.Log("currentTool "+(int) tool.currentTool);
+		// Debug.Log("savedToolIdx "+tool.savedToolIdx);
 		uiToolsSelectionSystem.SetPrintedTool();
 		tool.isInitCurrentTool = true;
 	}

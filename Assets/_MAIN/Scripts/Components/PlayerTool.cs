@@ -30,7 +30,7 @@ public class PlayerTool : MonoBehaviour {
 	/// <summary>
     /// Indicates current tool
     /// </summary>
-	[SerializeField] int savedToolIdx = 0;
+	public int savedToolIdx = 3; //BOMB
 	public ToolType currentTool {
 		get {return (ToolType) PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, savedToolIdx);}
 		set {
@@ -90,6 +90,8 @@ public class PlayerTool : MonoBehaviour {
 		Flippers = 0; //
 		Boots = 1;
 		// Debug.Log("SetAvailableTools");
+
+		if (savedToolIdx == 0) savedToolIdx = 3;
 	}
 
 	// void Awake () {

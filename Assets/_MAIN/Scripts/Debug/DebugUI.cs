@@ -44,6 +44,9 @@ public class DebugUI : MonoBehaviour {
 	public Toggle fireArrow;
 	public Toggle fishingRod;
 
+	[HeaderAttribute("DEBUG DATA")]
+	public Toggle debugAttackArea;
+
 	// Use this for initialization
 	void Start () {
 		debugPanel.SetActive(false);
@@ -92,6 +95,9 @@ public class DebugUI : MonoBehaviour {
 		gateKey.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", 0) == 1 ? true : false;
 		fireArrow.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, 0) == 1 ? true : false;
 		fishingRod.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, 0) == 1 ? true : false;
+	
+		//DEBUG DATA
+		debugAttackArea.isOn = PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_DEBUG_ATTACK_AREA, 0) == 1 ? true : false;
 	}
 
 	public void SaveData() {
@@ -130,7 +136,10 @@ public class DebugUI : MonoBehaviour {
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", gateKey.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, fireArrow.isOn ? 1 : 0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, fishingRod.isOn ? 1 : 0);
-
+		
+		//DEBUG DATA
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_DEBUG_ATTACK_AREA, debugAttackArea.isOn ? 1 : 0);
+		
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, float.Parse(healthCtr.text));
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, float.Parse(manaCtr.text));
 

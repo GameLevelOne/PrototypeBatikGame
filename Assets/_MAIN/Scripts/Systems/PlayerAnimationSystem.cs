@@ -526,12 +526,14 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
 					// PlaySFXOneShot(AnimationAudio.HURT);
+					playerInputSystem.ResetAllTimer();
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
 					gameFXSystem.ToggleRunFX(false);
 					
 					//CLOSE CHARGE ATTACK
 					input.moveMode = 0;
 					gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+					input.audioSource.Stop();
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();

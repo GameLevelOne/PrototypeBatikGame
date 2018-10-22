@@ -308,6 +308,17 @@ public class DamageSystem : ComponentSystem {
 
 	float ReducePlayerHP (float initHP, float damage, Vector3 hitPos) {		
 		gameFXSystem.SpawnObj(gameFXSystem.gameFX.playerHitEffect, hitPos);
+
+		float randomHurtIdx = Random.Range(0f, 3f);
+		Debug.Log("randomHurtIdx");
+		if (randomHurtIdx <= 1f) {
+			playerInputSystem.PlaySFXOneShot(PlayerInputAudio.HURT1);
+		} else if (randomHurtIdx >= 2f) {
+			playerInputSystem.PlaySFXOneShot(PlayerInputAudio.HURT3);
+		} else {
+			playerInputSystem.PlaySFXOneShot(PlayerInputAudio.HURT2);
+		}
+
 		return initHP -= damage;
 	}
 
