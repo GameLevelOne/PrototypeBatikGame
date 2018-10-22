@@ -317,19 +317,22 @@ public class BeeSystem : ComponentSystem {
 			}
 
 			if (currBee.isInitSpawnAttackFX) {
-				// SpawnBeeThrustFX();
+				SpawnBeeThrustFX();
 				currBee.isInitSpawnAttackFX = false;
 			}
 		}
 	}	
 
 	void SpawnBeeThrustFX () {
-		GameObject thrustFX = GameObject.Instantiate(currBee.beeThrustFX, currEnemy.attackObject.transform.position, Quaternion.Euler(new Vector3(40f, 0f, 0f)));
-		
+		GameObject thrustFX = GameObject.Instantiate(currBee.beeThrustFX, currBeeTransform.position, Quaternion.Euler(new Vector3(40f, 0f, 0f)));
+		Transform childThrustFX = thrustFX.GetComponentInChildren<ParticleSystem>().transform;
 		if (currBeeAnim.GetFloat(Constants.AnimatorParameter.Float.FACE_X) > 0f) {
-			Vector3 rotThrustFX = thrustFX.transform.eulerAngles;
+			childThrustFX.localPosition = new Vector3 (childThrustFX.localPosition.x, childThrustFX.localPosition.y, 0.4f);
+			// Vector3 rotThrustFX = thrustFX.transform.eulerAngles;
 			//MIRROR BY BEE'S FACING DIRECTION
-			thrustFX.transform.rotation = Quaternion.Euler(new Vector3(rotThrustFX.x, rotThrustFX.y + 180f, rotThrustFX.z));
+			thrustFX.transform.rotation = Quaternion.Euler(new Vector3(-40f, 180f, 0f));
+		} else {
+			childThrustFX.localPosition = new Vector3 (childThrustFX.localPosition.x, childThrustFX.localPosition.y, -0.4f);
 		}
 
 		thrustFX.SetActive(true);

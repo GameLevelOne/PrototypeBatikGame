@@ -26,8 +26,13 @@ public class BombSystem : ComponentSystem {
 			bomb = bombData.Bomb[i];
 			bombTransform= bombData.Transform[i];
 
-			TickBomb();
-			
+			if (!bomb.isInitBomb) {
+				InitBomb();
+			} else {
+				if (!bomb.explode) TickBomb();
+				else DestroyBomb();
+			}
+
 			// if (bomb.destroy){				
 			// 	GameObjectEntity.Destroy(bomb.gameObject);
 			// 	UpdateInjectedComponentGroups(); //TEMP, Error without this
@@ -35,16 +40,15 @@ public class BombSystem : ComponentSystem {
 		}
 	}
 
+	void InitBomb () {
+		bomb.timer = bomb.explodeTimer;
+		bomb.isInitBomb = true;
+	}
+
 	void TickBomb()
 	{
 		if (bomb.timer <= 0){
-			if(!bomb.explode){
-				cameraShakerSystem.ShakeCamera(true);
-				SpawnExplosion ();
-				// Explode();
-				DestroyBomb ();
-				bomb.explode = true;
-			}
+			bomb.explode = true;
 		} else {
 			bomb.timer -= deltaTime;
 		}
@@ -57,6 +61,9 @@ public class BombSystem : ComponentSystem {
 	}
 
 	void DestroyBomb () {
+		cameraShakerSystem.ShakeCamera(true);
+		SpawnExplosion ();
+
 		GameObjectEntity.Destroy(bomb.gameObject);
 		UpdateInjectedComponentGroups(); //TEMP, Error without this
 	}

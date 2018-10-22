@@ -171,7 +171,7 @@ public class PowerBraceletSystem : ComponentSystem {
 				break;
 			case 2: 
 				SetTargetRigidbodyKinematic(true);
-				// SetTargetRigidbodyPositionConstraints(true);
+				SetTargetRigidbodyPositionConstraints(true);
 				break;
 		}
 	}
@@ -191,17 +191,19 @@ public class PowerBraceletSystem : ComponentSystem {
 
 	public void SetLiftObjectParent () {
 		if (!powerBracelet.isInitLiftToParent) {
-			powerBracelet.liftable.mainCollider.isTrigger = true;
-			powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
-			powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
-			powerBracelet.liftable.mainRigidbody.mass = powerBracelet.liftable.throwMass;
-			powerBracelet.liftable.mainRigidbody.drag = 0f;
-			powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
-			// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
-			// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
+			if (powerBracelet.liftable != null) {
+				powerBracelet.liftable.mainCollider.isTrigger = true;
+				powerBracelet.liftable.mainTransform.parent = powerBracelet.liftMainObjParent;
+				powerBracelet.liftable.mainTransform.localPosition = Vector3.zero;
+				powerBracelet.liftable.mainRigidbody.mass = powerBracelet.liftable.throwMass;
+				powerBracelet.liftable.mainRigidbody.drag = 0f;
+				powerBracelet.liftable.gravityAwakeTimer = powerBracelet.liftable.initGravityAwakeTime;
+				// powerBracelet.liftable.shadowTransform.parent = powerBracelet.liftShadowParent;
+				// powerBracelet.liftable.shadowTransform.localPosition = Vector2.zero;
 
-			if (powerBracelet.liftable.GetComponent<Bush>() != null) {
-				powerBracelet.liftable.GetComponent<Bush>().isLifted = true;
+				if (powerBracelet.liftable.GetComponent<Bush>() != null) {
+					powerBracelet.liftable.GetComponent<Bush>().isLifted = true;
+				}
 			}
 
 			powerBracelet.isInitLiftToParent = true;
@@ -209,16 +211,20 @@ public class PowerBraceletSystem : ComponentSystem {
 	}
 
 	public void UnSetLiftObjectParent (int dirID) {
-		powerBracelet.liftable.projectile.direction = GetDirPos (powerBracelet.liftable.mainTransform.localPosition, dirID);
-		// powerBracelet.liftable.testDir.localPosition = powerBracelet.liftable.projectile.direction; // TEMP
-		powerBracelet.liftable.mainCollider.isTrigger = false;
-		// powerBracelet.liftable.shadowTransform.parent = null;
-		powerBracelet.liftable.mainTransform.parent = null;
+		if (powerBracelet.liftable != null) {
+			powerBracelet.liftable.projectile.direction = GetDirPos (powerBracelet.liftable.mainTransform.localPosition, dirID);
+			// powerBracelet.liftable.testDir.localPosition = powerBracelet.liftable.projectile.direction; // TEMP
+			powerBracelet.liftable.mainCollider.isTrigger = false;
+			// powerBracelet.liftable.shadowTransform.parent = null;
+			powerBracelet.liftable.mainTransform.parent = null;
+		}
+
 		powerBracelet.isInitLiftToParent = false;
 	}
 
 	public void ResetPowerBracelet () {	
 		powerBracelet.isInteracting = false;
+		powerBracelet.isInitLiftToParent = false;
 		powerBracelet.liftable = null;
 		powerBracelet.SetState(PowerBraceletState.NONE);
 	}

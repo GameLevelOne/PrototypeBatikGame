@@ -49,7 +49,7 @@ public class Liftable : MonoBehaviour {
 		if (state == LiftableState.THROW || state == LiftableState.FLY) {
 			// Debug.Log("IgnoreCollision "+throwByAccident);
 			if (col.gameObject.tag == Constants.Tag.PLAYER) {
-				Physics.IgnoreCollision(mainCollider, col.collider);
+				Physics.IgnoreCollision(mainCollider, col.collider, true);
 			} else if (col.gameObject.tag != Constants.Tag.ENEMY) {
 				// isLanding = true;
 
@@ -57,6 +57,8 @@ public class Liftable : MonoBehaviour {
 					DestroyBush();
 				} else if (GetComponent<Stone>() != null) {
 					DestroyStone();
+				} else if (GetComponent<Bomb>() != null) {
+					GetComponent<Bomb>().explode = true;
 				}
 			}
 		}
