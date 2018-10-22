@@ -233,6 +233,9 @@ public class PowerBraceletSystem : ComponentSystem {
 		powerBracelet.isInitLiftToParent = false;
 		powerBracelet.liftable = null;
 		powerBracelet.SetState(PowerBraceletState.NONE);
+			
+		//SET UI INTERACTION HINT
+		powerBracelet.player.HideHint();
 
 		//RESET HINT
 		powerBracelet.player.ResetHint(true);
