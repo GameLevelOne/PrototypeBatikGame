@@ -12,6 +12,7 @@ public class UIToolsSelection : MonoBehaviour {
 	public GameObject panelToolsSelection;
 	public Sprite[] arrayOfToolSprites;
 	public Image[] arrayOfToolImages;
+	public Image[] arrayOfToolHPMPImages;
 
 	[HeaderAttribute("Container")]
 	public Sprite initContainerSprite;

@@ -63,6 +63,7 @@ public class UISignPostSystem : ComponentSystem {
 			Init();
 			uiSignPost.anim.Play("Show",0,0f);
 			playerInput.isUIOpen = true;
+			// Debug.Log("UI SignPost Opening");
 		}
 	}
 
@@ -99,6 +100,7 @@ public class UISignPostSystem : ComponentSystem {
 
 	void CloseSignPost() {
 		if (uiSignPost.isCloseSignPost) {
+			// Debug.Log("UI SignPost Closing");
 			Time.timeScale = 1f;
 			uiSignPost.anim.Play("Hide",0,0f);
 			playerInput.isUIOpen = false;

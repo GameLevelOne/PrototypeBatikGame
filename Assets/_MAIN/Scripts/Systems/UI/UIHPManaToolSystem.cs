@@ -46,7 +46,9 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 				// Debug.Log("Finish init UI HP MP Tool");
 				uiHPManaTool.isInitHPManaImage = true;
-			} else {	
+			} else {
+				CheckKey();
+
 				if (uiHPManaTool.isHPChange) {
 					CheckHP ();
 					uiHPManaTool.reducedHPFX.Play();
