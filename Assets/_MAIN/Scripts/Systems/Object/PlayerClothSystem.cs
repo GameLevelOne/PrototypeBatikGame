@@ -33,8 +33,11 @@ public class PlayerClothSystem : ComponentSystem {
 			if (!playerCloth.isInitCLoth) {
 				InitCloth ();
 			} else {
-				CheckHP ();				
-				CheckDirection ();
+				CheckHP ();			
+
+				if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"OpeningMadaKari", 0) == 1) {
+					CheckDirection ();
+				}
 			}
 		}
 	}
@@ -53,7 +56,8 @@ public class PlayerClothSystem : ComponentSystem {
 
 		DissolveCloth();
 		DrawClothHP();		
-		SetClothRotation(0f, -Vector3.forward);
+		// SetClothRotation(0f, -Vector3.forward);
+		SetClothRotation(0f, new Vector3(1f, 0.5f, -1f)); 
 		
 		playerCloth.isInitCLoth = true; 
 	}
