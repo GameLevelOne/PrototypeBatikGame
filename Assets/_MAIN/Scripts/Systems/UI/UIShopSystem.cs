@@ -21,6 +21,7 @@ public class UIShopSystem : ComponentSystem {
 	UIShop uiShop;
 	LootableType[] playerContainer;
 	PlayerInput playerInput;
+	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
 
 	protected override void OnUpdate () {
 		for (int i=0; i<uiShopData.Length; i++) {
@@ -118,7 +119,7 @@ public class UIShopSystem : ComponentSystem {
 		int containerIdx = getNextEmptyContainer();
 		if (uiShop.curType==LootableType.HP_POTION) {
 			if (GameStorage.Instance.PlayerCoin >= uiShop.healthPrice && containerIdx>=0) {
-				uiShop.BuyItem(LootableType.HP_POTION, uiShop.healthPrice);
+				// uiShop.BuyItem(LootableType.HP_POTION, uiShop.healthPrice);
 				uiShop.handL.SetTrigger("Buy");
 
 				GameStorage.Instance.PlayerCoin-= uiShop.healthPrice;
@@ -126,12 +127,15 @@ public class UIShopSystem : ComponentSystem {
 
 				GetPlayerData();
 				uiShop.healthContainer[containerIdx].Play("Appear",0,0f);				
+
+				//RESET TOOL
+				uiToolsSelectionSystem.InitImages(true);
 			} else {
 				uiShop.handL.SetTrigger("Fail");
 			}
 		} else {
 			if (GameStorage.Instance.PlayerCoin >= uiShop.manaPrice && containerIdx>=0) {
-				uiShop.BuyItem(LootableType.MANA_POTION, uiShop.manaPrice);
+				// uiShop.BuyItem(LootableType.MANA_POTION, uiShop.manaPrice);
 				uiShop.handR.SetTrigger("Buy");
 
 				GameStorage.Instance.PlayerCoin-= uiShop.manaPrice;
@@ -139,6 +143,9 @@ public class UIShopSystem : ComponentSystem {
 
 				GetPlayerData();
 				uiShop.manaContainer[containerIdx].Play("Appear",0,0f);				
+
+				//RESET TOOL
+				uiToolsSelectionSystem.InitImages(true);
 			} else {
 				uiShop.handR.SetTrigger("Fail");
 			}

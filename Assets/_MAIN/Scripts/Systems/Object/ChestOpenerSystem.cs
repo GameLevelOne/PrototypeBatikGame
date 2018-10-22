@@ -91,6 +91,11 @@ public class ChestOpenerSystem : ComponentSystem {
 			Debug.Log("No CutScene");
 		}
 
+		//SET UI INTERACTION HINT
+		chestOpener.player.HideHint();
+
+		//RESET HINT
+		chestOpener.player.ResetHint(true);
 	}
 
 	public void SpawnTreasure (Vector3 playerPos) {

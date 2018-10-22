@@ -15,6 +15,9 @@ public class GateOpener : MonoBehaviour {
 				if (!gate.isSelected) {
 					gate.isSelected = true;
 					isInteracting = true;
+					
+					//SET UI INTERACTION HINT
+					player.ShowInteractionHint(HintMessage.OPEN);
 				}
 			}
 		} 
@@ -28,6 +31,9 @@ public class GateOpener : MonoBehaviour {
 				gate.isSelected = false;
 				gate = null;
 				isInteracting = false;
+
+				//SET UI INTERACTION HINT
+				player.HideHint();
 			}
 		}
 	}

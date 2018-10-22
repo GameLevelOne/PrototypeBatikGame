@@ -252,6 +252,9 @@ public class PlayerInputSystem : ComponentSystem {
 				player.SetPlayerState(PlayerState.POWER_BRACELET);
 				// isButtonToolHold = true;
 			} 
+
+			//SET UI INTERACTION HINT
+			player.ShowInteractionHint(HintMessage.LIFT);
 		}
 		#endregion
 	}

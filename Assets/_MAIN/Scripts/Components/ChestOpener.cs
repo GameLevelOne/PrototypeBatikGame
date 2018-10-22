@@ -18,6 +18,9 @@ public class ChestOpener : MonoBehaviour {
 					// chestOpenerCol.enabled = false;
 
 					isInteracting = true;
+					
+					//SET UI INTERACTION HINT
+					player.ShowInteractionHint(HintMessage.OPEN);
 				}
 			}
 		} 
@@ -34,6 +37,9 @@ public class ChestOpener : MonoBehaviour {
 				chest.isSelected = false;
 				chest = null;
 				isInteracting = false;
+
+				//SET UI INTERACTION HINT
+				player.HideHint();
 			}
 		}
 	}

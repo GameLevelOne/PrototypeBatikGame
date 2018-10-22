@@ -147,6 +147,8 @@ public class ContainerSystem : ComponentSystem {
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
+
+		//PLAY FX GET HP
 	}
 
 	void UseManaPotion (int lootableTypeIdx) {
@@ -155,6 +157,8 @@ public class ContainerSystem : ComponentSystem {
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
+
+		//PLAY FX GET MP
 	}
 
 	void ResetTool() {

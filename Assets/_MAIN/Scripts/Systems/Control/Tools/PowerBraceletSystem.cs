@@ -204,6 +204,12 @@ public class PowerBraceletSystem : ComponentSystem {
 				if (powerBracelet.liftable.GetComponent<Bush>() != null) {
 					powerBracelet.liftable.GetComponent<Bush>().isLifted = true;
 				}
+
+				//SET UI INTERACTION HINT
+				powerBracelet.player.HideHint();
+
+				//RESET HINT
+				powerBracelet.player.ResetHint(false);
 			}
 
 			powerBracelet.isInitLiftToParent = true;
@@ -227,6 +233,12 @@ public class PowerBraceletSystem : ComponentSystem {
 		powerBracelet.isInitLiftToParent = false;
 		powerBracelet.liftable = null;
 		powerBracelet.SetState(PowerBraceletState.NONE);
+			
+		//SET UI INTERACTION HINT
+		powerBracelet.player.HideHint();
+
+		//RESET HINT
+		powerBracelet.player.ResetHint(true);
 	}
 
 	Vector3 GetDirPos(Vector3 throwObjInitPos, int dirID)

@@ -108,6 +108,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void InitTool () {
+		// Debug.Log("UIPlayerInfoSystem "+toolSystem.tool.currentTool);
 		listOfToolsNSummons = new List<ButtonToolNSummon>();
 
 		for (int i=0; i<uiInfo.listOfButtonToolsNSummons.Count; i++) {
@@ -176,7 +177,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				// uiToolsNSummons.listOfButtonToolsNSummons[i].Select();
 				uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 				ChangeSelectedButtonSprite(i);
-				
+				CheckContainerImage(i);
 			} else {
 				if (CheckIfToolHasBeenUnlocked(i)) {
 					uiInfo.listOfButtonToolsNSummons[i].interactable = true;

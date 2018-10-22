@@ -101,5 +101,11 @@ public class GateOpenerSystem : ComponentSystem {
 
 		gateOpener.isInteracting = false;
 		gateOpener.player.isCanOpenGate = false;
+
+		//SET UI INTERACTION HINT
+		gateOpener.player.HideHint();
+
+		//RESET HINT
+		gateOpener.player.ResetHint(true);
 	}
 }
