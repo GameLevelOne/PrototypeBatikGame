@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using Unity.Entities;
+// using Unity.Entities;
+using System.Collections.Generic;
 
 public enum ChestSpawnerType {
 	CHEST,
@@ -18,7 +19,7 @@ public class ChestSpawner : MonoBehaviour {
 	public int requiredSpawnTrigger;
 
 	[HeaderAttribute("Current")]
-	public bool isTriggerSpawn = false;
+	public List<bool> isTriggerSpawn = new List<bool>();
 	public bool isInitChestSpawner;
 	public bool isSpawned;
 	public int currentTotalSpawnTrigger;

@@ -10,6 +10,7 @@ public class ContainerSystem : ComponentSystem {
 	[InjectAttribute] ContainerData containerData;
 	[InjectAttribute] ToolSystem toolSystem;
 	[InjectAttribute] UIToolsSelectionSystem uiToolsSelectionSystem;
+	[InjectAttribute] GameFXSystem gameFXSystem;
 
 	public Container container;
 
@@ -148,7 +149,8 @@ public class ContainerSystem : ComponentSystem {
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
 
-		//PLAY FX GET HP
+		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.useItemHPEffect, true);
+		gameFXSystem.PlaySFXOneShot(gameFXSystem.gameFX.useItemAudio);
 	}
 
 	void UseManaPotion (int lootableTypeIdx) {
@@ -158,7 +160,8 @@ public class ContainerSystem : ComponentSystem {
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
 		// PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + lootableTypeIdx, 0);
 
-		//PLAY FX GET MP
+		gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.useItemMPEffect, true);
+		gameFXSystem.PlaySFXOneShot(gameFXSystem.gameFX.useItemAudio);
 	}
 
 	void ResetTool() {

@@ -193,14 +193,14 @@ public class MonkeySystem : ComponentSystem {
 
 			if (currMonkey.questTrigger != null) {
 				//SEND QUEST TRIGGER
-				currMonkey.questTrigger.isDoQuest = true;
+				currMonkey.questTrigger.isDoQuest.Add(true);
 			} else {
 				Debug.Log("No Quest Triggered");
 			}
 
 			if (currMonkey.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
-				currMonkey.chestSpawner.isTriggerSpawn = true;
+				currMonkey.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
 				Debug.Log("No ChestSpawner Triggered");
 			}

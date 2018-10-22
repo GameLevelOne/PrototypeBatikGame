@@ -56,12 +56,12 @@ public class GameFXSystem : ComponentSystem {
             if (!particleFX.isPlaying) {
                 Debug.Log("A Playing Particle "+particleFX);
                 particleFX.Play(true);
-                PlayFXAudio(particleFX);
+                // PlayFXAudio(particleFX);
             } else {
                 Debug.Log("B Playing Particle "+particleFX);
                 particleFX.Stop(true);
                 particleFX.Play(true);
-                PlayFXAudio(particleFX);
+                // PlayFXAudio(particleFX);
             }
         } else {
             particleFX.Stop(true);
@@ -154,4 +154,8 @@ public class GameFXSystem : ComponentSystem {
 
         return targetRot;
     }
+
+	public void PlaySFXOneShot(AudioClip clip)	{
+		gameFX.audioSource.PlayOneShot(clip);
+	}
 }

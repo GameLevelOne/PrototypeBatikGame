@@ -28,11 +28,12 @@ public class Mana : MonoBehaviour {
 		set{
 			if (PlayerMP == value) return;
 
-			float manaToSave = value;
-			if (manaToSave > PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, 100f)) 
-				manaToSave = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, 100f);
+			mana = value;
+			float maxMP = PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, 100f);
 
-			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, manaToSave);
+			if (mana > maxMP) mana = maxMP;
+
+			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, mana);
 			
 			if (OnManaChange != null) {
 				OnManaChange();

@@ -72,14 +72,14 @@ public class WaterShooterEnemySystem : ComponentSystem {
 
 			if (currWaterShooterEnemy.questTrigger != null) {
 				//SEND QUEST TRIGGER
-				currWaterShooterEnemy.questTrigger.isDoQuest = true;
+				currWaterShooterEnemy.questTrigger.isDoQuest.Add(true);
 			} else {
 				Debug.Log("No Quest Triggered");
 			}
 
 			if (currWaterShooterEnemy.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
-				currWaterShooterEnemy.chestSpawner.isTriggerSpawn = true;
+				currWaterShooterEnemy.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
 				Debug.Log("No ChestSpawner Triggered");
 			}
