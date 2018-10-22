@@ -49,6 +49,7 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlayBGM(BGM bgm, bool loop = true)
 	{
+		Debug.Log("Playing BGM: "+bgm);
 		if(!bgmSource.isPlaying || bgmSource.clip != BGMs[(int)bgm]){
 
 			if(bgm == BGM.GotTreasure){
