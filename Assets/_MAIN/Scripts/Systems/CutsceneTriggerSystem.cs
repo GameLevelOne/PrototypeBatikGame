@@ -51,7 +51,7 @@ public class CutsceneTriggerSystem : ComponentSystem {
 				cutsceneTrigger.timelineManager.npcOpening.npc.npcType = NPCType.SHOP;
 		} else {
 			cutsceneTrigger.triggerCol.enabled = true;
-			SoundManager.Instance.PlayBGM(BGM.CutScene1);
+		
 			if (cutsceneTrigger.timelineManager.npcOpening!=null) {
 				cutsceneTrigger.timelineManager.npcOpening.npc.npcType = NPCType.OPENING;
 				// GameStorage.Instance.PlayBGM(BGMType.CUTSCENE11);
