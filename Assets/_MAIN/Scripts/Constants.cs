@@ -104,6 +104,7 @@ public static class Constants {
 		public const string PLAYER_SAVED_MP = "Player/Saved/MP";
 		public const string PLAYER_SAVED_COIN = "Player/Saved/Coin";
 		public const string PLAYER_SAVED_KEY = "Player/Saved/Key";
+		public const string PLAYER_SAVED_TOOL = "Player/Saved/Tool";
 
 		public const string PLAYER_STATS_MAXHP = "Player/Stats/MaxHP";
 		public const string PLAYER_STATS_HP = "Player/Stats/HP";

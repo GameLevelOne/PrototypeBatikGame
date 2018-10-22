@@ -12,6 +12,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	[InjectAttribute] UIToolsSelectionData uiToolsSelectionData;
 	
 	[InjectAttribute] UIHPManaToolSystem uiHPManaToolSystem;
+	[InjectAttribute] ContainerSystem containerSystem;
 
 	public UIToolsSelection uiToolsSelection;
 	
@@ -90,7 +91,8 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void InitToolsSelection () {
-		InitImages (false);
+		// Debug.Log("UIToolSelectionSystem "+tool.currentTool);
+		// InitImages (false); //OLD
 		showTime = 0f;
 		isShowingTools = false;
 		isPlayingAnimation = false;
@@ -101,6 +103,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		uiToolsSelection.panelToolsSelection.SetActive(false);
 		// isShowingTools = true;
 		// isInitShowInfo = false;
+		InitImages (true);
 	}
 
 	public void InitImages (bool isUpdatedList) {
@@ -146,14 +149,17 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckContainerImage(int idx) {
 		if (idx == (int) ToolType.Container1) {
-			// Debug.Log(uiToolsSelection.playerContainer.lootableTypes[0].ToString());
-			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[0], idx);
+			Debug.Log(idx+" "+containerSystem.container.lootableTypes[0].ToString());
+			SetContainerImage(containerSystem.container.lootableTypes[0], idx);
 		} else if (idx == (int) ToolType.Container2) {
-			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[1], idx);
+			Debug.Log(idx+" "+containerSystem.container.lootableTypes[1].ToString());
+			SetContainerImage(containerSystem.container.lootableTypes[1], idx);
 		} else if (idx == (int) ToolType.Container3) {
-			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[2], idx);
+			Debug.Log(idx+" "+containerSystem.container.lootableTypes[2].ToString());
+			SetContainerImage(containerSystem.container.lootableTypes[2], idx);
 		} else if (idx == (int) ToolType.Container4) {
-			SetContainerImage(uiToolsSelection.playerContainer.lootableTypes[3], idx);
+			Debug.Log(idx+" "+containerSystem.container.lootableTypes[3].ToString());
+			SetContainerImage(containerSystem.container.lootableTypes[3], idx);
 		}
 	}
 
@@ -184,35 +190,10 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		}
 	}
 
-	void CheckToolIndexes () {
-		// if (!isUpdateList) {
-		// 	if (uiToolsSelection.toolIndexes[0] != (int) tool.currentTool) {
-		// 		int tempIdx = (int) tool.currentTool;
-		// 		bool[] checker = new bool[uiToolsSelection.toolIndexes.Count];
-		// 		List<int> tempList = uiToolsSelection.toolIndexes;
-
-		// 		uiToolsSelection.toolIndexes = new List<int>();
-
-		// 		for (int i=0; i<checker.Length; i++) {
-		// 			if (!checker[i]) {
-		// 				uiToolsSelection.toolIndexes[i] = 1;
-		// 				checker[i] = true;
-
-		// 				if (tempIdx >= (int) ToolType.Boots) {
-		// 					tempIdx = 1;
-		// 				} else {
-		// 					tempIdx++;
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-			
-		// 	isUpdateList = true;
-		// }
-	}
-
 	public void SetPrintedTool () {
-		uiHPManaToolSystem.PrintTool(toolImages[0].sprite, tool.currentTool.ToString());
+		// Debug.Log("SetPrintedTool "+(int) tool.currentTool);
+		// uiHPManaToolSystem.PrintTool(toolImages[(int) tool.currentTool].sprite, tool.currentTool.ToString());
+		uiHPManaToolSystem.PrintTool(toolSprites[(int) tool.currentTool], tool.currentTool.ToString());
 	}
 
 	void CheckShowingTools () {

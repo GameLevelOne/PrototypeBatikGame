@@ -70,22 +70,18 @@ public class ToolSystem : ComponentSystem {
 
 	void InitTool () {
 		// CheckSavedTool ();
-		// Debug.Log("InitTool");
-		for (int i=1; i<=(int)ToolType.Boots; i++) {
-			if (CheckIfToolHasBeenUnlocked(i)) {
-				tool.currentTool = (ToolType) i;
-				uiToolsSelectionSystem.SetPrintedTool();
+		// for (int i=1; i<=(int)ToolType.Boots; i++) {
+		// 	if (CheckIfToolHasBeenUnlocked(i)) {
+		// 		tool.currentTool = (ToolType) i;
+		// 		uiToolsSelectionSystem.SetPrintedTool();
 
-				tool.isInitCurrentTool = true;
-				return;
-			}
-		}
+		// 		tool.isInitCurrentTool = true;
+		// 		return;
+		// 	}
+		// }
 
-		if (tool.currentTool == 0) {
-			Debug.Log("No Tools Unlocked");
-			//
-		}
-
+		// Debug.Log("ToolSystem "+tool.currentTool);
+		uiToolsSelectionSystem.SetPrintedTool();
 		tool.isInitCurrentTool = true;
 	}
 

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+// using UnityEngine.UI;
 
 public enum ToolType{
 	None = 0,
@@ -30,7 +30,17 @@ public class PlayerTool : MonoBehaviour {
 	/// <summary>
     /// Indicates current tool
     /// </summary>
-	public ToolType currentTool;
+	[SerializeField] int savedToolIdx = 0;
+	public ToolType currentTool {
+		get {return (ToolType) PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, savedToolIdx);}
+		set {
+			if ((ToolType) savedToolIdx != value) {
+				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, (int) value);
+				savedToolIdx = (int) value;
+				// Debug.Log("Save Tool "+savedToolIdx+". "+(ToolType) savedToolIdx);
+			}
+		}
+	}
 
 	public Transform areaSpawnPos;
 	
