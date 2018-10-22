@@ -221,7 +221,7 @@ public static bool IsInventoryPressed {
 	get {
 		// if (Input.GetKeyDown(KeyCode.Joystick1Button7))
 		// 	return true;
-		if (Input.GetKeyDown(KeyCode.Tab))
+		if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
 			return true;		
 		return false;
 	}
@@ -230,7 +230,7 @@ public static bool IsInventoryReleased {
 	get {
 		// if (Input.GetKeyUp(KeyCode.Joystick1Button7))
 		// 	return true;
-		if (Input.GetKeyUp(KeyCode.Tab))
+		if (Input.GetKeyUp(KeyCode.Tab) || Input.GetKeyUp(KeyCode.Escape))
 			return true;		
 		return false;
 	}
@@ -239,7 +239,7 @@ public static bool IsInventoryHeld {
 	get {
 		// if (Input.GetKey(KeyCode.Joystick1Button7))
 		// 	return true;
-		if (Input.GetKey(KeyCode.Tab))
+		if (Input.GetKey(KeyCode.Tab) || Input.GetKey(KeyCode.Escape))
 			return true;		
 		return false;
 	}

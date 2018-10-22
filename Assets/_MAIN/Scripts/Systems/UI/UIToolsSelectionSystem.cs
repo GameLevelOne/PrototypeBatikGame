@@ -24,6 +24,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	public bool isChangingTool = false;
 
+	Image[] toolHPMPImages;
 	Image[] toolImages;
 	Sprite[] toolSprites;
 
@@ -52,6 +53,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			panelAnimator = uiToolsSelection.animator;
 			toolSprites = uiToolsSelection.arrayOfToolSprites;
 			toolImages = uiToolsSelection.arrayOfToolImages;
+			toolHPMPImages = uiToolsSelection.arrayOfToolHPMPImages;
 			showDuration = uiToolsSelection.showDuration;
 			// showMultiplier = uiToolsSelection.showMultiplier;
 			// hideMultiplier = uiToolsSelection.hideMultiplier;

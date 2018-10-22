@@ -22,6 +22,11 @@ public class UIGameOver : MonoBehaviour {
 	public bool doReturnToTitle = false;
 	public bool isUpPressed = false;
 	public bool isDownPressed = false;
+	[HeaderAttribute("Sound")]
+	public AudioSource uiAudio;
+	public AudioClip selectClip;
+	public AudioClip chooseClip;
+
 
 	#region animation event
 	void EndShowing()

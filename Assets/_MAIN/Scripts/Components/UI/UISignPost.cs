@@ -16,6 +16,13 @@ public class UISignPost : MonoBehaviour {
 
 	public TimelineEventTrigger endOpeningEvent;
 
+	[HeaderAttribute("Sound")]
+	public AudioSource uiAudio;
+	public AudioClip openClip;
+	public AudioClip selectClip;
+	public AudioClip backClip;
+
+
 	void OnEnable () {
 		if (endOpeningEvent!=null)
 			endOpeningEvent.OnEndOpeningMKF += OnEndOpeningEvent;

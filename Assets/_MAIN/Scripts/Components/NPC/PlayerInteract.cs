@@ -19,7 +19,11 @@ public class PlayerInteract : MonoBehaviour {
 				player.isCanInteractWithNPC = true;
 					
 				//SET UI INTERACTION HINT
-				player.ShowInteractionHint(HintMessage.TALK);
+				if (currentNPC.npcType==NPCType.GUIDE) {
+					player.ShowInteractionHint(HintMessage.READ);
+				} else {
+					player.ShowInteractionHint(HintMessage.TALK);
+				}
 			}
 		}
 	}

@@ -126,16 +126,19 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				CheckActiveTool ();
 				isShowingInfo = true;
 				playerInput.isUIOpen = true;
+				uiInfo.uiAudio.PlayOneShot(uiInfo.openClip);
 			}
 		} else {
 			if (GameInput.IsInventoryPressed || GameInput.IsDodgePressed) { //ESCAPE / START (Gamepad)
 				isShowingInfo = false;
 				playerInput.isUIOpen = false;
+				uiInfo.uiAudio.PlayOneShot(uiInfo.backClip);
 			}
 			
 			if (!curUpPressed && GameInput.IsUpDirectionHeld) { //UP
 				curUpPressed = true;
 				UpButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsUpDirectionHeld) {
 				curUpPressed = false;
 			}
@@ -143,6 +146,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curDownPressed && GameInput.IsDownDirectionHeld) { //DOWN
 				curDownPressed = true;
 				DownButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsDownDirectionHeld) {
 				curDownPressed = false;
 			}
@@ -150,6 +154,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curRightPressed && GameInput.IsRightDirectionHeld) { //RIGHT
 				curRightPressed = true;
 				RightButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsRightDirectionHeld) {
 				curRightPressed = false;
 			}
@@ -157,12 +162,14 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curLeftPressed && GameInput.IsLeftDirectionHeld) { //LEFT
 				curLeftPressed = true;
 				LeftButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				curLeftPressed = false;
 			}
 			
 			if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
 				SetSelectedTool ();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.chooseClip);
 			}
 		}
 	}
@@ -322,6 +329,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	void SelectTool (int idx) {
 		uiInfo.listOfButtonToolsNSummons[idx].Select();
 
+		string textToShow = uiInfo.toolsDesc[idx].Replace('*','\n');
+		uiInfo.descLabel.text = textToShow;
+
 		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
 			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.Select();
@@ -360,6 +370,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			uiQuestSystem.CheckIfUIQuestIsComplete();
 
 			isActivatingInfo = true;
+
 		} else {
 			if (!isPlayingAnimation) {
 				animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
@@ -405,13 +416,16 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			case LootableType.HP_POTION:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(true);
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.sprite = uiInfo.hpPotSprite;
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[1];
 				break;
 			case LootableType.MANA_POTION:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(true);
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.sprite = uiInfo.mpPotSprite;
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[2];
 				break;
 			default:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(false);
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[0];
 				break;
 		}
 	}

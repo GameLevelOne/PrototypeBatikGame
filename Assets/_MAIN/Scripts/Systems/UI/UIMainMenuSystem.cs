@@ -76,6 +76,7 @@ public class UIMainMenuSystem : ComponentSystem {
 				uiMainmenu.btnIndex = 0;
 
 			ShowCurrentSelected();
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.selectClip);
 		} else if (!GameInput.IsDownDirectionHeld) {
 			uiMainmenu.isDownPressed = false;
 		}
@@ -87,12 +88,14 @@ public class UIMainMenuSystem : ComponentSystem {
 			if (uiMainmenu.btnIndex<0)
 				uiMainmenu.btnIndex = uiMainmenu.menuButtons.Length-1;
 
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.selectClip);
 			ShowCurrentSelected();
 		} else if (!GameInput.IsUpDirectionHeld) {
 			uiMainmenu.isUpPressed = false;
 		}
 
 		if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.chooseClip);
 			uiMainmenu.isActionPressed = true;
 		}
 	}
@@ -101,7 +104,8 @@ public class UIMainMenuSystem : ComponentSystem {
 		if (uiMainmenu.isActionPressed) {
 			uiMainmenu.isDoingStuff = true;
 			if (uiMainmenu.btnIndex==0) {//NEW GAME
-				PlayerPrefs.DeleteAll();	
+				// PlayerPrefs.DeleteAll();	
+				ResetPlayerPrefs();
 				uiMainmenu.portal11.enabled = true;
 			} else if (uiMainmenu.btnIndex==1) {//CONTINUE
 				PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, 100)); 
@@ -113,5 +117,46 @@ public class UIMainMenuSystem : ComponentSystem {
 				if (!Application.isEditor) System.Diagnostics.Process.GetCurrentProcess().Kill();
 			}
 		}
+	}
+
+	void ResetPlayerPrefs() {
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"0", 0);
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"1", 0);
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"2", 0);
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"3", 0);
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"4", 0);
+		PlayerPrefs.SetInt(Constants.QuestPrefKey.QUEST_INDEX+"5", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"0", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"1", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"2", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"3", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"4", 0);
+		PlayerPrefs.SetInt(Constants.DissolvedLevelPrefKey.LEVEL_INDEX+"5", 0);
+
+		//AREA DATA
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"OpeningMadaKari", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "0", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.GATES_STATE + "0", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "0", 0);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.FINISHED_TIMELINE+"Level2-2", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_SPAWNER_STATE + "0", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "2", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "1", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CRACKED_WALL_STATE + "0", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_SPAWNER_STATE + "1", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.CHEST_STATE + "3", 0);
+		PlayerPrefs.SetInt(Constants.EnvirontmentPrefKey.VINES_STATE + "2", 0);
+
+		//PLAYER DATA
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, 100f);
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, 100f);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_STATS_COIN, 0);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + "0", 0);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_BOW, 0);
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_TOOL_FISHINGROD, 0);
+
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, 100f);
+		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, 100f);
+
 	}
 }
