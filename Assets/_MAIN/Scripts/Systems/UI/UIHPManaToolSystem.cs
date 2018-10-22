@@ -9,6 +9,20 @@ public class UIHPManaToolSystem : ComponentSystem {
 	}
 	[InjectAttribute] UIHPManaToolData uiHPManaToolData;
 
+	public struct ToolData {
+		public readonly int Length;
+		// public ComponentArray<PlayerInput> PlayerInput;
+		// public ComponentArray<Player> Player;
+		public ComponentArray<PlayerTool> PlayerTool;
+		// public ComponentArray<Animation2D> Animation;
+	}
+	[InjectAttribute] ToolData toolData;
+	public struct ContainerData {
+		public readonly int Length;
+		public ComponentArray<Container> Container;
+	}
+	[InjectAttribute] ContainerData containerData;
+
 	[InjectAttribute] UIPlayerInfoSystem uiPlayerInfoSystem;
 
 	UIHPManaTool uiHPManaTool;
@@ -152,6 +166,25 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	public void PrintTool (Sprite toolSprite, string toolName) {
 		uiHPManaTool.imageTool.sprite = toolSprite;
+
+		ToolType curTool = toolData.PlayerTool[0].currentTool;
+
+		if (curTool== ToolType.Container1) {
+			LootableType curContainer = containerData.Container[0].lootableTypes[0];
+			uiHPManaTool.imageTool.sprite = uiHPManaTool.containerSprite[(int)curContainer];
+		} else if (curTool== ToolType.Container2) {
+			LootableType curContainer = containerData.Container[0].lootableTypes[1];
+			uiHPManaTool.imageTool.sprite = uiHPManaTool.containerSprite[(int)curContainer];
+		} else if (curTool== ToolType.Container3) {
+			LootableType curContainer = containerData.Container[0].lootableTypes[2];
+			uiHPManaTool.imageTool.sprite = uiHPManaTool.containerSprite[(int)curContainer];
+		} else if (curTool== ToolType.Container4) {
+			LootableType curContainer = containerData.Container[0].lootableTypes[3];
+			uiHPManaTool.imageTool.sprite = uiHPManaTool.containerSprite[(int)curContainer];
+		} else {
+			uiHPManaTool.imageTool.sprite = uiHPManaTool.toolSprite[(int)curTool];
+		}
+
 		// Debug.Log(toolSprite.name);
 		// uiPlayerInfoSystem.PrintTool(toolName);
 	}

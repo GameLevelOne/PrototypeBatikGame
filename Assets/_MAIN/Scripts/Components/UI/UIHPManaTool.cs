@@ -28,6 +28,8 @@ public class UIHPManaTool : MonoBehaviour {
 	// public Sprite[] spritesHP;
 	// public Transform clothHP;
 	public Image imageTool;
+	public Sprite[] toolSprite;
+	public Sprite[] containerSprite;
 	public bool isInitHPManaImage = false;
 
 	public bool showMoney;
