@@ -69,9 +69,8 @@ public class GateOpenerSystem : ComponentSystem {
 		if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateOpener.gate.gateID, 0) == 1) {
 			OpenGate();
 		} else {
-			Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
-			gateOpener.gate.audioSource.clip = gateOpener.gate.lockedGateClip;
-			gateOpener.gate.audioSource.Play();
+			// Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
+			PlaySFXOneShot(GateAudio.LOCKED);
 			gateOpener.gate.animator.Play(Constants.AnimationName.GATE_LOCKED);
 
 			for (int i=0;i<uiNotifData.Length;i++)
@@ -90,8 +89,7 @@ public class GateOpenerSystem : ComponentSystem {
 		//DELETE SAVED KEY
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateOpener.gate.gateID, 0);
 
-		gateOpener.gate.audioSource.clip = gateOpener.gate.unlockedClip;
-		gateOpener.gate.audioSource.Play();
+		PlaySFXOneShot(GateAudio.UNLOCKED);
 		gateOpener.gate.isOpened = true;
 		gateOpener.gate.gateSpriteRen.sprite = null;
 		gateOpener.gate.gateCol.enabled = false;
@@ -107,5 +105,9 @@ public class GateOpenerSystem : ComponentSystem {
 
 		//RESET HINT
 		gateOpener.player.ResetHint(true);
+	}
+
+	public void PlaySFXOneShot(GateAudio audioType)	{
+		gateOpener.gate.audioSource.PlayOneShot(gateOpener.gate.audioClip[(int) audioType]);
 	}
 }

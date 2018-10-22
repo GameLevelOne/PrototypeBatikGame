@@ -436,6 +436,7 @@ public class PlayerInputSystem : ComponentSystem {
 				input.imageRapidSlashHit.SetActive(false);
 				input.textRapidSlashHit.text = input.bulletTimeAttackQty.ToString();
 				player.SetPlayerState(PlayerState.SLOW_MOTION);
+				PlaySFXOneShot(PlayerInputAudio.BULLET_TIME);
 				
 				if (player.currentCounterTrigger != null) {
 					GameObject.Destroy(player.currentCounterTrigger.gameObject);
@@ -464,13 +465,13 @@ public class PlayerInputSystem : ComponentSystem {
 			if(GameInput.IsQuickRPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.NextTool();
-				PlaySFXOneShot(PlayerInputAudio.CHANGE_TOOL);
+				PlaySFXOneShot(PlayerInputAudio.BUTTON_CLICK);
 			}
 			
 			if(GameInput.IsQuickLPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.PrevTool();
-				PlaySFXOneShot(PlayerInputAudio.CHANGE_TOOL);
+				PlaySFXOneShot(PlayerInputAudio.BUTTON_CLICK);
 			}
 
 			if (GameInput.IsToolsPressed && !input.isUIOpen && isFinishAnyAnimation) {
@@ -484,7 +485,7 @@ public class PlayerInputSystem : ComponentSystem {
 					// 	player.SetPlayerState(PlayerState.HOOK);
 					// } else 
 					if (toolType == ToolType.Boots) {
-						if (currentDir != Vector3.zero) {
+						// if (currentDir != Vector3.zero) {
 							if (IsHaveEnoughManaForTool((int) ToolType.Boots, true, false)) {
 								input.interactMode = 1;
 								input.interactValue = 0;
@@ -495,7 +496,7 @@ public class PlayerInputSystem : ComponentSystem {
 							// else {
 							// 	PlaySFX(PlayerInputAudio.NO_MANA);
 							// }
-						}
+						// }
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
 							input.interactMode = 4;
@@ -555,6 +556,7 @@ public class PlayerInputSystem : ComponentSystem {
 					
 					input.bulletTimeAttackQty++;
 					input.uiRapidSlashPressedFX.Play();
+					PlaySFXOneShot(PlayerInputAudio.BUTTON_CLICK);
 					input.textRapidSlashHit.text = input.bulletTimeAttackQty.ToString();
 				}
 			} else {
@@ -628,15 +630,6 @@ public class PlayerInputSystem : ComponentSystem {
 			return true;
 		} else if (state == PlayerState.OPEN_CHEST) {
 			return true;
-		} else {
-			return false;
-		}
-	}
-
-	bool CheckIfInSpecificState () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || player.isCanInteractWithNPC) {	
-
-			return true;
 		} else if (state == PlayerState.DASH) {
 			if (GameInput.IsToolsReleased){
 				if (input.interactValue == 1) {
@@ -648,6 +641,15 @@ public class PlayerInputSystem : ComponentSystem {
 					}
 				}
 			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	bool CheckIfInSpecificState () {
+		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || player.isCanInteractWithNPC) {	
 
 			return true;
 		} else if (state == PlayerState.GET_HURT) {

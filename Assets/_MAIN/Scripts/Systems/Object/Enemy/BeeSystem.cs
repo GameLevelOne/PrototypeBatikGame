@@ -63,7 +63,8 @@ public class BeeSystem : ComponentSystem {
 	void CheckHealth()
 	{
 		if(currBeeHealth.EnemyHP <= 0f){
-			// currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.DIE]);
+			PlaySFXOneShot(BeeAudio.DIE);
+
 			//SPAWN DEATH FX
 			GameObject.Instantiate(currEnemy.deathFX, currBeeTransform.position, Quaternion.identity);
 
@@ -139,7 +140,7 @@ public class BeeSystem : ComponentSystem {
 				}
 
 				// currEnemy.state = EnemyState.Chase;
-				currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.PREPARE]);
+				PlaySFXOneShot(BeeAudio.PREPARE);
 				currEnemy.state = EnemyState.Aggro;
 				currEnemy.chaseIndicator.Play(true);
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
@@ -264,7 +265,7 @@ public class BeeSystem : ComponentSystem {
 	{
 		if(currEnemy.isAttack){
 			currEnemy.state = EnemyState.Attack;
-			currBee.audioSource.PlayOneShot(currBee.audioClip[(int)BeeAudio.ATTACK]);
+			PlaySFXOneShot(BeeAudio.ATTACK);
 
 			// currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 		}else{
@@ -399,5 +400,9 @@ public class BeeSystem : ComponentSystem {
 		}
 		
 		return new Vector3(x, currBeeTransform.position.y, z);
+	}
+
+	public void PlaySFXOneShot(BeeAudio audioType)	{
+		currBee.audioSource.PlayOneShot(currBee.audioClip[(int) audioType]);
 	}
 }

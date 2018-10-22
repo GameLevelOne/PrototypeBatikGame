@@ -832,7 +832,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1f99f6c2a3890fd42b813d21fe264a26, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -840,10 +840,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 5
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1138,6 +1138,7 @@ MonoBehaviour:
   audioClip:
   - {fileID: 8300000, guid: 7d054d724567f1b4b91264a84cc78e9c, type: 3}
   - {fileID: 8300000, guid: d5338b43b23accf4a85905589d17bbcc, type: 3}
+  - {fileID: 8300000, guid: ac18dbb1dd86b1f46b4df15293703fa4, type: 3}
   startledRange: 5
   beeHiveTransform: {fileID: 0}
   initStartled: 0

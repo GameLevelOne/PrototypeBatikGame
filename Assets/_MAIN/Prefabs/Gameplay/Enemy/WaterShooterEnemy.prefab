@@ -701,7 +701,7 @@ AudioSource:
   MinDistance: 5
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -898,7 +898,6 @@ MonoBehaviour:
   audioClip:
   - {fileID: 8300000, guid: bff070e0798ff5c4e9240b162c5ce43d, type: 3}
   startAttack: 0
-  startDrown: 0
   isFinisDrowning: 0
   currPlayerTransform: {fileID: 0}
 --- !u!114 &114727787112085630

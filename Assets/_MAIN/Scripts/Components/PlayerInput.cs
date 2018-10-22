@@ -20,7 +20,10 @@ public enum PlayerInputAudio {
 	DODGE,
 	DIE, 
 	BIG_SUMMON,
-	CHANGE_TOOL
+	BULLET_TIME,
+	BUTTON_CLICK,
+	DASH_CHARGE,
+	DASH_ATTACK
 	// HURT
 }
 
@@ -70,7 +73,8 @@ public class PlayerInput : MonoBehaviour {
 	// public List<int> dirButtons	= new List<int>(4);  
 
 	// public List<int> slashComboVal;
-	
+	public Vector3 tempDashDir = -Vector3.forward;
+
 	[SerializeField] Vector3 currMoveDir = Vector3.zero;
 	public Vector3 moveDir {  
 		get {return currMoveDir;}

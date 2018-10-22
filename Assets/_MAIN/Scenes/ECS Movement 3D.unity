@@ -1335,7 +1335,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1423124487586038, guid: 419ad404e23573a4cbf67af04c93bf82, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4881205910236164, guid: 419ad404e23573a4cbf67af04c93bf82, type: 2}
       propertyPath: m_LocalScale.x
@@ -1562,23 +1562,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 114977243238074196, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
-        type: 2}
-      propertyPath: questTrigger
-      value: 
-      objectReference: {fileID: 1203433336}
     - target: {fileID: 198279889073345726, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
         type: 2}
       propertyPath: moveWithCustomTransform
       value: 
       objectReference: {fileID: 2074789677}
+    - target: {fileID: 114977243238074196, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
+        type: 2}
+      propertyPath: questTrigger
+      value: 
+      objectReference: {fileID: 1203433336}
     - target: {fileID: 1996236088468888, guid: ced7e47e6e4d97049aa1db2db05c9f8e, type: 2}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54812308644110904, guid: ced7e47e6e4d97049aa1db2db05c9f8e,
-        type: 2}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2971,6 +2966,11 @@ Prefab:
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
+    - target: {fileID: 108479378031406578, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0

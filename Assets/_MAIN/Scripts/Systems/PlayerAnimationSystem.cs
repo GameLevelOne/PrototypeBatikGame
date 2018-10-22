@@ -474,6 +474,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.DASH:
 					if (input.interactValue == 0) {
 						attack.isDashing = false;
+						PlaySFX(PlayerInputAudio.DASH_CHARGE, false);
 					} else if (input.interactValue == 1) {
 						attack.isDashing = true;
 					} else if (input.interactValue == 2) {
@@ -689,6 +690,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						input.interactValue = 1;
 						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, true);
 						gameFXSystem.ToggleRunFX(true);
+						PlaySFXOneShot(PlayerInputAudio.DASH_ATTACK);
 						
 						anim.isFinishAnyAnimation = true;
 					} else if (input.interactValue == 1) { 
@@ -835,18 +837,26 @@ public class PlayerAnimationSystem : ComponentSystem {
 			case 1:
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, -1f);
+				
+				input.tempDashDir = -Vector3.forward;
 				break;
 			case 2:
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, -1f);
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+				
+				input.tempDashDir = -Vector3.right;
 				break;
 			case 3:
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 0f);
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 1f);
+				
+				input.tempDashDir = Vector3.forward;
 				break;
 			case 4:
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_X, 1f);
 				animator.SetFloat(Constants.AnimatorParameter.Float.FACE_Y, 0f);
+				
+				input.tempDashDir = Vector3.right;
 				break;
 		}
 	}

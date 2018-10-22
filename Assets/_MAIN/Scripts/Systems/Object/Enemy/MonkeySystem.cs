@@ -126,7 +126,7 @@ public class MonkeySystem : ComponentSystem {
 
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
 			currEnemy.chaseIndicator.Play(true);
-			PlaySFXOneShot(MonkeyAudio.AGGRO);
+			PlaySFX(MonkeyAudio.AGGRO, true);
 		} else if (currEnemy.isFinishAggro) {
 			currEnemy.state = EnemyState.Chase;
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_CHASE);
@@ -148,6 +148,7 @@ public class MonkeySystem : ComponentSystem {
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
 			currEnemy.initDamaged = true;
 			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+			currMonkey.audioSource.Stop();
 
 			KnockBack();
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
@@ -301,6 +302,7 @@ public class MonkeySystem : ComponentSystem {
 			currEnemy.attackObject.SetActive(currEnemy.attackHit);
 
 			if (currMonkey.isInitSpawnAttackFX) {
+				PlaySFXOneShot(MonkeyAudio.ATTACK);
 				SpawnMonkeyClawFX();
 				currMonkey.isInitSpawnAttackFX = false;
 			}
@@ -348,10 +350,16 @@ public class MonkeySystem : ComponentSystem {
 		currMonkey.audioSource.PlayOneShot(currMonkey.audioClip[(int) audioType]);
 	}
 
-	public void PlaySFX (MonkeyAudio audioType) {
-		if (!currMonkey.audioSource.isPlaying) {
+	public void PlaySFX (MonkeyAudio audioType, bool isLoop) {
+		if (isLoop) {
+			currMonkey.audioSource.loop = true;
+		} else {
+			currMonkey.audioSource.loop = false;
+		}
+
+		// if (!input.audioSource.isPlaying) {
 			currMonkey.audioSource.clip = currMonkey.audioClip[(int) audioType];
 			currMonkey.audioSource.Play();
-		}
+		// }
 	}
 }

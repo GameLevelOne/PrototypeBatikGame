@@ -186,7 +186,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 					if (currEnemy.attackHit) {
 						// if (currEnemy.playerTransform != null) {
 							SpawnWaterBulletObj (currWaterShooterEnemy.bullet);
-							PlaySFX(LotusAudio.SHOOT);
+							PlaySFXOneShot(LotusAudio.SHOOT);
 						// }
 							
 						// currWaterShooterEnemy.TShootInterval = currWaterShooterEnemy.shootInterval;
@@ -257,10 +257,10 @@ public class WaterShooterEnemySystem : ComponentSystem {
 		currWaterShooterEnemy.audioSource.PlayOneShot(currWaterShooterEnemy.audioClip[(int) audioType]);
 	}
 
-	public void PlaySFX (LotusAudio audioType) {
-		if (!currWaterShooterEnemy.audioSource.isPlaying) {
-			currWaterShooterEnemy.audioSource.clip = currWaterShooterEnemy.audioClip[(int) audioType];
-			currWaterShooterEnemy.audioSource.Play();
-		}
-	}
+	// public void PlaySFX (LotusAudio audioType) {
+	// 	if (!currWaterShooterEnemy.audioSource.isPlaying) {
+	// 		currWaterShooterEnemy.audioSource.clip = currWaterShooterEnemy.audioClip[(int) audioType];
+	// 		currWaterShooterEnemy.audioSource.Play();
+	// 	}
+	// }
 }

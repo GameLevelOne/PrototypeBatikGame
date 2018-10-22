@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public enum MonkeyAudio {
 	WALK,
 	AGGRO,
+	ATTACK,
 	DIE
 }
 

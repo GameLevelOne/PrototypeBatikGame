@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// using System.Collections.Generic;
 using UnityEngine;
 using Unity.Entities;
-using UnityEngine.SceneManagement;
+// using UnityEngine.SceneManagement;
 
 [UpdateAfter(typeof(UnityEngine.Experimental.PlayerLoop.FixedUpdate))]
 public class PlayerMovementSystem : ComponentSystem {
@@ -294,7 +294,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					if (isHaveEnoughMana((int) ToolType.Boots, false, false)) {
 						float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
-						rb.velocity = moveDir * dashSpeed * deltaTime;
+						rb.velocity = input.tempDashDir * dashSpeed * deltaTime;
 
 						if (dashTime <= 0.2f) {
 							dashTime += deltaTime;

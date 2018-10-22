@@ -567,7 +567,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996236088468888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.554035, y: 0.68499994, z: 25.860783}
+  m_LocalPosition: {x: 13.55, y: 0.7, z: -2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4513978079428178}
@@ -802,7 +802,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -840,10 +840,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 5
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1116,6 +1116,7 @@ MonoBehaviour:
   audioClip:
   - {fileID: 8300000, guid: e6b866fe446867c40b6a4716e11393a5, type: 3}
   - {fileID: 8300000, guid: 967f210471c0bb3418d5660ff3ae2b3f, type: 3}
+  - {fileID: 8300000, guid: 3c96fcb09b28c764aa82c382f9f58e1c, type: 3}
   - {fileID: 8300000, guid: 6310628a34c421346aa27487db7195c5, type: 3}
   nearbyMonkeys: []
   patrolArea: {x: 1, y: 0, z: 1}

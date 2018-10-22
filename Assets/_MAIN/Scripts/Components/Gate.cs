@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 
+public enum GateAudio {
+	LOCKED,
+	UNLOCKED
+}
+
 public class Gate : MonoBehaviour {
 	public Collider gateCol;
 	public SpriteRenderer gateSpriteRen;
 	public Animator animator;
 	public AnimationControl animationControl;
-	// public AudioClip lockedClip;
-	public AudioClip lockedGateClip;
-	public AudioClip unlockedClip;
+	public AudioClip[] audioClip;
 	public AudioSource audioSource;
 	public Sprite closedGateSprite;
 	public Sprite openedGateSprite;
