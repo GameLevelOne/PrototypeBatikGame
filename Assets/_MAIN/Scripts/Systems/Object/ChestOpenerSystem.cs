@@ -80,7 +80,7 @@ public class ChestOpenerSystem : ComponentSystem {
 
 		if (chestOpener.chest.questTrigger != null) {
 			//SEND QUEST TRIGGER
-			chestOpener.chest.questTrigger.isDoQuest = true;
+			chestOpener.chest.questTrigger.isDoQuest.Add(true);
 		} else {
 			Debug.Log("No Quest Triggered");
 		}

@@ -49,10 +49,10 @@ public class Health : MonoBehaviour {
 		set{
 			if (healthPower == value) return;
 			// float hpToSet = value;
+			healthPower = value;
 
 			//MAX 100 HP
 			if (healthPower > player.MaxHP) healthPower = player.MaxHP;
-			else healthPower = value;
 
 			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
 			

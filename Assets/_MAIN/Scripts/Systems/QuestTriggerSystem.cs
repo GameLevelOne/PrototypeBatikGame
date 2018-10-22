@@ -38,8 +38,9 @@ public class QuestTriggerSystem : ComponentSystem {
 	}
 
 	void CheckQuestTrigger () {
-		if (questTrigger.isDoQuest) {
+		if (questTrigger.isDoQuest.Contains(true)) {
 			Debug.Log("QuestTriggerSystem Do Quest : "+questTrigger.questIndex);
+			int currIdx = questTrigger.isDoQuest.IndexOf(true);
 
 			for (int i=0; i<questData.Length; i++) {
 				Quest quest = questData.Quest[i];
@@ -47,7 +48,7 @@ public class QuestTriggerSystem : ComponentSystem {
 				quest.OnQuestProcess(questTrigger.questIndex);
 			}
 
-			questTrigger.isDoQuest = false;
+			questTrigger.isDoQuest[currIdx] = false;
 		}
 	}
 }

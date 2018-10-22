@@ -263,14 +263,14 @@ public class GhostSystem : ComponentSystem {
 
 				if (currGhost.questTrigger != null) {
 					//SEND QUEST TRIGGER
-					currGhost.questTrigger.isDoQuest = true;
+					currGhost.questTrigger.isDoQuest.Add(true);
 				} else {
 					Debug.Log("No Quest Triggered");
 				}
 
 				if (currGhost.chestSpawner != null) {
 					//SEND CHEST SPAWNER TRIGGER
-					currGhost.chestSpawner.isTriggerSpawn = true;
+					currGhost.chestSpawner.isTriggerSpawn.Add(true);
 				} else {
 					Debug.Log("No ChestSpawner Triggered");
 				}

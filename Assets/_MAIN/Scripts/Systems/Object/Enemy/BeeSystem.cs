@@ -72,7 +72,7 @@ public class BeeSystem : ComponentSystem {
 
 			if (currBee.questTrigger != null) {
 				//SEND QUEST TRIGGER
-				currBee.questTrigger.isDoQuest = true;
+				currBee.questTrigger.isDoQuest.Add(true);
 			} else {
 				// Debug.Log("No Quest Triggered");
 			}
@@ -85,7 +85,7 @@ public class BeeSystem : ComponentSystem {
 
 			if (currBee.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
-				currBee.chestSpawner.isTriggerSpawn = true;
+				currBee.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
 				// Debug.Log("No ChestSpawner Triggered");
 			}

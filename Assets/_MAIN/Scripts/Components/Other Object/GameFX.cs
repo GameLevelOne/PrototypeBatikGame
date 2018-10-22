@@ -12,6 +12,9 @@ public class GameFX : MonoBehaviour {
 	public ParticleSystem runOnWaterEffect;	
 	public ParticleSystem runOnStoneSwampEffect;	
 	public ParticleSystem dashEffect;
+	public ParticleSystem useItemHPEffect;
+	public ParticleSystem useItemMPEffect;
+
 	public GameObject parryEffect;
 	public GameObject guardHitEffect;
 	public GameObject enemyHitEffect;
@@ -22,20 +25,21 @@ public class GameFX : MonoBehaviour {
 	public AudioClip[] grassAudio;
 	public AudioClip[] waterAudio;
 	public AudioClip[] stoneSwampAudio;
+	public AudioClip useItemAudio;
 	public int runVariantIdx;
 	public AudioSource audioSource;
 	// public GameObject chargingRunEffect;
 
 	[HeaderAttribute("Tool Effect")]
-	public GameObject cannotPushEffect;
-	public GameObject dashBounceEffect;
-	public GameObject fishingCaughtEffect;
-	public GameObject fishingPullEffect;
-	public GameObject gainTreasureEffect;
-	public GameObject swimStartEffect;
-	public GameObject swimIdleEffect;
-	public GameObject swimMoveEffect;
-	public GameObject swimEndEffect;
+	// public GameObject cannotPushEffect;
+	// public GameObject dashBounceEffect;
+	// public GameObject fishingCaughtEffect;
+	// public GameObject fishingPullEffect;
+	// public GameObject gainTreasureEffect;
+	// public GameObject swimStartEffect;
+	// public GameObject swimIdleEffect;
+	// public GameObject swimMoveEffect;
+	// public GameObject swimEndEffect;
 
 	[HeaderAttribute("Current")]
 	public bool isEnableDodgeEffect = false;

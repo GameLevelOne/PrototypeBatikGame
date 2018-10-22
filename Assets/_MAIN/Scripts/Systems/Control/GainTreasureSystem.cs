@@ -106,7 +106,7 @@ public class GainTreasureSystem : ComponentSystem {
 			case TreasureType.POWERARROW: 
 				if (gainTreasure.questTrigger != null) {
 					//SEND QUEST TRIGGER
-					gainTreasure.questTrigger.isDoQuest = true;
+					gainTreasure.questTrigger.isDoQuest.Add(true);
 				} else {
 					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure POWERARROW");
 				}
@@ -122,7 +122,7 @@ public class GainTreasureSystem : ComponentSystem {
 			case TreasureType.FISHINGROD: 
 				if (gainTreasure.questTrigger != null) {
 					//SEND QUEST TRIGGER
-					gainTreasure.questTrigger.isDoQuest = true;
+					gainTreasure.questTrigger.isDoQuest.Add(true);
 				} else {
 					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure FISHINGROD");
 				}

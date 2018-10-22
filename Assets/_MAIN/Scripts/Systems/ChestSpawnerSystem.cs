@@ -55,11 +55,12 @@ public class ChestSpawnerSystem : ComponentSystem {
 		// 		// }
 		// 	}
 		// }
-		if (chestSpawner.isTriggerSpawn) {
+		if (chestSpawner.isTriggerSpawn.Contains(true)) {
+			int currIdx = chestSpawner.isTriggerSpawn.IndexOf(true);
 			chestSpawner.currentTotalSpawnTrigger++;
 			CheckRequiredSpawnTrigger ();
 
-			chestSpawner.isTriggerSpawn = false;
+			chestSpawner.isTriggerSpawn[currIdx] = false;
 			// chestSpawnerTrigger.isAlreadyTrigger = true;
 		}
 	}

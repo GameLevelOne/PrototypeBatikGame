@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class QuestTrigger : MonoBehaviour {
 	// public delegate void QuestEvent(int questIndex);
@@ -9,7 +10,8 @@ public class QuestTrigger : MonoBehaviour {
 	public bool isInitQuestTrigger = false;
 
 	// [HeaderAttribute("Current")]
-	public bool isDoQuest = false;
+	// public bool isDoQuest = false;
+	public List<bool> isDoQuest = new List<bool>();
 
 	// public void QuestProcess () {
 	// 	if (OnQuestProcess != null) {
