@@ -126,16 +126,19 @@ public class UIPlayerInfoSystem : ComponentSystem {
 				CheckActiveTool ();
 				isShowingInfo = true;
 				playerInput.isUIOpen = true;
+				uiInfo.uiAudio.PlayOneShot(uiInfo.openClip);
 			}
 		} else {
 			if (GameInput.IsInventoryPressed || GameInput.IsDodgePressed) { //ESCAPE / START (Gamepad)
 				isShowingInfo = false;
 				playerInput.isUIOpen = false;
+				uiInfo.uiAudio.PlayOneShot(uiInfo.backClip);
 			}
 			
 			if (!curUpPressed && GameInput.IsUpDirectionHeld) { //UP
 				curUpPressed = true;
 				UpButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsUpDirectionHeld) {
 				curUpPressed = false;
 			}
@@ -143,6 +146,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curDownPressed && GameInput.IsDownDirectionHeld) { //DOWN
 				curDownPressed = true;
 				DownButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsDownDirectionHeld) {
 				curDownPressed = false;
 			}
@@ -150,6 +154,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curRightPressed && GameInput.IsRightDirectionHeld) { //RIGHT
 				curRightPressed = true;
 				RightButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsRightDirectionHeld) {
 				curRightPressed = false;
 			}
@@ -157,12 +162,14 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			if (!curLeftPressed && GameInput.IsLeftDirectionHeld) { //LEFT
 				curLeftPressed = true;
 				LeftButtonTool();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.selectClip);
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				curLeftPressed = false;
 			}
 			
 			if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
 				SetSelectedTool ();
+				uiInfo.uiAudio.PlayOneShot(uiInfo.chooseClip);
 			}
 		}
 	}
@@ -363,6 +370,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			uiQuestSystem.CheckIfUIQuestIsComplete();
 
 			isActivatingInfo = true;
+
 		} else {
 			if (!isPlayingAnimation) {
 				animator.Play(Constants.AnimationName.CANVAS_VISIBLE);

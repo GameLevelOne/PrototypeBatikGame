@@ -66,6 +66,7 @@ public class UIShopSystem : ComponentSystem {
 			if (GameInput.IsDodgePressed || GameInput.IsInventoryPressed) {
 				uiShop.isOpeningShop = false;
 				playerInput.isUIOpen = false;
+				uiShop.uiAudio.PlayOneShot(uiShop.backClip);			
 			}
 
 			//SELECT LEFT
@@ -74,6 +75,7 @@ public class UIShopSystem : ComponentSystem {
 
 				uiShop.curType = LootableType.HP_POTION;
 				ShowCurrentlySelected();
+				uiShop.uiAudio.PlayOneShot(uiShop.selectClip);			
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				uiShop.leftPressed = false;
 			}
@@ -84,6 +86,7 @@ public class UIShopSystem : ComponentSystem {
 
 				uiShop.curType = LootableType.MANA_POTION;
 				ShowCurrentlySelected();
+				uiShop.uiAudio.PlayOneShot(uiShop.selectClip);			
 			} else if (!GameInput.IsRightDirectionHeld) {
 				uiShop.rightPressed = false;
 			}
@@ -139,7 +142,9 @@ public class UIShopSystem : ComponentSystem {
 
 				//RESET TOOL
 				uiToolsSelectionSystem.InitImages(true);
+				uiShop.uiAudio.PlayOneShot(uiShop.chooseClip);			
 			} else {
+				uiShop.uiAudio.PlayOneShot(uiShop.failClip);			
 				uiShop.handL.SetTrigger("Fail");
 			}
 		} else {
@@ -155,7 +160,9 @@ public class UIShopSystem : ComponentSystem {
 
 				//RESET TOOL
 				uiToolsSelectionSystem.InitImages(true);
+				uiShop.uiAudio.PlayOneShot(uiShop.chooseClip);			
 			} else {
+				uiShop.uiAudio.PlayOneShot(uiShop.failClip);			
 				uiShop.handR.SetTrigger("Fail");
 			}
 		}
@@ -216,6 +223,7 @@ public class UIShopSystem : ComponentSystem {
 			GetPlayerData();
 			ShowCurrentlySelected();
 			uiShop.animator.Play(Constants.AnimationName.FADE_IN);
+			uiShop.uiAudio.PlayOneShot(uiShop.openClip);			
 		} else {
 			uiShop.animator.Play(Constants.AnimationName.CANVAS_VISIBLE);
 		}

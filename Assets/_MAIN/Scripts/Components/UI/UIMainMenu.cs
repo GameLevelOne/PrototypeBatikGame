@@ -26,5 +26,9 @@ public class UIMainMenu : MonoBehaviour {
 
 	public int btnIndex;
 	// public UITitleState titleState = UITitleState.NONE;
+	[HeaderAttribute("Sound")]
+	public AudioSource uiAudio;
+	public AudioClip selectClip;
+	public AudioClip chooseClip;
 
 }

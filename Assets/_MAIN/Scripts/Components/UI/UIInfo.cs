@@ -29,6 +29,12 @@ public class UIInfo : MonoBehaviour {
 	[HeaderAttribute("Current")]
 	public bool isInitUIInfo = false;
 	public bool isPlayingAnimation;
+	[HeaderAttribute("Sound")]
+	public AudioSource uiAudio;
+	public AudioClip openClip;
+	public AudioClip selectClip;
+	public AudioClip chooseClip;
+	public AudioClip backClip;
 
 	void OnEnable () {
 		animationControl.OnExitAnimation += OnExitAnimation;

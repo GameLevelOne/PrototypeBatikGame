@@ -10,7 +10,7 @@ public class UINotif : MonoBehaviour {
 	public Animator anim;
 	public GameObject boxBorder;
 	public Text notifText;
-
+	public AudioSource uiAudio;
 	void OnEndShowing()
 	{
 		endShow = true;

@@ -29,6 +29,7 @@ public struct UINotifComponent{
 			curUINotif.endShow = false;
 			curUINotif.boxBorder.SetActive(true);
 			curUINotif.anim.Play("UINotifShow",0,0f);
+			curUINotif.uiAudio.Play();
 		}
 	}
 

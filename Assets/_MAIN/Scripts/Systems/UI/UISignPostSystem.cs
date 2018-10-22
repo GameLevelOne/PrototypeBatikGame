@@ -63,6 +63,8 @@ public class UISignPostSystem : ComponentSystem {
 			Init();
 			uiSignPost.anim.Play("Show",0,0f);
 			playerInput.isUIOpen = true;
+			uiSignPost.uiAudio.PlayOneShot(uiSignPost.openClip);
+
 			// Debug.Log("UI SignPost Opening");
 		}
 	}
@@ -81,6 +83,7 @@ public class UISignPostSystem : ComponentSystem {
 			if (!uiSignPost.curLeftPressed && GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = true;
 				SwitchPanel();
+				uiSignPost.uiAudio.PlayOneShot(uiSignPost.selectClip);
 			} else if (!GameInput.IsLeftDirectionHeld) {
 				uiSignPost.curLeftPressed = false;
 			}
@@ -88,11 +91,13 @@ public class UISignPostSystem : ComponentSystem {
 			if (!uiSignPost.curRightPressed && GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = true;
 				SwitchPanel();
+				uiSignPost.uiAudio.PlayOneShot(uiSignPost.selectClip);
 			} else if (!GameInput.IsRightDirectionHeld) {
 				uiSignPost.curRightPressed = false;						
 			}
 
 			if(GameInput.AnyButtonPressed){
+				uiSignPost.uiAudio.PlayOneShot(uiSignPost.backClip);
 				uiSignPost.isCloseSignPost = true;	
 			}
 		}				

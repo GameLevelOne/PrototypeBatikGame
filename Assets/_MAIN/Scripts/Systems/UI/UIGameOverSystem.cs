@@ -70,6 +70,7 @@ public class UIGameOverSystem : ComponentSystem {
 				curDownPressed = true;
 				// uiGameOver.buttonBackToMainMenu.Select();
 				uiGameOver.btnIndex = 1;	
+				uiGameOver.uiAudio.PlayOneShot(uiGameOver.selectClip);
 			} else if (!GameInput.IsDownDirectionHeld) {
 				curDownPressed = false;
 			}
@@ -78,6 +79,7 @@ public class UIGameOverSystem : ComponentSystem {
 				curUpPressed = true;
 				// uiGameOver.buttonRestart.Select();
 				uiGameOver.btnIndex = 0;	
+				uiGameOver.uiAudio.PlayOneShot(uiGameOver.selectClip);
 			} else if (!GameInput.IsUpDirectionHeld) {
 				curUpPressed = false;						
 			}
@@ -87,6 +89,7 @@ public class UIGameOverSystem : ComponentSystem {
 				// uiGameOver.gameOverAnim.SetBool("Show",false);
 				uiGameOver.panel.SetActive(false);
 				uiGameOver.endHide = true;
+				uiGameOver.uiAudio.PlayOneShot(uiGameOver.chooseClip);
 			}
 			ShowCurrentSelected();
 		}		

@@ -34,6 +34,14 @@ public class UIShop : MonoBehaviour {
 	public LootableType curType;
 	public bool leftPressed;
 	public bool rightPressed;
+	[HeaderAttribute("Sound")]
+	public AudioSource uiAudio;
+	public AudioClip openClip;
+	public AudioClip selectClip;
+	public AudioClip chooseClip;
+	public AudioClip failClip;
+	public AudioClip backClip;
+
 
 	void OnEnable () {
 		animationControl.OnExitAnimation += OnExitAnimation;

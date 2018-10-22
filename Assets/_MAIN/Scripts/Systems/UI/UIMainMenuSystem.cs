@@ -76,6 +76,7 @@ public class UIMainMenuSystem : ComponentSystem {
 				uiMainmenu.btnIndex = 0;
 
 			ShowCurrentSelected();
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.selectClip);
 		} else if (!GameInput.IsDownDirectionHeld) {
 			uiMainmenu.isDownPressed = false;
 		}
@@ -87,12 +88,14 @@ public class UIMainMenuSystem : ComponentSystem {
 			if (uiMainmenu.btnIndex<0)
 				uiMainmenu.btnIndex = uiMainmenu.menuButtons.Length-1;
 
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.selectClip);
 			ShowCurrentSelected();
 		} else if (!GameInput.IsUpDirectionHeld) {
 			uiMainmenu.isUpPressed = false;
 		}
 
 		if (GameInput.IsAttackPressed || GameInput.IsActionPressed) {
+			uiMainmenu.uiAudio.PlayOneShot(uiMainmenu.chooseClip);
 			uiMainmenu.isActionPressed = true;
 		}
 	}
