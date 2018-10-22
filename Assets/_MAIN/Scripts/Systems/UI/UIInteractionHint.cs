@@ -3,7 +3,8 @@ using UnityEngine;
 
 public enum HintMessage{
 	OPEN,
-	LIFT
+	LIFT,
+	TALK
 }
 
 public class UIInteractionHint : MonoBehaviour {
