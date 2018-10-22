@@ -1907,7 +1907,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2224,6 +2224,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 550b7f954e3830247be85c37a05e3bd3, type: 3}
   - {fileID: 8300000, guid: e6d073cf78facae408484aadd7c4d747, type: 3}
   - {fileID: 8300000, guid: 0a47f964d95fdfe4cbc89015702eb12d, type: 3}
+  - {fileID: 8300000, guid: 772ec863e4cdf634ba5690893caf723e, type: 3}
+  - {fileID: 8300000, guid: 772ec863e4cdf634ba5690893caf723e, type: 3}
+  - {fileID: 8300000, guid: 025e81bba8cc8be46bc1eb648105440d, type: 3}
+  - {fileID: 8300000, guid: 2f5b18078f398e24b82217c7ea7afe53, type: 3}
+  - {fileID: 8300000, guid: 2f5b18078f398e24b82217c7ea7afe53, type: 3}
+  - {fileID: 8300000, guid: 870c6e180e047eb4ba8eb4553b4a725d, type: 3}
+  - {fileID: 8300000, guid: ae6c61b73f55999448c4f77716bd628c, type: 3}
+  - {fileID: 8300000, guid: 9e8473f13e46da645abb251949917ddf, type: 3}
+  - {fileID: 8300000, guid: 942bd1c342ddd2546b9c7473f31e438f, type: 3}
+  - {fileID: 8300000, guid: 8716fd2beb14e9a469c6cfc11e318e6c, type: 3}
+  - {fileID: 8300000, guid: bf9f20677daac884c9bb8f6a1157ba4a, type: 3}
+  - {fileID: 8300000, guid: aa9c802ad29b0bf4fbbb10194f7fa904, type: 3}
   imagePressAttack: {fileID: 1253069677506432}
   imageRapidSlashHit: {fileID: 1845432994220142}
   canvasGroupRapidSlash: {fileID: 225635529159337830}
@@ -2271,8 +2283,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114088299516064772}
   animator: {fileID: 95931057526906244}
-  audioSource: {fileID: 0}
-  audioClip: []
   isInitAnimation: 0
   currentAnimName: 
   isFinishAttackAnimation: 1
@@ -2772,19 +2782,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationControl: {fileID: 114456323651409390}
   animator: {fileID: 95687041734106846}
-  audioSource: {fileID: 82973595310770574}
-  audioClip:
-  - {fileID: 8300000, guid: 4982886b2d00ae14a93e8e52d85778df, type: 3}
-  - {fileID: 8300000, guid: 4982886b2d00ae14a93e8e52d85778df, type: 3}
-  - {fileID: 8300000, guid: 025e81bba8cc8be46bc1eb648105440d, type: 3}
-  - {fileID: 8300000, guid: e6d073cf78facae408484aadd7c4d747, type: 3}
-  - {fileID: 8300000, guid: 2f5b18078f398e24b82217c7ea7afe53, type: 3}
-  - {fileID: 8300000, guid: 2f5b18078f398e24b82217c7ea7afe53, type: 3}
-  - {fileID: 8300000, guid: 870c6e180e047eb4ba8eb4553b4a725d, type: 3}
-  - {fileID: 8300000, guid: ae6c61b73f55999448c4f77716bd628c, type: 3}
-  - {fileID: 8300000, guid: 9e8473f13e46da645abb251949917ddf, type: 3}
-  - {fileID: 8300000, guid: 942bd1c342ddd2546b9c7473f31e438f, type: 3}
-  - {fileID: 8300000, guid: 8716fd2beb14e9a469c6cfc11e318e6c, type: 3}
   isInitAnimation: 0
   currentAnimName: 
   isFinishAttackAnimation: 1

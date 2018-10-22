@@ -437,7 +437,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.DODGE:
 					anim.isFinishAnyAnimation = true;
 					anim.isFinishAttackAnimation = true;
-					PlaySFXOneShot(AnimationAudio.DODGE);
+					PlaySFXOneShot(PlayerInputAudio.DODGE);
 					break;
 				// case PlayerState.COUNTER:
 					// attack.isAttacking  = true;
@@ -447,7 +447,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.PARRY:
 					//
-					PlaySFXOneShot(AnimationAudio.PARRY);
+					PlaySFXOneShot(PlayerInputAudio.PARRY);
 					break;
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
@@ -469,7 +469,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.CHARGE: 
 					player.isMoveAttack = true;
 					anim.isSpawnSomethingOnAnimation = true;
-					PlaySFXOneShot(AnimationAudio.CHARGE_RELEASE);
+					PlaySFXOneShot(PlayerInputAudio.CHARGE_RELEASE);
 					break;
 				case PlayerState.DASH:
 					if (input.interactValue == 0) {
@@ -478,7 +478,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						attack.isDashing = true;
 					} else if (input.interactValue == 2) {
 						if (player.isBouncing) {
-							PlaySFXOneShot(AnimationAudio.BOUNCE);
+							PlaySFXOneShot(PlayerInputAudio.BOUNCE);
 						}
 						
 						gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
@@ -487,11 +487,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.USING_TOOL:
 					if (tool.currentTool == ToolType.Hammer) {
-						PlaySFXOneShot(AnimationAudio.HAMMER);
+						PlaySFXOneShot(PlayerInputAudio.HAMMER);
 					} else if (tool.currentTool == ToolType.Shovel) {
-						PlaySFXOneShot(AnimationAudio.SHOVEL);
+						PlaySFXOneShot(PlayerInputAudio.SHOVEL);
 					} else if (tool.currentTool == ToolType.MagicMedallion) {
-						// anim.audioSource.PlayOneShot();
+						PlaySFXOneShot(PlayerInputAudio.BIG_SUMMON);
 					}
 					break;
 				case PlayerState.POWER_BRACELET:
@@ -518,7 +518,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 					break;
 				case PlayerState.DIE: 
-					PlaySFXOneShot(AnimationAudio.DIE);
+					PlaySFXOneShot(PlayerInputAudio.DIE);
 					break;
 				case PlayerState.GET_HURT:
 					input.attackMode = 0;
@@ -538,7 +538,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					
 					break;
 				case PlayerState.BLOCK_ATTACK:
-					//
+					PlaySFXOneShot(PlayerInputAudio.BLOCK);
 					break;
 				case PlayerState.FISHING:
 					//
@@ -613,6 +613,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// isFinishAttackAnimation	= true;	
 					if (input.isInitChargeAttack) {
 						playerInputSystem.SetMovement(1);
+						PlaySFXOneShot(PlayerInputAudio.CHARGE_START);
 					}
 
 					if (moveDir != Vector3.zero) {
@@ -761,7 +762,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.interactValue == 0) { 
 						input.interactValue = 1;
 						tool.isActToolReady = true;
-						PlaySFXOneShot(AnimationAudio.FISHING_THROW);
+						PlaySFXOneShot(PlayerInputAudio.FISHING_THROW);
 
 						anim.isFinishAnyAnimation = true;
 					} else if (input.interactValue == 1) { 
@@ -850,15 +851,21 @@ public class PlayerAnimationSystem : ComponentSystem {
 		}
 	}
 
-	public void PlaySFXOneShot (AnimationAudio audioType) {
-		anim.audioSource.PlayOneShot(anim.audioClip[(int) audioType]);
+	public void PlaySFXOneShot(PlayerInputAudio audioType)	{
+		input.audioSource.PlayOneShot(input.audioClip[(int) audioType]);
 	}
 
-	public void PlaySFX (AnimationAudio audioType) {
-		if (!anim.audioSource.isPlaying) {
-			anim.audioSource.clip = anim.audioClip[(int) audioType];
-			anim.audioSource.Play();
+	public void PlaySFX (PlayerInputAudio audioType, bool isLoop) {
+		if (isLoop) {
+			input.audioSource.loop = true;
+		} else {
+			input.audioSource.loop = false;
 		}
+
+		// if (!input.audioSource.isPlaying) {
+			input.audioSource.clip = input.audioClip[(int) audioType];
+			input.audioSource.Play();
+		// }
 	}
 
 	int CheckDirID (float dirX, float dirZ) {

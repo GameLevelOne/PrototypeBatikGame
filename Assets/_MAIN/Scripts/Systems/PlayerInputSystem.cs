@@ -75,6 +75,8 @@ public class PlayerInputSystem : ComponentSystem {
 
 			state = player.state;
 			tool = toolSystem.tool;
+			isFinishAttackAnimation = animation.isFinishAttackAnimation;
+			isFinishAnyAnimation = animation.isFinishAnyAnimation;
 
 			if (CheckIfUsingAnyTool ()) {
 				continue;
@@ -88,8 +90,6 @@ public class PlayerInputSystem : ComponentSystem {
 			}
 
 			// if (playerAnimationSystem.anim.isFinishAttackAnimation) {
-				isFinishAttackAnimation = animation.isFinishAttackAnimation;
-				isFinishAnyAnimation = animation.isFinishAnyAnimation;
 				CheckAttackInput();
 				CheckArrowInput();
 				CheckDodgeInput();
@@ -239,7 +239,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject) {
 			if (GameInput.IsActionPressed && !input.isUIOpen) {
-				PlaySFX(PlayerInputAudio.PICK_UP);
+				PlaySFXOneShot(PlayerInputAudio.PICK_UP);
 				input.interactValue = 0;
 				input.interactMode = 3;
 				
@@ -301,6 +301,7 @@ public class PlayerInputSystem : ComponentSystem {
 					if (!isChargingAttack) {
 						if (chargeAttackTimer >= input.chargeAttackThreshold) {
 							isChargingAttack = true;
+							PlaySFX(PlayerInputAudio.CHARGE_LOOP, true);
 						} else {
 							chargeAttackTimer += deltaTime;
 						}
@@ -310,6 +311,7 @@ public class PlayerInputSystem : ComponentSystem {
 				if (input.moveMode == 1 && isChargingAttack) {
 					input.attackMode = -1; //CHARGE
 					isChargingAttack = false;
+					input.audioSource.Stop();
 					player.SetPlayerState(PlayerState.CHARGE);
 				} else {
 					SetMovement(0);
@@ -459,14 +461,16 @@ public class PlayerInputSystem : ComponentSystem {
 			if(GameInput.IsQuickRPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.NextTool();
+				PlaySFXOneShot(PlayerInputAudio.CHANGE_TOOL);
 			}
 			
 			if(GameInput.IsQuickLPressed && !input.isUIOpen){
 				// player.isUsingStand = false;
 				toolSystem.PrevTool();
+				PlaySFXOneShot(PlayerInputAudio.CHANGE_TOOL);
 			}
 
-			if (GameInput.IsToolsPressed && !input.isUIOpen) {
+			if (GameInput.IsToolsPressed && !input.isUIOpen && isFinishAnyAnimation) {
 				toolType = tool.currentTool;
 
 				if (toolType != ToolType.None && toolType != ToolType.Bow) {
@@ -600,7 +604,7 @@ public class PlayerInputSystem : ComponentSystem {
 		else if (state == PlayerState.FISHING) { 	
 			currentDir = Vector3.zero;
 						
-			if (GameInput.IsToolsPressed || GameInput.IsActionPressed){
+			if ((GameInput.IsToolsPressed || GameInput.IsActionPressed) && input.interactValue == 1){
 				input.interactValue = 2;
 				toolSystem.UseTool();
 				PlaySFXOneShot(PlayerInputAudio.FISHING_RETURN);
@@ -749,7 +753,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if(manaSystem.isHaveEnoughMana(requiredMana, isUseMana, isUsingStand)) {
 			return true;
 		} else {
-			PlaySFX(PlayerInputAudio.NO_MANA);
+			PlaySFXOneShot(PlayerInputAudio.NO_MANA);
 			return false;
 		}
 	}
@@ -763,10 +767,16 @@ public class PlayerInputSystem : ComponentSystem {
 		input.audioSource.PlayOneShot(input.audioClip[(int) audioType]);
 	}
 
-	public void PlaySFX(PlayerInputAudio audioType)	{
-		if (!input.audioSource.isPlaying) {
+	public void PlaySFX (PlayerInputAudio audioType, bool isLoop) {
+		if (isLoop) {
+			input.audioSource.loop = true;
+		} else {
+			input.audioSource.loop = false;
+		}
+
+		// if (!input.audioSource.isPlaying) {
 			input.audioSource.clip = input.audioClip[(int) audioType];
 			input.audioSource.Play();
-		}
+		// }
 	}
 }

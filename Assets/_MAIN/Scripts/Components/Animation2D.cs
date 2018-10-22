@@ -1,30 +1,14 @@
 ﻿using UnityEngine;
 
-public enum AnimationAudio {
-	HAMMER,
-	SHOVEL,
-	BOUNCE,
-	FISHING_THROW,
-	PARRY,
-	BLOCK,
-	CHARGE_START,
-	CHARGE_LOOP,
-	CHARGE_RELEASE,
-	DODGE,
-	DIE
-	// HURT
-}
-
 public class Animation2D : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
-	public AudioSource audioSource;
-	public AudioClip[] audioClip;
 
 	public bool isInitAnimation = false;
 
 	[HeaderAttribute("Current")]
 	public string currentAnimName;
+	// public AnimationAudio loopAnimAudio;
 	public bool isFinishAttackAnimation = true;
 	
 	[SerializeField] bool isFinishAnyAnim = true;

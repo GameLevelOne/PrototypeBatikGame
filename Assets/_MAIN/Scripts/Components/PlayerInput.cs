@@ -7,7 +7,21 @@ public enum PlayerInputAudio {
 	NO_MANA,
 	PICK_UP,
 	LOOT,
-	FISHING_RETURN
+	FISHING_THROW,
+	FISHING_RETURN,
+	HAMMER,
+	SHOVEL,
+	BOUNCE,
+	PARRY,
+	BLOCK,
+	CHARGE_START,
+	CHARGE_LOOP,
+	CHARGE_RELEASE,
+	DODGE,
+	DIE, 
+	BIG_SUMMON,
+	CHANGE_TOOL
+	// HURT
 }
 
 public class PlayerInput : MonoBehaviour {
