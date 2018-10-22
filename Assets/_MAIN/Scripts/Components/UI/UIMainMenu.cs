@@ -30,5 +30,4 @@ public class UIMainMenu : MonoBehaviour {
 	public AudioSource uiAudio;
 	public AudioClip selectClip;
 	public AudioClip chooseClip;
-
 }

@@ -15,11 +15,15 @@ public class GameFX : MonoBehaviour {
 	public ParticleSystem useItemHPEffect;
 	public ParticleSystem useItemMPEffect;
 
-	public GameObject parryEffect;
-	public GameObject guardHitEffect;
+	// public GameObject parryEffect;
+	// public GameObject guardHitEffect;
 	public GameObject enemyHitEffect;
 	public GameObject playerHitEffect;
 	public GameObject chargingEffect;
+	
+	[HeaderAttribute("0 Down, 1 Left, 2 Up, 3 Right")]
+	public ParticleSystem[] blockEffects;
+	public ParticleSystem[] parryEffects;
 
 	public AudioClip[] dirtAudio;
 	public AudioClip[] grassAudio;

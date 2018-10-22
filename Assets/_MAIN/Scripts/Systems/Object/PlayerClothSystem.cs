@@ -53,7 +53,7 @@ public class PlayerClothSystem : ComponentSystem {
 
 		DissolveCloth();
 		DrawClothHP();		
-		SetClothRotation(0f, Vector3.forward);
+		SetClothRotation(0f, -Vector3.forward);
 		
 		playerCloth.isInitCLoth = true; 
 	}
@@ -65,7 +65,7 @@ public class PlayerClothSystem : ComponentSystem {
 			if (healthThreshold < currentDissolveValue) {
 				healthThreshold += clothReduceValue * deltaTime;
 				DrawClothHP();
-			} else if (healthThreshold >= currentDissolveValue) {
+			} else if (healthThreshold > currentDissolveValue) {
 				healthThreshold -= clothReduceValue * deltaTime;
 				DrawClothHP();
 			} else {

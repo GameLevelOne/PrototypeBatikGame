@@ -448,6 +448,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 				case PlayerState.PARRY:
 					//
 					PlaySFXOneShot(PlayerInputAudio.PARRY);
+					int parryDirID = facing.DirID-1;
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.parryEffects[parryDirID], true);
 					break;
 				case PlayerState.SLOW_MOTION:
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
@@ -542,6 +544,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 					break;
 				case PlayerState.BLOCK_ATTACK:
 					PlaySFXOneShot(PlayerInputAudio.BLOCK);
+					int blockDirID = facing.DirID-1;
+					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.blockEffects[blockDirID], true);
 					break;
 				case PlayerState.FISHING:
 					//

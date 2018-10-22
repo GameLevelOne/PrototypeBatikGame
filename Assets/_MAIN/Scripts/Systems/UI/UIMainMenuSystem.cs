@@ -158,5 +158,12 @@ public class UIMainMenuSystem : ComponentSystem {
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, 100f);
 		PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, 100f);
 
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, 3);
+		
+		for (int i=0; i<4; i++) {
+			PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 0);
+		} 
+
+		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_DEBUG_ATTACK_AREA, 0);
 	}
 }
