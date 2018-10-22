@@ -322,6 +322,9 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	void SelectTool (int idx) {
 		uiInfo.listOfButtonToolsNSummons[idx].Select();
 
+		string textToShow = uiInfo.toolsDesc[idx].Replace('*','\n');
+		uiInfo.descLabel.text = textToShow;
+
 		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
 			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.Select();
@@ -405,13 +408,16 @@ public class UIPlayerInfoSystem : ComponentSystem {
 			case LootableType.HP_POTION:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(true);
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.sprite = uiInfo.hpPotSprite;
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[1];
 				break;
 			case LootableType.MANA_POTION:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(true);
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.sprite = uiInfo.mpPotSprite;
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[2];
 				break;
 			default:
 				uiInfo.listOfButtonToolsNSummons[toolSpriteIdx].GetComponent<ButtonToolNSummon>().imageContainer.gameObject.SetActive(false);
+				uiInfo.toolsDesc[toolSpriteIdx] = uiInfo.containerDesc[0];
 				break;
 		}
 	}

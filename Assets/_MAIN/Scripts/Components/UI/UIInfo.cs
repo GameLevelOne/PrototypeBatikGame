@@ -16,6 +16,9 @@ public class UIInfo : MonoBehaviour {
 	// public float hideMultiplier;
 	[HeaderAttribute("Button Tools")]
 	public List<Button> listOfButtonToolsNSummons;
+	public Text descLabel;
+	public string[] toolsDesc;
+	public string[] containerDesc;
 
 	[HeaderAttribute("Area Info")]
 	public Text areaName;

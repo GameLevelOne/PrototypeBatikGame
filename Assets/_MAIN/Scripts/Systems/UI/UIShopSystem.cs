@@ -106,12 +106,21 @@ public class UIShopSystem : ComponentSystem {
 		if (uiShop.curType==LootableType.HP_POTION) {
 			uiShop.handL.SetBool("Select",true);
 			uiShop.handR.SetBool("Select",false);
+
+			uiShop.infoHP.SetActive(true);
+			uiShop.infoMP.SetActive(false);
 		} else if (uiShop.curType==LootableType.MANA_POTION) {
 			uiShop.handL.SetBool("Select",false);
 			uiShop.handR.SetBool("Select",true);
+
+			uiShop.infoHP.SetActive(false);
+			uiShop.infoMP.SetActive(true);
 		} else {
 			uiShop.handL.SetBool("Select",false);
 			uiShop.handR.SetBool("Select",false);
+
+			uiShop.infoHP.SetActive(false);
+			uiShop.infoMP.SetActive(false);
 		}
 	}
 

@@ -16,6 +16,8 @@ public class UIShop : MonoBehaviour {
 	public Animator handR;
 	public Animator[] healthContainer; 
 	public Animator[] manaContainer; 
+	public GameObject infoHP;
+	public GameObject infoMP;
 
 
 	public GameObject panelUIShop;
