@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 114489151224410700}
   - component: {fileID: 114585667889187296}
   - component: {fileID: 82748677515265920}
+  - component: {fileID: 114363440503169576}
   m_Layer: 0
   m_Name: Shovel Splash Particle
   m_TagString: Shovel
@@ -240,6 +241,7 @@ MonoBehaviour:
   isCollideSomething: 0
   isSelfDestroying: 0
   direction: {x: 0, y: 0, z: 0}
+  isDisableCameraShake: 0
 --- !u!114 &114265294603452952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,6 +253,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114363440503169576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1885383960930086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640f65ec0d1dd7a41a6899e82bc4160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diggingObj: {fileID: 1159029269881054, guid: 26b01c36c92bbe94287c66912346009c, type: 2}
+  spawnItemProbability: 0.1
+  listDig: 
 --- !u!114 &114489151224410700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,7 +320,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.8
+  m_Radius: 0.4
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

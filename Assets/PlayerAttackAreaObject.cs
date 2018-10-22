@@ -6,5 +6,6 @@ public class PlayerAttackAreaObject : MonoBehaviour {
 	public ChestOpener chestOpener;
 	public PowerBracelet powerBracelet;
 	public GateOpener gateOpener;
+	public DigChecker digChecker;
 	public GameObject dashAttackObj;
 }

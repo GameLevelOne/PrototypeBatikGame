@@ -3,7 +3,10 @@ using UnityEngine;
 
 public class Shovel : MonoBehaviour {
 	public GameObject diggingObj;
+	public float spawnItemProbability;
 	// public Vector3 diggingCheckPos;
+
+	[HeaderAttribute("Current")]
 	public List<bool> listDig = new List<bool>();
 
 	// public float digResultPosY = 0.15f;

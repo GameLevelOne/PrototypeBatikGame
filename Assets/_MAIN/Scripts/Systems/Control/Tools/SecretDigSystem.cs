@@ -8,6 +8,8 @@ public class SecretDigSystem : ComponentSystem {
 	}
 	[InjectAttribute] SecretDigData secretDigData;
 
+	[InjectAttribute] LootableSpawnerSystem lootableSpawnerSystem;
+
 	SecretDig secretDig;
 
 	protected override void OnUpdate () {
@@ -17,8 +19,11 @@ public class SecretDigSystem : ComponentSystem {
 			secretDig = secretDigData.secretDig[i];
 			
 			if (secretDig.isSecretDigHit && !secretDig.isAlreadyDigged) {
-				//Spawn something
-				GameObjectEntity.Instantiate(secretDig.secretRewardObj, secretDig.digResultPos, Quaternion.identity);
+				// //Spawn something
+				// GameObjectEntity.Instantiate(secretDig.secretRewardObj, secretDig.digResultPos, Quaternion.identity);
+
+				//SPAWN ITEM
+				lootableSpawnerSystem.CheckPlayerLuck(secretDig.spawnItemProbability, secretDig.digResultPos);
 
 				secretDig.isAlreadyDigged = true;
 			}

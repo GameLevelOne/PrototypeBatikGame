@@ -48,6 +48,7 @@ public class PlayerSystem : ComponentSystem {
 		playerAttackArea.powerBracelet.player = player;
 		playerAttackArea.powerBracelet.liftMainObjParent = player.liftingParent;
 		playerAttackArea.gateOpener.player = player;
+		playerAttackArea.digChecker.player = player;
 
 		player.GetComponent<Attack>().dashAttackArea = playerAttackArea.dashAttackObj;
 		toolSystem.tool.fishingBaitObj = playerAttackArea.fishingRod.gameObject;

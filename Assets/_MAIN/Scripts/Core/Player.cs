@@ -197,9 +197,9 @@ public class Player : MonoBehaviour {
 		// 	isHitJatayuAttack2 = true;
 		// }	
 
-		if (col.tag == Constants.Tag.DIG_AREA) {
-			isCanDigging = true;
-		} 
+		// if (col.tag == Constants.Tag.DIG_AREA) {
+		// 	isCanDigging = true;
+		// } 
 	}
 
 	void OnTriggerExit (Collider col) {
@@ -207,9 +207,9 @@ public class Player : MonoBehaviour {
 			isHitJatayuAttack2 = false;
 		}
 		
-		if (col.tag == Constants.Tag.DIG_AREA) {
-			isCanDigging = false;
-		}
+		// if (col.tag == Constants.Tag.DIG_AREA) {
+		// 	isCanDigging = false;
+		// }
 	}
 	
 	#region PLAYER STATE 
