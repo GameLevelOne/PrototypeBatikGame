@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
 	public Health health;
 	public Mana mana;
 	public PlayerState state;
+	public UIInteractionHint uiInteractionHint;
 	// public Transform playerWeaponPos;
 	public Collider playerCol;
 	// public UIGameOver uiGameOver;   <---- CHANGE TO INJECTATTRIBUTE IN PLAYERMOVEMENTSYSTEM
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour {
 	public bool isInteractingWithNPC = false;
 	public bool isInitAttackAreaObj = false;
 	public bool isInitRapidSlash = false;
+	public bool isCanShowHint = true;
 	
 	//JATAYU
 	public bool isHitJatayuAttack2 = false;
@@ -222,4 +224,23 @@ public class Player : MonoBehaviour {
 		state = PlayerState.IDLE;
 	}
 	#endregion
+
+	//SET UI INTERACTION HINT
+	public void ShowInteractionHint (HintMessage message) {
+		if (isCanShowHint) {
+			uiInteractionHint.ShowHint(message);
+			// isCanShowHint = false;
+		}
+	}
+
+	public void HideHint () {
+		// if (!isCanShowHint) {
+			uiInteractionHint.HideHint();
+			// isCanShowHint = true;
+		// }
+	}
+
+	public void ResetHint (bool value) {
+		isCanShowHint = value;
+	}
 }

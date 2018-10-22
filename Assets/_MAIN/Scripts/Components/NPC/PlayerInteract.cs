@@ -17,6 +17,9 @@ public class PlayerInteract : MonoBehaviour {
 			if (currentNPC.npcChar == NPCCharacteristic.TALKABLE) {
 				// currentNPC.state = NPCState.INTERACT;
 				player.isCanInteractWithNPC = true;
+					
+				//SET UI INTERACTION HINT
+				player.ShowInteractionHint(HintMessage.TALK);
 			}
 		}
 	}
@@ -28,6 +31,9 @@ public class PlayerInteract : MonoBehaviour {
 			currentNPC.IsInteracting = false;
 			currentNPC.player = null;
 			currentNPC = null;
+
+			//SET UI INTERACTION HINT
+			player.HideHint();
 		}
 	}
 }

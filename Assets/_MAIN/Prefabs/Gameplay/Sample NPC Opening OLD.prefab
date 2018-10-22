@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 95313922365370642}
   - component: {fileID: 114183619912297644}
   m_Layer: 0
-  m_Name: Sample NPC Opening
+  m_Name: Sample NPC Opening OLD
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,9 +192,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06afa316da8edf54faf94b62a4f0bb72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openingDialogueTrigger: {fileID: 0}
+  openingDialogueTrigger:
+  - {fileID: 0}
+  endOpeningCutscene: {fileID: 0}
   entity: {fileID: 114862431728596606}
   npc: {fileID: 114591064048800194}
+  animator: {fileID: 0}
 --- !u!114 &114265851142585686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,21 +240,21 @@ MonoBehaviour:
   npc: {fileID: 114591064048800194}
   panelDialog: {fileID: 1830668046500342}
   textDialog: {fileID: 114498370013027948}
-  showDialogDuration: 3
-  showDialogDelay: 2
-  isInitShowingDialog: 0
+  dialogButton: {fileID: 0}
+  showTextDuration: 0
+  delayDialogDuration: 0
+  dialogState: 0
   dialogIndex: 0
   letterIndex: 0
-  isStartDialog: 0
-  isShowingDialog: 0
-  isFinishShowingDialog: 0
-  showDialogTime: 0
-  dialogTime: 0
-  idleDialogs: []
+  dialogDeltaTime: 0
   interactDialogs:
   - LOOKS LIKE WE'RE HERE...
   - WELCOME TO MADA KARI FOREST !
   - HMM... HAPPY HUNTING !
+  openingDialogs:
+  - 1. Opening
+  - 2. Opening
+  - 3. Opening
   letterList: []
 --- !u!114 &114498370013027948
 MonoBehaviour:
@@ -324,6 +327,7 @@ MonoBehaviour:
   state: 0
   dialog: {fileID: 114336858769809190}
   uiShop: {fileID: 0}
+  uiSignPost: {fileID: 0}
   player: {fileID: 0}
   isDoneInitNPC: 0
   isInteracting: 0

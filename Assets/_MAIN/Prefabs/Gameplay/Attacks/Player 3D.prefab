@@ -1539,7 +1539,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552680715280630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: -1.301}
+  m_LocalPosition: {x: 17, y: 0.9, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928826898908698}
@@ -2255,6 +2255,7 @@ MonoBehaviour:
   isInitContainer: 0
   player: {fileID: 114208348427726864}
   boughtItemLootabelType: 0
+  isTestSaveContainer: 0
 --- !u!114 &114088299516064772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2377,7 +2378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308b60eb9b885a94fa1c2d4d7970b0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTool: 0
+  savedToolIdx: 0
   areaSpawnPos: {fileID: 4923353572618164}
   arrowObj: {fileID: 1584689571167244, guid: 0ce0e50d445436c489af2c06c3a46731, type: 2}
   hookObj: {fileID: 1022893050716764, guid: e24f32995bea3e147ab2e3c0ac7af79f, type: 2}
@@ -2525,6 +2526,7 @@ MonoBehaviour:
   health: {fileID: 114265990626498192}
   mana: {fileID: 114901627235131250}
   state: 0
+  uiInteractionHint: {fileID: 114961850831169688}
   playerCol: {fileID: 136916452541748184}
   playerAttackAreaObj: {fileID: 1740946614798330, guid: beb51af3ee09320499a02d2f840aca28,
     type: 2}
@@ -2560,6 +2562,7 @@ MonoBehaviour:
   isInteractingWithNPC: 0
   isInitAttackAreaObj: 0
   isInitRapidSlash: 0
+  isCanShowHint: 1
   isHitJatayuAttack2: 0
   interactIndex: 0
   maxHP: 100
@@ -3205,6 +3208,7 @@ MonoBehaviour:
   hintMessages:
   - Open
   - Lift
+  - Talk
   isActive: 0
 --- !u!114 &114990653097575046
 MonoBehaviour:
@@ -3317,8 +3321,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0.000015258789}
-    m_Extent: {x: 16.0244, y: 0.00000017881612, z: 81.30675}
+    m_Center: {x: 0, y: 0.00000023841858, z: 0.00002169609}
+    m_Extent: {x: 16.024399, y: 0.00000026822312, z: 81.30675}
   m_DirtyAABB: 0
 --- !u!137 &137651258906997094
 SkinnedMeshRenderer:

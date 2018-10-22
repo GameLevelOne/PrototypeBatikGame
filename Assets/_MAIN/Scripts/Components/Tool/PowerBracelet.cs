@@ -44,6 +44,9 @@ public class PowerBracelet : MonoBehaviour {
 				isInteracting = false;
 				liftable = null;
 				SetState(PowerBraceletState.NONE);
+
+				//SET UI INTERACTION HINT
+				player.HideHint();
 			}
 		}
 	}
