@@ -201,6 +201,7 @@ public class Jatayu : MonoBehaviour {
 	{
 		if(health.EnemyHP/maxHealth <= 0.5f){
 			attack1HP50Object.SetActive(true);
+			PlaySFX(JatayuSFX.JatayuAttack1);
 		}
 	}
 

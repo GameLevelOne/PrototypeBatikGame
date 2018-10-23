@@ -27,6 +27,6 @@ public class SystemManager : MonoBehaviour {
 				GameStorage.Instance.CurrentScene = SceneManager.GetActiveScene().name;
 
 		}
-
+		Time.timeScale = 1f;
 	}
 }
