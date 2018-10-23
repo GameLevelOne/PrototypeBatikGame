@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems; //TEMP
 using Unity.Entities;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class UIPlayerInfoSystem : ComponentSystem {
 	public struct InputData {
@@ -72,7 +73,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 					// Debug.Log("Start init UIPlayerInfoSystem");
 					InitPlayerInfo ();
 				} catch (System.Exception e) {
-					// Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
+					Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
 					return;
 				}
 
@@ -203,18 +204,35 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType != ToolType.Container1 && buttonType != ToolType.Container2 && buttonType != ToolType.Container3 && buttonType != ToolType.Container4) {
 			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.selectedToolSprite;
+			SpriteState buttonState = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState;
+			buttonState.highlightedSprite = uiInfo.selectedToolSprite;
+			buttonState.disabledSprite = uiInfo.selectedToolSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState = buttonState;
 		} else {
-			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.gameObject.SetActive(false);
+			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.selectedContainerSprite;
+			SpriteState buttonState = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState;
+			buttonState.highlightedSprite = uiInfo.selectedContainerSprite;
+			buttonState.disabledSprite = uiInfo.selectedContainerSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState = buttonState;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.GetComponent<Image>().sprite = uiInfo.selectedFrontContainerSprite;
 		}
 	}
 
 	void ChangeUnSelectedButtonSprite (int idx) {
 		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
 		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
-			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.gameObject.SetActive(true);
-			// uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.interactable = true;
+			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initContainerSprite;
+			SpriteState buttonState = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState;
+			buttonState.highlightedSprite = uiInfo.initContainerHoverSprite;
+			buttonState.disabledSprite = uiInfo.initContainerSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState = buttonState;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.GetComponent<Image>().sprite = uiInfo.initFrontContainerSprite;
 		} else {
 			uiInfo.listOfButtonToolsNSummons[idx].image.sprite = uiInfo.initToolSprite;
+			SpriteState buttonState = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState;
+			buttonState.highlightedSprite = uiInfo.initToolHoverSprite;
+			buttonState.disabledSprite = uiInfo.initToolDisableSprite;
+			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<Button>().spriteState = buttonState;
 		}
 	}
 
@@ -332,10 +350,10 @@ public class UIPlayerInfoSystem : ComponentSystem {
 		string textToShow = uiInfo.toolsDesc[idx].Replace('*','\n');
 		uiInfo.descLabel.text = textToShow;
 
-		ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
-		if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
-			uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.Select();
-		}
+		// ToolType buttonType = uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().buttonToolNSummonType;
+		// if (buttonType == ToolType.Container1 || buttonType == ToolType.Container2 || buttonType == ToolType.Container3 || buttonType == ToolType.Container4) {
+		// 	uiInfo.listOfButtonToolsNSummons[idx].GetComponent<ButtonToolNSummon>().frontContainerObj.Select();
+		// }
 	}
 
 	// public void PrintHP (string value) {

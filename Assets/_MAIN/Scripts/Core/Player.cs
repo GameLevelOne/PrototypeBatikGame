@@ -147,9 +147,17 @@ public class Player : MonoBehaviour {
 			isBouncing = true;	
 		}
 		
-		if (col.gameObject.GetComponent<Liftable>() != null && !isHitLiftableObject) {
-			isHitLiftableObject = true;
-		}
+		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
+		// 	if (!isHitLiftableObject) {
+		// 		if (col.gameObject.GetComponent<Liftable>() != null) {
+		// 			// Debug.Log("Parent");
+		// 			isHitLiftableObject = true;
+		// 		} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+		// 			// Debug.Log("Child");
+		// 			isHitLiftableObject = true;
+		// 		}
+		// 	}
+		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST) {
 			isHitChestObject = true;
@@ -165,9 +173,15 @@ public class Player : MonoBehaviour {
 	}
 
 	void OnCollisionExit (Collision col) {
-		if (col.gameObject.GetComponent<Liftable>() != null && isHitLiftableObject) {
-			isHitLiftableObject = false;
-		}
+		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
+		// 	if (isHitLiftableObject) {
+		// 		if (col.gameObject.GetComponent<Liftable>() != null) {
+		// 			isHitLiftableObject = false;
+		// 		} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+		// 			isHitLiftableObject = false;
+		// 		}
+		// 	}
+		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
 			isHitChestObject = false;
@@ -200,6 +214,17 @@ public class Player : MonoBehaviour {
 		// if (col.tag == Constants.Tag.DIG_AREA) {
 		// 	isCanDigging = true;
 		// } 
+		if (col.tag == Constants.Tag.LIFTABLE) {
+			if (!isHitLiftableObject) {
+				if (col.GetComponent<Liftable>() != null) {
+					// Debug.Log("Parent");
+					isHitLiftableObject = true;
+				} else if (col.GetComponentInParent<Liftable>() != null) {
+					// Debug.Log("Child");
+					isHitLiftableObject = true;
+				}
+			}
+		}
 	}
 
 	void OnTriggerExit (Collider col) {
@@ -210,6 +235,18 @@ public class Player : MonoBehaviour {
 		// if (col.tag == Constants.Tag.DIG_AREA) {
 		// 	isCanDigging = false;
 		// }
+
+		if (col.tag == Constants.Tag.LIFTABLE) {
+			if (isHitLiftableObject) {
+				if (col.GetComponent<Liftable>() != null) {
+					// Debug.Log("Parent");
+					isHitLiftableObject = true;
+				} else if (col.GetComponentInParent<Liftable>() != null) {
+					// Debug.Log("Child");
+					isHitLiftableObject = true;
+				}
+			}
+		}
 	}
 	
 	#region PLAYER STATE 

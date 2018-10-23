@@ -44,15 +44,23 @@ public class PowerBraceletSystem : ComponentSystem {
 			if (!isDoneInitPowerBracelet) {
 				InitPowerBracelet ();
 			} else {
-				if (powerBracelet.isInteracting && !isDoneCheckState) {
-					CheckLiftableObject();
+				if (powerBracelet.isInteracting) {
+					if (!isDoneCheckState) {
+						CheckLiftableObject();
 
-					state = powerBracelet.state;
+						state = powerBracelet.state;
 
-					if (state != PowerBraceletState.NONE) {
-						SetLiftableInput();
+						if (state != PowerBraceletState.NONE) {
+							SetLiftableInput();
+						}
 					}
-				} 
+				} else {
+					if (state != PowerBraceletState.NONE) {
+						if (powerBracelet.liftable == null) {
+							ResetPowerBracelet();
+						}
+					}
+				}
 			}
 		}
 	}
