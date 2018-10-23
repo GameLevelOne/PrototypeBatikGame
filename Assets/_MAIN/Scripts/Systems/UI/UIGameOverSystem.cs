@@ -112,14 +112,14 @@ public class UIGameOverSystem : ComponentSystem {
 	void Restart()
 	{
 		 // Debug.Log("GAME OVER LOAD SCENE: "+SceneManager.GetActiveScene().name);
-		playerSystem.ResetPlayerHP();
+		// playerSystem.ResetPlayerHP();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	void ReturnToTitle()
 	{
 		 // Debug.Log("GAME OVER LOAD SCENE: "+Constants.SceneName.MAIN_MENU);
-		playerSystem.ResetPlayerHP();
+		// playerSystem.ResetPlayerHP();
 		SceneManager.LoadScene(Constants.SceneName.MAIN_MENU);
 	}
 }

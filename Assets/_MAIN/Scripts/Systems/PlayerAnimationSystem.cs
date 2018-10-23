@@ -419,7 +419,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isFinishAttackAnimation = true;
 					break;
 				default:
-					Debug.LogWarning ("Unknown Animation played");
+					// Debug.LogWarning ("Unknown Animation played");
 					break;
 			}
 			
@@ -557,7 +557,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					//
 					break;
 				default:
-					Debug.LogWarning ("Unknown Animation played");
+					// Debug.LogWarning ("Unknown Animation played");
 					break;
 			}
 
@@ -819,7 +819,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 					break;
 				default:
-					Debug.LogWarning ("Unknown Animation played for Player State : "+state);
+					// Debug.LogWarning ("Unknown Animation played for Player State : "+state);
 					break;
 			}
 
