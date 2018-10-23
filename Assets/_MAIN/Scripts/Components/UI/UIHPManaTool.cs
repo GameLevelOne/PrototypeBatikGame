@@ -31,6 +31,7 @@ public class UIHPManaTool : MonoBehaviour {
 	public Sprite[] toolSprite;
 	public Sprite[] containerSprite;
 	public bool isInitHPManaImage = false;
+	public bool isToolChange = false;
 
 	public bool showMoney;
 	public Animator moneyAnim;

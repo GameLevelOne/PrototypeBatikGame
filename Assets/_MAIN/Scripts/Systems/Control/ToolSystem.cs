@@ -82,7 +82,7 @@ public class ToolSystem : ComponentSystem {
 
 		// Debug.Log("currentTool "+(int) tool.currentTool);
 		// Debug.Log("savedToolIdx "+tool.savedToolIdx);
-		uiToolsSelectionSystem.SetPrintedTool();
+		// uiToolsSelectionSystem.SetPrintedTool();
 		tool.isInitCurrentTool = true;
 	}
 
@@ -111,8 +111,9 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current++;
 		}
+		// Debug.Log("NextTool, Current Tool : "+current);
 		tool.currentTool = (ToolType) current;
-
+		
 		if (!CheckIfToolHasBeenUnlocked(current)) {
 			NextTool ();
 		}
@@ -126,14 +127,15 @@ public class ToolSystem : ComponentSystem {
 
 		int current = (int) tool.currentTool;
 		
-		if(current <= ((int)ToolType.None)){
+		if(current <= 1){
 			current = (int)ToolType.Boots; //Current tool length
 		}else{
 			current--;
 		}
+		// Debug.Log("PrevTool, Current Tool : "+current);
 		tool.currentTool = (ToolType) current;
 		
-		if (!CheckIfToolHasBeenUnlocked((int) tool.currentTool)) {
+		if (!CheckIfToolHasBeenUnlocked(current)) {
 			PrevTool ();
 		}
 		

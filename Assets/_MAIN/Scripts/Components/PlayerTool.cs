@@ -34,11 +34,12 @@ public class PlayerTool : MonoBehaviour {
 	public ToolType currentTool {
 		get {return (ToolType) PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, savedToolIdx);}
 		set {
-			if ((ToolType) savedToolIdx != value) {
+			// Debug.Log("Save Tool "+savedToolIdx+". "+(ToolType) savedToolIdx);
+
+			// if ((ToolType) savedToolIdx != value) {
 				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, (int) value);
 				savedToolIdx = (int) value;
-				// Debug.Log("Save Tool "+savedToolIdx+". "+(ToolType) savedToolIdx);
-			}
+			// }
 		}
 	}
 

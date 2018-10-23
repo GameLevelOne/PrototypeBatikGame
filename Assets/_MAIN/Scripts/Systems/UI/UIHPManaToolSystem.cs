@@ -48,6 +48,10 @@ public class UIHPManaToolSystem : ComponentSystem {
 		for (int i=0; i<uiHPManaToolData.Length; i++) {
 			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];
 			
+			if (uiHPManaTool.isToolChange) {
+				PrintTool();
+				uiHPManaTool.isToolChange = false;
+			}
 			
 			if (!uiHPManaTool.isInitHPManaImage) {
 				try {
@@ -164,10 +168,11 @@ public class UIHPManaToolSystem : ComponentSystem {
 		uiHPManaTool.isMPChange = false;
 	}
 
-	public void PrintTool (Sprite toolSprite, string toolName) {
-		uiHPManaTool.imageTool.sprite = toolSprite;
-
+	// public void PrintTool (Sprite toolSprite, string toolName) {
+	void PrintTool () {
 		ToolType curTool = toolData.PlayerTool[0].currentTool;
+
+		// uiHPManaTool.imageTool.sprite = toolSprite;
 
 		if (curTool== ToolType.Container1) {
 			LootableType curContainer = containerData.Container[0].lootableTypes[0];

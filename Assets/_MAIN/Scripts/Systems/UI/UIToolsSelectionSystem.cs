@@ -10,8 +10,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		public ComponentArray<Animation2D> Animation;
 	}
 	[InjectAttribute] UIToolsSelectionData uiToolsSelectionData;
+
+	public struct UIHPManaToolData {
+		public readonly int Length;
+		public ComponentArray<UIHPManaTool> UIHPManaTool;
+	}
+	[InjectAttribute] UIHPManaToolData uiHPManaToolData;
 	
-	[InjectAttribute] UIHPManaToolSystem uiHPManaToolSystem;
+	UIHPManaTool uiHPManaTool;
+	
+	// [InjectAttribute] UIHPManaToolSystem uiHPManaToolSystem;
 	[InjectAttribute] ContainerSystem containerSystem;
 
 	public UIToolsSelection uiToolsSelection;
@@ -94,7 +102,6 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void InitToolsSelection () {
 		// Debug.Log("UIToolSelectionSystem "+tool.currentTool);
-		// InitImages (false); //OLD
 		showTime = 0f;
 		isShowingTools = false;
 		isPlayingAnimation = false;
@@ -105,7 +112,9 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		uiToolsSelection.panelToolsSelection.SetActive(false);
 		// isShowingTools = true;
 		// isInitShowInfo = false;
-		InitImages (true);
+
+		InitImages (false); //OLD
+		// InitImages (true);
 	}
 
 	public void InitImages (bool isUpdatedList) {
@@ -121,6 +130,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 			}
 		
 			SetImages();
+			InitImages (true);
 		} else {
 			// int whileIdx = 0;
 			int tempIdx = (int) tool.currentTool;
@@ -151,16 +161,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckContainerImage(int idx) {
 		if (idx == (int) ToolType.Container1) {
-			Debug.Log(idx+" "+containerSystem.container.lootableTypes[0].ToString());
+			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[0].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[0], idx);
 		} else if (idx == (int) ToolType.Container2) {
-			Debug.Log(idx+" "+containerSystem.container.lootableTypes[1].ToString());
+			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[1].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[1], idx);
 		} else if (idx == (int) ToolType.Container3) {
-			Debug.Log(idx+" "+containerSystem.container.lootableTypes[2].ToString());
+			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[2].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[2], idx);
 		} else if (idx == (int) ToolType.Container4) {
-			Debug.Log(idx+" "+containerSystem.container.lootableTypes[3].ToString());
+			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[3].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[3], idx);
 		}
 	}
@@ -192,10 +202,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		}
 	}
 
-	public void SetPrintedTool () {
+	void SetPrintedTool () {
 		// Debug.Log("SetPrintedTool "+(int) tool.currentTool);
 		// uiHPManaToolSystem.PrintTool(toolImages[(int) tool.currentTool].sprite, tool.currentTool.ToString());
-		uiHPManaToolSystem.PrintTool(toolSprites[(int) tool.currentTool], tool.currentTool.ToString());
+		// uiHPManaToolSystem.PrintTool(toolSprites[(int) tool.currentTool], tool.currentTool.ToString());
+		Debug.Log("SetPrintedTool");
+		for (int i=0; i<uiHPManaToolData.Length; i++) {
+			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];
+
+			uiHPManaTool.isToolChange = true;
+		}
 	}
 
 	void CheckShowingTools () {
@@ -316,18 +332,19 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void NextTools () {
-		// Debug.Log("NextTools "+sliderAnimator.name);
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_LEFT);
 		int tempToolIdx = uiToolsSelection.toolIndexes[0];
+		// Debug.Log("NextTools tempToolIdx "+tempToolIdx);
 		uiToolsSelection.toolIndexes.RemoveAt(0);
 		uiToolsSelection.toolIndexes.Add(tempToolIdx);
 	}
 
 	void PrevTools () {
-		// Debug.Log("PrevTools "+sliderAnimator.name);
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_RIGHT);
 		int lastToolIdx = uiToolsSelection.toolIndexes.Count-1;
 		int tempToolIdx = uiToolsSelection.toolIndexes[lastToolIdx];
+		// Debug.Log("PrevTools lastToolIdx "+lastToolIdx);
+		// Debug.Log("PrevTools tempToolIdx "+tempToolIdx);
 		uiToolsSelection.toolIndexes.RemoveAt(lastToolIdx);
 		uiToolsSelection.toolIndexes.Insert(0,tempToolIdx);
 	}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4479574, g: 0.49795997, b: 0.57549214, a: 1}
+  m_IndirectSpecularColor: {r: 0.44795775, g: 0.4979608, b: 0.57549316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -990,6 +990,16 @@ Prefab:
     - target: {fileID: 1335873306701842, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224229125063857532, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -605.8086
+      objectReference: {fileID: 0}
+    - target: {fileID: 224229125063857532, guid: e2dd0cdb123d6d14083e7ab0787efcc8,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 55.799988
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2dd0cdb123d6d14083e7ab0787efcc8, type: 2}
@@ -13989,6 +13999,12 @@ Prefab:
       propertyPath: m_AABB.m_Center.x
       value: 0.00012207031
       objectReference: {fileID: 0}
+    - target: {fileID: 114142693087832688, guid: 48c8d0db54edec043ac957c3486b5def,
+        type: 2}
+      propertyPath: bigSummonAOEObj
+      value: 
+      objectReference: {fileID: 1028507337033762, guid: 6a541dd3c50a37d4c8f36d40cbda8c77,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
