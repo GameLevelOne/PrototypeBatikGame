@@ -47,7 +47,7 @@ public class Liftable : MonoBehaviour {
 	void OnCollisionEnter (Collision col)
 	{
 		if (state == LiftableState.THROW || state == LiftableState.FLY) {
-			// Debug.Log("IgnoreCollision "+throwByAccident);
+			//  // Debug.Log("IgnoreCollision "+throwByAccident);
 			if (col.gameObject.tag == Constants.Tag.PLAYER) {
 				Physics.IgnoreCollision(mainCollider, col.collider, true);
 			} else if (col.gameObject.tag != Constants.Tag.ENEMY || col.gameObject.tag != Constants.Tag.BOUNDARIES) {
@@ -78,7 +78,7 @@ public class Liftable : MonoBehaviour {
 
 	// void OnCollisionStay (Collision col) {
 	// 	if (state == LiftableState.IDLE && throwByAccident) {
-	// 		Debug.Log("throwByAccident "+throwByAccident);
+	// 		 // Debug.Log("throwByAccident "+throwByAccident);
 	// 		if (col.gameObject.tag == Constants.Tag.PLAYER) {
 	// 			mainCollider.isTrigger = true;
 	// 		}
@@ -87,7 +87,7 @@ public class Liftable : MonoBehaviour {
 
 	// void OnTriggerEnter (Collider col) {
 	// 	if (state == LiftableState.IDLE && !throwByAccident && mainCollider.isTrigger) {
-	// 		Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
+	// 		 // Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
 	// 		if (col.tag == Constants.Tag.PLAYER) {
 	// 			mainCollider.isTrigger = false;
 	// 		}
@@ -96,7 +96,7 @@ public class Liftable : MonoBehaviour {
 
 	// void OnTriggerExit (Collider col) {
 	// 	if (state == LiftableState.IDLE && throwByAccident) {
-	// 		// Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
+	// 		//  // Debug.Log("LiftableState.IDLE && throwByAccident "+throwByAccident);
 	// 		if (col.tag == Constants.Tag.PLAYER) {
 	// 			mainCollider.isTrigger = true;
 	// 			throwByAccident = false;

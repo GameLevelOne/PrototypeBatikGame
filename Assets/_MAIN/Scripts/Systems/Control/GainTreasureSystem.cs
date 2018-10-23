@@ -108,7 +108,7 @@ public class GainTreasureSystem : ComponentSystem {
 					//SEND QUEST TRIGGER
 					gainTreasure.questTrigger.isDoQuest.Add(true);
 				} else {
-					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure POWERARROW");
+					 // Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure POWERARROW");
 				}
 
 				//SHOW NOTIFICATION
@@ -117,14 +117,14 @@ public class GainTreasureSystem : ComponentSystem {
 
 				toolSystem.tool.Bow = 1;
 				ResetTool();
-				Debug.Log("RESET TOOL after got FIREARROW"); 
+				 // Debug.Log("RESET TOOL after got FIREARROW"); 
 				break;
 			case TreasureType.FISHINGROD: 
 				if (gainTreasure.questTrigger != null) {
 					//SEND QUEST TRIGGER
 					gainTreasure.questTrigger.isDoQuest.Add(true);
 				} else {
-					Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure FISHINGROD");
+					 // Debug.Log("No Quest Triggered on GainTreasureSystem.UseTreasure FISHINGROD");
 				}
 
 				//SHOW NOTIFICATION
@@ -134,7 +134,7 @@ public class GainTreasureSystem : ComponentSystem {
 
 				toolSystem.tool.FishingRod = 1;
 				ResetTool();
-				Debug.Log("RESET TOOL after got FISHINGROD");
+				 // Debug.Log("RESET TOOL after got FISHINGROD");
 				break;
 			case TreasureType.KEY: 
 				//SHOW NOTIFICATION

@@ -29,7 +29,7 @@ public class UVAnimationSystem : ComponentSystem {
                 try {
                     InitUV ();
                 } catch {
-                    Debug.Log("Something is wrong when initiating UVAnimation");
+                     // Debug.Log("Something is wrong when initiating UVAnimation");
                     continue;
                 }
 

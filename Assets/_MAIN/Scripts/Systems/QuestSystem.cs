@@ -48,7 +48,7 @@ public class QuestSystem : ComponentSystem {
 		// 	SaveQuest(quest.currentQuestIndex, 0);
 		// }
 
-		// Debug.Log("Init Quest");
+		//  // Debug.Log("Init Quest");
 		LoadQuest();
 
 		quest.isInitQuest = true;
@@ -60,10 +60,10 @@ public class QuestSystem : ComponentSystem {
 
 			quest.questCurrentPoint[i] = PlayerPrefs.GetInt(questCurrentPointStr, 0);
 
-			// Debug.Log(questCurrentPointStr);
+			//  // Debug.Log(questCurrentPointStr);
 			// if (CheckIfQuestIsComplete(i)) {
 			// 	quest.isQuestDoneForUI = true;
-			// 	Debug.Log("Quest "+i+" is Complete");
+			// 	 // Debug.Log("Quest "+i+" is Complete");
 			// }
 		}
 
@@ -75,7 +75,7 @@ public class QuestSystem : ComponentSystem {
 
 		PlayerPrefs.SetInt(questCurrentPointStr, value);
 
-		// Debug.Log(questCurrentPointStr);
+		//  // Debug.Log(questCurrentPointStr);
 	}
 
 	void CheckQuest () {
@@ -87,7 +87,7 @@ public class QuestSystem : ComponentSystem {
 	}
 
 	void ProcessQuest (int questIdx) {
-		// Debug.Log("QuestSystem ProcessQuest : "+questIdx);
+		//  // Debug.Log("QuestSystem ProcessQuest : "+questIdx);
 		quest.questCurrentPoint[questIdx]++;
 
 		if (CheckIfQuestIsComplete(questIdx)) {
@@ -98,7 +98,7 @@ public class QuestSystem : ComponentSystem {
 
 				if (areaDissolverSystem.CheckCurrentLevelbyQuest(questIdx)) {
 					areaDissolver.isDissolveArea = true;
-					Debug.Log("QuestSystem Dissolving Area Quest "+questIdx);
+					 // Debug.Log("QuestSystem Dissolving Area Quest "+questIdx);
 				}
 			}
 
@@ -111,7 +111,7 @@ public class QuestSystem : ComponentSystem {
 				textToShow = uiQuest.questTexts[questIdx].text;
 				textToShow += " <color=#00ff00ff>(COMPLETED!)</color>";				
 			}
-			Debug.Log("QuestSystem text to show: "+textToShow);
+			 // Debug.Log("QuestSystem text to show: "+textToShow);
 			for (int i=0;i<uiNotifData.Length;i++)
 			{
 				UINotif uiNotif = uiNotifData.uiNotif[i];
@@ -119,17 +119,17 @@ public class QuestSystem : ComponentSystem {
 				uiNotif.call = true;
 			}
 			
-			Debug.Log("QuestSystem Quest "+questIdx+" is Complete");
+			 // Debug.Log("QuestSystem Quest "+questIdx+" is Complete");
 			quest.isQuestDoneForUI = true;
 		}
 	}
 
 	public bool CheckIfQuestIsComplete (int questIdx) {
 		if (quest.questCurrentPoint[questIdx] >= quest.questPointRequired[questIdx]) {
-			// Debug.Log("IsQuest "+questIdx+" Complete "+true);
+			//  // Debug.Log("IsQuest "+questIdx+" Complete "+true);
 			return true;
 		} else {
-			// Debug.Log("IsQuest "+questIdx+" Complete "+false);
+			//  // Debug.Log("IsQuest "+questIdx+" Complete "+false);
 			return false;
 		}
 	}

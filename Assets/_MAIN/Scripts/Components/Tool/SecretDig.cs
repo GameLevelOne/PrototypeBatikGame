@@ -11,7 +11,7 @@ public class SecretDig : MonoBehaviour {
 	public bool isAlreadyDigged = false;
 
 	void OnTriggerEnter (Collider col) {
-		// Debug.Log("Secret dig hit : " + col.tag);
+		//  // Debug.Log("Secret dig hit : " + col.tag);
 		if (col.tag == Constants.Tag.DIG_RESULT) {
 			digResultPos = col.transform.position;
 			// digResultPos = new Vector3 (digResultPos.x, posY, digResultPos.z);

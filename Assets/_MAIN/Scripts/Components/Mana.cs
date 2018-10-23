@@ -23,7 +23,7 @@ public class Mana : MonoBehaviour {
 
 	public float PlayerMP {
 		get{
-			// Debug.Log("Player Remaining MP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP));
+			//  // Debug.Log("Player Remaining MP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP));
 			return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MP, mana);}
 		set{
 			if (PlayerMP == value) return;

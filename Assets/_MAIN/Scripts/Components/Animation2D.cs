@@ -18,7 +18,7 @@ public class Animation2D : MonoBehaviour {
 			isFinishAnyAnim = value;
 
 			if (value) {
-				// Debug.Log("Set isFinishAnyAnim TRUE");
+				//  // Debug.Log("Set isFinishAnyAnim TRUE");
 			}
 		}
 	}
@@ -57,12 +57,12 @@ public class Animation2D : MonoBehaviour {
 	#region Player and Enemy Animation
 	void StartAnimation () {
 		// isCheckBeforeAnimation = false;
-		// Debug.Log("isCheckBeforeAnimation = false");
+		//  // Debug.Log("isCheckBeforeAnimation = false");
 	}
 
 	void ExitAnimation () {
 		isCheckAfterAnimation = false;
-		// Debug.Log("Check after animation FALSE");
+		//  // Debug.Log("Check after animation FALSE");
 	}
 
 	void SpawnSomethingOnAnimation () {
@@ -77,12 +77,12 @@ public class Animation2D : MonoBehaviour {
 	#region Stand Animation
 	void StartStandAnimation () {
 		isCheckBeforeStandAnimation = false;
-		// Debug.Log("Set isCheckBeforeStandAnimation FALSE StartStan");
+		//  // Debug.Log("Set isCheckBeforeStandAnimation FALSE StartStan");
 	}
 	
 	void ExitStandAnimation () {
 		isCheckAfterStandAnimation = false;
-		// Debug.Log("Set isCheckAfterStandAnimation FALSE ExitStand");
+		//  // Debug.Log("Set isCheckAfterStandAnimation FALSE ExitStand");
 	}
 	#endregion
 }

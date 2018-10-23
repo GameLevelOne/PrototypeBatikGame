@@ -40,7 +40,7 @@ public class BeehiveSystem : ComponentSystem{
 			currBeehive.TSpawn -= deltaTime;
 			if(currBeehive.TSpawn <= 0f) currBeehive.flagSpawn = true;
 		}else{
-			// Debug.Log("SPAWN!");
+			//  // Debug.Log("SPAWN!");
 			GameObject currentBeeObj = GameObject.Instantiate(currBeehive.prefabBee,currBeehiveTransform.position,Quaternion.identity) as GameObject;
 			Bee currentBee = currentBeeObj.GetComponent<Bee>();
 			currentBee.beeHiveTransform = currBeehiveTransform;
@@ -71,7 +71,7 @@ public class BeehiveSystem : ComponentSystem{
 
 		foreach(Bee bee in currBeehive.currentBees){
 			if(currBeehive.playerObject != null){
-				//Debug.Log("SET BEE TO CHASE");
+				// // Debug.Log("SET BEE TO CHASE");
 				bee.enemy.playerTransform = currBeehive.playerObject.transform;
 				bee.enemy.state = EnemyState.Chase;
 			}else{

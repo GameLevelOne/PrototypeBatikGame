@@ -54,7 +54,7 @@ public class NPCDialogSystem : ComponentSystem {
 
 	void ShowDialogWithIndex() {
 		currentDialog.dialogDeltaTime += deltaTime;
-		// Debug.Log("Dialog Delta Time: "+currentDialog.dialogDeltaTime);
+		//  // Debug.Log("Dialog Delta Time: "+currentDialog.dialogDeltaTime);
 
 		if (currentDialog.dialogDeltaTime>=currentDialog.showTextDuration) {//SHOW NEXT LETTER AFTER DELAY
 			currentDialog.dialogDeltaTime = 0f;
@@ -104,11 +104,11 @@ public class NPCDialogSystem : ComponentSystem {
 				InitDialog(false);
 				if (currentNPC.npcType == NPCType.SHOP) {
 					if (!currentNPC.uiShop.isOpeningShop) {
-						Debug.Log("Open Shop!");
+						 // Debug.Log("Open Shop!");
 						currentNPC.uiShop.isOpeningShop = true;
 					}
 				} else if (currentNPC.npcType == NPCType.OPENING) {
-					Debug.Log("Send Event to timeline !!!");
+					 // Debug.Log("Send Event to timeline !!!");
 					currentNPC.GetComponent<NPCOpening>().EndOpeningDialogue();
 				} 
 			}

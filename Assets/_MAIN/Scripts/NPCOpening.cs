@@ -31,7 +31,7 @@ public class NPCOpening : MonoBehaviour {
 		npc.state = NPCState.INTERACT;
 		npc.IsInteracting = true;
 
-		// Debug.Log("Finish set opening");
+		//  // Debug.Log("Finish set opening");
 	}
 
 	public void EndOpeningDialogue () {

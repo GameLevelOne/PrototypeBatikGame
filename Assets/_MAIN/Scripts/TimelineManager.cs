@@ -89,11 +89,11 @@ public class TimelineManager : MonoBehaviour {
 
 		SetPlayableInitTime(startDialogueInitTime);
 		OnWaitingDialogue(dialogList,startTime,endTime);
-		// Debug.Log("START DIALOGUE SESSION");
+		//  // Debug.Log("START DIALOGUE SESSION");
 	}
 
 	void OnWaitingDialogue (string[] dialogList,double startTime,double endTime) {
-		// Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
+		//  // Debug.Log("REPEAT IDLE ANIMATION FOR DIALOGUE SESSION");
 		playableDirector.Stop();
 		playableDirector.DeferredEvaluate(); //IMPORTANT
 		playableDirector.Play();
@@ -103,7 +103,7 @@ public class TimelineManager : MonoBehaviour {
 		// playableDirector.initialTime = endDialogueInitTime;
 		SetPlayableInitTime(endDialogueInitTime);
 		OnWaitingDialogue(null,startDialogueInitTime,endDialogueInitTime);
-		// Debug.Log("END DIALOGUE SESSION");
+		//  // Debug.Log("END DIALOGUE SESSION");
 	}
 
 	void OnEndOpeningMKF () {
@@ -120,7 +120,7 @@ public class TimelineManager : MonoBehaviour {
 		SoundManager.Instance.PlayBGM(cutScene22Complete == 1 ? BGM.MainAfterCutScene22 : BGM.MainBeforeCutScene22);
 		SavePlayedTimeline ();
 		//
-		// Debug.Log("STOP TIMELINE");
+		//  // Debug.Log("STOP TIMELINE");
 	}
 #endregion
 
@@ -135,8 +135,8 @@ public class TimelineManager : MonoBehaviour {
 		}
 
 		playerTransform.position = new Vector3(21f,0.9f,25f);
-		Debug.Log(playerTransform.position);
-		Debug.Log(playerTransform.localPosition);
+		 // Debug.Log(playerTransform.position);
+		 // Debug.Log(playerTransform.localPosition);
 		playerSpriteTransform.localPosition = new Vector3(0f,-0.9f,0f);
 		camera22Transform.position = new Vector3(17f,10f,13f);
 		SavePlayedTimeline ();
@@ -160,7 +160,7 @@ public class TimelineManager : MonoBehaviour {
 	void OnEndBossArea () {
 		playableDirector.enabled = false;
 		playerEntity.enabled = true;
-		Debug.Log("OnEndBossArea TIMELINE");
+		 // Debug.Log("OnEndBossArea TIMELINE");
 		//SavePlayedTimeline ();
 	}
 

@@ -58,7 +58,7 @@ public class PlayerAttackSystem : ComponentSystem {
 		int attackMode = input.attackMode;
 		
 		if (attack.isAttacking && attackMode != 0) {
-			// Debug.Log("PlayerState = "+state);
+			//  // Debug.Log("PlayerState = "+state);
 			if (state == PlayerState.ATTACK || state == PlayerState.BLOCK_ATTACK || state == PlayerState.CHARGE || state == PlayerState.RAPID_SLASH || state == PlayerState.BOW) {
 				// || state == PlayerState.COUNTER
 				SpawnSlashEffect(attackMode);
@@ -91,7 +91,7 @@ public class PlayerAttackSystem : ComponentSystem {
                 SpawnArrowAttackObj (attack.regularArrow[facingID]);
                 break;
         }
-		// Debug.Log("SpawnSlashEffect "+mode);
+		//  // Debug.Log("SpawnSlashEffect "+mode);
 		attack.isAttacking = false;
     }
 
@@ -124,7 +124,7 @@ public class PlayerAttackSystem : ComponentSystem {
         GameObject spawnedObj = GameObject.Instantiate(obj, targetPos, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
-		// Debug.Log(spawnedObj.transform.GetChild(0).name);
+		//  // Debug.Log(spawnedObj.transform.GetChild(0).name);
 		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
 		spawnedObj.GetComponent<Arrow>().playerTransform = attack.transform;

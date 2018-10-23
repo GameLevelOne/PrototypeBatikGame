@@ -19,7 +19,7 @@ public class Stone : MonoBehaviour {
 		get {return localhit;}
 		set {
 			localhit = value;
-			Debug.Log(value);
+			 // Debug.Log(value);
 		}
 	}
 

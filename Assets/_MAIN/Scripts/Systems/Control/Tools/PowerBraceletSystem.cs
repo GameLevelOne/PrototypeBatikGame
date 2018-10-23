@@ -107,7 +107,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		} else {
 			powerBracelet.SetState(PowerBraceletState.NONE);
 		}
-		// Debug.Log("CheckLiftableObject");
+		//  // Debug.Log("CheckLiftableObject");
 		isDoneCheckState = true;
 	}
 
@@ -122,7 +122,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		} else if (state == PowerBraceletState.GRAB) {
 			input.liftingMode = 1;
 		}
-		// Debug.Log("SetLiftableInput");
+		//  // Debug.Log("SetLiftableInput");
 		powerBracelet.isInteracting = false;
 		isDoneCheckState = false;
 		// isCanSetLiftableInput = false;
@@ -264,7 +264,7 @@ public class PowerBraceletSystem : ComponentSystem {
 		} else if (dirID == 4){ //right
 			return new Vector3(x+1, 0f, 0f);
 		} else {
-			Debug.Log("Something wrong in Power Bracelet throw direction");
+			 // Debug.Log("Something wrong in Power Bracelet throw direction");
 			return new Vector3(0f, 0f, 0f);
 		}
 	}

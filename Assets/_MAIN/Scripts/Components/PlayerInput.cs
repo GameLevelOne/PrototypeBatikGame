@@ -92,7 +92,7 @@ public class PlayerInput : MonoBehaviour {
 					calculatedMoveDir = value;
 				}
 			}
-			// Debug.Log(value);
+			//  // Debug.Log(value);
 			currMoveDir = calculatedMoveDir;
 		}
 	}
@@ -143,7 +143,7 @@ public class PlayerInput : MonoBehaviour {
 	// 		attackMode = value;
 			
 	// 		if (value >= 1 && slashComboVal.Count < 3) { //SLASH
-	// 			Debug.Log("ComboAdd "+ attackMode);
+	// 			 // Debug.Log("ComboAdd "+ attackMode);
 	// 			slashComboVal.Add(attackMode);
 	// 		}
 	// 	}

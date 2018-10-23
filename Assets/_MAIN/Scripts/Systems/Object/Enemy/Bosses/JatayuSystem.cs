@@ -56,7 +56,7 @@ public class JatayuSystem : ComponentSystem {
 			jatayu.maxHealth = jatayuHealth.EnemyHP;
 			jatayu.movementAnim.speed = 0f;
 			jatayu.movementAnim.Play("Animate",0, (12f/40f) );
-			Debug.Log("Finish Init Jatayu");
+			 // Debug.Log("Finish Init Jatayu");
 		}
 	}
 

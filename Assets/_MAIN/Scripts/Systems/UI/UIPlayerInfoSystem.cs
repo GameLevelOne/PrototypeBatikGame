@@ -70,14 +70,14 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 			if (!uiInfo.isInitUIInfo) {
 				try {
-					// Debug.Log("Start init UIPlayerInfoSystem");
+					//  // Debug.Log("Start init UIPlayerInfoSystem");
 					InitPlayerInfo ();
 				} catch (System.Exception e) {
-					Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
+					 // Debug.Log("Error init UIPlayerInfoSystem \n ERROR : "+e);
 					return;
 				}
 
-				// Debug.Log("Success init UIPlayerInfoSystem");
+				//  // Debug.Log("Success init UIPlayerInfoSystem");
 				uiInfo.isInitUIInfo = true;
 			} else {
 				isPlayingAnimation = uiInfo.isPlayingAnimation;
@@ -109,7 +109,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 	}
 
 	void InitTool () {
-		// Debug.Log("UIPlayerInfoSystem "+toolSystem.tool.currentTool);
+		//  // Debug.Log("UIPlayerInfoSystem "+toolSystem.tool.currentTool);
 		listOfToolsNSummons = new List<ButtonToolNSummon>();
 
 		for (int i=0; i<uiInfo.listOfButtonToolsNSummons.Count; i++) {
@@ -177,7 +177,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 
 	void CheckActiveTool () {
 		for (int i=0; i<listOfToolsNSummons.Count; i++) {
-			// Debug.Log(i);
+			//  // Debug.Log(i);
 			if (toolSystem.tool.currentTool == listOfToolsNSummons[i].buttonToolNSummonType) {
 				usedToolNSummonIdx = i;
 				selectedToolNSummonIdx = i;
@@ -191,7 +191,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 					uiInfo.listOfButtonToolsNSummons[i].interactable = true;
 					ChangeUnSelectedButtonSprite(i);
 					CheckContainerImage(i);
-					// Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
+					//  // Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
 				} else {
 					uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 					ChangeUnSelectedButtonSprite(i);
@@ -253,7 +253,7 @@ public class UIPlayerInfoSystem : ComponentSystem {
 					uiInfo.listOfButtonToolsNSummons[i].interactable = true;
 					ChangeUnSelectedButtonSprite(i);
 					CheckContainerImage(i);
-					// Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
+					//  // Debug.Log(uiToolsNSummons.listOfButtonToolsNSummons[i].name+" is unlocked");
 				} else {
 					uiInfo.listOfButtonToolsNSummons[i].interactable = false;
 					ChangeUnSelectedButtonSprite(i);

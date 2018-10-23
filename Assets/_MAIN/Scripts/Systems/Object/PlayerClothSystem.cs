@@ -88,11 +88,11 @@ public class PlayerClothSystem : ComponentSystem {
 
 	void DrawClothHP () {
 		playerCloth.clothRenderer.material.SetFloat("_Level", healthThreshold);
-		// Debug.Log(healthThreshold);
+		//  // Debug.Log(healthThreshold);
 	}
 
 	void CheckDirection () {
-		// Debug.Log(playerCloth.currentDirID+" : "+facing.DirID);
+		//  // Debug.Log(playerCloth.currentDirID+" : "+facing.DirID);
 		if (playerCloth.currentDirID != facing.DirID) {
 			playerCloth.currentDirID = facing.DirID;
 			int currentDirID = playerCloth.currentDirID;
@@ -127,10 +127,10 @@ public class PlayerClothSystem : ComponentSystem {
 
 				if (playerCloth.randomMultiplierToggle) {
 					newAccel.y += deltaTime * playerCloth.addRandomAccel;
-					// Debug.Log("True : "+newAccel.y);
+					//  // Debug.Log("True : "+newAccel.y);
 				} else {
 					newAccel.y -= deltaTime * playerCloth.addRandomAccel;
-					// Debug.Log("false : "+newAccel.y);
+					//  // Debug.Log("false : "+newAccel.y);
 				}
 
 				playerCloth.cloth.externalAcceleration = newAccel;

@@ -43,7 +43,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 		if (!isInitEnableTrigger) {
 			isInitEnableTrigger = true;
 		} else {
-			// Debug.Log("Call something "+type);
+			//  // Debug.Log("Call something "+type);
 			if (type == TimelineEventType.NPC_OPENING_DIALOGUE) {
 				if (!isInitEvent) {	
 					if (OnNPCStartDialogue != null) {
@@ -90,7 +90,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 						OnEndBossArea();
 					}
 
-					Debug.Log("OnEndBossArea isInitEvent");
+					 // Debug.Log("OnEndBossArea isInitEvent");
 					isInitEvent = true;
 				}
 			}	
@@ -101,7 +101,7 @@ public class TimelineEventTrigger : MonoBehaviour {
 		// if (!isInitDisableTrigger) {
 		// 	isInitDisableTrigger = true;
 		// } else {
-			// Debug.Log("End Call "+type);
+			//  // Debug.Log("End Call "+type);
 		// }
 	}
 

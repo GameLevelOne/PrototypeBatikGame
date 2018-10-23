@@ -137,12 +137,12 @@ public class FishSystem : ComponentSystem {
 		if (waitingTimer < randomWaitingDuration) {
 			waitingTimer += Time.deltaTime;
 		} else {
-			Debug.Log("end waiting");
+			 // Debug.Log("end waiting");
 			// if (randomTryingGrabTime > 0) {
 			// 	if (randomTryingGrabTime % 2 == 0) {
 			// 		if (isObjReachDestination(fish.targetPos, rigidbody.position)) {
 			// 			randomTryingGrabTime--;
-			// 			Debug.Log("go to : "+readyPos);
+			// 			 // Debug.Log("go to : "+readyPos);
 			// 			return;
 			// 		} else {
 			// 			Move (rigidbody.position, fish.targetPos, fish.moveSpeed);
@@ -150,7 +150,7 @@ public class FishSystem : ComponentSystem {
 			// 	} else {
 			// 		if (isObjReachDestination(readyPos, rigidbody.position)) {
 			// 			fish.randomTryingGrabTime--;
-			// 			Debug.Log("go to : "+fish.targetPos);
+			// 			 // Debug.Log("go to : "+fish.targetPos);
 			// 			return;
 			// 		} else {
 			// 			Move (rigidbody.position, readyPos, fish.moveSpeed);

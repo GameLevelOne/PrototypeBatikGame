@@ -55,7 +55,7 @@ public class Ghost : MonoBehaviour {
 
 	void SetIsAttacking(GameObject playerObj){
 		isAttacking = playerObj == null ? false : true;
-		Debug.Log("IS ATTACKING = "+isAttacking);
+		 // Debug.Log("IS ATTACKING = "+isAttacking);
 	}
 
 	void Awake()

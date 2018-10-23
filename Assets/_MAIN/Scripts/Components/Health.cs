@@ -44,7 +44,7 @@ public class Health : MonoBehaviour {
 
 	public float PlayerHP {
 		get{
-			// Debug.Log("get PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
+			//  // Debug.Log("get PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
 			return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);}
 		set{
 			if (healthPower == value) return;
@@ -56,7 +56,7 @@ public class Health : MonoBehaviour {
 
 			PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP, healthPower);
 			
-			// Debug.Log("set PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
+			//  // Debug.Log("set PlayerHP :"+PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_HP));
 			if (OnHPChange != null) {
 				OnHPChange();
 			}
@@ -71,7 +71,7 @@ public class Health : MonoBehaviour {
 		} 
 
 		// if (role.gameRole == GameRole.Player) {
-		// 	Debug.Log(other.name +" Have DAMAGE");
+		// 	 // Debug.Log(other.name +" Have DAMAGE");
 		// } else if (role.gameRole == GameRole.Enemy) {
 		// }
 	}
@@ -82,7 +82,7 @@ public class Health : MonoBehaviour {
 		if(OnDamageCheck != null) {
 			OnDamageCheck(other.gameObject.GetComponent<Damage>());
 		} 
-		// Debug.Log(other.gameObject.name +" Have DAMAGE");
+		//  // Debug.Log(other.gameObject.name +" Have DAMAGE");
 	}
 
 #region OLD
@@ -105,7 +105,7 @@ public class Health : MonoBehaviour {
 		// 		player.isPlayerHit = true;
 
 		// 		if (player.isParrying || player.isBulletTiming || (playerState == PlayerState.SLOW_MOTION) || (playerState == PlayerState.RAPID_SLASH)) {
-		// 			Debug.Log ("Player ignored damage");
+		// 			 // Debug.Log ("Player ignored damage");
 		// 		} else if (player.isGuarding) {
 		// 			player.isPlayerGetHurt = true;
 		// 			// damage *= guardReduceDamage;
@@ -133,7 +133,7 @@ public class Health : MonoBehaviour {
 		// 		// enemy.isEnemyGetHurt = true;
 		// 		// damage = initialDamage;
 		// 	} else {
-		// 		Debug.Log("Enemy get damaged from other source");
+		// 		 // Debug.Log("Enemy get damaged from other source");
 		// 	}
 		// }
 	// }
@@ -154,7 +154,7 @@ public class Health : MonoBehaviour {
 		// 		// enemy.isEnemyHit = true;
 		// 		// enemy.isEnemyGetHurt = true;
 		// 		// damage = initialDamage;
-		// 		Debug.Log("Enemy get damaged from player dash");
+		// 		 // Debug.Log("Enemy get damaged from player dash");
 		// 	}
 		// }
 	// }

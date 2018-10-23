@@ -19,7 +19,7 @@ public class CameraMovement : MonoBehaviour {
 	// {
 	// 	float screenHeightInUnits = GetComponent<Camera>().orthographicSize * 2;
 	// 	float screenWidthInUnits = screenHeightInUnits * Screen.width / Screen.height;
-	// 	Debug.Log("screenHeightInUnits = "+screenHeightInUnits);
-	// 	Debug.Log("screenWidthInUnits = "+screenWidthInUnits);
+	// 	 // Debug.Log("screenHeightInUnits = "+screenHeightInUnits);
+	// 	 // Debug.Log("screenWidthInUnits = "+screenWidthInUnits);
 	// }
 }

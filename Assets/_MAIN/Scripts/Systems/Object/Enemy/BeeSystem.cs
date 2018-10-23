@@ -75,7 +75,7 @@ public class BeeSystem : ComponentSystem {
 				//SEND QUEST TRIGGER
 				currBee.questTrigger.isDoQuest.Add(true);
 			} else {
-				// Debug.Log("No Quest Triggered");
+				//  // Debug.Log("No Quest Triggered");
 			}
 
 			if (currBee.beeHive!=null) {
@@ -88,7 +88,7 @@ public class BeeSystem : ComponentSystem {
 				//SEND CHEST SPAWNER TRIGGER
 				currBee.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
-				// Debug.Log("No ChestSpawner Triggered");
+				//  // Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currBee.gameObject);
@@ -204,7 +204,7 @@ public class BeeSystem : ComponentSystem {
 	}
 
 	void KnockBack () {
-		// Debug.Log("Set KnockBack");
+		//  // Debug.Log("Set KnockBack");
 		Vector3 damageSourcePos = currEnemy.damageSourcePos;
 		
 		Vector3 resultPos = new Vector3 (currBeeTransform.position.x-damageSourcePos.x, 0f, currBeeTransform.position.z-damageSourcePos.z);
@@ -292,14 +292,14 @@ public class BeeSystem : ComponentSystem {
 	void Attack()
 	{
 		if(!currEnemy.initAttack){
-			// Debug.Log("Check initAttack false");
+			//  // Debug.Log("Check initAttack false");
 			// currBee.attackCodeFX.SetActive(false);
 			if(!currEnemy.isAttack){
-				// Debug.Log("Check isAttack false");
+				//  // Debug.Log("Check isAttack false");
 				currEnemy.state = EnemyState.Chase;
 				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_CHASE);
 			}else{
-				// Debug.Log("Check isAttack true");
+				//  // Debug.Log("Check isAttack true");
 				// if(!currBee.initAttackHitPosition){
 				// 	currBee.initAttackHitPosition = true;
 					currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
@@ -373,7 +373,7 @@ public class BeeSystem : ComponentSystem {
 
 		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
 			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
-			// Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
+			//  // Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
 			return currBeeRigidbody.position + vecticalizeVector * speed * deltaTime;
 		} else {
 			return currBeeRigidbody.position + deltaPos * speed * deltaTime;

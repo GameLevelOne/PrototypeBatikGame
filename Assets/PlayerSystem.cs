@@ -31,9 +31,9 @@ public class PlayerSystem : ComponentSystem {
 			if (!player.isInitAttackAreaObj) {
 				try {
 					InitAttackAreaObj();
-					Debug.Log("Finish Init Player AttackAreaObj");
+					 // Debug.Log("Finish Init Player AttackAreaObj");
 				} catch (System.Exception e) {
-					Debug.Log("PlayerSystem ERROR : "+e);
+					 // Debug.Log("PlayerSystem ERROR : "+e);
 
 					GameObject.Destroy(playerAttackAreaObj);
 					UpdateInjectedComponentGroups();

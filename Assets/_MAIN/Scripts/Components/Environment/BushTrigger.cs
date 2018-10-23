@@ -15,9 +15,9 @@ public class BushTrigger : MonoBehaviour {
 
 	// void OnCollisionEnter (Collision other){
 	// 	if(other.gameObject.GetComponent<Damage>() != null){
-	// 		Debug.Log("Collision "+other.gameObject.name);
+	// 		 // Debug.Log("Collision "+other.gameObject.name);
 	// 		if(other.gameObject.GetComponent<Damage>().isAffectBush){
-	// 			// Debug.Log("AFFECT GRASS");
+	// 			//  // Debug.Log("AFFECT GRASS");
 	// 			bush.destroy = true;
 	// 		}
 	// 	}

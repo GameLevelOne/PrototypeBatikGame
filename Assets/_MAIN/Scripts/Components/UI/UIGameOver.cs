@@ -31,7 +31,7 @@ public class UIGameOver : MonoBehaviour {
 	#region animation event
 	void EndShowing()
 	{
-		// Debug.Log("ENDHOWING CALLED");
+		//  // Debug.Log("ENDHOWING CALLED");
 		endShow = true;
 		Time.timeScale = 0f;
 	}

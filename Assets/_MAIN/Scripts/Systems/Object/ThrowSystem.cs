@@ -39,7 +39,7 @@ public class ThrowSystem : ComponentSystem {
 			
 			if (state == LiftableState.THROW) {
 				// Throw ();
-				// Debug.Log(liftable.gravityAwakeTimer);
+				//  // Debug.Log(liftable.gravityAwakeTimer);
 				if (liftable.gravityAwakeTimer < 0f) {
 				    mainObjRb.useGravity = true;
 
@@ -110,16 +110,16 @@ public class ThrowSystem : ComponentSystem {
 	// 		dist = temp;
 
 	// 		if (dist > throwRange / 1.5f) { // >2
-	// 			// Debug.Log("Up");
+	// 			//  // Debug.Log("Up");
 	// 			// downCurve = new Vector3(0f,mainObjPos.y + 1f,-1f);
 	// 		} else if (dist > throwRange / 3) { // <1
-	// 			// Debug.Log("Steady");
+	// 			//  // Debug.Log("Steady");
 	// 			// downCurve = new Vector3(0f,mainObjPos.y,-1f);
 	// 		} else {
 	// 			// downCurve = new Vector3(0f,0f,-1f);
-	// 			// Debug.Log("Down");
+	// 			//  // Debug.Log("Down");
 	// 		}
-	// 		// Debug.Log(dist);
+	// 		//  // Debug.Log(dist);
 
 	// 		// mainObjTransform.localPosition = Vector3.Lerp(mainObjPos, downCurve, dist * moveTime); Curve Move			
 	// 		return true;

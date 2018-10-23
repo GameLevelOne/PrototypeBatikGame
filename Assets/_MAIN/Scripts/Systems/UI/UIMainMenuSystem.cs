@@ -113,7 +113,7 @@ public class UIMainMenuSystem : ComponentSystem {
 				uiMainmenu.nextPortal.sceneDestination = PlayerPrefs.GetString(Constants.PlayerPrefKey.LEVEL_CURRENT);
 				uiMainmenu.nextPortal.GetComponent<BoxCollider>().enabled = true;
 			} else {//EXIT
-				Debug.Log("EXIT GAME");
+				 // Debug.Log("EXIT GAME");
 				if (!Application.isEditor) System.Diagnostics.Process.GetCurrentProcess().Kill();
 			}
 		}
@@ -163,7 +163,8 @@ public class UIMainMenuSystem : ComponentSystem {
 		for (int i=0; i<4; i++) {
 			PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_CONTAINER + i, 0);
 		} 
-
+		
+		PlayerPrefs.GetInt(Constants.PlayerPrefKey.LEVEL_PLAYER_START_POS,0);
 		PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_DEBUG_ATTACK_AREA, 0);
 	}
 }

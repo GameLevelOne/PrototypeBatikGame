@@ -34,7 +34,7 @@ public class PlayerTool : MonoBehaviour {
 	public ToolType currentTool {
 		get {return (ToolType) PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, savedToolIdx);}
 		set {
-			// Debug.Log("Save Tool "+savedToolIdx+". "+(ToolType) savedToolIdx);
+			//  // Debug.Log("Save Tool "+savedToolIdx+". "+(ToolType) savedToolIdx);
 
 			// if ((ToolType) savedToolIdx != value) {
 				PlayerPrefs.SetInt(Constants.PlayerPrefKey.PLAYER_SAVED_TOOL, (int) value);
@@ -90,7 +90,7 @@ public class PlayerTool : MonoBehaviour {
 		PowerBracelet = 0; //
 		Flippers = 0; //
 		Boots = 1;
-		// Debug.Log("SetAvailableTools");
+		//  // Debug.Log("SetAvailableTools");
 
 		if (savedToolIdx == 0) savedToolIdx = 3;
 	}
@@ -128,7 +128,7 @@ public class PlayerTool : MonoBehaviour {
             case 18:
                 return bootsObj;
 			default:
-				Debug.Log("Unknown Tool Object");
+				 // Debug.Log("Unknown Tool Object");
 				return null;
         }
     }
@@ -172,7 +172,7 @@ public class PlayerTool : MonoBehaviour {
             case 18:
                 return Boots;
 			default:
-				// Debug.Log("Tools NONE");
+				//  // Debug.Log("Tools NONE");
 				return 0;
         }
 	}
@@ -194,7 +194,7 @@ public class PlayerTool : MonoBehaviour {
             case 18:
                 return bootsObj.GetComponent<ToolMana>().manaCost;
 			default:
-				Debug.Log("Unknown Tool Object");
+				 // Debug.Log("Unknown Tool Object");
 				return 0;
         }
 	}

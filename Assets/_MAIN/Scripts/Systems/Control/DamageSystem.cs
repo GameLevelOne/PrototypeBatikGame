@@ -35,7 +35,7 @@ public class DamageSystem : ComponentSystem {
 		} else if (role.gameRole == GameRole.Boss) {
 			CalculateDamageToBoss();
 		} else {
-			// Debug.Log("Unknown Role");
+			//  // Debug.Log("Unknown Role");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class DamageSystem : ComponentSystem {
 						health.PlayerHP = ReducePlayerHP(health.PlayerHP, damage, playerTransform.position);
 					} else {
 						if (!CheckIfPlayerIsOnSpecialAction(player, playerState)) {
-							// Debug.Log(playerState+" NOT SPECIAL ACTION");
+							//  // Debug.Log(playerState+" NOT SPECIAL ACTION");
 							player.SetPlayerState(PlayerState.GET_HURT);
 						}
 						
@@ -156,7 +156,7 @@ public class DamageSystem : ComponentSystem {
 				return true;
 			//
 			default: 
-				// Debug.Log("State "+playerState+" detected at DamageSystem is out of INVULNERABLE list");
+				//  // Debug.Log("State "+playerState+" detected at DamageSystem is out of INVULNERABLE list");
 				return false;
 		}
 	}
@@ -169,7 +169,7 @@ public class DamageSystem : ComponentSystem {
 			// 	return true;
 			//
 			default: 
-				// Debug.Log("State "+playerState+" detected at DamageSystem is out of SPECIAL_ACTION list");
+				//  // Debug.Log("State "+playerState+" detected at DamageSystem is out of SPECIAL_ACTION list");
 				return false;
 		}
 	}
@@ -182,7 +182,7 @@ public class DamageSystem : ComponentSystem {
 			// 	return true;
 			//
 			default: 
-				// Debug.Log("State "+playerState+" detected at DamageSystem is out of CANNOT_KNOCKEDBACK list");
+				//  // Debug.Log("State "+playerState+" detected at DamageSystem is out of CANNOT_KNOCKEDBACK list");
 				return false;
 		}
 	}
@@ -198,7 +198,7 @@ public class DamageSystem : ComponentSystem {
 				string damageTag = currEnemy.damageReceive.tag;
 				float damage = currEnemy.damageReceive.damage;
 				currEnemy.damageSourcePos = currEnemy.damageReceive.transform.position;
-				// Debug.Log(damageTag + " " + damage);
+				//  // Debug.Log(damageTag + " " + damage);
 
 				if(damageTag == Constants.Tag.HAMMER){
 					currEnemy.initDamaged = false;
@@ -251,7 +251,7 @@ public class DamageSystem : ComponentSystem {
 				currEnemy.playerThatHitsEnemy = playerInputSystem.player;
 				// currEnemy.damageSourcePos = damageTransform.position;
 			} else {
-				// Debug.Log("Damage Received Object Already Destroyed");
+				//  // Debug.Log("Damage Received Object Already Destroyed");
 			}
 
 			currEnemy.damageReceive = null;
@@ -286,7 +286,7 @@ public class DamageSystem : ComponentSystem {
 			Transform enemyTransform = currEnemy.transform;
 			string damageTag = currEnemy.damageReceive.tag;
 			float damage = currEnemy.damageReceive.damage;
-			// Debug.Log(damage);
+			//  // Debug.Log(damage);
 
 			if (!currEnemy.invulnerable) {
 				health.EnemyHP = ReduceEnemyHP(health.EnemyHP, damage, enemyTransform.position);
@@ -310,7 +310,7 @@ public class DamageSystem : ComponentSystem {
 		gameFXSystem.SpawnObj(gameFXSystem.gameFX.playerHitEffect, hitPos);
 
 		float randomHurtIdx = Random.Range(0f, 3f);
-		Debug.Log("randomHurtIdx");
+		 // Debug.Log("randomHurtIdx");
 		if (randomHurtIdx <= 1f) {
 			playerInputSystem.PlaySFXOneShot(PlayerInputAudio.HURT1);
 		} else if (randomHurtIdx >= 2f) {

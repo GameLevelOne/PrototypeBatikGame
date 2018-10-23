@@ -10,7 +10,7 @@ public static class Data {
 	// 		if (currentIsEnemyHit == value) return;
 
 	// 		currentIsEnemyHit = value;
-	// 		Debug.Log("currentIsEnemyHit " + currentIsEnemyHit);
+	// 		 // Debug.Log("currentIsEnemyHit " + currentIsEnemyHit);
 	// 	}
 	// }
 
@@ -20,7 +20,7 @@ public static class Data {
 	// 		if (currentIsPlayerHit == value) return;
 
 	// 		currentIsPlayerHit = value;
-	// 		Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
+	// 		 // Debug.Log("currentIsPlayerHit " + currentIsPlayerHit);
 	// 	}
 	// }
 }

@@ -41,7 +41,7 @@ public class PortalSystem : ComponentSystem {
 			currPortal.uiFader.state = FaderState.FadeOut;
 
 			string currentScene = SceneManager.GetActiveScene().name;
-			Debug.Log("=====Current Scene : "+currentScene+"=====");
+			 // Debug.Log("=====Current Scene : "+currentScene+"=====");
 			if (currentScene != systemManagerSystem.systemManager.menuSceneName) {
 				playerInputSystem.input.moveDir = GetDirection(currPortal.dir);
 			
@@ -57,7 +57,7 @@ public class PortalSystem : ComponentSystem {
 			if (currPortal.uiFader.initBlack) {
 				//change scene
 				if(portalToLoad!=null){
-					Debug.Log("Scene Destiantion = "+portalToLoad.sceneDestination);
+					 // Debug.Log("Scene Destiantion = "+portalToLoad.sceneDestination);
 					SceneManager.LoadScene(portalToLoad.sceneDestination);
 					portalToLoad = null;
 				}

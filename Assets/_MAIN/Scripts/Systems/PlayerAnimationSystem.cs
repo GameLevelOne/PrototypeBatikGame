@@ -48,7 +48,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		if (tool == null || attack == null) {
 			tool = standAnimationSystem.tool;
 			attack = playerAttackSystem.attack;
-			// Debug.Log("Player animation won't running");
+			//  // Debug.Log("Player animation won't running");
 			return;
 		}
 
@@ -126,7 +126,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			//Check Start Animation
 			anim.isCheckBeforeAnimation = false;
 			// if (animName == Constants.BlendTreeName.NORMAL_ATTACK_1) {
-			// 	// Debug.Log("Play Anim Slash 1");
+			// 	//  // Debug.Log("Play Anim Slash 1");
 			// }
 		} 
 	}
@@ -332,11 +332,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} 
 					// else if (input.interactMode == 7) { //GET BIG TREASURE
 					// 	if (input.interactValue == 0) {
-					// 		Debug.Log("LIFT UP TREASURE ANIMATION");
+					// 		 // Debug.Log("LIFT UP TREASURE ANIMATION");
 					// 	} else if (input.interactValue == 1) {
-					// 		Debug.Log("LIFTING TREASURE ANIMATION");
+					// 		 // Debug.Log("LIFTING TREASURE ANIMATION");
 					// 	} else if (input.interactValue == 2) {
-					// 		Debug.Log("LIFT DOWN TREASURE ANIMATION");
+					// 		 // Debug.Log("LIFT DOWN TREASURE ANIMATION");
 					// 	}
 					// }
 
@@ -415,7 +415,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							tool.isActToolReady = true;
 						}
 					}
-					Debug.Log("Bow");
+					 // Debug.Log("Bow");
 					anim.isFinishAttackAnimation = true;
 					break;
 				default:
@@ -464,7 +464,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					anim.isSpawnSomethingOnAnimation = true;
 					break;
 				case PlayerState.ATTACK: 
-					// Debug.Log("Start Attack "+input.attackMode);
+					//  // Debug.Log("Start Attack "+input.attackMode);
 					player.isMoveAttack = true;	
 					anim.isSpawnSomethingOnAnimation = true;
 					break;
@@ -503,7 +503,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						powerBraceletSystem.AddForceRigidbody();
 						powerBraceletSystem.ResetPowerBracelet();
 
-						// Debug.Log("Reset PB)");
+						//  // Debug.Log("Reset PB)");
 					} else if (input.liftingMode == 1) {
 						// powerBraceletSystem.SetTargetRigidbody (RigidbodyType2D.Static);
 						powerBraceletSystem.SetTargetRigidbodyType(0);
@@ -569,12 +569,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 	// 	// attack.isAttacking = false;
 	// 	StopAnyAnimation();
 	// 	// input.attackMode = 0;
-	// 	// Debug.Log("Reset AttackMode - StopAttacAnimation");
+	// 	//  // Debug.Log("Reset AttackMode - StopAttacAnimation");
 	// 	// player.isHitAnEnemy = false;
 	// }
 
 	void StopAnyAnimation () {
-		// Debug.Log("StopAnyAnimation");
+		//  // Debug.Log("StopAnyAnimation");
 		player.SetPlayerIdle();
 		anim.isFinishAnyAnimation = true;
 		anim.isFinishAttackAnimation = true;	
@@ -584,11 +584,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 		input.interactMode = 0;
 		tool.isActToolReady = false;
 		// input.liftingMode = 0;
-		// Debug.Log("Reset AttackMode - StopAnyAnimation");
+		//  // Debug.Log("Reset AttackMode - StopAnyAnimation");
 	}
 
 	// void CheckAttackCombo () {
-	// 	Debug.Log("CheckAttackCombo "+ input.slashComboVal.Count);
+	// 	 // Debug.Log("CheckAttackCombo "+ input.slashComboVal.Count);
 	// 	if (input.slashComboVal.Count == 0) {
 	// 		// player.isHitAnEnemy = false;
 	// 		StopAttackAnimation ();
@@ -605,11 +605,11 @@ public class PlayerAnimationSystem : ComponentSystem {
 					// 	if (input.slashComboVal.Count > 0) {			
 					// 		if (attackCombo == 3) {					
 					// 			input.slashComboVal.Clear();
-					// 			// Debug.Log("CheckEndAnimation AttackList CLEAR");
+					// 			//  // Debug.Log("CheckEndAnimation AttackList CLEAR");
 					// 		} else {
 					// 			//input.slashComboVal.RemoveAt(0);
 					// 		}
-					// 		Debug.Log("CheckEndAnimation "+ input.slashComboVal.Count);
+					// 		 // Debug.Log("CheckEndAnimation "+ input.slashComboVal.Count);
 
 					// 		StopAttackAnimation ();
 					// 		// CheckAttackCombo ();
@@ -781,7 +781,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 							input.interactValue = -1;
 							StopAnyAnimation ();
 							fishingRodSystem.ResetFishingRod();
-							Debug.Log("FAIL");
+							 // Debug.Log("FAIL");
 						} else {
 							StopAnyAnimation ();
 							
@@ -790,12 +790,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 							}
 							
 							fishingRodSystem.ResetFishingRod();
-							Debug.Log("SUCCESS");
+							 // Debug.Log("SUCCESS");
 						}
 					} else if (input.interactValue == -1) {
 						StopAnyAnimation ();
 						fishingRodSystem.ResetFishingRod();
-						Debug.Log("END FISHING");
+						 // Debug.Log("END FISHING");
 					}
 
 					break;
@@ -994,7 +994,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			// player.isHitAnEnemy = false;
 			// StopAttackAnimation ();
 		// } else {
-			// Debug.Log("Must Stop Attack Animation");
+			//  // Debug.Log("Must Stop Attack Animation");
 		// }
 	// }
 
@@ -1004,13 +1004,13 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// 		// if (input.slashComboVal.Count > 0) {
 		// 		// 	int slashComboVal = input.slashComboVal[0];			
 		// 		// 	// animator.SetFloat(Constants.AnimatorParameter.Float.SLASH_COMBO, slashComboVal);	
-		// 		// 	Debug.Log("slashComboVal = " + slashComboVal);
+		// 		// 	 // Debug.Log("slashComboVal = " + slashComboVal);
 		// 		// 	if (slashComboVal == 3) {					
 		// 		// 		input.slashComboVal.Clear();
-		// 		// 		Debug.Log("slashComboVal Clear");
+		// 		// 		 // Debug.Log("slashComboVal Clear");
 		// 		// 	} else {
 		// 		// 		input.slashComboVal.RemoveAt(0);
-		// 		// 		Debug.Log("slashComboVal RemoveAt(0)");
+		// 		// 		 // Debug.Log("slashComboVal RemoveAt(0)");
 		// 		// 	}
 		// 		// 	CheckAttackList ();
 		// 		// } else {

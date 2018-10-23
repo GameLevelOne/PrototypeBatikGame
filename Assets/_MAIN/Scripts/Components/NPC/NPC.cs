@@ -70,7 +70,7 @@ public class NPC : MonoBehaviour {
 
 			if (isInteracting && dialog!=null) {
 				dialog.dialogState = DialogState.SHOW;
-				// Debug.Log("OK");
+				//  // Debug.Log("OK");
 			} else if (isInteracting && uiSignPost!=null) {
 				uiSignPost.call = true;
 			}

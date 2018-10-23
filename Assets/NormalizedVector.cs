@@ -9,23 +9,23 @@ public class NormalizedVector : MonoBehaviour {
 	public void Execute()
 	{
 		Vector3 distance = B.position - A.position;
-		// Debug.Log("Distance = "+distance);
+		//  // Debug.Log("Distance = "+distance);
 		float magnitude = distance.magnitude;
-		// Debug.Log("Distance Magnitude = "+magnitude);
+		//  // Debug.Log("Distance Magnitude = "+magnitude);
 		Vector3 direction = distance / magnitude;
-		// Debug.Log("Direction = "+direction);
+		//  // Debug.Log("Direction = "+direction);
 
 		float x = direction.x;
 		float y = direction.y;
-		// Debug.Log(x);
-		// Debug.Log(y);
+		//  // Debug.Log(x);
+		//  // Debug.Log(y);
 
 		// if(Mathf.Abs (x) >= Mathf.Abs (y)){
-		// 	if(x >= 0) Debug.Log(Direction.Right);
-		// 	else Debug.Log (Direction.Left);
+		// 	if(x >= 0)  // Debug.Log(Direction.Right);
+		// 	else  // Debug.Log (Direction.Left);
 		// }else{
-		// 	if(y >= 0) Debug.Log(Direction.Up);
-		// 	else Debug.Log(Direction.Down);
+		// 	if(y >= 0)  // Debug.Log(Direction.Up);
+		// 	else  // Debug.Log(Direction.Down);
 		// }
 	}
 }

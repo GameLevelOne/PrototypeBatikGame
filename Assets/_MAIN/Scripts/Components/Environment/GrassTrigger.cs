@@ -8,7 +8,7 @@ public class GrassTrigger : MonoBehaviour {
 			grass.interact = true;
 		}else if(other.GetComponent<Damage>() != null){
 			if(other.GetComponent<Damage>().isAffectGrass){
-				// Debug.Log("AFFECT GRASS");
+				//  // Debug.Log("AFFECT GRASS");
 				grass.destroy = true;
 			}
 		}

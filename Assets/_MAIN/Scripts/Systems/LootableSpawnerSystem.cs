@@ -34,7 +34,7 @@ public class LootableSpawnerSystem : ComponentSystem {
 
 	public void CheckPlayerLuck (float probability, Vector3 spawnPos) {
 		float luckyNumber = Random.value;
-		// Debug.Log("luckyNumber : "+luckyNumber+"\n probability : "+probability);
+		//  // Debug.Log("luckyNumber : "+luckyNumber+"\n probability : "+probability);
 		if (luckyNumber <= probability) {	
 			int randomItemIdx = Random.Range(0, lootablesQty);
 			Lootable lootable = lootableSpawner.lootables[randomItemIdx];

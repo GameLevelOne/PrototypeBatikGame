@@ -29,28 +29,28 @@ public class PlayerCounterTrigger : MonoBehaviour {
 
 	bool CheckCounterDir (Vector3 currEnemyPos, Vector3 playerPos) {
 		Vector3 deltaPos = (currEnemyPos - playerPos).normalized;
-		// Debug.Log("enemyPos "+currEnemyPos);
-		// Debug.Log("playerPos "+playerPos);
-		// Debug.Log("normalized " +deltaPos);
+		//  // Debug.Log("enemyPos "+currEnemyPos);
+		//  // Debug.Log("playerPos "+playerPos);
+		//  // Debug.Log("normalized " +deltaPos);
 
 		switch (player.counterDir) {
 			case 1: 
-				// Debug.Log("1 DOWN");
+				//  // Debug.Log("1 DOWN");
 				if ((deltaPos.z > 0f && deltaPos.z <= 1f) && (deltaPos.x >= -minDiagonalThreshold && deltaPos.x <= minDiagonalThreshold)) {
 					return true;
 				} else return false;
 			case 2: 
-				// Debug.Log("2 LEFT");
+				//  // Debug.Log("2 LEFT");
 				if ((deltaPos.x > 0f &&deltaPos.x <= 1f) && (deltaPos.z >= -minDiagonalThreshold && deltaPos.z <= minDiagonalThreshold)) {
 					return true;
 				} else return false;
 			case 3: 
-				// Debug.Log("3 UP");
+				//  // Debug.Log("3 UP");
 				if ((deltaPos.z < 0f && deltaPos.z >= -1f) && (deltaPos.x >= -minDiagonalThreshold && deltaPos.x <= minDiagonalThreshold)) {
 					return true;
 				} else return false;
 			case 4: 
-				// Debug.Log("4 RIGHT");
+				//  // Debug.Log("4 RIGHT");
 				if ((deltaPos.x < 0f && deltaPos.x >= -1f) && (deltaPos.z >= -minDiagonalThreshold && deltaPos.z <= minDiagonalThreshold)) {
 					return true;
 				} else return false;

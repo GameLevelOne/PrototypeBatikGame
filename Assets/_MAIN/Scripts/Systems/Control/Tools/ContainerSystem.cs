@@ -56,17 +56,17 @@ public class ContainerSystem : ComponentSystem {
 	}
 
 	// void ProcessCoin (LootableType type, int price) {
-	// 	Debug.Log("Your have "+GameStorage.Instance.PlayerCoin+" coins");
+	// 	 // Debug.Log("Your have "+GameStorage.Instance.PlayerCoin+" coins");
 	// 	if (price <= GameStorage.Instance.PlayerCoin) {
 	// 		if (SaveToContainer (type)) {
-	// 			Debug.Log("You have buy item "+type+" for "+price+" coins");
+	// 			 // Debug.Log("You have buy item "+type+" for "+price+" coins");
 	// 			GameStorage.Instance.PlayerCoin -= price;
-	// 			Debug.Log("Your remaining coins "+GameStorage.Instance.PlayerCoin);
+	// 			 // Debug.Log("Your remaining coins "+GameStorage.Instance.PlayerCoin);
 	// 		} else {
 	// 			//No Empty Container
 	// 		}
 	// 	} else {
-	// 		Debug.Log("You have not enough coins");
+	// 		 // Debug.Log("You have not enough coins");
 	// 	}
 
 	// 	container.isProcessingBuyItem = false;
@@ -90,7 +90,7 @@ public class ContainerSystem : ComponentSystem {
 				// 		break;
 				// }
 
-				Debug.Log(lootableTypes[i] + " is contained in container "+i);
+				 // Debug.Log(lootableTypes[i] + " is contained in container "+i);
 				ResetTool();
 
 				return true;
@@ -99,14 +99,14 @@ public class ContainerSystem : ComponentSystem {
 			}
 		}
 
-		Debug.Log("There is no empty container");
+		 // Debug.Log("There is no empty container");
 		return false; //
 	}
 
 	public void UseCollectibleInContainer (int lootableTypeIdx) {
 		if (container.CheckIfContainerIsEmpty(lootableTypeIdx)) {
 			int idx = lootableTypeIdx + 1;
-			Debug.Log("Container " + idx + " is empty");
+			 // Debug.Log("Container " + idx + " is empty");
 		} else {
 			switch(lootableTypes[lootableTypeIdx]) {
 				case LootableType.NONE: 
@@ -128,22 +128,22 @@ public class ContainerSystem : ComponentSystem {
 					ResetTool();
 					break;
 				default: 
-					Debug.Log("Unknown item in container");
+					 // Debug.Log("Unknown item in container");
 					break;
 			}
 		}
 	}
 
 	void ReportContainerIsEmpty () {
-		Debug.Log("This container is empty");
+		 // Debug.Log("This container is empty");
 	}
 
 	// void UseGold () {
-	// 	Debug.Log("Use Gold");
+	// 	 // Debug.Log("Use Gold");
 	// }
 
 	void UseHPPotion (int lootableTypeIdx) {
-		Debug.Log("Use HP Potion");
+		 // Debug.Log("Use HP Potion");
 		container.player.health.PlayerHP += container.player.MaxHP;
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
@@ -154,7 +154,7 @@ public class ContainerSystem : ComponentSystem {
 	}
 
 	void UseManaPotion (int lootableTypeIdx) {
-		Debug.Log("Use Mana Potion");
+		 // Debug.Log("Use Mana Potion");
 		container.player.mana.PlayerMP += container.player.MaxMP;
 		
 		lootableTypes[lootableTypeIdx] = LootableType.NONE;
@@ -167,6 +167,6 @@ public class ContainerSystem : ComponentSystem {
 	void ResetTool() {
 		// toolSystem.tool.isInitCurrentTool = false;
 		uiToolsSelectionSystem.InitImages(true);
-		Debug.Log("RESET TOOL"); 
+		 // Debug.Log("RESET TOOL"); 
 	}
 }

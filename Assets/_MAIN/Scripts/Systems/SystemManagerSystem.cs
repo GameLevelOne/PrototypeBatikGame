@@ -65,24 +65,24 @@ public class SystemManagerSystem : ComponentSystem {
 	void CheckSystemManager() {
 		if (systemManager.isChangeScene) {
 			try {
-				Debug.Log("====="+SceneManager.GetActiveScene().name+"=====");
-				Debug.Log("=====START CHECK SYSTEM MANAGER=====");
-				Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
+				 // Debug.Log("====="+SceneManager.GetActiveScene().name+"=====");
+				 // Debug.Log("=====START CHECK SYSTEM MANAGER=====");
+				 // Debug.Log("=====Map Index : "+systemManager.currentMapIdx+"=====");
 				int currentMapIdx = systemManager.currentMapIdx;
 				// string currentScene = GameStorage.Instance.CurrentScene;
 				string currentScene = SceneManager.GetActiveScene().name;
-				Debug.Log("=====Current Scene : "+currentScene+"=====");
+				 // Debug.Log("=====Current Scene : "+currentScene+"=====");
 				if (currentScene != systemManager.menuSceneName) {
 				//SAVE PLAYER STATS
-					Debug.Log("Save State by gameStorageSystem");
+					 // Debug.Log("Save State by gameStorageSystem");
 					gameStorageSystem.SaveOrLoadState();
 
 					//LOAD MAP STATS
-					Debug.Log("CheckCurrentMap : Completed Quest & Dissolver");
+					 // Debug.Log("CheckCurrentMap : Completed Quest & Dissolver");
 					CheckCurrentMap(currentMapIdx);
 				
 					//SET MAP NAME 
-					Debug.Log("Check Map name by uiPlayerInfoSystem");
+					 // Debug.Log("Check Map name by uiPlayerInfoSystem");
 					uiPlayerInfoSystem.SetMapName(currentMapIdx);
 					
 					//SET BGM
@@ -122,17 +122,17 @@ public class SystemManagerSystem : ComponentSystem {
 					SoundManager.Instance.PlayBGM(BGM.Title);
 				}
 			} catch (System.Exception e) {
-				Debug.Log("ERROR : "+e);
+				 // Debug.Log("ERROR : "+e);
 				return;
 			}
 
-			Debug.Log("=====FINISH CHECK SYSTEM MANAGER=====");
+			 // Debug.Log("=====FINISH CHECK SYSTEM MANAGER=====");
 			systemManager.isChangeScene = false;
 		}
 	}
 
 	public void SetSystems (bool value) {
-		Debug.Log("Set system to "+value);
+		 // Debug.Log("Set system to "+value);
 		playerInputSystem.Enabled = value;
 		damageSystem.Enabled = value;
 	}
@@ -140,19 +140,19 @@ public class SystemManagerSystem : ComponentSystem {
 	void CheckCurrentMap (int mapIdx) {
 		// switch (mapIdx) {
 		// 	case 4:
-				// Debug.Log("CheckIfQuestIsComplete "+mapIdx+" : "+questSystem.CheckIfQuestIsComplete(mapIdx));
-				// Debug.Log("CheckCurrentLevelbyQuest "+mapIdx+" : "+areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx));
+				//  // Debug.Log("CheckIfQuestIsComplete "+mapIdx+" : "+questSystem.CheckIfQuestIsComplete(mapIdx));
+				//  // Debug.Log("CheckCurrentLevelbyQuest "+mapIdx+" : "+areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx));
 
 				if (questSystem.CheckIfQuestIsComplete(mapIdx)) {
 					if (areaDissolverSystem.CheckCurrentLevelbyQuest(mapIdx)) {
-						// Debug.Log("THIS MAP IS NOT DISSOLVED");
+						//  // Debug.Log("THIS MAP IS NOT DISSOLVED");
 						areaDissolverSystem.DissolvedArea(mapIdx);
 					} else {
-						// Debug.Log("THIS MAP ALREADY DISSOLVED");
+						//  // Debug.Log("THIS MAP ALREADY DISSOLVED");
 						areaDissolverSystem.DissableGreyDissolver(mapIdx);
 					}
 				} else {
-					// Debug.Log("THIS MAP IS NOT COMPLETE");
+					//  // Debug.Log("THIS MAP IS NOT COMPLETE");
 				}
 		// 		break;
 		// }

@@ -22,9 +22,9 @@
 
 // 	void CheckUI () {
 // 		if (uiToolsNSummons.gameObject.activeSelf) {
-// 			Debug.Log("Ok");
+// 			 // Debug.Log("Ok");
 // 		} else {
-// 			Debug.Log("No");
+// 			 // Debug.Log("No");
 // 		}
 // 	}
 // }

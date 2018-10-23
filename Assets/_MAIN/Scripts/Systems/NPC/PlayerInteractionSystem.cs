@@ -45,7 +45,7 @@ public struct InputData {
 				player.isInteractingWithNPC = true;
 				currentNPC.player = playerInteract.player;
 				currentNPC.state = NPCState.INTERACT;
-				Debug.Log("Set "+currentNPC.gameObject.name + " to interact");
+				 // Debug.Log("Set "+currentNPC.gameObject.name + " to interact");
 			} else {
 				//
 			}

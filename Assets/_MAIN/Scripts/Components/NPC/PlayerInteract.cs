@@ -9,7 +9,7 @@ public class PlayerInteract : MonoBehaviour {
 
 	void OnTriggerStay (Collider col) {
 
-		// Debug.Log("Currently Colliding: "+col.tag+", Object: "+col.gameObject.name);
+		//  // Debug.Log("Currently Colliding: "+col.tag+", Object: "+col.gameObject.name);
 
 		if (col.tag == Constants.Tag.NPC && currentNPC == null) {
 			currentNPC = col.GetComponent<NPC>();

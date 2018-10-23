@@ -53,7 +53,7 @@ public class Beehive : MonoBehaviour {
 
 	void OnPlayerHit(GameObject playerObj)
 	{
-		Debug.Log("Player Hit");
+		 // Debug.Log("Player Hit");
 		if ((playerObj!=null) && !destroyed) {
 			Animator.Play(Constants.AnimationName.HIT);
 		}

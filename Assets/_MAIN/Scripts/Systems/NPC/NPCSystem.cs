@@ -43,7 +43,7 @@ public class NPCSystem : ComponentSystem {
 		
 		if (currentState == NPCState.INTERACT && currentNPC.player != null) {
 			currentNPC.IsInteracting = true;
-			Debug.Log(currentNPC.gameObject.name + "is interacting");
+			 // Debug.Log(currentNPC.gameObject.name + "is interacting");
 		} else {
 			if (currentState != NPCState.IDLE) {
 				currentNPC.state = NPCState.IDLE;

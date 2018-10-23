@@ -172,22 +172,22 @@ public class GhostSystem : ComponentSystem {
 	void Attack()
 	{
 		if(!currEnemy.initAttack){
-			// Debug.Log("!currEnemy initAttack");
+			//  // Debug.Log("!currEnemy initAttack");
 			if(!currGhost.isAttacking){
 				// currEnemy.initAttack = false;
 				currEnemy.state = EnemyState.Chase;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
-				// Debug.Log("!currGhost isAttacking");
+				//  // Debug.Log("!currGhost isAttacking");
 			}else{
 				currEnemy.attackObject.transform.position = currEnemy.playerTransform.position;
 
 				currGhost.attackCodeFX.Play(true);
 				currEnemy.initAttack = true;
 				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_ATTACK);
-				// Debug.Log("currGhost isAttacking");
+				//  // Debug.Log("currGhost isAttacking");
 			}
 		}else{
-			// Debug.Log("currEnemy initAttack");
+			//  // Debug.Log("currEnemy initAttack");
 			currEnemy.attackObject.SetActive(currEnemy.attackHit);
 		}
 	}
@@ -227,7 +227,7 @@ public class GhostSystem : ComponentSystem {
 	}
 
 	void KnockBack () {
-		// Debug.Log("Set KnockBack");
+		//  // Debug.Log("Set KnockBack");
 		Vector3 damageSourcePos = currEnemy.damageSourcePos;
 		
 		Vector3 resultPos = new Vector3 (currGhostTransform.position.x-damageSourcePos.x, 0f, currGhostTransform.position.z-damageSourcePos.z);
@@ -265,14 +265,14 @@ public class GhostSystem : ComponentSystem {
 					//SEND QUEST TRIGGER
 					currGhost.questTrigger.isDoQuest.Add(true);
 				} else {
-					Debug.Log("No Quest Triggered");
+					 // Debug.Log("No Quest Triggered");
 				}
 
 				if (currGhost.chestSpawner != null) {
 					//SEND CHEST SPAWNER TRIGGER
 					currGhost.chestSpawner.isTriggerSpawn.Add(true);
 				} else {
-					Debug.Log("No ChestSpawner Triggered");
+					 // Debug.Log("No ChestSpawner Triggered");
 				}
 
 				GameObject.Destroy(currGhost.gameObject);
@@ -287,7 +287,7 @@ public class GhostSystem : ComponentSystem {
 
 		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
 			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
-			// Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
+			//  // Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
 			return currGhostRigidbody.position + vecticalizeVector * speed * deltaTime;
 		} else {
 			return currGhostRigidbody.position + deltaPos * speed * deltaTime;

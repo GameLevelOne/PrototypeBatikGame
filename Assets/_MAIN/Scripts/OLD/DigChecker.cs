@@ -18,7 +18,7 @@ public class DigChecker : MonoBehaviour {
 	// void OnTriggerEnter2D (Collider2D col) {
 		
 	// 	if (col.tag != Constants.Tag.DIG_RESULT) {
-	// 		Debug.Log("Can Result Digging");
+	// 		 // Debug.Log("Can Result Digging");
 			
 	// 		IsCleanForDigging = true;
 	// 	}

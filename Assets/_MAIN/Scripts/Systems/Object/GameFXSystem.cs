@@ -47,18 +47,18 @@ public class GameFXSystem : ComponentSystem {
         if (objFX.activeSelf != value) {
             objFX.SetActive(value);
             
-            // Debug.Log("Toogle effect "+effectObj+" to "+value);
+            //  // Debug.Log("Toogle effect "+effectObj+" to "+value);
         }
     }
 
     public void ToggleParticleEffect (ParticleSystem particleFX, bool value) {
         if (value) {
             if (!particleFX.isPlaying) {
-                Debug.Log("A Playing Particle "+particleFX);
+                 // Debug.Log("A Playing Particle "+particleFX);
                 particleFX.Play(true);
                 // PlayFXAudio(particleFX);
             } else {
-                Debug.Log("B Playing Particle "+particleFX);
+                 // Debug.Log("B Playing Particle "+particleFX);
                 particleFX.Stop(true);
                 particleFX.Play(true);
                 // PlayFXAudio(particleFX);
@@ -91,7 +91,7 @@ public class GameFXSystem : ComponentSystem {
 	public void ToggleRunFX (bool isON) {
         if (isON) {
             TerrainType currTerrainType = player.terrainType;
-            Debug.Log("Play : "+player.terrainType);
+             // Debug.Log("Play : "+player.terrainType);
             if (currTerrainType == TerrainType.GRASS || currTerrainType == TerrainType.NONE) {
                 SetWalkParticle(true, false, false, false);
                 PlayFXAudio(gameFX.runOnGrassEffect);

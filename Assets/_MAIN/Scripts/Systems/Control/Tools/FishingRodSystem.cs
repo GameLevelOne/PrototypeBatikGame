@@ -155,13 +155,13 @@ public class FishingRodSystem : ComponentSystem {
 		// }
 #endregion
 
-		// Debug.Log("verticalRange "+verticalRange);
-		// Debug.Log("dirID "+dirID);
-		// Debug.Log("x "+x);
-		// Debug.Log("z "+z);
-		// Debug.Log(GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange));
+		//  // Debug.Log("verticalRange "+verticalRange);
+		//  // Debug.Log("dirID "+dirID);
+		//  // Debug.Log("x "+x);
+		//  // Debug.Log("z "+z);
+		//  // Debug.Log(GetDestinationPos(Vector3.zero, playerMovementSystem.facing.DirID, fishingRod.fishingRange));
 		Vector3 resultDestinationPos = new Vector3(x, 0f, z);
-		// Debug.Log("resultDestinationPos "+resultDestinationPos);
+		//  // Debug.Log("resultDestinationPos "+resultDestinationPos);
 		// return Vector3.Scale (resultDestinationPos, verticalMultVector);
 		return resultDestinationPos;
 	}

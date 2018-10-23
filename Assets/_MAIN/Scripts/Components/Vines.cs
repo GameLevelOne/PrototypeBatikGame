@@ -27,7 +27,7 @@ public class Vines : MonoBehaviour {
 	}
 
 	public void OnCollisionEnter (Collision col) {
-		Debug.Log("Collision "+col.gameObject.tag);
+		 // Debug.Log("Collision "+col.gameObject.tag);
 	}
 
 	public void OnTriggerEnter (Collider col) {

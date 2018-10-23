@@ -92,7 +92,7 @@ public class CameraMovementSystem : ComponentSystem {
 
 	void MoveCamera()
 	{
-		// Debug.Log("CameraMOve");
+		//  // Debug.Log("CameraMOve");
 		Vector3 destPos = currCameraMovement.playerTransform.position + currCameraMovement.offset;
 		Vector3 smoothedPos = Vector3.Lerp(currCameraTransform.position,destPos,currCameraMovement.smoothSpeed * deltaTime);
 		currCameraTransform.position = smoothedPos;
@@ -120,8 +120,8 @@ public class CameraMovementSystem : ComponentSystem {
 
 	float GetZ()
 	{
-		// Debug.Log((cameraHeight/2f)-9.4f);
-		// Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
+		//  // Debug.Log((cameraHeight/2f)-9.4f);
+		//  // Debug.Log((mapHeight-(cameraHeight/2f)) - 14.4f);
 		if(currCameraTransform.position.z <= 7f + currCameraMovement.offset.z ){
 			return 7f + currCameraMovement.offset.z;
 		}else if(currCameraTransform.position.z >= (mapHeight- 7f) + currCameraMovement.offset.z){

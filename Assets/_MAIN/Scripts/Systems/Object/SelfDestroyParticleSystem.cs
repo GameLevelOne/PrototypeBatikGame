@@ -33,7 +33,7 @@ public class SelfDestroyParticleSystem : ComponentSystem {
 
 		if (!checker) {
 			DestroyParticle();
-			// Debug.Log("OK");
+			//  // Debug.Log("OK");
 		}
 	}
 

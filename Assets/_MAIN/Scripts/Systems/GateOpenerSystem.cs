@@ -69,7 +69,7 @@ public class GateOpenerSystem : ComponentSystem {
 		if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + gateOpener.gate.gateID, 0) == 1) {
 			OpenGate();
 		} else {
-			// Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
+			//  // Debug.Log("You do not have key for this gate with ID : "+gateOpener.gate.gateID);
 			PlaySFXOneShot(GateAudio.LOCKED);
 			gateOpener.gate.animator.Play(Constants.AnimationName.GATE_LOCKED);
 

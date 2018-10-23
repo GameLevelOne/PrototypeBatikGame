@@ -60,7 +60,7 @@ public class FishingPoolSystem : ComponentSystem {
 			fish.poolRadiusZ = fishingPool.poolRadiusZ;//CIRCLE
 			// fish.fishChar = (FishCharacteristic)Random.Range(0, System.Enum.GetValues(typeof(FishCharacteristic)).Length);
 			fish.fishChar = FishCharacteristic.WILD; //TEMP
-			// Debug.Log(fish.fishChar);
+			//  // Debug.Log(fish.fishChar);
 
 			newFish.SetActive(true);
 

@@ -118,8 +118,8 @@ public class Player : MonoBehaviour {
 	void OnCounterTrigger () {
 		if (state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
 			isCanBulletTime = true;
-			Debug.Log("isCanBulletTime");
-			// Debug.Log("Set isOnBulletTimePeriod TRUE");
+			 // Debug.Log("isCanBulletTime");
+			//  // Debug.Log("Set isOnBulletTimePeriod TRUE");
 		}
 	}
 
@@ -130,33 +130,33 @@ public class Player : MonoBehaviour {
     public float MaxHP{
         get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, maxHP);}
         set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXHP, value);
-			// Debug.Log("Debug MaxHP : "+MaxHP);
+			//  // Debug.Log("Debug MaxHP : "+MaxHP);
 		}
     }
 
     public float MaxMP{
         get{return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, maxMP);}
         set{PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_STATS_MAXMP, value);
-			// Debug.Log("Debug MaxMP : "+MaxMP);
+			//  // Debug.Log("Debug MaxMP : "+MaxMP);
 		}
     }
 
 	void OnCollisionEnter (Collision col) {
 		if (state == PlayerState.DASH && !isBouncing) {
-			// Debug.Log(col.gameObject.name);
+			//  // Debug.Log(col.gameObject.name);
 			isBouncing = true;	
 		}
 		
 		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
-		// 	if (!isHitLiftableObject) {
-		// 		if (col.gameObject.GetComponent<Liftable>() != null) {
-		// 			// Debug.Log("Parent");
-		// 			isHitLiftableObject = true;
-		// 		} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
-		// 			// Debug.Log("Child");
-		// 			isHitLiftableObject = true;
-		// 		}
-		// 	}
+			if (!isHitLiftableObject) {
+				if (col.gameObject.GetComponent<Liftable>() != null) {
+					//  // Debug.Log("Parent");
+					isHitLiftableObject = true;
+				} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+					//  // Debug.Log("Child");
+					isHitLiftableObject = true;
+				}
+			}
 		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST) {
@@ -174,13 +174,13 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionExit (Collision col) {
 		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
-		// 	if (isHitLiftableObject) {
-		// 		if (col.gameObject.GetComponent<Liftable>() != null) {
-		// 			isHitLiftableObject = false;
-		// 		} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
-		// 			isHitLiftableObject = false;
-		// 		}
-		// 	}
+			if (isHitLiftableObject) {
+				if (col.gameObject.GetComponent<Liftable>() != null) {
+					isHitLiftableObject = false;
+				} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+					isHitLiftableObject = false;
+				}
+			}
 		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {
@@ -214,17 +214,17 @@ public class Player : MonoBehaviour {
 		// if (col.tag == Constants.Tag.DIG_AREA) {
 		// 	isCanDigging = true;
 		// } 
-		if (col.tag == Constants.Tag.LIFTABLE) {
+		// if (col.tag == Constants.Tag.LIFTABLE) {
 			if (!isHitLiftableObject) {
 				if (col.GetComponent<Liftable>() != null) {
-					// Debug.Log("Parent");
+					//  // Debug.Log("Parent");
 					isHitLiftableObject = true;
 				} else if (col.GetComponentInParent<Liftable>() != null) {
-					// Debug.Log("Child");
+					//  // Debug.Log("Child");
 					isHitLiftableObject = true;
 				}
 			}
-		}
+		// }
 	}
 
 	void OnTriggerExit (Collider col) {
@@ -236,28 +236,28 @@ public class Player : MonoBehaviour {
 		// 	isCanDigging = false;
 		// }
 
-		if (col.tag == Constants.Tag.LIFTABLE) {
+		// if (col.tag == Constants.Tag.LIFTABLE) {
 			if (isHitLiftableObject) {
 				if (col.GetComponent<Liftable>() != null) {
-					// Debug.Log("Parent");
+					//  // Debug.Log("Parent");
 					isHitLiftableObject = true;
 				} else if (col.GetComponentInParent<Liftable>() != null) {
-					// Debug.Log("Child");
+					//  // Debug.Log("Child");
 					isHitLiftableObject = true;
 				}
 			}
-		}
+		// }
 	}
 	
 	#region PLAYER STATE 
 	public void SetPlayerState (PlayerState playerState) {
-		// if (playerState == PlayerState.MOVE) Debug.Log("Move");
-		// if (playerState == PlayerState.RAPID_SLASH) Debug.Log("RAPID_SLASH");
+		// if (playerState == PlayerState.MOVE)  // Debug.Log("Move");
+		// if (playerState == PlayerState.RAPID_SLASH)  // Debug.Log("RAPID_SLASH");
 		state = playerState;
 	}
 
 	public void SetPlayerIdle () {
-		// Debug.Log("Idle");
+		//  // Debug.Log("Idle");
 		state = PlayerState.IDLE;
 	}
 	#endregion

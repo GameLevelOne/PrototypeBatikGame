@@ -12,13 +12,13 @@ public class RendererOrder : MonoBehaviour {
 
 			renderer.sortingLayerName = sortingLayer;
 			renderer.sortingOrder = order;
-			Debug.Log("Renderer "+renderer.sortingLayerName);
+			 // Debug.Log("Renderer "+renderer.sortingLayerName);
 		} else {
 			MeshRenderer renderer = GetComponent<MeshRenderer>();
 
 			renderer.sortingLayerName = sortingLayer;
 			renderer.sortingOrder = order;
-			Debug.Log("MeshRenderer "+renderer.sortingLayerName);
+			 // Debug.Log("MeshRenderer "+renderer.sortingLayerName);
 		}
 	}
 }

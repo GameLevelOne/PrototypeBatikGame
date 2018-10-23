@@ -12,7 +12,7 @@ public class MinatoKunai : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D (Collider2D col) {
-		Debug.Log("Teleport");
+		 // Debug.Log("Teleport");
 		rb.velocity = Vector2.zero;
 	}
 }

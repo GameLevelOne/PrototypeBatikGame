@@ -41,7 +41,7 @@ public class FishingRod : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider col) {
-		// Debug.Log(col.tag);
+		//  // Debug.Log(col.tag);
 		
 		if (col.tag == Constants.Tag.FISHING_AREA) {
 			player.isCanFishing = true;
@@ -56,9 +56,9 @@ public class FishingRod : MonoBehaviour {
 				fish = col.GetComponent<Fish>();
 			} else {
 				fishState = fish.state;
-				// Debug.Log("Fish state : "+fishState+" , isBaitFish : "+isBaitFish);
+				//  // Debug.Log("Fish state : "+fishState+" , isBaitFish : "+isBaitFish);
 				if ((fishState == FishState.IDLE || fishState == FishState.PATROL) && !isBaitFish) {
-					// Debug.Log("Get Fish");
+					//  // Debug.Log("Get Fish");
 					
 					fishObj = fish.gameObject;
 
@@ -66,11 +66,11 @@ public class FishingRod : MonoBehaviour {
 					fish.targetPos = this.transform.position;
 					fish.state = FishState.THINK;
 					// fish.state = FishState.CHASE;
-					// Debug.Log("Set Chase"); 
+					//  // Debug.Log("Set Chase"); 
 
 					isBaitFish = true;
 				} else if (fishState == FishState.FLEE && isBaitFish) {
-					// Debug.Log("Flee");
+					//  // Debug.Log("Flee");
 					fishObj = null;
 					fish.fishingRod = null;
 					fish = null;

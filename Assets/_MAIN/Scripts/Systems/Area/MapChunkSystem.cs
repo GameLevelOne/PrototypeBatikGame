@@ -79,8 +79,8 @@ public class MapChunkSystem : ComponentSystem {
 	// 	playerPos = e.levelData.currentPlayer.transform.position;
 		
 	// 	Vector2Chunk playerChunkPos = new Vector2Chunk(Mathf.FloorToInt(playerPos.x / unitPerChunkX),Mathf.FloorToInt(playerPos.y / unitPerChunkY));
-	// 	// Debug.Log("PlayerPos     : "+playerPos.x+","+playerPos.y);
-	// 	// Debug.Log("PlayerPosChunk: "+playerChunkPos.x+","+playerChunkPos.y);
+	// 	//  // Debug.Log("PlayerPos     : "+playerPos.x+","+playerPos.y);
+	// 	//  // Debug.Log("PlayerPosChunk: "+playerChunkPos.x+","+playerChunkPos.y);
 		
 	// 	if(currentChunk.x != playerChunkPos.x || currentChunk.y != playerChunkPos.y){
 	// 		currentChunk = new Vector2Chunk(playerChunkPos.x,playerChunkPos.y);
@@ -121,9 +121,9 @@ public class MapChunkSystem : ComponentSystem {
 	// 		for(int x = -1;x<chunkLength;x++){
 	// 			if( (x >= currentChunk.x-1 && x <= currentChunk.x+1) &&
 	// 			    (y >= currentChunk.y-1 && y <= currentChunk.y+1) ){
-	// 				// Debug.Log(x+","+y);
+	// 				//  // Debug.Log(x+","+y);
 	// 				string sceneName = GetSceneName(x,y);
-	// 				//Debug.Log(sceneName);
+	// 				// // Debug.Log(sceneName);
 	// 				if(!SceneManager.GetSceneByName(sceneName).isLoaded){
 	// 					SceneManager.LoadSceneAsync(sceneName,LoadSceneMode.Additive);
 	// 				}

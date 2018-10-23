@@ -67,7 +67,7 @@ public class LootableSystem : ComponentSystem {
 
 		lootQTY = lootable.lootQuantity;
 		playerInputSystem.PlaySFXOneShot(PlayerInputAudio.LOOT);
-		Debug.Log("You got "+lootQTY+" "+lootableType);
+		 // Debug.Log("You got "+lootQTY+" "+lootableType);
 
 		switch (lootableType) { //TEMP
 			case LootableType.GOLD: 
@@ -83,7 +83,7 @@ public class LootableSystem : ComponentSystem {
 				GameObject.Instantiate(lootable.lootableFX, lootable.transform.position, Quaternion.identity);
 				break;
 			default:
-				Debug.Log("Unknown LootableType : "+lootableType);
+				 // Debug.Log("Unknown LootableType : "+lootableType);
 				break;
 		}
 

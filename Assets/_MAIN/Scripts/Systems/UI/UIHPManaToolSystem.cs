@@ -55,14 +55,14 @@ public class UIHPManaToolSystem : ComponentSystem {
 			
 			if (!uiHPManaTool.isInitHPManaImage) {
 				try {
-					// Debug.Log("Start init UI HP MP Tool");
+					//  // Debug.Log("Start init UI HP MP Tool");
 					CheckInit ();
 				} catch (System.Exception e) {
-					// Debug.Log("Something wrong UI HP MP Tool \n ERROR : "+e);
+					//  // Debug.Log("Something wrong UI HP MP Tool \n ERROR : "+e);
 					return;
 				}
 
-				// Debug.Log("Finish init UI HP MP Tool");
+				//  // Debug.Log("Finish init UI HP MP Tool");
 				uiHPManaTool.isInitHPManaImage = true;
 			} else {
 				CheckKey();
@@ -126,8 +126,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 		maxMP = uiHPManaTool.player.MaxMP;
 		maxClothWidth = uiHPManaTool.clothHPMask.rectTransform.sizeDelta.x;
 		manaReduceValue = uiHPManaTool.manaReduceValue;
-		// Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
-		// Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
+		//  // Debug.Log("Fill Amount "+uiHPManaTool.imageMP.fillAmount);
+		//  // Debug.Log("Fill Amount "+uiHPManaTool.imageShadowMP.fillAmount);
 		CheckHP();
 		CheckMP ();
 		// initClothPos = maxClothWidth;
@@ -190,7 +190,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 			uiHPManaTool.imageTool.sprite = uiHPManaTool.toolSprite[(int)curTool];
 		}
 
-		// Debug.Log(toolSprite.name);
+		//  // Debug.Log(toolSprite.name);
 		// uiPlayerInfoSystem.PrintTool(toolName);
 	}
 
@@ -216,7 +216,7 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	// public void ReduceCloth () {
 	// 	playerHP = uiHPManaTool.playerHealth.PlayerHP;
-	// 	// Debug.Log(playerHP);
+	// 	//  // Debug.Log(playerHP);
 	// 	currentClothWidth = (playerHP/maxHP) * maxClothWidth;
 	// 	isReducingCloth = true;
 	// 	uiHPManaTool.isHPChange = false;
@@ -229,8 +229,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 
 	// public void PrintMana () {
 	// 	playerMP = uiHPManaTool.playerMana.PlayerMP;
-	// 	// Debug.Log("maxMP "+maxMP);
-	// 	// Debug.Log("playerMP "+playerMP);
+	// 	//  // Debug.Log("maxMP "+maxMP);
+	// 	//  // Debug.Log("playerMP "+playerMP);
 	// 	uiHPManaTool.imageMana.fillAmount = playerMP/maxMP;
 	// 	uiHPManaTool.isMPChange = false;
 	// 	// uiPlayerInfoSystem.PrintMP(playerMP.ToString()+" / "+maxMP);
@@ -240,8 +240,8 @@ public class UIHPManaToolSystem : ComponentSystem {
 	// 	//SET CLOTH POS X
 	// 	uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold - initClothPos, 0f);
 	// 	// uiHPManaTool.clothHP.rectTransform.localPosition = new Vector2 (healthThreshold, 0f);
-	// 	// Debug.Log(healthThreshold);
-	// 	// Debug.Log(initClothPos);
+	// 	//  // Debug.Log(healthThreshold);
+	// 	//  // Debug.Log(initClothPos);
 
 	#region OLD (Using Shader Plugin)
 	//SET CLOTH SCALE X

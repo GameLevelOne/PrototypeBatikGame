@@ -70,7 +70,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 				try {
 					InitToolsSelection ();
 				} catch (System.Exception e) {
-					Debug.Log("ERROR : "+e);
+					 // Debug.Log("ERROR : "+e);
 					return;
 				}
 				
@@ -82,7 +82,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 				
 				if (uiToolsSelection.isToolChange && !isChangingTool ) {
 					changeIndex = uiToolsSelection.changeIndex;
-					// Debug.Log("ChangingTools");
+					//  // Debug.Log("ChangingTools");
 
 					if (changeIndex == 0) {
 						ResetChange();
@@ -101,7 +101,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void InitToolsSelection () {
-		// Debug.Log("UIToolSelectionSystem "+tool.currentTool);
+		//  // Debug.Log("UIToolSelectionSystem "+tool.currentTool);
 		showTime = 0f;
 		isShowingTools = false;
 		isPlayingAnimation = false;
@@ -140,12 +140,12 @@ public class UIToolsSelectionSystem : ComponentSystem {
 				if (!uiToolsSelection.checker[tempIdx]) {
 					if (tool.CheckIfToolHasBeenUnlocked(tempIdx) > 0) {
 						uiToolsSelection.toolIndexes.Add(tempIdx);
-						// Debug.Log("Add");
+						//  // Debug.Log("Add");
 						CheckContainerImage (tempIdx);
 					}
 					
 					uiToolsSelection.checker[tempIdx] = true;
-					// Debug.Log("Check : "+tempIdx+" "+uiToolsSelection.checker[tempIdx]);
+					//  // Debug.Log("Check : "+tempIdx+" "+uiToolsSelection.checker[tempIdx]);
 
 					if (tempIdx >= (int) ToolType.Boots) {
 						tempIdx = 0;
@@ -161,16 +161,16 @@ public class UIToolsSelectionSystem : ComponentSystem {
 
 	void CheckContainerImage(int idx) {
 		if (idx == (int) ToolType.Container1) {
-			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[0].ToString());
+			//  // Debug.Log(idx+" "+containerSystem.container.lootableTypes[0].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[0], idx);
 		} else if (idx == (int) ToolType.Container2) {
-			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[1].ToString());
+			//  // Debug.Log(idx+" "+containerSystem.container.lootableTypes[1].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[1], idx);
 		} else if (idx == (int) ToolType.Container3) {
-			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[2].ToString());
+			//  // Debug.Log(idx+" "+containerSystem.container.lootableTypes[2].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[2], idx);
 		} else if (idx == (int) ToolType.Container4) {
-			// Debug.Log(idx+" "+containerSystem.container.lootableTypes[3].ToString());
+			//  // Debug.Log(idx+" "+containerSystem.container.lootableTypes[3].ToString());
 			SetContainerImage(containerSystem.container.lootableTypes[3], idx);
 		}
 	}
@@ -203,10 +203,10 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	}
 
 	void SetPrintedTool () {
-		// Debug.Log("SetPrintedTool "+(int) tool.currentTool);
+		//  // Debug.Log("SetPrintedTool "+(int) tool.currentTool);
 		// uiHPManaToolSystem.PrintTool(toolImages[(int) tool.currentTool].sprite, tool.currentTool.ToString());
 		// uiHPManaToolSystem.PrintTool(toolSprites[(int) tool.currentTool], tool.currentTool.ToString());
-		Debug.Log("SetPrintedTool");
+		 // Debug.Log("SetPrintedTool");
 		for (int i=0; i<uiHPManaToolData.Length; i++) {
 			uiHPManaTool = uiHPManaToolData.UIHPManaTool[i];
 
@@ -334,7 +334,7 @@ public class UIToolsSelectionSystem : ComponentSystem {
 	void NextTools () {
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_LEFT);
 		int tempToolIdx = uiToolsSelection.toolIndexes[0];
-		// Debug.Log("NextTools tempToolIdx "+tempToolIdx);
+		//  // Debug.Log("NextTools tempToolIdx "+tempToolIdx);
 		uiToolsSelection.toolIndexes.RemoveAt(0);
 		uiToolsSelection.toolIndexes.Add(tempToolIdx);
 	}
@@ -343,23 +343,23 @@ public class UIToolsSelectionSystem : ComponentSystem {
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_RIGHT);
 		int lastToolIdx = uiToolsSelection.toolIndexes.Count-1;
 		int tempToolIdx = uiToolsSelection.toolIndexes[lastToolIdx];
-		// Debug.Log("PrevTools lastToolIdx "+lastToolIdx);
-		// Debug.Log("PrevTools tempToolIdx "+tempToolIdx);
+		//  // Debug.Log("PrevTools lastToolIdx "+lastToolIdx);
+		//  // Debug.Log("PrevTools tempToolIdx "+tempToolIdx);
 		uiToolsSelection.toolIndexes.RemoveAt(lastToolIdx);
 		uiToolsSelection.toolIndexes.Insert(0,tempToolIdx);
 	}
 
 	void CheckStartAnimation () {
-		// Debug.Log("CheckStartAnimation");
+		//  // Debug.Log("CheckStartAnimation");
 	}
 
 	void CheckEndAnimation () {
-		// Debug.Log("CheckEndAnimation");
+		//  // Debug.Log("CheckEndAnimation");
 		ResetChange ();
 	}
 
 	void ResetChange () {
-		// Debug.Log("ResetChange");
+		//  // Debug.Log("ResetChange");
 		sliderAnimator.Play(Constants.AnimationName.SLIDE_IDLE);
 		SetImages();
 		SetPrintedTool ();

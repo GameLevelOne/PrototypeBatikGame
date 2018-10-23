@@ -28,7 +28,7 @@ public class StandAnimationSystem : ComponentSystem {
 		get {return isFinishAnyStandAnim;}
 		set {
 			isFinishAnyStandAnim = value;
-			// Debug.Log(isFinishAnyStandAnim + " on state " + state);
+			//  // Debug.Log(isFinishAnyStandAnim + " on state " + state);
 		}
 	}
 	
@@ -195,7 +195,7 @@ public class StandAnimationSystem : ComponentSystem {
 	void SetStandIdle () {
 		player.isUsingStand = false;
 		isFinishAnyStandAnimation = true;
-		// Debug.Log(isFinishAnyStandAnimation);
+		//  // Debug.Log(isFinishAnyStandAnimation);
 		// animator.Play(Constants.BlendTreeName.STAND_INACTIVE);
 	}
 

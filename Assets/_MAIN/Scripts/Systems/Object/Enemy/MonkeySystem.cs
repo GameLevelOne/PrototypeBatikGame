@@ -80,7 +80,7 @@ public class MonkeySystem : ComponentSystem {
 	{
 		if(!currMonkey.isHitByPlayer) {
 			if(currEnemy.playerThatHitsEnemy != null && currEnemy.state == EnemyState.Damaged && currEnemy.state != EnemyState.Chase && currEnemy.state != EnemyState.Attack){ //IsEnemyHit
-				// Debug.Log("Hit By Player");
+				//  // Debug.Log("Hit By Player");
 				currEnemy.playerTransform = currEnemy.playerThatHitsEnemy.transform;
 
 				foreach(Monkey m in currMonkey.nearbyMonkeys){
@@ -154,12 +154,12 @@ public class MonkeySystem : ComponentSystem {
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
 		}else{
 			// if(currEnemy.TDamaged <= 0f){
-			// Debug.Log("isFinishDamaged : "+currEnemy.isFinishDamaged);
+			//  // Debug.Log("isFinishDamaged : "+currEnemy.isFinishDamaged);
 			if (currEnemy.isFinishDamaged) {
 				currMonkeyRigidbody.velocity = Vector3.zero;
 				// currEnemy.damageSourceTransform = null;
 				// currMonkeyRigidbody.isKinematic = true;
-				// Debug.Log("Set MonkeyRB Kinematic");
+				//  // Debug.Log("Set MonkeyRB Kinematic");
 				
 				currEnemy.isFinishDamaged = false;
 				currEnemy.state = EnemyState.Aggro;
@@ -171,7 +171,7 @@ public class MonkeySystem : ComponentSystem {
 	}
 
 	void KnockBack () {
-		// Debug.Log("Set Monkey KnockBack");
+		//  // Debug.Log("Set Monkey KnockBack");
 		Vector3 damageSourcePos = currEnemy.damageSourcePos;
 		
 		Vector3 resultPos = new Vector3 (currMonkeyTransform.position.x-damageSourcePos.x, 0f, currMonkeyTransform.position.z-damageSourcePos.z);
@@ -196,14 +196,14 @@ public class MonkeySystem : ComponentSystem {
 				//SEND QUEST TRIGGER
 				currMonkey.questTrigger.isDoQuest.Add(true);
 			} else {
-				Debug.Log("No Quest Triggered");
+				 // Debug.Log("No Quest Triggered");
 			}
 
 			if (currMonkey.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
 				currMonkey.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
-				Debug.Log("No ChestSpawner Triggered");
+				 // Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currMonkey.gameObject);
@@ -324,7 +324,7 @@ public class MonkeySystem : ComponentSystem {
 
 		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
 			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));
-			// Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
+			//  // Debug.Log("vecticalizeVector = "+vecticalizeVector+" -> "+(currBeeRigidbody.position + vecticalizeVector * speed * deltaTime));
 			return currMonkeyRigidbody.position + vecticalizeVector * speed * deltaTime;
 		} else {
 			return currMonkeyRigidbody.position + deltaPos * speed * deltaTime;

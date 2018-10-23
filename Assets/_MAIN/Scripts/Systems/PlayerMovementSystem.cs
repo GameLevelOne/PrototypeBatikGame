@@ -127,7 +127,7 @@ public class PlayerMovementSystem : ComponentSystem {
 					moveDir = Vector3.zero;
 				} else {
 					if (player.isPlayerKnockedBack && player.somethingThatHitsPlayer != null) {
-						// Debug.Log("KNOCKEDBACK");
+						//  // Debug.Log("KNOCKEDBACK");
 						KnockBack(movement.knockBackSpeedNormal * 10f);
 					}
 
@@ -164,13 +164,13 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					moveDir = input.moveDir;
 				}
-				// Debug.Log(moveDir +"\n"+ moveDir.normalized);
+				//  // Debug.Log(moveDir +"\n"+ moveDir.normalized);
 			}
 
-			// Debug.Log(player.isPlayerKnockedBack);
+			//  // Debug.Log(player.isPlayerKnockedBack);
 			// rb.drag = movement.initRigidBodyDrag;
 			SetPlayerStandardMove();
-			// Debug.Log(currentMoveDir);
+			//  // Debug.Log(currentMoveDir);
 			// continue; //TEMP
 		}
 	}
@@ -222,9 +222,9 @@ public class PlayerMovementSystem : ComponentSystem {
 				// moveDir = moveDir.normalized * moveSpeed * deltaTime;
 				rb.velocity = moveDir * moveSpeed * deltaTime;
 
-				// if (player.isPlayerKnockedBack) Debug.Log("HERE");
-				// Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
-				// Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
+				// if (player.isPlayerKnockedBack)  // Debug.Log("HERE");
+				//  // Debug.Log("Velocity : "+rb.velocity+"\n MoveDir : "+moveDir+" | Normalized : "+moveDir.normalized);
+				//  // Debug.Log("Velocity: "+rb.velocity+"= \n normalized: "+moveDir.normalized+ "x moveSpeed: "+moveSpeed+"x deltaTime: "+deltaTime);
 
 				if (moveDir != Vector3.zero) {
 					// currentMoveDir = moveDir;
@@ -301,7 +301,7 @@ public class PlayerMovementSystem : ComponentSystem {
 							dashTime += deltaTime;
 						} else {
 							dashTime = 0f;
-							// Debug.Log("Use mana dash");
+							//  // Debug.Log("Use mana dash");
 							UseMana((int) ToolType.Boots, true);
 						}
 					}
@@ -378,7 +378,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	}
 
 	bool isHaveEnoughMana (int toolIdx, bool isUseMana, bool isUsingStand) {
-		// Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		//  // Debug.Log("mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
 		if(manaSystem.isHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand)) {
 			return true;
 		} else {
@@ -393,7 +393,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	void KnockBack (float knockbackSpeed) {
 		Vector3 enemyPos = player.somethingThatHitsPlayer.position;
 		Vector3 resultPos = new Vector3 (tr.position.x-enemyPos.x, 0f, tr.position.z-enemyPos.z);
-		// Debug.Log("enemyPos : "+enemyPos);
+		//  // Debug.Log("enemyPos : "+enemyPos);
 		rb.velocity = Vector3.zero;
 		rb.AddForce(resultPos.normalized * knockbackSpeed, ForceMode.Impulse);
 
@@ -404,7 +404,7 @@ public class PlayerMovementSystem : ComponentSystem {
 	void SetCounterMovement () {
 		// Vector3 teleportPos = player.somethingThatHitsPlayer.GetComponent<Facing2D>().blindArea.transform.position;
 		// rb.position = new Vector3 (teleportPos.x, rb.position.y, teleportPos.z);
-		// Debug.Log("Slow Motion PlayerMovementSystem");
+		//  // Debug.Log("Slow Motion PlayerMovementSystem");
 		Time.timeScale = input.slowTimeScale;
 		input.attackMode = -3; //Set counterslash first
 		rb.velocity = Vector3.zero;
@@ -423,7 +423,7 @@ public class PlayerMovementSystem : ComponentSystem {
 
 	Vector3 MoveEngageToPos (Vector3 targetPos, float speed) {
 		Vector3 deltaPos = targetPos-rb.position;
-		// Debug.Log("DeltaPos "+deltaPos);
+		//  // Debug.Log("DeltaPos "+deltaPos);
 		
 		if (deltaPos.z < -0.2f || deltaPos.z > 0.2f) {
 			Vector3 vecticalizeVector = Vector3.Scale(deltaPos.normalized, new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier));

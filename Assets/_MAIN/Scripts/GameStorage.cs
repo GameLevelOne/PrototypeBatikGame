@@ -40,14 +40,14 @@ public class GameStorage : MonoBehaviour {
 	public float SavedHP {
 		get {return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, 0f);}
 		set {PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_HP, value);
-			// Debug.Log("Debug SavedHP : "+value);
+			//  // Debug.Log("Debug SavedHP : "+value);
 		}
 	}
 
 	public float SavedMP {
 		get {return PlayerPrefs.GetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, 0f);}
 		set {PlayerPrefs.SetFloat(Constants.PlayerPrefKey.PLAYER_SAVED_MP, value);
-			// Debug.Log("Debug SavedMP : "+value);
+			//  // Debug.Log("Debug SavedMP : "+value);
 		}
 	}
 

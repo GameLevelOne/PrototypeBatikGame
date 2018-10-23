@@ -146,7 +146,7 @@ public class PlayerInputSystem : ComponentSystem {
 		if (GameInput.IsLeftDirectionHeld && !input.isUIOpen)
 			dirX -= 1f;
 
-		// Debug.Log("Input Dir: "+dirX+","+dirZ);
+		//  // Debug.Log("Input Dir: "+dirX+","+dirZ);
 
 		SetDir(dirX,dirZ);
 	}
@@ -370,7 +370,7 @@ public class PlayerInputSystem : ComponentSystem {
 					player.isOnParryPeriod = false;
 					player.isCanParry = false;
 					// player.isPlayerHit = false;
-					Debug.Log("Start Counter");
+					 // Debug.Log("Start Counter");
 					player.SetPlayerState(PlayerState.PARRY);
 					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
 				}
@@ -483,7 +483,7 @@ public class PlayerInputSystem : ComponentSystem {
 				toolType = tool.currentTool;
 
 				if (toolType != ToolType.None && toolType != ToolType.Bow) {
-					// Debug.Log("Input Use Tool : " + toolType);
+					//  // Debug.Log("Input Use Tool : " + toolType);
 					input.interactValue = 0;
 
 					// if (toolType == ToolType.Hook) {
@@ -536,7 +536,7 @@ public class PlayerInputSystem : ComponentSystem {
 		// isAttackAway = false;
 		
 		// input.slashComboVal.Clear();
-		// Debug.Log("SET BUTTON UP AttackList CLEAR");
+		//  // Debug.Log("SET BUTTON UP AttackList CLEAR");
 		// attackAwayTimer = 0f;
 		// isAttackAway = true;
 
@@ -667,7 +667,7 @@ public class PlayerInputSystem : ComponentSystem {
 			SetButtonUp ();
 			
 			// if (input.interactValue == 0 || input.interactValue == 2) {
-			// 	Debug.Log("Pause swim");
+			// 	 // Debug.Log("Pause swim");
 			// }
 
 			return true;
@@ -686,7 +686,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	public void SetMovement (int value) {
-		// Debug.Log("SetMovement : "+value);
+		//  // Debug.Log("SetMovement : "+value);
 		input.moveMode = value;
 		
 		#region CHARGE ATTACK EFFECT
@@ -708,10 +708,10 @@ public class PlayerInputSystem : ComponentSystem {
 		#region RUN EFFECT
 		if (fixDir != Vector3.zero && !player.isGuarding && (state == PlayerState.IDLE || state == PlayerState.MOVE)) {
 			gameFXSystem.ToggleRunFX(true);
-			// Debug.Log("TRUE");
+			//  // Debug.Log("TRUE");
 		} else {
 			gameFXSystem.ToggleRunFX(false);
-			// Debug.Log("FALSE");
+			//  // Debug.Log("FALSE");
 		}
 		#endregion
 
@@ -757,7 +757,7 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool IsHaveEnoughManaForTool (int toolIdx, bool isUseMana, bool isUsingStand) {
-		Debug.Log("Mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
+		 // Debug.Log("Mana cost for tool " + toolIdx + " is " + tool.GetToolManaCost(toolIdx));
 		return IsHaveEnoughMana(tool.GetToolManaCost(toolIdx), isUseMana, isUsingStand);
 	}
 

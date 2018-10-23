@@ -74,14 +74,14 @@ public class WaterShooterEnemySystem : ComponentSystem {
 				//SEND QUEST TRIGGER
 				currWaterShooterEnemy.questTrigger.isDoQuest.Add(true);
 			} else {
-				Debug.Log("No Quest Triggered");
+				 // Debug.Log("No Quest Triggered");
 			}
 
 			if (currWaterShooterEnemy.chestSpawner != null) {
 				//SEND CHEST SPAWNER TRIGGER
 				currWaterShooterEnemy.chestSpawner.isTriggerSpawn.Add(true);
 			} else {
-				Debug.Log("No ChestSpawner Triggered");
+				 // Debug.Log("No ChestSpawner Triggered");
 			}
 
 			GameObject.Destroy(currWaterShooterEnemy.gameObject);
@@ -233,7 +233,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
         GameObject spawnedObj = GameObject.Instantiate(obj, initPos, SetFacingParent(deltaPos));
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
-		// Debug.Log(spawnedObj.transform.GetChild(0).name);
+		//  // Debug.Log(spawnedObj.transform.GetChild(0).name);
 		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
         spawnedObj.SetActive(true);

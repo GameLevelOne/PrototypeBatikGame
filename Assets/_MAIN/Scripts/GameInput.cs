@@ -70,7 +70,7 @@ public static bool IsAttackPressed {
 	get {
 		// if (Input.GetKeyDown(KeyCode.Joystick1Button1))
 		// 	return true;
-		if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl)) 
+		if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.L)) 
 			return true;		
 		// if (Input.GetButtonDown("Fire1"))
 		// 	return true;
@@ -81,7 +81,7 @@ public static bool IsAttackReleased {
 	get {
 		// if (Input.GetKeyUp(KeyCode.Joystick1Button1))
 		// 	return true;
-		if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl)) 
+		if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.L)) 
 			return true;		
 		// if (Input.GetButtonUp("Fire1"))
 		// 	return true;
@@ -92,7 +92,7 @@ public static bool IsAttackHeld {
 	get {
 		// if (Input.GetKey(KeyCode.Joystick1Button1))
 		// 	return true;
-		if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+		if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) || Input.GetKey(KeyCode.L))
 			return true;		
 		// if (Input.GetButton("Fire1"))
 		// 	return true;
@@ -130,7 +130,7 @@ public static bool IsToolsPressed {
 	get {
 		// if (Input.GetKeyDown(KeyCode.Joystick1Button2)) 
 		// 	return true;
-		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) 
+		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt) || Input.GetKeyDown(KeyCode.K)) 
 			return true;		
 		return false;
 	}
@@ -139,7 +139,7 @@ public static bool IsToolsReleased {
 	get {
 		// if (Input.GetKeyUp(KeyCode.Joystick1Button2))
 		// 	return true;
-		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt)) 
+		if (Input.GetKeyUp(KeyCode.LeftAlt) || Input.GetKeyUp(KeyCode.RightAlt) || Input.GetKeyUp(KeyCode.K)) 
 			return true;		
 		return false;
 	}
@@ -148,7 +148,7 @@ public static bool IsToolsHeld {
 	get {
 		// if (Input.GetKey(KeyCode.Joystick1Button2))
 		// 	return true;
-		if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt)) 
+		if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt) || Input.GetKey(KeyCode.K)) 
 			return true;		
 		return false;
 	}

@@ -22,7 +22,7 @@ public class UIQuestSystem : ComponentSystem {
 				try {
 					InitUIQuest();
 				} catch {
-					// Debug.Log("Error on init quest");
+					//  // Debug.Log("Error on init quest");
 					return;
 				}
 			} else {
@@ -39,14 +39,14 @@ public class UIQuestSystem : ComponentSystem {
 
 	public void CheckIfAnyQuestIsDone () {
 		// for (int i=0; i<uiQuest.questTexts.Length; i++) {
-		// 	Debug.Log("Quest index "+i+", "+questSystem.quest.questPointRequired[i]);
+		// 	 // Debug.Log("Quest index "+i+", "+questSystem.quest.questPointRequired[i]);
 		// }
 		Quest quest = questSystem.quest;
 		int uiQuestIndex = quest.currentQuestIndex-1;
 
 		if (quest.isQuestProcessForUI) {
-			Debug.Log("UIQuestSystem Check UI Quest : "+uiQuestIndex);
-			Debug.Log("UIQuestSystem Do quest for : "+uiQuest.questTexts[uiQuestIndex].text);
+			 // Debug.Log("UIQuestSystem Check UI Quest : "+uiQuestIndex);
+			 // Debug.Log("UIQuestSystem Do quest for : "+uiQuest.questTexts[uiQuestIndex].text);
 
 			quest.isQuestProcessForUI = false;
 		} else if (quest.isQuestDoneForUI) {

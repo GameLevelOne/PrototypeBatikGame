@@ -24,7 +24,7 @@ public struct UINotifComponent{
 	void CheckCall()
 	{
 		if(curUINotif.call){
-			Debug.Log("OpenNotif with text: "+ curUINotif.notifText.text);
+			 // Debug.Log("OpenNotif with text: "+ curUINotif.notifText.text);
 			curUINotif.call = false;
 			curUINotif.endShow = false;
 			curUINotif.boxBorder.SetActive(true);

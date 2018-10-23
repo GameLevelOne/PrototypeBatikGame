@@ -65,7 +65,7 @@ public class UISignPostSystem : ComponentSystem {
 			playerInput.isUIOpen = true;
 			uiSignPost.uiAudio.PlayOneShot(uiSignPost.openClip);
 
-			// Debug.Log("UI SignPost Opening");
+			//  // Debug.Log("UI SignPost Opening");
 		}
 	}
 
@@ -105,7 +105,7 @@ public class UISignPostSystem : ComponentSystem {
 
 	void CloseSignPost() {
 		if (uiSignPost.isCloseSignPost) {
-			// Debug.Log("UI SignPost Closing");
+			//  // Debug.Log("UI SignPost Closing");
 			Time.timeScale = 1f;
 			uiSignPost.anim.Play("Hide",0,0f);
 			playerInput.isUIOpen = false;

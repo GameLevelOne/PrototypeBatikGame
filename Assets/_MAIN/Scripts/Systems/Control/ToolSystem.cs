@@ -80,24 +80,24 @@ public class ToolSystem : ComponentSystem {
 		// 	}
 		// }
 
-		// Debug.Log("currentTool "+(int) tool.currentTool);
-		// Debug.Log("savedToolIdx "+tool.savedToolIdx);
+		//  // Debug.Log("currentTool "+(int) tool.currentTool);
+		//  // Debug.Log("savedToolIdx "+tool.savedToolIdx);
 		// uiToolsSelectionSystem.SetPrintedTool();
 		tool.isInitCurrentTool = true;
 	}
 
 	void CheckSavedTool () {
-		Debug.Log("Bow "+tool.Bow); //
-		Debug.Log("Bomb "+tool.Bomb);
-		Debug.Log("Hammer "+tool.Hammer);
-		Debug.Log("FishingRod "+tool.FishingRod); //
-		Debug.Log("Container1 "+tool.Container1);
-		Debug.Log("Container2 "+tool.Container2);
-		Debug.Log("Container3 "+tool.Container3);
-		Debug.Log("Container4 "+tool.Container4);
-		Debug.Log("Shovel "+tool.Shovel);
-		Debug.Log("MagicMedallion "+tool.MagicMedallion);
-		Debug.Log("Boots "+tool.Boots);
+		 // Debug.Log("Bow "+tool.Bow); //
+		 // Debug.Log("Bomb "+tool.Bomb);
+		 // Debug.Log("Hammer "+tool.Hammer);
+		 // Debug.Log("FishingRod "+tool.FishingRod); //
+		 // Debug.Log("Container1 "+tool.Container1);
+		 // Debug.Log("Container2 "+tool.Container2);
+		 // Debug.Log("Container3 "+tool.Container3);
+		 // Debug.Log("Container4 "+tool.Container4);
+		 // Debug.Log("Shovel "+tool.Shovel);
+		 // Debug.Log("MagicMedallion "+tool.MagicMedallion);
+		 // Debug.Log("Boots "+tool.Boots);
 	}
 
 	public void NextTool ()
@@ -111,7 +111,7 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current++;
 		}
-		// Debug.Log("NextTool, Current Tool : "+current);
+		//  // Debug.Log("NextTool, Current Tool : "+current);
 		tool.currentTool = (ToolType) current;
 		
 		if (!CheckIfToolHasBeenUnlocked(current)) {
@@ -132,7 +132,7 @@ public class ToolSystem : ComponentSystem {
 		}else{
 			current--;
 		}
-		// Debug.Log("PrevTool, Current Tool : "+current);
+		//  // Debug.Log("PrevTool, Current Tool : "+current);
 		tool.currentTool = (ToolType) current;
 		
 		if (!CheckIfToolHasBeenUnlocked(current)) {
@@ -232,14 +232,14 @@ public class ToolSystem : ComponentSystem {
 			// 	UseBoots();
 			// 	break;
 			default :
-				Debug.Log("Player using unknown tool : "+tool.currentTool);
+				 // Debug.Log("Player using unknown tool : "+tool.currentTool);
 				break;
 		}
 	}
 
 	void UseBow()
 	{
-		Debug.Log("Using Bow");
+		 // Debug.Log("Using Bow");
 
 		//shoots projectile (arrow, limited amount).
 		//shoots immediately on face direction
@@ -252,7 +252,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseHook()
 	{
-		// Debug.Log("Using Hook");
+		//  // Debug.Log("Using Hook");
 		// //shoots projectile with rope. shoot in face direction. has range.
 		// //if the projectiles reaches something, do thigs:
 		// //1. enemy: pull the enemy towards player
@@ -265,7 +265,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseBomb()
 	{
-		Debug.Log("Using Bomb");
+		 // Debug.Log("Using Bomb");
 
 		//plant a bomb that explodes after certain time
 		//can be dropped or thrown
@@ -278,7 +278,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseHammer()
 	{
-		Debug.Log("Using Hammer");
+		 // Debug.Log("Using Hammer");
 		//hammer destroy stones or destroyable solid object
 		//break some enemy armor
 		
@@ -288,14 +288,14 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseNet()
 	{
-		// Debug.Log("Using Net");
+		//  // Debug.Log("Using Net");
 		// //catch certain objects (land/air)
 		// SpawnSlashEffect(toolType);
 	}
 	
 	void UseFisingRod()
 	{
-		Debug.Log("Using Fishing Rod");
+		 // Debug.Log("Using Fishing Rod");
 		//catch water object
 		//mini game fishing when triggered
 		FishingRod fishingRod = tool.GetObj((int) tool.currentTool).GetComponent<FishingRod>();
@@ -314,45 +314,45 @@ public class ToolSystem : ComponentSystem {
 	void UseContainer(int containerType)
 	{
 		int idx = containerType + 1;
-		Debug.Log("Using Container " + idx);
+		 // Debug.Log("Using Container " + idx);
 		containerSystem.UseCollectibleInContainer(containerType);
 		player.SetPlayerIdle();
 	}
 	
 	// void UseContainer1()
 	// {
-	// 	Debug.Log("Using Container1");
+	// 	 // Debug.Log("Using Container1");
 	// 	containerSystem.UseCollectibleInContainer(0);
 	// }
 
 	// void UseContainer2()
 	// {
-	// 	Debug.Log("Using Container2");
+	// 	 // Debug.Log("Using Container2");
 	// 	containerSystem.UseCollectibleInContainer(1);
 	// }
 	
 	// void UseContainer3()
 	// {
-	// 	Debug.Log("Using Container3");
+	// 	 // Debug.Log("Using Container3");
 	// 	containerSystem.UseCollectibleInContainer(2);
 	// }
 	
 	// void UseContainer4()
 	// {
-	// 	Debug.Log("Using Container4");
+	// 	 // Debug.Log("Using Container4");
 	// 	containerSystem.UseCollectibleInContainer(3);
 	// }
 
 	void UseShovel()
 	{
-		Debug.Log("Using Shovel");
+		 // Debug.Log("Using Shovel");
 		//dig items from ground
 		SpawnSlashEffect((int) tool.currentTool);
 	}
 	
 	void UseLantern()
 	{
-		// Debug.Log("Using Lantern");
+		//  // Debug.Log("Using Lantern");
 
 		// Lantern lantern = tool.GetObj(toolType).GetComponent<Lantern>();
 			
@@ -365,7 +365,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseInvisibilityCloak()
 	{
-		// Debug.Log("Using Invisibility Cloak");
+		//  // Debug.Log("Using Invisibility Cloak");
 
 		// Cloak cloak = tool.GetObj(toolType).GetComponent<Cloak>();
 
@@ -380,7 +380,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseMagicMedallion()
 	{
-		Debug.Log("Using Magic Medallion");
+		 // Debug.Log("Using Magic Medallion");
 
 		//big AoE Damage to all enemies on screen (?) 
 		//affect some objects (destroy objects)
@@ -391,7 +391,7 @@ public class ToolSystem : ComponentSystem {
 	
 	void UseFastTravel()
 	{
-		// Debug.Log("Using Fast Travel");
+		//  // Debug.Log("Using Fast Travel");
 	}
 	
 	// void UsePowerBracelet(bool value)
@@ -401,7 +401,7 @@ public class ToolSystem : ComponentSystem {
 	// 	int type = (int) ToolType.PowerBracelet;
 
 	// 	PowerBracelet powerBracelet = tool.GetObj(type).GetComponent<PowerBracelet>();
-	// 	// Debug.Log(value);
+	// 	//  // Debug.Log(value);
 	// 	powerBracelet.isColliderOn = value;
 	// }
 	
@@ -411,13 +411,13 @@ public class ToolSystem : ComponentSystem {
 	// 	int type = (int) ToolType.Flippers;
 
 	// 	Flippers flippers = tool.GetObj(type).GetComponent<Flippers>();
-	// 	// Debug.Log(value);
+	// 	//  // Debug.Log(value);
 	// 	flippers.isEquipped = value;
 	// }
 	
 	// void UseBoots()
 	// {
-		// Debug.Log("Using Boots");
+		//  // Debug.Log("Using Boots");
 		
 		//allow dash attack
 		//dash straight until hit an obstacle

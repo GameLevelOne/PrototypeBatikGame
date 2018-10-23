@@ -58,7 +58,7 @@ public class ChestOpenerSystem : ComponentSystem {
 		// if (PlayerPrefs.GetInt(Constants.PlayerPrefKey.PLAYER_SAVED_KEY + chestOpener.chest.chestID, 0) == 1) {
 		// 	OpenChest();
 		// } else {
-		// 	Debug.Log("You do not have key for this chest with ID : "+chestOpener.chest.chestID);
+		// 	 // Debug.Log("You do not have key for this chest with ID : "+chestOpener.chest.chestID);
 		// 	string textToShow = "You do not have key for this gate";
 		// 	chestOpener.chest.animator.Play(Constants.AnimationName.CHEST_LOCKED);
 		// 	uiNotif.TextToShow = textToShow;
@@ -82,13 +82,13 @@ public class ChestOpenerSystem : ComponentSystem {
 			//SEND QUEST TRIGGER
 			chestOpener.chest.questTrigger.isDoQuest.Add(true);
 		} else {
-			Debug.Log("No Quest Triggered");
+			 // Debug.Log("No Quest Triggered");
 		}
 
 		if(chestOpener.chest.cutsceneTrigger != null){
 			chestOpener.chest.cutsceneTrigger.gameObject.SetActive(true);
 		}else{
-			Debug.Log("No CutScene");
+			 // Debug.Log("No CutScene");
 		}
 
 		//SET UI INTERACTION HINT

@@ -34,12 +34,12 @@ public class AreaDissolverSystem : ComponentSystem {
 		}
 
 		if(!areaDissolver.initAutoReference){
-			// Debug.Log("Dissolver count = "+dissolverComponent.Length);
+			//  // Debug.Log("Dissolver count = "+dissolverComponent.Length);
 			for(int i = 0;i<dissolverComponent.Length;i++){
 				dissolver = dissolverComponent.dissolver[i];
 
 				ValidateGreyObject();
-				// Debug.Log("i = "+i+", dissolverComponentLength = "+dissolverComponent.Length);
+				//  // Debug.Log("i = "+i+", dissolverComponentLength = "+dissolverComponent.Length);
 				if(i == dissolverComponent.Length-1){
 					areaDissolver.initAutoReference = true;
 				}
@@ -88,8 +88,8 @@ public class AreaDissolverSystem : ComponentSystem {
 
 		areaDissolver.isAreaAlreadyDissolved = PlayerPrefs.GetInt(areaDissolverStr, 0) == 0 ? false : true;
 
-		// Debug.Log(areaDissolverStr);
-		// Debug.Log(areaDissolver.isAreaAlreadyDissolved);
+		//  // Debug.Log(areaDissolverStr);
+		//  // Debug.Log(areaDissolver.isAreaAlreadyDissolved);
 	}
 
 	void SaveAreaDissolver (int questIdx, int value) {
@@ -98,7 +98,7 @@ public class AreaDissolverSystem : ComponentSystem {
 
 			PlayerPrefs.SetInt(areaDissolverStr, value);
 
-			Debug.Log("Saving AreaDissolver: "+areaDissolverStr+" with state: "+areaDissolver.isAreaAlreadyDissolved);
+			 // Debug.Log("Saving AreaDissolver: "+areaDissolverStr+" with state: "+areaDissolver.isAreaAlreadyDissolved);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class AreaDissolverSystem : ComponentSystem {
 
 	public void DissableGreyDissolver (int questIdx) {
 		if (areaDissolver.levelQuestIndex == questIdx) {
-			Debug.Log("Dissolve Grey on map "+questIdx);
+			 // Debug.Log("Dissolve Grey on map "+questIdx);
 			for (int i=0; i<areaDissolver.dissolverObjs.Count; i++) {
 				areaDissolver.dissolverObjs[i].greyLayerObj.SetActive(false);
 			}
