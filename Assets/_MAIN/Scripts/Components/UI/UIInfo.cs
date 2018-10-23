@@ -6,11 +6,17 @@ public class UIInfo : MonoBehaviour {
 	public AnimationControl animationControl;
 	public Animator animator;
 	public GameObject panelUIInfo;
-	public Sprite initContainerSprite;
 	public Sprite hpPotSprite;
 	public Sprite mpPotSprite;
 	public Sprite initToolSprite;
+	public Sprite initToolHoverSprite;
+	public Sprite initToolDisableSprite;
 	public Sprite selectedToolSprite;
+	public Sprite initContainerSprite;
+	public Sprite initContainerHoverSprite;
+	public Sprite initFrontContainerSprite;
+	public Sprite selectedContainerSprite;
+	public Sprite selectedFrontContainerSprite;
 	// public CanvasGroup canvasInfoGroup;
 	// public float showMultiplier;
 	// public float hideMultiplier;
