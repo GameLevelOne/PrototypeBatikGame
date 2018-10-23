@@ -572,6 +572,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// SetDir(0f,0f);
 				// playerAnimationSystem.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 				player.SetPlayerState(PlayerState.ENGAGE);
+				PlaySFXOneShot(PlayerInputAudio.ENGAGE_MOVE);
 				player.isInitRapidSlash = false;
 				// player.SetPlayerState(PlayerState.RAPID_SLASH);
 			}

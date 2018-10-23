@@ -55,8 +55,10 @@ public class PowerBraceletSystem : ComponentSystem {
 						}
 					}
 				} else {
-					if (powerBracelet.liftable == null) {
-						ResetPowerBracelet();
+					if (state != PowerBraceletState.NONE) {
+						if (powerBracelet.liftable == null) {
+							ResetPowerBracelet();
+						}
 					}
 				}
 			}

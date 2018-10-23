@@ -26,7 +26,8 @@ public enum PlayerInputAudio {
 	DASH_ATTACK,
 	HURT1,
 	HURT2,
-	HURT3
+	HURT3,
+	ENGAGE_MOVE
 	// HURT
 }
 
