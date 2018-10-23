@@ -437,6 +437,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 1561486670605944, guid: a3f9cfb97098ae8458f8fc893b0814f4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114036696634214708, guid: a3f9cfb97098ae8458f8fc893b0814f4, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: a3f9cfb97098ae8458f8fc893b0814f4, type: 2}
@@ -3003,12 +3007,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
+    - target: {fileID: 198604156538610386, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
-    - target: {fileID: 198604156538610386, guid: 48c8d0db54edec043ac957c3486b5def,
+    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
@@ -3516,7 +3520,7 @@ Prefab:
       objectReference: {fileID: 1203433336}
     - target: {fileID: 1951058270258266, guid: acdc66303a491424a9a4bcae0d36867f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acdc66303a491424a9a4bcae0d36867f, type: 2}

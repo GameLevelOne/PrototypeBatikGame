@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum FishingRodState {
 	IDLE,
@@ -16,6 +17,7 @@ public class FishingRod : MonoBehaviour {
 	public GameObject fishingBuoySplashObj;
 	public Collider baitCol;
 	public float fishingRange;
+	public Text debugFishingRodText;
 
 	
 	[HeaderAttribute("Current")]

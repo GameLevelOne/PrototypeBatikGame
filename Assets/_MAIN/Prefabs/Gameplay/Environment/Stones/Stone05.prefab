@@ -11,6 +11,22 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1371085719669796}
   m_IsPrefabAsset: 1
+--- !u!1 &1077983534721358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4066359681848510}
+  - component: {fileID: 136563717488164388}
+  m_Layer: 0
+  m_Name: Addon Collider
+  m_TagString: Liftable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1163834051144940
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +135,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!4 &4066359681848510
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077983534721358}
+  m_LocalRotation: {x: -0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4579186200525654}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -40, y: 0, z: 0}
 --- !u!4 &4291923908645096
 Transform:
   m_ObjectHideFlags: 1
@@ -173,6 +202,7 @@ Transform:
   - {fileID: 4291923908645096}
   - {fileID: 4473861114560504}
   - {fileID: 4761706425511030}
+  - {fileID: 4066359681848510}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
@@ -478,9 +508,22 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.443722
-  m_Height: 2.2945156
+  m_Height: 2.26
   m_Direction: 0
   m_Center: {x: -0.050563335, y: 0.29, z: -0.36}
+--- !u!136 &136563717488164388
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077983534721358}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2
+  m_Height: 1.3
+  m_Direction: 1
+  m_Center: {x: -0.05, y: 0.65, z: -0.09}
 --- !u!136 &136798035227352564
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -491,7 +534,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.443722
-  m_Height: 2.2945156
+  m_Height: 2.26
   m_Direction: 0
   m_Center: {x: -0.050563335, y: 0.29, z: -0.36}
 --- !u!198 &198908342371919504

@@ -237,24 +237,29 @@ public class PlayerInputSystem : ComponentSystem {
 			return;
 		}
 
-		if (powerBracelet.state != PowerBraceletState.NONE && player.isHitLiftableObject) {
-			if (GameInput.IsActionPressed && !input.isUIOpen) {
-				PlaySFXOneShot(PlayerInputAudio.PICK_UP);
-				input.interactValue = 0;
-				input.interactMode = 3;
-				
-				if (powerBraceletSystem.withStand) {
-					player.isUsingStand = true;
-					powerBraceletSystem.withStand = false;
-					UseMana(tool.GetToolManaCost((int) ToolType.PowerBracelet), true);
+		if (powerBracelet.state != PowerBraceletState.NONE) {
+			if (player.isHitLiftableObject) {
+				if (GameInput.IsActionPressed && !input.isUIOpen) {
+					PlaySFXOneShot(PlayerInputAudio.PICK_UP);
+					input.interactValue = 0;
+					input.interactMode = 3;
+					
+					if (powerBraceletSystem.withStand) {
+						player.isUsingStand = true;
+						powerBraceletSystem.withStand = false;
+						UseMana(tool.GetToolManaCost((int) ToolType.PowerBracelet), true);
+					}
+
+					player.SetPlayerState(PlayerState.POWER_BRACELET);
+					// isButtonToolHold = true;
 				}
 
-				player.SetPlayerState(PlayerState.POWER_BRACELET);
-				// isButtonToolHold = true;
-			} 
-
-			//SET UI INTERACTION HINT
-			player.ShowInteractionHint(HintMessage.LIFT);
+				//SET UI INTERACTION HINT
+				powerBracelet.player.ShowInteractionHint(HintMessage.LIFT);
+			} else {
+				//SET UI INTERACTION HINT
+				player.HideHint();
+			}
 		}
 		#endregion
 	}
@@ -500,6 +505,7 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
 							input.interactMode = 4;
+							input.interactValue = 0;
 							player.SetPlayerState(PlayerState.FISHING);
 						}
 					} else {
@@ -566,6 +572,7 @@ public class PlayerInputSystem : ComponentSystem {
 				// SetDir(0f,0f);
 				// playerAnimationSystem.animator.updateMode = AnimatorUpdateMode.UnscaledTime;
 				player.SetPlayerState(PlayerState.ENGAGE);
+				PlaySFXOneShot(PlayerInputAudio.ENGAGE_MOVE);
 				player.isInitRapidSlash = false;
 				// player.SetPlayerState(PlayerState.RAPID_SLASH);
 			}

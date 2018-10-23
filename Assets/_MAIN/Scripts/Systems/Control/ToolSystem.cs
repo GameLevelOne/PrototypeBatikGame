@@ -299,9 +299,9 @@ public class ToolSystem : ComponentSystem {
 		FishingRod fishingRod = tool.GetObj((int) tool.currentTool).GetComponent<FishingRod>();
 		FishingRodState fishingState = fishingRod.state;
 
-		if (!fishingRod.isBaitLaunched && fishingState == FishingRodState.IDLE) {
-			player.SetPlayerState(PlayerState.FISHING);
+		if (fishingState == FishingRodState.IDLE) {
 			fishingRod.state = FishingRodState.THROW;
+			// player.SetPlayerState(PlayerState.FISHING);
 		} else if (fishingState == FishingRodState.STAY) {
 			fishingRod.state = FishingRodState.RETURN;
 		}

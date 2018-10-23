@@ -33,6 +33,7 @@ public class UIGameOver : MonoBehaviour {
 	{
 		// Debug.Log("ENDHOWING CALLED");
 		endShow = true;
+		Time.timeScale = 0f;
 	}
 	void EndHiding()
 	{
