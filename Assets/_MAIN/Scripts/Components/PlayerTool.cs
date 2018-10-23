@@ -53,7 +53,7 @@ public class PlayerTool : MonoBehaviour {
 	public GameObject shovelAreaEffectObj;
 	public GameObject lanternObj;
 	public GameObject invisibleCloak;
-	public GameObject magicMedallionAreaEffectObj;
+	public GameObject bigSummonAOEObj;
 	public GameObject powerBraceletAreaEffectObj;
 	public GameObject flippersObj;
 	public GameObject bootsObj;
@@ -119,7 +119,7 @@ public class PlayerTool : MonoBehaviour {
             case 13:
                 return invisibleCloak;
             case 14:
-                return magicMedallionAreaEffectObj;
+				return bigSummonAOEObj;
             case 16:
                 return powerBraceletAreaEffectObj;
             case 17:
@@ -187,7 +187,7 @@ public class PlayerTool : MonoBehaviour {
             case 11:
                 return shovelAreaEffectObj.GetComponent<ToolMana>().manaCost;
             case 14:
-                return magicMedallionAreaEffectObj.GetComponent<ToolMana>().manaCost;
+                return bigSummonAOEObj.GetComponent<ToolMana>().manaCost;
             case 16:
                 return powerBraceletAreaEffectObj.GetComponent<ToolMana>().manaCost;
             case 18:
