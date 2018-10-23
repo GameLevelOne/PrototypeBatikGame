@@ -8,7 +8,14 @@ public class PlayerSystem : ComponentSystem {
 		public ComponentArray<Facing2D> Facing;
 	}
 	[InjectAttribute] PlayerData playerData;
-	[InjectAttribute] ToolSystem toolSystem;
+	public struct ToolData {
+		public readonly int Length;
+		// public ComponentArray<PlayerInput> PlayerInput;
+		// public ComponentArray<Player> Player;
+		public ComponentArray<PlayerTool> PlayerTool;
+		// public ComponentArray<Animation2D> Animation;
+	}
+	[InjectAttribute] ToolData toolData;
 	
 	Player player;
 	Facing2D facing;
@@ -55,7 +62,7 @@ public class PlayerSystem : ComponentSystem {
 		playerAttackArea.digChecker.player = player;
 
 		player.GetComponent<Attack>().dashAttackArea = playerAttackArea.dashAttackObj;
-		toolSystem.tool.fishingBaitObj = playerAttackArea.fishingRod.gameObject;
+		toolData.PlayerTool[0].fishingBaitObj = playerAttackArea.fishingRod.gameObject;
 
 		attackAreaDebug = playerAttackAreaObj.GetComponent<AttackAreaDebug>();
 
