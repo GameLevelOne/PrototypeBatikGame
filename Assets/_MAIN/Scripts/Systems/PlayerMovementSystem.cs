@@ -277,6 +277,7 @@ public class PlayerMovementSystem : ComponentSystem {
 		} else if (state == PlayerState.ENGAGE) {
 			SetEngageMovement();
 		} else if (state == PlayerState.DASH) {
+			Vector3 tempDashDir = input.tempDashDir;
 			if (input.interactValue == 0) {
 				// player.isUsingStand = false;
 				// if (dashDelay > 0f) {
@@ -294,7 +295,7 @@ public class PlayerMovementSystem : ComponentSystem {
 				} else {
 					if (isHaveEnoughMana((int) ToolType.Boots, false, false)) {
 						float dashSpeed = tool.GetObj((int) ToolType.Boots).GetComponent<Boots>().bootsSpeed;
-						rb.velocity = input.tempDashDir * dashSpeed * deltaTime;
+						rb.velocity = tempDashDir * dashSpeed * deltaTime;
 
 						if (dashTime <= 0.2f) {
 							dashTime += deltaTime;
@@ -310,9 +311,9 @@ public class PlayerMovementSystem : ComponentSystem {
 					brakeTime -= deltaTime;
 					
 					if (player.isBouncing) {
-						rb.velocity = -moveDir * movement.bounceSpeed * deltaTime * brakeTime;
+						rb.velocity = -tempDashDir * movement.bounceSpeed * deltaTime * brakeTime;
 					} else {
-						rb.velocity = moveDir * movement.bounceSpeed * deltaTime * brakeTime;
+						rb.velocity = tempDashDir * movement.bounceSpeed * deltaTime * brakeTime;
 					}
 				} else {
 					input.moveDir = Vector3.zero;

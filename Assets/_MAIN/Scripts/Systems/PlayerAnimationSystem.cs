@@ -582,6 +582,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 		// input.moveMode = 0;
 		input.interactValue = 0;
 		input.interactMode = 0;
+		tool.isActToolReady = false;
 		// input.liftingMode = 0;
 		// Debug.Log("Reset AttackMode - StopAnyAnimation");
 	}
@@ -778,6 +779,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					} else if (input.interactValue == 2) {
 						if (input.interactMode == -3) { //AFTER FISHING FAIL
 							input.interactValue = -1;
+							StopAnyAnimation ();
+							fishingRodSystem.ResetFishingRod();
+							Debug.Log("FAIL");
 						} else {
 							StopAnyAnimation ();
 							
@@ -786,10 +790,12 @@ public class PlayerAnimationSystem : ComponentSystem {
 							}
 							
 							fishingRodSystem.ResetFishingRod();
+							Debug.Log("SUCCESS");
 						}
 					} else if (input.interactValue == -1) {
 						StopAnyAnimation ();
 						fishingRodSystem.ResetFishingRod();
+						Debug.Log("END FISHING");
 					}
 
 					break;
