@@ -640,7 +640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -806,6 +806,7 @@ MonoBehaviour:
   fishingBuoySplashObj: {fileID: 1910093498268156}
   baitCol: {fileID: 136441241868455792}
   fishingRange: 1.2
+  debugFishingRodText: {fileID: 114943806505515672}
   isInitFishingRod: 0
   fish: {fileID: 0}
   fishObj: {fileID: 0}
@@ -957,6 +958,7 @@ MonoBehaviour:
   fishingBuoySplashObj: {fileID: 0}
   baitCol: {fileID: 135108932201016196}
   fishingRange: 3
+  debugFishingRodText: {fileID: 0}
   isInitFishingRod: 0
   fish: {fileID: 0}
   fishObj: {fileID: 0}
@@ -1113,7 +1115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6347193, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1122,7 +1124,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: cefd5098885f37e46997586e8ecf644e, type: 3}
-    m_FontSize: 5
+    m_FontSize: 3
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1449,7 +1451,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 10}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224419125868151826
 RectTransform:

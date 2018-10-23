@@ -38,6 +38,7 @@ public class FishingRodSystem : ComponentSystem {
 		ResetFishingRod();
 		fishingRod.fishingBuoyObj.SetActive(false);
 		fishingRod.fishingBuoySplashObj.SetActive(false);
+		fishingRod.debugFishingRodText.text += "\n InitFishingRod";
 
 		fishingRod.isInitFishingRod = true;
 	}
@@ -45,6 +46,7 @@ public class FishingRodSystem : ComponentSystem {
 	void CheckFishingRodState () {
 		if (fishingRod.state == FishingRodState.THROW && !fishingRod.isBaitLaunched) {
 			fishingRod.isBaitLaunched = true;
+			fishingRod.debugFishingRodText.text += "\n Set State Throw";
 			Throw ();
 		} else if (state == FishingRodState.STAY) {
 			Stay ();
@@ -60,6 +62,7 @@ public class FishingRodSystem : ComponentSystem {
 		fishingRod.fishingBuoyObj.SetActive(true);
 		fishingRod.isBaitFish = false;
 		fishingRod.state = FishingRodState.STAY;
+		fishingRod.debugFishingRodText.text += "\n Set State Stay";
 	}
 
 	void Stay () {
@@ -101,6 +104,7 @@ public class FishingRodSystem : ComponentSystem {
 		fishingRod.isBaitLaunched = false;
 		fishingRod.transform.localPosition = Vector3.zero;
 		fishingRod.state = FishingRodState.IDLE;
+		fishingRod.debugFishingRodText.text += "\n ResetFishingRod IDLE";
 	}
 
 	public void ProcessFish () {

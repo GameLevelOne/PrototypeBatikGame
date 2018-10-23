@@ -500,6 +500,7 @@ public class PlayerInputSystem : ComponentSystem {
 					} else if (toolType == ToolType.FishingRod) {
 						if (player.isCanFishing) {
 							input.interactMode = 4;
+							input.interactValue = 0;
 							player.SetPlayerState(PlayerState.FISHING);
 						}
 					} else {
