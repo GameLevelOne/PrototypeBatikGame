@@ -106,6 +106,8 @@ public class BeeSystem : ComponentSystem {
 	{
 		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
+		} else if (currEnemy.state == EnemyState.Stun) {
+			Stuned();
 		} else {
 			currBeeRigidbody.velocity = Vector3.zero;
 			
@@ -164,7 +166,7 @@ public class BeeSystem : ComponentSystem {
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
 			currEnemy.initAttack = false;
-			currEnemy.isAttack = false;
+			// currEnemy.isAttack = false;
 			currEnemy.attackObject.SetActive(false);
 
 			SpawnBeeCutFX();
@@ -190,6 +192,29 @@ public class BeeSystem : ComponentSystem {
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
 			// }
+		}
+	}
+
+	void Stuned()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			// currEnemy.isAttack = false;
+			currEnemy.attackObject.SetActive(false);
+			
+			currEnemy.initDamaged = true;
+			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+		}else{
+			if (currEnemy.isFinishDamaged) {
+				currBeeRigidbody.velocity = Vector3.zero;
+				
+				currEnemy.isFinishDamaged = false;
+				currEnemy.state = EnemyState.Aggro;
+				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+				currEnemy.chaseIndicator.Play(true);
+			}
 		}
 	}
 
@@ -271,13 +296,6 @@ public class BeeSystem : ComponentSystem {
 		}else{
 			currBeeRigidbody.position = 
 				MoveToPos(currEnemy.playerTransform.position, currEnemy.chaseSpeed);
-				// Vector3.Scale(verticalMultVector, 
-				// 	Vector3.MoveTowards(
-				// 		currBeeRigidbody.position,
-				// 		currEnemy.playerTransform.position,
-				// 		currEnemy.chaseSpeed * deltaTime
-				// 	)
-				// );
 
 			if(Vector3.Distance(currBeeRigidbody.position,currEnemy.playerTransform.position) >= currEnemy.chaseRange){
 			// 	currEnemy.state = EnemyState.Idle;

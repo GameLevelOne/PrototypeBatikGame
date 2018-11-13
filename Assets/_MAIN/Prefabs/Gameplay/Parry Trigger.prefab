@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4333096427458106}
-  - component: {fileID: 114110858018081548}
+  - component: {fileID: 114035337685942630}
   - component: {fileID: 136042606440915014}
   m_Layer: 0
-  m_Name: Counter Trigger
+  m_Name: Parry Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4333096427458106
 Transform:
   m_ObjectHideFlags: 1
@@ -71,7 +71,7 @@ Transform:
   m_Father: {fileID: 4333096427458106}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
---- !u!114 &114110858018081548
+--- !u!114 &114035337685942630
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1285208271509548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c4b063872095741913320747861399, type: 3}
+  m_Script: {fileID: 11500000, guid: b53e1d37da76c804692bf91904d719bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minDiagonalThreshold: 0.2
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.15125823, g: 1, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 1, b: 0.9218221, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

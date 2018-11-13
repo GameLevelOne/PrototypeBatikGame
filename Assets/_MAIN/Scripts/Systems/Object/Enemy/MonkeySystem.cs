@@ -59,6 +59,8 @@ public class MonkeySystem : ComponentSystem {
 	{
 		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
+		} else if (currEnemy.state == EnemyState.Stun) {
+			Stuned();
 		} else {
 			currMonkeyRigidbody.velocity = Vector3.zero;
 			
@@ -115,6 +117,7 @@ public class MonkeySystem : ComponentSystem {
 		if (!currEnemy.initAggro) {
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
 			currEnemy.initAggro = true;
 
 			// Player player = currEnemy.playerTransform.GetComponent<Player>();
@@ -142,7 +145,7 @@ public class MonkeySystem : ComponentSystem {
 			currEnemy.initPatrol = false;
 			currEnemy.initAggro = false;
 			currEnemy.initAttack = false;
-			currEnemy.isAttack = false;
+			// currEnemy.isAttack = false;
 			currEnemy.attackObject.SetActive(false);
 
 			// currEnemy.TDamaged = currEnemy.damagedDuration;
@@ -167,6 +170,29 @@ public class MonkeySystem : ComponentSystem {
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
 			// }
+		}
+	}
+
+	void Stuned()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			// currEnemy.isAttack = false;
+			currEnemy.attackObject.SetActive(false);
+			
+			currEnemy.initDamaged = true;
+			currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+		}else{
+			if (currEnemy.isFinishDamaged) {
+				currMonkeyRigidbody.velocity = Vector3.zero;
+				
+				currEnemy.isFinishDamaged = false;
+				currEnemy.state = EnemyState.Aggro;
+				currMonkeyAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+				currEnemy.chaseIndicator.Play(true);
+			}
 		}
 	}
 

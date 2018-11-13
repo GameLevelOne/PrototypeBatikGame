@@ -54,6 +54,9 @@ public class PlayerInput : MonoBehaviour {
 	public float slowTimeScale = 0f;
 	public float rapidSlashAnimatorSpeed = 0f;
 
+	[HeaderAttribute("Slow Motion Parry")]
+	public float slowParryDuration = 0f;
+
 	[HeaderAttribute("Current")]
 
 	// public bool isLockDir = false;

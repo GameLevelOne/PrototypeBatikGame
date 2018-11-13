@@ -43,7 +43,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	int currentDirID;
 
 	protected override void OnUpdate () {
-		if (animationData.Length == 0) return;
+		// if (animationData.Length == 0) return;
 		
 		if (tool == null || attack == null) {
 			tool = standAnimationSystem.tool;
@@ -100,6 +100,15 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 		if (state == PlayerState.IDLE || state == PlayerState.MOVE) {
 			anim.isFinishAttackAnimation = true;
+		}
+
+		if (animName == Constants.BlendTreeName.IDLE_GUARD || animName == Constants.BlendTreeName.MOVE_GUARD) {
+			ResetValue();
+			
+			if (input.moveMode == 1) StopChargeEffect();
+		} else {
+			input.moveMode = 0;
+			player.isGuarding = false;
 		}
 	}
 
@@ -394,8 +403,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			switch(state) {
 				case PlayerState.ATTACK: 
 					attack.isAttacking = true;	
-					anim.isSpawnSomethingOnAnimation = true;
-					// anim.isFinishAttackAnimation = true;
+					// anim.isSpawnSomethingOnAnimation = true;
+					// anim.isFinishAttackAnimation = true;	
 					break;
 				case PlayerState.CHARGE: 
 					attack.isAttacking = true;
@@ -435,8 +444,17 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			switch(state) {
 				case PlayerState.DODGE:
-					anim.isFinishAnyAnimation = true;
-					anim.isFinishAttackAnimation = true;
+					ResetValue();
+					input.moveMode = 0;
+
+					if (player.currentParryTrigger != null) {
+						GameObject.Destroy(player.currentParryTrigger.gameObject);
+						player.currentParryTrigger = null;
+					}
+
+					player.isCanParry = false;
+					player.isGuarding = false;
+
 					PlaySFXOneShot(PlayerInputAudio.DODGE);
 					break;
 				// case PlayerState.COUNTER:
@@ -521,6 +539,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 
 					break;
 				case PlayerState.DIE: 
+					if (input.moveMode == 1) StopChargeEffect();
+
 					PlaySFXOneShot(PlayerInputAudio.DIE);
 					break;
 				case PlayerState.GET_HURT:
@@ -532,10 +552,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dashEffect, false);
 					gameFXSystem.ToggleRunFX(false);
 					
-					//CLOSE CHARGE ATTACK
-					input.moveMode = 0;
-					gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
-					input.audioSource.Stop();
+					if (input.moveMode == 1) StopChargeEffect();
 
 					if (powerBraceletSystem.powerBracelet.liftable == null) {
 						powerBraceletSystem.ResetPowerBracelet();
@@ -576,15 +593,26 @@ public class PlayerAnimationSystem : ComponentSystem {
 	void StopAnyAnimation () {
 		//  // Debug.Log("StopAnyAnimation");
 		player.SetPlayerIdle();
-		anim.isFinishAnyAnimation = true;
-		anim.isFinishAttackAnimation = true;	
-		input.attackMode = 0;
+		ResetValue();
 		// input.moveMode = 0;
-		input.interactValue = 0;
-		input.interactMode = 0;
-		tool.isActToolReady = false;
 		// input.liftingMode = 0;
 		//  // Debug.Log("Reset AttackMode - StopAnyAnimation");
+	}
+
+	void ResetValue () {
+		anim.isFinishAnyAnimation = true;
+		anim.isFinishAttackAnimation = true;
+		input.attackMode = 0;
+		input.interactValue = 0;
+		input.interactMode = 0;
+		input.isInitChargeAttack = false;
+	}
+
+	void StopChargeEffect () {
+		//CLOSE CHARGE ATTACK
+		input.moveMode = 0;
+		gameFXSystem.ToggleObjectEffect(gameFXSystem.gameFX.chargingEffect, false);
+		input.audioSource.Stop();
 	}
 
 	// void CheckAttackCombo () {
@@ -622,6 +650,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.isInitChargeAttack) {
 						playerInputSystem.SetMovement(1);
 						PlaySFXOneShot(PlayerInputAudio.CHARGE_START);
+						Debug.Log("CHARGE");
 					}
 
 					if (moveDir != Vector3.zero) {

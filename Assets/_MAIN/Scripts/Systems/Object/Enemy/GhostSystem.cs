@@ -71,6 +71,8 @@ public class GhostSystem : ComponentSystem {
 	{
 		if (currEnemy.state == EnemyState.Damaged){
 			Damaged();
+		} else if (currEnemy.state == EnemyState.Stun) {
+			Stuned();
 		} else {
 			currGhostRigidbody.velocity = Vector3.zero;
 			
@@ -198,7 +200,7 @@ public class GhostSystem : ComponentSystem {
 			currEnemy.initIdle = false;
 			currEnemy.initPatrol = false;
 			currEnemy.initAttack = false;
-			currGhost.isAttacking = false;
+			// currGhost.isAttacking = false;
 			currEnemy.attackObject.SetActive(false);
 			currGhost.hitParticle.Play();
 
@@ -222,6 +224,30 @@ public class GhostSystem : ComponentSystem {
 			// }
 			} else {
 				// currGhost.TDamaged -= deltaTime;
+			}
+		}
+	}
+
+	void Stuned()
+	{
+		if(!currEnemy.initDamaged){
+			currEnemy.initIdle = false;
+			currEnemy.initPatrol = false;
+			currEnemy.initAttack = false;
+			// currGhost.isAttacking = false;
+			currEnemy.attackObject.SetActive(false);
+			currGhost.hitParticle.Play();
+			
+			currEnemy.initDamaged = true;
+			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+		}else{
+			if (currEnemy.isFinishDamaged) {
+				currGhostRigidbody.velocity = Vector3.zero;
+				
+				currEnemy.isFinishDamaged = false;
+				currEnemy.state = EnemyState.Chase;
+				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+				currEnemy.chaseIndicator.Play(true);
 			}
 		}
 	}
