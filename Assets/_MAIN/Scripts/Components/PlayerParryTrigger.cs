@@ -12,8 +12,10 @@ public class PlayerParryTrigger : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (other.GetComponent<Damage>() != null) {
 			DamageCharacteristic damageChar = other.GetComponent<Damage>().damageChar;
+            // Debug.Log("OnTriggerEnter");
 
 			if (damageChar == DamageCharacteristic.PARRYABLE || damageChar == DamageCharacteristic.COUNTER_AND_PARRYABLE) {
+                // Debug.Log("PARRYABLE");
                 if (other.GetComponentInParent<Enemy>() != null) {
                     Enemy currEnemy = other.GetComponentInParent<Enemy>();
 
@@ -25,6 +27,7 @@ public class PlayerParryTrigger : MonoBehaviour {
                         }
                     }
                 } else {
+                    // Debug.Log("PARRY without parent");
                     if (CheckParryDir(other.transform.position, player.transform.position)) {
 
                         if (OnParryTrigger != null) {

@@ -276,7 +276,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckAttackInput () {
 		#region Attack
-		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK) {
+		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY || state == PlayerState.ATTACK) {
 			// float beforeChargeDelay = input.beforeChargeDelay;
 			// float attackAwayDelay = input.attackAwayDelay;
 			int attackMode = input.attackMode;
@@ -366,7 +366,7 @@ public class PlayerInputSystem : ComponentSystem {
 			// } else if (GameInput.IsGuardHeld && !input.isUIOpen) {
 				//	
 			} else if (GameInput.IsGuardReleased) {
-				SetMovement(0);
+				if (input.moveMode != 1) SetMovement(0);
 				
 				player.isGuarding = false;
 				parryTimer = 0f;

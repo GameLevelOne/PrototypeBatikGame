@@ -194,13 +194,13 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionExit (Collision col) {
 		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
-			if (isHitLiftableObject) {
-				if (col.gameObject.GetComponent<Liftable>() != null) {
-					isHitLiftableObject = false;
-				} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
-					isHitLiftableObject = false;
-				}
-			}
+			// if (isHitLiftableObject) {
+			// 	if (col.gameObject.GetComponent<Liftable>() != null) {
+			// 		isHitLiftableObject = false;
+			// 	} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+			// 		isHitLiftableObject = false;
+			// 	}
+			// }
 		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {

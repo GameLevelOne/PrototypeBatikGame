@@ -107,7 +107,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			if (input.moveMode == 1) StopChargeEffect();
 		} else {
-			input.moveMode = 0;
+			if (input.moveMode != 1) input.moveMode = 0;
 			player.isGuarding = false;
 		}
 	}
@@ -445,6 +445,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			switch(state) {
 				case PlayerState.DODGE:
 					ResetValue();
+					if (input.moveMode == 1) StopChargeEffect();
+
 					input.moveMode = 0;
 
 					if (player.currentParryTrigger != null) {
@@ -650,7 +652,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 					if (input.isInitChargeAttack) {
 						playerInputSystem.SetMovement(1);
 						PlaySFXOneShot(PlayerInputAudio.CHARGE_START);
-						Debug.Log("CHARGE");
+						// Debug.Log("CHARGE");
 					}
 
 					if (moveDir != Vector3.zero) {
