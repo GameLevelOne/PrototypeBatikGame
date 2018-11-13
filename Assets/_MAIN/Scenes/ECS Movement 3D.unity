@@ -236,7 +236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &97417079
 Transform:
   m_ObjectHideFlags: 0
@@ -3081,27 +3081,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: TriggerModule.collisionShape0
-      value: 
-      objectReference: {fileID: 596063087}
     - target: {fileID: 198604156538610386, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
       propertyPath: TriggerModule.collisionShape0
       value: 
       objectReference: {fileID: 596063087}
-    - target: {fileID: 114184073313741162, guid: 48c8d0db54edec043ac957c3486b5def,
+    - target: {fileID: 198604225828480100, guid: 48c8d0db54edec043ac957c3486b5def,
         type: 2}
-      propertyPath: slowParryDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114208348427726864, guid: 48c8d0db54edec043ac957c3486b5def,
-        type: 2}
-      propertyPath: playerParryTrigger
+      propertyPath: TriggerModule.collisionShape0
       value: 
-      objectReference: {fileID: 1285208271509548, guid: a2e200f9740d2da459a81209e0d2be08,
-        type: 2}
+      objectReference: {fileID: 596063087}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48c8d0db54edec043ac957c3486b5def, type: 2}
   m_IsPrefabAsset: 0
