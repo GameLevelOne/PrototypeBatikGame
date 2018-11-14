@@ -25,7 +25,8 @@ public class Arrow : MonoBehaviour {
 	public void StartArrowBounceAnimation () {
 		rigidbody.velocity = Vector3.zero;
 		collider.enabled = false;
-		animator.Play(Constants.AnimatorParameter.Trigger.ARROW_BOUNCE);
+		// animator.Play(Constants.AnimatorParameter.Trigger.ARROW_BOUNCE);
+		DestroyArrow();
 	}
 
 	public void DestroyArrow () {

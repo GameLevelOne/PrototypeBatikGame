@@ -14,6 +14,7 @@ public class Ghost : MonoBehaviour {
 	public ChestSpawner chestSpawner;
 	public TriggerDetection playerTriggerDetection;
 	public TriggerDetection attackRangeDetection;
+	public Collider addonCollider;
 	public SpriteRenderer sprite;
 	public ParticleSystem particle;
 	public ParticleSystem attackCodeFX;

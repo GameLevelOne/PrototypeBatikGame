@@ -300,6 +300,7 @@ public class GhostSystem : ComponentSystem {
 			currEnemy.TDie = currEnemy.dieDuration;
 			currGhostRigidbody.velocity = Vector3.zero;
 			ghostCollider.enabled = false;
+			currGhost.addonCollider.enabled = false;
 			currGhost.PlaySFX(GhostSFX.GhostDie);
 			currGhost.particle.Play();
 		}else{

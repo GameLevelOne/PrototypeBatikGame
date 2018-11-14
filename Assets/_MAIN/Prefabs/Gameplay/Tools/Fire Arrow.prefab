@@ -393,6 +393,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 114378567598690986}
   manaCost: 20
+  animator: {fileID: 0}
+  collider: {fileID: 0}
+  rigidbody: {fileID: 0}
   playerTransform: {fileID: 0}
 --- !u!114 &114612600545870728
 MonoBehaviour:
@@ -429,7 +432,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 3
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!198 &198016714709088508
 ParticleSystem:
   m_ObjectHideFlags: 1
