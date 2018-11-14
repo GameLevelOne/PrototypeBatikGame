@@ -10,7 +10,4 @@ public class CameraShaker : MonoBehaviour {
 	public bool shake;
 	public float tShakeDelay = 0;
 	public PostProcessingBehaviour blurBehaviour;
-
-	
-	
 }

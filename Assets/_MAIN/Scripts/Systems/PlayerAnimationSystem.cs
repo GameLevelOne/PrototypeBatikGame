@@ -27,6 +27,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 	public Animator animator;
 	public Animation2D anim;
 	
+	PostProcessingBehaviour postProcCamera;
 	PlayerInput input;
 	Player player;
 	Attack attack;
@@ -51,6 +52,8 @@ public class PlayerAnimationSystem : ComponentSystem {
 			//  // Debug.Log("Player animation won't running");
 			return;
 		}
+
+		postProcCamera = Camera.main.GetComponent<PostProcessingBehaviour>();
 
 		for (int i=0; i<animationData.Length; i++) {
 			input = animationData.PlayerInput[i];
@@ -107,8 +110,10 @@ public class PlayerAnimationSystem : ComponentSystem {
 			
 			if (input.moveMode == 1) StopChargeEffect();
 		} else {
-			if (input.moveMode != 1) input.moveMode = 0;
-			player.isGuarding = false;
+			if (animName != Constants.BlendTreeName.BLOCK_ATTACK) {
+				if (input.moveMode != 1) input.moveMode = 0;
+				player.isGuarding = false;
+			}
 		}
 	}
 
@@ -475,7 +480,9 @@ public class PlayerAnimationSystem : ComponentSystem {
 					gameFXSystem.ToggleParticleEffect(gameFXSystem.gameFX.dodgeEffect, false);
 					// gameFXSystem.PlayCounterChargeEffect();
 					// animator.speed = 5f;
-					Camera.main.GetComponent<PostProcessingBehaviour>().enabled = true;
+					
+					postProcCamera.profile = input.postProcProfileCounterParry;
+					postProcCamera.enabled = true;
 					break;
 				case PlayerState.ENGAGE:
 					//
@@ -708,7 +715,7 @@ public class PlayerAnimationSystem : ComponentSystem {
 						// animator.updateMode = AnimatorUpdateMode.Normal;
 						Time.timeScale = 1f;
 						animator.speed = 1f;
-						Camera.main.GetComponent<PostProcessingBehaviour>().enabled = false;
+						postProcCamera.enabled = false;
 						input.isInitAddRapidSlashQty = false;
 						input.imagePressAttack.SetActive(false);
 						input.imageRapidSlashHit.SetActive(false);

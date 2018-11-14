@@ -31,13 +31,17 @@ public class BeeSystem : ComponentSystem {
 	// Enemy enemy;
 	#endregion
 
+	EnemyState state;
 	float deltaTime;
+	float timeScale;
+	Vector3 vector3Zero = Vector3.zero;
 	// Vector3 verticalMultVector = new Vector3 (1f, 1f, GameStorage.Instance.settings.verticalMultiplier);
 
 	#region Update 
 	protected override void OnUpdate()
 	{
 		deltaTime = Time.deltaTime;
+		timeScale = Time.timeScale;
 
 		for(int i = 0;i<beeComponent.Length;i++){
 			currBeeTransform = beeComponent.beeTransform[i];
@@ -48,15 +52,19 @@ public class BeeSystem : ComponentSystem {
 			currBeeHealth = beeComponent.beeHealth[i];
 			currBeeFacing = beeComponent.Facing[i];
 			// enemy = currEnemy;
+			state = currEnemy.state;
 
-			if (Time.timeScale < 1f) {
-				currBeeRigidbody.velocity = Vector3.zero;
-				continue;
+			if (timeScale < 1f) {
+				currBeeRigidbody.velocity = vector3Zero;
+				
+				if (state == EnemyState.Damaged){
+					DamagedByBulletTime();
+				}
+			} else {
+				CheckHealth();
+				CheckState();
+				CheckPlayer();
 			}
-			
-			CheckHealth();
-			CheckState();
-			CheckPlayer();
 		}
 	}
 
@@ -104,24 +112,24 @@ public class BeeSystem : ComponentSystem {
 
 	void CheckState()
 	{
-		if (currEnemy.state == EnemyState.Damaged){
+		if (state == EnemyState.Damaged){
 			Damaged();
-		} else if (currEnemy.state == EnemyState.Stun) {
-			Stuned();
+		} else if (state == EnemyState.Stun) {
+			Stunned();
 		} else {
-			currBeeRigidbody.velocity = Vector3.zero;
+			currBeeRigidbody.velocity = vector3Zero;
 			
-			if (currEnemy.state == EnemyState.Idle){
+			if (state == EnemyState.Idle){
 				Idle();
-			} else if (currEnemy.state == EnemyState.Patrol){
+			} else if (state == EnemyState.Patrol){
 				Patrol();
-			} else if (currEnemy.state == EnemyState.Aggro){
+			} else if (state == EnemyState.Aggro){
 				Aggro();
-			} else if (currEnemy.state == EnemyState.Chase){
+			} else if (state == EnemyState.Chase){
 				Chase();
-			} else if (currEnemy.state == EnemyState.Startled){
+			} else if (state == EnemyState.Startled){
 				Startled();
-			} else if (currEnemy.state == EnemyState.Attack){
+			} else if (state == EnemyState.Attack){
 				Attack();
 			}
 		}
@@ -129,7 +137,7 @@ public class BeeSystem : ComponentSystem {
 
 	void CheckPlayer()
 	{
-		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
+		if(state == EnemyState.Idle || state == EnemyState.Patrol){
 			if(currEnemy.playerTransform != null){ 
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
@@ -160,34 +168,41 @@ public class BeeSystem : ComponentSystem {
 		}
 	}
 
+	void InitDamaged () {
+		currEnemy.initIdle = false;
+		currEnemy.initPatrol = false;
+		currEnemy.initAttack = false;
+		// currEnemy.isAttack = false;
+
+		currEnemy.attackObject.SetActive(false);
+		// currEnemy.TDamaged = currEnemy.damagedDuration;
+		currBeeAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+	}
+
+	void AfterDamaged () {
+		currBeeRigidbody.velocity = vector3Zero;
+		// currEnemy.damageSourceTransform = null;
+		// currBeeRigidbody.isKinematic = true;
+		
+		currEnemy.state = EnemyState.Aggro;
+		currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
+		currEnemy.chaseIndicator.Play(true);
+	}
+
 	void Damaged()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initIdle = false;
-			currEnemy.initPatrol = false;
-			currEnemy.initAttack = false;
-			// currEnemy.isAttack = false;
-			currEnemy.attackObject.SetActive(false);
-
+			InitDamaged();
 			SpawnBeeCutFX();
-			
-			// currEnemy.TDamaged = currEnemy.damagedDuration;
-			currEnemy.initDamaged = true;
-			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
-
 			KnockBack();
-			// currEnemy.TDamaged = currEnemy.damagedDuration;
+			
+			currEnemy.initDamaged = true;
 		}else{
 			// if(currEnemy.TDamaged <= 0f){
 			if (currEnemy.isFinishDamaged) {
-				currBeeRigidbody.velocity = Vector3.zero;
-				// currEnemy.damageSourceTransform = null;
-				// currBeeRigidbody.isKinematic = true;
+				AfterDamaged();
 				
 				currEnemy.isFinishDamaged = false;
-				currEnemy.state = EnemyState.Aggro;
-				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
-				currEnemy.chaseIndicator.Play(true);
 			}
 			// } else {
 			// 	currEnemy.TDamaged -= deltaTime;
@@ -195,25 +210,33 @@ public class BeeSystem : ComponentSystem {
 		}
 	}
 
-	void Stuned()
+	void Stunned()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initIdle = false;
-			currEnemy.initPatrol = false;
-			currEnemy.initAttack = false;
-			// currEnemy.isAttack = false;
-			currEnemy.attackObject.SetActive(false);
+			InitDamaged();
 			
 			currEnemy.initDamaged = true;
-			currBeeAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 		}else{
 			if (currEnemy.isFinishDamaged) {
-				currBeeRigidbody.velocity = Vector3.zero;
+				AfterDamaged();
 				
 				currEnemy.isFinishDamaged = false;
-				currEnemy.state = EnemyState.Aggro;
-				currBeeAnim.Play(Constants.BlendTreeName.ENEMY_AGGRO);
-				currEnemy.chaseIndicator.Play(true);
+			}
+		}
+	}
+
+	void DamagedByBulletTime()
+	{
+		if(!currEnemy.initDamaged){
+			InitDamaged();
+			SpawnBeeCutFX();
+			
+			currEnemy.initDamaged = true;
+		}else{
+			if (currEnemy.isFinishDamaged) {
+				AfterDamaged();
+				
+				currEnemy.isFinishDamaged = false;
 			}
 		}
 	}
@@ -235,7 +258,7 @@ public class BeeSystem : ComponentSystem {
 		Vector3 resultPos = new Vector3 (currBeeTransform.position.x-damageSourcePos.x, 0f, currBeeTransform.position.z-damageSourcePos.z);
 
 		// currBeeRigidbody.isKinematic = false;
-		currBeeRigidbody.velocity = Vector3.zero;
+		currBeeRigidbody.velocity = vector3Zero;
 
 		currBeeRigidbody.AddForce(resultPos * currEnemy.knockBackSpeed, ForceMode.Impulse);
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.PostProcessing;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
@@ -24,6 +25,7 @@ public class PlayerInputSystem : ComponentSystem {
 	public Player player;
 	public ToolType toolType;
 
+	PostProcessingBehaviour postProcCamera;
 	PlayerTool tool;
 	Facing2D facing;
 	PowerBracelet powerBracelet;
@@ -37,6 +39,7 @@ public class PlayerInputSystem : ComponentSystem {
 	Vector3 currentDir = Vector3.zero;
 	// Vector3 playerDir = Vector3.zero;
 	float deltaTime;
+	float timeScale;
 	float parryTimer = 0f;
 	float slowDownParryTimer = 0f;
 	float bulletTimeTimer = 0f;
@@ -57,9 +60,12 @@ public class PlayerInputSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
+		timeScale = Time.timeScale;
 		// if (inputData.Length == 0) return;
 
 		// if (playerAnimationSystem.anim == null) return;
+
+		postProcCamera = Camera.main.GetComponent<PostProcessingBehaviour>();
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
@@ -101,14 +107,7 @@ public class PlayerInputSystem : ComponentSystem {
 				}
 			// }
 
-			if (state != PlayerState.SLOW_MOTION) {
-				if (slowDownParryTimer <= input.slowParryDuration) {
-					slowDownParryTimer += deltaTime;
-				} else {
-					slowDownParryTimer = 0f;
-					Time.timeScale = 1;
-				}
-			}
+			CheckParryTimeScale();
 		}
 	}
 
@@ -140,6 +139,22 @@ public class PlayerInputSystem : ComponentSystem {
 		// input.isButtonHold = false;
 
 		input.isInitPlayerInput = true;
+	}
+
+	void CheckParryTimeScale () {
+		if (timeScale == input.slowTimeScale && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
+			if (slowDownParryTimer < input.slowParryDuration) {
+				slowDownParryTimer += deltaTime;
+
+				if (state != PlayerState.PARRY) {
+					slowDownParryTimer = input.slowParryDuration;
+				}
+			} else {
+				slowDownParryTimer = 0f;
+				Time.timeScale = 1;
+				postProcCamera.enabled = false;
+			}
+		}
 	}
 
 	void CheckMovementInput () {
@@ -368,6 +383,10 @@ public class PlayerInputSystem : ComponentSystem {
 			} else if (GameInput.IsGuardReleased) {
 				if (input.moveMode != 1) SetMovement(0);
 				
+				if (state == PlayerState.BLOCK_ATTACK) {
+					player.SetPlayerIdle();
+				}
+
 				player.isGuarding = false;
 				parryTimer = 0f;
 				// player.isOnParryPeriod = false;
@@ -398,6 +417,10 @@ public class PlayerInputSystem : ComponentSystem {
 					player.SetPlayerState(PlayerState.PARRY);
 					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
 					Time.timeScale = input.slowTimeScale;
+
+					//SET POST PROCESSING
+					postProcCamera.profile = input.postProcProfileCounterParry;
+					postProcCamera.enabled = true;
 
 					if (player.currentParryTrigger != null) {
 						GameObject.Destroy(player.currentParryTrigger.gameObject);

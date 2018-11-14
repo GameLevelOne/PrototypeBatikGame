@@ -27,11 +27,15 @@ public class GhostSystem : ComponentSystem {
 	CapsuleCollider ghostCollider;
 	Health currGhostHealth;
 
+	EnemyState state;
 	float deltaTime;
+	float timeScale;
+	Vector3 vector3Zero = Vector3.zero;
 
 	protected override void OnUpdate()
 	{
 		deltaTime = Time.deltaTime;
+		timeScale = Time.timeScale;
 
 		for(int i = 0;i<ghostComponent.Length;i++){
 			currGhostTransform = ghostComponent.ghostTransform[i];
@@ -42,15 +46,19 @@ public class GhostSystem : ComponentSystem {
 			ghostCollider = ghostComponent.ghostCollider[i];
 			currGhostHealth = ghostComponent.ghostHealth[i];
 			// enemy = currEnemy;
+			state = currEnemy.state;
 
-			if (Time.timeScale < 1f) {
+			if (timeScale < 1f) {
 				currGhostRigidbody.velocity = Vector3.zero;
-				continue;
+				
+				if (state == EnemyState.Damaged){
+					DamagedByBulletTime();
+				}
+			} else {
+				CheckHealth();
+				CheckState();
+				CheckPlayer();
 			}
-
-			CheckHealth();
-			CheckState();
-			CheckPlayer();
 		}
 	}
 
@@ -69,22 +77,22 @@ public class GhostSystem : ComponentSystem {
 
 	void CheckState()
 	{
-		if (currEnemy.state == EnemyState.Damaged){
+		if (state == EnemyState.Damaged){
 			Damaged();
-		} else if (currEnemy.state == EnemyState.Stun) {
-			Stuned();
+		} else if (state == EnemyState.Stun) {
+			Stunned();
 		} else {
 			currGhostRigidbody.velocity = Vector3.zero;
 			
-			if(currEnemy.state == EnemyState.Idle){
+			if(state == EnemyState.Idle){
 				Idle();
-			}else if(currEnemy.state == EnemyState.Patrol){
+			}else if(state == EnemyState.Patrol){
 				Patrol();
-			}else if(currEnemy.state == EnemyState.Chase){
+			}else if(state == EnemyState.Chase){
 				Chase();
-			}else if(currEnemy.state == EnemyState.Attack){
+			}else if(state == EnemyState.Attack){
 				Attack();
-			}else if(currEnemy.state == EnemyState.Die){
+			}else if(state == EnemyState.Die){
 				Die();
 			}
 		}
@@ -92,7 +100,7 @@ public class GhostSystem : ComponentSystem {
 
 	void CheckPlayer()
 	{
-		if(currEnemy.state == EnemyState.Idle || currEnemy.state == EnemyState.Patrol){
+		if(state == EnemyState.Idle || state == EnemyState.Patrol){
 			if(currEnemy.playerTransform != null){ 
 				currEnemy.initIdle = false;
 				currEnemy.initPatrol = false;	
@@ -194,33 +202,42 @@ public class GhostSystem : ComponentSystem {
 		}
 	}
 
+	void InitDamaged () {
+		currEnemy.initIdle = false;
+		currEnemy.initPatrol = false;
+		currEnemy.initAttack = false;
+		// currEnemy.isAttack = false;
+
+		currEnemy.attackObject.SetActive(false);
+		currGhost.hitParticle.Play();
+		// currEnemy.TDamaged = currEnemy.damagedDuration;
+		currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
+	}
+
+	void AfterDamaged () {
+		currGhostRigidbody.velocity = vector3Zero;
+		// currEnemy.damageSourceTransform = null;
+		// currGhostRigidbody.isKinematic = true;
+		
+		currEnemy.state = EnemyState.Chase;
+		currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
+		currEnemy.chaseIndicator.Play(true);
+	}
+
 	void Damaged()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initIdle = false;
-			currEnemy.initPatrol = false;
-			currEnemy.initAttack = false;
-			// currGhost.isAttacking = false;
-			currEnemy.attackObject.SetActive(false);
+			InitDamaged();
 			currGhost.hitParticle.Play();
-
-			// currGhost.TDamaged = currGhost.damagedDuration;
-			currEnemy.initDamaged = true;
-			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
-
 			KnockBack();
-			// currEnemy.TDamaged = currEnemy.damagedDuration;
+
+			currEnemy.initDamaged = true;
 		}else{
 			// if(currGhost.TDamaged <= 0f){
 			if (currEnemy.isFinishDamaged) {
-				currGhostRigidbody.velocity = Vector3.zero;
-				// currEnemy.damageSourceTransform = null;
-				// currGhostRigidbody.isKinematic = true;
+				AfterDamaged();
 				
 				currEnemy.isFinishDamaged = false;
-				currEnemy.state = EnemyState.Chase;
-				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
-				currEnemy.chaseIndicator.Play(true);
 			// }
 			} else {
 				// currGhost.TDamaged -= deltaTime;
@@ -228,26 +245,33 @@ public class GhostSystem : ComponentSystem {
 		}
 	}
 
-	void Stuned()
+	void Stunned()
 	{
 		if(!currEnemy.initDamaged){
-			currEnemy.initIdle = false;
-			currEnemy.initPatrol = false;
-			currEnemy.initAttack = false;
-			// currGhost.isAttacking = false;
-			currEnemy.attackObject.SetActive(false);
+			InitDamaged();
+			
+			currEnemy.initDamaged = true;
+		}else{
+			if (currEnemy.isFinishDamaged) {
+				AfterDamaged();
+				
+				currEnemy.isFinishDamaged = false;
+			}
+		}
+	}
+
+	void DamagedByBulletTime()
+	{
+		if(!currEnemy.initDamaged){
+			InitDamaged();
 			currGhost.hitParticle.Play();
 			
 			currEnemy.initDamaged = true;
-			currGhostAnim.Play(Constants.BlendTreeName.ENEMY_DAMAGED);
 		}else{
 			if (currEnemy.isFinishDamaged) {
-				currGhostRigidbody.velocity = Vector3.zero;
+				AfterDamaged();
 				
 				currEnemy.isFinishDamaged = false;
-				currEnemy.state = EnemyState.Chase;
-				currGhostAnim.Play(Constants.BlendTreeName.ENEMY_PATROL);
-				currEnemy.chaseIndicator.Play(true);
 			}
 		}
 	}
