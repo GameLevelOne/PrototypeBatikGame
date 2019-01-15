@@ -125,7 +125,7 @@ public class PlayerAttackSystem : ComponentSystem {
         // spawnedBullet.transform.SetParent(attack.transform); //TEMPORARY
 		
 		//  // Debug.Log(spawnedObj.transform.GetChild(0).name);
-		spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
+		// spawnedObj.transform.GetChild(0).rotation = SetFacingChild(deltaPos);
 
 		spawnedObj.GetComponent<Arrow>().playerTransform = attack.transform;
 

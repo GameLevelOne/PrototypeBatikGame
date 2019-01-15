@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b56da49c17ad4f04d8d32ba3417dd28c
+guid: afe752d2aa9e8444b8199eb04c34e2b7
 TextureImporter:
   fileIDToRecycleName:
     21300000: Anim_Hero_Run_Back_0
@@ -14,7 +14,6 @@ TextureImporter:
     21300018: Anim_Hero_Run_Back_9
     21300020: Anim_Hero_Run_Back_10
     21300022: Anim_Hero_Run_Back_11
-    21300024: Anim_Hero_Run_Back_12
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -49,7 +48,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -93,6 +92,17 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -105,13 +115,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.01}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 14b436d87351fed4486cb2ac4247b292
+      spriteID: 3218ca6bb730e5d4ca6d110b78e4b39e
       vertices: []
       indices: 
       edges: []
@@ -125,13 +135,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54666f11506b4154693c5d0b2fe66c8f
+      spriteID: 40da855470ac05145b535c034252e977
       vertices: []
       indices: 
       edges: []
@@ -145,13 +155,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3d308c0d5ec591489c57a041ff6388a
+      spriteID: 1de3a3dc4b3a7744ca1133b31a184455
       vertices: []
       indices: 
       edges: []
@@ -165,13 +175,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bda2aeb7160f5cf4aa2edfc6dcbf9a4f
+      spriteID: ad404bfc4f21b1f4e98a0703446f844e
       vertices: []
       indices: 
       edges: []
@@ -185,13 +195,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67136d496e766d3469e7bbd735743bd9
+      spriteID: fa61801180540084995b9aa7fa002a5a
       vertices: []
       indices: 
       edges: []
@@ -205,13 +215,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef695ff33926531468ae420a3ef4f954
+      spriteID: f81bf91613f358c4b91baeab9a32330d
       vertices: []
       indices: 
       edges: []
@@ -225,13 +235,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61e3a0d9591770e4f8bb0f95685c3818
+      spriteID: 0d333c01f7f092646aed2b35d08e652f
       vertices: []
       indices: 
       edges: []
@@ -245,13 +255,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b6497a4b06fe2545bce57ea98469b87
+      spriteID: f173461fe0d48a04288d70cc180df0ec
       vertices: []
       indices: 
       edges: []
@@ -265,13 +275,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6315bbcea41a42d468a151ab5293eca3
+      spriteID: 7fca1c84f6797dc46a731b3cdff68049
       vertices: []
       indices: 
       edges: []
@@ -285,13 +295,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18d6176dad847c3418695c12a4cfe413
+      spriteID: 4cb90ec629b11ed48ad330d2ef90824e
       vertices: []
       indices: 
       edges: []
@@ -305,13 +315,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f0845e00d6fb4c4698df0b675b5de51
+      spriteID: ee6de0816dc816040924b159292ec0cf
       vertices: []
       indices: 
       edges: []
@@ -325,33 +335,13 @@ TextureImporter:
         width: 573
         height: 771
       alignment: 9
-      pivot: {x: 0.5, y: 0.065}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a58be96ff5c966348b8b5fbc9c8135e3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Anim_Hero_Run_Back_12
-      rect:
-        serializedVersion: 2
-        x: 1719
-        y: 0
-        width: 573
-        height: 771
-      alignment: 9
-      pivot: {x: 0.5, y: 0.065}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d23ae9743b269054c83ec38d30bb46dd
+      spriteID: e949d8caa2109e34d99cdd3b7ab24269
       vertices: []
       indices: 
       edges: []
@@ -359,7 +349,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3768abe4845e85348bdebaad7649e6fd
+    spriteID: fda0c5670efa7224d8235e8ff9d67f74
     vertices: []
     indices: 
     edges: []

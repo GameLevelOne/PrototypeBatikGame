@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 4482820268600292}
   - component: {fileID: 136485131088347420}
   - component: {fileID: 114099071627830724}
+  - component: {fileID: 54891074667425602}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -487,6 +488,22 @@ GameObject:
   - component: {fileID: 54526697350297202}
   m_Layer: 0
   m_Name: PlayerTriggerDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1798125288321440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4959223470185346}
+  - component: {fileID: 136647963410463940}
+  m_Layer: 0
+  m_Name: Addon Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,8 +713,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1531132591828172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.27}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1.1}
   m_Children: []
   m_Father: {fileID: 4560654515982744}
   m_RootOrder: 4
@@ -723,6 +740,7 @@ Transform:
   - {fileID: 4344410708346512}
   - {fileID: 4424563394139274}
   - {fileID: 4943321063440108}
+  - {fileID: 4959223470185346}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -897,6 +915,19 @@ Transform:
   m_Father: {fileID: 4560654515982744}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!4 &4959223470185346
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798125288321440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4560654515982744}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &54287731157607198
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -918,6 +949,21 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775898717227796}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54891074667425602
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1531132591828172}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -1070,7 +1116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Player
-  tagNames: []
+  tagNames:
+  - Player
 --- !u!114 &114190794517567032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1148,6 +1195,7 @@ MonoBehaviour:
   chestSpawner: {fileID: 0}
   playerTriggerDetection: {fileID: 114929276168982640}
   attackRangeDetection: {fileID: 114099071627830724}
+  addonCollider: {fileID: 136647963410463940}
   sprite: {fileID: 212800133783844992}
   particle: {fileID: 198182157637802080}
   attackCodeFX: {fileID: 198697683476497892}
@@ -1231,7 +1279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Player
-  tagNames: []
+  tagNames:
+  - Player
 --- !u!135 &135007669360071822
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1242,7 +1291,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.8214962
+  m_Radius: 2.2
   m_Center: {x: 0, y: 0, z: 0.61}
 --- !u!136 &136485131088347420
 CapsuleCollider:
@@ -1270,6 +1319,19 @@ CapsuleCollider:
   m_Height: 2.1974049
   m_Direction: 1
   m_Center: {x: 0, y: 1.0987024, z: 0}
+--- !u!136 &136647963410463940
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798125288321440}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3511151
+  m_Height: 1.3822217
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.692497, z: 0.6}
 --- !u!136 &136667183446690622
 CapsuleCollider:
   m_ObjectHideFlags: 1

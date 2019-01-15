@@ -8,7 +8,8 @@ public enum EnemyState{
 	Startled,
 	Attack,
 	Damaged,
-	Die
+	Die,
+	Stun
 }
 
 public class Enemy : MonoBehaviour {

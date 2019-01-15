@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	// public UIGameOver uiGameOver;   <---- CHANGE TO INJECTATTRIBUTE IN PLAYERMOVEMENTSYSTEM
 	public GameObject playerAttackAreaObj;
 	public GameObject playerCounterTrigger;
+	public GameObject playerParryTrigger;
 	public Transform liftingParent;
 	public float shieldPower;
     public int requiredBowMana;
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour {
 	public TerrainType terrainType; 
 	public Transform somethingThatHitsPlayer;
 	public PlayerCounterTrigger currentCounterTrigger;
+	public PlayerParryTrigger currentParryTrigger;
 	// public PlayerTool playerTool;
     public bool isInitPlayer = false; 
 
@@ -61,10 +63,13 @@ public class Player : MonoBehaviour {
 	public bool isBouncing = false;
 	public bool isMoveAttack = false;
 	public bool isCanBulletTime = false;
-	public bool isOnParryPeriod = false;
+	// public bool isOnParryPeriod = false;
+    // public bool isAfterParry = false; 
 	// public bool isInvisible = false;
 	public Vector3 counterPos = Vector3.zero;
 	public int counterDir = 0;
+	public Vector3 parryPos = Vector3.zero;
+	public int parryDir = 0;
 	
 	[SpaceAttribute(10f)]
 	public bool isHitGateObject = false;
@@ -97,22 +102,25 @@ public class Player : MonoBehaviour {
 		
 		if (currentCounterTrigger != null)
 			currentCounterTrigger.OnCounterTrigger -= OnCounterTrigger;
+			
+		if (currentParryTrigger != null)
+			currentParryTrigger.OnParryTrigger -= OnParryTrigger;
 	}
 
 	void DamageCheck (Damage damage) {
 		damageReceive = damage;
 		DamageCharacteristic damageChar = damage.damageChar;
 
-		if (damageChar == DamageCharacteristic.PARRYABLE || damageChar == DamageCharacteristic.COUNTER_AND_PARRYABLE) {
-			if (isOnParryPeriod) {
-				isCanParry = true;
-			} else {
-				isPlayerHit = true;
-				isCanParry = false;
-			} 
-		} else {
+		// if (damageChar == DamageCharacteristic.PARRYABLE || damageChar == DamageCharacteristic.COUNTER_AND_PARRYABLE) {
+		// 	if (isGuarding) {
+		// 		// isCanParry = true;
+		// 	// } else {
+		// 		isPlayerHit = true;
+		// 		// isCanParry = false;
+		// 	} 
+		// } else {
 			isPlayerHit = true;
-		}
+		// }
 	}
 
 	void OnCounterTrigger () {
@@ -123,8 +131,20 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	void OnParryTrigger () {
+		if (state != PlayerState.BLOCK_ATTACK && state != PlayerState.PARRY) {
+			isCanParry = true;
+			 // Debug.Log("isCanBulletTime");
+			//  // Debug.Log("Set isOnBulletTimePeriod TRUE");
+		}
+	}
+
 	public void ReferenceCounterTrigger () {
 		currentCounterTrigger.OnCounterTrigger += OnCounterTrigger;
+	}
+
+	public void ReferenceParryTrigger () {
+		currentParryTrigger.OnParryTrigger += OnParryTrigger;
 	}
 
     public float MaxHP{
@@ -174,13 +194,13 @@ public class Player : MonoBehaviour {
 
 	void OnCollisionExit (Collision col) {
 		// if (col.gameObject.tag == Constants.Tag.LIFTABLE) {
-			if (isHitLiftableObject) {
-				if (col.gameObject.GetComponent<Liftable>() != null) {
-					isHitLiftableObject = false;
-				} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
-					isHitLiftableObject = false;
-				}
-			}
+			// if (isHitLiftableObject) {
+			// 	if (col.gameObject.GetComponent<Liftable>() != null) {
+			// 		isHitLiftableObject = false;
+			// 	} else if (col.gameObject.GetComponentInParent<Liftable>() != null) {
+			// 		isHitLiftableObject = false;
+			// 	}
+			// }
 		// }
 
 		if (col.gameObject.tag == Constants.Tag.CHEST && isHitChestObject) {

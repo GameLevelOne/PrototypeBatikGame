@@ -24,6 +24,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	Health currWaterShooterEnemyHealth;
 	#endregion
 	
+	EnemyState state;
 	float deltaTime;
 
 	protected override void OnUpdate()
@@ -37,6 +38,7 @@ public class WaterShooterEnemySystem : ComponentSystem {
 			currWaterShooterEnemyRidigbody = waterShooterEnemyComponent.waterShooterEnemyRigidbody[i];
 			currWaterShooterEnemyAnim = waterShooterEnemyComponent.waterShooterEnemyAnim[i];
 			currWaterShooterEnemyHealth = waterShooterEnemyComponent.waterShooterEnemyHealth[i];
+			state = currEnemy.state;
 
 			CheckHealth();
 			CheckState();
@@ -45,16 +47,16 @@ public class WaterShooterEnemySystem : ComponentSystem {
 	
 	void CheckState()
 	{
-		if(currEnemy.state == EnemyState.Damaged){
+		if(state == EnemyState.Damaged){
 			Damaged();
 		} else {
-			if (currEnemy.state == EnemyState.Idle){
+			if (state == EnemyState.Idle){
 				Idle();
-			} else if (currEnemy.state == EnemyState.Aggro){
+			} else if (state == EnemyState.Aggro){
 				Aggro();
-			} else if (currEnemy.state == EnemyState.Attack){
+			} else if (state == EnemyState.Attack){
 				Attack();
-			} else if (currEnemy.state == EnemyState.Die){
+			} else if (state == EnemyState.Die){
 				Drown();
 			}
 		}

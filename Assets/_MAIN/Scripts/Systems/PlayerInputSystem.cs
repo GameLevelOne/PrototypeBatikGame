@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Entities;
+using UnityEngine.PostProcessing;
 
 public class PlayerInputSystem : ComponentSystem {
 	public struct InputData {
@@ -24,6 +25,7 @@ public class PlayerInputSystem : ComponentSystem {
 	public Player player;
 	public ToolType toolType;
 
+	PostProcessingBehaviour postProcCamera;
 	PlayerTool tool;
 	Facing2D facing;
 	PowerBracelet powerBracelet;
@@ -37,7 +39,9 @@ public class PlayerInputSystem : ComponentSystem {
 	Vector3 currentDir = Vector3.zero;
 	// Vector3 playerDir = Vector3.zero;
 	float deltaTime;
+	float timeScale;
 	float parryTimer = 0f;
+	float slowDownParryTimer = 0f;
 	float bulletTimeTimer = 0f;
 	float slowDownTimer = 0f;
 	float chargeAttackTimer = 0f;
@@ -56,9 +60,12 @@ public class PlayerInputSystem : ComponentSystem {
 
 	protected override void OnUpdate () {
 		deltaTime = Time.deltaTime;
+		timeScale = Time.timeScale;
 		// if (inputData.Length == 0) return;
 
 		// if (playerAnimationSystem.anim == null) return;
+
+		postProcCamera = Camera.main.GetComponent<PostProcessingBehaviour>();
 		
 		for (int i=0; i<inputData.Length; i++) {
 			input = inputData.PlayerInput[i];
@@ -93,13 +100,14 @@ public class PlayerInputSystem : ComponentSystem {
 				CheckAttackInput();
 				CheckArrowInput();
 				CheckDodgeInput();
+				CheckGuardInput();
 
 				if ((state == PlayerState.IDLE || state == PlayerState.MOVE) && !CheckIfPlayerIsAttacking()) {
 					CheckActionInput();
 				}
 			// }
-			
-			CheckGuardInput ();
+
+			CheckParryTimeScale();
 		}
 	}
 
@@ -107,6 +115,7 @@ public class PlayerInputSystem : ComponentSystem {
 		currentDir = Vector3.zero;
 		// playerDir = Vector3.zero;
 		parryTimer = 0f;
+		slowDownParryTimer = 0f;
 		bulletTimeTimer = 0f;
 		slowDownTimer = 0f;
 		chargeAttackTimer = 0f;
@@ -130,6 +139,22 @@ public class PlayerInputSystem : ComponentSystem {
 		// input.isButtonHold = false;
 
 		input.isInitPlayerInput = true;
+	}
+
+	void CheckParryTimeScale () {
+		if (timeScale == input.slowTimeScale && state != PlayerState.SLOW_MOTION && state != PlayerState.RAPID_SLASH) {
+			if (slowDownParryTimer < input.slowParryDuration) {
+				slowDownParryTimer += deltaTime;
+
+				if (state != PlayerState.PARRY) {
+					slowDownParryTimer = input.slowParryDuration;
+				}
+			} else {
+				slowDownParryTimer = 0f;
+				Time.timeScale = 1;
+				postProcCamera.enabled = false;
+			}
+		}
 	}
 
 	void CheckMovementInput () {
@@ -266,7 +291,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckAttackInput () {
 		#region Attack
-		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK) {
+		if(state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY || state == PlayerState.ATTACK) {
 			// float beforeChargeDelay = input.beforeChargeDelay;
 			// float attackAwayDelay = input.attackAwayDelay;
 			int attackMode = input.attackMode;
@@ -336,56 +361,99 @@ public class PlayerInputSystem : ComponentSystem {
 
 	void CheckGuardInput () {
 		#region Button Guard
-		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY) {
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.BLOCK_ATTACK || state == PlayerState.PARRY || state == PlayerState.ATTACK) {
 			if (GameInput.IsGuardPressed && !input.isUIOpen && isFinishAttackAnimation) { //JOYSTICK AUTOMATIC BUTTON B ("Fire2")
 				SetMovement(2); //START GUARD
 				
-				player.isGuarding = true;	
-				player.isOnParryPeriod = true;
-			} else if (GameInput.IsGuardHeld && !input.isUIOpen) {
+				player.isGuarding = true;
+				parryTimer = 0f;	
+				player.SetPlayerIdle();
+				// player.isOnParryPeriod = true;
+
+				player.parryPos = player.transform.position;
+				player.parryDir = facing.DirID;
+				GameObject parryTrigger = GameObject.Instantiate(player.playerParryTrigger, player.parryPos, Quaternion.identity);
+				PlayerParryTrigger playerParryTrigger = parryTrigger.GetComponent<PlayerParryTrigger>();
+				playerParryTrigger.player = player;
+				player.currentParryTrigger = playerParryTrigger;
+				player.ReferenceParryTrigger();
+				parryTrigger.SetActive(true);
+			// } else if (GameInput.IsGuardHeld && !input.isUIOpen) {
+				//	
+			} else if (GameInput.IsGuardReleased) {
+				if (input.moveMode != 1) SetMovement(0);
 				
 				if (state == PlayerState.BLOCK_ATTACK) {
-					input.interactMode = -1;
+					player.SetPlayerIdle();
 				}
 
-				if (parryTimer < input.guardParryDelay) {
-					parryTimer += deltaTime;
-				} else {
-					player.isOnParryPeriod = false;
-					// player.isCanParry = false;
-					// player.isPlayerHit = false;	
-				}
-			} else if (GameInput.IsGuardReleased) {
-				SetMovement(0);
-				
 				player.isGuarding = false;
 				parryTimer = 0f;
-				player.isOnParryPeriod = false;
-				// player.isCanParry = false;
-			}
+				// player.isOnParryPeriod = false;
 
-			if (player.isOnParryPeriod) {
-				if (player.isCanParry) {
-					// input.attackMode = -2;
-					player.isOnParryPeriod = false;
-					player.isCanParry = false;
-					// player.isPlayerHit = false;
-					 // Debug.Log("Start Counter");
-					player.SetPlayerState(PlayerState.PARRY);
-					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
+				if (player.currentParryTrigger != null) {
+					GameObject.Destroy(player.currentParryTrigger.gameObject);
+					player.currentParryTrigger = null;
 				}
-			} else {
-				// player.isPlayerHit = false;
+
+				player.isCanParry = false;
 			}
 		}
-		
+
+		if (player.isGuarding) {
+			if (state == PlayerState.BLOCK_ATTACK) {
+				input.interactMode = -1;
+			}
+
+			if (parryTimer < input.guardParryDelay) {
+				parryTimer += deltaTime;
+
+				if (player.isCanParry) {
+					// input.attackMode = -2;
+					// player.isOnParryPeriod = false;
+					player.isGuarding = false;
+					// player.isPlayerHit = false;
+						// Debug.Log("Start Counter");
+					player.SetPlayerState(PlayerState.PARRY);
+					// gameFXSystem.SpawnObj(gameFXSystem.gameFX.parryEffect, player.transform.position);
+					Time.timeScale = input.slowTimeScale;
+
+					//SET POST PROCESSING
+					postProcCamera.profile = input.postProcProfileCounterParry;
+					postProcCamera.enabled = true;
+
+					if (player.currentParryTrigger != null) {
+						GameObject.Destroy(player.currentParryTrigger.gameObject);
+						player.currentParryTrigger = null;
+					}
+					
+					player.isCanParry = false;
+				}
+			} else {
+				if (player.currentParryTrigger != null) {
+					GameObject.Destroy(player.currentParryTrigger.gameObject);
+					player.currentParryTrigger = null;
+				}
+
+				// player.isOnParryPeriod = false;
+				player.isCanParry = false;
+				// player.isPlayerHit = false;
+			}
+		} else {
+			if (player.currentParryTrigger != null) {
+				GameObject.Destroy(player.currentParryTrigger.gameObject);
+				player.currentParryTrigger = null;
+			}
+			
+			player.isCanParry = false;
+		}
 		#endregion
 	}
 
 	void CheckDodgeInput () {
 		#region Button Dodge
-		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.DODGE) {
-			if (GameInput.IsDodgePressed && !input.isUIOpen && isFinishAttackAnimation) {
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.ATTACK) {
+			if (GameInput.IsDodgePressed && !input.isUIOpen) {
 				if (!isDodging && isReadyForDodging && currentDir != Vector3.zero) {
 					input.moveDir = -currentDir; //REVERSE
 					// gameFXSystem.ToggleDodgeFlag(true);
@@ -408,30 +476,32 @@ public class PlayerInputSystem : ComponentSystem {
 					counterTrigger.SetActive(true);
 				}
 			}	
+		}
 
-			if (isDodging) {
-				if (dodgeCooldownTimer < dodgeCooldown) {
-					dodgeCooldownTimer += deltaTime;
+		if (isDodging) {
+			if (dodgeCooldownTimer < dodgeCooldown) {
+				dodgeCooldownTimer += deltaTime;
 
-					if (bulletTimeTimer < bulletTimeDelay) {
-						bulletTimeTimer += deltaTime;
-						// player.isOnBulletTimePeriod = true;
-					} else {
-						if (player.currentCounterTrigger != null) {
-							GameObject.Destroy(player.currentCounterTrigger.gameObject);
-							player.currentCounterTrigger = null;
-						}
-
-						player.isCanBulletTime = false;
-						// player.isCanBulletTime = false;
-						// player.isPlayerHit = false;
-					}
+				if (bulletTimeTimer < bulletTimeDelay) {
+					bulletTimeTimer += deltaTime;
+					// player.isOnBulletTimePeriod = true;
 				} else {
-					isDodging = false;
-					isReadyForDodging = true;
-				}
-			}
+					if (player.currentCounterTrigger != null) {
+						GameObject.Destroy(player.currentCounterTrigger.gameObject);
+						player.currentCounterTrigger = null;
+					}
 
+					player.isCanBulletTime = false;
+					// player.isCanBulletTime = false;
+					// player.isPlayerHit = false;
+				}
+			} else {
+				isDodging = false;
+				isReadyForDodging = true;
+			}
+		}
+
+		if (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.DODGE) {
 			if (player.isCanBulletTime) {
 				input.moveMode = 3; //STEADY FOR RAPID SLASH
 				input.attackMode = 0;
@@ -542,7 +612,8 @@ public class PlayerInputSystem : ComponentSystem {
 
 		player.isGuarding = false;
 		parryTimer = 0f;
-		player.isOnParryPeriod = false;
+		// player.isOnParryPeriod = false;
+		// player.isOnParryPeriod = false;
 	}
 
 	bool CheckIfUsingAnyTool () {
@@ -656,12 +727,14 @@ public class PlayerInputSystem : ComponentSystem {
 	}
 
 	bool CheckIfInSpecificState () {
-		if (state == PlayerState.USING_TOOL || state == PlayerState.HOOK || player.isCanInteractWithNPC) {	
-
+		if (state == PlayerState.USING_TOOL) {	
+			return true;
+		// } else if (state == PlayerState.HOOK) {
+		// 	return true;
+		} else if (player.isCanInteractWithNPC) {
 			return true;
 		} else if (state == PlayerState.GET_HURT) {
 			// input.interactMode = -2;
-
 			return true;
 		} else if (state == PlayerState.SWIM) {
 			SetButtonUp ();
@@ -794,6 +867,7 @@ public class PlayerInputSystem : ComponentSystem {
 
 	public void ResetAllTimer () {
 		parryTimer = 0f;
+		// slowDownParryTimer = 0f;
 		bulletTimeTimer = 0f;
 		slowDownTimer = 0f;
 		chargeAttackTimer = 0f;

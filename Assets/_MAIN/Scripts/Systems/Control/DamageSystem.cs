@@ -273,7 +273,8 @@ public class DamageSystem : ComponentSystem {
 			Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
 
 			currEnemy.playerTransform = arrow.playerTransform;
-			arrow.projectile.isSelfDestroying = true;
+			// arrow.projectile.isSelfDestroying = true;
+			arrow.StartArrowBounceAnimation();
 		}
 	}
 
@@ -296,7 +297,8 @@ public class DamageSystem : ComponentSystem {
 					Arrow arrow = currEnemy.damageReceive.GetComponent<Arrow>();
 
 					currEnemy.playerTransform = arrow.playerTransform;
-					arrow.projectile.isSelfDestroying = true;
+					// arrow.projectile.isSelfDestroying = true;
+					arrow.StartArrowBounceAnimation();
 				}
 			}
 

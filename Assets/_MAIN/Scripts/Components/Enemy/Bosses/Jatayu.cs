@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 // ASSET JATAYU yang IDLE itu adalah MOVE!
 public enum JatayuState{
@@ -46,6 +47,7 @@ public class Jatayu : MonoBehaviour {
 	public ParticleSystem burnedFX;
 	public TimelineEventTrigger timelineEventTrigger;
 	public CameraShaker cameraShaker;
+	public PostProcessingProfile postProcProfileJatayuScream;
 	public ParticleSystem landingParticle1, landingParticle2;
 	public ParticleSystem hitParticle;
 	public ParticleSystem screamParticle;
@@ -168,6 +170,7 @@ public class Jatayu : MonoBehaviour {
 	void StartShakeCameraBlur()
 	{
 		cameraShaker.shake = true;
+		cameraShaker.blurBehaviour.profile = postProcProfileJatayuScream;
 		cameraShaker.blurBehaviour.enabled = true;
 	}
 

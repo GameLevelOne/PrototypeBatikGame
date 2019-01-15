@@ -57,16 +57,16 @@ public class EnemyFaceDirectionSystem : ComponentSystem {
 		float magnitude = distance.magnitude;
 		Vector3 direction = distance / magnitude;
 
-		float x = Mathf.RoundToInt(direction.x);
-		float z = Mathf.RoundToInt(direction.z);
+		int x = Mathf.RoundToInt(direction.x);
+		int z = Mathf.RoundToInt(direction.z);
 		
 		// currEnemyFacing.DirID = CheckDirID(x,z);
 
-		if(x < 0f) x = -1f;
-		else x = 1f;
+		if(x < 0) x = -1;
+		else x = 1;
 
-		if(z < 0f) z = -1f;
-		else z = 1f;
+		if(z < 0) z = -1;
+		else z = 1;
 		
 		return new Vector3(x, 0f,z);
 	}
