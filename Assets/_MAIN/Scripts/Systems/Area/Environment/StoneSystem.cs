@@ -19,7 +19,17 @@ public class StoneSystem : ComponentSystem {
 			stone = stoneComponent.stone[i];
 			stoneTransform = stoneComponent.stoneTransform[i];
 
+			InitStone();
 			CheckStone();
+		}
+	}
+
+	void InitStone()
+	{
+		if(!stone.init){
+			stone.init = true;
+			if(stone.dissolver.isDissolved) stone.liftable.liftableType = LiftableType.LIFTABLE;
+			else stone.liftable.liftableType = LiftableType.UNLIFTABLE;
 		}
 	}
 
@@ -42,5 +52,6 @@ public class StoneSystem : ComponentSystem {
 			GameObject.Destroy(stone.gameObject);
 			UpdateInjectedComponentGroups();
 		}
+		if(stone.dissolver.isDissolved) stone.liftable.liftableType = LiftableType.LIFTABLE;
 	}
 }

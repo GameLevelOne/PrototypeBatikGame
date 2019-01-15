@@ -34,6 +34,8 @@ public class DissolverSystem : ComponentSystem {
 			currDissolver.dissolveValue.Add(currDissolver.mRenderer[i].material.GetFloat("_Level"));
 		}
 		currDissolver.init = true;
+		if(currDissolver.mRenderer[0].gameObject.activeSelf) currDissolver.isDissolved = false;
+		else currDissolver.isDissolved = true;
 	}
 
 	void UpdateDissolver()
@@ -58,6 +60,8 @@ public class DissolverSystem : ComponentSystem {
 				}
 
 				currDissolver.dissolve = false;
+				currDissolver.isDissolved = true;
+
 				return;
 			} 
 
@@ -74,8 +78,17 @@ public class DissolverSystem : ComponentSystem {
 			deltaTime = Time.deltaTime;
 			int maxIndex = currDissolver.dissolveValue.Count-1;
 			
+			if(currDissolver.dissolveValue[maxIndex] >= 1f){
+				for (int i=0; i<currDissolver.mRenderer.Count; i++) {
+					currDissolver.mRenderer[i].gameObject.SetActive(true);
+				}
+			}
+
 			if(currDissolver.dissolveValue[maxIndex] <= 0f){
+				
+
 				currDissolver.unDissolve = false;
+				currDissolver.isDissolved = false;
 				return;
 			} 
 

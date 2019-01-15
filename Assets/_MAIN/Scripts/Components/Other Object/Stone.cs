@@ -12,7 +12,12 @@ public class Stone : MonoBehaviour {
 	// public ParticleSystem stoneParticle;
 	public GameObject stoneCrushFX;
 
+	public TriggerDetection playerAttackTriggerDetection;
+	public Dissolver dissolver;
+	public Liftable liftable;
+
 	[HeaderAttribute("Current")]
+	public bool init = false;
 	public bool localhit = false;
 
 	public bool hit {
@@ -26,11 +31,19 @@ public class Stone : MonoBehaviour {
 	void OnEnable()
 	{
 		hammerTrigger.OnTriggerEnterObj += OnHit;
+		playerAttackTriggerDetection.OnTriggerEnterObj += OnTriggerEnterObj;
 	}
 
 	void OnDisable()
 	{
 		hammerTrigger.OnTriggerEnterObj -= OnHit;
+		playerAttackTriggerDetection.OnTriggerEnterObj -= OnTriggerEnterObj;
+	}
+
+	void OnTriggerEnterObj(GameObject g)
+	{
+		dissolver.dissolve = true;
+		liftable.liftableType = LiftableType.LIFTABLE;
 	}
 
 	void OnHit(GameObject other)
