@@ -46,6 +46,7 @@ public class WavySystem : ComponentSystem {
 			}
 
 			CheckWavySprite ();
+		}
 	}
 
 	void InitWavy () {
@@ -123,8 +124,8 @@ public class WavySystem : ComponentSystem {
 				}
 				GenerateMesh();
 			}
-		}
 	}
+	
 
 	void SetMeshAndMaterial(){
 		if(mesh==null){
